@@ -394,7 +394,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 resHandler.SetKey(TenPayV3Info.Key);
                 //验证请求是否从微信发过来（安全）
-                if (resHandler.IsTenpaySign() &&  return_code.ToUpper() == "SUCCESS")
+                if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
                 {
                     res = "success";//正确的订单处理
                     //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
@@ -498,75 +498,97 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 退款申请接口
         /// </summary>
         /// <returns></returns>
-public ActionResult Refund()
-{
-    string nonceStr = TenPayV3Util.GetNoncestr();
+        public ActionResult Refund()
+        {
+            string nonceStr = TenPayV3Util.GetNoncestr();
 
-    string outTradeNo = (string)(Session["BillNo"]);
-    string outRefundNo = "OutRefunNo-" + DateTime.Now.Ticks;
-    int totalFee = (int)(Session["BillFee"]);
-    int refundFee = totalFee;
-    string opUserId = TenPayV3Info.MchId;
-    var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
-        null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null);
-    var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
-    var password = TenPayV3Info.MchId;//默认为商户号，建议修改
-    var result = TenPayV3.Refund(dataInfo, cert, password);
-    return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
-    //return Json(result, JsonRequestBehavior.AllowGet);
+            string outTradeNo = (string)(Session["BillNo"]);
+            string outRefundNo = "OutRefunNo-" + DateTime.Now.Ticks;
+            int totalFee = (int)(Session["BillFee"]);
+            int refundFee = totalFee;
+            string opUserId = TenPayV3Info.MchId;
+            var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
+                null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null);
+            var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
+            var password = TenPayV3Info.MchId;//默认为商户号，建议修改
+            var result = TenPayV3.Refund(dataInfo, cert, password);
+            return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
+            //return Json(result, JsonRequestBehavior.AllowGet);
 
-    #region 原始方法
+            #region 原始方法
 
-    //RequestHandler packageReqHandler = new RequestHandler(null);
+            //RequestHandler packageReqHandler = new RequestHandler(null);
 
-    //设置package订单参数
-    //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		 //公众账号ID
-    //packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);	     //商户号
-    //packageReqHandler.SetParameter("out_trade_no", "124138540220170502163706139412"); //填入商家订单号
-    ////packageReqHandler.SetParameter("out_refund_no", "");                //填入退款订单号
-    //packageReqHandler.SetParameter("total_fee", "");                    //填入总金额
-    //packageReqHandler.SetParameter("refund_fee", "100");                //填入退款金额
-    //packageReqHandler.SetParameter("op_user_id", TenPayV3Info.MchId);   //操作员Id，默认就是商户号
-    //packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-    //string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-    //packageReqHandler.SetParameter("sign", sign);	                    //签名
-    ////退款需要post的数据
-    //string data = packageReqHandler.ParseXML();
+            //设置package订单参数
+            //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		 //公众账号ID
+            //packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);	     //商户号
+            //packageReqHandler.SetParameter("out_trade_no", "124138540220170502163706139412"); //填入商家订单号
+            ////packageReqHandler.SetParameter("out_refund_no", "");                //填入退款订单号
+            //packageReqHandler.SetParameter("total_fee", "");                    //填入总金额
+            //packageReqHandler.SetParameter("refund_fee", "100");                //填入退款金额
+            //packageReqHandler.SetParameter("op_user_id", TenPayV3Info.MchId);   //操作员Id，默认就是商户号
+            //packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            //string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            //packageReqHandler.SetParameter("sign", sign);	                    //签名
+            ////退款需要post的数据
+            //string data = packageReqHandler.ParseXML();
 
-    ////退款接口地址
-    //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
-    ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-    //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
-    ////私钥（在安装证书时设置）
-    //string password = TenPayV3Info.MchId;
-    //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-    ////调用证书
-    //X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            ////退款接口地址
+            //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
+            ////私钥（在安装证书时设置）
+            //string password = TenPayV3Info.MchId;
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            ////调用证书
+            //X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
-    //#region 发起post请求
-    //HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-    //webrequest.ClientCertificates.Add(cer);
-    //webrequest.Method = "post";
+            //#region 发起post请求
+            //HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            //webrequest.ClientCertificates.Add(cer);
+            //webrequest.Method = "post";
 
-    //byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-    //webrequest.ContentLength = postdatabyte.Length;
-    //Stream stream;
-    //stream = webrequest.GetRequestStream();
-    //stream.Write(postdatabyte, 0, postdatabyte.Length);
-    //stream.Close();
+            //byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            //webrequest.ContentLength = postdatabyte.Length;
+            //Stream stream;
+            //stream = webrequest.GetRequestStream();
+            //stream.Write(postdatabyte, 0, postdatabyte.Length);
+            //stream.Close();
 
-    //HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-    //StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-    //string responseContent = streamReader.ReadToEnd();
-    //#endregion
+            //HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            //StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            //string responseContent = streamReader.ReadToEnd();
+            //#endregion
 
-    //// var res = XDocument.Parse(responseContent);
-    ////string openid = res.Element("xml").Element("out_refund_no").Value;
-    //return Content("申请成功：<br>" + HttpUtility.RequestUtility.HtmlEncode(responseContent));
+            //// var res = XDocument.Parse(responseContent);
+            ////string openid = res.Element("xml").Element("out_refund_no").Value;
+            //return Content("申请成功：<br>" + HttpUtility.RequestUtility.HtmlEncode(responseContent));
 
-    #endregion
+            #endregion
 
-}
+        }
+        #endregion
+
+        #region 对账单
+
+        /// <summary>
+        /// 下载对账单
+        /// </summary>
+        /// <param name="date">日期，格式如：20170716</param>
+        /// <returns></returns>
+        public ActionResult DownloadBill(string date)
+        {
+            if (!Request.IsLocal)
+            {
+                return Content("出于安全考虑，此操作限定在本机上操作！");
+            }
+
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr, null, date, "ALL", TenPayV3Info.Key, null);
+            var result = TenPayV3.DownloadBill(data);
+            return Content(result);
+        }
+
         #endregion
 
         #region 红包

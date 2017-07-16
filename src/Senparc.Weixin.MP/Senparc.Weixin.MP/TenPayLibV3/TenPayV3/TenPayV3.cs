@@ -434,6 +434,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// 对账单接口
+        /// https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_6
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
@@ -445,7 +446,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms, encoding: Encoding.UTF8);
         }
 
         /// <summary>

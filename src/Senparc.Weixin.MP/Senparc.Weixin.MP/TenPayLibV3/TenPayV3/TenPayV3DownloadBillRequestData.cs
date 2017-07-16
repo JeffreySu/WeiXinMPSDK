@@ -25,6 +25,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付下载对账单请求参数 
     
     创建标识：Senparc - 20170215
+    
+    修改标识：Senparc - 20170716
+    修改描述：修改TenPayV3DownloadBillRequestData
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -112,12 +116,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-            PackageRequestHandler.SetParameter("device_info", this.DeviceInfo); //设备号
+            PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo); //设备号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
-            PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
+            PackageRequestHandler.SetParameterWhenNotNull("sign_type", this.SignType); //签名类型
             PackageRequestHandler.SetParameter("bill_date", this.BillDate); //对账单日期
             PackageRequestHandler.SetParameter("bill_type", this.BillType); //账单类型
-            PackageRequestHandler.SetParameter("tar_type", this.TarType); //压缩账单
+            PackageRequestHandler.SetParameterWhenNotNull("tar_type", this.TarType); //压缩账单
 
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名

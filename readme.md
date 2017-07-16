@@ -20,7 +20,7 @@ Senparc 官方教程
 书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
 
 > [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  
-> 京东预购地址：https://item.jd.com/12220004.html （将会有团购优惠二维码放出，请耐心等待）
+> 购买正版：https://item.jd.com/12220004.html 
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
 

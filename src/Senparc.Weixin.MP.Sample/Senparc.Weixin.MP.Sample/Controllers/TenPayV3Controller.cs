@@ -571,23 +571,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #region 对账单
 
-/// <summary>
-/// 下载对账单
-/// </summary>
-/// <param name="date">日期，格式如：20170716</param>
-/// <returns></returns>
-public ActionResult DownloadBill(string date)
-{
-    if (!Request.IsLocal)
-    {
-        return Content("出于安全考虑，此操作限定在本机上操作！");
-    }
+        /// <summary>
+        /// 下载对账单
+        /// </summary>
+        /// <param name="date">日期，格式如：20170716</param>
+        /// <returns></returns>
+        public ActionResult DownloadBill(string date)
+        {
+            if (!Request.IsLocal)
+            {
+                return Content("出于安全考虑，此操作限定在本机上操作！");
+            }
 
-    string nonceStr = TenPayV3Util.GetNoncestr();
-    TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr, null, date, "ALL", TenPayV3Info.Key, null);
-    var result = TenPayV3.DownloadBill(data);
-    return Content(result);
-}
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr, null, date, "ALL", TenPayV3Info.Key, null);
+            var result = TenPayV3.DownloadBill(data);
+            return Content(result);
+        }
 
         #endregion
 

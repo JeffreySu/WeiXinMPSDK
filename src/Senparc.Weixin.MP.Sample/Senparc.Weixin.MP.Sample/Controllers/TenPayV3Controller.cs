@@ -584,7 +584,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             string nonceStr = TenPayV3Util.GetNoncestr();
-            TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr,null, date,"ALL", TenPayV3Info.Key);
+            TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr, null, date, "ALL", TenPayV3Info.Key, null);
             var result = TenPayV3.DownloadBill(data);
             return Content(result);
         }

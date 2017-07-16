@@ -101,6 +101,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public TenPayV3DownloadBillRequestData(string appId, string mchId, string nonceStr, string deviceInfo,
             string billDate, string billType, string key, string tarType = "GZIP", string signType = "MD5")
         {
+            PackageRequestHandler = new RequestHandler();
+
             AppId = appId;
             MchId = mchId;
             NonceStr = nonceStr;

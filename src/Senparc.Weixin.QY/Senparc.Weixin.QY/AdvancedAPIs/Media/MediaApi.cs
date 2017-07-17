@@ -51,7 +51,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 上传临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static void Get(string accessTokenOrAppKey, string mediaId, Stream stream)
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取临时媒体文件并保存到指定目录中
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir">保存目录</param>
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 上传永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 上传其他类型永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
         /// <param name="agentId"></param>
         /// <param name="media"></param>
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="agentId"></param>
         /// <param name="timeOut"></param>
@@ -253,7 +253,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取素材总数
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <returns></returns>
         public static GetCountResult GetCount(string accessTokenOrAppKey, int agentId)
@@ -271,7 +271,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
         /// <param name="agentId"></param>
         /// <param name="offset"></param>
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 上传图文消息内的图片
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -327,7 +327,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -347,7 +347,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static async Task GetAsync(string accessTokenOrAppKey, string mediaId, Stream stream)
@@ -366,7 +366,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
@@ -395,7 +395,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传其他类型永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
         /// <param name="agentId"></param>
         /// <param name="media"></param>
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
@@ -437,7 +437,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         ///【异步方法】获取临时媒体文件
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
@@ -460,7 +460,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
@@ -482,7 +482,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="agentId"></param>
         /// <param name="timeOut"></param>
@@ -513,7 +513,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取素材总数
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <returns></returns>
         public static async Task<GetCountResult> GetCountAsync(string accessTokenOrAppKey, int agentId)
@@ -531,7 +531,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
         /// <param name="agentId"></param>
         /// <param name="offset"></param>
@@ -564,7 +564,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传图文消息内的图片
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

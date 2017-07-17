@@ -1,7 +1,11 @@
 (*** 此版块专为反馈bug及提交需求服务，不负责解答开发问题，请勿发表开发问题，
-如果您需要这方面的帮助，请移步`问答社区`：http://weixin.senparc.com/QA ***)
+如果您需要这方面的帮助，请移步`问答社区`：https://weixin.senparc.com/QA ***)
 
 ##### 问题描述
+
+
+
+##### 微信官方文档 URL
 
 
 
@@ -13,9 +17,10 @@
 - [ ] Senparc.Weixin.Open 版本：
 - [ ] Senparc.Weixin.QY 版本：
 - [ ] Senparc.Weixin.Work 版本：
-- [ ] Senparc.Weixin.OpenWx 版本：
+- [ ] Senparc.Weixin.WxOpen 版本：
 - [ ] Senparc.Weixin.Cache.Redis 版本：
 - [ ] Senparc.Weixin.Cache.Memcached 版本：
+- [ ] 其他模块：
 
 
 ##### 模块对应的.net版本

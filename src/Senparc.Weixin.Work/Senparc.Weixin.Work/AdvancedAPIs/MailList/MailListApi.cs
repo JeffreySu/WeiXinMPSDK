@@ -412,7 +412,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -441,7 +441,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -504,7 +504,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -534,7 +534,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -958,7 +958,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1051,7 +1051,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1080,7 +1080,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}",accessToken.AsUrlData());
 
                 var data = new
                 {

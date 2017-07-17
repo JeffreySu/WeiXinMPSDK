@@ -50,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送文本信息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>

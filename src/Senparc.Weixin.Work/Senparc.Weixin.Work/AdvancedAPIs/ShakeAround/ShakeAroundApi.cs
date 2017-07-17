@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取设备及用户信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

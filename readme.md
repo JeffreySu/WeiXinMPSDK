@@ -18,7 +18,7 @@ Senparc 官方教程
 
 购买正版：https://item.jd.com/12220004.html
 
-> 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书将于 7 月中旬出版，Senparc 团队全程参与了图书整理工作及配套的 BookHelper 辅助阅读系统开发<br>
+> 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书已经出版，众筹签名版及各大电商平台、书店正在备货中，将在7月底前陆续上架并发货，Senparc 团队全程参与了图书整理工作及配套的 BookHelper 辅助阅读系统开发<br>
 书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
 
 > [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  

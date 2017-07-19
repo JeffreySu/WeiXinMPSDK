@@ -37,7 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 二次验证
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
         public static WorkJsonResult TwoVerification(string accessTokenOrAppKey, string userId)
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】二次验证
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
         public static async Task<WorkJsonResult> TwoVerificationAsync(string accessTokenOrAppKey, string userId)

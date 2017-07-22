@@ -55,6 +55,41 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
     {
         #region 同步请求
 
+        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, bool auto_color = false , int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacode?access_token={0}";
+                var url = string.Format(urlFormat, accessToken);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+
+                return new WxJsonResult()
+                {
+                    errcode = ReturnCode.请求成功
+                };
+            }, accessTokenOrAppId);
+        }
+
+        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, string filePath, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var result = WxAppApi.GetWxaCode(accessTokenOrAppId, ms, path, width);
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    ms.CopyTo(fs);
+                    fs.Flush();
+                }
+                return result;
+            }
+        }
+
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>

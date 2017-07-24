@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取企业号应用信息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppKey">AccessToken或AppKey（推荐使用AppKey，需要先注册，可使用AccessTokenContainer.BuildingKey()方法生成）</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 设置企业号应用
         /// 此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取应用概况列表【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static GetAppListResult GetAppList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取企业号应用信息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppKey">AccessToken或AppKey（推荐使用AppKey，需要先注册，可使用AccessTokenContainer.BuildingKey()方法生成）</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】设置企业号应用【QY移植修改】
         /// 此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取应用概况列表【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<GetAppListResult> GetAppListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)

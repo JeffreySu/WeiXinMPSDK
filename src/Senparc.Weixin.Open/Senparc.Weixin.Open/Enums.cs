@@ -168,4 +168,13 @@ namespace Senparc.Weixin.Open
         /// </summary>
         get
     }
+
+    /// <summary>
+    /// 小程序“线上代码的可见状态”接口的action类型
+    /// </summary>
+    public enum ChangVisitStatusAction
+    {
+        open,
+        close
+    }
 }

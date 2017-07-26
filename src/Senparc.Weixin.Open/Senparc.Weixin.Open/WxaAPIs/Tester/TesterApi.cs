@@ -32,6 +32,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Create()方法")]
         public static CreateJsonResult CreateTester(string accessToken, string appId)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
@@ -87,6 +88,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Get()方法")]
         public static GetJsonResult GetTester(string accessToken, string appId)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
@@ -105,6 +107,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.CreateAsync()方法")]
         public static async Task<CreateJsonResult> CreateTesterAsync(string accessToken, string appId)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
@@ -159,6 +162,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.GetAsync()方法")]
         public static async Task<GetJsonResult> GetTesterAsync(string accessToken, string appId)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";

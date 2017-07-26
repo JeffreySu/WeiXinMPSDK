@@ -132,6 +132,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case QrCode_ActionName.QR_STR_SCENE:
                         data = new
                         {
+                            expire_seconds = expireSeconds,
                             action_name = "QR_STR_SCENE",
                             action_info = new
                             {
@@ -268,6 +269,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case QrCode_ActionName.QR_STR_SCENE:
                         data = new
                         {
+                            expire_seconds = expireSeconds,
                             action_name = "QR_STR_SCENE",
                             action_info = new
                             {

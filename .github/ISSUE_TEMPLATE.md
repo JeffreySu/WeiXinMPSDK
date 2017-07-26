@@ -38,7 +38,7 @@
 - [ ] Visual Studio 2012
 - [ ] Visual Studio 2013
 - [ ] Visual Studio 2015
-- [ ] Visual Studio 2017 RC
+- [ ] Visual Studio 2017
 - [ ] 其他：
 
 ##### 缓存环境

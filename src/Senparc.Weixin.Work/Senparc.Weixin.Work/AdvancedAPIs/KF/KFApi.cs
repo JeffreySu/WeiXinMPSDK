@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送图片信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送文件信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送语音信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取客服列表
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -262,7 +262,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图片信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -302,7 +302,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文件信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -342,7 +342,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送语音信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -382,7 +382,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取客服列表
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 【异步接口】获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>

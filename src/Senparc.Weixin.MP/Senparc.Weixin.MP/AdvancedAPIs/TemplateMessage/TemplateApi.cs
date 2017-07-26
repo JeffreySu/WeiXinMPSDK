@@ -411,9 +411,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 【异步方法】通过API推送订阅模板消息给到授权微信用户
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="toUserOpenId">填接收消息的用户openid</param>
+        /// <param name="templateId">订阅消息模板ID</param>
+        /// <param name="scene">订阅场景值</param>
+        /// <param name="title">消息标题，15字以内</param>
+        /// <param name="data">消息正文，value为消息内容，color为颜色，200字以内</param>
+        /// <param name="url">点击消息跳转的链接，需要有ICP备案</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SubscribeAsync(string accessTokenOrAppId, string toUserOpenId, string templateId, int scene, string title, object data, string url = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token={0}";
+
+                var msgData = new
+                {
+                    openid = toUserOpenId,
+                    template_id = templateId,
+                    url = url,
+                    scene = scene,
+                    title = title,
+                    data = data
+                };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
-
-
 
     }
 }

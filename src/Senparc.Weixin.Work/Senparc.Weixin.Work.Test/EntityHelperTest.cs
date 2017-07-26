@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Work.Test
     {
         [TestMethod]
         public void TestFillEntityWithXml()
-        { 
+        {
             //客服回调
             var doc = XDocument.Parse(@"
 <xml>

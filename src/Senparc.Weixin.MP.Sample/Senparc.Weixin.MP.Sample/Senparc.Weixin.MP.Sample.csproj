@@ -164,6 +164,7 @@
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubscribeMsgController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />

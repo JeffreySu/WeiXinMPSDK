@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 
@@ -56,9 +57,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //        }
                 //    }
                 //};
+                try
+                {
+                    TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data);
+                    return Content("发送成功！");
+                }
+                catch (ErrorJsonResultException e)
+                {
+                    if (e.JsonResult.errcode == ReturnCode.api功能未授权)
+                    {
+                        return Content("功能正常，由于微信官方（程序或文档）问题，返回错误：" + e.JsonResult.errcode + "。请等微信待官方更新！");
+                    }
+                    else
+                    {
+                        return Content("发生错误：" + e.Message);
+                    }
+                }
 
-                TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data);
-                return Content("发送成功！");
             }
             else
             {

@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中存在、通讯录中不存在的成员，执行添加操作
         /// 4.通讯录中存在、文件中不存在的成员，保持不变
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中存在、通讯录中不存在的成员，执行添加操作
         /// 4.通讯录中存在、文件中不存在的成员，执行删除操作。出于安全考虑，如果需要删除的成员多于50人，且多于现有人数的20%以上，系统将中止导入并返回相应的错误码
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中不存在、通讯录中存在的部门，当部门为空时，执行删除操作
         /// 4.CSV文件中，部门名称、部门ID、父部门ID为必填字段，部门ID必须为数字；排序为可选字段，置空或填0不修改排序
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -182,7 +182,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取异步更新或全面覆盖成员结果
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
         public static AsynchronousReplaceUserResult GetReplaceUserResult(string accessTokenOrAppKey, string jobId)
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取异步全面覆盖部门结果
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
         public static AsynchronousReplacePartyResult GetReplacePartyResult(string accessTokenOrAppKey, string jobId)
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中存在、通讯录中不存在的成员，执行添加操作
         /// 4.通讯录中存在、文件中不存在的成员，保持不变
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -290,7 +290,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中存在、通讯录中不存在的成员，执行添加操作
         /// 4.通讯录中存在、文件中不存在的成员，执行删除操作。出于安全考虑，如果需要删除的成员多于50人，且多于现有人数的20%以上，系统将中止导入并返回相应的错误码
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -332,7 +332,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 3.文件中不存在、通讯录中存在的部门，当部门为空时，执行删除操作
         /// 4.CSV文件中，部门名称、部门ID、父部门ID为必填字段，部门ID必须为数字；排序为可选字段，置空或填0不修改排序
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId">上传的csv文件的media_id</param>
         /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
         /// <param name="timeOut"></param>
@@ -368,7 +368,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取异步更新或全面覆盖成员结果
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
         public static async Task<AsynchronousReplaceUserResult> GetReplaceUserResultAsync(string accessTokenOrAppKey, string jobId)
@@ -387,7 +387,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取异步全面覆盖部门结果
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
         public static async Task<AsynchronousReplacePartyResult> GetReplacePartyResultAsync(string accessTokenOrAppKey, string jobId)

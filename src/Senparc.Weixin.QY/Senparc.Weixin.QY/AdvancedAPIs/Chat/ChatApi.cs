@@ -38,7 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 创建会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id。字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z, 如果值内容为64bit无符号整型：要求值范围在[1, 2^63)之间，[2^63, 2^64)为系统分配会话id区间</param>
         /// <param name="name">会话标题</param>
         /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 获取会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <returns></returns>
         public static GetChatResult GetChat(string accessTokenOrAppKey, string chatId)
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 修改会话信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id</param>
         /// <param name="opUser">操作人userid</param>
         /// <param name="name">会话标题</param>
@@ -120,7 +120,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 退出会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 清除消息未读状态
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="opUser">会话所有者的userid</param>
         /// <param name="type">会话类型：single|group，分别表示：群聊|单聊</param>
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 发消息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="sender">发送人的userId</param>
         /// <param name="type">接收人类型：single|group，分别表示：群聊|单聊</param>
         /// <param name="msgType">消息类型,text|image|file</param>
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 设置成员新消息免打扰
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -296,7 +296,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】创建会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id。字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z, 如果值内容为64bit无符号整型：要求值范围在[1, 2^63)之间，[2^63, 2^64)为系统分配会话id区间</param>
         /// <param name="name">会话标题</param>
         /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
@@ -326,7 +326,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <returns></returns>
         public static async Task<GetChatResult> GetChatAsync(string accessTokenOrAppKey, string chatId)
@@ -344,7 +344,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改会话信息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id</param>
         /// <param name="opUser">操作人userid</param>
         /// <param name="name">会话标题</param>
@@ -378,7 +378,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】退出会话
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
@@ -404,7 +404,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】清除消息未读状态
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="opUser">会话所有者的userid</param>
         /// <param name="type">会话类型：single|group，分别表示：群聊|单聊</param>
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
@@ -435,7 +435,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发消息
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="sender">发送人的userId</param>
         /// <param name="type">接收人类型：single|group，分别表示：群聊|单聊</param>
         /// <param name="msgType">消息类型,text|image|file</param>
@@ -528,7 +528,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置成员新消息免打扰
         /// </summary>
-        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

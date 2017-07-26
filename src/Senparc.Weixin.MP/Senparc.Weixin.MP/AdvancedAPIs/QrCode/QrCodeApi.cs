@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
+    修改标识：Senparc - 20170715
+    修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
+
 ----------------------------------------------------------------*/
 
 /*
@@ -77,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName,string sceneStr =null, int timeOut = Config.TIME_OUT)
+        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -117,6 +120,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         data = new
                         {
                             action_name = "QR_LIMIT_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
                             action_info = new
                             {
                                 scene = new
@@ -240,6 +257,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         data = new
                         {
                             action_name = "QR_LIMIT_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
                             action_info = new
                             {
                                 scene = new

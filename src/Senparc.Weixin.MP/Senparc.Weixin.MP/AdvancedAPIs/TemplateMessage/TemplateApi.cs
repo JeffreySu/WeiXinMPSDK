@@ -85,7 +85,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 action, appId, scene, templateId, redirectUrl, reserved);
         }
 
-
         #region 同步请求
 
         /// <summary>

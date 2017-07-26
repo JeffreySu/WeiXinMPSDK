@@ -66,7 +66,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     if (e.JsonResult.errcode == ReturnCode.api功能未授权)
                     {
-                        return Content("功能正常，由于微信官方（程序或文档）问题，返回错误：" + e.JsonResult.errcode + "。请等微信待官方更新！");
+                        return Content("功能正常，由于微信官方（程序或文档）问题，返回错误：" + e.JsonResult.errcode + "。请等待微信官方更新！");
                     }
                     else
                     {

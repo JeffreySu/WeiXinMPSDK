@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+    
+    文件名：CodeApi.cs
+    文件功能描述：代码管理
+    
+    
+    创建标识：Senparc - 20170726
+
+
+----------------------------------------------------------------*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

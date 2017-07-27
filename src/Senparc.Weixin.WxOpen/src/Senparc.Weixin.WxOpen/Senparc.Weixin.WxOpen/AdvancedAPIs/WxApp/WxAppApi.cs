@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170129
     修改描述：v1.0.1 完善CreateWxaQrCode方法
+
+    修改标识：Senparc - 20170726
+    修改描述：完成接口开放平台-代码管理及小程序码获取
+
 ----------------------------------------------------------------*/
 
 using System;

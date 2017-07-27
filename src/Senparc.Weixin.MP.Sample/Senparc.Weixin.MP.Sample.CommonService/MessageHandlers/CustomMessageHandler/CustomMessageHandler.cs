@@ -372,6 +372,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = result.ToString();
                     return defaultResponseMessage;
                 })
+                //“一次订阅消息”接口测试
+                .Keyword("订阅", () =>
+                {
+                        defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
+                        return defaultResponseMessage;
+                })
                 //正则表达式
                 .Regex(@"^\d+#\d+$", () =>
                 {

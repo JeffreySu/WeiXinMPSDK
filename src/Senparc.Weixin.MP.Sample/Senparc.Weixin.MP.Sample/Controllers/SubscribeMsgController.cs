@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 感谢您对盛派网络的支持！
 
 Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点【详情】购买正版！",
-                        color = "#00ff00"
+                        color = "#88ff88"
                     }
                 };
 

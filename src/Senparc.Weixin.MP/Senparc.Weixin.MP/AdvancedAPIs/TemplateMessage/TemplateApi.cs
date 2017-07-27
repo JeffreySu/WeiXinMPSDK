@@ -250,7 +250,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var msgData = new
                 {
-                    openid = toUserOpenId,
+                    touser = toUserOpenId,
                     template_id = templateId,
                     url = url,
                     scene = scene,
@@ -431,7 +431,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var msgData = new
                 {
-                    openid = toUserOpenId,
+                    touser = toUserOpenId,
                     template_id = templateId,
                     url = url,
                     scene = scene,

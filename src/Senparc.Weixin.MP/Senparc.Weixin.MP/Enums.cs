@@ -896,7 +896,11 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 永久的字符串
         /// </summary>
-        QR_LIMIT_STR_SCENE
+        QR_LIMIT_STR_SCENE,
+        /// <summary>
+        /// 临时的字符串参数值
+        /// </summary>
+        QR_STR_SCENE
     }
 
     /// <summary>

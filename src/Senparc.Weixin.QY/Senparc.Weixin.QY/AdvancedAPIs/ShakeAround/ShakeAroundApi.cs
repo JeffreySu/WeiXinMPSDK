@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150921
+
+    修改标识：Senparc - 20170712
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
 /*
@@ -22,24 +25,28 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class ShakeAroundApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 获取设备及用户信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetShakeInfoResult GetSuiteToken(string accessToken, string ticket, int timeOut = Config.TIME_OUT)
+        public static GetShakeInfoResult GetSuiteToken(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                ticket = ticket
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
-            return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    ticket = ticket
+                };
+
+                return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+            
         }
         #endregion
 
@@ -47,20 +54,24 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessToken, string ticket, int timeOut = Config.TIME_OUT)
+        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                ticket = ticket
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    ticket = ticket
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+            
         }
         #endregion
     }

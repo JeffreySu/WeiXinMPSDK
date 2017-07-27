@@ -42,6 +42,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160901
     修改描述：v14.3.7 修改Create方法（及对应异步方法），匹配最新的官方文档，删除CreateByStr方法（及对应异步方法）
 
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
+    修改标识：Senparc - 20170715
+    修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
+
 ----------------------------------------------------------------*/
 
 /*
@@ -74,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName,string sceneStr =null, int timeOut = Config.TIME_OUT)
+        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -114,6 +120,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         data = new
                         {
                             action_name = "QR_LIMIT_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
                             action_info = new
                             {
                                 scene = new
@@ -199,7 +219,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CreateQrCodeResult> CreateAsync(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
                 object data = null;
@@ -246,12 +266,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -264,7 +298,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <returns></returns>
         //public static async Task<CreateQrCodeResult> CreateByStrAsync(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
         //{
-        //    return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+        //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
         //    {
         //        var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
         //        var data = new
@@ -277,7 +311,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //                }
         //            }
         //        };
-        //        return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        //        return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
         //    }, accessTokenOrAppId);
         //}
 

@@ -607,12 +607,10 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ClientCertificates.Add(cer);
             }
-
 #else
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = cookieContainer;
 
-#if NETSTANDARD1_6
             if (checkValidationResult)
                 handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
 
@@ -620,18 +618,14 @@ namespace Senparc.Weixin.HttpUtility
             {
                 handler.ClientCertificates.Add(cer);
             }
-#endif
+
             HttpClient client = new HttpClient(handler);
-            HttpContent hc = new StreamContent(postStream);
+            HttpContent hc;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-            //hc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
-            hc.Headers.Add("Timeout", timeOut.ToString());
-            hc.Headers.Add("KeepAlive", "true");
 
 #endif
 
@@ -640,13 +634,18 @@ namespace Senparc.Weixin.HttpUtility
             if (formUploadFile)
             {
                 //通过表单上传文件
-                postStream = postStream ?? new MemoryStream();
-
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+#if NET45
+                postStream = postStream ?? new MemoryStream();
+                
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                               "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+#else
+                hc = new MultipartFormDataContent(boundary);
+                HttpContentHeader(hc, timeOut);
+#endif
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -655,6 +654,7 @@ namespace Senparc.Weixin.HttpUtility
                         //准备文件流
                         using (var fileStream = FileHelper.GetFileStream(fileName))
                         {
+#if NET45
                             string formdata = null;
                             if (fileStream != null)
                             {
@@ -681,6 +681,20 @@ namespace Senparc.Weixin.HttpUtility
                                     await postStream.WriteAsync(buffer, 0, bytesRead);
                                 }
                             }
+#else
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                                fileStream.Dispose();
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                            }
+#endif
                         }
                     }
                     catch (Exception ex)
@@ -688,10 +702,11 @@ namespace Senparc.Weixin.HttpUtility
                         throw ex;
                     }
                 }
+#if NET45
                 //结尾
                 var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                 await postStream.WriteAsync(footer, 0, footer.Length);
-#if NET45
+
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
 #else
                 hc.Headers.ContentType = new MediaTypeHeaderValue(string.Format("multipart/form-data; boundary={0}", boundary));
@@ -702,6 +717,8 @@ namespace Senparc.Weixin.HttpUtility
 #if NET45
                 request.ContentType = "application/x-www-form-urlencoded";
 #else
+                hc = new StreamContent(postStream);
+                HttpContentHeader(hc, timeOut);
                 hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 #endif
 

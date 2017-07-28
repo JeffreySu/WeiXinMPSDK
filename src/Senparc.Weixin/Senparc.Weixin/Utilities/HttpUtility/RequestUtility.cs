@@ -709,7 +709,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
 #else
-                hc.Headers.ContentType = new MediaTypeHeaderValue(string.Format("multipart/form-data; boundary={0}", boundary));
+                hc.Headers.ContentType = MediaTypeHeaderValue.Parse(string.Format("multipart/form-data; boundary={0}", boundary));
 #endif
             }
             else

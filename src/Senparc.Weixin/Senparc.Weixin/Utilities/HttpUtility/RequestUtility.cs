@@ -205,7 +205,7 @@ namespace Senparc.Weixin.HttpUtility
             var fileContent = new StreamContent(stream);
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
-                Name = "\"files\"",
+                Name = "\"media\"",
                 FileName = "\"" + fileName + "\""
             }; // the extra quotes are key here
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);

@@ -211,6 +211,13 @@ namespace Senparc.Weixin.HttpUtility
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             return fileContent;
         }
+
+        private static void HttpContentHeader(HttpContent hc, int timeOut)
+        {
+            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
+            hc.Headers.Add("Timeout", timeOut.ToString());
+            hc.Headers.Add("KeepAlive", "true");
+        }
 #endif
         /// <summary>
         /// 使用Post方法获取字符串结果
@@ -238,9 +245,6 @@ namespace Senparc.Weixin.HttpUtility
 
             if (cookieContainer == null)
                 cookieContainer = new CookieContainer();
-
-            string boundary = "----" + DateTime.Now.Ticks.ToString("x");
-
 #if NET45
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -265,16 +269,12 @@ namespace Senparc.Weixin.HttpUtility
 
             HttpClient client = new HttpClient(handler);
 
-            MultipartFormDataContent hc = new MultipartFormDataContent(boundary);
+            HttpContent hc;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-            //hc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
-            hc.Headers.Add("Timeout", timeOut.ToString());
-            hc.Headers.Add("KeepAlive", "true");
 #endif
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
@@ -282,14 +282,18 @@ namespace Senparc.Weixin.HttpUtility
             {
 
                 //通过表单上传文件
-                postStream = postStream ?? new MemoryStream();
+                string boundary = "----" + DateTime.Now.Ticks.ToString("x");
 #if NET45
-                //string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+                postStream = postStream ?? new MemoryStream();
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                                 "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+#else
+                hc = new MultipartFormDataContent(boundary);
+                HttpContentHeader(hc, timeOut);
 #endif
+
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -331,12 +335,12 @@ namespace Senparc.Weixin.HttpUtility
                                 //存在文件
                                 //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
                                 fileStream.Dispose();
-                                hc.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                hc.Add(new StringContent(string.Empty), file.Key, file.Value);
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
                             }
 #endif
                         }
@@ -361,6 +365,8 @@ namespace Senparc.Weixin.HttpUtility
 #if NET45
                 request.ContentType = "application/x-www-form-urlencoded";
 #else
+                hc = new StreamContent(postStream);
+                HttpContentHeader(hc, timeOut);
                 hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 #endif
             }

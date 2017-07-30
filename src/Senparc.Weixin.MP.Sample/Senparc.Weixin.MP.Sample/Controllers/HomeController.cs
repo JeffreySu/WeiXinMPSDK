@@ -63,10 +63,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Book()
         {
-            return Redirect("https://book.weixin.senparc.com");
-
-            //ViewData["HideBanner"] = true;
-            //return View();
+            return Redirect("https://book.weixin.senparc.com");//《微信开发深度解析》图书对应的线上辅助阅读系统
         }
 
         public ActionResult TestElmah()

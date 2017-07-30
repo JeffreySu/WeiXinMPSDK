@@ -69,7 +69,7 @@ Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点�
 
                 try
                 {
-                    var url = "https://item.jd.com/12220004.html";
+                    var url = "https://book.weixin.senparc.com/book/link?code=SenparcRobot";
                     TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data, url);
                     return Content("发送成功！");
                 }

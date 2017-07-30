@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>2.6.3</Version>
+    <Version>2.6.4</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -83,6 +83,7 @@
       v2.6.1 添加接口：开放平台-小程序-成员管理
       v2.6.2 添加接口：开放平台-微信开放平台账号管理
       v2.6.3 完善接口：开放平台-微信开放平台账号管理
+      v2.6.4 完成接口开放平台-代码管理及小程序码获取
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

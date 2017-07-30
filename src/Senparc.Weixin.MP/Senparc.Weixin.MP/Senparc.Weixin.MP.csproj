@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>14.5.0</Version>
+    <Version>14.5.4.2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -293,10 +293,16 @@
       2、修复 CustomServiceApi.GetMsgList() 方法时间戳问题
       v14.4.13 修复二级菜单小程序无法设置的问题
       v14.4.14 修改 JSSDKHelper.GetcardExtSign()和CreateNonekeySha1() 方法，使用 ASCII 字典排序
-      
+
       v14.5.0
       1、AccessTokenResult 加入 IAccessTokenResult 接口
       2、启用新版本的ApiHandlerWapper
+      v14.5.1 完善异步方法async/await
+      v14.5.2 Card_MemberCardData添加wx_activate_after_submit和wx_activate_after_submit_url
+      v14.5.3
+      1、添加 QrCode_ActionName.QR_STR_SCENE
+      2、解决了QrCode_ActionName.QR_STR_SCENE下临时二维码有效时间expire_seconds不生效的问题
+      v14.5.4 添加“一次性订阅消息”接口
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

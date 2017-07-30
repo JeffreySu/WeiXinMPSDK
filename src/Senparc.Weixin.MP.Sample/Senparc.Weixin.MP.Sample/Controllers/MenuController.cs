@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Entities;
@@ -26,7 +28,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         #region 获取IP
         private static string IP { get; set; }
-        
+
         /// <summary>
         /// 获得当前服务器外网IP
         /// </summary>
@@ -37,26 +39,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return IP;
             }
 
-            Process cmd = new Process();
-            cmd.StartInfo.FileName = "ipconfig.exe";//设置程序名 
-            cmd.StartInfo.Arguments = "/all"; //参数 
-                                              //重定向标准输出 
-            cmd.StartInfo.RedirectStandardOutput = true;
-            cmd.StartInfo.RedirectStandardInput = true;
-            cmd.StartInfo.UseShellExecute = false;
-            cmd.StartInfo.CreateNoWindow = true;//不显示窗口（控制台程序是黑屏） 
-                                                //cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//暂时不明白什么意思 
-                                                /* 
-                                                收集一下 有备无患 
-                                                关于:ProcessWindowStyle.Hidden隐藏后如何再显示？ 
-                                                hwndWin32Host = Win32Native.FindWindow(null, win32Exinfo.windowsName); 
-                                                Win32Native.ShowWindow(hwndWin32Host, 1); //先FindWindow找到窗口后再ShowWindow 
-                                                */
-            cmd.Start();
-            string info = cmd.StandardOutput.ReadToEnd();
-            cmd.WaitForExit();
-            cmd.Close();
-            return info;
+            var url =
+                "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=IP&rsv_pq=db4eb7d40002dd86&rsv_t=14d7uOUvNnTdrhnrUx0zdEVTPEN8XDq4aH7KkoHAEpTIXkRQkUD00KJ2p94&rqlang=cn&rsv_enter=1&rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=875&rsv_sug4=875";
+
+            var htmlContent = Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(url, encoding: Encoding.UTF8);
+            var result = Regex.Match(htmlContent, @"(?<=本机IP:[^\d+]*)(\d+\.\d+\.\d+\.\d+)(?=</span>)");
+            if (result.Success)
+            {
+                IP = result.Value;
+            }
+            return IP;
         }
         #endregion
 

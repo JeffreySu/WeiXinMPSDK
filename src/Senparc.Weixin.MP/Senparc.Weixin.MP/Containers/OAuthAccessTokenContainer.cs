@@ -44,17 +44,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.Containers
@@ -152,11 +147,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static string TryGetOAuthAccessToken(string appId, string appSecret, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId) || getNewToken)
-            {
-                Register(appId, appSecret);
-            }
-            return GetOAuthAccessToken(appId, code, getNewToken);
+            return TryGetOAuthAccessTokenAsync(appId, appSecret, code, getNewToken).GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -180,23 +171,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static OAuthAccessTokenResult GetOAuthAccessTokenResult(string appId, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId))
-            {
-                throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
-            }
-
-            var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
-            {
-                if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    oAuthAccessTokenBag.OAuthAccessTokenResult = OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
-                    oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
-                        ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                }
-            }
-            return oAuthAccessTokenBag.OAuthAccessTokenResult;
+            return GetOAuthAccessTokenResultAsync(appId, code, getNewToken).GetAwaiter().GetResult();
         }
 
         #endregion
@@ -250,18 +225,20 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+
+            if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
             {
-                if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
+                using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
                 {
-                    //已过期，重新获取
-                    var oAuthAccessTokenResult = await OAuthApi.GetAccessTokenAsync(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
-                    oAuthAccessTokenBag.OAuthAccessTokenResult = oAuthAccessTokenResult;
-                    //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
-                    oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
-                        ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
+                    if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
+                    {
+                        //已过期，重新获取
+                        oAuthAccessTokenBag.OAuthAccessTokenResult = await OAuthApi.GetAccessTokenAsync(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
+                        oAuthAccessTokenBag.OAuthAccessTokenExpireTime = ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
+                    }
                 }
             }
+
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
         }
 

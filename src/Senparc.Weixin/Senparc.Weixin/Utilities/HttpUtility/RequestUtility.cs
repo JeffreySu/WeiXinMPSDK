@@ -35,17 +35,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170122
     修改描述：v4.9.14 为AsUrlData方法添加null判断
 
+    修改标识：Senparc - 20170122
+    修改描述：v4.12.2 修复HttpUtility.UrlEncode方法错误
+
     修改标识：Senparc - 20170730
     修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
 
 ----------------------------------------------------------------*/
-
-
-    修改标识：Senparc - 20170122
-    修改描述：v4.12.2 修复HttpUtility.UrlEncode方法错误
-----------------------------------------------------------*/
-
-
 
 using System;
 using System.Collections.Generic;

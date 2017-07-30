@@ -27,9 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20150703
     
+    修改标识：Senparc - 20170730
+    修改描述：v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
 ----------------------------------------------------------------*/
-
-
 
 using System;
 

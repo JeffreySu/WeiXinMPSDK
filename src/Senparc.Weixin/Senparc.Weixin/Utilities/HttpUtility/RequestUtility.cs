@@ -34,6 +34,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170122
     修改描述：v4.9.14 为AsUrlData方法添加null判断
+
+    修改标识：Senparc - 20170730
+    修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
+
 ----------------------------------------------------------------*/
 
 
@@ -128,6 +132,10 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.CookieContainer = cookieContainer;
             }
+
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            request.KeepAlive = true;
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 

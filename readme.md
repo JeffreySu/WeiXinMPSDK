@@ -128,18 +128,20 @@ Senparc 官方教程
 8. chm帮助文档下载：http://sdk.weixin.senparc.com/Document
 9. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 10. 微信开发资源集合：https://github.com/JeffreySu/WeixinResource
+11. 《微信开发深度解析》阅读辅助系统：https://book.weixin.senparc.com
+12. 购买《微信开发深度解析》：[https://item.jd.com/12220004.html](https://book.weixin.senparc.com/book/link?code=github-homepage-resource)
 
 * 技术交流QQ群：
 
-> 1群：300313885（已满），3群：342319110（已满），4群：372212092（已满）
+> 1群：300313885（已满），2群：293958349（已满），3群：342319110（已满）
 
-> 5群：377815480（已满），6群：425898825（已满），7群：482942254（已满）
+> 4群：372212092（已满），6群：425898825（已满），7群：482942254（已满）
 
 > 8群：106230270（已满），9群：539061281（已满），11群：553198593（已满）
 
 > *`以下群未满，可加：`*
 
-> `2群（公众号）：293958349`
+> `5群（公众号）：377815480`
 
 > `10群（分布式缓存群）：246860933`
 
@@ -165,7 +167,7 @@ Senparc 官方教程
 
 > .NET Framework 版本及 .NET Core 版本代码分别位于 
 [master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
+和 [Developer-FullDotNet](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet) 分支下，
 结构保持了高度一致。
 
 > Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，

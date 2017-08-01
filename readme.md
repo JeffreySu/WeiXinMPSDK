@@ -167,7 +167,7 @@ Senparc 官方教程
 
 > .NET Framework 版本及 .NET Core 版本代码分别位于 
 [master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
+和 [Developer-FullDotNet](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet) 分支下，
 结构保持了高度一致。
 
 > Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，

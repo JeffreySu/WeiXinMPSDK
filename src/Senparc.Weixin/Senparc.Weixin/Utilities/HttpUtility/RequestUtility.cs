@@ -207,6 +207,7 @@ namespace Senparc.Weixin.HttpUtility
 #if NETSTANDARD1_6
         private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
         {
+            fileName = UrlEncode(fileName);
             var fileContent = new StreamContent(stream);
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {

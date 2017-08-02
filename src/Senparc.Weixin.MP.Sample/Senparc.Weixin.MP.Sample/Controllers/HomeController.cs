@@ -18,6 +18,8 @@ using System.Text.RegularExpressions;
 //using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
@@ -56,17 +58,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
-            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}",Request.Url,Request.UserHostName));
+            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
 
             return View();
         }
 
         public ActionResult Book()
         {
-            return Redirect("https://book.weixin.senparc.com");
-
-            //ViewData["HideBanner"] = true;
-            //return View();
+            return Redirect("https://book.weixin.senparc.com");//《微信开发深度解析》图书对应的线上辅助阅读系统
         }
 
         public ActionResult TestElmah()
@@ -79,7 +78,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
 
             }
-
 
             var appId = "你的AppId";
             //获取AccessToken

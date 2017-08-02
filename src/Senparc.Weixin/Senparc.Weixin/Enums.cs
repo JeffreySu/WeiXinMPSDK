@@ -53,6 +53,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20170702
     修改描述：添加 PlatformType、CacheType
+
+    修改标识：Senparc - 20170726
+    修改描述：完成接口开放平台-代码管理及小程序码获取
    
 ----------------------------------------------------------------*/
 

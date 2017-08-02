@@ -10,7 +10,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Entities;
@@ -23,8 +26,32 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class MenuController : BaseController
     {
-        //
-        // GET: /Menu/
+        #region 获取IP
+        private static string IP { get; set; }
+
+        /// <summary>
+        /// 获得当前服务器外网IP
+        /// </summary>
+        private string GetIP()
+        {
+            if (!string.IsNullOrEmpty(IP))
+            {
+                return IP;
+            }
+
+            var url =
+                "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=IP&rsv_pq=db4eb7d40002dd86&rsv_t=14d7uOUvNnTdrhnrUx0zdEVTPEN8XDq4aH7KkoHAEpTIXkRQkUD00KJ2p94&rqlang=cn&rsv_enter=1&rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=875&rsv_sug4=875";
+
+            var htmlContent = Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(url, cookieContainer: null);
+            var result = Regex.Match(htmlContent, @"(?<=本机IP:[^\d+]*)(\d+\.\d+\.\d+\.\d+)(?=</span>)");
+            if (result.Success)
+            {
+                IP = result.Value;
+            }
+            return IP;
+        }
+        #endregion
+
 
         public ActionResult Index()
         {
@@ -40,6 +67,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     subButton.sub_button.Add(singleButton);
                 }
             }
+
+            //获取服务器外网IP
+            ViewData["IP"] = GetIP() ?? "使用CMD命令ping sdk.weixin.senparc.com";
 
             return View(result);
         }

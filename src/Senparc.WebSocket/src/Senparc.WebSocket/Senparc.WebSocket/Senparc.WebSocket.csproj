@@ -91,8 +91,16 @@ v0.2.0 支持 .NET Core
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Net.Http" Version="4.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">

@@ -42,8 +42,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     content = new
                     {
-                        value = "Value",
-                        color = "#00ff00"
+                        value = @"您现在收到的是一条“一次订阅”消息。
+
+感谢您对盛派网络的支持！
+
+Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点【详情】购买正版！",
+                        color = "#008000"
                     }
                 };
 
@@ -54,19 +58,26 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //        new{
                 //        value = "Value",
                 //        color = "#00ff00"
+                //        },
+                //         new{
+                //        value = "Value2",
+                //        color = "#ff0000"
                 //        }
                 //    }
                 //};
+
+
                 try
                 {
-                    TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data);
+                    var url = "https://book.weixin.senparc.com/book/link?code=SenparcRobot";
+                    TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data, url);
                     return Content("发送成功！");
                 }
                 catch (ErrorJsonResultException e)
                 {
                     if (e.JsonResult.errcode == ReturnCode.api功能未授权)
                     {
-                        return Content("功能正常，由于微信官方（程序或文档）问题，返回错误：" + e.JsonResult.errcode + "。请等微信待官方更新！");
+                        return Content("功能正常，由于微信官方（程序或文档）问题，返回错误：" + e.JsonResult.errcode + "。请等待微信官方更新！");
                     }
                     else
                     {

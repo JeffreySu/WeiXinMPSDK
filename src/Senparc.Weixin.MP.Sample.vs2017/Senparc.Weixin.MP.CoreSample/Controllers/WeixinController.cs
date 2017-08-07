@@ -110,12 +110,16 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 #else
 
-            var inputStream = Request.Body;
-            byte[] buffer = new byte[Request.ContentLength ?? 0];
-            inputStream.Read(buffer, 0, buffer.Length);
-            var requestXmlStream = new MemoryStream(buffer);
+            string body = new StreamReader(Request.Body).ReadToEnd();
+            byte[] requestData = Encoding.UTF8.GetBytes(body);
+            Stream inputStream = new MemoryStream(requestData);
 
-            var requestXml = Encoding.UTF8.GetString(buffer);
+            //var inputStream = Request.Body;
+            //byte[] buffer = new byte[Request.ContentLength ?? 0];
+            //inputStream.Read(buffer, 0, buffer.Length);
+            //var requestXmlStream = new MemoryStream(buffer);
+            //var requestXml = Encoding.UTF8.GetString(buffer);
+
 
             //int bytesRead = 0;
             //while ((bytesRead = Request.Body.Read(buffer, 0, buffer.Length)) != 0)
@@ -125,7 +129,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //Request.Body.CopyTo(inputStream);
 
-            var messageHandler = new CustomMessageHandler(requestXmlStream, postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(inputStream, postModel, maxRecordCount);
 #endif
 
             try

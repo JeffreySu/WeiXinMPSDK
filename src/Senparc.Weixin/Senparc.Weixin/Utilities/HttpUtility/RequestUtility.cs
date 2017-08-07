@@ -250,7 +250,10 @@ namespace Senparc.Weixin.HttpUtility
 #endif
 
             if (cookieContainer == null)
+            {
                 cookieContainer = new CookieContainer();
+            }
+
 #if NET45
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);

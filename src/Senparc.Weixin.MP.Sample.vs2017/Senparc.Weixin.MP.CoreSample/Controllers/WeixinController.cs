@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public ActionResult Post(PostModel postModel/*,[FromBody]string requestXml*/)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, token))
             {
@@ -110,7 +110,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 #else
 
             var inputStream = new MemoryStream();
-            Request.Body.CopyTo(inputStream);
+
+            //var sr = new StreamReader(Request.Body);
+
+            byte[] buffer = new byte[Request.ContentLength ?? 2014];
+            int bytesRead = 0;
+            while ((bytesRead = Request.Body.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                inputStream.Write(buffer, 0, bytesRead);
+            }
+
+            //Request.Body.CopyTo(inputStream);
 
             var messageHandler = new CustomMessageHandler(inputStream, postModel, maxRecordCount);
 #endif

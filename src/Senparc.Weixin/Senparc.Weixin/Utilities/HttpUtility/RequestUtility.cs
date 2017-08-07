@@ -269,7 +269,9 @@ namespace Senparc.Weixin.HttpUtility
             handler.CookieContainer = cookieContainer;
 
             if (checkValidationResult)
+            {
                 handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+            }
 
             if (cer != null)
             {
@@ -439,11 +441,13 @@ namespace Senparc.Weixin.HttpUtility
             }
 #else
             //TODO:Cookie
-            var t = client.PostAsync(url, hc);
-            t.Wait();
-            var t1 = t.Result.Content.ReadAsStringAsync();
-            t1.Wait();
-            return t1.Result;
+            var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
+            //t.Wait();
+            var t1 = t.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return t1;
+
+            //t1.Wait();
+            //return t1.Result;
 #endif
 
 

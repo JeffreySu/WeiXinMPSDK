@@ -10,6 +10,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
@@ -109,20 +110,22 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 #else
 
-            var inputStream = new MemoryStream();
+            var inputStream = Request.Body;
+            byte[] buffer = new byte[Request.ContentLength ?? 0];
+            inputStream.Read(buffer, 0, buffer.Length);
+            var requestXmlStream = new MemoryStream(buffer);
 
-            //var sr = new StreamReader(Request.Body);
+            var requestXml = Encoding.UTF8.GetString(buffer);
 
-            byte[] buffer = new byte[Request.ContentLength ?? 2014];
-            int bytesRead = 0;
-            while ((bytesRead = Request.Body.Read(buffer, 0, buffer.Length)) != 0)
-            {
-                inputStream.Write(buffer, 0, bytesRead);
-            }
+            //int bytesRead = 0;
+            //while ((bytesRead = Request.Body.Read(buffer, 0, buffer.Length)) != 0)
+            //{
+            //    inputStream.Write(buffer, 0, bytesRead);
+            //}
 
             //Request.Body.CopyTo(inputStream);
 
-            var messageHandler = new CustomMessageHandler(inputStream, postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(requestXmlStream, postModel, maxRecordCount);
 #endif
 
             try

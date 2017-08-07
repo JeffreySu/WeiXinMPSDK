@@ -68,6 +68,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170328
     修改描述：v14.3.139 ButtonType添加小程序类型
+
+    修改标识：Senparc - 20170807
+    修改描述：v14.5.7 添加TenPayV3Type.MWEB枚举，支持H5支付
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -386,11 +389,16 @@ namespace Senparc.Weixin.MP
     //    涉嫌互推 = 22000,
     //    涉嫌其他 = 21000
     //}
+
+    /// <summary>
+    /// 支付类型
+    /// </summary>
     public enum TenPayV3Type
     {
         JSAPI,
         NATIVE,
-        APP
+        APP,
+        MWEB
     }
 
     public enum GroupMessageType

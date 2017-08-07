@@ -6,16 +6,19 @@
 @section HeaderContent
 {
     <style>
-        #menuNotice {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-            background-color: #ececec;
-        }
+        .red{color:#ff0000}
+        .bold{font-weight:bold}
 
-            #menuNotice ul {
-                margin-top: 10px;
-            }
+         #menuNotice {
+             width: 100%;
+             padding: 5px;
+             margin-top: 5px;
+             background-color: #ececec;
+         }
+
+        #menuNotice ul {
+            margin-top: 10px;
+        }
 
         #menuButtonArea {
             display: inline-block;
@@ -38,9 +41,9 @@
             padding: 5px;
         }
 
-            select.dllButtonDetails option {
-                padding: 5px;
-            }
+        select.dllButtonDetails option {
+            padding: 5px;
+        }
 
         .txtButtonDetails {
             width: 200px;
@@ -65,19 +68,19 @@
             border-right: 1px solid #d9d9d9;
         }
 
-            #addConditionalArea input {
-                width: 100px;
-            }
+        #addConditionalArea input {
+            width: 100px;
+        }
 
-            #addConditionalArea .conditionalTip {
-                display: block;
-                clear: both;
-            }
+        #addConditionalArea .conditionalTip {
+            display: block;
+            clear: both;
+        }
 
-            #addConditionalArea h3, #reveiveJSON h3 {
-                font-size: 16px;
-                margin-bottom: 20px;
-            }
+        #addConditionalArea h3, #reveiveJSON h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
 
         #reveiveJSON {
             margin: 0px 0px 40px 0px;
@@ -85,11 +88,11 @@
             float: left;
         }
 
-            #reveiveJSON textarea {
-                width: 96%;
-                height: 350px;
-                margin-top: 5px;
-            }
+        #reveiveJSON textarea {
+            width: 96%;
+            height: 350px;
+            margin-top: 5px;
+        }
 
         #menuEditor #submitJsonMenu.control-btn {
             width: 280px;
@@ -132,9 +135,9 @@
             border-color: #ebebeb;
         }
 
-            #menuTable .control-input.currentMenuInput {
-                border-color: #246ea2;
-            }
+        #menuTable .control-input.currentMenuInput {
+            border-color: #246ea2;
+        }
 
         #menuTable .menuRowTip {
             padding: 2px;
@@ -165,6 +168,7 @@
                     <p class="control-p">注：</p>
                     <p class="control-p">1.使用菜单需要成为“服务号”，或通过认证的“订阅号”。到微信后台【高级功能>开发模式】下获取信息</p>
                     <p class="control-p">2.这里的Token已经使用AccessTokenContainer管理起来，有效期内不会重复获取，过了有效期自动获取。也就是说如果已经在本网页上获取一次，接下去只需要提供AppId即可（直到服务器重启或队列过长被清理）</p>
+                    <p class="control-p">3.如果对应公众号后台已经启用IP白名单，请添加本服务器的IP至白名单本机IP：<span class="bold red">@ViewData["IP"]。</span></p>
                 </li>
             </ul>
             <p style="padding: 15px 20px; font-size: 16px;">或：</p>
@@ -199,9 +203,9 @@
         <div id="menuNotice">
             <h3>使用说明及规则，请仔细阅读</h3>
             <ul>
-                <li>官方要求：一级菜单按钮个数为2-3个</li>
-                <li>官方要求：如果设置了二级菜单，子按钮个数为2-5个</li>
-                <li>官方要求：按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节</li>
+                <li>官方要求：一级菜单按钮个数为1-3个</li>
+                <li>官方要求：如果设置了二级菜单，子按钮个数为1-5个</li>
+                <li>官方要求：按钮描述，即按钮名字，不超过16个字节，子菜单不超过40个字节</li>
                 <li>如果name不填，此按钮将被忽略</li>
                 <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
                 <li>key仅在SingleButton（单击按钮，无下级菜单）的状态下设置，如果此按钮有下级菜单，key将被忽略</li>

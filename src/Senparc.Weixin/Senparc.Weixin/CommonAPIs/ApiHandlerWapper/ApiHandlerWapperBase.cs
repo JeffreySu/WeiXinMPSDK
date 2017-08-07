@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 201700704
     修改描述：优化TryCommonApiBaseAsync方法
+
+    修改标识：Senparc - 20170730
+    修改描述：v4.13.5 完善AppId未注册提示
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -88,7 +91,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 if (appId == null)
                 {
                     throw new UnRegisterAppIdException(null,
-                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：" + platformType);
                 }
             }
             else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
@@ -96,7 +99,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 if (!accessTokenContainer_CheckRegisteredFunc(accessTokenOrAppId))
                 {
-                    throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", accessTokenOrAppId));
+                    throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：" + platformType, accessTokenOrAppId));
                 }
 
                 appId = accessTokenOrAppId;
@@ -125,7 +128,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
                     //尝试重新验证
-                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, false);//AccessTokenContainer.GetAccessTokenResult(appId, true);
+                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApiBase(platformType,
@@ -230,7 +233,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证（此处不能使用await关键字，VS2013不支持：无法在 catch 字句体中等待）
-                    var accessTokenResult =  accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).Result;//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
+                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).Result;//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 

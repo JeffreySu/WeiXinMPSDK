@@ -1,4 +1,4 @@
-﻿@model Senparc.Weixin.MP.CoreSample.Models.VD.Analysis_IndexVD
+﻿@model Senparc.Weixin.MP.Sample.Models.VD.Analysis_IndexVD
 
 @{
     ViewBag.Title = "微信分析数据接口测试工具";
@@ -51,7 +51,7 @@
             </ul>
         </div>
     </div>
-    @*@Model.Result.ToJson()*@
+    @Model.Result.ToJson()
     <input type="submit" value="提交" />
 }
 

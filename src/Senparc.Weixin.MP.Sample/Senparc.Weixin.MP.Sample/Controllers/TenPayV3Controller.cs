@@ -804,5 +804,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #endregion
 
+        #region H5支付
+
+
+        public ActionResult H5Pay(int productId, int hc)
+        {
+
+            return View();
+        }
+
+        #endregion
     }
 }

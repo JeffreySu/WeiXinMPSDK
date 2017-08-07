@@ -844,6 +844,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                     var body = product == null ? "test" : product.Name;
                     var price = product == null ? 100 : (int)product.Price * 100;
+                    //var ip = Request.Params["REMOTE_ADDR"];
                     var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
@@ -857,10 +858,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     ViewData["nonceStr"] = nonceStr;
                     ViewData["package"] = package;
                     ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
+                    ViewData["MidWechatUrl"] = result.code_url;
+
 
                     //临时记录订单信息，留给退款申请接口测试使用
                     Session["BillNo"] = sp_billno;
                     Session["BillFee"] = price;
+
 
                     return View();
                 }

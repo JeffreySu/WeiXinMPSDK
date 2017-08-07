@@ -32,10 +32,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     {
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
-        public WeixinController()
-        {
+        //public WeixinController()
+        //{
 
-        }
+        //}
 
         private string appId;
         private string appSecret;

@@ -303,7 +303,7 @@ namespace Senparc.Weixin
             }
 
             LogBegin("[[WeixinException]]");
-            LogBegin(ex.GetType().Name);
+            Log(ex.GetType().Name);
             Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId);
             Log("Message：{0}", ex.Message);
             Log("StackTrace：{0}", ex.StackTrace);
@@ -340,7 +340,7 @@ namespace Senparc.Weixin
             }
 
             LogBegin("[[ErrorJsonResultException]]");
-            LogBegin("ErrorJsonResultException");
+            Log("ErrorJsonResultException");
             Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId ?? "null");
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);

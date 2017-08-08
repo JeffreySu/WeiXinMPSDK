@@ -804,5 +804,86 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #endregion
 
+        #region H5支付
+
+        /// <summary>
+        /// H5支付
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="hc"></param>
+        /// <returns></returns>
+        public ActionResult H5Pay(int productId, int hc)
+        {
+            {
+                try
+                {
+                    //获取产品信息
+                    var products = ProductModel.GetFakeProductList();
+                    var product = products.FirstOrDefault(z => z.Id == productId);
+                    if (product == null || product.GetHashCode() != hc)
+                    {
+                        return Content("商品信息不存在，或非法进入！1002");
+                    }
+
+                    string openId = null;//此时在外部浏览器，无法或得到OpenId
+
+                    string sp_billno = Request["order_no"];
+                    if (string.IsNullOrEmpty(sp_billno))
+                    {
+                        //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                        sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                            TenPayV3Util.BuildRandomStr(6));
+                    }
+                    else
+                    {
+                        sp_billno = Request["order_no"];
+                    }
+
+                    var timeStamp = TenPayV3Util.GetTimestamp();
+                    var nonceStr = TenPayV3Util.GetNoncestr();
+
+                    var body = product == null ? "test" : product.Name;
+                    var price = product == null ? 100 : (int)product.Price * 100;
+                    //var ip = Request.Params["REMOTE_ADDR"];
+                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
+
+                    var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
+                                                                    //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                    var package = string.Format("prepay_id={0}", result.prepay_id);
+
+                    ViewData["product"] = product;
+
+                    ViewData["appId"] = TenPayV3Info.AppId;
+                    ViewData["timeStamp"] = timeStamp;
+                    ViewData["nonceStr"] = nonceStr;
+                    ViewData["package"] = package;
+                    ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
+                    ViewData["MidWechatUrl"] = result.code_url;
+
+
+                    //临时记录订单信息，留给退款申请接口测试使用
+                    Session["BillNo"] = sp_billno;
+                    Session["BillFee"] = price;
+
+
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    var msg = ex.Message;
+                    msg += "<br>" + ex.StackTrace;
+                    msg += "<br>==Source==<br>" + ex.Source;
+
+                    if (ex.InnerException != null)
+                    {
+                        msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
+                    }
+                    return Content(msg);
+                }
+            }
+            return View();
+        }
+
+        #endregion
     }
 }

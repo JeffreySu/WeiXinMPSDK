@@ -17,5 +17,11 @@
             <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
         </p>
     </div>
+    <hr />
+    <div>
+        <h1>使用H5支付</h1>
+        <p>注意：H5支付用于已经安装微信的手机客户端，使用微信外部浏览器网页内的支付。</p>
+        <p>@Html.ActionLink("点击这里使用H5支付","H5Pay","TenPayV3", new { productId = Model.Id, hc = Model.GetHashCode() }, null)</p>
+    </div>
 </body>
 </html>

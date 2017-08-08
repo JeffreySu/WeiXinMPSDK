@@ -10,6 +10,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
@@ -32,10 +33,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     {
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
-        public WeixinController()
-        {
+        //public WeixinController()
+        //{
 
-        }
+        //}
 
         private string appId;
         private string appSecret;
@@ -85,7 +86,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel)
+        public ActionResult Post(PostModel postModel/*,[FromBody]string requestXml*/)
         {
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, token))
             {
@@ -109,8 +110,24 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 #else
 
-            var inputStream = new MemoryStream();
-            Request.Body.CopyTo(inputStream);
+            string body = new StreamReader(Request.Body).ReadToEnd();
+            byte[] requestData = Encoding.UTF8.GetBytes(body);
+            Stream inputStream = new MemoryStream(requestData);
+
+            //var inputStream = Request.Body;
+            //byte[] buffer = new byte[Request.ContentLength ?? 0];
+            //inputStream.Read(buffer, 0, buffer.Length);
+            //var requestXmlStream = new MemoryStream(buffer);
+            //var requestXml = Encoding.UTF8.GetString(buffer);
+
+
+            //int bytesRead = 0;
+            //while ((bytesRead = Request.Body.Read(buffer, 0, buffer.Length)) != 0)
+            //{
+            //    inputStream.Write(buffer, 0, bytesRead);
+            //}
+
+            //Request.Body.CopyTo(inputStream);
 
             var messageHandler = new CustomMessageHandler(inputStream, postModel, maxRecordCount);
 #endif

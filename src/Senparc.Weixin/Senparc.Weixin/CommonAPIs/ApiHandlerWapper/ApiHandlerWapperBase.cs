@@ -128,7 +128,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
                     //尝试重新验证
-                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, false);//AccessTokenContainer.GetAccessTokenResult(appId, true);
+                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApiBase(platformType,

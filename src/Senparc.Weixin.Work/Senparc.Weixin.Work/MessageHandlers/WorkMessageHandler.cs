@@ -29,7 +29,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
-using Tencent;
+using Senparc.Weixin.Work.Tencent;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {

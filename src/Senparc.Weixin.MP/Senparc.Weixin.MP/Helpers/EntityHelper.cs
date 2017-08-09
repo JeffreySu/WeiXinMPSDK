@@ -200,6 +200,18 @@ namespace Senparc.Weixin.MP.Helpers
                             FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, aroundBeacon, null);
                             break;
+
+                        #region RequestMessageEvent_MassSendJobFinish
+                        case "CopyrightCheckResult":
+                            CopyrightCheckResult copyrightCheckResult = new CopyrightCheckResult();
+
+
+
+                            break;
+
+
+                        #endregion
+
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
                             break;

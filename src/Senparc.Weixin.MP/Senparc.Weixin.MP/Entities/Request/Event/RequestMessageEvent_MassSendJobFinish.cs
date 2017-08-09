@@ -36,6 +36,47 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Entities
 {
+    //示例：
+    //<xml>
+    //  <ToUserName><![CDATA[gh_4d00ed8d6399]]></ToUserName>
+    //  <FromUserName><![CDATA[oV5CrjpxgaGXNHIQigzNlgLTnwic]]></FromUserName>
+    //  <CreateTime>1481013459</CreateTime>
+    //  <MsgType><![CDATA[event]]></MsgType>
+    //  <Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+    //  <MsgID>1000001625</MsgID>
+    //  <Status><![CDATA[err(30003)]]></Status>
+    //  <TotalCount>0</TotalCount>
+    //  <FilterCount>0</FilterCount>
+    //  <SentCount>0</SentCount>
+    //  <ErrorCount>0</ErrorCount>
+    //  <CopyrightCheckResult>
+    //    <Count>2</Count>
+    //    <ResultList>
+    //      <item>
+    //        <ArticleIdx>1</ArticleIdx>
+    //        <UserDeclareState>0</UserDeclareState>
+    //        <AuditState>2</AuditState>
+    //        <OriginalArticleUrl><![CDATA[Url_1]]></OriginalArticleUrl>
+    //        <OriginalArticleType>1</OriginalArticleType>
+    //        <CanReprint>1</CanReprint>
+    //        <NeedReplaceContent>1</NeedReplaceContent>
+    //        <NeedShowReprintSource>1</NeedShowReprintSource>
+    //      </item>
+    //      <item>
+    //        <ArticleIdx>2</ArticleIdx>
+    //        <UserDeclareState>0</UserDeclareState>
+    //        <AuditState>2</AuditState>
+    //        <OriginalArticleUrl><![CDATA[Url_2]]></OriginalArticleUrl>
+    //        <OriginalArticleType>1</OriginalArticleType>
+    //        <CanReprint>1</CanReprint>
+    //        <NeedReplaceContent>1</NeedReplaceContent>
+    //        <NeedShowReprintSource>1</NeedShowReprintSource>
+    //      </item>
+    //    </ResultList>
+    //    <CheckState>2</CheckState>
+    //  </CopyrightCheckResult>
+    //</xml>
+
     /// <summary>
     /// 事件推送群发结果。
     /// 
@@ -86,6 +127,11 @@ namespace Senparc.Weixin.MP.Entities
         /// CopyrightCheckResult
         /// </summary>
         public CopyrightCheckResult CopyrightCheckResult { get; set; }
+
+        public RequestMessageEvent_MassSendJobFinish()
+        {
+            CopyrightCheckResult = new CopyrightCheckResult();
+        }
     }
 
     public class CopyrightCheckResult

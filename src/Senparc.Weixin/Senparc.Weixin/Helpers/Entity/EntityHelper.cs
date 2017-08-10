@@ -20,42 +20,36 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
+ 
+    文件名：EntityHelper.cs
+    文件功能描述：实体帮助类
     
-    文件名：JsCode2JsonResult.cs
-    文件功能描述：JsCode2Json接口结果
     
-    
-    创建标识：Senparc - 20170105
-    
-    修改标识：Senparc - 20170810
-    修改描述：v1.4.3 添加JsCode2JsonResult.unionid
+    创建标识：Senparc - 20170809
 
 ----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+using System.Xml.Linq;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
+namespace Senparc.Weixin.Helpers.Entity
 {
     /// <summary>
-    /// JsCode2Json接口结果
+    /// 实体帮助类
     /// </summary>
-    public class JsCode2JsonResult:WxJsonResult
+    public class EntityHelper
     {
-        /// <summary>
-        /// 用户唯一标识
-        /// </summary>
-        public string openid { get; set; }
-        /// <summary>
-        /// 会话密钥
-        /// </summary>
-        public string session_key { get; set; }
-        /// <summary>
-        /// 用户在开放平台的唯一标识符。本字段在满足一定条件的情况下才返回。具体参看：https://mp.weixin.qq.com/debug/wxadoc/dev/api/uinionID.html
-        /// </summary>
-        public string unionid { get; set; }
+        //public static void GetValue<T>(T entity, XElement root, string propName, PropertyInfo prop)
+        //    where T : /*MessageBase*/ class, new()
+        //{
+        //    T = new T();
+        //    FillEntityWithXml(music, new XDocument(root.Element(propName)));
+        //    prop.SetValue(entity, music, null);
+        //}
     }
 }

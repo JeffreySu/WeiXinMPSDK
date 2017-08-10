@@ -35,7 +35,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tencent
+namespace Senparc.Weixin.MP.Tencent
 {
     class Cryptography
     {

@@ -37,7 +37,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Tencent;
+using Senparc.Weixin.WxOpen.Tencent;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers

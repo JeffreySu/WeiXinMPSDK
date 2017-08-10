@@ -200,6 +200,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        /// H5支付接口（和“统一支付接口”近似）
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的Data数据，TradeType将会强制赋值为TenPayV3Type.MWEB</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UnifiedorderResult Html5Order(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+            dataInfo.TradeType = TenPayV3Type.MWEB;
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //throw new Exception(data.HtmlEncode());
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new UnifiedorderResult(resultXml);
+        }
+
+        /// <summary>
         /// 获取UI使用的JS支付签名
         /// </summary>
         /// <param name="appId"></param>

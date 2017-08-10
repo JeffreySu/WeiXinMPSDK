@@ -256,13 +256,14 @@ img.official-img {
 
 .application {
     background: #1FA0D2;
-    padding: 5px;
+    padding: 8px 10px;
     color: #fff;
     letter-spacing: 1px;
     font-size: 16px;
     margin-top: 20px;
     border-radius: 5px;
 }
+
 
 .test {
     margin-top: 0px;

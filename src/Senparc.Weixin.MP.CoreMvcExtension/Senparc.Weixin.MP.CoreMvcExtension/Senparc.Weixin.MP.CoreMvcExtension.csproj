@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <AssemblyName>Senparc.Weixin.MP.CoreMvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.CoreMvcExtension</RootNamespace>
 

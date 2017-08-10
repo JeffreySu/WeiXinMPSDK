@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             List<string> downloaddomain,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}&media_id={1}", accessToken.AsUrlData());
+            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             List<string> downloaddomain,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}&media_id={1}", accessToken.AsUrlData());
+            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
 
             object data;
 

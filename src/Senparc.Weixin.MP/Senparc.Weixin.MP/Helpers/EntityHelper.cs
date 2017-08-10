@@ -173,57 +173,30 @@ namespace Senparc.Weixin.MP.Helpers
                             }
                         case "Music"://ResponseMessageMusic适用
                             FillClassValue<Music>(entity, root, propName, prop);
-                            //Music music = new Music();
-                            //FillEntityWithXml(music, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, music, null);
                             break;
                         case "Image"://ResponseMessageImage适用
                             FillClassValue<Image>(entity, root, propName, prop);
-                            //Image image = new Image();
-                            //FillEntityWithXml(image, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, image, null);
                             break;
                         case "Voice"://ResponseMessageVoice适用
                             FillClassValue<Voice>(entity, root, propName, prop);
-                            //Voice voice = new Voice();
-                            //FillEntityWithXml(voice, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, voice, null);
                             break;
                         case "Video"://ResponseMessageVideo适用
                             FillClassValue<Video>(entity, root, propName, prop);
-                            //Video video = new Video();
-                            //FillEntityWithXml(video, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, video, null);
                             break;
                         case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
                             FillClassValue<ScanCodeInfo>(entity, root, propName, prop);
-                            //ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
-                            //FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, scanCodeInfo, null);
                             break;
                         case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
                             FillClassValue<SendLocationInfo>(entity, root, propName, prop);
-                            //SendLocationInfo sendLocationInfo = new SendLocationInfo();
-                            //FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, sendLocationInfo, null);
                             break;
                         case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
                             FillClassValue<SendPicsInfo>(entity, root, propName, prop);
-                            //SendPicsInfo sendPicsInfo = new SendPicsInfo();
-                            //FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, sendPicsInfo, null);
                             break;
                         case "ChosenBeacon"://摇一摇事件通知
                             FillClassValue<ChosenBeacon>(entity, root, propName, prop);
-                            //ChosenBeacon chosenBeacon = new ChosenBeacon();
-                            //FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, chosenBeacon, null);
                             break;
                         case "AroundBeacon"://摇一摇事件通知
                             FillClassValue<AroundBeacon>(entity, root, propName, prop);
-                            //AroundBeacon aroundBeacon = new AroundBeacon();
-                            //FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
-                            //prop.SetValue(entity, aroundBeacon, null);
                             break;
 
                         #region RequestMessageEvent_MassSendJobFinish
@@ -252,7 +225,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="childElementName">XML下一级节点的名称</param>
         /// <param name="prop">属性对象</param>
         public static void FillClassValue<T>(object entity, XElement root, string childElementName, PropertyInfo prop)
-    where T : /*MessageBase*/ class, new()
+            where T : /*MessageBase*/ class, new()
         {
             T subType = new T();
             FillEntityWithXml(subType, new XDocument(root.Element(childElementName)));

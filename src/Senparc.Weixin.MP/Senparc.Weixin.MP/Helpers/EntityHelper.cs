@@ -34,6 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
@@ -106,7 +107,8 @@ namespace Senparc.Weixin.MP.Helpers
                         case "List`1": //List<T>类型，ResponseMessageNews适用
                             {
                                 var genericArguments = prop.PropertyType.GetGenericArguments();
-                                if (genericArguments[0].Name == "Article")//ResponseMessageNews适用
+                                var genericArgumentTypeName = genericArguments[0].Name;
+                                if (genericArgumentTypeName == "Article")
                                 {
                                     //文章下属节点item
                                     List<Article> articles = new List<Article>();
@@ -118,7 +120,7 @@ namespace Senparc.Weixin.MP.Helpers
                                     }
                                     prop.SetValue(entity, articles, null);
                                 }
-                                else if (genericArguments[0].Name == "Account")
+                                else if (genericArgumentTypeName == "Account")
                                 {
                                     List<CustomerServiceAccount> accounts = new List<CustomerServiceAccount>();
                                     foreach (var item in root.Elements(propName))
@@ -129,7 +131,7 @@ namespace Senparc.Weixin.MP.Helpers
                                     }
                                     prop.SetValue(entity, accounts, null);
                                 }
-                                else if (genericArguments[0].Name == "PicItem")
+                                else if (genericArgumentTypeName == "PicItem")
                                 {
                                     List<PicItem> picItems = new List<PicItem>();
                                     foreach (var item in root.Elements(propName).Elements("item"))
@@ -142,7 +144,7 @@ namespace Senparc.Weixin.MP.Helpers
                                     }
                                     prop.SetValue(entity, picItems, null);
                                 }
-                                else if (genericArguments[0].Name == "AroundBeacon")
+                                else if (genericArgumentTypeName == "AroundBeacon")
                                 {
                                     List<AroundBeacon> aroundBeacons = new List<AroundBeacon>();
                                     foreach (var item in root.Elements(propName).Elements("AroundBeacon"))
@@ -153,63 +155,81 @@ namespace Senparc.Weixin.MP.Helpers
                                     }
                                     prop.SetValue(entity, aroundBeacons, null);
                                 }
+                                else if (genericArgumentTypeName == "CopyrightCheckResult_ResultList")//RequestMessageEvent_MassSendJobFinish
+                                {
+                                    List<CopyrightCheckResult_ResultList> resultList = new List<CopyrightCheckResult_ResultList>();
+                                    foreach (var item in root.Elements(propName).Elements("ResultList"))
+                                    {
+                                        CopyrightCheckResult_ResultList resultItem = new CopyrightCheckResult_ResultList();
+                                        FillEntityWithXml(resultItem, new XDocument(item));
+                                        resultList.Add(resultItem);
+                                    }
+                                    prop.SetValue(entity, resultList, null);
+                                }
                                 break;
                             }
                         case "Music"://ResponseMessageMusic适用
-                            Music music = new Music();
-                            FillEntityWithXml(music, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, music, null);
+                            FillClassValue<Music>(entity, root, propName, prop);
+                            //Music music = new Music();
+                            //FillEntityWithXml(music, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, music, null);
                             break;
                         case "Image"://ResponseMessageImage适用
-                            Image image = new Image();
-                            FillEntityWithXml(image, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, image, null);
+                            FillClassValue<Image>(entity, root, propName, prop);
+                            //Image image = new Image();
+                            //FillEntityWithXml(image, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, image, null);
                             break;
                         case "Voice"://ResponseMessageVoice适用
-                            Voice voice = new Voice();
-                            FillEntityWithXml(voice, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, voice, null);
+                            FillClassValue<Voice>(entity, root, propName, prop);
+                            //Voice voice = new Voice();
+                            //FillEntityWithXml(voice, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, voice, null);
                             break;
                         case "Video"://ResponseMessageVideo适用
-                            Video video = new Video();
-                            FillEntityWithXml(video, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, video, null);
+                            FillClassValue<Video>(entity, root, propName, prop);
+                            //Video video = new Video();
+                            //FillEntityWithXml(video, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, video, null);
                             break;
                         case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
-                            ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
-                            FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, scanCodeInfo, null);
+                            FillClassValue<ScanCodeInfo>(entity, root, propName, prop);
+                            //ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
+                            //FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, scanCodeInfo, null);
                             break;
                         case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
-                            SendLocationInfo sendLocationInfo = new SendLocationInfo();
-                            FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, sendLocationInfo, null);
+                            FillClassValue<SendLocationInfo>(entity, root, propName, prop);
+                            //SendLocationInfo sendLocationInfo = new SendLocationInfo();
+                            //FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, sendLocationInfo, null);
                             break;
                         case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
-                            SendPicsInfo sendPicsInfo = new SendPicsInfo();
-                            FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, sendPicsInfo, null);
+                            FillClassValue<SendPicsInfo>(entity, root, propName, prop);
+                            //SendPicsInfo sendPicsInfo = new SendPicsInfo();
+                            //FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, sendPicsInfo, null);
                             break;
                         case "ChosenBeacon"://摇一摇事件通知
-                            ChosenBeacon chosenBeacon = new ChosenBeacon();
-                            FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, chosenBeacon, null);
+                            FillClassValue<ChosenBeacon>(entity, root, propName, prop);
+                            //ChosenBeacon chosenBeacon = new ChosenBeacon();
+                            //FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, chosenBeacon, null);
                             break;
                         case "AroundBeacon"://摇一摇事件通知
-                            AroundBeacon aroundBeacon = new AroundBeacon();
-                            FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
-                            prop.SetValue(entity, aroundBeacon, null);
+                            FillClassValue<AroundBeacon>(entity, root, propName, prop);
+                            //AroundBeacon aroundBeacon = new AroundBeacon();
+                            //FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
+                            //prop.SetValue(entity, aroundBeacon, null);
                             break;
 
                         #region RequestMessageEvent_MassSendJobFinish
                         case "CopyrightCheckResult":
-                            CopyrightCheckResult copyrightCheckResult = new CopyrightCheckResult();
-
-
-
+                            FillClassValue<CopyrightCheckResult>(entity, root, propName, prop);
                             break;
-
-
+                        case "CopyrightCheckResult_ResultList_Item":
+                            FillClassValue<CopyrightCheckResult_ResultList_Item>(entity, root, "item", prop);
+                            break;
                         #endregion
 
                         default:
@@ -218,6 +238,22 @@ namespace Senparc.Weixin.MP.Helpers
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 填充复杂类型的参数
+        /// </summary>
+        /// <typeparam name="T">复杂类型</typeparam>
+        /// <param name="entity">被填充实体</param>
+        /// <param name="root">XML节点</param>
+        /// <param name="childElementName">XML下一级节点的名称</param>
+        /// <param name="prop">属性对象</param>
+        public static void FillClassValue<T>(object entity, XElement root, string childElementName, PropertyInfo prop)
+    where T : /*MessageBase*/ class, new()
+        {
+            T subType = new T();
+            FillEntityWithXml(subType, new XDocument(root.Element(childElementName)));
+            prop.SetValue(entity, subType, null);
         }
 
         /// <summary>

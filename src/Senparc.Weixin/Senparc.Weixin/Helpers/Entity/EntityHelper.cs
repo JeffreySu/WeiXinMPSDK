@@ -32,8 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.Helpers.Entity
 {
@@ -42,6 +44,12 @@ namespace Senparc.Weixin.Helpers.Entity
     /// </summary>
     public class EntityHelper
     {
-
+        //public static void GetValue<T>(T entity, XElement root, string propName, PropertyInfo prop)
+        //    where T : /*MessageBase*/ class, new()
+        //{
+        //    T = new T();
+        //    FillEntityWithXml(music, new XDocument(root.Element(propName)));
+        //    prop.SetValue(entity, music, null);
+        //}
     }
 }

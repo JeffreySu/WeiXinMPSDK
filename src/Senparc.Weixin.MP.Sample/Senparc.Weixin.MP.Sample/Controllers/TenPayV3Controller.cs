@@ -76,6 +76,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(int productId = 0, int hc = 0)
         {
+            if (productId == 0 && hc == 0)
+            {
+                return RedirectToAction("ProductList");
+            }
+
             var returnUrl = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
@@ -848,7 +853,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
-                                                                    //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                                                                  //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+
+                    /*
+                     * result:{"device_info":"","trade_type":"MWEB","prepay_id":"wx20170810143223420ae5b0dd0537136306","code_url":"","mweb_url":"https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20170810143223420ae5b0dd0537136306\u0026package=1505175207","appid":"wx669ef95216eef885","mch_id":"1241385402","sub_appid":"","sub_mch_id":"","nonce_str":"juTchIZyhXvZ2Rfy","sign":"5A37D55A897C854F64CCCC4C94CDAFE3","result_code":"SUCCESS","err_code":"","err_code_des":"","return_code":"SUCCESS","return_msg":null}
+                     */
+                    //return Json(result, JsonRequestBehavior.AllowGet);
+
                     var package = string.Format("prepay_id={0}", result.prepay_id);
 
                     ViewData["product"] = product;
@@ -858,13 +869,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     ViewData["nonceStr"] = nonceStr;
                     ViewData["package"] = package;
                     ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
-                    ViewData["MidWechatUrl"] = result.code_url;
 
+                    //设置成功页面（也可以不设置，支付成功后默认返回来源地址）
+                    var returnUrl =
+                        string.Format("https://sdk.weixin.senparc.com/TenpayV3/H5PaySuccess?productId={0}&hc={1}",
+                            productId, hc);
+
+                    var mwebUrl = result.mweb_url;
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        mwebUrl += string.Format("&redirect_url={0}", returnUrl.AsUrlData());
+                    }
+
+                    ViewData["MWebUrl"] = mwebUrl;
 
                     //临时记录订单信息，留给退款申请接口测试使用
                     Session["BillNo"] = sp_billno;
                     Session["BillFee"] = price;
-
 
                     return View();
                 }
@@ -881,7 +902,37 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     return Content(msg);
                 }
             }
-            return View();
+        }
+
+        public ActionResult H5PaySuccess(int productId, int hc)
+        {
+            try
+            {
+                //TODO：这里可以校验支付是否真的已经成功
+
+                //获取产品信息
+                var products = ProductModel.GetFakeProductList();
+                var product = products.FirstOrDefault(z => z.Id == productId);
+                if (product == null || product.GetHashCode() != hc)
+                {
+                    return Content("商品信息不存在，或非法进入！1002");
+                }
+                ViewData["product"] = product;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                msg += "<br>" + ex.StackTrace;
+                msg += "<br>==Source==<br>" + ex.Source;
+
+                if (ex.InnerException != null)
+                {
+                    msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
+                }
+                return Content(msg);
+        }
         }
 
         #endregion

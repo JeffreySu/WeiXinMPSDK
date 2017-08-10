@@ -72,7 +72,7 @@
 
 #noticearea {
     background-color: #ffff00;
-    color:#4D4D4D;
+    color: #4D4D4D;
     line-height: 30px;
     text-align: center;
 }
@@ -96,6 +96,10 @@
         font-size: 18px;
         letter-spacing: 1px;
     }
+
+        .container-left li:hover {
+            background: #73caff;
+        }
 
     .container-left a {
         color: #fff;
@@ -250,19 +254,24 @@ img.official-img {
 }
 
 .readmore {
-    margin-top:40px;
+    margin-top: 40px;
     float: left;
 }
 
 .application {
     background: #1FA0D2;
-    padding: 5px;
+    padding: 8px 10px;
     color: #fff;
     letter-spacing: 1px;
     font-size: 16px;
     margin-top: 20px;
     border-radius: 5px;
 }
+
+    .application:hover {
+        background: #3085a7;
+    }
+
 
 .test {
     margin-top: 0px;
@@ -308,7 +317,7 @@ img.official-img {
     font-weight: bold;
     margin: 10px 30px;
     clear: both;
-    overflow: hidden;   
+    overflow: hidden;
 }
 
 .feedback {
@@ -613,6 +622,7 @@ img.official-img {
 p.crowdfunding-note {
     text-align: left;
 }
+
 .crowdfunding-note p {
     font-size: 16px;
 }
@@ -644,7 +654,9 @@ p.crowdfunding-note {
     cursor: pointer;
 }
 
-.test_bs { display: none; }
+.test_bs {
+    display: none;
+}
 
 @media screen and (min-width:1000px) {
     .content {
@@ -686,9 +698,9 @@ p.crowdfunding-note {
     }
 
     .content-weixin {
-       width:600px;
-       margin:0px auto;
-        clear:both;
+        width: 600px;
+        margin: 0px auto;
+        clear: both;
     }
 
     img.official-img {
@@ -775,7 +787,7 @@ p.crowdfunding-note {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -818,8 +830,8 @@ p.crowdfunding-note {
         margin: 40px 30px 20px !important;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -887,7 +899,7 @@ p.crowdfunding-note {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -943,8 +955,8 @@ p.crowdfunding-note {
         margin: 40px 30px 20px !important;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -1026,7 +1038,7 @@ p.crowdfunding-note {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -1116,7 +1128,7 @@ p.crowdfunding-note {
         margin: 40px 30px 20px !important;
     }
 
-    .description h1{
+    .description h1 {
         padding-left: 12px;
     }
 
@@ -1128,18 +1140,17 @@ p.crowdfunding-note {
         width: 190px;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
-
 }
 
 @media screen and (min-width:375px) and (max-width:767px) {
@@ -1224,7 +1235,7 @@ p.crowdfunding-note {
     }
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
-        margin-bottom:0;
+        margin-bottom: 0;
         /*float: left;
         width: 50% !important;
         text-align: left;
@@ -1365,7 +1376,7 @@ p.crowdfunding-note {
             #donate .feedback-info p {
                 font-size: 15px;
                 padding-left: 0px;
-                line-height:25px;
+                line-height: 25px;
             }
 
         #donate .feedback-action {
@@ -1388,9 +1399,9 @@ p.crowdfunding-note {
         padding: 36px 0 0;
     }
 
-    .form-control:last-child{
-        padding: 36px 0 25px;
-    }
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
 
     .control-label {
         width: 70px;
@@ -1465,9 +1476,9 @@ p.crowdfunding-note {
         float: none;
     }
 
-    .description h1{
-        padding-bottom: 18px;
-    }
+        .description h1 {
+            padding-bottom: 18px;
+        }
 
         .description li {
             font-size: 110% !important;
@@ -1518,24 +1529,24 @@ p.crowdfunding-note {
         padding: 8px 5px 0;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .weixin-item-button a:first-child{
-        margin-left: 15px;
-    }
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
 
-    .segregate{
+    .segregate {
         margin: 30px auto;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -1620,7 +1631,7 @@ p.crowdfunding-note {
     }
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
-        margin-bottom:0;
+        margin-bottom: 0;
         /*float: left;
         width: 50% !important;
         text-align: left;
@@ -1768,7 +1779,7 @@ p.crowdfunding-note {
             #donate .feedback-info p {
                 font-size: 14px;
                 padding-left: 0px;
-                line-height:25px;
+                line-height: 25px;
             }
 
         #donate .feedback-action {
@@ -1809,9 +1820,9 @@ p.crowdfunding-note {
         padding: 36px 0 0;
     }
 
-    .form-control:last-child{
-        padding: 36px 0 25px;
-    }
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
 
     .control-label {
         width: 78px;
@@ -1945,17 +1956,17 @@ p.crowdfunding-note {
         float: none;
     }
 
-    .description h1{
-        padding-bottom: 18px;
-    }
+        .description h1 {
+            padding-bottom: 18px;
+        }
 
         .description li {
             font-size: 110% !important;
         }
 
-    .description ol{
-        padding-left:15px;
-    }
+        .description ol {
+            padding-left: 15px;
+        }
 
     .document_help {
         font-size: 13px;
@@ -1965,24 +1976,23 @@ p.crowdfunding-note {
         padding: 8px 5px 0;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .weixin-item-button a:first-child{
-        margin-left: 15px;
-    }
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
 
-    .segregate{
+    .segregate {
         margin: 30px auto;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
-

@@ -18,7 +18,7 @@ using System.IO;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Tencent;
+using Senparc.Weixin.Open.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {

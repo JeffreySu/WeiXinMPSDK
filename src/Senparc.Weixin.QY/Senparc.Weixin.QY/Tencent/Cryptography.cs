@@ -15,7 +15,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tencent
+namespace Senparc.Weixin.QY.Tencent
 {
     class Cryptography
     {

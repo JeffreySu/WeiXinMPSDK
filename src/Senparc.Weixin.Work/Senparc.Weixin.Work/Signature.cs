@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using Tencent;
+using Senparc.Weixin.Work.Tencent;
 
 namespace Senparc.Weixin.Work
 {

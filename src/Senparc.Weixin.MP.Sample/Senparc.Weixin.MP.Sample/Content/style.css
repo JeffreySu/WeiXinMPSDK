@@ -264,6 +264,10 @@ img.official-img {
     border-radius: 5px;
 }
 
+.application:hover {
+    background: #3085a7;
+}
+
 
 .test {
     margin-top: 0px;

@@ -125,10 +125,10 @@
             }
 
             $.post('@Url.Action("Index")', param, function (json) {
-                txtResponseMessageXML.text(json.result);//.net core都转成了小写
+                txtResponseMessageXML.text(json.Result);
                 loadResult_Loading.hide();
                 if (json.Success) {
-                    $('#loadTime').text(json.loadTime);//.net core都转成了小写
+                    $('#loadTime').text(json.LoadTime);
                     if (checkTestConcurrence()) {
                         loadResult_Result.show();
                     }

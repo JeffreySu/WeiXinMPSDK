@@ -15,6 +15,8 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
@@ -347,12 +349,23 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     }
                     DateTime dt2 = DateTime.Now;
 
-                    return Json(new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds.ToString("##.####"), Result = responseMessageXml });
+                    return Json(new
+                    {
+                        Success = true,
+                        LoadTime = (dt2 - dt1).TotalMilliseconds.ToString("##.####"),
+                        Result = responseMessageXml
+                    }, new JsonSerializerSettings()
+                    {
+                        ContractResolver = new DefaultContractResolver()
+                    });
                 }
                 catch (Exception ex)
                 {
                     var msg = string.Format("{0}\r\n{1}\r\n{2}", ex.Message, null, ex.InnerException != null ? ex.InnerException.Message : null);
-                    return Json(new { Success = false, Result = msg });
+                    return Json(new { Success = false, Result = msg }, new JsonSerializerSettings()
+                    {
+                        ContractResolver = new DefaultContractResolver()
+                    });
 
                 }
             }

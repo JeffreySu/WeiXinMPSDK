@@ -237,6 +237,34 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 获取商品二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="keystr">商品编码内容</param>
+        /// <param name="extinfo">由商户自定义传入，建议仅使用大小写字母、数字及-_().*这6个常用字符</param>
+        /// <param name="keystandard">商品编码标准</param>
+        /// <param name="qrcode_size">二维码的尺寸（整型），数值代表边长像素数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ProductGetQrCodeJsonResult GetQrCode(string accessTokenOrAppId, string keystr, string extinfo, string keystandard = "ean13", int qrcode_size = 64, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    keystandard,
+                    keystr,
+                    extinfo,
+                    qrcode_size
+                };
+
+                return CommonJsonSend.Send<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
         #endregion
         #region 异步请求
          /// <summary>
@@ -413,6 +441,34 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取商品二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="keystr">商品编码内容</param>
+        /// <param name="extinfo">由商户自定义传入，建议仅使用大小写字母、数字及-_().*这6个常用字符</param>
+        /// <param name="keystandard">商品编码标准</param>
+        /// <param name="qrcode_size">二维码的尺寸（整型），数值代表边长像素数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<ProductGetQrCodeJsonResult> GetQrCodeAsync(string accessTokenOrAppId, string keystr, string extinfo, string keystandard = "ean13", int qrcode_size = 64, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    keystandard,
+                    keystr,
+                    extinfo,
+                    qrcode_size
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         #endregion

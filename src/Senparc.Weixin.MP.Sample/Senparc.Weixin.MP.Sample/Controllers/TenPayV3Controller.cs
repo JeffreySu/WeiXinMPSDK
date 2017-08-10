@@ -76,6 +76,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(int productId = 0, int hc = 0)
         {
+            if (productId==0 && hc==0)
+            {
+                return RedirectToAction("ProductList");
+            }
+
             var returnUrl = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
@@ -848,7 +853,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
-                                                                    //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                                                                  //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+
+                    /*
+                     * result:{"device_info":"","trade_type":"MWEB","prepay_id":"wx20170810143223420ae5b0dd0537136306","code_url":"","mweb_url":"https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20170810143223420ae5b0dd0537136306\u0026package=1505175207","appid":"wx669ef95216eef885","mch_id":"1241385402","sub_appid":"","sub_mch_id":"","nonce_str":"juTchIZyhXvZ2Rfy","sign":"5A37D55A897C854F64CCCC4C94CDAFE3","result_code":"SUCCESS","err_code":"","err_code_des":"","return_code":"SUCCESS","return_msg":null}
+                     */
+                    //return Json(result, JsonRequestBehavior.AllowGet);
+
                     var package = string.Format("prepay_id={0}", result.prepay_id);
 
                     ViewData["product"] = product;
@@ -858,7 +869,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     ViewData["nonceStr"] = nonceStr;
                     ViewData["package"] = package;
                     ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
-                    ViewData["MidWechatUrl"] = result.code_url;
+
+
+                    ViewData["MWebUrl"] = result.mweb_url;
 
 
                     //临时记录订单信息，留给退款申请接口测试使用

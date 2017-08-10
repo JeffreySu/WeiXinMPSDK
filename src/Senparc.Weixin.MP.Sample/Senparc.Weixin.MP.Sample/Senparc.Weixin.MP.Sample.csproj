@@ -337,7 +337,7 @@
     <Content Include="Views\Cache\Test.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\AsyncMethods\Index.cshtml" />
-    <Content Include="Views\TenPayV3\Html5Pay.cshtml" />
+    <Content Include="Views\TenPayV3\H5Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />

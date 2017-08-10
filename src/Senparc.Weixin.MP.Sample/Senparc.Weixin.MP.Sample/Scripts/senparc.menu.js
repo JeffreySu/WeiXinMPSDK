@@ -152,7 +152,7 @@ senparc.menu = {
             $('#form_Menu').ajaxSubmit({
                 dataType: 'json',
                 success: function (json) {
-                    if (json.Successed) {
+                    if (json.Success) {
                         menuState.html('上传成功');
                     } else {
                         menuState.html(json.Message);
@@ -172,7 +172,7 @@ senparc.menu = {
             //console.log(jsonStr);
 
             $.post('/Menu/CreateMenuFromJson', { token: $('#tokenStr').val(), fullJson: jsonStr }, function (json) {
-                if (json.Successed) {
+                if (json.Success) {
                     menuState.html('上传成功');
                 } else {
                     menuState.html(json.Message);

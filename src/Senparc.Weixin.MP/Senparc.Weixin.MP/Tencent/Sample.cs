@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Senparc.Weixin.MP.Tencent;
+
 namespace MsgCryptTest
 {
     class Sample
@@ -15,7 +17,7 @@ namespace MsgCryptTest
             string sAppID = "wx5823bf96d3bd56c7";
             string sEncodingAESKey = "jWmYm7qr5nMoAUwZRjGtBxmz3KA1tkAj3ykkR6q2B2C";
 
-            Tencent.WXBizMsgCrypt wxcpt = new Tencent.WXBizMsgCrypt(sToken, sEncodingAESKey, sAppID);
+            WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(sToken, sEncodingAESKey, sAppID);
             
              /* 1. 对用户回复的数据进行解密。
              * 用户回复消息或者点击事件响应时，企业会收到回调消息，假设企业收到的推送消息：

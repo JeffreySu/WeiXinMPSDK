@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170105
+    
+    修改标识：Senparc - 20170810
+    修改描述：v1.4.3 添加JsCode2JsonResult.unionid
 
 ----------------------------------------------------------------*/
 using System;
@@ -50,5 +53,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// 会话密钥
         /// </summary>
         public string session_key { get; set; }
+        /// <summary>
+        /// 用户在开放平台的唯一标识符。本字段在满足一定条件的情况下才返回。具体参看：https://mp.weixin.qq.com/debug/wxadoc/dev/api/uinionID.html
+        /// </summary>
+        public string unionid { get; set; }
     }
 }

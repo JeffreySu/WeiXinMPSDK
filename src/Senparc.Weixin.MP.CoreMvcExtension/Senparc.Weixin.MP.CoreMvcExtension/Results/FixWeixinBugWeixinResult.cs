@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.CoreMvcExtension
                  content = (content ?? "").Replace("\r\n", "\n");
 
                  var bytes = Encoding.UTF8.GetBytes(content);
-                 context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+                 //context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
                  context.HttpContext.Response.Body.Write(bytes, 0, bytes.Length);
              });
 

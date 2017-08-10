@@ -378,7 +378,10 @@ namespace Senparc.Weixin.HttpUtility
 #else
                 hc = new StreamContent(postStream);
                 HttpContentHeader(hc, timeOut);
-                hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
 #endif
             }
             #endregion

@@ -127,6 +127,38 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
         }
 
+
+        [HttpPost]
+        public ActionResult CreateMenuFromJson(string token, string fullJson)
+        {
+            //TODO:根据"conditionalmenu"判断自定义菜单
+
+            var apiName = "使用JSON更新";
+            try
+            {
+                GetMenuResultFull resultFull = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMenuResultFull>(fullJson);
+
+                //重新整理按钮信息
+                WxJsonResult result = null;
+                IButtonGroupBase buttonGroup = null;
+
+                buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
+                result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
+
+                var json = new
+                {
+                    Success = result.errmsg == "ok",
+                    Message = "菜单更新成功。" + apiName
+                };
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
+            }
+            catch (Exception ex)
+            {
+                var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
+            }
+        }
+
         public ActionResult GetMenu(string token)
         {
 #if NET45

@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20170810
+    修改描述：v14.5.9 提取EntityHelper.FillClassValue()方法，优化FillEntityWithXml()方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -158,10 +161,10 @@ namespace Senparc.Weixin.MP.Helpers
                                 else if (genericArgumentTypeName == "CopyrightCheckResult_ResultList")//RequestMessageEvent_MassSendJobFinish
                                 {
                                     List<CopyrightCheckResult_ResultList> resultList = new List<CopyrightCheckResult_ResultList>();
-                                    foreach (var item in root.Elements(propName).Elements("ResultList"))
+                                    foreach (var item in root.Elements("ResultList").Elements("item"))
                                     {
                                         CopyrightCheckResult_ResultList resultItem = new CopyrightCheckResult_ResultList();
-                                        FillEntityWithXml(resultItem, new XDocument(item));
+                                        FillEntityWithXml(resultItem.item, new XDocument(item));
                                         resultList.Add(resultItem);
                                     }
                                     prop.SetValue(entity, resultList, null);

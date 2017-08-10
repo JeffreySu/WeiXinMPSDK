@@ -11,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -116,12 +118,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = "菜单更新成功。" + apiName
                 };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -157,11 +159,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (WeixinMenuException ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
 #endif
         }
@@ -194,12 +196,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = result.errmsg
                 };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = ex.Message };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
 #endif
 

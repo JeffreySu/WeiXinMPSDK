@@ -12,8 +12,8 @@
 
 
 
-Senparc 官方教程
-----------------
+# Senparc 官方教程
+
 <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
 
 > 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，Senparc 团队全程参与了图书整理工作及配套的 [BookHelper](http://book.weixin.senparc.com) 辅助阅读系统开发。<br>

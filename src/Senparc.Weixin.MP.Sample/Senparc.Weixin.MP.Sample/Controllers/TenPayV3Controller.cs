@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(int productId = 0, int hc = 0)
         {
-            if (productId==0 && hc==0)
+            if (productId == 0 && hc == 0)
             {
                 return RedirectToAction("ProductList");
             }
@@ -870,14 +870,22 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     ViewData["package"] = package;
                     ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
 
+                    //设置成功页面（也可以不设置，支付成功后默认返回来源地址）
+                    var returnUrl =
+                        string.Format("https://sdk.weixin.senparc.com/TenpayV3/H5PaySuccess?productId={0}&hc={1}",
+                            productId, hc);
 
-                    ViewData["MWebUrl"] = result.mweb_url;
+                    var mwebUrl = result.mweb_url;
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        mwebUrl += string.Format("&redirect_url={0}", returnUrl.AsUrlData());
+                    }
 
+                    ViewData["MWebUrl"] = mwebUrl;
 
                     //临时记录订单信息，留给退款申请接口测试使用
                     Session["BillNo"] = sp_billno;
                     Session["BillFee"] = price;
-
 
                     return View();
                 }
@@ -894,7 +902,37 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     return Content(msg);
                 }
             }
-            return View();
+        }
+
+        public ActionResult H5PaySuccess(int productId, int hc)
+        {
+            try
+            {
+                //TODO：这里可以校验支付是否真的已经成功
+
+                //获取产品信息
+                var products = ProductModel.GetFakeProductList();
+                var product = products.FirstOrDefault(z => z.Id == productId);
+                if (product == null || product.GetHashCode() != hc)
+                {
+                    return Content("商品信息不存在，或非法进入！1002");
+                }
+                ViewData["product"] = product;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                msg += "<br>" + ex.StackTrace;
+                msg += "<br>==Source==<br>" + ex.Source;
+
+                if (ex.InnerException != null)
+                {
+                    msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
+                }
+                return Content(msg);
+        }
         }
 
         #endregion

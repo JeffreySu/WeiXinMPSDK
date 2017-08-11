@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F7ADC7E7-56C4-47F5-95F3-3CB3962A1836}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senparc.SDK</RootNamespace>
+    <AssemblyName>Senparc.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache.Local\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategyFactory.cs" />
+    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
+    <Compile Include="Cache\Lock\ICacheLock.cs" />
+    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Containers\BaseContainer.cs" />
+    <Compile Include="Containers\BaseContainerBag.cs" />
+    <Compile Include="Entities\BindableBase.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\IAccessTokenResult.cs" />
+    <Compile Include="Entities\IApiData.cs" />
+    <Compile Include="Entities\JsonResult\BaseJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResultCallback.cs" />
+    <Compile Include="Entities\JsonResult\QYJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\WorkJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
+    <Compile Include="Entities\MessageBase.cs" />
+    <Compile Include="Entities\Request\EncryptPostModel.cs" />
+    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
+    <Compile Include="Entities\Request\RequestMessageBase.cs" />
+    <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
+    <Compile Include="Exceptions\MessageHandlerException.cs" />
+    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
+    <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
+    <Compile Include="Exceptions\WeixinException.cs" />
+    <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Helpers\Containers\ContainerHelper.cs" />
+    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
+    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
+    <Compile Include="Helpers\Entity\EntityHelper.cs" />
+    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
+    <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
+    <Compile Include="Threads\ThreadUtility.cs" />
+    <Compile Include="Trace\WeixinTrace.cs" />
+    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
+    <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
+    <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
+    <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\Get.cs" />
+    <Compile Include="Utilities\HttpUtility\Post.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
+    <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
+    <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
+    <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

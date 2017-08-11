@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.13.4</Version>
+    <Version>4.13.5</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -147,24 +147,31 @@
       v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
 
       v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
-              添加SenparcWeixinSetting配置类
+      添加SenparcWeixinSetting配置类
       v4.12.2 修复HttpUtility.UrlEncode .net core方法错误
       v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
       v4.12.4 MessageHandler基类默认开启消息去重，不再需要手动设置（messageHandler.OmitRepeatedMessage = true）
       v4.12.5 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
-      
+
       v4.12.5 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
       v4.12.6 添加ASCIISort比较类，用于ASCII字典排序
-      
-      v4.13.0 
-        1、IJsonResult 接口添加 ErrorCodeValue 属性
-        2、添加MutipleCacheTestHelper类（多种缓存测试帮助类）
-        3、添加ReflectionHelper类（反射帮助类）
-        4、完善本地缓存策略插入key
+
+      v4.13.0
+      1、IJsonResult 接口添加 ErrorCodeValue 属性
+      2、添加MutipleCacheTestHelper类（多种缓存测试帮助类）
+      3、添加ReflectionHelper类（反射帮助类）
+      4、完善本地缓存策略插入key
       v4.13.1 优化ApiHandlerWapperBase.TryCommonApiBaseAsync()方法
       v4.13.2 添加RequestMessageTextExtension的大小写是否敏感设置
       v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
       v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
+
+      v4.13.5 
+      1、完善AppId未注册提示
+      2、修复ApiHandlerWapperBase.TryCommonApiBase()方法自动刷新AccessToken的问题
+      3、提供统一的EntityHelper
+      4、ReturnCode添加：没有留言权限 = 88000
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

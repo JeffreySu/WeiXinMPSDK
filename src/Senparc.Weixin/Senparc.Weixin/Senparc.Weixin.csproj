@@ -170,7 +170,12 @@
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.SDK\Senparc.SDK\Senparc.SDK.csproj">
+      <Project>{f7adc7e7-56c4-47f5-95f3-3cb3962a1836}</Project>
+      <Name>Senparc.SDK</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

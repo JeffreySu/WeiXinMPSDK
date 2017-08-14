@@ -106,7 +106,7 @@ namespace Senparc.Weixin.Entities.Request
         /// <returns></returns>
         public static IResponseMessageBase GetResponseMessage(this RequestMessageTextKeywordHandler handler)
         {
-            if (!!handler.MatchSuccessed
+            if (!handler.MatchSuccessed
                 && handler.DefaultMessage != null)
             {
                 handler.ResponseMessage = handler.DefaultMessage();

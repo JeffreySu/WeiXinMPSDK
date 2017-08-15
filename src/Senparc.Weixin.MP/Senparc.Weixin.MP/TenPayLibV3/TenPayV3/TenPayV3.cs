@@ -157,8 +157,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         #endregion
 
         #region 同步请求
-
-
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -364,7 +362,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new ReverseResult(resultXml);
         }
 
-
+        /// <summary>
+        /// 撤销订单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路劲</param> 
+        /// <param name="certPassword">证书密码</param>
+        /// <returns></returns>
+        public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
+        {
+            string urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var dataBytes = Encoding.UTF8.GetBytes(data);
+            using (MemoryStream ms = new MemoryStream(dataBytes))
+            {
+                //调用证书
+                X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+                return new ReverseResult(responseContent);
+            }
+        }
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)

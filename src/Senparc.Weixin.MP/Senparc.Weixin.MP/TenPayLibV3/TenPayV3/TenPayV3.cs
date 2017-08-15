@@ -353,6 +353,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期 建议使用Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)")]
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
@@ -369,7 +370,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 撤销订单接口
         /// </summary>
         /// <param name="dataInfo"></param>
-        /// <param name="cert">证书路劲</param> 
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
         /// <param name="certPassword">证书密码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -377,14 +378,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             string urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
             var data = dataInfo.PackageRequestHandler.ParseXML();
-            var dataBytes = Encoding.UTF8.GetBytes(data);
-            using (MemoryStream ms = new MemoryStream(dataBytes))
-            {
-                //调用证书
-                X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-                string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
-                return new ReverseResult(responseContent);
-            }
+            //var dataBytes = Encoding.UTF8.GetBytes(data);
+            //using (MemoryStream ms = new MemoryStream(dataBytes))
+            //{
+            //调用证书
+            X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+            return new ReverseResult(responseContent);
+            //  }
         }
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
@@ -422,7 +423,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return new RefundResult(responseContent);
             }
         }
-
 
         /// <summary>
         /// 退款查询接口
@@ -797,6 +797,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期 建议使用 ReverseAsync(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)")]
         public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
@@ -813,7 +814,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 【异步方法】撤销订单接口
         /// </summary>
         /// <param name="dataInfo"></param>
-        /// <param name="cert">证书路劲</param> 
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
         /// <param name="certPassword">证书密码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

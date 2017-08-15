@@ -73,6 +73,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.4.6 1、修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
                       2、添加CertPost()及配套异步方法
     
+    修改标识：Senparc - 20170815
+    修改描述：v14.4.6 增加 ReverseAsync 方法重载
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -368,6 +371,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo"></param>
         /// <param name="cert">证书路劲</param> 
         /// <param name="certPassword">证书密码</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
@@ -382,6 +386,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return new ReverseResult(responseContent);
             }
         }
+
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
@@ -804,6 +809,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new ReverseResult(resutlXml);
         }
 
+        /// <summary>
+        /// 【异步方法】撤销订单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路劲</param> 
+        /// <param name="certPassword">证书密码</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
+        {
+            string urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var dataBytes = Encoding.UTF8.GetBytes(data);
+            using (MemoryStream ms = new MemoryStream(dataBytes))
+            {
+                //调用证书
+                X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                var responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut);
+                return new ReverseResult(responseContent);
+            }
+        }
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
         ///// <summary>

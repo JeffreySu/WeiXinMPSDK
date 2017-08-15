@@ -65,12 +65,14 @@ Senparc 官方教程
 | 3| ASP.NET MVC 扩展<br>（.NET Framework）|Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]| ![.NET 4.0][net40Y]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN]  ![.NET Core 2.0][core20Y]
 | 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）|Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45N]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
-| 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][12.1]][12.2]                        | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
+| 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][5.1]][5.2]                        | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]         | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
 | 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]      | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
 |10| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll |[![Senparc.Weixin.WxOpen][9.1]][9.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 |11| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |[![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
+
+说明：![.NET 4.0][net40Y]：.NET 4.0 | ![.NET 4.5][net45Y]：.NET 4.5  |  ![.NET Core][coreY]：.NET Core 1.0  |  ![.NET Core 2.0][core20Y]：.NET Core 2.0
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -94,8 +96,6 @@ Senparc 官方教程
 [10.2]: https://www.nuget.org/packages/Senparc.WebSocket
 [11.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMVC.svg?style=flat
 [11.2]: https://www.nuget.org/packages/Senparc.Weixin.MP.CoreMVC
-[12.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Work.svg?style=flat
-[12.2]: https://www.nuget.org/packages/Senparc.Weixin.Work
 
 [net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg

@@ -62,8 +62,8 @@ Senparc 官方教程
 |---|-----------------------------------------------------|-----------------------------------|---------------------------------------------------|--------------------------------------------------------------------------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]                     | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]              | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
-| 3| ASP.NET MVC 扩展<br>（.NET Framework）              |Senparc.Weixin.MP.MVC.dll           | [![Senparc.Weixin.MP.MVC][3.1]][3.2]              | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN]  ![.NET Core 2.0][core20Y]
-| 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）|Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45N]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
+| 3| ASP.NET MVC 扩展<br>（.NET Framework）              |Senparc.Weixin.MP.MVC.dll           | [![Senparc.Weixin.MP.MVC][3.1]][3.2]              | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN-] ![.NET Core 2.0][core20N-]
+| 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）|Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]                  | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]  ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][5.1]][5.2]                          | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
@@ -99,14 +99,18 @@ Senparc 官方教程
 
 [net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg
+[net40N-]: https://img.shields.io/badge/4.0----lightgrey.svg
 [net45Y]: https://img.shields.io/badge/4.5-Y-brightgreen.svg
 [net45N]: https://img.shields.io/badge/4.5-N-lightgrey.svg
+[net45N-]: https://img.shields.io/badge/4.5----lightgrey.svg
 [net461Y]: https://img.shields.io/badge/4.6.1-Y-brightgreen.svg
 [net461N]: https://img.shields.io/badge/4.6.1-N-lightgrey.svg
 [coreY]: https://img.shields.io/badge/core-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/core-N-lightgrey.svg
+[coreN-]: https://img.shields.io/badge/core----lightgrey.svg
 [core20Y]: https://img.shields.io/badge/core2.0-Y-brightgreen.svg
 [core20N]: https://img.shields.io/badge/core2.0-N-lightgrey.svg
+[core20N-]: https://img.shields.io/badge/core2.0----lightgrey.svg
 
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。

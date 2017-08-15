@@ -73,6 +73,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.4.6 1、修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
                       2、添加CertPost()及配套异步方法
     
+    修改标识：Senparc - 20170815
+    修改描述：v14.4.6 增加 ReverseAsync 方法重载
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -369,6 +372,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo"></param>
         /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
         /// <param name="certPassword">证书密码</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
@@ -383,6 +387,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new ReverseResult(responseContent);
             //  }
         }
+
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
@@ -806,35 +811,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
-        /// 【异步方法】插销订单接口
+        /// 【异步方法】撤销订单接口
         /// </summary>
         /// <param name="dataInfo"></param>
-        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
         /// <param name="certPassword">证书密码</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)
+        public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
-            //var data = dataInfo.PackageRequestHandler.ParseXML();
-            ////撤销订单接口地址
-            //string url = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
-            ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-            ////string cert = cert;// @"F:\apiclient_cert.p12";
-            ////私钥（在安装证书时设置）
-            //string responseContent = await CertPostAsync(cert, certPassword, data, url);
-            //return new ReverseResult(responseContent);
-            return await Task.Factory.StartNew(async () =>
-             {
-                 var data = dataInfo.PackageRequestHandler.ParseXML();
-                 //撤销订单接口地址
-                 string url = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
-                 //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-                 //string cert = cert;// @"F:\apiclient_cert.p12";
-                 //私钥（在安装证书时设置）
-                 string responseContent = await CertPostAsync(cert, certPassword, data, url);
-                 return new ReverseResult(responseContent);
-             }).ContinueWith(task => { return task.Result.Result; });
+            string urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var dataBytes = Encoding.UTF8.GetBytes(data);
+            using (MemoryStream ms = new MemoryStream(dataBytes))
+            {
+                //调用证书
+                X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                var responseContent = await CertPostAsync(cert, certPassword, data, urlFormat, timeOut);
+                return new ReverseResult(responseContent);
+            }
         }
-
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
         ///// <summary>

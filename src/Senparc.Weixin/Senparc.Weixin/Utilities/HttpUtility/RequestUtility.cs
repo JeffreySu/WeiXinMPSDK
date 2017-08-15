@@ -58,7 +58,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
 using Microsoft.AspNetCore.Http;
 #endif
 
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.HttpUtility
             formData.FillFormDataStream(ms);//填充formData
             return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
         private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
         {
             fileName = UrlEncode(fileName);
@@ -470,7 +470,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
         /// <summary>
         /// 验证服务器证书
         /// </summary>
@@ -557,7 +557,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -735,7 +735,10 @@ namespace Senparc.Weixin.HttpUtility
 #else
                 hc = new StreamContent(postStream);
                 HttpContentHeader(hc, timeOut);
-                hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
 #endif
 
             }

@@ -40,6 +40,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
 #if NET45
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
+#elif NETCOREAPP2_0
+            {
+                var dllPath = Server.GetMapPath("~/bin/netcoreapp2.0/" + dllFileName);
+                return FileVersionInfo.GetVersionInfo(dllPath);
+            };
 #else
             {
                 var dllPath = Server.GetMapPath("~/bin/netcoreapp1.1/" + dllFileName);
@@ -47,7 +52,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             };
 #endif
 
-            Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
+            Func < FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
                  Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
 
             ViewData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));

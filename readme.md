@@ -105,6 +105,8 @@ Senparc 官方教程
 [net461N]: https://img.shields.io/badge/4.6.1-N-lightgrey.svg
 [coreY]: https://img.shields.io/badge/core-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/core-N-lightgrey.svg
+[core20Y]: https://img.shields.io/badge/core2.0-Y-brightgreen.svg
+[core20N]: https://img.shields.io/badge/core2.0-N-lightgrey.svg
 
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。

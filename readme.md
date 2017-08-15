@@ -67,8 +67,8 @@ Senparc 官方教程
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][5.1]][5.2]                          | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
-| 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]         | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
-| 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]      | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
+| 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]         | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
+| 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]      | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
 |10| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll |[![Senparc.Weixin.WxOpen][9.1]][9.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 |11| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |[![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 

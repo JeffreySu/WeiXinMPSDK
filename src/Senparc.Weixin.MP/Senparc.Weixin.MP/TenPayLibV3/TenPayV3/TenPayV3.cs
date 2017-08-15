@@ -350,7 +350,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
-        [Obsolete("此方法已过期，建议使用 Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword)")]
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
@@ -367,7 +366,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 撤销订单接口
         /// </summary>
         /// <param name="dataInfo"></param>
-        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
+        /// <param name="cert">证书路劲</param> 
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
         public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)

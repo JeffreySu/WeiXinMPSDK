@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170725
     修改描述：v4.13.2 添加RequestMessageTextExtension的大小写是否敏感设置
 
+    修改标识：Senparc - 20170725
+    修改描述：v4.14.2 修复RequestMessageTextExtension.GetResponseMessage()方法判断问题
+
 ----------------------------------------------------------------*/
 
 
@@ -106,7 +109,7 @@ namespace Senparc.Weixin.Entities.Request
         /// <returns></returns>
         public static IResponseMessageBase GetResponseMessage(this RequestMessageTextKeywordHandler handler)
         {
-            if (!!handler.MatchSuccessed
+            if (!handler.MatchSuccessed
                 && handler.DefaultMessage != null)
             {
                 handler.ResponseMessage = handler.DefaultMessage();

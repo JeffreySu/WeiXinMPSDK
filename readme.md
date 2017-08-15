@@ -45,6 +45,7 @@ Senparc 官方教程
 * [如何开发小程序](#如何开发小程序)
 * [已实现功能](#已实现功能)
 * [捐助](#捐助)
+* [图书众筹](#图书众筹)
 * [License](#license)
 
 本库为.NET 4.5，其他.NET版本请看各自分支：
@@ -520,6 +521,11 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 [![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
 
+图书众筹
+--------------
+扫描下方二维码参与《微信公众平台快速开发》图书众筹
+
+[![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](http://www.weiweihi.com:8080/CrowdFunding/Home)  
 
 License
 --------------

@@ -58,14 +58,14 @@ Senparc 官方教程
 各模块类库
 ----------------
 
-| # | 模块功能                                            | DLL                               | Nuget                                             | 支持 .NET 版本
+| # | 模块功能                                            | DLL                               | Nuget                                             | -------  支持 .NET 版本  -------
 |---|----------------------------------------------------|-----------------------------------|----------------------------------------------------|---------------------------------------------------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]                     | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]              | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 3| ASP.NET MVC 扩展<br>（.NET Framework）|Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]| ![.NET 4.0][net40Y]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN]  ![.NET Core 2.0][core20Y]
 | 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）|Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45N]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
-| 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][5.1]][5.2]                        | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
+| 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][5.1]][5.2]                          | ![.NET 4.0][net40N]	  ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20Y]
 | 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]         | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]
 | 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]      | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]  ![.NET Core 2.0][core20N]

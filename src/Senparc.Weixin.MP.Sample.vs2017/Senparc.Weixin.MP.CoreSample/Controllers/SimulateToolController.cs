@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class SimulateToolController : BaseController
     {
-#if NETSTANDARD1_6
+#if NETSTANDARD1_6 || NETSTANDARD2_0
         SenparcWeixinSetting _senparcWeixinSetting;
 
         public SimulateToolController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)

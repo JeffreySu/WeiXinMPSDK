@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.5.5</Version>
+    <Version>14.6.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -304,7 +304,7 @@
       2、解决了QrCode_ActionName.QR_STR_SCENE下临时二维码有效时间expire_seconds不生效的问题
       v14.5.4 添加“一次性订阅消息”接口
 
-      v14.5.5 
+      v14.5.5
       1、修改Container中的锁及异步调用方法
       2、支持H5支付（同时已发布Demo）
       3、为Tencent命名空间添加Senparc.Weixin.MP前缀
@@ -315,6 +315,10 @@
       8、增加“获取商品二维码”接口（ScanApi.GetQrCode()），同时提供配套异步方法
       9、更新CardApi.CardBatchGet()方法的statusList参数传值
 
+
+      v14.6.0
+      1、新增 刷卡支付 撤销订单接口
+      2、支持.NET Core 2.0
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -339,6 +343,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.MP.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.MP.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">

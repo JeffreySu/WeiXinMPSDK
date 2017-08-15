@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.3.6</Version>
+    <Version>4.3.7</Version>
     <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -118,6 +118,7 @@
       v4.3.5  AccessTokenResult 加入 IAccessTokenResult 接口
       v4.3.6 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题
 
+      v4.3.7 为Tencent命名空间添加Senparc.Weixin.QY前缀
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

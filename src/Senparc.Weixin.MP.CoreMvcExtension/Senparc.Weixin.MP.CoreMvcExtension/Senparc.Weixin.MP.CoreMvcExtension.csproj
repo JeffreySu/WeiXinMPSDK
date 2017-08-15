@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
-    <Version>1.3.0</Version>
+    <Version>1.3.1</Version>
     <AssemblyName>Senparc.Weixin.MP.CoreMvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.CoreMvcExtension</RootNamespace>
 
@@ -30,7 +30,8 @@
     <PackageReleaseNotes>
       v1.0.0 支持 .NET Core
       v1.1.0 添加SenparcOAuthAttribute，自动进行OAuth授权
-
+      
+      v1.3.1 完善FixWeixinBugWeixinResult，协助MessageHandler完成工作
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.CoreMvc</PackageId>

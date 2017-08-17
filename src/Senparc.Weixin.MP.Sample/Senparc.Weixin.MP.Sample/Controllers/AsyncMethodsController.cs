@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using ZXing.Aztec.Internal;
@@ -73,5 +74,95 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看。此前的验证码已失效，如需继续测试，请重新获取验证码。");
             }
         }
+
+
+        #region 异步死锁测试
+
+        /// <summary>
+        /// 此方法会引发死锁，需要重启服务
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DeadLockTest()
+        {
+            var result =
+                Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+                    cookieContainer: null).Result;
+            return Content(result);
+        }
+
+        /// <summary>
+        /// 此方法可以避免死锁
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> NoDeadLockTest()
+        {
+            var result = await Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+                cookieContainer: null);
+            return Content(result);
+        }
+
+
+        private async Task<string> GetRemoteData()
+        {
+            string result = null;
+            await Task.Run(() =>
+               {
+                   Task.Delay(1000);
+                   result = "hi " + DateTime.Now.ToString();
+               });
+            return result;
+        }
+
+        /// <summary>
+        /// 此方法会引发死锁，需要重启服务
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult DeadLockTest2()
+        {
+            var result = GetRemoteData().Result;
+            return Content(result);
+        }
+
+
+        /// <summary>
+        /// 此方法可以避免死锁
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ActionResult> NoDeadLockTest2()
+        {
+            var result = await GetRemoteData();
+            return Content(result);
+        }
+
+
+
+        /// <summary>
+        /// 此方法加上.ConfigureAwait(false)可以避免死锁
+        /// </summary>
+        /// <returns></returns>
+        private async Task<string> GetRemoteData2()
+        {
+            string result = null;
+            await Task.Run(() =>
+            {
+                Task.Delay(1000);
+                result = "hi " + DateTime.Now.ToString();
+            }).ConfigureAwait(false);
+            return result;
+        }
+
+
+        /// <summary>
+        /// 此方法可以避免死锁
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NoDeadLockTest3()
+        {
+            var result = GetRemoteData2().Result;
+            return Content(result);
+        }
+
+
+        #endregion
     }
 }

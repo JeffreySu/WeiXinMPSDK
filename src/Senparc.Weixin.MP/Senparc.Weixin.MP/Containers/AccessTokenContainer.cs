@@ -65,11 +65,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170702
     修改描述：v14.5.0 为了配合新版本ApiHandlerWapper方法，GetAccessTokenResultAsync方法的返回值从Task<AccessTokenResult>改为Task<IAccessTokenResult>
+    
+    修改标识：Senparc - 20170702
+    修改描述：v14.5.5 修改Container中的锁及异步调用方法
+
+    修改标识：Senparc - 20170702
+    修改描述：v14.6.2 回滚 v14.5.5中修改的方法（同步方法中调用异步方法）
 
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -172,7 +182,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
         {
-            return TryGetAccessTokenAsync(appId, appSecret, getNewToken).GetAwaiter().GetResult();
+            if (!CheckRegistered(appId) || getNewToken)
+            {
+                Register(appId, appSecret);
+            }
+            return GetAccessToken(appId, getNewToken);
         }
 
         /// <summary>
@@ -201,19 +215,15 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                using (Cache.BeginCacheLock(LockResourceName, appId)) //同步锁
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
-                    if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
-                    {
-                        //已过期，重新获取
-                        accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                        accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    }
+                    //已过期，重新获取
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
-
             return accessTokenBag.AccessTokenResult;
         }
 
@@ -268,19 +278,16 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
-                    if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
-                    {
-                        //已过期，重新获取
-                        accessTokenBag.AccessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                        accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    }
+                    //已过期，重新获取
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    accessTokenBag.AccessTokenResult = accessTokenResult;
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
-
             return accessTokenBag.AccessTokenResult;
         }
 
@@ -291,3 +298,4 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
     }
 }
+

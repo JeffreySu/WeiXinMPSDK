@@ -41,6 +41,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
+
 ----------------------------------------------------------------*/
 
 using System;

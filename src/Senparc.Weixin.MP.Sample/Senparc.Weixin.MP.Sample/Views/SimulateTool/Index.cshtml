@@ -168,7 +168,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Request.Url.Host), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>

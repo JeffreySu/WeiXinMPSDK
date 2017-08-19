@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170110
     修改描述：v14.3.118  
+
+    修改标识：Senparc - 201700810
+    修改描述：v14.5.9 查询红包接口（SearchRedPack）添加refund_amount和remark两个参数获取
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -640,10 +644,18 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
                     {
                         searchReturn.refund_time = doc.SelectSingleNode("/xml/refund_time").InnerText;
                     }
+                    if (doc.SelectSingleNode("/xml/refund_amount") != null)
+                    {
+                        searchReturn.refund_amount = doc.SelectSingleNode("/xml/refund_amount").InnerText;
+                    }
 
                     if (doc.SelectSingleNode("/xml/wishing") != null)
                     {
                         searchReturn.wishing = doc.SelectSingleNode("/xml/wishing").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/remark") != null)
+                    {
+                        searchReturn.remark = doc.SelectSingleNode("/xml/remark").InnerText;
                     }
 
                     if (doc.SelectSingleNode("/xml/act_name") != null)

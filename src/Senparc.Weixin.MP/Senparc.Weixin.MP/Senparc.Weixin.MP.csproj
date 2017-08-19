@@ -177,6 +177,7 @@
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductCreateResultJson.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetQrCodeJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ScanTicketCheckJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />

@@ -42,20 +42,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class GetPageResultJson : WxJsonResult
     {
-        public List<PageInfo> page_list { get; set; }
-    }
-
-
-    [Serializable]
-    public class PageInfo
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public string index { get; set; }
-
-        public string page_list { get; set; }
-
-        public string page_detail { get; set; }
+        public List<string> page_list { get; set; }
     }
 }

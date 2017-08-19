@@ -46,7 +46,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
     }
 
 
-    [Serializable]
     public class CategroyInfo
     {
         /// <summary>

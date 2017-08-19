@@ -99,8 +99,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/wxa/get_category?access_token={0}", accessToken.AsUrlData());
 
-
-            return CommonJsonSend.Send<GetCategoryResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format("https://api.weixin.qq.com/wxa/get_page?access_token={0}", accessToken.AsUrlData());
 
 
-            return CommonJsonSend.Send<GetPageResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetPageResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo>  item_list, int timeOut = Config.TIME_OUT)
+        public static GetAuditStatusResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo>  item_list, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://api.weixin.qq.com/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
 
@@ -134,7 +133,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 item_list = item_list
             };
 
-            return CommonJsonSend.Send<GetPageResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -168,14 +167,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
 
-            object data;
-
-            data = new
-            {
-                
-            };
-
-            return CommonJsonSend.Send<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetAuditStatusResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
         /// <summary>
         /// 发布已通过审核的小程序
@@ -273,7 +265,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format("https://api.weixin.qq.com/wxa/get_category?access_token={0}", accessToken.AsUrlData());
 
 
-            return await CommonJsonSend.SendAsync<GetCategoryResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>
@@ -287,7 +279,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format("https://api.weixin.qq.com/wxa/get_page?access_token={0}", accessToken.AsUrlData());
 
 
-            return await CommonJsonSend.SendAsync<GetPageResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
 
         /// <summary>

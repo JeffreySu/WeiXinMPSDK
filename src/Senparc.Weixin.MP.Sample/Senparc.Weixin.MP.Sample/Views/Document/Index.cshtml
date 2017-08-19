@@ -9,40 +9,49 @@
             padding: 50px;
         }
 
-            #downloadArea p {
-                line-height: 120%;
-            }
+        #downloadArea p {
+            line-height: 120%;
+        }
 
-            #downloadArea h2 {
-                font-size: 200%;
-                font-weight: bold;
-                text-align: center;
-                margin-bottom: 20px;
-            }
+        #downloadArea h2 {
+            font-size: 200%;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-            #downloadArea img {
-                width: 200px;
-                margin: 20px;
-            }
+        #downloadArea img {
+            width: 200px;
+            margin: 20px;
+        }
 
-            #downloadArea .versionSelector-title {
-                font-weight: bold;
-                margin: 10px;
-            }
+        #downloadArea .versionSelector-title {
+            font-weight: bold;
+            margin: 10px;
+        }
 
-            #downloadArea .qrcode {
-                text-align: center;
-                font-size: 120%;
-            }
+        #downloadArea .qrcode {
+            text-align: center;
+            font-size: 120%;
+        }
 
-                #downloadArea .qrcode table {
-                    margin: 0px auto;
-                }
+        #downloadArea .qrcode table thead td {
+            font-weight: bold;
+        }
 
-                    #downloadArea .qrcode table td {
-                        vertical-align: top;
-                        padding: 5px;
-                    }
+        #downloadArea .qrcode table tbody {
+            text-align: left;
+        }
+
+
+        #downloadArea .qrcode table {
+            margin: 0px auto;
+        }
+
+        #downloadArea .qrcode table td {
+            vertical-align: top;
+            padding: 5px;
+        }
 
         #downloadTip {
             text-align: center;
@@ -82,27 +91,32 @@
     <script>
         var guid = '@ViewData["Guid"]';
         var interval;
-        $(function () {
+        $(function() {
 
             $('input[name=version]').eq(0).attr('checked', true);
 
-            interval = setInterval(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("CheckDownload")',
-                    data: { guid: guid, version: $("input[name='version']:checked").val(), versionWeb: $("input[name='versionWeb']:checked").val() },
-                    dataType: "json",
-                    success: function (json) {
-                        if (json.success) {
-                            //开始下载
-                            clearInterval(interval);
-                            $('#downloadTip').show();
-                            $('#versionSelector').hide();
-                            location.href = $('#downloadTip a').attr('href');
+            interval = setInterval(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("CheckDownload")',
+                        data: {
+                            guid: guid,
+                            version: $("input[name='version']:checked").val(),
+                            versionWeb: $("input[name='versionWeb']:checked").val()
+                        },
+                        dataType: "json",
+                        success: function(json) {
+                            if (json.success) {
+                                //开始下载
+                                clearInterval(interval);
+                                $('#downloadTip').show();
+                                $('#versionSelector').hide();
+                                location.href = $('#downloadTip a').attr('href');
+                            }
                         }
-                    }
-                });
-            }, 5000);
+                    });
+                },
+                5000);
         });
     </script>
 }

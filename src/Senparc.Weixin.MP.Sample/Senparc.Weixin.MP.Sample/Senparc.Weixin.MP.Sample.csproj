@@ -29,6 +29,7 @@
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -156,6 +157,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
     <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
@@ -186,6 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\VD\AnalysisVD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +283,7 @@
     <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
     <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Analysis\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

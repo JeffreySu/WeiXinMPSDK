@@ -16,7 +16,7 @@ Senparc 官方教程
 ----------------
 <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
 
-> 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，Senparc 团队全程参与了图书整理工作及配套的 [BookHelper](http://book.weixin.senparc.com) 辅助阅读系统开发。<br>
+> 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
 > 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
@@ -62,7 +62,7 @@ Senparc 官方教程
 | 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 3| ASP.NET MVC 扩展<br>（.NET Framework）               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN-]   ![.NET Core 2.0][core20N-]
-| 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）          |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 4| ASP.NET Core MVC <br> 扩展（.NET Core）          |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 6| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]

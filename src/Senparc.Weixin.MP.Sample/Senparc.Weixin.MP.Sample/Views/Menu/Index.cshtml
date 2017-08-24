@@ -257,6 +257,7 @@
                                         <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).media_id" id="@(idPrefix)_mediaid" />
                                         <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>
                                 }
@@ -280,6 +281,8 @@
                         <option value="pic_weixin">弹出微信相册发图器</option>
                         <option value="scancode_push">扫码推事件</option>
                         <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
+                        <option value="media_id">下发消息（除文本消息）</option>
+                        <option value="view_limited">跳转图文消息URL</option>
                     </select>
                 </p>
                 <p id="buttonDetails_key_area">
@@ -294,6 +297,10 @@
                 <p id="buttonDetails_miniprogram_pagepath_area">
                     小程序PagePath：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
                 </p>
+                <p id="buttonDetails_mediaId_area">
+                    MediaId：<input id="buttonDetails_mediaId" class="control-input txtButtonDetails" type="text" />
+                </p>
+
                 <p id="rootButtonNotice">
                     如果还有下级菜单请忽略上述Type和Key、Url等参数。<br />
                 </p>

@@ -21,20 +21,24 @@ senparc.menu = {
             var nameId = idPrefix + "_name";
             var typeId = idPrefix + "_type";
             var urlId = idPrefix + "_url";
+            var mediaIdId = idPrefix + "_mediaid";
 
             var txtDetailsKey = $('#buttonDetails_key');
             var txtDetailsName = $('#buttonDetails_name');
             var ddlDetailsType = $('#buttonDetails_type');
             var txtDetailsUrl = $('#buttonDetails_url');
+            var txtMediaId = $('#buttonDetails_mediaId');
 
             var hiddenButtonKey = $('#' + keyId);
             var hiddenButtonType = $('#' + typeId);
             var hiddenButtonUrl = $('#' + urlId);
+            var hiddenButtonMediaId = $('#' + mediaIdId);
 
             txtDetailsKey.val(hiddenButtonKey.val());
             txtDetailsName.val($('#' + nameId).val());
             ddlDetailsType.val(hiddenButtonType.val());
             txtDetailsUrl.val(hiddenButtonUrl.val());
+            txtMediaId.val(hiddenButtonMediaId.val());
 
             senparc.menu.typeChanged();
 
@@ -46,6 +50,9 @@ senparc.menu = {
             });
             txtDetailsUrl.unbind('blur').blur(function () {
                 hiddenButtonUrl.val($(this).val());
+            });
+            txtMediaId.unbind('blur').blur(function () {
+                hiddenButtonMediaId.val($(this).val());
             });
 
             //修改当前行列样式
@@ -60,9 +67,9 @@ senparc.menu = {
 
             //一级菜单提示
             if (row == 5) {
-                $('#rootButtonNotice').show()
+                $('#rootButtonNotice').show();
             } else {
-                $('#rootButtonNotice').hide()
+                $('#rootButtonNotice').hide();
             }
         });
 
@@ -98,6 +105,7 @@ senparc.menu = {
                         $('#menu_button' + i + '_url').val(button.url);
                         $('#menu_button' + i + '_appid').val(button.appid);
                         $('#menu_button' + i + '_pagepath').val(button.pagepath);
+                        $('#menu_button' + i + '_mediaid').val(button.media_id);
 
                         if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
@@ -110,6 +118,7 @@ senparc.menu = {
                                 $(idPrefix + "_url").val(subButton.url);
                                 $(idPrefix + "_appid").val(subButton.appid);
                                 $(idPrefix + "_pagepath").val(subButton.pagepath);
+                                $(idPrefix + "_mediaid").val(subButton.media_id);
                             }
                         } else {
                             //底部菜单
@@ -202,25 +211,41 @@ senparc.menu = {
     typeChanged: function () {
         var val = $('#buttonDetails_type').val().toUpperCase();
         switch (val) {
-            case 'VIEW':
-                $('#buttonDetails_key_area').slideUp(100);
-                $('#buttonDetails_url_area').slideDown(100);
-                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
-                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
-                break;
             case 'CLICK':
                 $('#buttonDetails_key_area').slideDown(100);
                 $('#buttonDetails_url_area').slideUp(100);
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                $('#buttonDetails_mediaId_area').slideUp(100);
+                break;
+            case 'VIEW':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideDown(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                $('#buttonDetails_mediaId_area').slideUp(100);
                 break;
             case 'MINIPROGRAM':
                 $('#buttonDetails_key_area').slideUp(100);
                 $('#buttonDetails_url_area').slideDown(100);
                 $('#buttonDetails_miniprogram_appid_area').slideDown(100);
                 $('#buttonDetails_miniprogram_pagepath_area').slideDown(100);
+                $('#buttonDetails_mediaId_area').slideUp(100);
+                break;
+            case 'MEDIA_ID':
+            case 'VIEW_LIMITED':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideUp(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                $('#buttonDetails_mediaId_area').slideDown(100);
                 break;
             default:
+                $('#buttonDetails_key_area').slideDown(100);
+                $('#buttonDetails_url_area').slideUp(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                $('#buttonDetails_mediaId_area').slideUp(100);
                 break;
         }
     },

@@ -295,7 +295,9 @@
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleViewLimitedButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleMiniProgramButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMediaIdButton.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />

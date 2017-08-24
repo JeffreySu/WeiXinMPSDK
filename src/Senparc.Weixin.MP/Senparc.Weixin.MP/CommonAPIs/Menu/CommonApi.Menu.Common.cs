@@ -190,6 +190,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
+                    else if (rootButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleMediaIdButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleViewLimitedButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
                     else
                     {
                         throw new WeixinMenuException("菜单类型无法处理：" + rootButton.type);

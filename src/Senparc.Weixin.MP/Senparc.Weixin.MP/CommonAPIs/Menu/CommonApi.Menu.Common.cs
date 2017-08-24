@@ -301,6 +301,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 type = subSubButton.type
                             });
                         }
+                        else if (subSubButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleScancodePushButton()
+                            {
+                                name = subSubButton.name,
+                                key = subSubButton.key,
+                                type = subSubButton.type
+                            });
+                        }
                         else
                         {
                             //扫码推事件且弹出“消息接收中”提示框

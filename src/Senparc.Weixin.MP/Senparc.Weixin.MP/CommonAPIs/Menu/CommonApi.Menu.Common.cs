@@ -307,7 +307,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             subButton.sub_button.Add(new SingleMediaIdButton()
                             {
                                 name = subSubButton.name,
-                                media_id = subSubButton.key,
+                                media_id = subSubButton.media_id,
                                 type = subSubButton.type
                             });
                         }
@@ -317,7 +317,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             subButton.sub_button.Add(new SingleViewLimitedButton()
                             {
                                 name = subSubButton.name,
-                                media_id = subSubButton.key,
+                                media_id = subSubButton.media_id,
                                 type = subSubButton.type
                             });
                         }

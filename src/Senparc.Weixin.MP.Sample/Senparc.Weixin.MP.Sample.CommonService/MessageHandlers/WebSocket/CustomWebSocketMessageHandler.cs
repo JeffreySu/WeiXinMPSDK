@@ -96,8 +96,7 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.WebSocket
             }
             catch (Exception ex)
             {
-                var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" +
-                        WebConfigurationManager.AppSettings["WxOpenAppId"];
+                var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" + appId;
 
                 await webSocketHandler.SendMessage(msg); //VS2017以下如果编译不通过，可以注释掉这一行
 

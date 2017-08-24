@@ -40,11 +40,11 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    [Serializable]
     public class GetCategoryResultJson : WxJsonResult
     {
         public List<CategroyInfo> category_list { get; set; }
     }
-
 
     [Serializable]
     public class CategroyInfo

@@ -359,6 +359,12 @@ img.official-img {
         width: 184px;
     }
 
+    .feedback-action a {
+        padding: 15px 30px;
+        font-size: 120%;
+    }
+
+
 .footer {
     background: #0A9CD2;
     height: 84px;
@@ -620,6 +626,7 @@ img.official-img {
 }
 
 p.crowdfunding-note {
+    padding-top: 45px;
     text-align: left;
 }
 
@@ -628,7 +635,8 @@ p.crowdfunding-note {
 }
 
 .crowdfunding-note img {
-    width: 450px;
+    padding: 25px;
+    width: 420px;
     max-width: 90%;
 }
 

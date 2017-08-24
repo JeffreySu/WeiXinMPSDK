@@ -342,7 +342,15 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
-        location_select
+        location_select,
+        /// <summary>
+        /// 下发消息（除文本消息）
+        /// </summary>
+        media_id,
+        /// <summary>
+        /// 跳转图文消息URL
+        /// </summary>
+        view_limited
     }
 
     /// <summary>

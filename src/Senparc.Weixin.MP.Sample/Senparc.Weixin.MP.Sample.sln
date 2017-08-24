@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample", "Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.csproj", "{9A4E286B-FE2C-4985-AFBC-FA1A598F97C1}"
 EndProject
@@ -239,8 +239,8 @@ Global
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Release|x86.ActiveCfg = Release|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Release|x86.Build.0 = Release|Any CPU
-		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|Any CPU.Build.0 = Release|Any CPU
+		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|Any CPU.Build.0 = Debug|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|x86.ActiveCfg = Release|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|x86.Build.0 = Release|Any CPU
 		{3580B469-C847-457F-8C44-65C26CBB1001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -313,5 +313,8 @@ Global
 		{5AC215B9-85A1-42D6-A44E-1E1FC6BC7488} = {960A6EDE-5C79-4122-99D9-5351BA8E8BE3}
 		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E} = {2E87002F-2664-4D69-9834-2C6E720556BE}
 		{D18608FC-F6A9-4D40-A5D4-BDDA3B1D300E} = {960A6EDE-5C79-4122-99D9-5351BA8E8BE3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D924DFE-AB75-470D-89BB-C6B475A57AC9}
 	EndGlobalSection
 EndGlobal

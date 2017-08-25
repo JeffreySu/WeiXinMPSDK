@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     
@@ -35,7 +35,9 @@
       v0.2.0 支持 .NET Core
 
       v0.3.0 支持 .NET Core 2.0
-      
+      v0.3.1
+      1、提供WebSocketHandler.IsReusable返回值（true）
+      2、升级Newtonsoft.Json版本至10.0.1
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

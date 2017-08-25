@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.6.2</Version>
+    <Version>14.6.7</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -315,12 +315,16 @@
       8、增加“获取商品二维码”接口（ScanApi.GetQrCode()），同时提供配套异步方法
       9、更新CardApi.CardBatchGet()方法的statusList参数传值
 
-
       v14.6.0
       1、新增 刷卡支付 撤销订单接口
       2、支持.NET Core 2.0
       v14.6.1 撤销订单接口（TenPayV3.Reverse()）添加证书设置
       v14.6.2 回滚AccessTokenContainer
+      v14.6.3 回滚JsApiTicketContainer和OAuthAccessTokenContainer
+      v14.6.4 撤销订单接口（TenPayV3.Reverse()）添加证书设置
+      v14.6.5 回滚 AccessTokenContainer
+      v14.6.6 添加 JSSDKHelper.GetJsSdkUiPackageAsync() 异步方法
+      v14.6.7 增加更多自定义菜单类型：media_id、view_limited
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

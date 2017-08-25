@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>4.4.0</Version>
+    <Version>4.4.1</Version>
     <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -12,6 +12,10 @@
 
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
+
+      注意：2017年8月25日起，随着微信官方将微信企业号全面升级到企业微信，Senparc.Weixin.QY也已经同步移植到Senparc.Weixin.Work，QY今后将停止更新，请开发者使用Senparc.Weixin.Work.dll：https://www.nuget.org/packages/Senparc.Weixin.Work
+      
+      Senparc.Weixin.Work.dll 完全兼容 Senparc.Weixin.QY.dll，功能重合部分，仅命名空间有 QY 变为 Work，开发者可无缝升级，无需修改逻辑代码。
     </Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,企业号</PackageTags>

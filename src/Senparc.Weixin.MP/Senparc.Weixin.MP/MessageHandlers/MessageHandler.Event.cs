@@ -166,7 +166,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.naming_verify_success://名称认证成功（即命名成功）
                     responseMessage = OnEvent_NamingVerifySuccess(RequestMessage as RequestMessageEvent_NamingVerifySuccess);
                     break;
-
+                case Event.naming_verify_fail://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+                    responseMessage = OnEvent_NamingVerifyFail(RequestMessage as RequestMessageEvent_NamingVerifyFail);
+                    break;
                 #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -513,6 +515,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #endregion
 
         #endregion

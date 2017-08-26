@@ -218,7 +218,10 @@ namespace Senparc.Weixin.MP
                             case "NAMING_VERIFY_SUCCESS"://名称认证成功（即命名成功）
                                 requestMessage = new RequestMessageEvent_NamingVerifySuccess();
                                 break;
-                            #endregion
+                            case "NAMING_VERIFY_FAIL"://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+                                requestMessage = new RequestMessageEvent_NamingVerifyFail();
+                                break;
+                                #endregion
 
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

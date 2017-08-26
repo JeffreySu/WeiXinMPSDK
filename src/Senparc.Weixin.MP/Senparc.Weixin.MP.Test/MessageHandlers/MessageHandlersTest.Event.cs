@@ -84,6 +84,23 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.AreEqual("success", messageHandler.TextResponseMessage);
         }
 
+        [TestMethod]
+        public void NamingVerifyFailTest()
+        {
+            var xml = @"<xml><ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1442401061</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[naming_verify_fail]]></Event>
+<FailTime>1442401156</FailTime>
+<FailReason><![CDATA[by time 2]]></FailReason>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_NamingVerifyFail>(xml, Event.naming_verify_fail);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_NamingVerifyFail;
+            Assert.AreEqual("2015-09-16 18:59:16", requestMessage.FailTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            Assert.AreEqual("by time 2", requestMessage.FailReason);
+            Assert.AreEqual("success", messageHandler.TextResponseMessage);
+        }
 
         #endregion
 

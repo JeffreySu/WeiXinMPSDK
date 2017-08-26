@@ -314,6 +314,12 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pay_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_VerifyExpired.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_AnnualRenew.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifyFail.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifyFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
@@ -517,6 +523,7 @@
     </Compile>
     <None Include="ClassDiagrams\MessageHandler.cd" />
     <None Include="ClassDiagrams\Menu.cd" />
+    <None Include="Entities\Request\Event\Verify\readme.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

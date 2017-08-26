@@ -163,6 +163,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.qualification_verify_fail://资质认证失败
                     responseMessage = OnEvent_QualificationVerifyFail(RequestMessage as RequestMessageEvent_QualificationVerifyFail);
                     break;
+                case Event.naming_verify_success://名称认证成功（即命名成功）
+                    responseMessage = OnEvent_NamingVerifySuccess(RequestMessage as RequestMessageEvent_NamingVerifySuccess);
+                    break;
 
                 #endregion
                 default:
@@ -499,6 +502,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion
 

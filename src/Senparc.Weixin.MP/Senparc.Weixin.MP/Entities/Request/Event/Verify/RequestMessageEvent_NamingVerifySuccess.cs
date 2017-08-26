@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_QualificationVerifyFail.cs
-    文件功能描述：事件之资质认证失败
+    文件名：RequestMessageEvent_NamingVerifySuccess.cs
+    文件功能描述：事件之名称认证成功（即命名成功）
     
     
     创建标识：Senparc - 20170826
@@ -34,26 +34,21 @@ using System;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之事件之资质认证成功（此时立即获得接口权限）
+    /// 事件之事件之名称认证成功（即命名成功）
     /// </summary>
-    public class RequestMessageEvent_QualificationVerifyFail : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_NamingVerifySuccess : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.qualification_verify_fail; }
+            get { return Event.naming_verify_success; }
         }
 
         /// <summary>
         /// 有效期 (整形)，指的是时间戳，将于该时间戳认证过期
         /// </summary>
-        public DateTime FailTime { get; set; }
-        /// <summary>
-        /// 失败发生时间 (整形)，时间戳
-        /// </summary>
-
-        public string FailReason { get; set; }
+        public DateTime ExpiredTime { get; set; }
     }
 }

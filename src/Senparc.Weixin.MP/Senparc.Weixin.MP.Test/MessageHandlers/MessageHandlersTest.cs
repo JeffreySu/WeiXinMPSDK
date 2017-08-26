@@ -73,6 +73,16 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return new SuccessResponseMessage();
         }
 
+        public override IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
         #endregion
 
 

@@ -215,6 +215,9 @@ namespace Senparc.Weixin.MP
                             case "QUALIFICATION_VERIFY_FAIL"://资质认证失败
                                 requestMessage = new RequestMessageEvent_QualificationVerifyFail();
                                 break;
+                            case "NAMING_VERIFY_SUCCESS"://名称认证成功（即命名成功）
+                                requestMessage = new RequestMessageEvent_NamingVerifySuccess();
+                                break;
                             #endregion
 
                             default://其他意外类型（也可以选择抛出异常）

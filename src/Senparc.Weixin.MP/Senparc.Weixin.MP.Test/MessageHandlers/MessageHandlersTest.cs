@@ -93,6 +93,11 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return new SuccessResponseMessage();
         }
 
+        public override IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
         #endregion
 
 

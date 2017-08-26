@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_AnnualRenew.cs
-    文件功能描述：事件之年审通知
+    文件名：RequestMessageEvent_VerifyExpired.cs
+    文件功能描述：事件之认证过期失效通知
     
     
     创建标识：Senparc - 20170826
@@ -34,20 +34,20 @@ using System;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之年审通知
+    /// 事件之认证过期失效通知
     /// </summary>
-    public class RequestMessageEvent_AnnualRenew : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_VerifyExpired : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.annual_renew; }
+            get { return Event.verify_expired; }
         }
 
         /// <summary>
-        /// 有效期 (整形)，指的是时间戳，将于该时间戳认证过期，需尽快年审
+        /// 有效期 (整形)，指的是时间戳，表示已于该时间戳认证过期，需要重新发起微信认证
         /// </summary>
         public DateTime ExpiredTime { get; set; }
     }

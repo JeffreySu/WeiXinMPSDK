@@ -118,6 +118,23 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.AreEqual("success", messageHandler.TextResponseMessage);
         }
 
+
+        [TestMethod]
+        public void VerifyExpiredTest()
+        {
+            var xml = @"<xml><ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1442400900</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[verify_expired]]></Event>
+<ExpiredTime>1442401156</ExpiredTime>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_VerifyExpired>(xml, Event.verify_expired);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_VerifyExpired;
+            Assert.AreEqual("2015-09-16 18:59:16", requestMessage.ExpiredTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            Assert.AreEqual("success", messageHandler.TextResponseMessage);
+        }
+
         #endregion
 
     }

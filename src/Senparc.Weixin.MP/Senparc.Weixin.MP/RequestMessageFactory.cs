@@ -224,6 +224,9 @@ namespace Senparc.Weixin.MP
                             case "ANNUAL_RENEW"://年审通知
                                 requestMessage = new RequestMessageEvent_AnnualRenew();
                                 break;
+                            case "VERIFY_EXPIRED"://认证过期失效通知
+                                requestMessage = new RequestMessageEvent_VerifyExpired();
+                                break;
 
                             #endregion
 

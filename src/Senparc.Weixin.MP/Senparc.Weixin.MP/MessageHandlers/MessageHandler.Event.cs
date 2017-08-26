@@ -172,6 +172,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.annual_renew://年审通知
                     responseMessage = OnEvent_AnnualRenew(RequestMessage as RequestMessageEvent_AnnualRenew);
                     break;
+                case Event.verify_expired://认证过期失效通知
+                    responseMessage = OnEvent_VerifyExpired(RequestMessage as RequestMessageEvent_VerifyExpired);
+                    break;
                 #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -534,6 +537,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 认证过期失效通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

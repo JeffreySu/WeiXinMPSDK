@@ -72,6 +72,7 @@
     <Compile Include="AdvancedAPIs\App\AppTest.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentTest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\MailListApiTests.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />

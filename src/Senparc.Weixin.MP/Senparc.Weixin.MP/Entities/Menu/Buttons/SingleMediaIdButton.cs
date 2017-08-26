@@ -21,27 +21,29 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：GetPageResultJson.cs
-    文件功能描述：首页和每页信息返回结果
+    文件名：SingleMediaIdButton.cs
+    文件功能描述：下发消息（除文本消息）按钮
     
     
-    创建标识：Senparc - 20170726
-
-
+    创建标识：Senparc - 20170824
+    
 ----------------------------------------------------------------*/
 
-
-using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.MP.Entities.Menu
 {
-    public class GetPageResultJson : WxJsonResult
+    /// <summary>
+    /// 下发消息（除文本消息）按钮
+    /// </summary>
+    public class SingleMediaIdButton : SingleButton
     {
-        public List<string> page_list { get; set; }
+        /// <summary>
+        /// 下发消息（除文本消息）用户点击media_id类型按钮后，微信服务器会将开发者填写的永久素材id对应的素材下发给用户，永久素材类型可以是图片、音频、视频、图文消息。请注意：永久素材id必须是在“素材管理/新增永久素材”接口上传后获得的合法id。
+        /// </summary>
+        public string media_id { get; set; }
+
+        public SingleMediaIdButton()
+            : base(ButtonType.media_id.ToString())
+        {
+        }
     }
 }

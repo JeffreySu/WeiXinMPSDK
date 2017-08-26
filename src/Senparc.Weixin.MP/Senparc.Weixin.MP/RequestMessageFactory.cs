@@ -195,7 +195,7 @@ namespace Senparc.Weixin.MP
                                 requestMessage = new RequestMessageEvent_User_Gifting_Card();
                                 break;
                             case "USER_PAY_FROM_PAY_CELL":// 微信买单完成
-                                    requestMessage = new RequestMessageEvent_User_Pay_From_Pay_Cell();
+                                requestMessage = new RequestMessageEvent_User_Pay_From_Pay_Cell();
                                 break;
                             case "UPDATE_MEMBER_CARD":// 会员卡内容更新事件：会员卡积分余额发生变动时
                                 requestMessage = new RequestMessageEvent_Update_Member_Card();
@@ -221,7 +221,11 @@ namespace Senparc.Weixin.MP
                             case "NAMING_VERIFY_FAIL"://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
                                 requestMessage = new RequestMessageEvent_NamingVerifyFail();
                                 break;
-                                #endregion
+                            case "ANNUAL_RENEW"://年审通知
+                                requestMessage = new RequestMessageEvent_AnnualRenew();
+                                break;
+
+                            #endregion
 
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

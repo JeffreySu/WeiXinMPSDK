@@ -88,6 +88,11 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return new SuccessResponseMessage();
         }
 
+        public override IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
         #endregion
 
 

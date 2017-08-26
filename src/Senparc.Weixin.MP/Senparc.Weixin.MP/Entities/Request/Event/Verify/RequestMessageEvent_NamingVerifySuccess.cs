@@ -34,7 +34,7 @@ using System;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之事件之名称认证成功（即命名成功）
+    /// 事件之名称认证成功（即命名成功）
     /// </summary>
     public class RequestMessageEvent_NamingVerifySuccess : RequestMessageEventBase, IRequestMessageEventBase
     {

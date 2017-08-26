@@ -34,7 +34,7 @@ using System;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之事件之资质认证成功（此时立即获得接口权限）
+    /// 事件之资质认证成功（此时立即获得接口权限）
     /// </summary>
     public class RequestMessageEvent_QualificationVerifyFail : RequestMessageEventBase, IRequestMessageEventBase
     {

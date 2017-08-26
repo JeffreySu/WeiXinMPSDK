@@ -314,6 +314,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pay_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_AnnualRenew.cs" />
     <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifySuccess.cs" />
     <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifyFail.cs" />
     <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifySuccess.cs" />

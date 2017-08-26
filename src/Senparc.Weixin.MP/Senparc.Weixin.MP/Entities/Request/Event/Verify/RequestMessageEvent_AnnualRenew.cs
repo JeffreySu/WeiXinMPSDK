@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_NamingVerifyFail.cs
-    文件功能描述：事件之名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+    文件名：RequestMessageEvent_AnnualRenew.cs
+    文件功能描述：事件之年审通知
     
     
     创建标识：Senparc - 20170826
@@ -34,26 +34,22 @@ using System;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+    /// 事件之年审通知
     /// </summary>
-    public class RequestMessageEvent_NamingVerifyFail : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_AnnualRenew : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.naming_verify_fail; }
+            get { return Event.annual_renew; }
         }
 
         /// <summary>
-        /// 失败发生时间 (整形)，时间戳
-        /// </summary>
-        public DateTime FailTime { get; set; }
-        /// <summary>
-        /// 认证失败的原因
-        /// </summary>
+        /// 有效期 (整形)，指的是时间戳，将于该时间戳认证过期，需尽快年审
 
-        public string FailReason { get; set; }
+        /// </summary>
+        public DateTime ExpiredTime { get; set; }
     }
 }

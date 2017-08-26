@@ -169,6 +169,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.naming_verify_fail://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
                     responseMessage = OnEvent_NamingVerifyFail(RequestMessage as RequestMessageEvent_NamingVerifyFail);
                     break;
+                case Event.annual_renew://年审通知
+                    responseMessage = OnEvent_AnnualRenew(RequestMessage as RequestMessageEvent_AnnualRenew);
+                    break;
                 #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -524,6 +527,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        /// <summary>
+        /// 年审通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion
 
         #endregion

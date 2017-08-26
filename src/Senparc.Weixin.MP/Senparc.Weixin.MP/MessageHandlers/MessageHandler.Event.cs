@@ -154,6 +154,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
                     responseMessage = OnEvent_Card_Pay_Order(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
+
+                #region 微信认证事件推送
+
+                case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
+                    responseMessage = OnEvent_QualificationVerifySuccess(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
+                    break;
+                case Event.qualification_verify_fail://资质认证失败
+                    responseMessage = OnEvent_QualificationVerifyFail(RequestMessage as RequestMessageEvent_QualificationVerifyFail);
+                    break;
+
+                #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -474,6 +485,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 资质认证失败
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

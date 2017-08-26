@@ -9,8 +9,29 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     {
         #region 微信认证事件推送
 
+        /// <summary>
+        /// 微信认证事件测试
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="xml"></param>
+        /// <param name="eventType"></param>
+        /// <returns></returns>
+        private CustomerMessageHandlers VerifyEventTest<T>(string xml, Event eventType)
+            where T : RequestMessageEventBase
+        {
+            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(xml));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
 
-        #endregion
+            var requestMessage = messageHandlers.RequestMessage as T;
+
+            Assert.IsNotNull(requestMessage);
+            Assert.AreEqual(Event.qualification_verify_success, requestMessage.Event);
+
+            return messageHandlers;
+        }
+
 
         [TestMethod]
         public void QualificationVerifySuccessTest()
@@ -22,15 +43,17 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 <Event><![CDATA[qualification_verify_success]]></Event>
 <ExpiredTime>1442401156</ExpiredTime>
 </xml> ";
-
-            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(xml));
-            Assert.IsNotNull(messageHandlers.RequestDocument);
-            messageHandlers.Execute();
-            Assert.IsNotNull(messageHandlers.ResponseMessage);
-
-            var requestMessage = messageHandlers.RequestMessage as RequestMessageEvent_QualificationVerifySuccess;
-            Assert.IsNotNull(requestMessage);
+            var messageHandler = VerifyEventTest<RequestMessageEvent_QualificationVerifySuccess>(xml,Event.qualification_verify_success);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_QualificationVerifySuccess;
             Assert.AreEqual("2015-09-16 18:59:16", requestMessage.ExpiredTime.ToString("yyyy-MM-dd HH:mm:ss"));
+            Assert.AreEqual("success", messageHandler.TextResponseMessage);
+
+
         }
+
+
+
+        #endregion
+
     }
 }

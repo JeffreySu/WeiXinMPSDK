@@ -66,6 +66,16 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responeMessage;
         }
 
+        #region 微信认证事件推送
+
+        public override IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        #endregion
+
+
         #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
         //public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)

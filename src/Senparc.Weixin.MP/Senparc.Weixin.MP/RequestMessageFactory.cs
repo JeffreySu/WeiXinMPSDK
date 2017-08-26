@@ -212,7 +212,8 @@ namespace Senparc.Weixin.MP
                             case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
                                 requestMessage = new RequestMessageEvent_QualificationVerifySuccess();
                                 break;
-                            case "QUALIFICATION_VERIFY_FAIL"://
+                            case "QUALIFICATION_VERIFY_FAIL"://资质认证失败
+                                requestMessage = new RequestMessageEvent_QualificationVerifyFail();
                                 break;
                             #endregion
 

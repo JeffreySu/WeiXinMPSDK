@@ -315,6 +315,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
     <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifyFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />

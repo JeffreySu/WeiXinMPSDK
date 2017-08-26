@@ -107,6 +107,7 @@
     <Compile Include="Entities\Request\PostModelTest.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelperTests.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlersTest.Event.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="Senparc.Weixin.Utilites\HttpUtility\RequestUtilityTests.cs" />
     <Compile Include="TenPayLibV3\TenPayV3UtilTests.cs" />

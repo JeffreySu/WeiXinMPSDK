@@ -207,6 +207,15 @@ namespace Senparc.Weixin.MP
                             case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
                                 break;
+
+                            #region 微信认证事件推送
+                            case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
+                                requestMessage = new RequestMessageEvent_QualificationVerifySuccess();
+                                break;
+                            case "QUALIFICATION_VERIFY_FAIL"://
+                                break;
+                            #endregion
+
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

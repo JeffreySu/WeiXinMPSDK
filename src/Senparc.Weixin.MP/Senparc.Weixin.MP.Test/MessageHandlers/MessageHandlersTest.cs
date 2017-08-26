@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlersTest
+    public partial class MessageHandlersTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -434,7 +434,5 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
-
-       
     }
 }

@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
@@ -45,24 +47,8 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         /// <summary>
-        /// 连网时间
+        /// 有效期 (整形)，指的是时间戳，将于该时间戳认证过期
         /// </summary>
-        public int ConnectTime { get; set; }
-        /// <summary>
-        /// 系统保留字段，固定值
-        /// </summary>
-        public int ExpireTime { get; set; }
-        /// <summary>
-        /// 系统保留字段，固定值
-        /// </summary>
-        public string VendorId { get; set; }
-        /// <summary>
-        /// 连网的门店id
-        /// </summary>
-        public string PlaceId { get; set; }
-        /// <summary>
-        /// 连网的设备无线mac地址，对应bssid
-        /// </summary>
-        public string DeviceNo { get; set; }
+        public DateTime ExpiredTime { get; set; }
     }
 }

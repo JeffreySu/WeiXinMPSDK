@@ -104,10 +104,49 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
             return CommonJsonSend.Send<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
+        #endregion
+
+
+        #region 对已存在模板进行操作
+
+        /// <summary>
+        /// 获取帐号下已存在的模板列表
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="offset">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
+        /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static ListJsonResult List(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/list?access_token={0}";
+            var data = new
+            {
+                offset = offset,
+                count = count
+            };
+            return CommonJsonSend.Send<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 删除帐号下的某个模板
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="templateId">要删除的模板id</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static WxJsonResult Del(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/del?access_token={0}";
+            var data = new
+            {
+                template_id = templateId
+            };
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
 
 
         #endregion
-
 
         #endregion
 

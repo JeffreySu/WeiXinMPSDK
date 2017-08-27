@@ -114,6 +114,7 @@
     <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
     <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
     <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />

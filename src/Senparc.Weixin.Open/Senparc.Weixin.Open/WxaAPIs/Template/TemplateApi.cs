@@ -67,6 +67,23 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
             return CommonJsonSend.Send<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
+        /// <summary>
+        /// 获取模板库某个模板标题下关键词库
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static LibraryGetJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token={0}";
+            var data = new
+            {
+                id = id
+            };
+            return CommonJsonSend.Send<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
         #endregion
 
 
@@ -74,7 +91,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
         #region 异步请求
 
-     
+
 
         #endregion
     }

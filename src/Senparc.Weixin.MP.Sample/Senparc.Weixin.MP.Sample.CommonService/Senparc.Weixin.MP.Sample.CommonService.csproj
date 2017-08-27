@@ -101,10 +101,6 @@
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
       <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
       <Name>Senparc.Weixin.Work</Name>

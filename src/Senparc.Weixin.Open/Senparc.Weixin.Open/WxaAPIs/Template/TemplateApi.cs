@@ -153,6 +153,108 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         #region 异步请求
 
 
+        #region 模板快速设置
+
+        /// <summary>
+        /// 【异步方法】获取小程序模板库标题列表
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="offset">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
+        /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<LibraryListJsonResult> LibraryListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token={0}";
+            var data = new
+            {
+                offset = offset,
+                count = count
+            };
+            return await CommonJsonSend.SendAsync<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取模板库某个模板标题下关键词库
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<LibraryGetJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/library/list?access_token={0}";
+            var data = new
+            {
+                id = id
+            };
+            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】组合模板并添加至帐号下的个人模板库
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
+        /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<LibraryGetJsonResult> AddAsync(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/add?access_token={0}";
+            var data = new
+            {
+                id = id,
+                keyword_id_list = keywordIdList
+            };
+            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        #endregion
+
+
+        #region 对已存在模板进行操作
+
+        /// <summary>
+        /// 【异步方法】获取帐号下已存在的模板列表
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="offset">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
+        /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<ListJsonResult> ListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/list?access_token={0}";
+            var data = new
+            {
+                offset = offset,
+                count = count
+            };
+            return await CommonJsonSend.SendAsync<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除帐号下的某个模板
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="templateId">要删除的模板id</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DelAsync(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/del?access_token={0}";
+            var data = new
+            {
+                template_id = templateId
+            };
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+
+        #endregion
+
 
         #endregion
     }

@@ -74,8 +74,6 @@
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />

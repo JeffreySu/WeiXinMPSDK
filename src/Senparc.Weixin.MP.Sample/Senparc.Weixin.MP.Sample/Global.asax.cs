@@ -131,16 +131,10 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterSenparcQyWeixin()
         {
-            Senparc.Weixin.QY.Containers.AccessTokenContainer.Register(
+            Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
-                "【盛派网络】企业号"
-                );
-
-            Senparc.Weixin.QY.Containers.ProviderTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
-                "【盛派网络】企业号"
+                "【盛派网络】企业微信"
                 );
         }
 

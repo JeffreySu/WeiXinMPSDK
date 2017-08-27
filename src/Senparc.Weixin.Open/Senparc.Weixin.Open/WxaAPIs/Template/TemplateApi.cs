@@ -84,6 +84,28 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
             return CommonJsonSend.Send<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
+
+        /// <summary>
+        /// 组合模板并添加至帐号下的个人模板库
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
+        /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static LibraryGetJsonResult Add(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxopen/template/add?access_token={0}";
+            var data = new
+            {
+                id = id,
+                keyword_id_list = keywordIdList
+            };
+            return CommonJsonSend.Send<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+
+
         #endregion
 
 

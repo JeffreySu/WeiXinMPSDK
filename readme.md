@@ -522,8 +522,8 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 | DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
 | NET4.0     | .NET 4.0 分支，已于2017年停止更新。
 | NET3.5     | .NET 3.5 分支，已于2015年停止更新。
-| Developer-Senparc.SDK | 此分支仅用于 Senparc 团队内部测试，无实际意义。
-| DotNET-Core-DI-20170302 | 此分支仅用于 Senparc 团队内部测试，无实际意义。
+| Developer-Senparc.SDK | 此分支仅用于 Senparc 团队内部测试，可忽略。
+| DotNET-Core-DI-20170302 | 此分支仅用于 Senparc 团队内部测试，可忽略。
 
 
 捐助

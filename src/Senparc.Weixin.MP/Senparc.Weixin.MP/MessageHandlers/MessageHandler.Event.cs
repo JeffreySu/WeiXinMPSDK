@@ -553,6 +553,28 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         #endregion
 
+        #region 小程序审核事件推送
+
+        /// <summary>
+        /// 小程序审核失败通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WeAppAuditFail(RequestMessageEvent_WeAppAuditFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 小程序审核成功通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WeAppAuditSuccess(RequestMessageEvent_WeAppAuditSuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
+
         #endregion
     }
 }

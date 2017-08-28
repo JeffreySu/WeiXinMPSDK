@@ -23,6 +23,9 @@ using System.Reflection;
 
 namespace Senparc.Weixin.Work.Helpers
 {
+    /// <summary>
+    /// EntityHelper
+    /// </summary>
     public static class EntityHelper
     {
         /// <summary>

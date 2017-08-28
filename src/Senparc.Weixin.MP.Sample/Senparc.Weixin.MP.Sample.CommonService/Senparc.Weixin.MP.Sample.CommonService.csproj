@@ -74,8 +74,6 @@
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
@@ -100,10 +98,6 @@
     <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
       <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>

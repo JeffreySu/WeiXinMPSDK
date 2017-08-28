@@ -111,6 +111,13 @@
     <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditPageInfo.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
@@ -125,6 +132,7 @@
   <ItemGroup>
     <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

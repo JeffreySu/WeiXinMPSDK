@@ -144,11 +144,11 @@
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="zxing">
-      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+    <Reference Include="zxing, Version=0.16.0.0, Culture=neutral, PublicKeyToken=830ae994e36ac27d, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.0\lib\net45\zxing.dll</HintPath>
     </Reference>
-    <Reference Include="zxing.presentation">
-      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+    <Reference Include="zxing.presentation, Version=0.16.0.0, Culture=neutral, PublicKeyToken=830ae994e36ac27d, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.0\lib\net45\zxing.presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +172,6 @@
     <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\Open\OpenController.cs" />
     <Compile Include="Controllers\Open\OpenOAuthController.cs" />
-    <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
     <Compile Include="Controllers\TenPayV3Controller.cs">
       <SubType>Code</SubType>
@@ -254,6 +253,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\book-cover-front-small-3d-transparent.png" />
     <Content Include="Images\book-cover-front-small-3d.png" />
     <Content Include="Images\book-cover-front-small.png" />
     <Content Include="Images\crowdfunding-qrcode.png" />
@@ -349,7 +349,9 @@
     <Folder Include="App_Data\OpenTickets\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
@@ -375,10 +377,6 @@
     <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
       <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>

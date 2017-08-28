@@ -66,6 +66,41 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responeMessage;
         }
 
+        #region 微信认证事件推送
+
+        public override IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        #endregion
+
+
         #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
         //public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
@@ -129,7 +164,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlersTest
+    public partial class MessageHandlersTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -434,7 +469,5 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
-
-       
     }
 }

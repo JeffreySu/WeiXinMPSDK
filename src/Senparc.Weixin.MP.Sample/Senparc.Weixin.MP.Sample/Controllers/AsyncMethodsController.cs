@@ -11,7 +11,6 @@ using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using ZXing.Aztec.Internal;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

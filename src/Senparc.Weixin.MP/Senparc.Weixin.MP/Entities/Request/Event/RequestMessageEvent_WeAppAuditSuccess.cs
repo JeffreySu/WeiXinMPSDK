@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_Click.cs
-    文件功能描述：事件之取消订阅
+    文件名：RequestMessageEvent_WeAppAuditSuccess.cs
+    文件功能描述：事件之小程序审核成功
     
     
     创建标识：Senparc - 20150211
@@ -34,7 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之取消订阅
+    /// 事件之小程序审核成功
     /// </summary>
     public class RequestMessageEvent_WeAppAuditSuccess : RequestMessageEventBase, IRequestMessageEventBase
     {
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         /// <summary>
-        /// 审核失败时的时间（整型），时间戳
+        /// 审核成功时的时间（整型），时间戳
         /// </summary>
         public string SuccTime { get; set; }
     }

@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
     
     文件名：RequestMessageEvent_Click.cs
-    文件功能描述：事件之取消订阅
+    文件功能描述：事件之小程序审核失败
     
     
     创建标识：Senparc - 20150211
@@ -34,7 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之取消订阅
+    /// 事件之小程序审核失败
     /// </summary>
     public class RequestMessageEvent_WeAppAuditFail : RequestMessageEventBase, IRequestMessageEventBase
     {

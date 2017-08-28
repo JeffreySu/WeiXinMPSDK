@@ -152,10 +152,7 @@
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open.net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.net45.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY.net45</Name>
-    </ProjectReference>
+
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net45.csproj">
       <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
       <Name>Senparc.Weixin.WxOpen.net45</Name>

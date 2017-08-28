@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：QYController.cs
-    文件功能描述：企业号对接测试
+    文件名：WorkController.cs
+    文件功能描述：企业号对接测试（从QYController.cs移植）
     
     
     创建标识：Senparc - 20150312

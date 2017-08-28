@@ -303,6 +303,8 @@
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditSuccess.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Pay_From_Pay_Cell.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Gifting_Card.cs" />

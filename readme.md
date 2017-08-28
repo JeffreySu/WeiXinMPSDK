@@ -515,9 +515,9 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 
 |  分支      |     说明         
 |-----------|---------------
-| master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境
-| Developer | 开发分支，此分支通常为 Beta 版本，最新功能正在开发中，具有一切可能性，如果想对新功能先睹为快，可以使用此分支。<br>同时，此分支也是 Senparc 团队进行 .NET 4.5 开发的分支，建议 Pull Request 的代码都到这个分支下，而不是 master
-| Developer-FullDotNet | 同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 的分支，会不定期和 Developer 及 master 分支同步，使用此分支需要使用 VS2017。<br>此分支也是将来 .NET Core 及 VS2017+ 普及之后的主分支后补分支。
+| master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境。
+| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、同时，此分支也是 Senparc 团队进行 .NET 4.5 开发的分支，建议 Pull Request 的代码都到这个分支下，而不是 master
+| Developer-FullDotNet | 1、同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 的分支，会不定期和 Developer 及 master 分支同步，使用此分支需要使用 VS2017。<br> 2、此分支也是将来 .NET Core 及 VS2017+ 普及之后的主分支后补分支。
 | BookVersion1 | 此分支为[《微信开发深度解析：微信公众号、小程序高效开发秘籍》](https://book.weixin.senparc.com/book/link?code=github-homepage2)图书出版时对应代码快照。
 | DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
 | NET4.0     | .NET 4.0 分支，已于2017年停止更新。

@@ -34,6 +34,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// </summary>
         public int[] department { get; set; }
         /// <summary>
+        /// 部门内的排序值,默认为0.数量必须和department一致
+        /// </summary>
+        public int[] order { get; set; }
+        /// <summary>
         /// 职位信息
         /// </summary>
         public string position { get; set; }

@@ -12,356 +12,363 @@ Senparc.Weixin SDK 项目贡献者
 贡献者名单
 -----------
 > 更新时间：2017年8月29日
+> 按照字母排序，排名不分先后
 
-554393109
+1、	554393109
 
-772413635
+2、	772413635
 
-AjuPrince
+3、	.
 
-alexinea
+4、	AjuPrince
 
-AndroidHarry
+5、	alexinea
 
-Andysun
+6、	AndroidHarry
 
-AnnXu
+7、	Andysun
 
-Antain
+8、	AnnXu
 
-anyangmaxin
+9、	Antain
 
-bemguin
+10、	anyangmaxin
 
-bingohanet
+11、	bemguin
 
-CandiceDong
+12、	bingohanet
 
-capqueen
+13、	CandiceDong
 
-chaoyebugao
+14、	capqueen
 
-chenSean1
+15、	chaoyebugao
 
-chinacoolboyzz
+16、	chenSean1
 
-ciel
+17、	chinacoolboyzz
 
-cnryb
+18、	ciel
 
-coolboy0821
+19、	cnryb
 
-CooperLiu
+20、	coolboy0821
 
-cuibty
+21、	CooperLiu
 
-deerchao
+22、	cuibty
 
-dongfo
+23、	deerchao
 
-dusdong
+24、	dongfo
 
-dyb628
+25、	dusdong
 
-fengrui358
+26、	dyb628
 
-fghshunzi
+27、	fengrui358
 
-Forever
+28、	fghshunzi
 
-FrancisFYK
+29、	Forever
 
-GK
+30、	FrancisFYK
 
-gwhzh21
+31、	GK
 
-gzf790808802
+32、	gwhzh21
 
-gzlboy
+33、	gzf790808802
 
-HADB
+34、	gzlboy
 
-heavenwing
+35、	HADB
 
-heavenwing  
+36、	heavenwing
 
-hello2008zj
+37、	heavenwing  
 
-hentaicreep
+38、	hello2008zj
 
-hetaoos
+39、	hentaicreep
 
-hilite2000
+40、	hetaoos
 
-hiseab 
+41、	hilite2000
 
-hybiz
+42、	hiseab 
 
-hyl8218
+43、	hybiz
 
-hyl8218 
+44、	hyl8218
 
-JeffreySu
+45、	hyl8218 
 
-jefth
+46、	JeffreySu
 
-jianliulin
+47、	jefth
 
-Jie
+48、	jianliulin
 
-jiehanlin
+49、	Jie
 
-joelz
+50、	jiehanlin
 
-joesjiang 
+51、	joelz
 
-John0King
+52、	joesjiang 
 
-jsionr
+53、	John0King
 
-Just run
+54、	jsionr
 
-Kagamine
+55、	Just run
 
-kevinleptin 
+56、	Kagamine
 
-KevinQiangK
+57、	kevinleptin 
 
-lhh.net
+58、	KevinQiangK
 
-LiJiangShan（mc7246）
+59、	lhh.net
 
-lishewen
+60、	LiJiangShan（mc7246）
 
-lishewen（算神）
+61、	lishewen
 
-liu0621   
+62、	lishewen（算神）
 
-liubiqu
+63、	liu0621   
 
-ly303550688
+64、	liubiqu
 
-maikebing
+65、	ly303550688
 
-mc7246
+66、	maikebing
 
-Messilimeng 
+67、	mc7246
 
-Mine
+68、	Messilimeng 
 
-mojinxun 
+69、	Mine
 
-mrrightwangl 
+70、	mojinxun 
 
-oppoic
+71、	mrrightwangl 
 
-Oswald
+72、	oppoic
 
-pbzyy
+73、	Oswald
 
-pengxinzhe
+74、	pbzyy
 
-Phoenixpang
+75、	pengxinzhe
 
-pipihu
+76、	Phoenixpang
 
-redshana
+77、	pipihu
 
-ritazh
+78、	redshana
 
-Rwing
+79、	ritazh
 
-sdf333
+80、	Rwing
 
-seking
+81、	sdf333
 
-sharp-summit
+82、	seking
 
-Single 
+83、	sharp-summit
 
-snowfoxzx 
+84、	Single 
 
-spadark
+85、	snowfoxzx 
 
-starpunk
+86、	spadark
 
-stonychen
+87、	starpunk
 
-suifengshiqu
+88、	stonychen
 
-suifengshiqu  
+89、	suifengshiqu
 
-szw2003
+90、	suifengshiqu  
 
-tail00zhou
+91、	szw2003
 
-taobaohi
+92、	tail00zhou
 
-tausi0661
+93、	taobaohi
 
-thisXYH
+94、	tausi0661
 
-thisXYH 
+95、	thisXYH
 
-tkoncat
+96、	thisXYH 
 
-toyoung
+97、	tkoncat
 
-turbodu
+98、	toyoung
 
-TYSZCC
+99、	turbodu
 
-uliian
+100、	TYSZCC
 
-warman007
+101、	uliian
 
-wbingchao
+102、	warman007
 
-wushancool 
+103、	wbingchao
 
-xbotter
+104、	wushancool 
 
-xuchangsoufang 
+105、	xbotter
 
-YaChengMu
+106、	xuchangsoufang 
 
-Yinqingwen 
+107、	YaChengMu
 
-yongjinc 
+108、	Yinqingwen 
 
-Youraiseme
+109、	yongjinc 
 
-ytpos
+110、	Youraiseme
 
-Yuiane
+111、	ytpos
 
-yuxiaochou
+112、	Yuiane
 
-ZachShine 
+113、	yuxiaochou
 
-zeje
+114、	ZachShine 
 
-zhcnlei
+115、	zeje
 
-ZhenZhang
+116、	zhcnlei
 
-zhou0818 
+117、	ZhenZhang
 
-zhoujs712
+118、	zhou0818 
 
-ziyunhx
+119、	zhoujs712
 
-zjfsdnu
+120、	ziyunhx
 
-阿举 
+121、	zjfsdnu
 
-阿力
+122、	阿举 
 
-巴斯
+123、	阿力
 
-摆渡人
+124、	巴斯
 
-包延军
+125、	摆渡人
 
-查无此人
+126、	包延军
 
-错觉
+127、	查无此人
 
-芳平
+128、	错觉
 
-飞鱼
+129、	芳平
 
-峰
+130、	飞机大猪
 
-宫志伟
+131、	飞鱼
 
-够了没有
+132、	峰
 
-国兴
+133、	宫志伟
 
-贺斌
+134、	够了没有
 
-侯**
+135、	鼓噪的街舞
 
-胡卫星
+136、	国兴
 
-魂牵悲梦  
+137、	贺斌
 
-江南
+138、	侯**
 
-孔大强
+139、	胡卫星
 
-孔令强
+140、	魂牵悲梦  
 
-拉风的汉子
+141、	江南
 
-蓝微.石
+142、	孔大强
 
-老蒋
+143、	孔令强
 
-李蒙
+144、	拉风的汉子
 
-理想天空
+145、	蓝微.石
 
-刘建华
+146、	老蒋
 
-孟婆来杯果汁
+147、	李蒙
 
-明刚
+148、	理想天空
 
-树超
+149、	刘建华
 
-素还真
+150、	孟婆来杯果汁
 
-天涯海角：小程序码的接口没有
+151、	明刚
 
-魏战朋
+152、	树超
 
-文兄
+153、	素还真
 
-吴晓阳
+154、	天涯海角：小程序码的接口没有
 
-伍超
+155、	魏战朋
 
-向虎 
+156、	文兄
 
-小木木木
+157、	吴晓阳
 
-星星
+158、	伍超
 
-徐朗
+159、	向虎 
 
-徐林
+160、	潇洒哥
 
-薛彬 
+161、	小木木木
 
-杨恒连 
+162、	星星
 
-杨月明
+163、	徐朗
 
-垚祎
+164、	徐林
 
-一生有你
+165、	薛彬 
 
-异
+166、	杨恒连 
 
-櫻花鉤吻鮭
+167、	杨月明
 
-远朝
+168、	垚祎
 
-在长沙
+169、	一生有你
 
-张举
+170、	异
 
-张晓恩
+171、	櫻花鉤吻鮭
 
-张晓林
+172、	远朝
 
-振峰
+173、	在长沙
 
-郑贝贝
+174、	张举
 
-忠燕
+175、	张晓恩
 
+176、	张晓林
 
+177、	振峰
+
+178、	郑贝贝
+
+179、	忠燕
 

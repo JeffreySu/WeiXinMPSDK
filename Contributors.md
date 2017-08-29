@@ -2,7 +2,7 @@ Senparc.Weixin SDK 项目贡献者
 ==========
 
 > 本页面收集的贡献者来源：<br>
-> 1、为项目进行 Pull Request 并被 GitHub 系统收录为 [Contributor](https://github.com/JeffreySu/WeiXinMPSDK/graphs/contributors) 的用户；<br>
+> 1、为项目进行 [Pull Request](https://github.com/JeffreySu/WeiXinMPSDK#%E8%B4%A1%E7%8C%AE%E4%BB%A3%E7%A0%81) 并被 GitHub 系统收录为 [Contributor](https://github.com/JeffreySu/WeiXinMPSDK/graphs/contributors) 的用户；<br>
 > 2、为项目提出了实质性改进方案并被采纳的开发者（主要在 [issue](https://github.com/JeffreySu/WeiXinMPSDK/issues) 栏目中提交的）；<br>
 > 3、进行捐赠的支付宝账户。<br>
 > 如未向我们提供真实姓名，则采用 GitHub 名称、QQ 昵称或支付宝昵称<br>

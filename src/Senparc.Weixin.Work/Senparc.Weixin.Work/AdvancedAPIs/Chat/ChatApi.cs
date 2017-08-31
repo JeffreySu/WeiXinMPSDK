@@ -45,6 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -303,6 +304,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

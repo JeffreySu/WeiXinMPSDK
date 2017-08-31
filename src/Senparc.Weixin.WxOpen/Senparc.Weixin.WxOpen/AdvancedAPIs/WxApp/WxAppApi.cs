@@ -171,6 +171,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
+
+
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>
@@ -227,34 +229,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #endregion
 
         #region 异步请求
-
-        /// <summary>
-        /// 获取小程序页面的小程序码
-        /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="stream">储存小程序码的流</param>
-        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
-        /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
-        /// <param name="timeOut">请求超时时间</param>
-        /// <returns></returns>
-        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacode?access_token={0}";
-                var url = string.Format(urlFormat, accessToken);
-
-                var data = new { path = path, width = width };
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
-
-                return new WxJsonResult()
-                {
-                    errcode = ReturnCode.请求成功
-                };
-            }, accessTokenOrAppId);
-        }
 
         /// <summary>
         /// 获取小程序页面的小程序码
@@ -339,6 +313,34 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 }
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 获取小程序页面的小程序码
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="stream">储存小程序码的流</param>
+        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+        /// <param name="width">小程序码的宽度</param>
+        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacode?access_token={0}";
+                var url = string.Format(urlFormat, accessToken);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+
+                return new WxJsonResult()
+                {
+                    errcode = ReturnCode.请求成功
+                };
+            }, accessTokenOrAppId);
         }
 
         /// <summary>

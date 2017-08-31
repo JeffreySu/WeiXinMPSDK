@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
             TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
             TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
-            TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
+            //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
             TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
 
             //缓存
-            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 

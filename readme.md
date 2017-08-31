@@ -10,23 +10,12 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
-
-
-Senparc 官方教程
-----------------
-<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
-
-> 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
-> 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
-> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
-
-
-
 下文索引
 ----------------
-* [:star: Senparc 官方教程](#senparc-官方教程)
+
 * [各模块类库](#各模块类库)
 * [资源](#资源)
+* [:star: Senparc 官方教程](#senparc-官方教程)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用net-core开发)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
@@ -156,6 +145,16 @@ Senparc 官方教程
 
 
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
+
+
+Senparc 官方教程
+----------------
+<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
+
+> 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
+> 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
+> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
 
 
 ### 关注测试账号（SenparcRobot）：

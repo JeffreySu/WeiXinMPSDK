@@ -11,364 +11,184 @@ Senparc.Weixin SDK 项目贡献者
 
 贡献者名单
 -----------
-> 更新时间：2017年8月29日<br>
+> 更新时间：2017年8月30日<br>
 > 按照字母排序，排名不分先后
 
-1、	554393109
 
-2、	772413635
+> 	1、	554393109	<br>
+> 	2、	772413635	<br>
+> 	3、	.	<br>
+> 	4、	AjuPrince	<br>
+> 	5、	alexinea	<br>
+> 	6、	AndroidHarry	<br>
+> 	7、	Andysun	<br>
+> 	8、	AnnXu	<br>
+> 	9、	Antain	<br>
+> 	10、	anyangmaxin	<br>
+> 	11、	bemguin	<br>
+> 	12、	bingohanet	<br>
+> 	13、	CandiceDong	<br>
+> 	14、	capqueen	<br>
+> 	15、	chaoyebugao	<br>
+> 	16、	chenSean1	<br>
+> 	17、	chinacoolboyzz	<br>
+> 	18、	ciel	<br>
+> 	19、	cnryb	<br>
+> 	20、	coolboy0821	<br>
+> 	21、	CooperLiu	<br>
+> 	22、	cuibty	<br>
+> 	23、	deerchao	<br>
+> 	24、	dongfo	<br>
+> 	25、	dusdong	<br>
+> 	26、	dyb628	<br>
+> 	27、	fanyinghao	<br>
+> 	28、	fengrui358	<br>
+> 	29、	fghshunzi	<br>
+> 	30、	Forever	<br>
+> 	31、	FrancisFYK	<br>
+> 	32、	GK	<br>
+> 	33、	gwhzh21	<br>
+> 	34、	gzf790808802	<br>
+> 	35、	gzlboy	<br>
+> 	36、	HADB	<br>
+> 	37、	heavenwing	<br>
+> 	39、	hello2008zj	<br>
+> 	40、	hentaicreep	<br>
+> 	41、	hetaoos	<br>
+> 	42、	hilite2000	<br>
+> 	43、	hiseab 	<br>
+> 	44、	hybiz	<br>
+> 	45、	hyl8218	<br>
+> 	47、	JeffreySu	<br>
+> 	48、	jefth	<br>
+> 	49、	jianliulin	<br>
+> 	50、	Jie	<br>
+> 	51、	jiehanlin	<br>
+> 	52、	joelz	<br>
+> 	53、	joesjiang 	<br>
+> 	54、	John0King	<br>
+> 	55、	jsionr	<br>
+> 	56、	Just run	<br>
+> 	57、	Kagamine	<br>
+> 	58、	kevinleptin 	<br>
+> 	59、	KevinQiangK	<br>
+> 	60、	lhh.net	<br>
+> 	61、	LiJiangShan（mc7246）	<br>
+> 	63、	lishewen（算神）	<br>
+> 	64、	liu0621   	<br>
+> 	65、	liubiqu	<br>
+> 	66、	ly303550688	<br>
+> 	67、	maikebing	<br>
+> 	68、	mc7246	<br>
+> 	69、	Messilimeng 	<br>
+> 	70、	Mine	<br>
+> 	71、	mojinxun 	<br>
+> 	72、	mrrightwangl 	<br>
+> 	73、	oppoic	<br>
+> 	74、	Oswald	<br>
+> 	75、	pbzyy	<br>
+> 	76、	pengxinzhe	<br>
+> 	77、	Phoenixpang	<br>
+> 	78、	pipihu	<br>
+> 	79、	redshana	<br>
+> 	80、	ritazh	<br>
+> 	81、	Rwing	<br>
+> 	82、	sdf333	<br>
+> 	83、	seking	<br>
+> 	84、	sharp-summit	<br>
+> 	85、	Single 	<br>
+> 	86、	snowfoxzx 	<br>
+> 	87、	spadark	<br>
+> 	88、	starpunk	<br>
+> 	89、	stonychen	<br>
+> 	90、	suifengshiqu	<br>
+> 	92、	szw2003	<br>
+> 	93、	tail00zhou	<br>
+> 	94、	taobaohi	<br>
+> 	95、	tausi0661	<br>
+> 	96、	thisXYH	<br>
+> 	98、	tkoncat	<br>
+> 	99、	toyoung	<br>
+> 	100、	turbodu	<br>
+> 	101、	TYSZCC	<br>
+> 	102、	uliian	<br>
+> 	103、	warman007	<br>
+> 	104、	wbingchao	<br>
+> 	105、	wushancool 	<br>
+> 	106、	xbotter	<br>
+> 	107、	xuchangsoufang 	<br>
+> 	108、	YaChengMu	<br>
+> 	109、	Yinqingwen 	<br>
+> 	110、	yongjinc 	<br>
+> 	111、	Youraiseme	<br>
+> 	112、	ytpos	<br>
+> 	113、	Yuiane	<br>
+> 	114、	yuxiaochou	<br>
+> 	115、	ZachShine 	<br>
+> 	116、	zeje	<br>
+> 	117、	zhcnlei	<br>
+> 	118、	ZhenZhang	<br>
+> 	119、	zhou0818 	<br>
+> 	120、	zhoujs712	<br>
+> 	121、	ziyunhx	<br>
+> 	122、	zjfsdnu	<br>
+> 	123、	阿举 	<br>
+> 	124、	阿力	<br>
+> 	125、	巴斯	<br>
+> 	126、	摆渡人	<br>
+> 	127、	包延军	<br>
+> 	128、	查无此人	<br>
+> 	129、	错觉	<br>
+> 	130、	芳平	<br>
+> 	131、	飞机大猪	<br>
+> 	132、	飞鱼	<br>
+> 	133、	峰	<br>
+> 	134、	宫志伟	<br>
+> 	135、	够了没有	<br>
+> 	136、	鼓噪的街舞	<br>
+> 	137、	国兴	<br>
+> 	138、	贺斌	<br>
+> 	139、	侯**	<br>
+> 	140、	胡卫星	<br>
+> 	141、	魂牵悲梦  	<br>
+> 	142、	江南	<br>
+> 	143、	孔大强	<br>
+> 	144、	孔令强	<br>
+> 	145、	拉风的汉子	<br>
+> 	146、	蓝微.石	<br>
+> 	147、	老蒋	<br>
+> 	148、	李蒙	<br>
+> 	149、	理想天空	<br>
+> 	150、	刘建华	<br>
+> 	151、	孟婆来杯果汁	<br>
+> 	152、	明刚	<br>
+> 	153、	树超	<br>
+> 	154、	素还真	<br>
+> 	155、	天涯海角	<br>
+> 	156、	魏战朋	<br>
+> 	157、	文兄	<br>
+> 	158、	吴晓阳	<br>
+> 	159、	伍超	<br>
+> 	160、	向虎 	<br>
+> 	161、	潇洒哥	<br>
+> 	162、	小木木木	<br>
+> 	163、	星星	<br>
+> 	164、	徐朗	<br>
+> 	165、	徐林	<br>
+> 	166、	薛彬 	<br>
+> 	167、	杨恒连 	<br>
+> 	168、	杨月明	<br>
+> 	169、	垚祎	<br>
+> 	170、	一生有你	<br>
+> 	171、	异	<br>
+> 	172、	櫻花鉤吻鮭	<br>
+> 	173、	远朝	<br>
+> 	174、	在长沙	<br>
+> 	175、	张举	<br>
+> 	176、	张晓恩	<br>
+> 	177、	张晓林	<br>
+> 	178、	振峰	<br>
+> 	179、	郑贝贝	<br>
+> 	180、	忠燕	<br>
 
-3、	.
-
-4、	AjuPrince
-
-5、	alexinea
-
-6、	AndroidHarry
-
-7、	Andysun
-
-8、	AnnXu
-
-9、	Antain
-
-10、	anyangmaxin
-
-11、	bemguin
-
-12、	bingohanet
-
-13、	CandiceDong
-
-14、	capqueen
-
-15、	chaoyebugao
-
-16、	chenSean1
-
-17、	chinacoolboyzz
-
-18、	ciel
-
-19、	cnryb
-
-20、	coolboy0821
-
-21、	CooperLiu
-
-22、	cuibty
-
-23、	deerchao
-
-24、	dongfo
-
-25、	dusdong
-
-26、	dyb628
-
-27、	fengrui358
-
-28、	fghshunzi
-
-29、	Forever
-
-30、	FrancisFYK
-
-31、	GK
-
-32、	gwhzh21
-
-33、	gzf790808802
-
-34、	gzlboy
-
-35、	HADB
-
-36、	heavenwing
-
-37、	heavenwing  
-
-38、	hello2008zj
-
-39、	hentaicreep
-
-40、	hetaoos
-
-41、	hilite2000
-
-42、	hiseab 
-
-43、	hybiz
-
-44、	hyl8218
-
-45、	hyl8218 
-
-46、	JeffreySu
-
-47、	jefth
-
-48、	jianliulin
-
-49、	Jie
-
-50、	jiehanlin
-
-51、	joelz
-
-52、	joesjiang 
-
-53、	John0King
-
-54、	jsionr
-
-55、	Just run
-
-56、	Kagamine
-
-57、	kevinleptin 
-
-58、	KevinQiangK
-
-59、	lhh.net
-
-60、	LiJiangShan（mc7246）
-
-61、	lishewen
-
-62、	lishewen（算神）
-
-63、	liu0621   
-
-64、	liubiqu
-
-65、	ly303550688
-
-66、	maikebing
-
-67、	mc7246
-
-68、	Messilimeng 
-
-69、	Mine
-
-70、	mojinxun 
-
-71、	mrrightwangl 
-
-72、	oppoic
-
-73、	Oswald
-
-74、	pbzyy
-
-75、	pengxinzhe
-
-76、	Phoenixpang
-
-77、	pipihu
-
-78、	redshana
-
-79、	ritazh
-
-80、	Rwing
-
-81、	sdf333
-
-82、	seking
-
-83、	sharp-summit
-
-84、	Single 
-
-85、	snowfoxzx 
-
-86、	spadark
-
-87、	starpunk
-
-88、	stonychen
-
-89、	suifengshiqu
-
-90、	suifengshiqu  
-
-91、	szw2003
-
-92、	tail00zhou
-
-93、	taobaohi
-
-94、	tausi0661
-
-95、	thisXYH
-
-96、	thisXYH 
-
-97、	tkoncat
-
-98、	toyoung
-
-99、	turbodu
-
-100、	TYSZCC
-
-101、	uliian
-
-102、	warman007
-
-103、	wbingchao
-
-104、	wushancool 
-
-105、	xbotter
-
-106、	xuchangsoufang 
-
-107、	YaChengMu
-
-108、	Yinqingwen 
-
-109、	yongjinc 
-
-110、	Youraiseme
-
-111、	ytpos
-
-112、	Yuiane
-
-113、	yuxiaochou
-
-114、	ZachShine 
-
-115、	zeje
-
-116、	zhcnlei
-
-117、	ZhenZhang
-
-118、	zhou0818 
-
-119、	zhoujs712
-
-120、	ziyunhx
-
-121、	zjfsdnu
-
-122、	阿举 
-
-123、	阿力
-
-124、	巴斯
-
-125、	摆渡人
-
-126、	包延军
-
-127、	查无此人
-
-128、	错觉
-
-129、	芳平
-
-130、	飞机大猪
-
-131、	飞鱼
-
-132、	峰
-
-133、	宫志伟
-
-134、	够了没有
-
-135、	鼓噪的街舞
-
-136、	国兴
-
-137、	贺斌
-
-138、	侯**
-
-139、	胡卫星
-
-140、	魂牵悲梦  
-
-141、	江南
-
-142、	孔大强
-
-143、	孔令强
-
-144、	拉风的汉子
-
-145、	蓝微.石
-
-146、	老蒋
-
-147、	李蒙
-
-148、	理想天空
-
-149、	刘建华
-
-150、	孟婆来杯果汁
-
-151、	明刚
-
-152、	树超
-
-153、	素还真
-
-154、	天涯海角：小程序码的接口没有
-
-155、	魏战朋
-
-156、	文兄
-
-157、	吴晓阳
-
-158、	伍超
-
-159、	向虎 
-
-160、	潇洒哥
-
-161、	小木木木
-
-162、	星星
-
-163、	徐朗
-
-164、	徐林
-
-165、	薛彬 
-
-166、	杨恒连 
-
-167、	杨月明
-
-168、	垚祎
-
-169、	一生有你
-
-170、	异
-
-171、	櫻花鉤吻鮭
-
-172、	远朝
-
-173、	在长沙
-
-174、	张举
-
-175、	张晓恩
-
-176、	张晓林
-
-177、	振峰
-
-178、	郑贝贝
-
-179、	忠燕
 

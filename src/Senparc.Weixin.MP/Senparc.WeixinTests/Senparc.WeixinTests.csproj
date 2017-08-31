@@ -78,6 +78,7 @@
     <Compile Include="Entities\Request\Extensions\RequestMessageTextExtensionTests.cs" />
     <Compile Include="Exceptions\CommonTests.cs" />
     <Compile Include="Helpers\Containers\ContainerHelperTests.cs" />
+    <Compile Include="Helpers\EncryptHelperTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="Helpers\StringHelper\ASCIISortTests.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueTest.cs" />

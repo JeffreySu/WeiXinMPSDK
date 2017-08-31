@@ -115,7 +115,7 @@ namespace Senparc.Weixin.Helpers
         /// <param name="encypStr">需要加密的字符串</param>
         /// <param name="charset">编码</param>
         /// <returns></returns>
-        public static string GetMD5(string encypStr, string charset)
+        public static string GetMD5(string encypStr, string charset = "utf-8")
         {
             try
             {
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string GetLowerMD5(string encypStr, Encoding encoding)
         {
-           return GetMD5(encypStr, encoding).ToLower();
+            return GetMD5(encypStr, encoding).ToLower();
         }
 
         #region AES

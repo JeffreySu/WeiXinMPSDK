@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.6.7</Version>
+    <Version>14.6.10</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -325,6 +325,17 @@
       v14.6.5 回滚 AccessTokenContainer
       v14.6.6 添加 JSSDKHelper.GetJsSdkUiPackageAsync() 异步方法
       v14.6.7 增加更多自定义菜单类型：media_id、view_limited
+      v14.6.8 添加Event下“微信认证事件推送”一系列事件类型：
+      1 qualification_verify_success - 资质认证成功（此时立即获得接口权限）
+      2 qualification_verify_fail - 资质认证失败
+      3 naming_verify_success - 名称认证成功（即命名成功）
+      4 naming_verify_fail - 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+      5 annual_renew - 年审通知
+      6 verify_expired - 认证过期失效通知
+
+      v14.6.9 添加：小程序审核事件推送
+
+      v14.6.10 添加接口：普通红包发送(服务商）
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

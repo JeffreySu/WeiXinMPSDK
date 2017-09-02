@@ -298,7 +298,20 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 认证过期失效通知
         /// </summary>
-        verify_expired
+        verify_expired,
+
+        #endregion
+
+        #region 小程序审核事件推送
+
+        /// <summary>
+        /// 小程序审核成功
+        /// </summary>
+        weapp_audit_success,
+        /// <summary>
+        /// 小程序审核失败
+        /// </summary>
+        weapp_audit_fail
 
         #endregion
     }

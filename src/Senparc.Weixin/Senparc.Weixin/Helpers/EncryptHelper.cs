@@ -29,7 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170313
     修改描述：v4.11.4 修改EncryptHelper.GetSha1(string encypStr)方法算法
-    
+      
+    修改标识：Senparc - 20170313
+    修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
+  
 ----------------------------------------------------------------*/
 
 
@@ -79,9 +82,9 @@ namespace Senparc.Weixin.Helpers
         /// 获取大写的MD5签名结果
         /// </summary>
         /// <param name="encypStr">需要加密的字符串</param>
-        /// <param name="charset">编码</param>
+        /// <param name="encoding">编码</param>
         /// <returns></returns>
-        public static string GetMD5(string encypStr, string charset = "UTF-8")
+        public static string GetMD5(string encypStr, Encoding encoding)
         {
             string retStr;
 
@@ -95,18 +98,19 @@ namespace Senparc.Weixin.Helpers
             byte[] inputBye;
             byte[] outputBye;
 
-            //使用GB2312编码方式把字符串转化为字节数组．
+            //使用指定编码方式把字符串转化为字节数组．
             try
             {
-                inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
+                inputBye = encoding.GetBytes(encypStr);
             }
             catch
             {
-#if NET45
-                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
-#else
-                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
-#endif
+                inputBye = Encoding.GetEncoding("utf-8").GetBytes(encypStr);
+//#if NET45
+//                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+//#else
+//                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
+//#endif
             }
             outputBye = m5.ComputeHash(inputBye);
 
@@ -115,7 +119,38 @@ namespace Senparc.Weixin.Helpers
             return retStr;
         }
 
-#region AES
+        /// <summary>
+        /// 获取大写的MD5签名结果
+        /// </summary>
+        /// <param name="encypStr">需要加密的字符串</param>
+        /// <param name="charset">编码</param>
+        /// <returns></returns>
+        public static string GetMD5(string encypStr, string charset = "utf-8")
+        {
+            try
+            {
+                //使用指定编码
+                return GetMD5(encypStr, Encoding.GetEncoding(charset));
+            }
+            catch (Exception ex)
+            {
+                //使用UTF-8编码
+                return GetMD5("utf-8", Encoding.GetEncoding(charset));
+            }
+        }
+
+        /// <summary>
+        /// 获取小写的MD5签名结果
+        /// </summary>
+        /// <param name="encypStr">需要加密的字符串</param>
+        /// <param name="encoding">编码</param>
+        /// <returns></returns>
+        public static string GetLowerMD5(string encypStr, Encoding encoding)
+        {
+            return GetMD5(encypStr, encoding).ToLower();
+        }
+
+        #region AES
 
         /// <summary>
         /// AES加密
@@ -182,6 +217,44 @@ namespace Senparc.Weixin.Helpers
             return decryptBytes;
         }
 
-#endregion
+        /// <summary>  
+        /// AES解密(无向量)  
+        /// </summary>  
+        /// <param name="encryptedBytes">被加密的明文</param>  
+        /// <param name="key">密钥</param>  
+        /// <returns>明文</returns>  
+        public static string AESDecrypt(String Data, String Key)
+        {
+            Byte[] encryptedBytes = Convert.FromBase64String(Data);
+            Byte[] bKey = new Byte[32];
+            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
+
+            MemoryStream mStream = new MemoryStream(encryptedBytes);
+            //mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  
+            //mStream.Seek( 0, SeekOrigin.Begin );  
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.Mode = CipherMode.ECB;
+            aes.Padding = PaddingMode.PKCS7;
+            aes.KeySize = 128;
+            aes.Key = bKey;
+            //aes.IV = _iV;  
+            CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateDecryptor(), CryptoStreamMode.Read);
+            try
+            {
+                byte[] tmp = new byte[encryptedBytes.Length + 32];
+                int len = cryptoStream.Read(tmp, 0, encryptedBytes.Length + 32);
+                byte[] ret = new byte[len];
+                Array.Copy(tmp, 0, ret, 0, len);
+                return Encoding.UTF8.GetString(ret);
+            }
+            finally
+            {
+                cryptoStream.Close();
+                mStream.Close();
+                aes.Clear();
+            }
+        }
+
+        #endregion
     }
 }

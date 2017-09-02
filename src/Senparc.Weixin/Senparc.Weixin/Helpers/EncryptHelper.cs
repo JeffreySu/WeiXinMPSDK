@@ -106,11 +106,7 @@ namespace Senparc.Weixin.Helpers
             catch
             {
                 inputBye = Encoding.GetEncoding("utf-8").GetBytes(encypStr);
-//#if NET45
-//                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
-//#else
-//                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
-//#endif
+
             }
             outputBye = m5.ComputeHash(inputBye);
 
@@ -136,6 +132,12 @@ namespace Senparc.Weixin.Helpers
             {
                 //使用UTF-8编码
                 return GetMD5("utf-8", Encoding.GetEncoding(charset));
+
+                //#if NET45
+                //                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+                //#else
+                //                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
+                //#endif
             }
         }
 
@@ -232,7 +234,15 @@ namespace Senparc.Weixin.Helpers
             MemoryStream mStream = new MemoryStream(encryptedBytes);
             //mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  
             //mStream.Seek( 0, SeekOrigin.Begin );  
-            RijndaelManaged aes = new RijndaelManaged();
+
+
+            //RijndaelManaged aes = new RijndaelManaged();
+#if NET45
+            SymmetricAlgorithm aes = Rijndael.Create();
+#else
+            SymmetricAlgorithm aes = Aes.Create();
+#endif
+
             aes.Mode = CipherMode.ECB;
             aes.Padding = PaddingMode.PKCS7;
             aes.KeySize = 128;
@@ -249,9 +259,15 @@ namespace Senparc.Weixin.Helpers
             }
             finally
             {
+#if NET45
                 cryptoStream.Close();
                 mStream.Close();
                 aes.Clear();
+#else
+                //cryptoStream.();
+                //mStream.Close();
+                //aes.Clear();
+#endif
             }
         }
 

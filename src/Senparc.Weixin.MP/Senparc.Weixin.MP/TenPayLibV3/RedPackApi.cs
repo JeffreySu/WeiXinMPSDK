@@ -169,9 +169,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+#if NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
-
             #region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
@@ -186,11 +186,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
+            string response = streamReader.ReadToEnd();
             #endregion
+#else
+            #region 发起post请求
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cer);
+
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc = new StringContent(data);
+            var request = client.PostAsync(url, hc).Result;
+            var response = request.Content.ReadAsStreamAsync().Result;
+            #endregion
+#endif
 
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(responseContent);
+            //doc.LoadXml(responseContent);
+            doc.Load(response);
 
             //XDocument xDoc = XDocument.Load(responseContent);
 

@@ -1,4 +1,4 @@
-> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并，<br>
+> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并。<br>
 > 感谢 [lishewen（算神）](https://github.com/lishewen) 对此分支的长期维护。
 
 

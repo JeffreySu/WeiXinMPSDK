@@ -1,5 +1,5 @@
-> 说明：当前分支为集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的打包分支，其中主体代码主要从 Developer 分支合并，<br>
-> 由于Nuget的库都从这里来，因此包含和Nuget同步（或更新）的源代码。
+> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并，<br>
+> 感谢 [lishewen（算神）](https://github.com/lishewen) 对此分支的长期维护。
 
 
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)

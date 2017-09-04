@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWeixinThreads()
         {
-            ThreadUtility.Register();
+            ThreadUtility.Register();//如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
         }
 
         /// <summary>

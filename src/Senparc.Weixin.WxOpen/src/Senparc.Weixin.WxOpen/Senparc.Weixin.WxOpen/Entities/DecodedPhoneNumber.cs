@@ -63,7 +63,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         /// </summary>
         public string purePhoneNumber { get; set; }
         /// <summary>
-        /// 区号
+        /// 区号（Senparc注：国别号）
         /// </summary>
         public string countryCode { get; set; }
     }

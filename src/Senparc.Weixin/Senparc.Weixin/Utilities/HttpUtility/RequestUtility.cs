@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170730
     修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
 
+    修改标识：mccj - 20170907
+    修改描述：v4.14.3 为RequestUtility.HttpPost()方法 和 RequestUtility.HttpPostAsync()方法 添加文件流的支持,通过 IMedia 接口扩展不同数据流的载体
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -238,7 +241,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="refererUrl"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, IMedia> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
 
 #if NET45
@@ -309,21 +312,21 @@ namespace Senparc.Weixin.HttpUtility
                 {
                     try
                     {
-                        var fileName = file.Value;
+                        var mediaFile = file.Value;
                         //准备文件流
-                        using (var fileStream = FileHelper.GetFileStream(fileName))
+                        using (var fileStream = mediaFile.GetStream())
                         {
 #if NET45
                             string formdata = null;
                             if (fileStream != null)
                             {
                                 //存在文件
-                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(mediaFile.GetFileName()));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                formdata = string.Format(dataFormdataTemplate, file.Key, file.Value);
+                                formdata = string.Format(dataFormdataTemplate, file.Key, mediaFile.GetFileName());
                             }
 
                             //统一处理
@@ -346,12 +349,12 @@ namespace Senparc.Weixin.HttpUtility
                                 //存在文件
                                 //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
                                 fileStream.Dispose();
-                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(mediaFile.GetStream(), Path.GetFileName(mediaFile.GetFileName())), file.Key, Path.GetFileName(mediaFile.GetFileName()));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, mediaFile.GetFileName());
                             }
 #endif
                         }
@@ -600,7 +603,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, IMedia> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
 
 #if NET45
@@ -666,21 +669,21 @@ namespace Senparc.Weixin.HttpUtility
                 {
                     try
                     {
-                        var fileName = file.Value;
+                        var mediaFile = file.Value;
                         //准备文件流
-                        using (var fileStream = FileHelper.GetFileStream(fileName))
+                        using (var fileStream = mediaFile.GetStream())
                         {
 #if NET45
                             string formdata = null;
                             if (fileStream != null)
                             {
                                 //存在文件
-                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(mediaFile.GetFileName()));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                formdata = string.Format(dataFormdataTemplate, file.Key, file.Value);
+                                formdata = string.Format(dataFormdataTemplate, file.Key, mediaFile.GetFileName());
                             }
 
                             //统一处理
@@ -703,12 +706,12 @@ namespace Senparc.Weixin.HttpUtility
                                 //存在文件
                                 //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
                                 fileStream.Dispose();
-                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(mediaFile.GetStream(), Path.GetFileName(mediaFile.GetFileName())), file.Key, Path.GetFileName(mediaFile.GetFileName()));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, mediaFile.GetFileName());
                             }
 #endif
                         }

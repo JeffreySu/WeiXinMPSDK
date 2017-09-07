@@ -49,6 +49,7 @@
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
+    <Compile Include="Entities\DecodedPhoneNumber.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />

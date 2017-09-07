@@ -93,6 +93,17 @@ Page({
         // success
         var json = res.data;
         console.log(res.data);
+
+        if(!json.success){
+
+          wx.showModal({
+            title: '解密过程发生异常',
+            content: json.msg,
+            showCancel: false
+          });          
+          return;
+        }
+
         //模组对话框
         var phoneNumberData = json.phoneNumber;
         var msg = '手机号：' + phoneNumberData.phoneNumber+

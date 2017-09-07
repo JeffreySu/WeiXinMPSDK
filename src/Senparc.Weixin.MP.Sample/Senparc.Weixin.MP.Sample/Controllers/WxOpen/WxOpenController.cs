@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
@@ -216,7 +217,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             return Json(new
             {
                 success = checkWartmark,
-                decodedEntity = decodedEntity,
+                //decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });
@@ -250,11 +251,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
+            try
+            {
+                var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
+               iv);
+                
+                //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
 
-            var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
-                iv);
+                return Json(new { success = true, phoneNumber = phoneNumber });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
 
-            return Json(new { success = true, phoneNumber = phoneNumber});
+            }
+           
         }
     }
 }

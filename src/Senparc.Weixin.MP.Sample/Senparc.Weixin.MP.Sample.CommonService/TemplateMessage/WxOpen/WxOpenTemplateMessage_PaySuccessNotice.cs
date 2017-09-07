@@ -33,8 +33,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen
             string payAddress, DateTime payTime, string productName,
             string orderNumber, decimal orderPrice, string hotLine,
             string url,
-            //
-            string templateId = "PZfsad7ijpwmqS1f9UDHW8ZBzXT69mKdzLR9zCFBD-E")
+            //根据实际的“模板ID”进行修改
+            string templateId = "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg")
             : base(templateId, url, "购买成功通知")
         {
             /* 

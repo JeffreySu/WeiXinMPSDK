@@ -246,5 +246,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
         }
+
+        public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+
+            var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
+                iv);
+
+            return Json(new { success = true, phoneNumber = phoneNumber});
+        }
     }
 }

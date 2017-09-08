@@ -6,7 +6,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    var isDebug = true;
+    var isDebug = false;
     if(!isDebug){
     //远程域名
       wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")

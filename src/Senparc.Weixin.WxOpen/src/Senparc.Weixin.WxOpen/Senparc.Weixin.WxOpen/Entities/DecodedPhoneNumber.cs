@@ -21,14 +21,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：DecodedUserInfo.cs
-    文件功能描述：用户信息解密类
+    文件名：DecodedPhoneNumber.cs
+    文件功能描述：用户绑定手机号解密类
     
     
-    创建标识：Senparc - 20170131
+    创建标识：Senparc - 20170907
 ----------------------------------------------------------------*/
-
-
 
 using System;
 using System.Collections.Generic;
@@ -39,36 +37,34 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.WxOpen.Entities
 {
     /*
-    "openId": "OPENID",
-    "nickName": "NICKNAME",
-    "gender": GENDER,
-    "city": "CITY",
-    "province": "PROVINCE",
-    "country": "COUNTRY",
-    "avatarUrl": "AVATARURL",
-    "unionId": "UNIONID",
-    "watermark":
     {
-        "appid":"APPID",
-        "timestamp":TIMESTAMP
+        "phoneNumber": "13580006666",  
+        "purePhoneNumber": "13580006666", 
+        "countryCode": "86",
+        "watermark":
+        {
+            "appid":"APPID",
+            "timestamp":TIMESTAMP
+        }
     }
     */
 
     /// <summary>
-    /// 解码后的用户信息
+    /// 用户绑定手机号解密类
     /// </summary>
-    [Serializable]
-    public class DecodedUserInfo : DecodeEntityBase
+    public class DecodedPhoneNumber : DecodeEntityBase
     {
-        public string openId { get; set; }
-        public string nickName { get; set; }
-        public int gender { get; set; }
-        public string city { get; set; }
-        public string province { get; set; }
-        public string country { get; set; }
-        public string avatarUrl { get; set; }
-        public string unionId { get; set; }
+        /// <summary>
+        /// 用户绑定的手机号（国外手机号会有区号）
+        /// </summary>
+        public string phoneNumber { get; set; }
+        /// <summary>
+        /// 没有区号的手机号
+        /// </summary>
+        public string purePhoneNumber { get; set; }
+        /// <summary>
+        /// 区号（Senparc注：国别号）
+        /// </summary>
+        public string countryCode { get; set; }
     }
-
-
 }

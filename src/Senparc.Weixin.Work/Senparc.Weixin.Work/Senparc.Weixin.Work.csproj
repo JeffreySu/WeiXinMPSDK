@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>0.4.1</Version>
+    <Version>0.4.2</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -39,6 +39,8 @@
 
       v0.4.0 支持 .NET Core 2.0
       v0.4.1 更新MailListApi.GetDepartmentMemberInfo()参数
+      v0.4.2 添加 GetMemberResult.order 属性
+      
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

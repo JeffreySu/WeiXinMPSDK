@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     
@@ -38,6 +38,8 @@
       v0.3.1
       1、提供WebSocketHandler.IsReusable返回值（true）
       2、升级Newtonsoft.Json版本至10.0.1
+      v0.3.2 注册WebSocketMessageHandler，自定义对象的实例化方法，用以支持Spring等框架的注入
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

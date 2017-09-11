@@ -25,10 +25,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：事件之小程序审核失败
     
     
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 2010828
     
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities

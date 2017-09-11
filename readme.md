@@ -6,27 +6,16 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 
 .NET [4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) / 
 [4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) / 
-[.NET Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)。
+[.NET Core 1.1 & .NET Core 2.0 ](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)。
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
-
-
-Senparc 官方教程
-----------------
-<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
-
-> 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
-> 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
-> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
-
-
-
 下文索引
 ----------------
-* [:star: Senparc 官方教程](#senparc-官方教程)
+
 * [各模块类库](#各模块类库)
 * [资源](#资源)
+* [:book: Senparc 官方教程](#senparc-官方教程)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用net-core开发)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
@@ -44,6 +33,8 @@ Senparc 官方教程
     * [如何使用分布式缓存？](#如何使用分布式缓存)
 * [如何开发小程序](#如何开发小程序)
 * [已实现功能](#已实现功能)
+* [各分支说明](#各分支说明)
+* [感谢贡献者](#感谢贡献者)
 * [捐助](#捐助)
 * [License](#license)
 
@@ -62,8 +53,8 @@ Senparc 官方教程
 | 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 3| ASP.NET MVC 扩展<br>（.NET Framework）               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN-]   ![.NET Core 2.0][core20N-]
-| 4| ASP.NET Core MVC <br> 扩展（.NET Core）          |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 5| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 4| ASP.NET Core MVC <br> 扩展（.NET Core）              |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 5| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 6| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]           | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
@@ -154,6 +145,16 @@ Senparc 官方教程
 
 
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
+
+
+Senparc 官方教程
+----------------
+<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
+
+> 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
+> 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
+> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
 
 
 ### 关注测试账号（SenparcRobot）：
@@ -447,8 +448,8 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 >   - [x] 素材管理
 >   - [x] 账号管理
 >       - [x] 带参数二维码
->       - [X] 长链接转短链接接口
->       - [ ] 微信认证事件推送
+>       - [x] 长链接转短链接接口
+>       - [x] 微信认证事件推送
 >   - [x] 数据统计
 >   - [x] 微信小店
 >   - [x] 微信卡券
@@ -508,6 +509,26 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 >   - [x] Memcached 扩展包
 
  欢迎开发者对未完成或需要补充的模块进行 Pull Request！
+
+各分支说明
+--------------
+
+|  分支      |     说明         
+|-----------|---------------
+| master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境。
+| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、同时，此分支也是 Senparc 团队进行 .NET 4.5 开发的分支，建议 Pull Request 的代码都到这个分支下，而不是 master
+| Developer-FullDotNet | 1、同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 的分支，会不定期和 Developer 及 master 分支同步，使用此分支需要使用 VS2017。<br> 2、此分支也是将来 .NET Core 及 VS2017+ 普及之后的主分支后补分支。
+| BookVersion1 | 此分支为[《微信开发深度解析：微信公众号、小程序高效开发秘籍》](https://book.weixin.senparc.com/book/link?code=github-homepage2)图书出版时对应代码快照。
+| DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
+| NET4.0     | .NET 4.0 分支，已于2017年停止更新。
+| NET3.5     | .NET 3.5 分支，已于2015年停止更新。
+| Developer-Senparc.SDK | 此分支仅用于 Senparc 团队内部测试，可忽略。
+| DotNET-Core-DI-20170302 | 此分支仅用于 Senparc 团队内部测试，可忽略。
+
+
+感谢贡献者
+--------------
+感谢为此项目做出贡献的开发者，你们不光完善了这个项目，也为中国开源事业出了一份力，感谢你们！名单[点击这里](https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Contributors.md)查看。
 
 捐助
 --------------

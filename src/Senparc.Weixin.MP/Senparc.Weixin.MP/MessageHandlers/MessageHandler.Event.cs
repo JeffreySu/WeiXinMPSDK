@@ -176,6 +176,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_VerifyExpired(RequestMessage as RequestMessageEvent_VerifyExpired);
                     break;
                 #endregion
+
+                #region 小程序审核事件推送
+
+                case Event.weapp_audit_success://
+                    responseMessage = OnEvent_WeAppAuditSuccess(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
+                    break;
+                case Event.weapp_audit_fail://
+                    responseMessage = OnEvent_WeAppAuditFail(RequestMessage as RequestMessageEvent_WeAppAuditFail);
+                    break;
+                #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -573,6 +583,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
         #endregion
 
         #endregion

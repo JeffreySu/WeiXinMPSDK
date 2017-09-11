@@ -21,54 +21,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：DecodedUserInfo.cs
-    文件功能描述：用户信息解密类
+    文件名：RequestMessageEvent_WeAppAuditSuccess.cs
+    文件功能描述：事件之小程序审核成功
     
     
-    创建标识：Senparc - 20170131
+    创建标识：Senparc - 2010828
+    
 ----------------------------------------------------------------*/
 
-
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Senparc.Weixin.WxOpen.Entities
+namespace Senparc.Weixin.MP.Entities
 {
-    /*
-    "openId": "OPENID",
-    "nickName": "NICKNAME",
-    "gender": GENDER,
-    "city": "CITY",
-    "province": "PROVINCE",
-    "country": "COUNTRY",
-    "avatarUrl": "AVATARURL",
-    "unionId": "UNIONID",
-    "watermark":
-    {
-        "appid":"APPID",
-        "timestamp":TIMESTAMP
-    }
-    */
-
     /// <summary>
-    /// 解码后的用户信息
+    /// 事件之小程序审核成功
     /// </summary>
-    [Serializable]
-    public class DecodedUserInfo : DecodeEntityBase
+    public class RequestMessageEvent_WeAppAuditSuccess : RequestMessageEventBase, IRequestMessageEventBase
     {
-        public string openId { get; set; }
-        public string nickName { get; set; }
-        public int gender { get; set; }
-        public string city { get; set; }
-        public string province { get; set; }
-        public string country { get; set; }
-        public string avatarUrl { get; set; }
-        public string unionId { get; set; }
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public override Event Event
+        {
+            get { return Event.weapp_audit_success; }
+        }
+
+        /// <summary>
+        /// 审核成功时的时间（整型），时间戳
+        /// </summary>
+        public string SuccTime { get; set; }
     }
-
-
 }

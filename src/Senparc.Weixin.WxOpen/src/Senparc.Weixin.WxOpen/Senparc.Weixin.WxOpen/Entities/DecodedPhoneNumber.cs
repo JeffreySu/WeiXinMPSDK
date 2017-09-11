@@ -21,34 +21,50 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_WeAppAuditSuccess.cs
-    文件功能描述：事件之小程序审核成功
+    文件名：DecodedPhoneNumber.cs
+    文件功能描述：用户绑定手机号解密类
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+    创建标识：Senparc - 20170907
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.MP.Entities
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Senparc.Weixin.WxOpen.Entities
 {
+    /*
+    {
+        "phoneNumber": "13580006666",  
+        "purePhoneNumber": "13580006666", 
+        "countryCode": "86",
+        "watermark":
+        {
+            "appid":"APPID",
+            "timestamp":TIMESTAMP
+        }
+    }
+    */
+
     /// <summary>
-    /// 事件之小程序审核成功
+    /// 用户绑定手机号解密类
     /// </summary>
-    public class RequestMessageEvent_WeAppAuditSuccess : RequestMessageEventBase, IRequestMessageEventBase
+    public class DecodedPhoneNumber : DecodeEntityBase
     {
         /// <summary>
-        /// 事件类型
+        /// 用户绑定的手机号（国外手机号会有区号）
         /// </summary>
-        public override Event Event
-        {
-            get { return Event.weapp_audit_success; }
-        }
-
+        public string phoneNumber { get; set; }
         /// <summary>
-        /// 审核成功时的时间（整型），时间戳
+        /// 没有区号的手机号
         /// </summary>
-        public string SuccTime { get; set; }
+        public string purePhoneNumber { get; set; }
+        /// <summary>
+        /// 区号（Senparc注：国别号）
+        /// </summary>
+        public string countryCode { get; set; }
     }
 }

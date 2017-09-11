@@ -15,6 +15,8 @@
  
     修改标识：Senparc - 20150316
     修改描述：GetUserIdResult变更为GetUserInfoResult，增加OpenId字段
+
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

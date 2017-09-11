@@ -232,8 +232,13 @@ namespace Senparc.Weixin.WxOpen.Helpers
         public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+
+#if NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
             var phoneNumber = js.Deserialize<DecodedPhoneNumber>(jsonStr);
+#else
+            var phoneNumber = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedPhoneNumber>(jsonStr);
+#endif
             return phoneNumber;
 
         }

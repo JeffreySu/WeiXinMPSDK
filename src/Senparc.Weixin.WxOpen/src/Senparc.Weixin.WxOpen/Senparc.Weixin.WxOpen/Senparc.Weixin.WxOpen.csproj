@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>1.5.0</Version>
+    <Version>1.6.0</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -55,11 +55,14 @@
       1、增加GetWxaCodeUnlimit接口
       2、为Tencent命名空间添加Senparc.Weixin.WxOpen前缀
       3、添加JsCode2JsonResult.unionid
-      
-      
+
+
       v1.5.0
       1、支持.NET Core 2.0
-      
+
+      v1.6.0
+      1、添加获取用户手机号方法（同时提供了Demo）
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

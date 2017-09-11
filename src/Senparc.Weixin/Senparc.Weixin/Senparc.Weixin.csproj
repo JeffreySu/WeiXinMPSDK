@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>4.14.3</Version>
+    <Version>4.14.4</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -176,6 +176,7 @@
       1、修复RequestMessageTextExtension.GetResponseMessage()方法判断问题
       2、支持.NET Core 2.0
       v4.14.3 重构MD5生成方法，并提供小写MD5方法
+      v4.14.4 常规更新
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

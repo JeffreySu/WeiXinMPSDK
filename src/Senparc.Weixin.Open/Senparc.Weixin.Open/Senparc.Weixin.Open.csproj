@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>2.7.3</Version>
+    <Version>2.7.4</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -94,6 +94,7 @@
       v2.7.1 修复几处小程序接口问题
       v2.7.2 添加小程序“code 换取 session_key”（微信登录）接口
       v2.7.3 添加小程序“小程序模板设置”接口
+      v2.7.3 常规优化
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

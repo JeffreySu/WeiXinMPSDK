@@ -114,7 +114,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary"></param>
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, IMedia> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary"></param>
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
-        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, IMedia> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             using (MemoryStream ms = new MemoryStream())
             {

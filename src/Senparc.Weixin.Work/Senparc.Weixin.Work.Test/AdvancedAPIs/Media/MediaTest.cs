@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public void UploadVideoTest()
         {
-            string _media = "E:\\test2.mp4";
+            var _media = new HttpUtility.MediaFile("E:\\test2.mp4");
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.video, _media);
             Assert.IsNotNull(result);
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public string UploadImageTest()
         {
-            string _media = "E:\\1.jpg";
+            var _media = new HttpUtility.MediaFile("E:\\1.jpg");
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);

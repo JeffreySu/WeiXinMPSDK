@@ -56,12 +56,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadTemporaryResultJson Upload(string accessTokenOrAppKey, UploadMediaFileType type, string media, int timeOut = Config.TIME_OUT)
+        public static UploadTemporaryResultJson Upload(string accessTokenOrAppKey, UploadMediaFileType type, IMedia media, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
-                var fileDictionary = new Dictionary<string, string>();
+                var fileDictionary = new Dictionary<string, IMedia>();
                 fileDictionary["media"] = media;
                 return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
             }, accessTokenOrAppKey);
@@ -146,12 +146,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UploadForeverResultJson AddMaterial(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, string media, int timeOut = Config.TIME_OUT)
+        public static UploadForeverResultJson AddMaterial(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, IMedia media, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
-                var fileDictionary = new Dictionary<string, string>();
+                var fileDictionary = new Dictionary<string, IMedia>();
                 fileDictionary["media"] = media;
                 return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
             }, accessTokenOrAppKey);
@@ -341,12 +341,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<UploadTemporaryResultJson> UploadAsync(string accessTokenOrAppKey, UploadMediaFileType type, string media, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadTemporaryResultJson> UploadAsync(string accessTokenOrAppKey, UploadMediaFileType type, IMedia media, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
-                var fileDictionary = new Dictionary<string, string>();
+                var fileDictionary = new Dictionary<string, IMedia>();
                 fileDictionary["media"] = media;
                 return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
             }, accessTokenOrAppKey);
@@ -412,12 +412,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<UploadForeverResultJson> AddMaterialAsync(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, string media, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadForeverResultJson> AddMaterialAsync(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, IMedia media, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
-                var fileDictionary = new Dictionary<string, string>();
+                var fileDictionary = new Dictionary<string, IMedia>();
                 fileDictionary["media"] = media;
                 return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
             }, accessTokenOrAppKey);

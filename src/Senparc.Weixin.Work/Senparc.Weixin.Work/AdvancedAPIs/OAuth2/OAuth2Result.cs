@@ -16,6 +16,8 @@
     修改标识：Senparc - 20150316
     修改描述：GetUserIdResult变更为GetUserInfoResult，增加OpenId字段
 
+    修改标识：Senparc - 20170909
+    修改描述：修改注释
 
 ----------------------------------------------------------------*/
 
@@ -58,10 +60,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
         public string UserId { get; set; }
         /// <summary>
         /// 非企业成员的OpenId
+        /// （此属性在Work最新文档中没有）
         /// </summary>
         public string OpenId { get; set; }
         /// <summary>
-        /// 手机设备号(由企业微信在安装时随机生成，删除重装会改变，升级不受影响)
+        /// 手机设备号(由微信在安装时随机生成) 
+        /// （此属性在Work最新文档中没有）
         /// </summary>
         public string DeviceId { get; set; }
 

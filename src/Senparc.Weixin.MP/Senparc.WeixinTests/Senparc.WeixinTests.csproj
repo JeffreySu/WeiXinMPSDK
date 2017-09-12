@@ -55,6 +55,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -87,6 +88,7 @@
     <Compile Include="Utilities\HttpUtility\GetTests.cs" />
     <Compile Include="Utilities\HttpUtility\PostTests.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
+    <Compile Include="Utilities\HttpUtility\UrlUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">

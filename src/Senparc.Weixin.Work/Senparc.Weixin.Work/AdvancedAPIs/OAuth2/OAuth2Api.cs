@@ -23,6 +23,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;
 
@@ -81,10 +82,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
+
+        /// <summary>
+        /// 使用user_ticket获取成员详情
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userTicket">成员票据</param>
+        /// <returns></returns>
+        public static GetUserDetailResult GetUserDetail(string accessToken,string userTicket)
+        {
+            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+
+            var data = new
+            {
+                user_ticket = userTicket
+            };
+
+            return CommonJsonSend.Send<GetUserDetailResult>(accessToken, urlFormat, data);
+        }
+
         #endregion
 
         #region 异步请求
-         /// <summary>
+        /// <summary>
         ///【异步方法】 获取成员信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>

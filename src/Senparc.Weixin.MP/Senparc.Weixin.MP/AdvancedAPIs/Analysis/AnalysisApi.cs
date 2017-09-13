@@ -63,7 +63,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class AnalysisApi
     {
-        //Test
         #region 同步接口
 
         /// <summary>

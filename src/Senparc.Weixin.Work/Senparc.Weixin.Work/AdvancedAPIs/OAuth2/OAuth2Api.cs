@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
+
 ----------------------------------------------------------------*/
 
 /*
@@ -85,6 +89,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 使用user_ticket获取成员详情
+        /// 官方文档：http://work.weixin.qq.com/api/doc#10028
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="userTicket">成员票据</param>
@@ -131,6 +136,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
+        }
+
+        /// <summary>
+        /// 【异步请求】使用user_ticket获取成员详情
+        /// 官方文档：http://work.weixin.qq.com/api/doc#10028
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userTicket">成员票据</param>
+        /// <returns></returns>
+        public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
+        {
+            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+
+            var data = new
+            {
+                user_ticket = userTicket
+            };
+
+            return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
         }
         #endregion
     }

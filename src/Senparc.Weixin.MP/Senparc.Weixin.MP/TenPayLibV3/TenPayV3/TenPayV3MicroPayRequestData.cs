@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
   
     文件名：TenPayV3MicroPayRequestData.cs
-    文件功能描述：微信支付撤销订单请求参数
+    文件功能描述：提交刷卡支付请求参数
     
     创建标识：Senparc - 20161227
 ----------------------------------------------------------------*/
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string Key { get; set; }
 
         public readonly RequestHandler PackageRequestHandler;
-        public readonly string Sign;
+        public string Sign;
 
         /// <summary>
         /// 提交刷卡支付 请求参数

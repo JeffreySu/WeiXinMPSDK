@@ -50,7 +50,7 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Tencent;
+using Senparc.Weixin.MP.Tencent;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -297,6 +297,27 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
+        #region 扩展
+
+        ///// <summary>
+        ///// 根据当前的RequestMessage创建指定类型的ResponseMessage
+        ///// </summary>
+        ///// <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
+        ///// <returns></returns>
+        //public ResponseMessageText CreateResponseMessage<TR>(string content) where TR : ResponseMessageText
+        //{
+        //    if (RequestMessage == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var responseMessage = RequestMessage.CreateResponseMessage<TR>();
+        //    responseMessage.Content = content;
+        //    return responseMessage;
+        //}
+
+        #endregion
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
@@ -350,7 +371,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
@@ -379,18 +400,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             #region 消息去重
 
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
                 && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
                 //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
                 )
             {
                 var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
-                    ||
+                if (
+                    //使用MsgId去重
+                    (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
                     //使用CreateTime去重（OpenId对象已经是同一个）
-                    ((lastMessage.MsgId == RequestMessage.MsgId 
-                        && lastMessage.CreateTime == RequestMessage.CreateTime 
-                        && lastMessage.MsgType == RequestMessage.MsgType))
+                    || (lastMessage.MsgId == RequestMessage.MsgId
+                        && lastMessage.CreateTime == RequestMessage.CreateTime
+                        && lastMessage.MsgType == RequestMessage.MsgType)
                     )
                 {
                     CancelExcute = true;//重复消息，取消执行

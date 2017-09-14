@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
-            var bagKey = "Redis." + DateTime.Now.ToString();
+            var bagKey = "Redis." + DateTime.Now.ToString("yyyy-MM-dd:HH-mm-ss-ffff");
             var bag = new TestContainerBag1()
             {
                 Key = bagKey,

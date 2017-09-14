@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public class ResponseMessageImage : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Image; }
         }

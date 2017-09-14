@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -177,6 +177,7 @@
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductCreateResultJson.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetQrCodeJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ScanTicketCheckJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
@@ -294,31 +295,46 @@
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleViewLimitedButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleMiniProgramButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMediaIdButton.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
+    <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
+    <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Pay_From_Pay_Cell.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Gifting_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Sku_Remind.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pay_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_VerifyExpired.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_AnnualRenew.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifyFail.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifyFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Not_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Not_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Create_Session.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Close_Session.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
     <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
@@ -350,6 +366,7 @@
     <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\ServiceProvider\TenPayV3MicroPayRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
@@ -499,6 +516,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdvancedAPIs\Card\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\Normal\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\ServiceProvider\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo_Type.cs">
@@ -506,6 +525,7 @@
     </Compile>
     <None Include="ClassDiagrams\MessageHandler.cd" />
     <None Include="ClassDiagrams\Menu.cd" />
+    <None Include="Entities\Request\Event\Verify\readme.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -37,6 +37,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.4.8 1、完善TenPayLibV3.GetNoncestr()方法
                       2、优化BuildRandomStr()方法
              
+    修改标识：Senparc - 20170522
+    修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
 ----------------------------------------------------------------*/
 
@@ -59,7 +61,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         }
 
 
-        new public string Content
+        public new string Content
         {
             get
             {

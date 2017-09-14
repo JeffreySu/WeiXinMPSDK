@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9D9E0AE5-47E4-4B48-8FC4-8F251E0590EB}</ProjectGuid>
+    <ProjectGuid>{D18608FC-F6A9-4D40-A5D4-BDDA3B1D300E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.Work.Test</RootNamespace>
@@ -47,6 +47,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
@@ -59,7 +62,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -67,6 +72,7 @@
     <Compile Include="AdvancedAPIs\App\AppTest.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentTest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\MailListApiTests.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
@@ -78,6 +84,7 @@
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="SignatureTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EntityHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
@@ -89,14 +96,16 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
+      <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
+      <Name>Senparc.Weixin.Work</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonApis\CommonApiTest.Menu.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

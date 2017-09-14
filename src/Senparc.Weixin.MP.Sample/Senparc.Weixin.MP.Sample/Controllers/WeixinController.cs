@@ -78,6 +78,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 
+            #region 设置消息去重
+
+            /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
+             * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
+            messageHandler.OmitRepeatedMessage = true;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
+
+            #endregion
+
             try
             {
 
@@ -102,9 +110,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 #endregion
 
-                /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
-                 * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
-                messageHandler.OmitRepeatedMessage = true;
 
                 //执行微信处理过程
                 messageHandler.Execute();
@@ -132,7 +137,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         messageHandler.ResponseMessage.MsgType)));
                 }
 
-                #endregion`
+                #endregion
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 //return new WeixinResult(messageHandler);//v0.8+

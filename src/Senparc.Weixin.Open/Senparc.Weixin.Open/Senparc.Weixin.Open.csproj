@@ -85,6 +85,9 @@
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\GetJsonResult.cs" />
+    <Compile Include="MpAPIs\Open\OpenApi.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\CreateJsonResult.cs" />
     <Compile Include="QRConnect\QRConnectAPI.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
@@ -99,12 +102,35 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
+    <Compile Include="WxaAPIs\Code\CodeApi.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetPageResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetCategoryResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditPageInfo.cs" />
+    <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
+    <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

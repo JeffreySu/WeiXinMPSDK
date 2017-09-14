@@ -71,6 +71,8 @@ namespace Senparc.Weixin.MP
 
         #endregion
 
+        public string media_id { get; set; }
+
         public List<MenuFull_RootButton> sub_button { get; set; }
     }
     #endregion

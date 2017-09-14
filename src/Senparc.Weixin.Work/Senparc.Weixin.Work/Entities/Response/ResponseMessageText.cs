@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ResponseMessageText.cs
     文件功能描述：响应回复文本消息
@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Work.Entities
 {
     public class ResponseMessageText : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Text; }
         }

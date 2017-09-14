@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：JsApiTicketResult.cs
     文件功能描述：jsapi_ticket请求后的JSON返回格式
@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Work.Entities
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class JsApiTicketResult : QyJsonResult
+    public class JsApiTicketResult : WorkJsonResult
     {
         /// <summary>
         /// 获取到的凭证

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：ProviderTokenContainer.cs
     文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
@@ -35,7 +35,7 @@
     修改描述：v4.1.6 完善GetToken()方法
 
     修改标识：Senparc - 20160813
-    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.Work.Containers
 
 ----------------------------------------------------------------*/
 
@@ -49,6 +49,7 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.Weixin.Work.AdvancedAPIs.SSO;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -181,7 +182,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var providerTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
@@ -190,7 +191,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
+                    providerTokenBag.ProviderTokenResult = SsoApi.GetProviderToken(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
                 }
@@ -249,7 +250,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var providerTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
@@ -258,7 +259,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var providerTokenResult = await CommonApi.GetProviderTokenAsync(providerTokenBag.CorpId,
+                    var providerTokenResult = await SsoApi.GetProviderTokenAsync(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ProviderTokenResult = providerTokenResult;
                     //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,

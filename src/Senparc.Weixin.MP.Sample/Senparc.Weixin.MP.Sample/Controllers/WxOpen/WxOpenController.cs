@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
@@ -216,7 +217,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             return Json(new
             {
                 success = checkWartmark,
-                decodedEntity = decodedEntity,
+                //decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });
@@ -229,7 +230,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
 
             var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                "在线购买", DateTime.Now, "图书众筹", "1234567890",
+                "在线购买（小程序Demo测试）", DateTime.Now, "图书众筹", "1234567890",
                 100, "400-9939-858", "http://sdk.senparc.weixin.com");
 
             try
@@ -239,12 +240,32 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                     .SendTemplateMessage(
                         AppId, openId, data.TemplateId, data, formId);
 
-                return Json(new { success = true, msg = "发送成功" });
+                return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
             catch (Exception ex)
             {
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
+        }
+
+        public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            try
+            {
+                var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
+               iv);
+                
+                //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
+
+                return Json(new { success = true, phoneNumber = phoneNumber });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+
+            }
+           
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                 //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
                 var messageHandler = new WorkCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 
-                if (messageHandler.RequestMessage == null)
+                if (messageHandler.RequestMessage== null)
                 {
                     //验证不通过或接受信息有错误
                 }

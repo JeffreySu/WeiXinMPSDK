@@ -21,7 +21,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 {
     public class GetCheckinDataJsonResult : WorkJsonResult
     {
-        public GetCheckinDataJsonResult_Result[] result { get; set; }
+        /// <summary>
+        /// 打卡数据
+        /// </summary>
+        public GetCheckinDataJsonResult_Result[] checkindata { get; set; }
     }
 
     public class GetCheckinDataJsonResult_Result

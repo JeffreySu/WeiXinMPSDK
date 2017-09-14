@@ -65,5 +65,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 打卡的MAC地址/bssid
         /// </summary>
         public string wifimac { get; set; }
+        /// <summary>
+        /// 打卡的附件media_id，可使用media/get获取附件
+        /// </summary>
+        public string[] mediaids { get; set; }
     }
 }

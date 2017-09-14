@@ -26,7 +26,7 @@ using System.Xml;
 //-40008 ： 解密后得到的buffer非法
 //-40009 :  base64加密异常
 //-40010 :  base64解密异常
-namespace Tencent
+namespace Senparc.Weixin.Work.Tencent
 {
    public class WXBizMsgCrypt
     {

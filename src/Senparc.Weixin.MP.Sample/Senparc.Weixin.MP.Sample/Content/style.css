@@ -12,6 +12,10 @@
     float: left;
 }*/
 
+.center {
+    text-align: center;
+}
+
 .logo img {
     margin-top: 8px;
 }
@@ -68,7 +72,7 @@
 
 #noticearea {
     background-color: #ffff00;
-    color:#4D4D4D;
+    color: #4D4D4D;
     line-height: 30px;
     text-align: center;
 }
@@ -92,6 +96,10 @@
         font-size: 18px;
         letter-spacing: 1px;
     }
+
+        .container-left li:hover {
+            background: #73caff;
+        }
 
     .container-left a {
         color: #fff;
@@ -205,7 +213,7 @@
 .weixin-item-font {
     font-size: 16px;
     color: #7E7E7E;
-    line-height: 24PX;
+    line-height: 24px;
     padding-bottom: 20px;
     padding-right: 40px;
 }
@@ -221,7 +229,7 @@ img.official-img {
 }
 
 .weixin-weiweihi {
-    width: 730px;
+    width: 830px;
     margin: 0 auto;
     margin-bottom: 30px;
 }
@@ -246,19 +254,24 @@ img.official-img {
 }
 
 .readmore {
-    margin-top:40px;
+    margin-top: 40px;
     float: left;
 }
 
 .application {
     background: #1FA0D2;
-    padding: 5px;
+    padding: 8px 10px;
     color: #fff;
     letter-spacing: 1px;
     font-size: 16px;
     margin-top: 20px;
     border-radius: 5px;
 }
+
+    .application:hover {
+        background: #3085a7;
+    }
+
 
 .test {
     margin-top: 0px;
@@ -299,6 +312,14 @@ img.official-img {
     padding-bottom: 20px;
 }
 
+#book-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 30px;
+    clear: both;
+    overflow: hidden;
+}
+
 .feedback {
     /*height:290px;*/
     background: #EDF0F0;
@@ -309,7 +330,7 @@ img.official-img {
 }
 
 .feedback-info {
-    width: 60%;
+    width: 55%;
     float: left;
 }
 
@@ -322,7 +343,7 @@ img.official-img {
     }
 
 .feedback-action {
-    width: 30%;
+    width: 40%;
     float: left;
     text-align: center;
 }
@@ -337,6 +358,12 @@ img.official-img {
     .feedback-action img {
         width: 184px;
     }
+
+    .feedback-action a {
+        padding: 15px 30px;
+        font-size: 120%;
+    }
+
 
 .footer {
     background: #0A9CD2;
@@ -598,8 +625,19 @@ img.official-img {
     clear: both;
 }
 
+p.crowdfunding-note {
+    padding-top: 45px;
+    text-align: left;
+}
+
 .crowdfunding-note p {
     font-size: 16px;
+}
+
+.crowdfunding-note img {
+    padding: 25px;
+    width: 420px;
+    max-width: 90%;
 }
 
 #tm_checkcode {
@@ -614,6 +652,18 @@ img.official-img {
     display: block;
     color: #fff;
     margin-bottom: 10px;
+}
+
+#showTest {
+    padding: 10px;
+    margin: 5px 20px;
+    border: #cdcdcd solid 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.test_bs {
+    display: none;
 }
 
 @media screen and (min-width:1000px) {
@@ -656,9 +706,9 @@ img.official-img {
     }
 
     .content-weixin {
-       width:600px;
-       margin:0px auto;
-        clear:both;
+        width: 600px;
+        margin: 0px auto;
+        clear: both;
     }
 
     img.official-img {
@@ -745,7 +795,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -788,8 +838,8 @@ img.official-img {
         margin: 40px 30px 20px !important;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -857,7 +907,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -913,8 +963,8 @@ img.official-img {
         margin: 40px 30px 20px !important;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -996,7 +1046,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
-        margin-bottom:0;
+        margin-bottom: 0;
     }
 
     img.official-img {
@@ -1086,7 +1136,7 @@ img.official-img {
         margin: 40px 30px 20px !important;
     }
 
-    .description h1{
+    .description h1 {
         padding-left: 12px;
     }
 
@@ -1098,18 +1148,17 @@ img.official-img {
         width: 190px;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
-
 }
 
 @media screen and (min-width:375px) and (max-width:767px) {
@@ -1194,7 +1243,7 @@ img.official-img {
     }
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
-        margin-bottom:0;
+        margin-bottom: 0;
         /*float: left;
         width: 50% !important;
         text-align: left;
@@ -1335,7 +1384,7 @@ img.official-img {
             #donate .feedback-info p {
                 font-size: 15px;
                 padding-left: 0px;
-                line-height:25px;
+                line-height: 25px;
             }
 
         #donate .feedback-action {
@@ -1358,9 +1407,9 @@ img.official-img {
         padding: 36px 0 0;
     }
 
-    .form-control:last-child{
-        padding: 36px 0 25px;
-    }
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
 
     .control-label {
         width: 70px;
@@ -1435,9 +1484,9 @@ img.official-img {
         float: none;
     }
 
-    .description h1{
-        padding-bottom: 18px;
-    }
+        .description h1 {
+            padding-bottom: 18px;
+        }
 
         .description li {
             font-size: 110% !important;
@@ -1488,24 +1537,24 @@ img.official-img {
         padding: 8px 5px 0;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .weixin-item-button a:first-child{
-        margin-left: 15px;
-    }
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
 
-    .segregate{
+    .segregate {
         margin: 30px auto;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }
 
@@ -1590,7 +1639,7 @@ img.official-img {
     }
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
-        margin-bottom:0;
+        margin-bottom: 0;
         /*float: left;
         width: 50% !important;
         text-align: left;
@@ -1738,7 +1787,7 @@ img.official-img {
             #donate .feedback-info p {
                 font-size: 14px;
                 padding-left: 0px;
-                line-height:25px;
+                line-height: 25px;
             }
 
         #donate .feedback-action {
@@ -1779,9 +1828,9 @@ img.official-img {
         padding: 36px 0 0;
     }
 
-    .form-control:last-child{
-        padding: 36px 0 25px;
-    }
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
 
     .control-label {
         width: 78px;
@@ -1915,17 +1964,17 @@ img.official-img {
         float: none;
     }
 
-    .description h1{
-        padding-bottom: 18px;
-    }
+        .description h1 {
+            padding-bottom: 18px;
+        }
 
         .description li {
             font-size: 110% !important;
         }
 
-    .description ol{
-        padding-left:15px;
-    }
+        .description ol {
+            padding-left: 15px;
+        }
 
     .document_help {
         font-size: 13px;
@@ -1935,23 +1984,23 @@ img.official-img {
         padding: 8px 5px 0;
     }
 
-    .weixin-bottom-buttons{
+    .weixin-bottom-buttons {
         margin-top: 30px;
     }
 
-    .weixin-item-button{
+    .weixin-item-button {
         margin-bottom: 15px;
     }
 
-    .weixin-item-button a:first-child{
-        margin-left: 15px;
-    }
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
 
-    .segregate{
+    .segregate {
         margin: 30px auto;
     }
 
-    .feedback{
-        margin-top:0;
+    .feedback {
+        margin-top: 0;
     }
 }

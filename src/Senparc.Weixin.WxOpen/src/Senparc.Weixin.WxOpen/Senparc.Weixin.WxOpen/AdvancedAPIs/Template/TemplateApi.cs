@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170225
     修改描述：v1.2.1 修改模板消息URL
 
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -51,7 +54,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <summary>
         /// 小程序模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>
@@ -118,7 +121,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <summary>
         /// 【异步方法】小程序模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>
@@ -129,7 +132,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <returns></returns>
         public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token={0}";
                 var msgData = new TempleteModel()
@@ -143,7 +146,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                     emphasis_keyword = emphasisKeyword,
                 };
             
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

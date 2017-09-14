@@ -39,9 +39,9 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Context
 {
     /// <summary>
-    /// 微信消息队列（针对单个账号的往来消息）
+    /// 微信消息队列（所有微信账号的往来消息）
     /// </summary>
-    /// <typeparam name="TM">IMessageContext<TRequest, TResponse></typeparam>
+    /// <typeparam name="TM">IMessageContext&lt;TRequest, TResponse&gt;</typeparam>
     /// <typeparam name="TRequest">IRequestMessageBase</typeparam>
     /// <typeparam name="TResponse">IResponseMessageBase</typeparam>
     public class MessageQueue<TM,TRequest, TResponse> : List<TM> 
@@ -49,6 +49,5 @@ namespace Senparc.Weixin.Context
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
     {
-
     }
 }

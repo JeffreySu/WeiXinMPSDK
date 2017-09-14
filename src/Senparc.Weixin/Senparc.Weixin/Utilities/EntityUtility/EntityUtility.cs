@@ -36,6 +36,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.EntityUtility
@@ -152,5 +153,21 @@ namespace Senparc.Weixin.EntityUtility
                     break;
             }
         }
+
+        ///// <summary>
+        ///// 将ApiData专为Dictionary类型
+        ///// </summary>
+        ///// <param name="apiData"></param>
+        //public static Dictionary<string, string> ConvertDataEntityToDictionary<T>(T apiData)
+        //    where T : IApiData
+        //{
+        //    Dictionary<string, string> dic = new Dictionary<string, string>();
+        //    var props = typeof(T).GetProperties(BindingFlags.Public);
+        //    foreach (var propertyInfo in props)
+        //    {
+        //        dic[propertyInfo.Name] = (propertyInfo.GetValue(apiData) ?? "").ToString();
+        //    }
+        //    return dic;
+        //}
     }
 }

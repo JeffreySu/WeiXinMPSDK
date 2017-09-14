@@ -43,5 +43,14 @@ namespace Senparc.WebSocket
         {
             WebSocketMessageHandlerFunc = () => new T();
         }
+
+        /// <summary>
+        /// 注册WebSocketMessageHandler，自定义对象的实例化方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void RegisterMessageHandler<T>(Func<T> func) where T : WebSocketMessageHandler, new()
+        {
+            WebSocketMessageHandlerFunc = func;
+        }
     }
 }

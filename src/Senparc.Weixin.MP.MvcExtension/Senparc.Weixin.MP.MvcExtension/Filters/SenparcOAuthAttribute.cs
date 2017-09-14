@@ -95,24 +95,14 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-                    var returnUrl = filterContext.HttpContext.Request.Url.ToString();
-                    var urlData = filterContext.HttpContext.Request.Url;
-                    //授权回调字符串
-                    var callbackUrl = string.Format("{0}://{1}{2}{3}{4}returnUrl={5}",
-                        urlData.Scheme,
-                        urlData.Host,
-                        urlData.Port != 80 ? (":" + urlData.Port) : "",
-                        _oauthCallbackUrl,
-                        _oauthCallbackUrl.Contains("?") ? "&" : "?",
-                        HttpUtility.RequestUtility.UrlEncode(returnUrl)
-                        );
-
+                    var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext,_oauthCallbackUrl);
                     var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     filterContext.Result = new RedirectResult(url);
                 }
             }
         }
+
 
         // This method must be thread-safe since it is called by the caching module.
         protected virtual HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext)

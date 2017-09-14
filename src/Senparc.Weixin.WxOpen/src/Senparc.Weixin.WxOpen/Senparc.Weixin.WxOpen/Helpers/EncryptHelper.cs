@@ -214,6 +214,21 @@ namespace Senparc.Weixin.WxOpen.Helpers
         }
 
         /// <summary>
+        /// 解密手机号
+        /// </summary>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        {
+            var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var phoneNumber = js.Deserialize<DecodedPhoneNumber>(jsonStr);
+            return phoneNumber;
+
+        }
+
+        /// <summary>
         /// 检查解密消息水印
         /// </summary>
         /// <param name="entity"></param>

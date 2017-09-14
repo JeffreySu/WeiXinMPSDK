@@ -240,6 +240,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string code_url { get; set; }
 
+        /// <summary>
+        /// 在H5支付时返回
+        /// </summary>
+        public string mweb_url { get; set; }
+
         ///// <summary>
         ///// 子商户公众账号ID
         ///// </summary>
@@ -264,6 +269,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                     trade_type = GetXmlValue("trade_type") ?? "";
                     prepay_id = GetXmlValue("prepay_id") ?? "";
                     code_url = GetXmlValue("code_url") ?? "";
+                    mweb_url = GetXmlValue("mweb_url") ?? "";
                 }
             }
         }

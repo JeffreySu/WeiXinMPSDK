@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             Data[tenPayV3Info.MchId] = tenPayV3Info;
         }
 
-        new public TenPayV3Info this[string key]
+        public new TenPayV3Info this[string key]
         {
             get
             {

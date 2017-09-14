@@ -1,19 +1,26 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SetAppPostData.cs
     文件功能描述：设置企业号应用需要Post的数据
     
     
     创建标识：Senparc - 20150316
+
+
+    修改标识：Senparc - 20170703
+    修改描述：增加IApiData接口
+
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.App
 {
     /// <summary>
-    /// 设置企业号应用需要Post的数据
+    /// 设置企业号应用需要Post的数据【QY移植修改】
     /// </summary>
-    public class SetAppPostData 
+    public class SetAppPostData //:IApiData
     {
         /// <summary>
         /// 企业应用id
@@ -43,9 +50,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 是否接收用户变更通知。0：不接收；1：接收
         /// </summary>
         public int isreportuser { get; set; }
+        ///// <summary>
+        ///// 是否上报用户进入应用事件。0：不接收；1：接收
+        ///// </summary>
+        //public int isreportenter { get; set; }
+
         /// <summary>
-        /// 是否上报用户进入应用事件。0：不接收；1：接收
+        /// 应用主页url。url必须以http或者https开头。
         /// </summary>
-        public int isreportenter { get; set; }
+        public string home_url { get; set; }
     }
 }

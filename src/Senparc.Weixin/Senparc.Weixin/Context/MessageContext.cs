@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Context
     /// </summary>
     /// <typeparam name="TRequest">请求消息类型</typeparam>
     /// <typeparam name="TResponse">响应消息类型</typeparam>
-    public interface IMessageContext<TRequest,TResponse>
+    public interface IMessageContext<TRequest, TResponse>
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
     {
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Context
     /// <summary>
     /// 微信消息上下文（单个用户）
     /// </summary>
-    public class MessageContext<TRequest,TResponse>: IMessageContext<TRequest, TResponse>
+    public class MessageContext<TRequest, TResponse> : IMessageContext<TRequest, TResponse>
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
     {

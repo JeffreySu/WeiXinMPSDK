@@ -83,7 +83,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             }
             catch (Exception ex)
             {
-                await webSocketHandler.SendMessage(ex.Message + "\r\n\r\n" + originalData+"\r\n\r\nAPPID:" + WebConfigurationManager.AppSettings["WxOpenAppId"]);
+                var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" +
+                        WebConfigurationManager.AppSettings["WxOpenAppId"];
+
+                await webSocketHandler.SendMessage(msg); //VS2017以下如果编译不通过，可以注释掉这一行
+
+                WeixinTrace.SendCustomLog("WebSocket OnMessageReceiced()过程出错", msg);
             }
         }
     }

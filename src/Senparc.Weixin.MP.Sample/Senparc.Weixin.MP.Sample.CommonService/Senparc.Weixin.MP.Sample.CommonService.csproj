@@ -74,9 +74,9 @@
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
     <Compile Include="OpenTicket\OpenTicketHelper.cs" />
@@ -99,9 +99,9 @@
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
+    <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
+      <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
+      <Name>Senparc.Weixin.Work</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
       <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
@@ -122,6 +122,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

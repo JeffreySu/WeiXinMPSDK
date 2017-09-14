@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Helpers
     /// </summary>
     public static class DateTimeHelper
     {
-        public static DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间
+        public readonly static DateTime BaseTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);//Unix起始时间
 
         /// <summary>
         /// 转换微信DateTime时间到C#时间
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static DateTime GetDateTimeFromXml(long dateTimeFromXml)
         {
-            return BaseTime.AddTicks((dateTimeFromXml + 8 * 60 * 60) * 10000000);
+            return BaseTime.AddSeconds(dateTimeFromXml).ToLocalTime();
         }
         /// <summary>
         /// 转换微信DateTime时间到C#时间
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static long GetWeixinDateTime(DateTime dateTime)
         {
-            return (dateTime.Ticks - BaseTime.Ticks) / 10000000 - 8 * 60 * 60;
+            return (long)(dateTime.ToUniversalTime() - BaseTime).TotalSeconds;
         }
     }
 }

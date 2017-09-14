@@ -55,10 +55,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\bin\Debug\Senparc.Weixin.MP.Sample.CommonService.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.QY, Version=3.0.2.37927, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.dll</HintPath>
-    </Reference>
     <Reference Include="Senparc.Weixin.Work">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Work.dll</HintPath>
     </Reference>

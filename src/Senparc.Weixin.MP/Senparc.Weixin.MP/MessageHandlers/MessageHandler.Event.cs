@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 #endregion
                 default:
-                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息：" + strongRequestMessage.Event, null);
+                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }

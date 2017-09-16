@@ -129,6 +129,7 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
+    <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
     <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
     <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
     <Compile Include="Utilities\HttpUtility\Get.cs" />

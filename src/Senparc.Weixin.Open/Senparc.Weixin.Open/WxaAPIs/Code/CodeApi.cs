@@ -202,7 +202,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             data = new
             {
-                action = action
+                action = action.ToString()
             };
 
             return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -375,7 +375,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             data = new
             {
-                action = action
+                action = action.ToString()
             };
 
             return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);

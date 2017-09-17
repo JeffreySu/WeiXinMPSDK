@@ -87,7 +87,8 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             var request = httpContext.Request;
-            var returnUrl = $"{request.Scheme}://{request.Host.Value}{request.Path}{request.QueryString}"; //httpContext.Request.Url.ToString();
+            var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+            var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();
             var urlData = httpContext.Request;
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host.Host;//主机名（不带端口）

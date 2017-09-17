@@ -29,20 +29,15 @@ namespace Senparc.Weixin.HttpUtility.Tests
             {
                 var uri = new Uri(url);
 
-                var urlData = url.Split("://");
-                var scheme = urlData[0];
-                var indexOfQuestionMark = urlData[1].IndexOf("?");
-                var path = urlData[1].Substring(urlData[1].IndexOf('/'),
-                    indexOfQuestionMark >= 0
-                        ? urlData[1].Length - indexOfQuestionMark
-                        : urlData[1].Length - urlData[1].IndexOf('/'));
+                var scheme = uri.Scheme;
+                var path = uri.LocalPath;
 
 
                 var httpContext = new DefaultHttpContext();
                 httpContext.Request.Path = path;
-                httpContext.Request.Host = new HostString(urlData[1].Split('/')[0]);
+                httpContext.Request.Host = new HostString(uri.Host,uri.Port);
                 httpContext.Request.Scheme = scheme;
-                httpContext.Request.QueryString = new QueryString(url.Contains("?") ? url.Substring(url.IndexOf("?"), url.Length - url.IndexOf("?") - 1) : null);
+                httpContext.Request.QueryString = new QueryString(uri.Query);
 
                 return httpContext;
             };
@@ -54,7 +49,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("普通 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex",
-    callbackUrl);
+    callbackUrl,true);
             }
 
 
@@ -64,7 +59,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("带参数 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
-    callbackUrl);
+    callbackUrl, true);
             }
 
 
@@ -74,7 +69,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("带参数、带端口 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com:8080/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%3a8080%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
-    callbackUrl);
+    callbackUrl, true);
             }
 
             {
@@ -83,7 +78,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("普通 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex",
-    callbackUrl);
+    callbackUrl, true);
             }
 
             {
@@ -92,7 +87,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("带参数 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
-    callbackUrl);
+    callbackUrl, true);
             }
 
             {
@@ -101,7 +96,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Console.WriteLine("带参数、带端口 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com:1433/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%3a1433%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
-    callbackUrl);
+    callbackUrl, true);
             }
         }
     }

@@ -165,7 +165,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 返回可用的微信支付地址（自动判断是否使用沙箱）
         /// </summary>
-        /// <param name="urlFormat"></param>
+        /// <param name="urlFormat">如：<code>https://api.mch.weixin.qq.com/{0}pay/unifiedorder</code></param>
         /// <returns></returns>
         private static string ReurnPayApiUrl(string urlFormat)
         {

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Senparc.Weixin.HttpUtility.Tests
 {
@@ -15,18 +17,41 @@ namespace Senparc.Weixin.HttpUtility.Tests
         [TestMethod()]
         public void GenerateOAuthCallbackUrlTest()
         {
+#if NET45
             Func<string, string, HttpContextBase> getHttpContextBase = (url, queryString) =>
             {
                 var httpContext = new HttpContext(new HttpRequest("Senparc", url, queryString), new HttpResponse(null));
                 var httpContextBase = new HttpContextWrapper(httpContext);
                 return httpContextBase;
             };
+#else
+            Func<string, string, HttpContext> getHttpContextBase = (url, queryString) =>
+            {
+                var uri = new Uri(url);
 
+                var urlData = url.Split("://");
+                var scheme = urlData[0];
+                var indexOfQuestionMark = urlData[1].IndexOf("?");
+                var path = urlData[1].Substring(urlData[1].IndexOf('/'),
+                    indexOfQuestionMark >= 0
+                        ? urlData[1].Length - indexOfQuestionMark
+                        : urlData[1].Length - urlData[1].IndexOf('/'));
+
+
+                var httpContext = new DefaultHttpContext();
+                httpContext.Request.Path = path;
+                httpContext.Request.Host = new HostString(urlData[1].Split('/')[0]);
+                httpContext.Request.Scheme = scheme;
+                httpContext.Request.QueryString = new QueryString(url.Contains("?") ? url.Substring(url.IndexOf("?"), url.Length - url.IndexOf("?") - 1) : null);
+
+                return httpContext;
+            };
+#endif
 
             {
                 var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com/Home/Index", "");
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("普通 HTTP Url："+callbackUrl);
+                Console.WriteLine("普通 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex",
     callbackUrl);

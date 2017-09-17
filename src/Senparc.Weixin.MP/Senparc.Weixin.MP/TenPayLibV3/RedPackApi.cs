@@ -42,7 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 201700810
     修改描述：v14.6.10 添加接口：普通红包发送(服务商）
 
-    ----------------------------------------------------------------*/
+----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;

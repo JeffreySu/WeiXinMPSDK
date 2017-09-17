@@ -34,7 +34,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if NET45
 using System.Web;
+#else
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+#endif
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
@@ -50,15 +56,32 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
-        public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
+#if NET45
+    public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
+#else
+        public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)
+#endif
         {
-            if (httpContext.Request.Url==null)
-            {
+            /*
+#if NET45
+            if (httpContext.Request.Url == null)
+              {
                 throw new WeixinNullReferenceException("httpContext.Request.Url 不能为null！", httpContext.Request);
             }
-
-            var returnUrl = httpContext.Request.Url.ToString();
+              var returnUrl = httpContext.Request.Url.ToString();
             var urlData = httpContext.Request.Url;
+#else
+            if (httpContext.Request == null)
+            {
+            }
+
+            var request = httpContext.Request;
+            var returnUrl = $"{request.Scheme}://{request.Host.Value}{request.Path}{request.QueryString}";
+            var urlData = request//; httpContext.Request.Url;
+#endif
+
+
+
             string portSetting = null;
             string schemeUpper = urlData.Scheme.ToUpper();
             if ((schemeUpper == "HTTP" && urlData.Port == 80) ||
@@ -81,6 +104,8 @@ namespace Senparc.Weixin.HttpUtility
                 returnUrl.UrlEncode()
             );
             return callbackUrl;
+            */
+            return null;
         }
     }
 }

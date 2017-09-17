@@ -52,6 +52,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.WebProxy;
 #if NET45
 using System.Web;
 #else
@@ -88,6 +89,32 @@ namespace Senparc.Weixin.HttpUtility
             if (!string.IsNullOrEmpty(host))
             {
                 _webproxy = new WebProxy(host + ":" + port ?? "80", true, null, cred);
+            }
+        }
+
+        /// <summary>
+        /// 清除Web代理状态
+        /// </summary>
+        public static void RemoveHttpProxy()
+        {
+            _webproxy = null;
+        }
+#else
+        private static IWebProxy _webproxy = null;
+        /// <summary>
+        /// 设置Web代理
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public static void SetHttpProxy(string host, string port, string username, string password)
+        {
+            ICredentials cred;
+            cred = new NetworkCredential(username, password);
+            if (!string.IsNullOrEmpty(host))
+            {
+                _webproxy = new CoreWebProxy(new Uri(host + ":" + port ?? "80"), cred, true);
             }
         }
 

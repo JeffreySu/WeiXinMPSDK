@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20170912
 
+    修改标识：Senparc - 20170917
+    修改描述：修改GenerateOAuthCallbackUrl()，更方便移植到.NET Core
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -57,54 +60,62 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
 #if NET45
-    public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
+        public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
 #else
         public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)
 #endif
         {
-            /*
+
 #if NET45
+
             if (httpContext.Request.Url == null)
-              {
+            {
                 throw new WeixinNullReferenceException("httpContext.Request.Url 不能为null！", httpContext.Request);
             }
-              var returnUrl = httpContext.Request.Url.ToString();
+
+            var returnUrl = httpContext.Request.Url.ToString();
             var urlData = httpContext.Request.Url;
+            var scheme = urlData.Scheme;//协议
+            var host = urlData.Host;//主机名（不带端口）
+            var port = urlData.Port;//端口
+            string portSetting = null;//Url中的端口部分
+            string schemeUpper = scheme.ToUpper();//协议（大写）
 #else
             if (httpContext.Request == null)
             {
+                throw new WeixinNullReferenceException("httpContext.Request 不能为null！", httpContext);
             }
 
             var request = httpContext.Request;
-            var returnUrl = $"{request.Scheme}://{request.Host.Value}{request.Path}{request.QueryString}";
-            var urlData = request//; httpContext.Request.Url;
+            var returnUrl = $"{request.Scheme}://{request.Host.Value}{request.Path}{request.QueryString}"; //httpContext.Request.Url.ToString();
+            var urlData = httpContext.Request;
+            var scheme = urlData.Scheme;//协议
+            var host = urlData.Host.Host;//主机名（不带端口）
+            var port = urlData.Host.Port;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
+            string portSetting = null;//Url中的端口部分
+            string schemeUpper = scheme.ToUpper();//协议（大写）
 #endif
-
-
-
-            string portSetting = null;
-            string schemeUpper = urlData.Scheme.ToUpper();
-            if ((schemeUpper == "HTTP" && urlData.Port == 80) ||
-                (schemeUpper == "HTTPS" && urlData.Port == 443))
+            if ((schemeUpper == "HTTP" && port == 80) ||
+                (schemeUpper == "HTTPS" && port == 443))
             {
                 portSetting = "";//使用默认值
             }
             else
             {
-                portSetting = ":" + urlData.Port;//添加端口
+                portSetting = ":" + port;//添加端口
             }
 
             //授权回调字符串
             var callbackUrl = string.Format("{0}://{1}{2}{3}{4}returnUrl={5}",
-                urlData.Scheme,
-                urlData.Host,
+                scheme,
+                host,
                 portSetting,
                 oauthCallbackUrl,
                 oauthCallbackUrl.Contains("?") ? "&" : "?",
                 returnUrl.UrlEncode()
             );
             return callbackUrl;
-            */
+
             return null;
         }
     }

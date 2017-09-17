@@ -93,5 +93,10 @@ namespace Senparc.Weixin
         /// 默认微信配置
         /// </summary>
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
+
+        /// <summary>
+        /// 微信支付使用沙箱模式
+        /// </summary>
+        public static bool UseSandBoxPay { get; set; }
     }
 }

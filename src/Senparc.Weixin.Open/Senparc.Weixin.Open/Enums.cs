@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Open
     }
 
     /// <summary>
-    /// 公众号授权给开发者的权限集列表
+    /// 公众号/小程序授权给开发者的权限集列表(1-15为公众号权限,17-19为小程序权限)
     /// </summary>
     public enum FuncscopeCategory
     {
@@ -157,7 +157,10 @@ namespace Senparc.Weixin.Open
         微信摇周边权限 = 12,
         微信门店权限 = 13,
         微信支付权限 = 14,
-        自定义菜单权限 = 15
+        自定义菜单权限 = 15,
+        帐号管理权限 = 17,
+        开发管理权限 = 18,
+        客服消息管理权限 = 19
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 

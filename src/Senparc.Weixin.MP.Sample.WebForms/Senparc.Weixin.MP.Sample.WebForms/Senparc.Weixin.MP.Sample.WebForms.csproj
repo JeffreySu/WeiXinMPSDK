@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,22 +43,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.Weixin, Version=4.0.1.27038, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=13.0.5.37111, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin.MP.Sample.CommonService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\bin\Debug\Senparc.Weixin.MP.Sample.CommonService.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin.QY, Version=3.0.2.37927, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -76,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="Qy.aspx" />
+    <Content Include="Work.aspx" />
     <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -93,8 +78,8 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Qy.aspx.cs">
-      <DependentUpon>Qy.aspx</DependentUpon>
+    <Compile Include="Work.aspx.cs">
+      <DependentUpon>Work.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Weixin.aspx.cs">
@@ -112,6 +97,44 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
+      <Project>{b745f5f5-9120-4d56-a86d-ed34eadb703c}</Project>
+      <Name>Senparc.WebSocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">
+      <Project>{5b729497-5323-41d7-a104-0632119bedde}</Project>
+      <Name>Senparc.Weixin.Cache.Memcached</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
+      <Name>Senparc.Weixin.Cache.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
+      <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
+      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
+      <Name>Senparc.Weixin.MP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
+      <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
+      <Name>Senparc.Weixin.Open</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
+      <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
+      <Name>Senparc.Weixin.Work</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
+      <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
+      <Name>Senparc.Weixin.WxOpen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

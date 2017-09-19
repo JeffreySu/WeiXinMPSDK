@@ -60,6 +60,7 @@ using System.Net.Http.Headers;
 #endif
 #if NETSTANDARD1_6 || NETSTANDARD2_0
 using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.WebProxy;
 #endif
 
 
@@ -73,7 +74,7 @@ namespace Senparc.Weixin.HttpUtility
         #region 代理
 
 #if NET45
-        private static WebProxy _webproxy = null;
+        private static System.Net.WebProxy _webproxy = null;
         /// <summary>
         /// 设置Web代理
         /// </summary>
@@ -87,7 +88,33 @@ namespace Senparc.Weixin.HttpUtility
             cred = new NetworkCredential(username, password);
             if (!string.IsNullOrEmpty(host))
             {
-                _webproxy = new WebProxy(host + ":" + port ?? "80", true, null, cred);
+                _webproxy = new System.Net.WebProxy(host + ":" + port ?? "80", true, null, cred);
+            }
+        }
+
+        /// <summary>
+        /// 清除Web代理状态
+        /// </summary>
+        public static void RemoveHttpProxy()
+        {
+            _webproxy = null;
+        }
+#else
+        private static IWebProxy _webproxy = null;
+        /// <summary>
+        /// 设置Web代理
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public static void SetHttpProxy(string host, string port, string username, string password)
+        {
+            ICredentials cred;
+            cred = new NetworkCredential(username, password);
+            if (!string.IsNullOrEmpty(host))
+            {
+                _webproxy = new CoreWebProxy(new Uri(host + ":" + port ?? "80"), cred, true);
             }
         }
 
@@ -915,7 +942,7 @@ namespace Senparc.Weixin.HttpUtility
 #if NET45
             return System.Web.HttpUtility.UrlEncode(url);
 #else
-            return WebUtility.UrlEncode(url);
+            return WebUtility.UrlEncode(url);//转义后字母为大写
 #endif
         }
         /// <summary>

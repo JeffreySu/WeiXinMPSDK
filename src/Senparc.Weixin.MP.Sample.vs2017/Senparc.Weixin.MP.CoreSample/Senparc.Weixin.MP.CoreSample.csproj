@@ -44,7 +44,6 @@
     <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.CoreSample.CommonService.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />

@@ -1,8 +1,9 @@
-.NET Framework 4.5 版本
+.NET Core 2.0 + .NET Core + .NET Framework 4.5 版本
 ================
 
-本文件件用于存放 .NET Framework 4.5 版本代码。
+本文件件用于存放 .NET Core 2.0 + .NET Core + .NET Framework 4.5 版本 版本代码。
 
+Nuget 包也由此项目生成
 
 项目文件夹说明
 --------------

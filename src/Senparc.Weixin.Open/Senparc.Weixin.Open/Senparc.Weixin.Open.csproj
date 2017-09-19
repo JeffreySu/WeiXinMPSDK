@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>2.6.5</Version>
+    <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
+    <Version>2.7.4</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -84,11 +84,17 @@
       v2.6.2 添加接口：开放平台-微信开放平台账号管理
       v2.6.3 完善接口：开放平台-微信开放平台账号管理
       v2.6.4 完成接口开放平台-代码管理及小程序码获取
-      
-      v2.6.5 
+
+      v2.6.5
       1、修正：修改服务器地址接口ModifyDomainApi.ModifyDomain()的URL参数错误
       2、为Tencent命名空间添加Senparc.Weixin.Open前缀
 
+
+      v2.7.0 支持 .NET Core 2.0
+      v2.7.1 修复几处小程序接口问题
+      v2.7.2 添加小程序“code 换取 session_key”（微信登录）接口
+      v2.7.3 添加小程序“小程序模板设置”接口
+      v2.7.3 常规优化
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -111,6 +117,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">

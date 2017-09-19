@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWeixinThreads()
         {
-            ThreadUtility.Register();
+            ThreadUtility.Register();//如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
         }
 
         /// <summary>
@@ -131,16 +131,10 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterSenparcQyWeixin()
         {
-            Senparc.Weixin.QY.Containers.AccessTokenContainer.Register(
+            Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
-                "【盛派网络】企业号"
-                );
-
-            Senparc.Weixin.QY.Containers.ProviderTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
-                "【盛派网络】企业号"
+                "【盛派网络】企业微信"
                 );
         }
 

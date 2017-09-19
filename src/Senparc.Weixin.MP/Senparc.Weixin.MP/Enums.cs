@@ -71,6 +71,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170807
     修改描述：v14.5.7 添加TenPayV3Type.MWEB枚举，支持H5支付
+
+    修改标识：Senparc - 20170826
+    修改描述：v14.6.8 添加Event下“微信认证事件推送”一系列事件类型
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -266,7 +270,50 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 券点流水详情事件：当商户朋友的券券点发生变动时
         /// </summary>
-        card_pay_order
+        card_pay_order,
+
+
+        #region 微信认证事件推送
+
+        /// <summary>
+        /// 资质认证成功（此时立即获得接口权限）
+        /// </summary>
+        qualification_verify_success,
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        qualification_verify_fail,
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        naming_verify_success,
+        /// <summary>
+        /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+        /// </summary>
+        naming_verify_fail,
+        /// <summary>
+        /// 年审通知
+        /// </summary>
+        annual_renew,
+        /// <summary>
+        /// 认证过期失效通知
+        /// </summary>
+        verify_expired,
+
+        #endregion
+
+        #region 小程序审核事件推送
+
+        /// <summary>
+        /// 小程序审核成功
+        /// </summary>
+        weapp_audit_success,
+        /// <summary>
+        /// 小程序审核失败
+        /// </summary>
+        weapp_audit_fail
+
+        #endregion
     }
 
 
@@ -342,7 +389,15 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
-        location_select
+        location_select,
+        /// <summary>
+        /// 下发消息（除文本消息）
+        /// </summary>
+        media_id,
+        /// <summary>
+        /// 跳转图文消息URL
+        /// </summary>
+        view_limited
     }
 
     /// <summary>

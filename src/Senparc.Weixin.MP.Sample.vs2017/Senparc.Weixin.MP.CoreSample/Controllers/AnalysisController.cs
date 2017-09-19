@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //    var Strong = result1 as AnalysisResultJson<ArticleSummaryItem>;
             //   // Strong.list.First().ori_page_read_count
             //}
-
+            
             IBaseAnalysisResult result = null;
 
             var accessToken = AccessTokenContainer.TryGetAccessToken(vd_Form.AppId, vd_Form.AppSecret);

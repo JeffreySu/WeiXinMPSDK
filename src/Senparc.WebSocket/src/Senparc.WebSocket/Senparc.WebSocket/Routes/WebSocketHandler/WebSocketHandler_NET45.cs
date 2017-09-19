@@ -99,7 +99,10 @@ namespace Senparc.WebSocket
 
         }
 
-        public bool IsReusable { get; }
+        public bool IsReusable
+        {
+            get { return true; }
+        }
     }
 #endif
 }

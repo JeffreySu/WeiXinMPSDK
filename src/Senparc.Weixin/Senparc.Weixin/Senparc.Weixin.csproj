@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>4.13.5</Version>
+    <Version>4.14.4</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -166,11 +166,17 @@
       v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
       v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
 
-      v4.13.5 
+      v4.13.5
       1、完善AppId未注册提示
       2、修复ApiHandlerWapperBase.TryCommonApiBase()方法自动刷新AccessToken的问题
       3、提供统一的EntityHelper
       4、ReturnCode添加：没有留言权限 = 88000
+
+      v4.14.0
+      1、修复RequestMessageTextExtension.GetResponseMessage()方法判断问题
+      2、支持.NET Core 2.0
+      v4.14.3 重构MD5生成方法，并提供小写MD5方法
+      v4.14.4 常规更新
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -193,6 +199,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">

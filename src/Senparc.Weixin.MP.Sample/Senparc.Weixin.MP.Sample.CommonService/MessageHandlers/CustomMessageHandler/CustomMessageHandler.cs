@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
          */
 
 
-#if DEBUG || NETSTANDARD1_6
+#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";

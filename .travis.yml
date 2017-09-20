@@ -2,7 +2,7 @@ language: csharp
 mono: none
 dotnet: 2.0.0
 dist: trusty
-#script:
+script:
 # - dotnet restore
 
 #  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目

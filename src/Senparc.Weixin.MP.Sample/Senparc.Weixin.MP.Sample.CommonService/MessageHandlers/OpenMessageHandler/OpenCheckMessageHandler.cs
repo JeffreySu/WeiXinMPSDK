@@ -15,12 +15,12 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
-using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.OpenMessageHandler
+namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
 {
     /// <summary>
     /// 开放平台全网发布之前需要做的验证

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 //using Senparc.Weixin.MP.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.MP.Sample.Controllers

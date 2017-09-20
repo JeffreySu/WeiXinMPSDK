@@ -14,7 +14,7 @@ using Senparc.Weixin.MP.Entities.BaiduMap;
 using Senparc.Weixin.MP.Entities.GoogleMap;
 using Senparc.Weixin.MP.Helpers;
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService
+namespace Senparc.Weixin.MP.Sample.CommonService
 {
     public class LocationService
     {

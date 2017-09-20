@@ -35,10 +35,10 @@ using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

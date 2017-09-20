@@ -23,12 +23,12 @@ using System.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 #else
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.CoreSample.CommonService.TemplateMessage;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService
+namespace Senparc.Weixin.MP.Sample.CommonService
 {
     /// <summary>
     /// 全局微信事件有关的处理程序

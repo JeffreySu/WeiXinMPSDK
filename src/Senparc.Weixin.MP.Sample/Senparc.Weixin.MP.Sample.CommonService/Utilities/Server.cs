@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 
 #if NET45
-System.Web
+using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
 #endif
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.Utilities
+namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
 {
     public static class Server
     {

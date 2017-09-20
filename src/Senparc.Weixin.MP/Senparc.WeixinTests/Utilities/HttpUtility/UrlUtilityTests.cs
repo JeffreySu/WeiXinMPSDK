@@ -5,9 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+#if NET45
 using System.Web;
+#else
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
+#endif
 
 namespace Senparc.Weixin.HttpUtility.Tests
 {

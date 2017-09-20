@@ -1,8 +1,8 @@
 language: csharp
-mono: none
-dotnet: 2.0.0
-dist: trusty
-solution: ./src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+#mono: none
+#dotnet: 2.0.0
+#dist: trusty
+#solution: ./src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 #script:
 # - dotnet restore
 
@@ -15,7 +15,7 @@ solution: ./src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.
 # - nuget install StackExchange.Redis -version 1.0.488
 
 
-#solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
+solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 #solution: ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
 
 #script:

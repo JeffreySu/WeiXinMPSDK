@@ -191,8 +191,9 @@ Senparc 官方教程
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
 |Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|
-|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.5）|
-|Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
+|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
+|Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（.NET Framework 4.5 + + ASP.NET WebForms）|
+|Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（.NET Core 2.0 + MVC）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
@@ -381,6 +382,8 @@ Senparc.Weixin.QY.dll对`企业号`相关功能进行了封装，操作过程和
 PM> Install-Package Senparc.Weixin.QY
 ```
 
+> 说明：QY目前已经随官方微信企业号同步停止更新，目前已经无缝移植到Work（企业微信）中。
+
 ### 如何处理企业微信请求？
 
 Senparc.Weixin.Work.dll对`企业微信`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）以及企业号库（Senparc.Weixin.QY）保持了一致。
@@ -510,8 +513,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 |  分支      |     说明         
 |-----------|---------------
 | master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境。
-| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、同时，此分支也是 Senparc 团队进行 .NET 4.5 开发的分支，建议 Pull Request 的代码都到这个分支下，而不是 master
-| Developer-FullDotNet | 1、同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 的分支，会不定期和 Developer 及 master 分支同步，使用此分支需要使用 VS2017。<br> 2、此分支也是将来 .NET Core 及 VS2017+ 普及之后的主分支后补分支。
+| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、此分支同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 版本，建议 Pull Request 的代码都到这个分支下，而不是 master
 | BookVersion1 | 此分支为[《微信开发深度解析：微信公众号、小程序高效开发秘籍》](https://book.weixin.senparc.com/book/link?code=github-homepage2)图书出版时对应代码快照。
 | DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
 | NET4.0     | .NET 4.0 分支，已于2017年停止更新。

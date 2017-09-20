@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.Configuration;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Entities.Request;
+
+
+#if NET45
+using System.Web.Configuration;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#else
+using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+#endif
 
-namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.OpenMessageHandler
 {
     /// <summary>
     /// 开放平台全网发布之前需要做的验证
@@ -27,8 +35,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
         */
 
         //private string testAppId = "wx570bc396a51b8ff8";
+
+#if NET45
         private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
+#else
+        private string componentAppId = "ComponentAppId";
+        private string componentSecret = "Component_Secret";
+#endif
+
+
 
         public OpenCheckMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)

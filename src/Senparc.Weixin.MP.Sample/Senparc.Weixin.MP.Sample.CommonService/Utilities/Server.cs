@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
+#if NET45
+System.Web
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
+namespace Senparc.Weixin.MP.CoreSample.CommonService.Utilities
 {
     public static class Server
     {
@@ -16,13 +21,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             {
                 if (_appDomainAppPath == null)
                 {
+#if NET45
                     _appDomainAppPath = HttpRuntime.AppDomainAppPath;
+#else
+                    _appDomainAppPath = AppContext.BaseDirectory; //dll所在目录：;
+#endif
                 }
                 return _appDomainAppPath;
             }
             set
             {
                 _appDomainAppPath = value;
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+                if (!_appDomainAppPath.EndsWith("\\"))
+                {
+                    _appDomainAppPath += "\\";
+                }
+#endif
             }
         }
 
@@ -46,14 +61,18 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
         {
             get
             {
+#if NET45
                 HttpContext context = HttpContext.Current;
-                if (context == null)
+                 if (context == null)
                 {
                     HttpRequest request = new HttpRequest("Default.aspx", "http://sdk.weixin.senparc.com/default.aspx", null);
                     StringWriter sw = new StringWriter();
                     HttpResponse response = new HttpResponse(sw);
                     context = new HttpContext(request, response);
                 }
+#else
+                HttpContext context = new DefaultHttpContext();
+#endif
                 return context;
             }
         }

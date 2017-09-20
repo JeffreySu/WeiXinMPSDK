@@ -4,28 +4,40 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Download
+#if NET45
+using System.Web;
+#else
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Microsoft.AspNetCore.Http;
+#endif
+
+
+namespace Senparc.Weixin.MP.CoreSample.CommonService.Download
 {
     public class ConfigHelper
     {
         //Key：guid，Value：<QrCodeId,Version>
         public static Dictionary<string, CodeRecord> CodeCollection = new Dictionary<string, CodeRecord>(StringComparer.OrdinalIgnoreCase);
 
-        private HttpContextBase _context;
+        private HttpContext _context;
 
         public static object Lock = new object();
 
-        public ConfigHelper(HttpContextBase context)
+        public ConfigHelper(HttpContext context)
         {
             _context = context;
         }
 
         private string GetDatabaseFilePath()
         {
+#if NET45
             return _context.Server.MapPath("~/App_Data/Document/Config.xml");
+#else
+            return Server.GetMapPath("~/App_Data/Document/Config.xml");
+
+#endif
         }
 
         private XDocument GetXDocument()
@@ -77,7 +89,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             {
                 doc.Root.Element("Versions").Add(new XElement("Version", version));
             }
+#if NET45
             doc.Save(GetDatabaseFilePath());
+#else
+            using (FileStream fs = new FileStream(GetDatabaseFilePath(),FileMode.OpenOrCreate,FileAccess.ReadWrite))
+            {
+                doc.Save(fs);
+            }
+#endif
         }
 
         public string Download(string version,bool isWebVersion)
@@ -92,7 +111,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             //打包下载文件
             //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
+
+#if NET45
             return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar",isWebVersion?"-Web":"", version));
+#else
+            return Server.GetMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
+#endif
+
+
         }
     }
 }

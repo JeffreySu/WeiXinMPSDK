@@ -117,6 +117,18 @@ namespace Senparc.Weixin.XmlUtility
             {
                 return XDocument.Load(xr);
             }
+//#if NET45
+//            using (XmlReader xr = XmlReader.Create(stream))
+//            {
+//                return XDocument.Load(xr);
+//            }
+//#else
+//            using (var sr = new StreamReader(stream))
+//            {
+//                var xml = sr.ReadToEnd();
+//                return XDocument.Parse(xml);
+//            }
+//#endif
         }
 
     }

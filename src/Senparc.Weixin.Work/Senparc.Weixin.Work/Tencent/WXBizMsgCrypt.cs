@@ -28,7 +28,7 @@ using System.Xml;
 //-40010 :  base64解密异常
 namespace Senparc.Weixin.Work.Tencent
 {
-   public class WXBizMsgCrypt
+    public class WXBizMsgCrypt
     {
         string m_sToken;
         string m_sEncodingAESKey;
@@ -49,9 +49,9 @@ namespace Senparc.Weixin.Work.Tencent
         };
 
         //构造函数
-	    // @param sToken: 公众平台上，开发者设置的Token
-	    // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-	    // @param sCorpID: 企业号的CorpID
+        // @param sToken: 公众平台上，开发者设置的Token
+        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
+        // @param sCorpID: 企业号的CorpID
         public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sCorpID)
         {
             m_sToken = sToken;
@@ -69,10 +69,10 @@ namespace Senparc.Weixin.Work.Tencent
         public int VerifyURL(string sMsgSignature, string sTimeStamp, string sNonce, string sEchoStr, ref string sReplyEchoStr)
         {
             int ret = 0;
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             ret = VerifySignature(m_sToken, sTimeStamp, sNonce, sEchoStr, sMsgSignature);
             if (0 != ret)
             {
@@ -106,10 +106,10 @@ namespace Senparc.Weixin.Work.Tencent
         // @return: 成功0，失败返回对应的错误码
         public int DecryptMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             XmlDocument doc = new XmlDocument();
             XmlNode root;
             string sEncryptMsg;
@@ -158,10 +158,10 @@ namespace Senparc.Weixin.Work.Tencent
         // return：成功0，失败返回对应的错误码
         public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             string raw = "";
             try
             {
@@ -232,7 +232,7 @@ namespace Senparc.Weixin.Work.Tencent
             }
         }
 
-        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt ,ref string sMsgSignature)
+        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
@@ -246,12 +246,15 @@ namespace Senparc.Weixin.Work.Tencent
                 raw += AL[i];
             }
 
-            SHA1 sha;
             ASCIIEncoding enc;
             string hash = "";
             try
             {
-                sha = new SHA1CryptoServiceProvider();
+#if NET45
+                SHA1 sha = new SHA1CryptoServiceProvider();
+#else
+                SHA1 sha = SHA1.Create();
+#endif
                 enc = new ASCIIEncoding();
                 byte[] dataToHash = enc.GetBytes(raw);
                 byte[] dataHashed = sha.ComputeHash(dataToHash);

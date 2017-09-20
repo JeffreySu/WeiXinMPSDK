@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Download
+namespace Senparc.Weixin.MP.CoreSample.CommonService.Download
 {
     public class CodeRecord
     {

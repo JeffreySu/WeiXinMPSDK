@@ -77,13 +77,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
+      <Name>Senparc.Weixin.net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net45.csproj">
       <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
-      <Name>Senparc.Weixin.Cache.Redis</Name>
+      <Name>Senparc.Weixin.Cache.Redis.net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

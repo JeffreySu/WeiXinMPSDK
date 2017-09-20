@@ -41,7 +41,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Utilities;
+using System.Reflection;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -369,7 +369,11 @@ namespace Senparc.Weixin.MP.Helpers
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
                             break;
                         default:
+#if NET45
                             if (prop.PropertyType.IsClass && prop.PropertyType.IsPublic)
+#else
+                            if (prop.PropertyType.GetTypeInfo().IsClass && prop.PropertyType.GetTypeInfo().IsPublic)
+#endif
                             {
                                 //自动处理其他实体属性
                                 var subEntity = prop.GetValue(entity, null);

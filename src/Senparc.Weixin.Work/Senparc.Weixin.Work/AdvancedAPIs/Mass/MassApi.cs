@@ -346,7 +346,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
-
         /// <summary>
         /// 发送textcard消息
         /// </summary>

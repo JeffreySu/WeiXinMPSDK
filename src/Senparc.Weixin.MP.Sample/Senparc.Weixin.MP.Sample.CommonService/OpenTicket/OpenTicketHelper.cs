@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
+namespace Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket
 {
     /// <summary>
     /// OpenTicket即ComponentVerifyTicket
@@ -21,9 +21,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
             var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
             if (File.Exists(filePath))
             {
-                using (TextReader tr = new StreamReader(filePath))
+                using (FileStream fs= new FileStream(filePath,FileMode.Open,FileAccess.Read))
                 {
-                    openTicket = tr.ReadToEnd();
+                    using (TextReader tr = new StreamReader(fs))
+                    {
+                        openTicket = tr.ReadToEnd();
+                    }
                 }
             }
             else

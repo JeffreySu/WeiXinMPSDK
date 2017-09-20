@@ -87,7 +87,12 @@ namespace Senparc.Weixin.Helpers
         public static string GetMD5(string encypStr, Encoding encoding)
         {
             string retStr;
+
+#if NET45
             MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+#else
+            MD5 m5 = MD5.Create();
+#endif
 
             //创建md5对象
             byte[] inputBye;
@@ -98,9 +103,10 @@ namespace Senparc.Weixin.Helpers
             {
                 inputBye = encoding.GetBytes(encypStr);
             }
-            catch (Exception ex)
+            catch
             {
                 inputBye = Encoding.GetEncoding("utf-8").GetBytes(encypStr);
+
             }
             outputBye = m5.ComputeHash(inputBye);
 
@@ -126,6 +132,12 @@ namespace Senparc.Weixin.Helpers
             {
                 //使用UTF-8编码
                 return GetMD5("utf-8", Encoding.GetEncoding(charset));
+
+                //#if NET45
+                //                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+                //#else
+                //                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
+                //#endif
             }
         }
 
@@ -152,7 +164,12 @@ namespace Senparc.Weixin.Helpers
         public static byte[] AESEncrypt(byte[] inputdata, byte[] iv, string strKey)
         {
             //分组加密算法   
+#if NET45
             SymmetricAlgorithm des = Rijndael.Create();
+#else
+            SymmetricAlgorithm des = Aes.Create();
+#endif
+
             byte[] inputByteArray = inputdata;//得到需要加密的字节数组       
                                               //设置密钥及密钥向量
             des.Key = Encoding.UTF8.GetBytes(strKey.Substring(0, 32));
@@ -164,8 +181,8 @@ namespace Senparc.Weixin.Helpers
                     cs.Write(inputByteArray, 0, inputByteArray.Length);
                     cs.FlushFinalBlock();
                     byte[] cipherBytes = ms.ToArray();//得到加密后的字节数组   
-                    cs.Close();
-                    ms.Close();
+                    //cs.Close();
+                    //ms.Close();
                     return cipherBytes;
                 }
             }
@@ -181,7 +198,12 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
+#if NET45
             SymmetricAlgorithm des = Rijndael.Create();
+#else
+            SymmetricAlgorithm des = Aes.Create();
+#endif
+
             des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
             des.IV = iv;
             byte[] decryptBytes = new byte[inputdata.Length];
@@ -190,8 +212,8 @@ namespace Senparc.Weixin.Helpers
                 using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
                 {
                     cs.Read(decryptBytes, 0, decryptBytes.Length);
-                    cs.Close();
-                    ms.Close();
+                    //cs.Close();
+                    //ms.Close();
                 }
             }
             return decryptBytes;
@@ -212,7 +234,15 @@ namespace Senparc.Weixin.Helpers
             MemoryStream mStream = new MemoryStream(encryptedBytes);
             //mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  
             //mStream.Seek( 0, SeekOrigin.Begin );  
-            RijndaelManaged aes = new RijndaelManaged();
+
+
+            //RijndaelManaged aes = new RijndaelManaged();
+#if NET45
+            SymmetricAlgorithm aes = Rijndael.Create();
+#else
+            SymmetricAlgorithm aes = Aes.Create();
+#endif
+
             aes.Mode = CipherMode.ECB;
             aes.Padding = PaddingMode.PKCS7;
             aes.KeySize = 128;
@@ -229,9 +259,15 @@ namespace Senparc.Weixin.Helpers
             }
             finally
             {
+#if NET45
                 cryptoStream.Close();
                 mStream.Close();
                 aes.Clear();
+#else
+                //cryptoStream.();
+                //mStream.Close();
+                //aes.Clear();
+#endif
             }
         }
 

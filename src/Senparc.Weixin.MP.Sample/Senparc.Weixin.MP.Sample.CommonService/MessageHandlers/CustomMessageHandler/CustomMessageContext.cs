@@ -11,12 +11,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
 {
     public class CustomMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
     {

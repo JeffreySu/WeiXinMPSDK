@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen
+namespace Senparc.Weixin.MP.CoreSample.CommonService.TemplateMessage.WxOpen
 {
     public class WxOpenTemplateMessage_PaySuccessNotice : TemplateMessageBase
     {

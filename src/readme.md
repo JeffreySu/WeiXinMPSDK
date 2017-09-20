@@ -14,7 +14,7 @@ Nuget 包也由此项目生成
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
 |Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|
-|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC 4.5）|
+|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
 |Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（ASP.NET Core 2.0）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|

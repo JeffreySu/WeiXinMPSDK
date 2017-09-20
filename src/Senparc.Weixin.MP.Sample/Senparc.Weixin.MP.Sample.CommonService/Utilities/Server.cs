@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             {
 #if NET45
                 HttpContext context = HttpContext.Current;
-                 if (context == null)
+                if (context == null)
                 {
                     HttpRequest request = new HttpRequest("Default.aspx", "http://sdk.weixin.senparc.com/default.aspx", null);
                     StringWriter sw = new StringWriter();

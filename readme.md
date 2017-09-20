@@ -1,7 +1,3 @@
-> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并。<br>
-> 本项目的 Sample 解决方案文件建议使用：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/blob/Developer-FullDotNet/src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln)。<br><br>
-> 感谢 [lishewen（算神）](https://github.com/lishewen) 对此分支的长期维护。
-
 
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
@@ -45,7 +41,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 本库为.NET 4.5，其他.NET版本请看各自分支：
 
-* [.NET Core 2.0 + .NET Core 1.0 + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)
+* [.NET Core 2.0 + .NET Core 1.0 + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)
 * [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) （已暂停更新） 
 * [.NET 3.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET3.5) （已停止更新）
 
@@ -168,16 +164,10 @@ Senparc 官方教程
 
 ## 如何使用.NET Core开发
 
-> .NET Framework 版本及 .NET Core 版本代码分别位于 
-[master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [Developer-FullDotNet](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet) 分支下，
-结构保持了高度一致。
-
-> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
-所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
-
-> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
-除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+> 当前分支包含了 .NET Framework 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 的全版本代码。<br>
+> 其中 .NET Framework 4.5 的 Demo 位于 /src/Senparc.Weixin.MP.Sample 目录下，<br>
+> .NET Core 2.0 的 Demo 位于 /src/Senparc.Weixin.MP.Sample.vs2017 目录下。<br>
+> 注意：以上两个 Demo 所引用的 Senparc.Weixin SDK 库源代码是完全一致的，只是在编译运行的时候会根据条件自动选择输出版本。
 
 > 以下所有介绍以 .NET Framework 版本为例。
 

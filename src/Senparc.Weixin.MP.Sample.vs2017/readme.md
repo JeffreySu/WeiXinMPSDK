@@ -1,10 +1,12 @@
 # Senparc.Weixin.MP.Sample.vs2017 项目说明
 
-本项目为 .NET Core 的 Demo，可以直接编译并发布运行，使用当前项目部署的 Senparc 官方在线 Demo：https://sdk.weixin.senparc.com/。
+本项目为 .NET Core 的 Demo，可以直接编译并发布运行。
 
 ## .NET Framwork 4.5 Demo
 
-返回上一级后见：Senparc.Weixin.MP.Sample
+返回上一级后见：Senparc.Weixin.MP.Sample。
+
+使用 .NET Framework 4.5 Sample 部署的 Senparc 官方在线 Demo：https://sdk.weixin.senparc.com/。
 
 
 ##其他说明

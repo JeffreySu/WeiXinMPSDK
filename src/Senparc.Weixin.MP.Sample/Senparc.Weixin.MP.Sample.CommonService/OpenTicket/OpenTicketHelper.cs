@@ -21,9 +21,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
             var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
             if (File.Exists(filePath))
             {
-                using (TextReader tr = new StreamReader(filePath))
+                using (FileStream fs= new FileStream(filePath,FileMode.Open,FileAccess.Read))
                 {
-                    openTicket = tr.ReadToEnd();
+                    using (TextReader tr = new StreamReader(fs))
+                    {
+                        openTicket = tr.ReadToEnd();
+                    }
                 }
             }
             else

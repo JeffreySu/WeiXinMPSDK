@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="componentAppId">第三方平台的appid</param>
         /// <param name="redirectUrl">重定向地址，需要urlencode，这里填写的应是服务开发方的回调地址</param>
         /// <param name="state">重定向后会带上state参数，开发者可以填写任意参数值，最多128字节</param>
-        /// <param name="scope">授权作用域，拥有多个作用域用逗号（,）分隔。此处暂时只放一作用域。</param>
+        /// <param name="scopes">授权作用域，拥有多个作用域用逗号（,）分隔。此处暂时只放一作用域。</param>
         /// <param name="responseType">默认，填code</param>
         /// <returns></returns>
         public static string GetAuthorizeUrl(string appId, string componentAppId, string redirectUrl, string state, OAuthScope[] scopes, string responseType = "code")

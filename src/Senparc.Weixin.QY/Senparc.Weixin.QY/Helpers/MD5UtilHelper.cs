@@ -18,11 +18,11 @@ using System.Text;
 namespace Senparc.Weixin.QY.Helpers
 {
 	/// <summary>
-    /// MD5UtilHelper 的摘要说明。
+	/// MD5UtilHelper 的摘要说明。
 	/// </summary>
 	public class MD5UtilHelper
 	{
-        public MD5UtilHelper()
+		public MD5UtilHelper()
 		{
 			//
 			// TODO: 在此处添加构造函数逻辑
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.QY.Helpers
 		}
 
 		/// <summary>
-        /// 获取大写的MD5签名结果
+		/// 获取大写的MD5签名结果
 		/// </summary>
 		/// <param name="encypStr"></param>
 		/// <param name="charset"></param>
@@ -38,10 +38,14 @@ namespace Senparc.Weixin.QY.Helpers
 		public static string GetMD5(string encypStr, string charset)
 		{
 			string retStr;
-			MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+#if NET45
+            MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+#else
+            var m5 = MD5.Create();
+#endif
 
-			//创建md5对象
-			byte[] inputBye;
+            //创建md5对象
+            byte[] inputBye;
 			byte[] outputBye;
 
 			//使用GB2312编码方式把字符串转化为字节数组．

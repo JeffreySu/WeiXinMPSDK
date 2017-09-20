@@ -1,3 +1,8 @@
+> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并。<br>
+> 本项目的 Sample 解决方案文件建议使用：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/blob/Developer-FullDotNet/src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln)。<br><br>
+> 感谢 [lishewen（算神）](https://github.com/lishewen) 对此分支的长期维护。
+
+
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
 

@@ -9,16 +9,24 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET45
+using System.Web;
+using System.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+#else
+using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#endif
+
 
 namespace Senparc.Weixin.MP.Sample.CommonService
 {
@@ -53,7 +61,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
 
                         //获取Senparc.Weixin.MP.dll版本信息
-                        var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
+#if NET45
+                        var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
+#else
+                        var dllPath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
+#endif
+
+                        var fileVersionInfo = FileVersionInfo.GetVersionInfo(dllPath);
+
+
                         var version = fileVersionInfo.FileVersion;
                         strongResponseMessage.Content = string.Format(
                             "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com",
@@ -86,7 +102,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 Task.Factory.StartNew(async () =>
                 {
+#if NET45
                     var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+#else
+                    var appId = "AppId";
+#endif
+
                     string openId = "";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;

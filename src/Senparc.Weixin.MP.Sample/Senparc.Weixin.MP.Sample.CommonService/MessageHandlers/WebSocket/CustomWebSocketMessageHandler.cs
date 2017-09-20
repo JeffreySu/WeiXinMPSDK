@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Configuration;
 using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.WxOpen.Containers;
+
+#if NET45
+using System.Web.Configuration;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+#else
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+#endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
@@ -45,6 +50,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             var result = string.Concat(message.Reverse());
             await webSocketHandler.SendMessage(result);
 
+#if NET45
+            var appId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+#else
+            var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+#endif
+
+
             try
             {
                 //发送模板消息
@@ -77,14 +89,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                     keyword6 = new TemplateDataItem("400-9939-858"),
                 };
 
-                var appId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+
+
                 var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Oc7R_U_23T8DtVgWn3d__-WkIctx_yDWTg8_4Mx8wgY", data, receivedMessage.FormId, null,
                          null);
             }
             catch (Exception ex)
             {
-                var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" +
-                        WebConfigurationManager.AppSettings["WxOpenAppId"];
+                var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" + appId;
 
                 await webSocketHandler.SendMessage(msg); //VS2017以下如果编译不通过，可以注释掉这一行
 

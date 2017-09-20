@@ -233,7 +233,8 @@ namespace Senparc.Weixin.WxOpen.Tencent
             string hash = "";
             try
             {
-                sha = new SHA1CryptoServiceProvider();
+                //sha = new SHA1CryptoServiceProvider();
+                sha = SHA1.Create();
                 enc = new ASCIIEncoding();
                 byte[] dataToHash = enc.GetBytes(raw);
                 byte[] dataHashed = sha.ComputeHash(dataToHash);

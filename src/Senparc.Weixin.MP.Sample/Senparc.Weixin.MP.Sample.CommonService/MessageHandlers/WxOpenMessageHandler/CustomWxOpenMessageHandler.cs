@@ -11,7 +11,6 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Configuration;
 using System.Xml.Linq;
 using Senparc.Weixin.WxOpen;
 using Senparc.Weixin.WxOpen.MessageHandlers;
@@ -19,6 +18,12 @@ using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
+
+#if NET45
+using System.Web.Configuration;
+#else
+
+#endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
@@ -28,8 +33,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
     /// </summary>
     public partial class CustomWxOpenMessageHandler : WxOpenMessageHandler<CustomWxOpenMessageContext>
     {
-        private string appId = WebConfigurationManager.AppSettings["WxOpenAppId"];
+#if NET45
+           private string appId = WebConfigurationManager.AppSettings["WxOpenAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];
+#else
+        private string appId = "WxOpenAppId";
+        private string appSecret = "WxOpenAppSecret";
+#endif
 
         public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
@@ -119,7 +129,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                     }
 
                     result.AppendFormat("{0} 【{1}】{2}\r\n",
-                        historyMessage.CreateTime.ToShortTimeString(),
+                        historyMessage.CreateTime.ToString("HH:mm:ss"),
                         historyMessage.MsgType.ToString(),
                         content
                         );

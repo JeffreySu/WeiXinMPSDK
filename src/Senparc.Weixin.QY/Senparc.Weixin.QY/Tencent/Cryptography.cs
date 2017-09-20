@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
-    文件名：Cryptography.cs
-    文件功能描述：加解密算法
-    
-    
-    创建标识：Senparc - 20150313
-    
-    修改标识：Senparc - 20150313
-    修改描述：整理接口
+	文件名：Cryptography.cs
+	文件功能描述：加解密算法
+	
+	
+	创建标识：Senparc - 20150313
+	
+	修改标识：Senparc - 20150313
+	修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
@@ -56,11 +56,11 @@ namespace Senparc.Weixin.QY.Tencent
             byte[] bMsg = new byte[len];
             byte[] bCorpid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bCorpid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bCorpid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             corpid = Encoding.UTF8.GetString(bCorpid);
 
-            
+
             return oriMsg;
         }
 
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.QY.Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bCorpid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bCorpid.Length);
-   
+
             return AES_encrypt(bMsg, Iv, Key);
 
         }
@@ -106,7 +106,11 @@ namespace Senparc.Weixin.QY.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -134,7 +138,11 @@ namespace Senparc.Weixin.QY.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -192,11 +200,11 @@ namespace Senparc.Weixin.QY.Tencent
             return Encoding.UTF8.GetBytes(tmp);
         }
         /**
-         * 将数字转化成ASCII码对应的字符，用于对明文进行补码
-         * 
-         * @param a 需要转化的数字
-         * @return 转化得到的字符
-         */
+		 * 将数字转化成ASCII码对应的字符，用于对明文进行补码
+		 * 
+		 * @param a 需要转化的数字
+		 * @return 转化得到的字符
+		 */
         static char chr(int a)
         {
 
@@ -205,7 +213,11 @@ namespace Senparc.Weixin.QY.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
+#if NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             aes.KeySize = 256;
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;

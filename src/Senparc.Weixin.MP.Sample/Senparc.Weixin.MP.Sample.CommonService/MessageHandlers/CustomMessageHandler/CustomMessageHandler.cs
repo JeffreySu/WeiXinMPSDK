@@ -10,13 +10,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Web;
-using System.Web.Configuration;
+
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
@@ -25,11 +23,20 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.Request;
+
+#if NET45
+using System.Web;
+using System.Configuration;
+using System.Web.Configuration;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#else
+using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -46,7 +53,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if DEBUG
+#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -57,8 +64,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
+#if NET45
         private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+#else
+        private string appId = "appId";
+        private string appSecret = "appSecret";
+#endif
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
@@ -191,7 +203,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     #region 暂时转发到SDK线上Demo
 
                     agentUrl = "http://sdk.weixin.senparc.com/weixin";
-                    agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
+                    //agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                     //修改内容，防止死循环
                     var agentDoc = XDocument.Parse(agentXml);
@@ -252,6 +264,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Keyword("AsyncTest", () =>
                 {
                     //异步并发测试（提供给单元测试使用）
+#if NET45
                     DateTime begin = DateTime.Now;
                     int t1, t2, t3;
                     System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
@@ -266,6 +279,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                             end,
                             t2 - t1
                             );
+#endif
+
                     return defaultResponseMessage;
                 })
                 .Keyword("OPEN", () =>
@@ -353,7 +368,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         {
                             var historyMessage = CurrentMessageContext.RequestMessages[i];
                             result.AppendFormat("{0} 【{1}】{2}\r\n",
-                                historyMessage.CreateTime.ToShortTimeString(),
+                                historyMessage.CreateTime.ToString("HH:mm:ss"),
                                 historyMessage.MsgType.ToString(),
                                 (historyMessage is RequestMessageText)
                                     ? (historyMessage as RequestMessageText).Content

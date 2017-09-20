@@ -20,6 +20,7 @@
 
 using System;
 using System.Text;
+using System.Net;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib
@@ -64,12 +65,19 @@ namespace Senparc.Weixin.QY.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
 
@@ -93,12 +101,19 @@ namespace Senparc.Weixin.QY.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
 
 
@@ -114,7 +129,11 @@ namespace Senparc.Weixin.QY.TenPayLib
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if (NET45 || NET461)
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
         /// <summary>

@@ -7,8 +7,8 @@
     
     创建标识：Senparc - 20150313
  
-    修改标识：Senparc - 20150313
-    修改描述：开放代理请求超时时间
+	修改标识：Senparc - 20150313
+	修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 using System;
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
     public static class CommonJsonSend
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
         /// </summary>
@@ -41,10 +41,17 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="checkValidationResult"></param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+#if NET45
+            public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut,checkValidationResult,jsonSetting);
         }
+#else
+        public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        {
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult);
+        }
+#endif
         #endregion
 
         /// <summary>
@@ -57,13 +64,19 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="checkValidationResult"></param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
+#if NET45
         [Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>()方法")]
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
-
-   
+#else
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>()方法")]
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        {
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult);
+        }
+#endif
     }
 }
 

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿#define NET45
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

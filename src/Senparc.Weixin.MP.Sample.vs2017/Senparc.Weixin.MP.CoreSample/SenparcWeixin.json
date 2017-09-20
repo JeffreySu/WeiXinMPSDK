@@ -1,0 +1,8 @@
+﻿{
+  "SenparcWeixinSetting": {
+    "Token": "weixin",
+    "EncodingAESKey": "",
+    "WeixinAppId": "wxc6806b0f231aaf54",
+    "WeixinAppSecret": "37f98e633b4d892f7df4c36127125c1f"
+  }
+}

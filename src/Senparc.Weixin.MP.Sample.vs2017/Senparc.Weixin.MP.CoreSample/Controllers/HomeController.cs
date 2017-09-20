@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 
 #if NET45
 using System.Web;

@@ -12,10 +12,10 @@ using System;
 using System.IO;
 using System.Text;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 #if NET45
 using System.Web

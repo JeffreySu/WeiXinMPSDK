@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
 //using ZXing.Aztec.Internal;

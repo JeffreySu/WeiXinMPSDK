@@ -20,7 +20,7 @@ namespace ClearDotNetCoreBadFiles
             Console.WriteLine("清理开始……");
 
             CleanDir("../src/");
-
+          
             Console.WriteLine("清理完毕，点击任意键退出");
             Console.ReadKey();
         }

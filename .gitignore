@@ -12,7 +12,7 @@ bak.zip
 *.pdb
 *.tmp
 
-/Tools/*
+#/Tools/*
 *.DotSettings
 .vs
 applicationhost.config

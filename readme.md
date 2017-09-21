@@ -52,15 +52,14 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 |---|-----------------------------------------------------|-------------------------------------------------|--------------------------------------|------------------------------------------------------------------------------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 3| ASP.NET MVC 扩展<br>（.NET Framework）               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN-]   ![.NET Core 2.0][core20N-]
-| 4| ASP.NET Core MVC <br> 扩展（.NET Core）              |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 5| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 6| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
-| 7| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]           | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
-| 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
-|10| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]                | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-|11| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 3| ASP.NET MVC 扩展<br>.NET Framework + Core               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]   ![.NET Core 2.0][core20Y]
+| 4| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 5| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
+| 6| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]           | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
+| 8| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
+| 9| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]                | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+|10| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 
 ![.NET 4.0][net40Y] .NET 4.0   ![.NET 4.5][net45Y] .NET 4.5  ![.NET Core][coreY] .NET Core 1.0  ![.NET Core 2.0][core20Y] .NET Core 2.0
 
@@ -164,8 +163,8 @@ Senparc 官方教程
 ## 如何使用.NET Core开发
 
 > 当前分支包含了 .NET Framework 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 的全版本代码。<br>
-> 其中 .NET Framework 4.5 的 Demo 位于 /src/Senparc.Weixin.MP.Sample 目录下，<br>
-> .NET Core 2.0 的 Demo 位于 /src/Senparc.Weixin.MP.Sample.vs2017 目录下。<br>
+> 其中 .NET Framework 4.5 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample` 目录下，<br>
+> .NET Core 2.0 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample.vs2017` 目录下。<br>
 > 注意：以上两个 Demo 所引用的 Senparc.Weixin SDK 库源代码是完全一致的，只是在编译运行的时候会根据条件自动选择输出版本。
 
 > 以下所有介绍以 .NET Framework 版本为例。
@@ -190,7 +189,7 @@ Senparc 官方教程
 |Senparc.WebSocket|WebSocket 模块|
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
-|Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|
+|Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为 MVC 项目提供的扩展包 |
 |Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（.NET Framework 4.5 + + ASP.NET WebForms）|
 |Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（.NET Core 2.0 + MVC）|

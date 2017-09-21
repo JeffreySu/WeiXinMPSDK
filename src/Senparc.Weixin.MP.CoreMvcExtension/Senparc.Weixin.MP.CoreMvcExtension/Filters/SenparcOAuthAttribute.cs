@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.CoreMvcExtension
             _oauthScope = oauthScope;
         }
 
+
         /// <summary>
         /// 判断用户是否已经登录
         /// </summary>

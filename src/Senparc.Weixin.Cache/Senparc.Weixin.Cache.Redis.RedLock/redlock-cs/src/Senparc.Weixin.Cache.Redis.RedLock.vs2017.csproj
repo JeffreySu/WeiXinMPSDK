@@ -15,7 +15,7 @@
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <PackageTags>Cache,Redis,RedLock,Senparc</PackageTags>
+    <PackageTags>Cache,Redis,RedLock,Senparc,盛派</PackageTags>
 
 
     <Authors>Jeffrey Su</Authors>
@@ -49,7 +49,7 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">

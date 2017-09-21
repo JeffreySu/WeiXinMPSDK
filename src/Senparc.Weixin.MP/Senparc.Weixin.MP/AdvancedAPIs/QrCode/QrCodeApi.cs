@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：QrCodeAPI.cs
     文件功能描述：二维码接口
@@ -21,6 +41,12 @@
 
     修改标识：Senparc - 20160901
     修改描述：v14.3.7 修改Create方法（及对应异步方法），匹配最新的官方文档，删除CreateByStr方法（及对应异步方法）
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
+    修改标识：Senparc - 20170715
+    修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
 
 ----------------------------------------------------------------*/
 
@@ -47,14 +73,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="expireSeconds">临时二维码有效时间，以秒为单位。永久二维码将忽略此参数</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
         /// <param name="sceneStr">场景字符串，仅actionName为QR_LIMIT_STR_SCENE时有效</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName,string sceneStr =null, int timeOut = Config.TIME_OUT)
+        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -103,6 +129,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
@@ -115,7 +155,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <summary>
         ///// 用字符串类型创建二维码（永久）
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
@@ -170,7 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="expireSeconds">临时二维码有效时间，以秒为单位。永久二维码将忽略此参数</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
         /// <param name="sceneStr">场景字符串，仅actionName为QR_LIMIT_STR_SCENE时有效</param>
@@ -179,7 +219,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CreateQrCodeResult> CreateAsync(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
                 object data = null;
@@ -226,25 +266,39 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            expire_seconds = expireSeconds,
+                            action_name = "QR_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
         ///// <summary>
         ///// 【异步方法】用字符串类型创建二维码
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
         //public static async Task<CreateQrCodeResult> CreateByStrAsync(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
         //{
-        //    return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+        //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
         //    {
         //        var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
         //        var data = new
@@ -257,7 +311,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //                }
         //            }
         //        };
-        //        return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        //        return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
         //    }, accessTokenOrAppId);
         //}
 

@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     文件名：Cryptography.cs
     文件功能描述：加解密算法
     
@@ -15,7 +35,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tencent
+namespace Senparc.Weixin.MP.Tencent
 {
     class Cryptography
     {
@@ -56,11 +76,11 @@ namespace Tencent
             byte[] bMsg = new byte[len];
             byte[] bAppid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bAppid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bAppid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             appid = Encoding.UTF8.GetString(bAppid);
 
-            
+
             return oriMsg;
         }
 
@@ -81,7 +101,7 @@ namespace Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bAppid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bAppid.Length);
-   
+
             return AES_encrypt(bMsg, Iv, Key);
 
         }
@@ -106,7 +126,11 @@ namespace Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -134,7 +158,12 @@ namespace Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
+
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -205,8 +234,12 @@ namespace Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
+#if NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
+            aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.None;

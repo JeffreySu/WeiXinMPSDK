@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：Post.cs
     文件功能描述：Post
@@ -21,7 +41,12 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加了PostFileGetJsonAsync的异步方法（与之前的方法多一个参数）
+
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.9 修改Download方法
 ----------------------------------------------------------------*/
+
+
 
 using System;
 using System.Collections.Generic;
@@ -30,12 +55,18 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+#if NET45
 using System.Web.Script.Serialization;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using System.Net.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
+    /// <summary>
+    /// Post 请求处理
+    /// </summary>
     public static class Post
     {
         /// <summary>
@@ -46,12 +77,18 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static T GetResult<T>(string returnText)
         {
+#if NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
-            
+#endif
+
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
+#if NET45
                 WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+#else
+                WxJsonResult errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
+#endif
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
                     //发生错误
@@ -63,7 +100,14 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 
+#if NET45
             T result = js.Deserialize<T>(returnText);
+#else
+            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
+#endif
+
+            //TODO:加入特殊情况下的回调处理
+
             return result;
         }
 
@@ -82,7 +126,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary"></param>
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -105,11 +149,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;
@@ -126,7 +170,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, cer, timeOut);
             var result = GetResult<T>(returnText);
@@ -141,12 +185,26 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="stream"></param>
         public static void Download(string url, string data, Stream stream)
         {
+#if NET45
             WebClient wc = new WebClient();
             var file = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
-            foreach (var b in file)
-            {
-                stream.WriteByte(b);
-            }
+            stream.Write(file, 0, file.Length);
+
+            //foreach (var b in file)
+            //{
+            //    stream.WriteByte(b);
+            //}
+#else
+            HttpClient httpClient = new HttpClient();
+            HttpContent hc = new StringContent(data);
+            var ht = httpClient.PostAsync(url, hc);
+            ht.Wait();
+            var ft = ht.Result.Content.ReadAsByteArrayAsync();
+            ft.Wait();
+            var file = ft.Result;
+            stream.Write(file, 0, file.Length);
+#endif
+
         }
 
         #endregion
@@ -166,7 +224,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary"></param>
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
-        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -190,11 +248,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;
@@ -212,7 +270,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, cer, timeOut);
             var result = GetResult<T>(returnText);
@@ -247,10 +305,19 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="stream"></param>
         public static async Task DownloadAsync(string url, string data, Stream stream)
         {
+#if NET45
             WebClient wc = new WebClient();
 
             var fileBytes = await wc.UploadDataTaskAsync(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
             await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
+#else
+            HttpClient httpClient = new HttpClient();
+            HttpContent hc = new StringContent(data);
+            var ht = await httpClient.PostAsync(url, hc);
+            var fileBytes = await ht.Content.ReadAsByteArrayAsync();
+            await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
+#endif
+
         }
 
         #endregion

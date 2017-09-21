@@ -1,8 +1,28 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：SenparcMessageQueue.cs
-    文件功能描述：SenparcMessageQueue消息列队
+    文件功能描述：SenparcMessageQueue消息队列
 
 
     创建标识：Senparc - 20151226
@@ -12,22 +32,21 @@
               （使用MessageQueueDictionary.Keys会可能会使储存项目的无序执行）
 ----------------------------------------------------------------*/
 
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MessageQueue
 {
     /// <summary>
-    /// 消息列队
+    /// 消息队列
     /// </summary>
     public class SenparcMessageQueue
     {
         /// <summary>
-        /// 列队数据集合
+        /// 队列数据集合
         /// </summary>
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
 
@@ -43,7 +62,7 @@ namespace Senparc.Weixin.MessageQueue
         /// <summary>
         /// 生成Key
         /// </summary>
-        /// <param name="name">列队应用名称，如“ContainerBag”</param>
+        /// <param name="name">队列应用名称，如“ContainerBag”</param>
         /// <param name="senderType">操作对象类型</param>
         /// <param name="identityKey">对象唯一标识Key</param>
         /// <param name="actionName">操作名称，如“UpdateContainerBag”</param>
@@ -56,7 +75,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 操作列队
+        /// 操作队列
         /// </summary>
         public static void OperateQueue()
         {
@@ -104,7 +123,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 添加列队成员
+        /// 添加队列成员
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
@@ -129,7 +148,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 移除列队成员
+        /// 移除队列成员
         /// </summary>
         /// <param name="key"></param>
         public void Remove(string key)
@@ -145,7 +164,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 获得当前列队数量
+        /// 获得当前队列数量
         /// </summary>
         /// <returns></returns>
         public int GetCount()

@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2CA35598-F1A1-4DC9-AA20-A4346BFCB954}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senparc.Weixin.QY</RootNamespace>
+    <AssemblyName>Senparc.Weixin.QY</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedAPIs\App\AppApi.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\GetAppListResult.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousApi.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousPostData.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatApi.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\SendChatMessageData.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
+    <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFResult.cs" />
+    <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
+    <Compile Include="Containers\JsApiTicketContainer.cs" />
+    <Compile Include="Containers\ProviderTokenContainer.cs" />
+    <Compile Include="Entities\JsonResult\ConvertToUserIdResult.cs" />
+    <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
+    <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
+    <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\MailListApi.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Department\DepartmentResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\MemberResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Tag\TagResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
+    <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
+    <Compile Include="AdvancedAPIs\OAuth2\OAuth2Api.cs" />
+    <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
+    <Compile Include="Containers\AccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
+    <Compile Include="CommonAPIs\CommonApi.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\JsonResult\ConvertToOpenIdResult.cs" />
+    <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
+    <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
+    <Compile Include="Entities\JsonResult\ProviderTokenResult.cs" />
+    <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
+    <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
+    <Compile Include="Entities\Request\EncryptPostData.cs" />
+    <Compile Include="Entities\Extensions.cs" />
+    <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
+    <Compile Include="Entities\Menu\BaseButton.cs" />
+    <Compile Include="Entities\Menu\ButtonGroup.cs" />
+    <Compile Include="Entities\Menu\SingleButton.cs" />
+    <Compile Include="Entities\Menu\SingleClickButton.cs" />
+    <Compile Include="Entities\Menu\SingleViewButton.cs" />
+    <Compile Include="Entities\Menu\SubButton.cs" />
+    <Compile Include="Entities\MsgTypeHelper.cs" />
+    <Compile Include="Entities\Request\Event\Receiver.cs" />
+    <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Weixin.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scancode_Push.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scancode_Waitmsg.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_UnSubscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs" />
+    <Compile Include="Entities\Request\Event\ChatInfo.cs" />
+    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
+    <Compile Include="Entities\Request\Event\BatchJobInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
+    <Compile Include="Entities\Request\KF\RequestEvent.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessage.cs" />
+    <Compile Include="Entities\Request\KF\RequestBase.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageFile.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageImage.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLink.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLocation.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessagePack.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageText.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageVoice.cs" />
+    <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Create_Auth.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Cancel_Auth.cs" />
+    <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\RequestMessageBase.cs" />
+    <Compile Include="Entities\Request\RequestMessageImage.cs" />
+    <Compile Include="Entities\Request\RequestMessageLocation.cs" />
+    <Compile Include="Entities\Request\RequestMessageText.cs" />
+    <Compile Include="Entities\Request\RequestMessageVideo.cs" />
+    <Compile Include="Entities\Request\RequestMessageVoice.cs" />
+    <Compile Include="Entities\Response\Article.cs" />
+    <Compile Include="Entities\Response\EncryptResponseMessage.cs" />
+    <Compile Include="Entities\Response\Image.cs" />
+    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Entities\Response\ResponseMessageImage.cs" />
+    <Compile Include="Entities\Response\ResponseMessageNews.cs" />
+    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\ResponseMessageText.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
+    <Compile Include="Entities\Response\Video.cs" />
+    <Compile Include="Entities\Response\Voice.cs" />
+    <Compile Include="Entities\Response\MpNewsArticle.cs" />
+    <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\WeixinQyException.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
+    <Compile Include="MessageHandlers\QyMessageHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestMessageFactory.cs" />
+    <Compile Include="ResponseMessageFactory.cs" />
+    <Compile Include="Signature.cs" />
+    <Compile Include="Tencent\Cryptography.cs" />
+    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
+    <Compile Include="TenPayLib\RequestHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\ResponseHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayInfoCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPay\TenPay.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin.net45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tencent\Readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     文件名：WXBizMsgCrypt.cs
     文件功能描述：加解密算法
     
@@ -26,7 +46,7 @@ using System.Xml;
 //-40008 ： 解密后得到的buffer非法
 //-40009 :  base64加密异常
 //-40010 :  base64解密异常
-namespace Tencent
+namespace Senparc.Weixin.MP.Tencent
 {
     class WXBizMsgCrypt
     {
@@ -49,9 +69,9 @@ namespace Tencent
         };
 
         //构造函数
-	    // @param sToken: 公众平台上，开发者设置的Token
-	    // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-	    // @param sAppID: 公众帐号的appid
+        // @param sToken: 公众平台上，开发者设置的Token
+        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
+        // @param sAppID: 公众帐号的appid
         public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sAppID)
         {
             m_sToken = sToken;
@@ -69,10 +89,10 @@ namespace Tencent
         // @return: 成功0，失败返回对应的错误码
         public int DecryptMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             XmlDocument doc = new XmlDocument();
             XmlNode root;
             string sEncryptMsg;
@@ -119,10 +139,10 @@ namespace Tencent
         // return：成功0，失败返回对应的错误码
         public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             string raw = "";
             try
             {
@@ -194,7 +214,7 @@ namespace Tencent
             }
         }
 
-        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt ,ref string sMsgSignature)
+        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
@@ -213,7 +233,11 @@ namespace Tencent
             string hash = "";
             try
             {
+#if NET45
                 sha = new SHA1CryptoServiceProvider();
+#else
+                sha = SHA1.Create();
+#endif
                 enc = new ASCIIEncoding();
                 byte[] dataToHash = enc.GetBytes(raw);
                 byte[] dataHashed = sha.ComputeHash(dataToHash);

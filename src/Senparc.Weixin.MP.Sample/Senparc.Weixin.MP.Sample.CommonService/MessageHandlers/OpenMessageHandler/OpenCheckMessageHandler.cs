@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.Configuration;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Entities.Request;
+
+
+#if NET45
+using System.Web.Configuration;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#else
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
 {
@@ -19,9 +27,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
     /// </summary>
     public class OpenCheckMessageHandler : MessageHandler<CustomMessageContext>
     {
+        /*
+           https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318611&lang=zh_CN
+            自动化测试的专用测试公众号的信息如下：
+            （1）appid： wx570bc396a51b8ff8
+            （2）Username： gh_3c884a361561
+        */
+
         //private string testAppId = "wx570bc396a51b8ff8";
+
+#if NET45
         private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
+#else
+        private string componentAppId = "ComponentAppId";
+        private string componentSecret = "Component_Secret";
+#endif
+
+
 
         public OpenCheckMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetLoginInfoResult.cs
     文件功能描述：获取企业号管理员登录信息返回结果
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         public string writable { get; set; }
     }
 
-    public class GetLoginUrlResult
+    public class GetLoginUrlResult : QyJsonResult
     {
         /// <summary>
         /// 登录跳转的url，一次性有效，不可多次使用

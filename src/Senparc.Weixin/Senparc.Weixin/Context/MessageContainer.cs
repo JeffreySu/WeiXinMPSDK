@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：MessageContainer.cs
     文件功能描述：微信消息容器
@@ -15,6 +35,10 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.Context
 {
+    /// <summary>
+    /// 消息容器（列表）
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MessageContainer<T> : List<T> 
         //where T : IMessageBase
     {
@@ -32,7 +56,7 @@ namespace Senparc.Weixin.Context
             MaxRecordCount = maxRecordCount;
         }
 
-        new public void Add(T item)
+        public new void Add(T item)
         {
             base.Add(item);
             RemoveExpressItems();
@@ -46,19 +70,19 @@ namespace Senparc.Weixin.Context
             }
         }
 
-        new public void AddRange(IEnumerable<T> collection)
+        public new void AddRange(IEnumerable<T> collection)
         {
             base.AddRange(collection);
             RemoveExpressItems();
         }
 
-        new public void Insert(int index, T item)
+        public new void Insert(int index, T item)
         {
             base.Insert(index, item);
             RemoveExpressItems();
         }
 
-        new public void InsertRange(int index, IEnumerable<T> collection)
+        public new void InsertRange(int index, IEnumerable<T> collection)
         {
             base.InsertRange(index, collection);
             RemoveExpressItems();

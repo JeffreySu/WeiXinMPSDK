@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -16,14 +36,27 @@
     修改标识：Senparc - 20161112
     修改描述：为ParseXML()方法添加v==null的判断
 
+    修改标识：Senparc - 20170115
+    修改描述：v14.3.120 添加SetParameterWhenNotNull()方法
+
+    修改标识：Senparc - 20170319
+    修改描述：v14.3.134 修改RequestHandler构造函数
+
     ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.StringHelper;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -46,16 +79,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     {
 
         public RequestHandler()
+            : this(null)
         {
-            Parameters = new Hashtable();
         }
 
 
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-
-            this.HttpContext = httpContext ?? HttpContext.Current;
+#if NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
 
         }
         /// <summary>
@@ -126,6 +162,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 
         /// <summary>
+        /// 当参数不为null或空字符串时，设置参数值
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="parameterValue"></param>
+        public void SetParameterWhenNotNull(string parameter, string parameterValue)
+        {
+            if (!string.IsNullOrEmpty(parameterValue))
+            {
+                SetParameter(parameter, parameterValue);
+            }
+        }
+
+        /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
         /// </summary>
         /// <param name="key">参数名</param>
@@ -137,20 +186,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
                 string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
-                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
+                    && "sign".CompareTo(k) != 0
+                    //&& "sign_type".CompareTo(k) != 0
+                    && "key".CompareTo(k) != 0)
                 {
                     sb.Append(k + "=" + v + "&");
                 }
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
 
             return sign;
         }
@@ -199,12 +254,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected virtual string GetCharset()
         {
-            if (this.HttpContext == null)
+#if (NET45 || NET461)
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;
             }
 
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
+            {
+                return Encoding.UTF8.WebName;
+            }
+
+            return this.HttpContext.Request.Headers["charset"];
+#endif
+
         }
     }
 }

@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：CardUpdateData.cs
     文件功能描述：卡券更新需要的数据
@@ -14,6 +34,8 @@
     修改描述：修改Card_MemberCardUpdateData
 ----------------------------------------------------------------*/
 
+
+
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -23,6 +45,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_MemberCardUpdateData : BaseUpdateInfo
     {
+        /// <summary>
+        /// 是否支持积分。要求设置为true后不能设置为false。
+        /// </summary>
+        public bool supply_bonus { get; set;}
         /// <summary>
         /// 积分清零规则
         /// 非必填
@@ -69,8 +95,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 初始设置积分 int型数据
         /// 非必填,null时显示查看
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
-        public int init_increase_bonus { get; set; }
+        //[JsonSetting.IgnoreValueAttribute("0")]
+        //public string init_increase_bonus { get; set; }
 
         /// <summary>
         /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。

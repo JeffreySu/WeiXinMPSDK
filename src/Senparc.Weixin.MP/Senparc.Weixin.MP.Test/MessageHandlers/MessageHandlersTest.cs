@@ -1,4 +1,24 @@
-﻿using System;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
@@ -28,7 +48,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
-            responseMessage.Content = "文字信息";
+
+            if (requestMessage.Content=="代理")
+            {
+            }
+            else
+            {
+                responseMessage.Content = "文字信息";
+            }
             return responseMessage;
         }
 
@@ -38,6 +65,41 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             responeMessage.Content = "OnEvent_LocationSelectRequest";
             return responeMessage;
         }
+
+        #region 微信认证事件推送
+
+        public override IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        public override IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        {
+            return new SuccessResponseMessage();
+        }
+
+        #endregion
+
 
         #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
@@ -102,7 +164,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlersTest
+    public partial class MessageHandlersTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

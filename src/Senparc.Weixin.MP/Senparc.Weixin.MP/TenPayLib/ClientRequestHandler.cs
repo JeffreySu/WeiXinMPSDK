@@ -1,8 +1,34 @@
-﻿using System;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+using System;
 using System.Collections;
 using System.Text;
-using System.Web;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -12,7 +38,11 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
+#if (NET45 || NET461)
             this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
 
         /// <summary>
@@ -91,7 +121,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             StringBuilder sb = new StringBuilder();
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
             foreach (string k in akeys)
             {
                 string v = (string)Parameters[k];
@@ -123,7 +153,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -203,7 +233,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if (NET45 || NET461)
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

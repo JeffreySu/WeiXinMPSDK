@@ -12,13 +12,21 @@ namespace Senparc.Weixin.MP.Sample
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            //routes.IgnoreRoute(".well-known/acme-challenge/{filename}");
+            //routes.IgnoreRoute("SenparcWebSocket");
 
             routes.MapRoute(
                 name: "Open",
                 url: "Open/Callback/{appId}",
                 defaults: new { controller = "Open", action = "Callback", appId = UrlParameter.Optional }
             );
+
+            //routes.MapRoute(
+            //  name: "WebSocket",
+            //  url: "SenparcWebSocket",
+            //  defaults: new { controller = "SenparcWebSocket", action = "SenparcWebSocket" }
+            //);
+
 
             routes.MapRoute(
                 name: "Default",

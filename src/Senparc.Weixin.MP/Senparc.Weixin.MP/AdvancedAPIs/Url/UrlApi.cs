@@ -1,11 +1,34 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
   
     修改标识：Senparc - 20160621
     修改描述：修改命名空间
               其改为Senparc.Weixin.MP.AdvancedAPIs      
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
 ----------------------------------------------------------------*/
 
 using System;
@@ -34,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
@@ -58,13 +81,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
          ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
         public static async Task<ShortUrlResult> ShortUrlAsync(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token={0}";
                 var data = new
@@ -72,7 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     action = action,
                     long_url = longUrl
                 };
-                return Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

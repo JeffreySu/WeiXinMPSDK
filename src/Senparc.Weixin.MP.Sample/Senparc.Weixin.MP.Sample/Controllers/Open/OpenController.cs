@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 授权事件接收URL
+        /// 微信服务器会不间断推送最新的Ticket（10分钟一次），需要在此方法中更新缓存
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信服务器会不间断推送最新的Ticket（10分钟一次），需要在此方法中更新缓存
+        /// 授权事件接收URL
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
@@ -147,9 +147,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 if (messageHandler.ResponseDocument != null)
                 {
+                    var ticks = DateTime.Now.Ticks;
                     messageHandler.ResponseDocument.Save(Path.Combine(logPath,
-                        string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks,
+                        string.Format("{0}_Response_{1}.txt", ticks,
                             messageHandler.RequestMessage.FromUserName)));
+
+                    //记录加密后的日志
+                    //if (messageHandler.UsingEcryptMessage)
+                    //{
+                    //    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
+                    // string.Format("{0}_Response_Final_{1}.txt", ticks,
+                    //     messageHandler.RequestMessage.FromUserName)));
+                    //}
                 }
                 return new FixWeixinBugWeixinResult(messageHandler);
             }

@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinContext.cs
     文件功能描述：微信消息上下文（全局）
@@ -24,7 +44,7 @@ namespace Senparc.Weixin.Context
 {
     public static class WeixinContextGlobal
     {
-        public static object Lock = new object();
+        public static object Lock = new object();//TODO:转为同步锁
 
         /// <summary>
         /// 是否开启上下文记录
@@ -44,7 +64,7 @@ namespace Senparc.Weixin.Context
     //    /// </summary>
     //    Dictionary<string, TM> MessageCollection { get; set; }
     //    /// <summary>
-    //    /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+    //    /// MessageContext队列（LastActiveTime升序排列）,不要直接操作此对象
     //    /// </summary>
     //    MessageQueue<TM, TRequest, TResponse> MessageQueue { get; set; }
 
@@ -79,12 +99,12 @@ namespace Senparc.Weixin.Context
         /// </summary>
         public Dictionary<string, TM> MessageCollection { get; set; }
         /// <summary>
-        /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+        /// MessageContext队列（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
         public MessageQueue<TM, TRequest, TResponse> MessageQueue { get; set; }
 
         /// <summary>
-        /// 每一个MessageContext过期时间
+        /// 每一个MessageContext过期时间（分钟）
         /// </summary>
         public Double ExpireMinutes { get; set; }
 
@@ -124,7 +144,7 @@ namespace Senparc.Weixin.Context
                 var timeSpan = DateTime.Now - firstMessageContext.LastActiveTime;
                 //确定对话过期时间
                 var expireMinutes = firstMessageContext.ExpireMinutes.HasValue
-                    ? firstMessageContext.ExpireMinutes.Value //列队自定义事件
+                    ? firstMessageContext.ExpireMinutes.Value //队列自定义事件
                     : this.ExpireMinutes;//全局统一默认时间
                 if (timeSpan.TotalMinutes >= expireMinutes)
                 {
@@ -141,10 +161,10 @@ namespace Senparc.Weixin.Context
             }
 
             /* 
-             * 全局只有在这里用到MessageCollection.ContainsKey
-             * 充分分离MessageCollection内部操作，
-             * 为以后变化或扩展MessageCollection留余地
-             */
+                * 全局只有在这里用到MessageCollection.ContainsKey
+                * 充分分离MessageCollection内部操作，
+                * 为以后变化或扩展MessageCollection留余地
+                */
             if (!MessageCollection.ContainsKey(userName))
             {
                 return null;
@@ -157,8 +177,8 @@ namespace Senparc.Weixin.Context
         /// 获取MessageContext
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
-        /// <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
-        /// False：用户储存在，则返回null</param>
+        /// <param name="createIfNotExists">true：如果用户不存在，则创建一个实例，并返回这个最新的实例
+        /// false：如用户不存在，则返回null</param>
         /// <returns></returns>
         private TM GetMessageContext(string userName, bool createIfNotExists)
         {
@@ -176,7 +196,7 @@ namespace Senparc.Weixin.Context
                     };
 
                     messageContext = GetMessageContext(userName);
-                    //插入列队
+                    //插入队列
                     MessageQueue.Add(messageContext); //最新的排到末尾
                 }
                 else
@@ -200,7 +220,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+        /// 获取MessageContext，如果不存在，使用responseMessage信息初始化一个，并返回原始实例
         /// </summary>
         /// <returns></returns>
         public TM GetMessageContext(TResponse responseMessage)
@@ -253,7 +273,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取最新一条请求数据，如果不存在，则返回Null
+        /// 获取最新一条请求数据，如果不存在，则返回null
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>
@@ -267,7 +287,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取最新一条响应数据，如果不存在，则返回Null
+        /// 获取最新一条响应数据，如果不存在，则返回null
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>

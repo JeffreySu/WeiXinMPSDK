@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：MessageAgent.cs
     文件功能描述：代理请求
@@ -12,6 +32,10 @@
  
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
+
+    修改标识：Senparc - 20170304
+    修改描述：修改微微嗨转发协议，将http改为https
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -61,7 +85,10 @@ namespace Senparc.Weixin.MP.Agent
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
                     url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData());
+
+            stream.Seek(0, SeekOrigin.Begin);
             var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
+            //WeixinTrace.SendApiLog("RequestXmlUrl：" + url, responseXml);
             return responseXml;
         }
 
@@ -94,7 +121,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
+        /// 对接微微嗨平台，获取Xml结果，使用WeiWeiHiKey对接
         /// WeiWeiHiKey的获取方式请看：
         /// </summary>
         /// <param name="messageHandler"></param>
@@ -109,7 +136,7 @@ namespace Senparc.Weixin.MP.Agent
             {
                 messageHandler.UsedMessageAgent = true;
             }
-            var url = "http://" + weiweihiDomainName + "/App/Weixin?weiweihiKey=" + weiweihiKey;//官方地址
+            var url = "https://" + weiweihiDomainName + "/App/Weixin?weiweihiKey=" + weiweihiKey;//官方地址
             using (MemoryStream ms = new MemoryStream())
             {
                 //这里用ms模拟Request.InputStream
@@ -152,7 +179,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取微微嗨（前Souidea）开放平台的ResponseMessge结果
+        /// 获取微微嗨开放平台的ResponseMessge结果
         /// </summary>
         /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
@@ -166,7 +193,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Souidea开放平台的ResponseMessge结果
+        /// 获取微微嗨开放平台的ResponseMessge结果
         /// </summary>
         /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
@@ -180,7 +207,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Souidea开放平台的ResponseMessge结果
+        /// 获取微微嗨开放平台的ResponseMessge结果
         /// </summary>
         /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>

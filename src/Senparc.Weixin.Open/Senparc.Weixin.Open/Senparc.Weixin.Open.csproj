@@ -17,18 +17,19 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Open.XML</DocumentationFile>
@@ -79,10 +80,14 @@
     <Compile Include="Entities\Request\RequestMessageAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageUnauthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageComponentVerifyTicket.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\GetJsonResult.cs" />
+    <Compile Include="MpAPIs\Open\OpenApi.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\CreateJsonResult.cs" />
     <Compile Include="QRConnect\QRConnectAPI.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
@@ -92,17 +97,40 @@
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
-    <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandler.cs" />
+    <Compile Include="MessageHandlers\ThirdPartyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
+    <Compile Include="WxaAPIs\Code\CodeApi.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetPageResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetCategoryResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditPageInfo.cs" />
+    <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
+    <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

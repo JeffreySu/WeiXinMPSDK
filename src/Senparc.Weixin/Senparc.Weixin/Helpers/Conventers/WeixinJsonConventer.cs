@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinJsonConventer.cs
     文件功能描述：微信JSON字符串转换
@@ -10,14 +30,22 @@
     修改标识：Senparc - 20160722
     修改描述：增加特性，对json格式的输出内容的控制，对枚举类型字符串输出、默认值不输出、例外属性等，如会员卡卡里面的CodeType
              IDictionary中foreach中的内容的修改
+
+    修改标识：Senparc - 20160722
+    修改描述：v4.11.5 修复WeixinJsonConventer.Serialize中的错误。感谢 @jiehanlin
     
 ----------------------------------------------------------------*/
+
+
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+#if NET45
 using System.Web.Script.Serialization;
+#endif
+
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers
@@ -69,7 +97,7 @@ namespace Senparc.Weixin.Helpers
 
         #endregion
         /// <summary>
-        /// JSON输出设置 构造函数
+        /// JSON 输出设置 构造函数
         /// </summary>
         /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
         /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
@@ -82,8 +110,10 @@ namespace Senparc.Weixin.Helpers
         }
     }
 
+    #if NET45
+
     /// <summary>
-    /// 微信JSON转换器
+    /// 微信 JSON 转换器
     /// </summary>
     public class WeixinJsonConventer : JavaScriptConverter
     {
@@ -100,7 +130,7 @@ namespace Senparc.Weixin.Helpers
         {
             get
             {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull),typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
                 if (_jsonSetting.TypesToIgnore.Count > 0)
                 {
@@ -127,6 +157,7 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
+                //continue;
                 //排除的属性
                 bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
                 if (excludedProp)
@@ -142,6 +173,7 @@ namespace Senparc.Weixin.Helpers
                         {
                             continue;
                         }
+
 
                         //当值匹配时需要忽略的属性
                         JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
@@ -171,4 +203,6 @@ namespace Senparc.Weixin.Helpers
             throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
+    #endif
+
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ResponseMessageVoice.cs
     文件功能描述：响应回复语音消息
@@ -18,7 +18,7 @@ namespace Senparc.Weixin.QY.Entities
     /// </summary>
     public class ResponseMessageVoice : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Voice; }
         }

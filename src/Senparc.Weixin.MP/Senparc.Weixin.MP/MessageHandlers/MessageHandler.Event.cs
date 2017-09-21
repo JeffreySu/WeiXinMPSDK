@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -7,10 +27,14 @@
     
     创建标识：Senparc - 20150924
     
+    修改标识：Senparc - 20170114
+    修改描述：v14.3.119 OnEvent_ShakearoundUserShake接口默认返回ResponseMessageNoResponse信息
+    
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -115,13 +139,60 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.ShakearoundUserShake://摇一摇事件通知
                     responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
                     break;
+                case Event.user_gifting_card://卡券转赠事件推送
+                    responseMessage = OnEvent_User_Gifting_Card(RequestMessage as RequestMessageEvent_User_Gifting_Card);
+                    break;
+                case Event.user_pay_from_pay_cell://微信买单完成
+                    responseMessage = OnEvent_User_Pay_From_Pay_Cell(RequestMessage as RequestMessageEvent_User_Pay_From_Pay_Cell);
+                    break;
+                case Event.update_member_card://会员卡内容更新事件：会员卡积分余额发生变动时
+                    responseMessage = OnEvent_Update_Member_Card(RequestMessage as RequestMessageEvent_Update_Member_Card);
+                    break;
+                case Event.card_sku_remind://卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+                    responseMessage = OnEvent_Card_Sku_Remind(RequestMessage as RequestMessageEvent_Card_Sku_Remind);
+                    break;
+                case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
+                    responseMessage = OnEvent_Card_Pay_Order(RequestMessage as RequestMessageEvent_Card_Pay_Order);
+                    break;
+
+                #region 微信认证事件推送
+
+                case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
+                    responseMessage = OnEvent_QualificationVerifySuccess(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
+                    break;
+                case Event.qualification_verify_fail://资质认证失败
+                    responseMessage = OnEvent_QualificationVerifyFail(RequestMessage as RequestMessageEvent_QualificationVerifyFail);
+                    break;
+                case Event.naming_verify_success://名称认证成功（即命名成功）
+                    responseMessage = OnEvent_NamingVerifySuccess(RequestMessage as RequestMessageEvent_NamingVerifySuccess);
+                    break;
+                case Event.naming_verify_fail://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+                    responseMessage = OnEvent_NamingVerifyFail(RequestMessage as RequestMessageEvent_NamingVerifyFail);
+                    break;
+                case Event.annual_renew://年审通知
+                    responseMessage = OnEvent_AnnualRenew(RequestMessage as RequestMessageEvent_AnnualRenew);
+                    break;
+                case Event.verify_expired://认证过期失效通知
+                    responseMessage = OnEvent_VerifyExpired(RequestMessage as RequestMessageEvent_VerifyExpired);
+                    break;
+                #endregion
+
+                #region 小程序审核事件推送
+
+                case Event.weapp_audit_success://
+                    responseMessage = OnEvent_WeAppAuditSuccess(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
+                    break;
+                case Event.weapp_audit_fail://
+                    responseMessage = OnEvent_WeAppAuditFail(RequestMessage as RequestMessageEvent_WeAppAuditFail);
+                    break;
+                #endregion
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }
 
-        #region Event 下属分类
+        #region Event下属分类，接收事件方法
 
         /// <summary>
         /// Event事件类型请求之ENTER
@@ -377,8 +448,143 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual IResponseMessageBase OnEvent_ShakearoundUserShake(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
+            return requestMessage.CreateResponseMessage<ResponseMessageNoResponse>();
+            //return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 卡券转赠事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Gifting_Card(RequestMessageEvent_User_Gifting_Card requestMessage)
+        {
             return DefaultResponseMessage(requestMessage);
         }
+        /// <summary>
+        /// 微信买单完成
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Pay_From_Pay_Cell(RequestMessageEvent_User_Pay_From_Pay_Cell requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 会员卡内容更新事件：会员卡积分余额发生变动时
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Update_Member_Card(RequestMessageEvent_Update_Member_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Card_Sku_Remind(RequestMessageEvent_Card_Sku_Remind requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 券点流水详情事件：当商户朋友的券券点发生变动时
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Card_Pay_Order(RequestMessageEvent_Card_Pay_Order requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        #region 微信认证事件推送
+
+        /// <summary>
+        /// 资质认证成功（此时立即获得接口权限）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 资质认证失败
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 年审通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 认证过期失效通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        #endregion
+
+        #region 小程序审核事件推送
+
+        /// <summary>
+        /// 小程序审核失败通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WeAppAuditFail(RequestMessageEvent_WeAppAuditFail requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 小程序审核成功通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_WeAppAuditSuccess(RequestMessageEvent_WeAppAuditSuccess requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        #endregion
 
         #endregion
     }

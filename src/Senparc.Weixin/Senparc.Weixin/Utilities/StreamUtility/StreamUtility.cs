@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：StreamUtility.cs
     文件功能描述：流处理公共类
@@ -9,12 +29,17 @@
     
 ----------------------------------------------------------------*/
 
+
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.StreamUtility
 {
+    /// <summary>
+    /// 流工具类
+    /// </summary>
     public static class StreamUtility
     {
         #region 同步方法
@@ -29,7 +54,11 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             stream.Read(arr, 0, (int)stream.Length);
+#if NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
+#else
+            return Convert.ToBase64String(arr);
+#endif
         }
 
         /// <summary>
@@ -70,11 +99,10 @@ namespace Senparc.Weixin.StreamUtility
 
         #endregion
 
-
-        #region 同步方法
+        #region 异步方法
 
         /// <summary>
-        /// 获取Stream的Base64字符串
+        /// 【异步方法】获取Stream的Base64字符串
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -83,11 +111,15 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             await stream.ReadAsync(arr, 0, (int)stream.Length);
+#if NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
+#else
+            return Convert.ToBase64String(arr);
+#endif
         }
 
         /// <summary>
-        /// 将base64String反序列化到流，或保存成文件
+        /// 【异步方法】将base64String反序列化到流，或保存成文件
         /// </summary>
         /// <param name="base64String"></param>
         /// <param name="savePath">如果为null则不保存</param>
@@ -109,7 +141,7 @@ namespace Senparc.Weixin.StreamUtility
         }
 
         /// <summary>
-        /// 将memoryStream保存到文件
+        /// 【异步方法】将memoryStream保存到文件
         /// </summary>
         /// <param name="memoryStream"></param>
         /// <param name="savePath"></param>

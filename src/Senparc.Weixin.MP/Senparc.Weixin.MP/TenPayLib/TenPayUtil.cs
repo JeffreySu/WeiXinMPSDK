@@ -1,5 +1,25 @@
+#region Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -17,6 +37,7 @@
 using System;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
+using System.Net;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -55,20 +76,26 @@ namespace Senparc.Weixin.MP.TenPayLib
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
             }
         }
 
@@ -88,20 +115,25 @@ namespace Senparc.Weixin.MP.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
 
             }
         }
-
 
         /// <summary>
         /// 取时间戳生成随即数,替换交易单号中的后10位流水号
@@ -109,9 +141,14 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if (NET45 || NET461)
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
+
         /// <summary>
         /// 取随机数
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
@@ -47,16 +47,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetSuiteTokenResult GetSuiteToken(string suiteId, string suiteSecret, string suiteTicket, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
 
-            var data = new
+                var data = new
                 {
                     suite_id = suiteId,
                     suite_secret = suiteSecret,
                     suite_ticket = suiteTicket
                 };
 
-            return CommonJsonSend.Send<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            
         }
 
         ///// <summary>
@@ -89,12 +90,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetPreAuthCodeResult GetPreAuthCode(string suiteAccessToken, string suiteId, int timeOut = 10000)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
-            var data = new
-            {
-                suite_id = suiteId,
-            };
-            return CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var data = new
+                {
+                    suite_id = suiteId,
+                };
+                return CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            
         }
 
         /// <summary>
@@ -177,17 +179,20 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetAgentResult GetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, string agentId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+            
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            var data = new
-            {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-                agentid = agentId
-            };
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                    agentid = agentId
+                };
 
-            return CommonJsonSend.Send<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            
+            
         }
 
         /// <summary>
@@ -202,17 +207,18 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult SetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            var data = new
-            {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-                agent = agent
-            };
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                    agent = agent
+                };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            
         }
 
         /// <summary>
@@ -250,16 +256,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetSuiteTokenResult> GetSuiteTokenAsync(string suiteId, string suiteSecret, string suiteTicket, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
 
-            var data = new
-            {
-                suite_id = suiteId,
-                suite_secret = suiteSecret,
-                suite_ticket = suiteTicket
-            };
+                var data = new
+                {
+                    suite_id = suiteId,
+                    suite_secret = suiteSecret,
+                    suite_ticket = suiteTicket
+                };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            
         }
 
         ///// <summary>
@@ -292,12 +299,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetPreAuthCodeResult> GetPreAuthCodeAsync(string suiteAccessToken, string suiteId, int timeOut = 10000)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
-            var data = new
-            {
-                suite_id = suiteId,
-            };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var data = new
+                {
+                    suite_id = suiteId,
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+
         }
 
         /// <summary>
@@ -380,17 +389,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetAgentResult> GetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, string agentId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            var data = new
-            {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-                agentid = agentId
-            };
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                    agentid = agentId
+                };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+
         }
 
         /// <summary>
@@ -405,17 +416,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<QyJsonResult> SetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            var data = new
-            {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-                agent = agent
-            };
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                    agent = agent
+                };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+
         }
 
         /// <summary>

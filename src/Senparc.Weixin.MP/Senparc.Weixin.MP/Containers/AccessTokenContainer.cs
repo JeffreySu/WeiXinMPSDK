@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -35,13 +55,22 @@
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
     修改标识：Senparc - 20160810
-    修改描述：v14.3.3 fix bug
+    修改描述：v14.3.3 修复错误
         
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
+
+    修改标识：Senparc - 20170702
+    修改描述：v14.5.0 为了配合新版本ApiHandlerWapper方法，GetAccessTokenResultAsync方法的返回值从Task<AccessTokenResult>改为Task<IAccessTokenResult>
+    
+    修改标识：Senparc - 20170702
+    修改描述：v14.5.5 修改Container中的锁及异步调用方法
+
+    修改标识：Senparc - 20170702
+    修改描述：v14.6.2 回滚 v14.5.5中修改的方法（同步方法中调用异步方法）
 
 ----------------------------------------------------------------*/
 
@@ -55,6 +84,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
@@ -239,7 +269,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static async Task<AccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
+        public static async Task<IAccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
         {
             if (!CheckRegistered(appId))
             {
@@ -268,3 +298,4 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
     }
 }
+

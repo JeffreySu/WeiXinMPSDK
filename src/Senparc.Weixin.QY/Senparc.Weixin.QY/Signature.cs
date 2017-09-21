@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：Signature.cs
     文件功能描述：检测签名
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using Tencent;
+using Senparc.Weixin.QY.Tencent;
 
 namespace Senparc.Weixin.QY
 {

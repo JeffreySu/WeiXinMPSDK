@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
  
     文件名：RefundResponseHandler.cs
     文件功能描述：微信支付退款 响应处理
@@ -9,14 +29,24 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20170623
+    修改描述：使用 ASCII 字典排序
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
-using System.Web;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -42,6 +72,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected HttpContext HttpContext;
 
+#if NET45 || NET461
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -67,6 +98,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 this.SetParameter(k, v);
             }
         }
+#endif
 
         /// <summary>
         /// 获取密钥
@@ -120,7 +152,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -140,6 +172,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
+#if (NET45 || NET461)
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -158,7 +191,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             this.HttpContext.Response.End();
         }
-
+#endif
         /// <summary>
         /// 获取debug信息
         /// </summary>
@@ -175,8 +208,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string getCharset()
         {
+#if (NET45 || NET461)
             return this.HttpContext.Request.ContentEncoding.BodyName;
-
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
 
         /// <summary>

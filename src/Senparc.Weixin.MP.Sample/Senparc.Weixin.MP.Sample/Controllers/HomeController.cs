@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -18,6 +18,8 @@ using System.Text.RegularExpressions;
 //using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
@@ -29,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
-            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName => 
+            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
@@ -39,22 +41,31 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
             TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
             TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
-            TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
+            //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
+            TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
             TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
+            TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
 
             //缓存
-            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
-            TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy","");
+            TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
             var configHelper = new ConfigHelper(this.HttpContext);
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
+            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
+
             return View();
+        }
+
+        public ActionResult Book()
+        {
+            return Redirect("https://book.weixin.senparc.com");//《微信开发深度解析》图书对应的线上辅助阅读系统
         }
 
         public ActionResult TestElmah()
@@ -68,13 +79,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             }
 
-
             var appId = "你的AppId";
             //获取AccessToken
             var accessToken = Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(appId);
             //使用AccessToken请求接口
             var apiResult = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu("你的AppId");
-
 
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
             //return View();

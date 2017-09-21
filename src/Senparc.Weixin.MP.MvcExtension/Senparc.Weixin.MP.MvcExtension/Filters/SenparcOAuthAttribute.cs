@@ -13,17 +13,28 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Web.Mvc;
 using System.Diagnostics.CodeAnalysis;
-using System.Web;
 using Senparc.Weixin.MP.AdvancedAPIs;
+#if NET45
+using System.Web.Mvc;
+using System.Web;
+#else
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
     [SuppressMessage("Microsoft.Performance", "CA1813:AvoidUnsealedAttributes",
             Justification = "Unsealed so that subclassed types can set properties in the default constructor or override our behavior.")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
-    public abstract class SenparcOAuthAttribute : FilterAttribute,/* AuthorizeAttribute,*/ IAuthorizationFilter
+    public abstract class SenparcOAuthAttribute :
+#if NET45
+        FilterAttribute,/* AuthorizeAttribute,*/ IAuthorizationFilter
+#else
+        ActionFilterAttribute,/* AuthorizeAttribute,*/ IAuthorizationFilter
+#endif
     {
         protected string _appId { get; set; }
         protected string _oauthCallbackUrl { get; set; }
@@ -34,21 +45,31 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="oauthCallbackUrl">网站内路径（如：/TenpayV3/OAuthCallback），以/开头！当前页面地址会加在Url中的returlUrl=xx参数中</param>
-        public SenparcOAuthAttribute(string appId, string oauthCallbackUrl, OAuthScope oauthScope= OAuthScope.snsapi_userinfo)
+        public SenparcOAuthAttribute(string appId, string oauthCallbackUrl, OAuthScope oauthScope = OAuthScope.snsapi_userinfo)
         {
             _appId = appId;
             _oauthCallbackUrl = oauthCallbackUrl;
             _oauthScope = oauthScope;
         }
 
+
         /// <summary>
         /// 判断用户是否已经登录
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
+#if NET45
         public abstract bool IsLogined(HttpContextBase httpContext);
+#else
+        public abstract bool IsLogined(HttpContext httpContext);
+#endif
 
+#if NET45
         protected virtual bool AuthorizeCore(HttpContextBase httpContext)
+#else
+        protected virtual bool AuthorizeCore(HttpContext httpContext)
+#endif
+
         {
             //return true;
             if (httpContext == null)
@@ -64,12 +85,26 @@ namespace Senparc.Weixin.MP.MvcExtension
             return true;
         }
 
+
+#if NET45
         private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
         {
             validationStatus = OnCacheAuthorization(new HttpContextWrapper(context));
         }
+#endif
 
+#if NET45
+
+#else
+
+#endif
+
+
+#if NET45
         public virtual void OnAuthorization(AuthorizationContext filterContext)
+#else
+        public virtual void OnAuthorization(AuthorizationFilterContext filterContext)
+#endif
         {
             if (filterContext == null)
             {
@@ -86,9 +121,11 @@ namespace Senparc.Weixin.MP.MvcExtension
                 // then we hook our custom authorization code into the caching mechanism so that we have
                 // the final say on whether a page should be served from the cache.
 
+#if NET45
                 HttpCachePolicyBase cachePolicy = filterContext.HttpContext.Response.Cache;
                 cachePolicy.SetProxyMaxAge(new TimeSpan(0));
                 cachePolicy.AddValidationCallback(CacheValidateHandler, null /* data */);
+#endif
             }
             else
             {
@@ -98,7 +135,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-                    var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext,_oauthCallbackUrl);
+                    var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext, _oauthCallbackUrl);
                     var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     filterContext.Result = new RedirectResult(url);
@@ -106,7 +143,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             }
         }
 
-
+#if NET45
         // This method must be thread-safe since it is called by the caching module.
         protected virtual HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext)
         {
@@ -118,6 +155,6 @@ namespace Senparc.Weixin.MP.MvcExtension
             bool isAuthorized = AuthorizeCore(httpContext);
             return (isAuthorized) ? HttpValidationStatus.Valid : HttpValidationStatus.IgnoreThisRequest;
         }
-
+#endif
     }
 }

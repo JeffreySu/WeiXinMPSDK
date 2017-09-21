@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
     <Version>1.5.0</Version>
     <AssemblyName>Senparc.Weixin.MP.CoreMvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.CoreMvcExtension</RootNamespace>
@@ -10,6 +10,8 @@
 
     <Description>
       微信公众账号 - Senparc.Weixin.MP.CoreMvcExtension 模块
+
+      【注意：此模块已合并至Senparc.Weixin.MP.MvcExtension.dll（https://www.nuget.org/packages/Senparc.Weixin.MP.MVC），已经停止更新，请使用Senparc.Weixin.MP.MvcExtension.dll！】
 
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK

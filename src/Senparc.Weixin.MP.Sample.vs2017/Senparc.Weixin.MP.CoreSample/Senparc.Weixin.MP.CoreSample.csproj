@@ -34,6 +34,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Document\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <None Include="wwwroot\Content\style.css" />
   </ItemGroup>

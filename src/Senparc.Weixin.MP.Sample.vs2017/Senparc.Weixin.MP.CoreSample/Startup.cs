@@ -24,10 +24,11 @@ namespace Senparc.Weixin.MP.CoreSample
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
 
             //Senparc.Weixin.SDK 配置
             builder.AddJsonFile("SenparcWeixin.json", optional: true);
+
+            Configuration = builder.Build();
             //提供网站根目录
             Server.AppDomainAppPath = env.ContentRootPath;
         }
@@ -55,7 +56,8 @@ namespace Senparc.Weixin.MP.CoreSample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

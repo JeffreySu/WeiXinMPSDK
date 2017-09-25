@@ -42,7 +42,7 @@ namespace ClearDotNetCoreBadFiles
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(@"ClearDotNetCoreBadFiles v1.0
+            Console.WriteLine(@"ClearDotNetCoreBadFiles v1.1
 Copyrignt 2017 Senparc
 
 当前工具用于清理项目在.NET Core（包括.NET Standard）编译后，
@@ -57,13 +57,27 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
 请了解原理后再使用本工具，以免发生意外！点击任意键开始进行清理...
 ");
             Console.ReadKey();
+
+            Run();
+        }
+
+        private static void Run()
+        {
             Console.WriteLine("清理开始……");
 
             CleanDir("../src/");
-          
-            Console.WriteLine("清理完毕，点击任意键退出");
-            Console.ReadKey();
+
+            Console.WriteLine("清理完毕，点击回车键再清理一次，其他任意键退出（电源键除外）...");
+            if (Console.ReadKey().KeyChar == (int)ConsoleKey.Enter)
+            {
+                Run();
+            }
+            else
+            {
+                Console.WriteLine("Bye.");
+            }
         }
+
 
         private static void CleanDir(string root)
         {

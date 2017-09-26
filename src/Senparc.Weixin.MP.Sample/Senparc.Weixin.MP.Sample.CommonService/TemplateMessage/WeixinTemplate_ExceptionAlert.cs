@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.TemplateMessage
+namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
 {
     /*
        {{first.DATA}}

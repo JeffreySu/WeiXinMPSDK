@@ -1,430 +1,519 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.6.11</Version>
-    <AssemblyName>Senparc.Weixin.MP</AssemblyName>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D815FBF-451C-4E23-939C-CB80172F445C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-
-    <Description>
-      微信公众账号 - 微信公众号 模块
-
-      Senparc.Weixin SDK 开源项目：
-      https://github.com/JeffreySu/WeiXinMPSDK
-    </Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
-
-
-    <Authors>Jeffrey Su</Authors>
-    <Owners>Senparc</Owners>
-    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
-    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-    <Title>Senparc.Weixin.MP.dll</Title>
-
-    <Summary>微信公众号SDK for C#</Summary>
-    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
-    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
-    <PackageReleaseNotes>
-      v4.9
-      丰富了JSON通讯的消息返回类型
-
-      修复MessageAgent状态记录的一个bug
-
-      修复二维码事件bug
-
-      24小时推送限制改为48小时
-
-      v4.10
-      添加媒体文件上传、下载接口
-
-      v4.11
-      添加AccessTokenContainer管理容器
-
-      v.4.12
-      添加更多AccessTokenContainer下的方法
-
-      v4.13.0 添加高级接口中的语种选择
-
-      v5.0.0 添加图片、语音、视频返回类型
-
-      v5.1 优化图片等消息的响应，并添加图片等新回复格式的DEMO
-
-      v5.2 添加MessageAgent.CheckUrlAndToken方法
-
-      v5.4.0 souidea全面升级到weiweihi
-
-      v5.5.0 添加View事件响应；添加单个列队自定义过期时间
-
-      v5.6.0 添加OnTextOrEventRequest事件
-
-      v5.7.0 添加百度地图帮助类
-
-      v5.8.0 添加模板消息接口、群发接口
-
-      v5.9.0 添加多客服接口
-
-      v5.10.0 添加对外请求超时设置
-
-      v6.1.0 添加多客服聊天记录查询
-
-      v6.2.0 优化RequestMessageEvent相关结构；添加消息发送测试工具
-
-      v7.0.10 添加微信支付相关接口、优化二维码接口
-
-      v7.0.14 完善微信支付接口，添加AccessTokenHandlerWapper
-
-      v7.0.20 添加MessageHandlerException，修正部分bug
-
-      v7.1.0 正式发布微信支付、微小店接口；完善模板消息响应事件。
-
-      v8.0.0 分离基础方法到Senparc.Weixin
-
-      v9.3.0 稳定版
-
-      v9.4.2 修改完善了群发的方法
-      v9.4.3 支持新增的6种菜单的事件推送
-
-      v9.5.0
-      添加消息去重
-
-      v9.5.3
-      纠正群发和模板推送 接收MsgID出错问题
-
-      v9.5.7  新增获取Js-Api凭证接口（ticket）以及生成签名的方法
-
-      v9.6.1 添加AccessToken过期获取的Lock、新增数据统计接口
-
-      v9.6.4 获取JsApiTicket方法完善
-
-      v10.0.0 重构代码，加入AppStore
-
-      v11.0.1 框架升级到.NET 4.0
-
-      v11.2.0 添加AppStore相关接口
-
-      v11.2.24 添加针对加密信息的官方iphone换行bug处理
-
-      v11.3.0 分离Open，优化素材相关方法
-
-      v11.3.2 摇一摇周边试用版
-
-      v11.3.6 群发消息接口修改  试用版
-
-      v12.3.1 添加了AccessToken（非预期的）过期自动处理机制，大部分高级接口可以忽略对AccessToken的获取和管理。稳定版。
-
-      v12.4.2 重新整理（简化）API的命名空间
-
-      v13 支持.NET4.5，添加异步请求方法
-
-      v13.2.1 完善异步请求方法，添加JSON生成过程中null对象的过滤机制
-
-      v13.3.0 整合JsAPITicketContainer到AccessTokenContainer
-
-      v13.4 重构升级
-
-      v13.5.2 添加个性化菜单
-      v13.5.6
-      完善红包发送及查询接口
-      修复Wifi API的bug
-      完善Web代理（Proxy）功能
-      完善微小店实体类型
-
-      v13.6.3
-      更新Container架构
-      分离AccessTokenContainer和JsApiTicketContainer
-      完善接口
-      匹配Senparc.Weixin v4.5.12
-      v13.6.8
-      URL转义
-      更新API
-      优化Container，全面支持分布式缓存
-      添加客服消息接口
-
-      v13.6.10
-      提供Container缓存立即生效的解决方案
-
-      v13.7.0-beta1
-      优化缓存方案
-      添加短链接接口
-
-      v13.7.9
-      1、BatchGetUserInfoJson类重命名为BatchGetUserInfoJsonResult
-      2、重构部分MessageHandler代码
-      3、更新卡券接口
-      4、完善消息响应功能
-      5、完善摇一摇功能
-      6、完善wifi功能
-      7、添加用户“标签”相关接口
-
-      v13.8.2
-      2016-05-24
-      更新及新增接口：
-      TemplateApi
-      CardApi
-      WiFiApi
-      ShakeAroundApi
-      新增接口模块：
-      ScanApi
-      v13.8.4 尝试解决OAuth：40029-invalid code 错误
-
-      v14.1.0
-      为借口添加异步方法
-      完善接口
-
-      v14.2.2
-      支持.NET ore
-      优化EntityHelper及接口
-
-      v14.2.3
-      使用ApiUtility.GetExpireTime()方法处理过期
-
-      v14.3.3
-      重构缓存策略
-      重构Container
-      整合分布锁
-
-      v14.3.4
-      添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
-
-      v14.3.6
-      重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
-
-      v14.3.7
-      修改Create方法（及对应异步方法），匹配最新的官方文档，删除CreateByStr方法（及对应异步方法）；
-      增加QrCode_ActionName枚举
-
-      v14.3.100
-      第100个Nuget公开发布的Senparc.Weixin.MP.dll版本。
-      添加获取API：获取微信服务器的ip段。
-
-      v14.3.101
-      修改TenPayUtil.BuildRandomStr()方法.
-      .NET Core版本：修改编码；删除第一版微信支付代码。（TenPayLib）
-
-      v14.3.104
-      重构缓存，添加ObjectCacheStrategy
-
-      v14.3.105 优化红包，添加裂变红包
-      v14.3.106
-      删除Senparc.Weixin.MP.Helpers.FileHelper，合并到Senparc.Weixin.Helpers.FileHelper类中（开发时只需要注意修改命名空间）
-      为Senparc.Weixin.Helpers.FileHelper添加DownLoadFileFromUrl()方法
-      v14.3.107
-      SearchRedPack方法修改证书初始化方法
-      RedPackHBInfo去除status属性
-      为TenPayLibV3.RequestHandler.ParseXML()方法添加v==null的判断
-      v14.3.107
-      fix bug：普通红包加入场景值之后的签名问题
-      v14.3.105 优化红包，添加裂变红包
-      v14.3.106
-      删除Senparc.Weixin.MP.Helpers.FileHelper，合并到Senparc.Weixin.Helpers.FileHelper类中（开发时只需要注意修改命名空间）
-      为Senparc.Weixin.Helpers.FileHelper添加DownLoadFileFromUrl()方法
-      v14.3.107
-      SearchRedPack方法修改证书初始化方法
-      RedPackHBInfo去除status属性
-      为TenPayLibV3.RequestHandler.ParseXML()方法添加v==null的判断
-      v14.3.107
-      fix bug：普通红包加入场景值之后的签名问题
-      v14.3.113
-      修正了WiFiApi中GetQrcode函数的返回值数据类型。
-      修正了ShakeAroundApi中申请iBeacon设备的申请批次ID(appId)的数据类型从int改为long。
-      修正了ShakeAroundApi中查询iBeacon设备传递的参数(begin =&gt; last_seen)，跟随微信更新。
-      修正了WiFiApi中GetQrcodeResult的bug。
-      v14.3.114 优化微信支付方法
-      v14.3.115 CommonApi.GetMenu()方法，当发生菜单不存在等错误的时候会抛出WeixinMenuException异常。
-      v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
-      v14.3.117 添加SuccessResponseMessage类型响应信息
-      v14.3.119
-      OnEvent_ShakearoundUserShake接口默认返回ResponseMessageNoResponse类型消息
-      修改BatchGetUserInfoData.lang属性为int类型
-      v14.3.122
-      优化微信支付
-      TenPayV3UnifiedorderRequestData类调整sign_type设置顺序
-      （准备做，需要测试：TenPayV3RefundQueryRequestData类暂时注释掉signType传入）
-      14.3.123
-      废除SHA1UtilHelper及MD5UtilHelper，方法合并到Senparc.Weixin.Helpers.EncryptHelper下（Senparc.Weixin.dll中）
-      v14.3.124 修改lang属性为string类型，并添加LangEnum作为枚举
-      v14.3.125 重新调整sign_type设置顺序，v14.3.122版本中不应该做调整
-      v14.3.126 更新微信支付接口
-      v14.3.127 ：
-      fix bug：微信支付统一订单接口。将 totalFee 参数类型由 decimal 改为 int。
-      v14.3.128：
-      完善PoiApi.GetPoiList()方法返回参数中的GetStoreList_BaseInfo信息
-      v14.3.129 ：
-      设置TransactionId和OutTradeNo时判断是否为null，如果是则提供空字符串""
-      修改订单查询接口的参数顺序，sign_type参数有的话必须参与签名，也就是放在md5之前，否则微信服务器会返回签名错误
-      v14.3.131 ：1·为MediaApi.Get()方法提供ApiHandlerWapper.TryCommonApi()方法支持，可以传入AppId
-      v14.3.132：添加Get.DownloadAsync(string url, string dir)方法
-      v14.3.132：完善UnifiedorderResult 服务商统一订单接口
-      v14.3.133：修复CommonApi.CreateMenuConditional()方法调用出现“invalid button size”错误的问题
-      v14.3.136：增加KeywordAutoReplyInfo_Item.reply_list_info属性
-      v14.3.137：修改JSSDKHelper.GetAddrSign传入参数，应该传入OAuth的AccessToken
-      v14.3.138：修改 JSSDKHelper.GetAddrSign() 方法
-      v14.3.139：自定义菜单、模板消息全面支持小程序最新接口！
-      v14.3.140
-      1、添加BaseGroupMessageDataByGroupId.send_ignore_reprint属性
-      2、优化代码
-      v14.3.141 修改amount为decimal类型
-      v14.3.142 RequestUtility中的所有请求证书由X509Certificate类型改为X509Certificate2
-      SendResult文件添加了msg_data_id字段，此字段用于统计分析
-      v14.3.143 修复上一版本造成的菜单获取错误问题
-
-      v14.4.5 完善微信支付退款申请接口
-      v14.4.6 修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
-      v14.4.7 iBeacon设备接口GroupGetAdddevice()方法更新
-
-      v14.4.5 完善微信支付退款申请接口
-      v14.4.6 修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
-      v14.4.7 iBeacon设备接口GroupGetAdddevice()方法更新
-      v14.4.8
-      1、完善TenPayLibV3.GetNoncestr()方法；
-      2、优化TenPayLibV3.BuildRandomStr()方法
-
-      v14.4.9
-      1、修改CardAPI的卡信息更新设置
-      2、修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
-
-      v14.4.10
-      1、CardApi.CardBatchGet()方法增加statusList参数
-      2、修改Card_CashData属性类型（int）
-      v14.4.11 完善CommonJsonSend.SendAsync()方法参数
-      v14.4.12 1、修改 UTF-8 编码设置
-      2、修复 CustomServiceApi.GetMsgList() 方法时间戳问题
-      v14.4.13 修复二级菜单小程序无法设置的问题
-      v14.4.14 修改 JSSDKHelper.GetcardExtSign()和CreateNonekeySha1() 方法，使用 ASCII 字典排序
-
-      v14.5.0
-      1、AccessTokenResult 加入 IAccessTokenResult 接口
-      2、启用新版本的ApiHandlerWapper
-      v14.5.1 完善异步方法async/await
-      v14.5.2 Card_MemberCardData添加wx_activate_after_submit和wx_activate_after_submit_url
-      v14.5.3
-      1、添加 QrCode_ActionName.QR_STR_SCENE
-      2、解决了QrCode_ActionName.QR_STR_SCENE下临时二维码有效时间expire_seconds不生效的问题
-      v14.5.4 添加“一次性订阅消息”接口
-
-      v14.5.5
-      1、修改Container中的锁及异步调用方法
-      2、支持H5支付（同时已发布Demo）
-      3、为Tencent命名空间添加Senparc.Weixin.MP前缀
-      4、完善RequestMessageEvent_MassSendJobFinish（群发判断转载）
-      5、提取EntityHelper.FillClassValue()方法，优化FillEntityWithXml()方法
-      6、添加了NewsModel下的need_open_comment、only_fans_can_comment属性
-      7、查询红包接口（SearchRedPack）添加refund_amount和remark两个参数获取
-      8、增加“获取商品二维码”接口（ScanApi.GetQrCode()），同时提供配套异步方法
-      9、更新CardApi.CardBatchGet()方法的statusList参数传值
-
-      v14.6.0
-      1、新增 刷卡支付 撤销订单接口
-      2、支持.NET Core 2.0
-      v14.6.1 撤销订单接口（TenPayV3.Reverse()）添加证书设置
-      v14.6.2 回滚AccessTokenContainer
-      v14.6.3 回滚JsApiTicketContainer和OAuthAccessTokenContainer
-      v14.6.4 撤销订单接口（TenPayV3.Reverse()）添加证书设置
-      v14.6.5 回滚 AccessTokenContainer
-      v14.6.6 添加 JSSDKHelper.GetJsSdkUiPackageAsync() 异步方法
-      v14.6.7 增加更多自定义菜单类型：media_id、view_limited
-      v14.6.8 添加Event下“微信认证事件推送”一系列事件类型：
-      1 qualification_verify_success - 资质认证成功（此时立即获得接口权限）
-      2 qualification_verify_fail - 资质认证失败
-      3 naming_verify_success - 名称认证成功（即命名成功）
-      4 naming_verify_fail - 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
-      5 annual_renew - 年审通知
-      6 verify_expired - 认证过期失效通知
-      v14.6.9 添加：小程序审核事件推送
-      v14.6.10 添加接口：普通红包发送(服务商）
-      v14.6.11 常规优化
-
-    </PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+    <AssemblyName>Senparc.Weixin.MP</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.xml</DocumentationFile>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.MP.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
-    <Compile Remove="AdvancedAPIs\Card\Store\**" />
-    <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />
-    <None Remove="AdvancedAPIs\Card\Store\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisApi.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\AnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisResult.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisObject.cs" />
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyApi.cs" />
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyJson\AutoReplyResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardAPI.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\NorFilter.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\ActivateUserFormSetData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Code\CodeResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
+    <Compile Include="AdvancedAPIs\Card\Shelf\ShelfCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\BatchGetCardMerchantJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\CheckQualificationJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\GetApplyProtocolJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\GetCardMerchantJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\InfoList.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantBatchGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantSubmitJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\UserInfo\UserinfoGetResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\ChatLogJson\GetMsgListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\VideoMediaIdResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetNewsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\UpdateForeverNewsData.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaCountResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Order\OrderApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Order\OrderResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Picture\PictureApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Picture\PictureResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Stock\StockApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Stock\StockPostData.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\RefreshTokenResult.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\MerchantInfoGetResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetQrCodeJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ScanTicketCheckJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticAgreement.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MovieResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MusicResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_RestaurantResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MapResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NearByResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_CouponResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_HotelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TrainResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TravelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_FlightResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_VideoResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NovelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_BaikeResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_StockResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_RemindResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TelephoneResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_CookbookResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WeatherResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NewsResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TVResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TV_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_Car_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_AppResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupAddResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\AddLotteryInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetDeviceStatusResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupGetDetailResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupGetListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PrizeInfoList.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\QueryLotteryJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RelationSearchResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterData.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\SetPrizeBucketResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\StatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\PoiApi.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreBaseInfo.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\AddtemplateJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetIndustryJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetPrivateTemplateJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\UserTag\UserTagApi.cs" />
+    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\CreateTagResult.cs" />
+    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\TagJson.cs" />
+    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\UserTagJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\UserTagListResult.cs" />
+    <Compile Include="AdvancedAPIs\Url\ShortUrlJson\ShortUrlResult.cs" />
+    <Compile Include="AdvancedAPIs\Url\UrlApi.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
+    <Compile Include="AdvancedAPIs\User\UserApi.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\BatchGetUserInfoData.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiOpenPluginTokenJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiRegisterJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiShopGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiShopListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiConnectUrlResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiGetCouponPutJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
+    <Compile Include="AppStore\Api.cs" />
+    <Compile Include="AppStore\Api\ApiConnection.cs" />
+    <Compile Include="AppStore\Api\ApiContainer.cs" />
+    <Compile Include="AppStore\Api\BaseApi.cs" />
+    <Compile Include="AppStore\Api\MemberApi.cs" />
+    <Compile Include="AppStore\AppStoreManager.cs" />
+    <Compile Include="AppStore\Config.cs" />
+    <Compile Include="AppStore\DeveloperInfo.cs" />
+    <Compile Include="AppStore\Entities\AppResult\AppResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\GetMemberResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\NormalAppResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\PassportResult.cs" />
+    <Compile Include="AppStore\Entities\OAuthAccessTokenResult.cs" />
+    <Compile Include="AppStore\Entities\Passport.cs" />
+    <Compile Include="AppStore\Entities\WxJsonResult.cs" />
+    <Compile Include="AppStore\Enums.cs" />
+    <Compile Include="AppStore\AppStoreOAuth.cs" />
+    <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
+    <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
+    <Compile Include="AppStore\ReturnResult.cs" />
+    <Compile Include="AppStore\Utility\AppUtility.cs" />
+    <Compile Include="Containers\AccessTokenContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Containers\OAuthAccessTokenContainer.cs" />
+    <Compile Include="Containers\JsApiTicketContainer.cs" />
+    <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
+    <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
+    <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
+    <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
+    <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleViewLimitedButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMiniProgramButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMediaIdButton.cs" />
+    <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
+    <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
+    <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
+    <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
+    <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Pay_From_Pay_Cell.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Gifting_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Sku_Remind.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pay_Order.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_VerifyExpired.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_AnnualRenew.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_NamingVerifyFail.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifySuccess.cs" />
+    <Compile Include="Entities\Request\Event\Verify\RequestMessageEvent_QualificationVerifyFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
+    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Not_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
+    <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
+    <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
+    <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
+    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
+    <Compile Include="MessageHandlers\IMessageHandler.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.Event.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.Message.cs" />
+    <Compile Include="RequestMessageFactory.cs" />
+    <Compile Include="ResponseMessageFactory.cs" />
+    <Compile Include="Tencent\Cryptography.cs" />
+    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
+    <Compile Include="TenPayLibV3\Entities\NormalRedPackResult.cs" />
+    <Compile Include="TenPayLibV3\Entities\SearchRedPackResult.cs" />
+    <Compile Include="TenPayLibV3\RedPack\RedPackApi.cs" />
+    <Compile Include="TenPayLibV3\RedPack\RedPackApi.Via.cs" />
+    <Compile Include="TenPayLibV3\RequestHandler.cs" />
+    <Compile Include="TenPayLibV3\ResponseHandler.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\ServiceProvider\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3TransfersRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ShortUrlRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3UnifiedorderRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ReverseRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3OrderQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3CloseOrderRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RequestData.cs" />
+    <Compile Include="TenPayLib\CheckRequestHandler.cs" />
+    <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
+    <Compile Include="TenPayLib\ClientRequestHandler.cs" />
+    <Compile Include="TenPayLib\ClientResponseHandler.cs" />
+    <Compile Include="TenPayLib\TenPay\TenPay.cs" />
+    <Compile Include="TenPayLib\TenPay\TenPayResult.cs" />
+    <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
+    <Compile Include="Agents\MessageAgent.cs" />
+    <Compile Include="CheckSignature.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
+    <Compile Include="CommonAPIs\CommonApi.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\BaiduMap\BaiduMapMarkers.cs" />
+    <Compile Include="Entities\Extensions.cs" />
+    <Compile Include="Entities\GoogleMap\GoogleMapMarkers.cs" />
+    <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
+    <Compile Include="Entities\JsonResult\Menu\GetMenuResultFull.cs" />
+    <Compile Include="Entities\JsonResult\Menu\GetMenuResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
+    <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\BaseButton.cs" />
+    <Compile Include="Entities\Menu\Custom\ButtonGroup.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleClickButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SubButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleViewButton.cs" />
+    <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
+    <Compile Include="Entities\Request\RequestMessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_MassSendJobFinish.cs" />
+    <Compile Include="Entities\Request\RequestMessageImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageLocation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageVoice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Unsubscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\RequestMessageLink.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan.cs" />
+    <Compile Include="Entities\Request\RequestMessageVideo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
+    <Compile Include="Entities\Response\Article.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\Image.cs" />
+    <Compile Include="Entities\Response\Music.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageMusic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageNews.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageImage.cs" />
+    <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
+    <Compile Include="Entities\Response\Video.cs" />
+    <Compile Include="Entities\Response\Voice.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
+    <Compile Include="Helpers\BaiduMapHelper.cs" />
+    <Compile Include="Helpers\GoogleMapHelper.cs" />
+    <Compile Include="Helpers\GpsHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
+    <Compile Include="TenPayLib\QRCode.cs" />
+    <Compile Include="TenPayLib\RequestHandler.cs" />
+    <Compile Include="TenPayLib\ResponseHandler.cs" />
+    <Compile Include="TenPayLib\TenPayUtil.cs" />
+    <Compile Include="TenPayLib\TenPayInfo.cs" />
+    <Compile Include="TenPayLib\TenPayInfoCollection.cs" />
+    <Compile Include="TenPayLib\RefundRequestHandler.cs" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>-->
+  <ItemGroup>
+    <Compile Include="TenPayLib\RefundResponseHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TenPayLib\TenPayHttpClient.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\Buttons\SingleScancodeWaitmsgButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\Buttons\SinglePicSysphotoButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\Buttons\SinglePicPhotoOrAlbumButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\Buttons\SinglePicWeixinButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\Buttons\SingleLocationSelectButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicPhotoOrAlbum.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodeWaitmsg.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodePush.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdvancedAPIs\Card\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\Normal\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\ServiceProvider\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo_Type.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="ClassDiagrams\MessageHandler.cd" />
+    <None Include="ClassDiagrams\Menu.cd" />
+    <None Include="Entities\Request\Event\Verify\readme.md" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

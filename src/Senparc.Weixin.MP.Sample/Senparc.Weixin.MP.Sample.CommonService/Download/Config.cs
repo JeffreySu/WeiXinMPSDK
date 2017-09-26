@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.Download
+namespace Senparc.Weixin.MP.Sample.CommonService.Download
 {
     public class Config
     {

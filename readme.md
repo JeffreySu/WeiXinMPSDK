@@ -1,7 +1,3 @@
-> 说明：当前分支集合了 .NET 4.5 / .NET Core 1.1 / .NET Core 2.0 的Nuget打包源代码，其中主体代码主要从 Developer 分支合并。<br>
-> 本项目的 Sample 解决方案文件建议使用：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/blob/Developer-FullDotNet/src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln)。<br><br>
-> 感谢 [lishewen（算神）](https://github.com/lishewen) 对此分支的长期维护。
-
 
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
@@ -10,8 +6,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 
 .NET [4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) / 
-[4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) / 
-[.NET Core 1.1 & .NET Core 2.0 ](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)。
+[4.5 / 4.6.1 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)。
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
@@ -45,7 +40,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 本库为.NET 4.5，其他.NET版本请看各自分支：
 
-* [.NET Core 2.0 + .NET Core 1.0 + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)
+* [.NET Core 2.0 + .NET Core 1.0 + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)
 * [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) （已暂停更新） 
 * [.NET 3.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET3.5) （已停止更新）
 
@@ -57,15 +52,14 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 |---|-----------------------------------------------------|-------------------------------------------------|--------------------------------------|------------------------------------------------------------------------------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]        | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 3| ASP.NET MVC 扩展<br>（.NET Framework）               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreN-]   ![.NET Core 2.0][core20N-]
-| 4| ASP.NET Core MVC <br> 扩展（.NET Core）              |Senparc.Weixin.MP.CoreMVC.dll                    | [![MP.CoreMVC][11.1]][11.2]          | ![.NET 4.0][net40N-]  ![.NET 4.5][net45N-]   ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 5| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 6| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
-| 7| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]           | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
-| 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
-|10| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]                | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-|11| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 3| ASP.NET MVC 扩展<br>.NET Framework + Core               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]                | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]   ![.NET Core 2.0][core20Y]
+| 4| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]                    | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 5| 企业微信                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]                  | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y] 	  
+| 6| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]                  | ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]           | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
+| 8| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]       | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20N]
+| 9| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]                | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+|10| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 
 ![.NET 4.0][net40Y] .NET 4.0   ![.NET 4.5][net45Y] .NET 4.5  ![.NET Core][coreY] .NET Core 1.0  ![.NET Core 2.0][core20Y] .NET Core 2.0
 
@@ -168,16 +162,10 @@ Senparc 官方教程
 
 ## 如何使用.NET Core开发
 
-> .NET Framework 版本及 .NET Core 版本代码分别位于 
-[master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [Developer-FullDotNet](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet) 分支下，
-结构保持了高度一致。
-
-> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
-所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
-
-> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
-除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+> 当前分支包含了 .NET Framework 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 的全版本代码。<br>
+> 其中 .NET Framework 4.5 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample` 目录下，<br>
+> .NET Core 2.0 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample.vs2017` 目录下。<br>
+> 注意：以上两个 Demo 所引用的 Senparc.Weixin SDK 库源代码是完全一致的，只是在编译运行的时候会根据条件自动选择输出版本。
 
 > 以下所有介绍以 .NET Framework 版本为例。
 
@@ -201,9 +189,10 @@ Senparc 官方教程
 |Senparc.WebSocket|WebSocket 模块|
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
-|Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|
-|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.5）|
-|Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
+|Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为 MVC 项目提供的扩展包 |
+|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
+|Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（.NET Framework 4.5 + + ASP.NET WebForms）|
+|Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（.NET Core 2.0 + MVC）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
@@ -392,6 +381,8 @@ Senparc.Weixin.QY.dll对`企业号`相关功能进行了封装，操作过程和
 PM> Install-Package Senparc.Weixin.QY
 ```
 
+> 说明：QY目前已经随官方微信企业号同步停止更新，目前已经无缝移植到Work（企业微信）中。
+
 ### 如何处理企业微信请求？
 
 Senparc.Weixin.Work.dll对`企业微信`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）以及企业号库（Senparc.Weixin.QY）保持了一致。
@@ -521,8 +512,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 |  分支      |     说明         
 |-----------|---------------
 | master    | 正式发布的主分支，通常这个分支比较稳定，可以用于生产环境。
-| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、同时，此分支也是 Senparc 团队进行 .NET 4.5 开发的分支，建议 Pull Request 的代码都到这个分支下，而不是 master
-| Developer-FullDotNet | 1、同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 的分支，会不定期和 Developer 及 master 分支同步，使用此分支需要使用 VS2017。<br> 2、此分支也是将来 .NET Core 及 VS2017+ 普及之后的主分支后补分支。
+| Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、此分支同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 版本，建议 Pull Request 的代码都到这个分支下，而不是 master
 | BookVersion1 | 此分支为[《微信开发深度解析：微信公众号、小程序高效开发秘籍》](https://book.weixin.senparc.com/book/link?code=github-homepage2)图书出版时对应代码快照。
 | DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
 | NET4.0     | .NET 4.0 分支，已于2017年停止更新。

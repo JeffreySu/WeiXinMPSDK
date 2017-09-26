@@ -32,16 +32,14 @@
                 <a href="/Home/Book" class="application" target="_blank">官方教程配套阅读系统</a>
                 &nbsp; &nbsp; &nbsp;
 
-                <a href="http://sdk.weixin.senparc.com@(Url.Action(" Index", "Document" ))" class="application" target="_blank">下载 SDK 帮助文档</a>
+                <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 SDK 帮助文档</a>
                 &nbsp; &nbsp; &nbsp;
 
                 <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
                 &nbsp; &nbsp; &nbsp;
 
-                @*
-            </p>
-            <p class="weixin-item-button">
-                *@
+                @*</p>
+                    <p class="weixin-item-button">*@
                 <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
             </p>
         </div>
@@ -58,7 +56,7 @@
         </p>
 
 
-        <div class="weixin-bottom-table">
+        <div class="weixin-bottom-table" id="nuget-versions">
             <table class="tbVersion">
                 <thead>
                     <tr>
@@ -69,8 +67,7 @@
                         <th>当前站点运行版本</th>
                         <th>.NET 4.0</th>
                         <th>.NET 4.5</th>
-                        @*
-                        <th>.NET 4.6.1</th>*@
+                        @*<th>.NET 4.6.1</th>*@
                         <th>.NET Core</th>
                         <th>.NET Core 2.0</th>
                     </tr>
@@ -92,8 +89,7 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WeixinVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
@@ -113,8 +109,7 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
@@ -126,34 +121,31 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["OpenVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
+                    @*<tr>
+                            <td>4</td>
+                            <td>企业号 SDK</td>
+                            <td>
+                                <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
+                                    Senparc.Weixin.QY.dll
+                                </a>
+                            </td>
+                            <td>
+                                <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
+                                    <img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" />
+                                </a>
+                            </td>
+                            <td>停止更新</td>
+                            <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
+                            <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
+                            <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
+                            <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
+                        </tr>*@
                     <tr>
                         <td>4</td>
-                        <td>企业号 SDK</td>
-                        <td>
-                            <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
-                                Senparc.Weixin.QY.dll
-                            </a>
-                        </td>
-                        <td>
-                            <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
-                                <img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" />
-                            </a>
-                        </td>
-                        <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["QYVersion"])</a></td>
-                        <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
-                        <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
-                        <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
-                        <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
                         <td>企业微信 SDK <span style="color:red">new</span></td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Work" target="_blank">
@@ -168,50 +160,48 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WorkVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
                     <tr>
-                        <td>6</td>
+                        <td>5</td>
                         <td>MVC 扩展插件</td>
                         <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.MvcExtentsion.dll</a></td>
                         <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.Mvc.svg?style=flat" /></a></td>
-                        <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">未部署@*v@(TempData["ExtensionVersion"])*@</a></td>
+                        <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-Y-brightgreen.svg" /></td>
                         <td>
-                            <img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /><br />
-                            <img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" />
+                            <img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" />@*<br />
+                                <img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" />*@
                         </td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
-                        <td>
-                            <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core----lightgrey.svg" />
-                        </td>
-                        <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0----lightgrey.svg" /></td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Core MVC 扩展插件</td>
-                        <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.CoreMvcExtentsion.dll</a></td>
-                        <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMvc.svg?style=flat" /></a></td>
-                        <td>v@(TempData["ExtensionVersion"])</td>
-                        <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0----lightgrey.svg" /></td>
-                        <td>
-                            <img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5----lightgrey.svg" /><br />
-                            <img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" />
-                        </td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td>
                             <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" />
                         </td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
-
+                    <!--
                     <tr>
-                        <td>8</td>
+                        <td>6</td>
+                        <td>Core MVC 扩展插件</td>
+                        <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.CoreMvcExtentsion.dll</a></td>
+                        <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMvc.svg?style=flat" /></a></td>
+                        <td>@*<a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a>*@未部署</td>
+                        <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0----lightgrey.svg" /></td>
+                        <td>
+                            <img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5----lightgrey.svg" /><br />
+                            <img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" />
+                        </td>
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        <td>
+                            <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" />
+                        </td>
+                        <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
+                    </tr>
+                        -->
+                    <tr>
+                        <td>6</td>
                         <td>Redis 缓存</td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis" target="_blank">
@@ -226,13 +216,12 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["RedisCacheVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-N-lightgrey.svg" /></td>
                     </tr>
                     <tr>
-                        <td>9</td>
+                        <td>7</td>
                         <td>Memcached 缓存</td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached" target="_blank">
@@ -247,13 +236,12 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-N-lightgrey.svg" /></td>
                     </tr>
                     <tr>
-                        <td>10</td>
+                        <td>8</td>
                         <td>小程序</td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.WxOpen" target="_blank">
@@ -268,13 +256,12 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/WxOpen/" target="_blank">v@(TempData["WxOpenVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>
                     <tr>
-                        <td>11</td>
+                        <td>9</td>
                         <td>WebSocket 模块</td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.WebSocket" target="_blank">
@@ -289,8 +276,7 @@
                         <td><a class="sdk-version" href="https://github.com/JeffreySu/Senparc.WebSocket/" target="_blank">v@(TempData["WebSocketVersion"])</a></td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
-                        @*
-                        <td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
+                        @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Core 2.0" alt=".NET Core 2.0" src="https://img.shields.io/badge/core2.0-Y-brightgreen.svg" /></td>
                     </tr>

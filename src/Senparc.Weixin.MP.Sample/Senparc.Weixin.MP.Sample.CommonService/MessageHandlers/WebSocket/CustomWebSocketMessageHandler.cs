@@ -9,10 +9,10 @@ using Senparc.Weixin.WxOpen.Containers;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 #else
-using Senparc.Weixin.MP.CoreSample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 #endif
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.WebSocket
+namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
     /// <summary>
     /// 自定义 WebSocket 处理类

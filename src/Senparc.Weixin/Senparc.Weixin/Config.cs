@@ -89,10 +89,13 @@ namespace Senparc.Weixin
         /// </summary>
         public static string DefaultCacheNamespace = "DefaultCache";//TODO:需要考虑分布式的情况，后期需要储存在缓存中,或进行全局配置
 
-        /// <summary>
+#if !NET45
+         /// <summary>
         /// 默认微信配置
         /// </summary>
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
+#endif
+
 
         /// <summary>
         /// 微信支付使用沙箱模式

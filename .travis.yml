@@ -1,11 +1,26 @@
 language: csharp
+#solution: ./src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 
-script:
+#matrix:
+#  include:
+#    - dotnet: 2.0.0
+#      mono: none
+#      dist: trusty
+#      env: DOTNETCORE=1  # optional, can be used to take different code paths in your script
+      
+
+# - dotnet restore
+
 #  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
-#  - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln #此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
 
-install:
- - nuget install StackExchange.Redis -version 1.0.488
+scripts:
+  - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
+#此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
+
+
+#install:
+# - nuget install StackExchange.Redis -version 1.0.488
+
 
 solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 #solution: ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj

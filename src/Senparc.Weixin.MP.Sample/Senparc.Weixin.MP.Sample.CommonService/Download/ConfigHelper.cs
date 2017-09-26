@@ -9,26 +9,35 @@ using System.Xml.Linq;
 #if NET45
 using System.Web;
 #else
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Microsoft.AspNetCore.Http;
 #endif
 
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.Download
+namespace Senparc.Weixin.MP.Sample.CommonService.Download
 {
     public class ConfigHelper
     {
         //Key：guid，Value：<QrCodeId,Version>
         public static Dictionary<string, CodeRecord> CodeCollection = new Dictionary<string, CodeRecord>(StringComparer.OrdinalIgnoreCase);
-
-        private HttpContext _context;
-
         public static object Lock = new object();
+
+
+#if NET45
+        private HttpContextBase _context;
+
+        public ConfigHelper(HttpContextBase context)
+        {
+            _context = context;
+        }
+#else
+        private HttpContext _context;
 
         public ConfigHelper(HttpContext context)
         {
             _context = context;
         }
+#endif
 
         private string GetDatabaseFilePath()
         {

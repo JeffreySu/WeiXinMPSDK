@@ -25,7 +25,7 @@ using System.Web.Configuration;
 
 #endif
 
-namespace Senparc.Weixin.MP.CoreSample.CommonService.WxOpenMessageHandler
+namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

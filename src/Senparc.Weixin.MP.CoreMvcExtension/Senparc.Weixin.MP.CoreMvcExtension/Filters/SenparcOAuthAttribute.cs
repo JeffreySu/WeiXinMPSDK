@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.CoreMvcExtension
             _oauthScope = oauthScope;
         }
 
+
         /// <summary>
         /// 判断用户是否已经登录
         /// </summary>
@@ -132,21 +133,27 @@ namespace Senparc.Weixin.MP.CoreMvcExtension
                     //    filterContext.Result = jsonResult;
                     //}
 
-                    var returnUrl = context.HttpContext.Request.ToString();
-                    var requestData = context.HttpContext.Request;
-                    //授权回调字符串
-                    var callbackUrl = string.Format("{0}://{1}{2}{3}{4}returnUrl={5}",
-                        requestData.Scheme,
-                        requestData.Host.Value,
-                        "",//port
-                        _oauthCallbackUrl,
-                        _oauthCallbackUrl.Contains("?") ? "&" : "?",
-                        HttpUtility.RequestUtility.UrlEncode(returnUrl)
-                        );
 
+                    var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(context.HttpContext, _oauthCallbackUrl);
                     var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     context.Result = new RedirectResult(url);
+
+                    //var returnUrl = context.HttpContext.Request.ToString();
+                    //var requestData = context.HttpContext.Request;
+                    ////授权回调字符串
+                    //var callbackUrl = string.Format("{0}://{1}{2}{3}{4}returnUrl={5}",
+                    //    requestData.Scheme,
+                    //    requestData.Host.Value,
+                    //    "",//port
+                    //    _oauthCallbackUrl,
+                    //    _oauthCallbackUrl.Contains("?") ? "&" : "?",
+                    //    HttpUtility.RequestUtility.UrlEncode(returnUrl)
+                    //    );
+
+                    //var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
+                    //var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
+                    //context.Result = new RedirectResult(url);
                 }
 
                 //if (filterContext.Result == null)

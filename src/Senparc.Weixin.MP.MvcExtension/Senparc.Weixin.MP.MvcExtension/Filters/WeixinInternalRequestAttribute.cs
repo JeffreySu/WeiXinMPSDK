@@ -17,7 +17,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if NET45
 using System.Web.Mvc;
+using System.Web;
+#else
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
 using Senparc.Weixin.MP.MvcExtension.BrowserUtility;
 //using Senparc.Weixin.BrowserUtility;
 
@@ -50,7 +57,11 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+#if NET45
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
+#else
+            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
+#endif
             {
 
                 //if (!filterContext.HttpContext.SideInWeixinBrowser())

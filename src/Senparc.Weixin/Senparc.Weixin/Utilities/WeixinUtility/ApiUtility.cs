@@ -31,7 +31,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
 
     修改标识：Senparc - 20170926
-    修改描述：v4.13.4 修改企业微信APPId判断标准错误（使用新规则）
+    修改描述：v4.16.4 在2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
+
 ----------------------------------------------------------------*/
 
 using System;

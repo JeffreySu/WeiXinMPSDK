@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>4.16.3</Version>
+    <Version>4.16.4</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -184,6 +184,9 @@
       v4.15.1 优化 DateTimeHelper 计算方式
       v4.16.0 添加 Senparc.Weixin.Config.UseSandBoxPay 属性，使用微信支付接口时自动判断是否调用沙箱
       v4.16.1 （.NET Core）添加CoreWebProxy.cs
+      v4.16.3 在 NetStandard 2.0中恢复 WeixinTrace 的日志功能
+      v4.16.4 在 2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
+    
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

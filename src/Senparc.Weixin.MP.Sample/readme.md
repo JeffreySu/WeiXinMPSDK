@@ -7,7 +7,7 @@
 返回上一级后见目录：Senparc.Weixin.MP.Sample.vs2017
 
 
-##其他说明
+## 其他说明
 
 Senparc.Weixin.MP.Sample.CommonService 里面包含了CustomMessageHandler及原Senparc.Weixin.MP.Sample/Service目录的代码。
 

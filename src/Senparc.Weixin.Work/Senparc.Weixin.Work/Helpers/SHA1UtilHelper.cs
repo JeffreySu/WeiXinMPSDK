@@ -27,7 +27,12 @@ namespace Senparc.Weixin.Work.Helpers
         public static string GetSha1(string str)
         {
             //建立SHA1对象
+#if NET45
             SHA1 sha = new SHA1CryptoServiceProvider();
+#else
+            SHA1 sha = SHA1.Create();
+#endif
+
             //将mystr转换成byte[] 
             ASCIIEncoding enc = new ASCIIEncoding();
             byte[] dataToHash = enc.GetBytes(str);

@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>OAuth2.0授权测试</title>
+    <style>
+        .green {
+            color: green;
+        }
+    </style>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+
+    <h2>OAuth2.0授权测试</h2>
+    <p>注意：此页面仅供测试，测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。</p>
+    <p>
+        当前returnUrl：
+        @if (ViewData["returnUrl"] == null || ViewData["returnUrl"] as string == "")
+        {
+            <span>
+                <strong>不带returnUrl</strong>。
+            </span><br />
+            <span class="green">使用不带returnUrl的页面会停留在Callback页面，此页面如果刷新（或后退到此页面），会导致code过期的错误，只建议在测试阶段使用。</span>
+            <br/>
+            <span>
+                测试带returnUrl@(Html.ActionLink("点击这里", "Index", new { returnUrl = Url.Action("TestReturnUrl") }))。
+            </span>
+        }
+        else
+        {
+            <span><strong>@ViewData["returnUrl"]</strong>。</span><br />
+            <span class="green">携带returnUrl后，页面最终会跳转到returnUrl对应页面，避免刷新页面导致code的错误。</span>
+        }
+    </p>
+    <p><a href="@ViewData["UrlUserInfo"]">点击这里测试snsapi_userinfo</a></p>
+    <p>
+        将要链接到的地址：<br />
+        <textarea rows="10" cols="40">@ViewData["UrlUserInfo"]</textarea>
+    </p>
+    <p><a href="@ViewData["UrlBase"]">点击这里测试snsapi_base</a></p>
+    <p>
+        将要链接到的地址：<br />
+        <textarea rows="10" cols="40">@ViewData["UrlBase"]</textarea>
+    </p>
+</body>
+</html>

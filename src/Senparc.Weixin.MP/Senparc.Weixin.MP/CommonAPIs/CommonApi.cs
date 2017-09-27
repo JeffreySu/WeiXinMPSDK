@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
                                         accessToken.AsUrlData(), openId.AsUrlData());
                 WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
                 return result;
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+               var url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
                                        accessToken.AsUrlData(), openId.AsUrlData());
                var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
                return await result;

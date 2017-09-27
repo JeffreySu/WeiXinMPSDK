@@ -35,12 +35,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170122
     修改描述：v4.9.14 为AsUrlData方法添加null判断
 
+    修改标识：Senparc - 20170122
+    修改描述：v4.12.2 修复HttpUtility.UrlEncode方法错误
+
     修改标识：Senparc - 20170730
     修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
 
 ----------------------------------------------------------------*/
-
-
 
 using System;
 using System.Collections.Generic;
@@ -50,8 +51,18 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using Senparc.Weixin.Helpers;
+#if NET45
+using System.Web;
+#else
+using System.Net.Http;
+using System.Net.Http.Headers;
+#endif
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.WebProxy;
+#endif
+
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -62,8 +73,8 @@ namespace Senparc.Weixin.HttpUtility
     {
         #region 代理
 
-        private static WebProxy _webproxy = null;
-
+#if NET45
+        private static System.Net.WebProxy _webproxy = null;
         /// <summary>
         /// 设置Web代理
         /// </summary>
@@ -77,7 +88,7 @@ namespace Senparc.Weixin.HttpUtility
             cred = new NetworkCredential(username, password);
             if (!string.IsNullOrEmpty(host))
             {
-                _webproxy = new WebProxy(host + ":" + port ?? "80", true, null, cred);
+                _webproxy = new System.Net.WebProxy(host + ":" + port ?? "80", true, null, cred);
             }
         }
 
@@ -88,6 +99,33 @@ namespace Senparc.Weixin.HttpUtility
         {
             _webproxy = null;
         }
+#else
+        private static IWebProxy _webproxy = null;
+        /// <summary>
+        /// 设置Web代理
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public static void SetHttpProxy(string host, string port, string username, string password)
+        {
+            ICredentials cred;
+            cred = new NetworkCredential(username, password);
+            if (!string.IsNullOrEmpty(host))
+            {
+                _webproxy = new CoreWebProxy(new Uri(host + ":" + port ?? "80"), cred, true);
+            }
+        }
+
+        /// <summary>
+        /// 清除Web代理状态
+        /// </summary>
+        public static void RemoveHttpProxy()
+        {
+            _webproxy = null;
+        }
+#endif
 
         #endregion
 
@@ -102,10 +140,17 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null)
         {
+#if NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
+#else
+            HttpClient httpClient = new HttpClient();
+            var t = httpClient.GetStringAsync(url);
+            t.Wait();
+            return t.Result;
+#endif
         }
 
         /// <summary>
@@ -119,6 +164,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
+#if NET45
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
@@ -152,6 +198,23 @@ namespace Senparc.Weixin.HttpUtility
                     return retString;
                 }
             }
+#else
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = cookieContainer,
+                UseCookies = true,
+            };
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+#endif
+            HttpClient httpClient = new HttpClient(handler);
+            var t = httpClient.GetStringAsync(url);
+            t.Wait();
+            return t.Result;
+#endif
         }
 
         #endregion
@@ -168,7 +231,27 @@ namespace Senparc.Weixin.HttpUtility
             formData.FillFormDataStream(ms);//填充formData
             return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+        private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
+        {
+            fileName = UrlEncode(fileName);
+            var fileContent = new StreamContent(stream);
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "\"media\"",
+                FileName = "\"" + fileName + "\""
+            }; // the extra quotes are key here
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            return fileContent;
+        }
 
+        private static void HttpContentHeader(HttpContent hc, int timeOut)
+        {
+            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
+            hc.Headers.Add("Timeout", timeOut.ToString());
+            hc.Headers.Add("KeepAlive", "true");
+        }
+#endif
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>
@@ -184,6 +267,22 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
+
+#if NET45
+            if (checkValidationResult)
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
+            }
+#endif
+
+            if (cookieContainer == null)
+            {
+                cookieContainer = new CookieContainer();
+            }
+
+#if NET45
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
@@ -192,25 +291,47 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ClientCertificates.Add(cer);
             }
+#else
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.CookieContainer = cookieContainer;
 
             if (checkValidationResult)
             {
-                ServicePointManager.ServerCertificateValidationCallback =
-                    new RemoteCertificateValidationCallback(CheckValidationResult);
+                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
             }
 
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+
+            HttpClient client = new HttpClient(handler);
+
+            HttpContent hc;
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+#endif
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
-                //通过表单上传文件
-                postStream = postStream ?? new MemoryStream();
 
+                //通过表单上传文件
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+#if NET45
+                postStream = postStream ?? new MemoryStream();
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                                 "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+#else
+                hc = new MultipartFormDataContent(boundary);
+                HttpContentHeader(hc, timeOut);
+#endif
+
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -219,6 +340,7 @@ namespace Senparc.Weixin.HttpUtility
                         //准备文件流
                         using (var fileStream = FileHelper.GetFileStream(fileName))
                         {
+#if NET45
                             string formdata = null;
                             if (fileStream != null)
                             {
@@ -245,6 +367,20 @@ namespace Senparc.Weixin.HttpUtility
                                     postStream.Write(buffer, 0, bytesRead);
                                 }
                             }
+#else
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                                fileStream.Dispose();
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                            }
+#endif
                         }
                     }
                     catch (Exception ex)
@@ -252,17 +388,32 @@ namespace Senparc.Weixin.HttpUtility
                         throw ex;
                     }
                 }
+#if NET45
                 //结尾
                 var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                 postStream.Write(footer, 0, footer.Length);
 
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+#else
+                hc.Headers.ContentType = MediaTypeHeaderValue.Parse(string.Format("multipart/form-data; boundary={0}", boundary));
+#endif
             }
             else
             {
+#if NET45
                 request.ContentType = "application/x-www-form-urlencoded";
+#else
+                hc = new StreamContent(postStream);
+                HttpContentHeader(hc, timeOut);
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+#endif
             }
             #endregion
+
+#if NET45
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
@@ -318,6 +469,18 @@ namespace Senparc.Weixin.HttpUtility
                     return retString;
                 }
             }
+#else
+            //TODO:Cookie
+            var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
+            //t.Wait();
+            var t1 = t.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            return t1;
+
+            //t1.Wait();
+            //return t1.Result;
+#endif
+
+
         }
 
         #endregion
@@ -334,8 +497,20 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
-
-
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+        /// <summary>
+        /// 验证服务器证书
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="certificate"></param>
+        /// <param name="chain"></param>
+        /// <param name="sslPolicyErrors"></param>
+        /// <returns></returns>
+        private static bool CheckValidationResult(HttpRequestMessage request, X509Certificate2 certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+#endif
         #endregion
 
         #region 异步方法
@@ -347,10 +522,18 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
         {
+
+
+#if NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             return await wc.DownloadStringTaskAsync(url);
+#else
+            HttpClient httpClient = new HttpClient();
+            return await httpClient.GetStringAsync(url);
+#endif
+
         }
 
         /// <summary>
@@ -364,6 +547,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
+#if NET45
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
@@ -393,6 +577,23 @@ namespace Senparc.Weixin.HttpUtility
                     return retString;
                 }
             }
+
+#else
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = cookieContainer,
+                UseCookies = true,
+            };
+#if NETSTANDARD1_6 || NETSTANDARD2_0
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+#endif
+
+            HttpClient httpClient = new HttpClient(handler);
+            return await httpClient.GetStringAsync(url);
+#endif
         }
 
         /// <summary>
@@ -401,9 +602,18 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
+#if NET45
+
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
             return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
+#else
+            MemoryStream ms = new MemoryStream();
+            await formData.FillFormDataStreamAsync(ms);//填充formData
+            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
+
+#endif
+
         }
 
 
@@ -419,6 +629,19 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
+
+#if NET45
+            if (checkValidationResult)
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
+            }
+#endif
+            if (cookieContainer == null)
+                cookieContainer = new CookieContainer();
+
+#if NET45
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
@@ -427,25 +650,45 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ClientCertificates.Add(cer);
             }
+#else
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.CookieContainer = cookieContainer;
 
             if (checkValidationResult)
+                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+
+            if (cer != null)
             {
-                ServicePointManager.ServerCertificateValidationCallback =
-                  new RemoteCertificateValidationCallback(CheckValidationResult);
+                handler.ClientCertificates.Add(cer);
             }
+
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc;
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+#endif
 
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
                 //通过表单上传文件
-                postStream = postStream ?? new MemoryStream();
-
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+#if NET45
+                postStream = postStream ?? new MemoryStream();
+                
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                               "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+#else
+                hc = new MultipartFormDataContent(boundary);
+                HttpContentHeader(hc, timeOut);
+#endif
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -454,6 +697,7 @@ namespace Senparc.Weixin.HttpUtility
                         //准备文件流
                         using (var fileStream = FileHelper.GetFileStream(fileName))
                         {
+#if NET45
                             string formdata = null;
                             if (fileStream != null)
                             {
@@ -480,6 +724,20 @@ namespace Senparc.Weixin.HttpUtility
                                     await postStream.WriteAsync(buffer, 0, bytesRead);
                                 }
                             }
+#else
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                                fileStream.Dispose();
+                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                            }
+#endif
                         }
                     }
                     catch (Exception ex)
@@ -487,18 +745,33 @@ namespace Senparc.Weixin.HttpUtility
                         throw ex;
                     }
                 }
+#if NET45
                 //结尾
                 var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                 await postStream.WriteAsync(footer, 0, footer.Length);
 
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+#else
+                hc.Headers.ContentType = MediaTypeHeaderValue.Parse(string.Format("multipart/form-data; boundary={0}", boundary));
+#endif
             }
             else
             {
+#if NET45
                 request.ContentType = "application/x-www-form-urlencoded";
+#else
+                hc = new StreamContent(postStream);
+                HttpContentHeader(hc, timeOut);
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+                hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+#endif
+
             }
             #endregion
 
+#if NET45
             request.ContentLength = postStream != null ? postStream.Length : 0;
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.KeepAlive = true;
@@ -554,6 +827,13 @@ namespace Senparc.Weixin.HttpUtility
                     return retString;
                 }
             }
+#else
+            //TODO:Cookie
+            var r = await client.PostAsync(url, hc);
+            return await r.Content.ReadAsStringAsync();
+
+#endif
+
         }
 
 
@@ -572,17 +852,17 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
-        /// <summary>
-        /// 请求是否发起自微信客户端的浏览器
-        /// </summary>
-        /// <param name="httpContext"></param>
-        /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()方法")]
-        public static bool IsWeixinClientRequest(this HttpContext httpContext)
-        {
-            return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&
-                   httpContext.Request.UserAgent.Contains("MicroMessenger");
-        }
+        ///// <summary>
+        ///// 请求是否发起自微信客户端的浏览器
+        ///// </summary>
+        ///// <param name="httpContext"></param>
+        ///// <returns></returns>
+        //[Obsolete("请使用Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()方法")]
+        //public static bool IsWeixinClientRequest(this HttpContext httpContext)
+        //{
+        //    return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&
+        //           httpContext.Request.UserAgent.Contains("MicroMessenger");
+        //}
 
         /// <summary>
         /// 组装QueryString的方法
@@ -633,7 +913,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HtmlEncode(this string html)
         {
+#if NET45
             return System.Web.HttpUtility.HtmlEncode(html);
+#else
+            return WebUtility.HtmlEncode(html);
+#endif
         }
         /// <summary>
         /// 封装System.Web.HttpUtility.HtmlDecode
@@ -642,7 +926,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HtmlDecode(this string html)
         {
+#if NET45
             return System.Web.HttpUtility.HtmlDecode(html);
+#else
+            return WebUtility.HtmlDecode(html);
+#endif
         }
         /// <summary>
         /// 封装System.Web.HttpUtility.UrlEncode
@@ -651,7 +939,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string UrlEncode(this string url)
         {
+#if NET45
             return System.Web.HttpUtility.UrlEncode(url);
+#else
+            return WebUtility.UrlEncode(url);//转义后字母为大写
+#endif
         }
         /// <summary>
         /// 封装System.Web.HttpUtility.UrlDecode
@@ -660,7 +952,12 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string UrlDecode(this string url)
         {
+#if NET45
             return System.Web.HttpUtility.UrlDecode(url);
+#else
+            return WebUtility.UrlDecode(url);
+#endif
+
         }
 
         /// <summary>

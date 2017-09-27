@@ -61,15 +61,21 @@ namespace Senparc.Weixin.Threads
             try
             {
                 var mq = new SenparcMessageQueue();
+
+#if NET45
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
                 System.Diagnostics.Trace.WriteLine(string.Format("当前队列数量：{0}", mq.GetCount()));
+#endif
 
                 SenparcMessageQueue.OperateQueue();//处理队列
             }
             catch (Exception ex)
             {
                 //此处可以添加日志
+#if NET45
+
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
+#endif
             }
         }
 

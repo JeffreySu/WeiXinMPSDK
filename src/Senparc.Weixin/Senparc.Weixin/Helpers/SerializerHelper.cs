@@ -35,7 +35,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Globalization;
 using System.Text.RegularExpressions;
+#if NET45
 using System.Web.Script.Serialization;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace Senparc.Weixin.Helpers
 {
@@ -68,19 +72,31 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
+            string jsonString;
+#if NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             jsSerializer.RegisterConverters(new JavaScriptConverter[]
             {
                 new WeixinJsonConventer(data.GetType(), jsonSetting),
                 new ExpandoJsonConverter()
             });
+            jsonString = jsSerializer.Serialize(data);
+#else
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
 
-            var jsonString = jsSerializer.Serialize(data);
+            jsonString = JsonConvert.SerializeObject(data, settings);
+#endif
+
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
             var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
             return json;
+
+
         }
 
         /// <summary>
@@ -91,8 +107,13 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public T GetObject<T>(string jsonString)
         {
+#if NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             return jsSerializer.Deserialize<T>(jsonString);
+#else
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(T));
+#endif
+
         }
     }
 }

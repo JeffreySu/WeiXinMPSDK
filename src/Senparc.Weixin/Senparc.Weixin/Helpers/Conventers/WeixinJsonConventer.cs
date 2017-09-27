@@ -42,7 +42,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+#if NET45
 using System.Web.Script.Serialization;
+#endif
+
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers
@@ -106,6 +109,8 @@ namespace Senparc.Weixin.Helpers
             TypesToIgnore = typesToIgnore ?? new List<Type>();
         }
     }
+
+    #if NET45
 
     /// <summary>
     /// 微信 JSON 转换器
@@ -198,4 +203,6 @@ namespace Senparc.Weixin.Helpers
             throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
+    #endif
+
 }

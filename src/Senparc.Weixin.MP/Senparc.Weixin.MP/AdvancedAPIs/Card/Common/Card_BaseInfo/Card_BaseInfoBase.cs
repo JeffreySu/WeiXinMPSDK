@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20160910
     修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
+
+    修改标识：Senparc - 20170927
+    修改描述：v4.16.5 添加Card_BaseInfoBase下的sub_merchant_info属性
+
 ----------------------------------------------------------------*/
 
 
@@ -44,6 +48,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_BaseInfoBase
     {
+        /// <summary>
+        /// 子商户id，对于一个母商户公众号下唯一。
+        /// 详情见创建卡券接口：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432
+        /// </summary>
+        public Card_BaseInfoBase_SubMerchantInfo sub_merchant_info { get; set; }
+
         /// <summary>
         /// 卡券的商户logo，尺寸为300*300。
         /// 必填
@@ -196,6 +206,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 会员卡支持微信支付刷卡
         /// </summary>
         public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
+    }
+
+    public class Card_BaseInfoBase_SubMerchantInfo
+    {
+        public int merchant_id { get; set; }
     }
 
     public class Modify_Msg_Operation /*: JsonIgnoreNull//为了解决提交时候modify_msg_operation=null，导致47001的错误*/

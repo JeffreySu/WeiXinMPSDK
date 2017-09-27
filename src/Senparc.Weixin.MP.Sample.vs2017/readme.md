@@ -9,7 +9,7 @@
 使用 .NET Framework 4.5 Sample 部署的 Senparc 官方在线 Demo：https://sdk.weixin.senparc.com/。
 
 
-##其他说明
+## 其他说明
 
 Senparc.Weixin.MP.Sample.CommonService 里面包含了CustomMessageHandler及原Senparc.Weixin.MP.Sample/Service目录的代码。
 

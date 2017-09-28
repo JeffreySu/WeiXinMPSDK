@@ -473,6 +473,10 @@ namespace Senparc.Weixin.HttpUtility
             //TODO:Cookie
             var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
             //t.Wait();
+
+            if (t.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+                t.Content.Headers.ContentType.CharSet = "utf-8";
+
             var t1 = t.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return t1;
 
@@ -830,6 +834,10 @@ namespace Senparc.Weixin.HttpUtility
 #else
             //TODO:Cookie
             var r = await client.PostAsync(url, hc);
+
+            if (r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+                r.Content.Headers.ContentType.CharSet = "utf-8";
+
             return await r.Content.ReadAsStringAsync();
 
 #endif

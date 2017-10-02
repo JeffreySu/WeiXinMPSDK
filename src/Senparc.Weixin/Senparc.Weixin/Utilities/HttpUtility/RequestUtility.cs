@@ -474,8 +474,11 @@ namespace Senparc.Weixin.HttpUtility
             var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
             //t.Wait();
 
-            if (t.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            if (t.Content.Headers.ContentType.CharSet != null &&
+                t.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            {
                 t.Content.Headers.ContentType.CharSet = "utf-8";
+            }
 
             var t1 = t.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return t1;

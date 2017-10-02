@@ -58,7 +58,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.WebProxy;
 #endif
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.HttpUtility
             formData.FillFormDataStream(ms);//填充formData
             return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
         private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
         {
             fileName = UrlEncode(fileName);
@@ -473,6 +473,13 @@ namespace Senparc.Weixin.HttpUtility
             //TODO:Cookie
             var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
             //t.Wait();
+
+            if (t.Content.Headers.ContentType.CharSet != null &&
+                t.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            {
+                t.Content.Headers.ContentType.CharSet = "utf-8";
+            }
+
             var t1 = t.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return t1;
 
@@ -497,7 +504,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
         /// <summary>
         /// 验证服务器证书
         /// </summary>
@@ -584,7 +591,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -830,6 +837,10 @@ namespace Senparc.Weixin.HttpUtility
 #else
             //TODO:Cookie
             var r = await client.PostAsync(url, hc);
+
+            if (r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+                r.Content.Headers.ContentType.CharSet = "utf-8";
+
             return await r.Content.ReadAsStringAsync();
 
 #endif

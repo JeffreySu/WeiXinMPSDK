@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.16.5</Version>
+    <Version>4.16.7</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -187,6 +187,9 @@
       v4.16.3 在 NetStandard 2.0中恢复 WeixinTrace 的日志功能
       v4.16.4 在 2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
       v4.16.5 尝试解决微信{utf8"编码字符串带来的.net core runtime 对 content-type的解析错误
+      v4.16.6 提供NETCOREAPP2_0编译
+      v4.16.7 继续解决.net core 2.0下utf8和utf-8的问题处理
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

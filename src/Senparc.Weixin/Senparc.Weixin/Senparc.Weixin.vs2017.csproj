@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.16.7</Version>
+    <Version>4.16.8</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -189,6 +189,7 @@
       v4.16.5 尝试解决微信{utf8"编码字符串带来的.net core runtime 对 content-type的解析错误
       v4.16.6 提供NETCOREAPP2_0编译
       v4.16.7 继续解决.net core 2.0下utf8和utf-8的问题处理
+      v4.16.8 优化 .net core 2.0 RequestUtility异步方法
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

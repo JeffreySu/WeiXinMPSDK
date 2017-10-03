@@ -838,7 +838,8 @@ namespace Senparc.Weixin.HttpUtility
             //TODO:Cookie
             var r = await client.PostAsync(url, hc);
 
-            if (r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            if (r.Content.Headers.ContentType.CharSet != null &&
+                r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
                 r.Content.Headers.ContentType.CharSet = "utf-8";
 
             return await r.Content.ReadAsStringAsync();

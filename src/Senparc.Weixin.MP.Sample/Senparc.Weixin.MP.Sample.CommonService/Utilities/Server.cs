@@ -56,7 +56,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
 #else
                     _webRootPath = AppDomainAppPath + "wwwroot\\";//asp.net core的wwwroot文件目录结构不一样
 #endif
-
                 }
                 return _webRootPath;
             }

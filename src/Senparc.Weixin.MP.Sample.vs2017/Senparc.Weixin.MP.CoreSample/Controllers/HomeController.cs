@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.MP.CoreSample.Models;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #if NET45
 using System.Web;
 using System.Web.Configuration;
@@ -20,7 +21,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
 #if NET45
         public HomeController()
@@ -35,6 +36,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         }
 #endif
 
+
         public IActionResult Index()
         {
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
@@ -42,7 +44,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 #elif NETCOREAPP2_0 || NETSTANDARD2_0
             {
-                var dllPath = Server.GetMapPath("~/bin/netcoreapp2.0/" + dllFileName);
+                var dllPath = Server.GetMapPath(System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName));//dll所在目录
                 return FileVersionInfo.GetVersionInfo(dllPath);
             };
 #else
@@ -52,8 +54,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             };
 #endif
 
-            Func < FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
-                 Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
+            Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
+               Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
 
             TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
             TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
@@ -103,7 +105,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public IActionResult Error()
         {
-            return View();
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

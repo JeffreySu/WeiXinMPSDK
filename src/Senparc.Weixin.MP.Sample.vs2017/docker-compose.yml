@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  senparc.weixin.mp.coresample:
+    image: senparc.weixin.mp.coresample
+    build:
+      context: ./Senparc.Weixin.MP.CoreSample
+      dockerfile: Dockerfile

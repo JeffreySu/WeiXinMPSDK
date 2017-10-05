@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 #if NET45
         public HomeController()
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 #elif NETCOREAPP2_0 || NETSTANDARD2_0
             {
-                var dllPath = Server.GetMapPath(System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName));//dll所在目录
+                var dllPath = Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName));//dll所在目录
                 return FileVersionInfo.GetVersionInfo(dllPath);
             };
 #else

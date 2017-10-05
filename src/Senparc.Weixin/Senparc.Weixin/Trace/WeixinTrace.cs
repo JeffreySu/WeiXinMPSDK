@@ -106,7 +106,8 @@ namespace Senparc.Weixin
 #if NET45 || NET461
                 var logDir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", "WeixinTraceLog");
 #else
-                var logDir = Path.Combine(AppContext.BaseDirectory, "App_Data", "WeixinTraceLog");
+                //var logDir = Path.Combine(AppContext.BaseDirectory, "App_Data", "WeixinTraceLog");
+                var logDir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data", "WeixinTraceLog");
 #endif
 
                 if (!Directory.Exists(logDir))
@@ -221,7 +222,7 @@ namespace Senparc.Weixin
             using (Cache.BeginCacheLock(LockName, ""))
             {
 #if NET45 || NET461
-  System.Diagnostics.Trace.Flush();
+                System.Diagnostics.Trace.Flush();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.Flush();
 #endif
@@ -255,7 +256,7 @@ namespace Senparc.Weixin
             using (Cache.BeginCacheLock(LockName, ""))
             {
 #if NET45 || NET461
-     System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
+                System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.WriteLine(string.Format(messageFormat, args));
 #endif
@@ -296,7 +297,7 @@ namespace Senparc.Weixin
             using (Cache.BeginCacheLock(LockName, ""))
             {
 #if NET45 || NET461
-        System.Diagnostics.Trace.WriteLine(message);
+                System.Diagnostics.Trace.WriteLine(message);
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.WriteLine(message);
 #endif

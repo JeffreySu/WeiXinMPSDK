@@ -41,6 +41,27 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             }
         }
 
+        private static string _webRootPath;
+        /// <summary>
+        /// wwwroot文件夹目录（专供ASP.NET Core MVC使用）
+        /// </summary>
+        public static string WebRootPath
+        {
+            get
+            {
+                if (_webRootPath==null)
+                {
+#if NET45
+                    _webRootPath = AppDomainAppPath;
+#else
+                    _webRootPath = AppDomainAppPath + "wwwroot\\";//asp.net core的wwwroot文件目录结构不一样
+#endif
+                }
+                return _webRootPath;
+            }
+            set { _webRootPath = value; }
+        }
+
         public static string GetMapPath(string virtualPath)
         {
             if (virtualPath == null)

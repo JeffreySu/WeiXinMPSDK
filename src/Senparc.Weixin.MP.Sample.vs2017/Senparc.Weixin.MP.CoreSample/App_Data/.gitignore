@@ -1,4 +1,4 @@
 # git ignore file
 *.txt
-#WeixinTraceLog/*
+WeixinTraceLog/*
 /MP

@@ -313,7 +313,9 @@ namespace Senparc.Weixin.HttpUtility
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
 #endif
+
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -470,7 +472,11 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            //TODO:Cookie
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                client.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
+            }
+
             var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
             //t.Wait();
 
@@ -631,8 +637,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+        /// <param name="cer"></param>
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+        /// <param name="refererUrl"></param>
+        /// <param name="encoding"></param>
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
@@ -835,11 +844,18 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            //TODO:Cookie
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                client.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
+            }
+
             var r = await client.PostAsync(url, hc);
 
-            if (r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            if (r.Content.Headers.ContentType.CharSet != null &&
+                r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            {
                 r.Content.Headers.ContentType.CharSet = "utf-8";
+            }
 
             return await r.Content.ReadAsStringAsync();
 

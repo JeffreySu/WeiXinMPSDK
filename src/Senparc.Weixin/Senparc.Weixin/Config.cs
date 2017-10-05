@@ -101,5 +101,10 @@ namespace Senparc.Weixin
         /// 微信支付使用沙箱模式
         /// </summary>
         public static bool UseSandBoxPay { get; set; }
+
+        /// <summary>
+        /// 网站根目录绝对路径
+        /// </summary>
+        public static string RootDictionaryPath { get; set; }
     }
 }

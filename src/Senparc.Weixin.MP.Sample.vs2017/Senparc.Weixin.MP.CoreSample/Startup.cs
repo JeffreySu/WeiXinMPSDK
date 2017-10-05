@@ -29,7 +29,9 @@ namespace Senparc.Weixin.MP.CoreSample
             builder.AddJsonFile("SenparcWeixin.json", optional: true);
 
             Configuration = builder.Build();
+
             //提供网站根目录
+            Senparc.Weixin.Config.RootDictionaryPath = env.ContentRootPath;
             Server.AppDomainAppPath = env.ContentRootPath;
         }
 
@@ -93,6 +95,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
+            Senparc.Weixin.Config.IsDebug = true;
 
             #endregion
         }

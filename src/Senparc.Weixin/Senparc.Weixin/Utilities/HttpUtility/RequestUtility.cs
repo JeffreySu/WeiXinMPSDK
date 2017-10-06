@@ -163,223 +163,22 @@ namespace Senparc.Weixin.HttpUtility
 
         #region 同步方法
 
-        #region Get
-
         /// <summary>
-        /// 使用Get方法获取字符串结果（没有加入Cookie）
+        /// 填充表单信息的Stream
         /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string HttpGet(string url, Encoding encoding = null)
+        /// <param name="formData"></param>
+        /// <param name="stream"></param>
+        public static void FillFormDataStream(this Dictionary<string, string> formData, Stream stream)
         {
-#if NET45
-            WebClient wc = new WebClient();
-            wc.Proxy = _webproxy;
-            wc.Encoding = encoding ?? Encoding.UTF8;
-            return wc.DownloadString(url);
-#else
-            HttpClient httpClient = new HttpClient();
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
-#endif
+            string dataString = GetQueryString(formData);
+            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            stream.Write(formDataBytes, 0, formDataBytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
         }
-
-        /// <summary>
-        /// 使用Get方法获取字符串结果（加入Cookie）
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="cookieContainer"></param>
-        /// <param name="encoding"></param>
-        /// <param name="cer">证书，如果不需要则保留null</param>
-        /// <param name="refererUrl">referer参数</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
-        {
-#if NET45
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-            request.Proxy = _webproxy;
-            if (cer != null)
-            {
-                request.ClientCertificates.Add(cer);
-            }
-
-            if (cookieContainer != null)
-            {
-                request.CookieContainer = cookieContainer;
-            }
-
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            request.KeepAlive = true;
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
-            if (refererUrl != null)
-            {
-                request.Referer = refererUrl;
-            }
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (cookieContainer != null)
-            {
-                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
-            }
-
-            using (Stream responseStream = response.GetResponseStream())
-            {
-                using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
-                {
-                    string retString = myStreamReader.ReadToEnd();
-                    return retString;
-                }
-            }
-#else
-
-            var handler = new HttpClientHandler
-            {
-                CookieContainer = cookieContainer,
-                UseCookies = true,
-            };
-            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
-            if (cer != null)
-            {
-                handler.ClientCertificates.Add(cer);
-            }
-            //#endif
-            HttpClient httpClient = new HttpClient(handler);
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
-
-            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
-            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
-
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
-#endif
-        }
-
-        #endregion
 
         #endregion
 
         #region 异步方法
-
-        /// <summary>
-        /// 使用Get方法获取字符串结果（没有加入Cookie）
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
-        {
-
-
-#if NET45
-            WebClient wc = new WebClient();
-            wc.Proxy = _webproxy;
-            wc.Encoding = encoding ?? Encoding.UTF8;
-            return await wc.DownloadStringTaskAsync(url);
-#else
-            HttpClient httpClient = new HttpClient();
-            return await httpClient.GetStringAsync(url);
-#endif
-
-        }
-
-        /// <summary>
-        /// 使用Get方法获取字符串结果（加入Cookie）
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="cookieContainer"></param>
-        /// <param name="encoding"></param>
-        /// <param name="cer">证书，如果不需要则保留null</param>
-        /// <param name="timeOut"></param>
-        /// <param name="refererUrl">referer参数</param>
-        /// <returns></returns>
-        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
-        {
-#if NET45
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-            request.Proxy = _webproxy;
-            if (cer != null)
-            {
-                request.ClientCertificates.Add(cer);
-            }
-
-            if (cookieContainer != null)
-            {
-                request.CookieContainer = cookieContainer;
-            }
-
-            HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
-
-            if (cookieContainer != null)
-            {
-                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
-            }
-
-            using (Stream responseStream = response.GetResponseStream())
-            {
-                using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
-                {
-                    string retString = await myStreamReader.ReadToEndAsync();
-                    return retString;
-                }
-            }
-
-#else
-            var handler = new HttpClientHandler
-            {
-                CookieContainer = cookieContainer,
-                UseCookies = true,
-            };
-            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
-            if (cer != null)
-            {
-                handler.ClientCertificates.Add(cer);
-            }
-            //#endif
-
-            HttpClient httpClient = new HttpClient(handler);
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
-
-            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
-            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
-
-            return await httpClient.GetStringAsync(url);
-#endif
-        }
-
-      
 
         /// <summary>
         /// 填充表单信息的Stream
@@ -395,6 +194,9 @@ namespace Senparc.Weixin.HttpUtility
         }
 
         #endregion
+
+        #region 只需要使用同步的方法
+
 
         ///// <summary>
         ///// 请求是否发起自微信客户端的浏览器
@@ -437,18 +239,6 @@ namespace Senparc.Weixin.HttpUtility
             return sb.ToString();
         }
 
-        /// <summary>
-        /// 填充表单信息的Stream
-        /// </summary>
-        /// <param name="formData"></param>
-        /// <param name="stream"></param>
-        public static void FillFormDataStream(this Dictionary<string, string> formData, Stream stream)
-        {
-            string dataString = GetQueryString(formData);
-            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
-            stream.Write(formDataBytes, 0, formDataBytes.Length);
-            stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-        }
 
         /// <summary>
         /// 封装System.Web.HttpUtility.HtmlEncode
@@ -519,5 +309,8 @@ namespace Senparc.Weixin.HttpUtility
             }
             return Uri.EscapeDataString(data);
         }
+
+
+        #endregion
     }
 }

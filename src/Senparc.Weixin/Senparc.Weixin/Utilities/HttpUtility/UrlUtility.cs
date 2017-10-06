@@ -54,7 +54,7 @@ namespace Senparc.Weixin.HttpUtility
     public class UrlUtility
     {
         /// <summary>
-        /// 生成OAuth用的额CallbackUrl参数（原始状态，未整体进行UrlEncode）
+        /// 生成OAuth用的CallbackUrl参数（原始状态，未整体进行UrlEncode）
         /// </summary>
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>

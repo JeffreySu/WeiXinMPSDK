@@ -33,7 +33,9 @@
     官方文档：http://work.weixin.qq.com/api/doc#10025
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
@@ -105,6 +107,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -166,5 +169,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

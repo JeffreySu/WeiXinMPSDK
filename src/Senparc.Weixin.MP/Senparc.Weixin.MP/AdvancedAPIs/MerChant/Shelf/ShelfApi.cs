@@ -35,7 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -170,6 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】增加货架
@@ -293,5 +296,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdShelfResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

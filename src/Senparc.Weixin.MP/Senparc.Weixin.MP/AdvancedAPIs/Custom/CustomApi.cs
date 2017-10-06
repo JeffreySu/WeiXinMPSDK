@@ -59,7 +59,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Collections.Generic;
 using System.Linq;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -487,6 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -901,6 +904,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+#endif
 
         ///
         /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 

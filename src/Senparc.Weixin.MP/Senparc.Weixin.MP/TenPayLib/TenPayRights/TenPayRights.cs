@@ -38,7 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -68,6 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
          
         /// <summary>
@@ -85,5 +88,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Get.GetJsonAsync<WxJsonResult>(url);
         }
         #endregion
+#endif
     }
 }

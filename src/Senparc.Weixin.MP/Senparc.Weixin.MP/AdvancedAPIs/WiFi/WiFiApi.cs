@@ -49,7 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     官方文档：http://mp.weixin.qq.com/wiki/10/6232005bdc497f7cf8e19d4e843c70d2.html
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
@@ -569,6 +571,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】获取Wi-Fi门店列表
@@ -1074,6 +1077,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
 
     }
 }

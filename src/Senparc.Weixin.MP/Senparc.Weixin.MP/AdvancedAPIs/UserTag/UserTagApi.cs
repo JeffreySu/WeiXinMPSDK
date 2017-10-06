@@ -39,7 +39,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -223,6 +225,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】创建标签
@@ -396,5 +399,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppid);
         }
         #endregion
+#endif
     }
 }

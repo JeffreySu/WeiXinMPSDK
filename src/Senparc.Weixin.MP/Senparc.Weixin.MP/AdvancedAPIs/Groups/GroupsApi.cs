@@ -44,7 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    API地址：http://mp.weixin.qq.com/wiki/0/56d992c605a97245eb7e617854b169fc.html
 */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
@@ -217,6 +219,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】创建分组
@@ -376,5 +379,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

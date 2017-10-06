@@ -32,7 +32,9 @@
 
 using System.Collections.Generic;
 using System.IO;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Media;
@@ -323,6 +325,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】上传临时媒体文件
@@ -587,5 +590,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

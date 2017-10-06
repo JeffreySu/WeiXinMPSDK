@@ -72,7 +72,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
@@ -1709,6 +1711,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -3377,5 +3380,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //}
 
         #endregion
+#endif
     }
 }

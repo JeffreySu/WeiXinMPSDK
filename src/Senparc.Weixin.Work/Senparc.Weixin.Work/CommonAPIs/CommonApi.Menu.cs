@@ -25,7 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -440,6 +442,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -455,5 +458,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return result;
         }
         #endregion
+#endif
     }
 }

@@ -33,7 +33,9 @@
     标签接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
@@ -544,6 +546,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】创建部门
@@ -1035,5 +1038,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

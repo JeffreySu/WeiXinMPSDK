@@ -94,7 +94,9 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using System.Xml.Linq;
 using Senparc.Weixin.HttpUtility;
 
@@ -659,6 +661,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】统一支付接口
@@ -1100,5 +1103,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         #endregion
+#endif
     }
 }

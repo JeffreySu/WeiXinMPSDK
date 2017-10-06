@@ -30,7 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.IO;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
@@ -150,6 +152,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
 
@@ -257,5 +260,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
 
         #endregion
+#endif
     }
 }

@@ -23,7 +23,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -112,6 +114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】增加邮费模板
@@ -187,5 +190,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
         #endregion
+#endif
     }
 }

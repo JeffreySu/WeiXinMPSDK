@@ -20,7 +20,9 @@
  */
 
 using System.Linq;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 
@@ -134,6 +136,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         //}
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         
         /// <summary>
@@ -212,5 +215,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         //    return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         //}
         #endregion
+#endif
     }
 }

@@ -45,7 +45,9 @@
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.MailList;
@@ -600,6 +602,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         #region 成员管理
@@ -1147,5 +1150,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
 
         #endregion
+#endif
     }
 }

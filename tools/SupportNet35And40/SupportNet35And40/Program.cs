@@ -13,7 +13,7 @@ namespace SupportNet35And40
         static void Main(string[] args)
         {
             ReplaceCode("../src/");
-
+            Console.WriteLine("完成");
             Console.ReadKey();
         }
 

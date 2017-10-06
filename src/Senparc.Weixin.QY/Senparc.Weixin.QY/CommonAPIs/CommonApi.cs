@@ -28,7 +28,9 @@
     userid转换成openid API地址:http://qydev.weixin.qq.com/wiki/index.php?title=Userid%E4%B8%8Eopenid%E4%BA%92%E6%8D%A2%E6%8E%A5%E5%8F%A3
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Entities;
@@ -172,6 +174,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// 【异步方法】<summary>
         /// 获取AccessToken
@@ -300,5 +303,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
+#endif
     }
 }

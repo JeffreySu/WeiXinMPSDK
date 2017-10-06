@@ -36,7 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     API：https://mp.weixin.qq.com/debug/wxadoc/dev/api/notice.html#接口说明
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -117,6 +119,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】小程序模板消息接口
@@ -152,6 +155,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         }
 
         #endregion
+#endif
     }
 }
  

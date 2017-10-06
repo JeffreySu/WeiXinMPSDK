@@ -63,7 +63,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
@@ -1083,6 +1085,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】申请开通功能
@@ -2087,6 +2090,7 @@ int timeOut = Config.TIME_OUT)
            }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 
 }

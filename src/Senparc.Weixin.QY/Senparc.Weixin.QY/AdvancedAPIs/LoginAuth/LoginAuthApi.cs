@@ -19,7 +19,9 @@
     接口文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E
  */
 
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.QY.CommonAPIs;
@@ -99,6 +101,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
          /// <summary>
         /// 【异步方法】获取企业号管理员登录信息
@@ -147,6 +150,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         }
         #endregion
+#endif
 
     }
 }

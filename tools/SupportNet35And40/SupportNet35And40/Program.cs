@@ -12,6 +12,8 @@ namespace SupportNet35And40
     {
         static void Main(string[] args)
         {
+            //TODO：删除没有用的 using System.Threading.Tasks;
+
             ReplaceCode("../src/");
             Console.WriteLine("完成");
             Console.ReadKey();

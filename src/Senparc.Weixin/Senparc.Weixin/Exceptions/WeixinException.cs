@@ -49,7 +49,7 @@ namespace Senparc.Weixin.Exceptions
     /// <summary>
     /// 微信自定义异常基类
     /// </summary>
-#if NET45
+#if NET40 || NET45
     public class WeixinException :  ApplicationException
 #else
     public class WeixinException : Exception

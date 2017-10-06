@@ -61,7 +61,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// TraceListener
         /// </summary>
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
         private static TraceListener _traceListener = null;
 #elif NETSTANDARD2_0 || NETCOREAPP2_0 
         private static TextWriterTraceListener _traceListener = null;
@@ -103,7 +103,7 @@ namespace Senparc.Weixin
 
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 var logDir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", "WeixinTraceLog");
 #else
                 //var logDir = Path.Combine(AppContext.BaseDirectory, "App_Data", "WeixinTraceLog");
@@ -117,7 +117,7 @@ namespace Senparc.Weixin
 
                 string logFile = Path.Combine(logDir, string.Format("SenparcWeixinTrace-{0}.log", DateTime.Now.ToString("yyyyMMdd")));
 
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
 
                 System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
@@ -125,7 +125,7 @@ namespace Senparc.Weixin
 #endif
 
 
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 _traceListener = new TextWriterTraceListener(logWriter);
                 System.Diagnostics.Trace.Listeners.Add(_traceListener);
                 System.Diagnostics.Trace.AutoFlush = true;
@@ -148,7 +148,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
 
                 if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
@@ -191,7 +191,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Unindent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.Unindent();
@@ -206,7 +206,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Indent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.Indent();
@@ -221,7 +221,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Flush();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.Flush();
@@ -255,7 +255,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.WriteLine(string.Format(messageFormat, args));
@@ -296,7 +296,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-#if NET45 || NET461
+#if NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(message);
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
                 Trace.WriteLine(message);

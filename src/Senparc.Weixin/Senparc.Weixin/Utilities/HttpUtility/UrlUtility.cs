@@ -37,7 +37,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-#if NET45
+#if NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -59,14 +59,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
-#if NET45
+#if NET40 || NET45
         public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
 #else
         public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)
 #endif
         {
 
-#if NET45
+#if NET40 || NET45
 
             if (httpContext.Request.Url == null)
             {
@@ -116,8 +116,6 @@ namespace Senparc.Weixin.HttpUtility
                 returnUrl.UrlEncode()
             );
             return callbackUrl;
-
-            return null;
         }
     }
 }

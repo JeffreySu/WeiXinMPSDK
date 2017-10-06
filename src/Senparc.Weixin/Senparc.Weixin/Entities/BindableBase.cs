@@ -38,7 +38,11 @@ namespace Senparc.Weixin.Entities
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
+#if NET40
+        protected virtual void OnPropertyChanged(string propertyName)
+#else
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+#endif
         {
             var eventHandler = this.PropertyChanged;
             if (eventHandler != null)
@@ -57,7 +61,13 @@ namespace Senparc.Weixin.Entities
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
+        /// #if NET40
+#if NET40
+        protected bool SetProperty<T>(ref T storage, T value, String propertyName)
+#else
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+#endif
+
         {
             if (object.Equals(storage, value)) return false;
 

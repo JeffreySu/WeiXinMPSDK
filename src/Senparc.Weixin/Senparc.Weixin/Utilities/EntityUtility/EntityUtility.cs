@@ -60,7 +60,7 @@ namespace Senparc.Weixin.EntityUtility
             }
             
             var t = typeof(T);
-#if NET45
+#if NET40 || NET45
             if (t.IsGenericType)
 #else
             if (t.GetTypeInfo().IsGenericType)

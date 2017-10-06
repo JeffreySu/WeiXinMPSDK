@@ -117,7 +117,7 @@ namespace Senparc.Weixin.XmlUtility
             {
                 return XDocument.Load(xr);
             }
-//#if NET45
+//#if NET40 || NET45
 //            using (XmlReader xr = XmlReader.Create(stream))
 //            {
 //                return XDocument.Load(xr);

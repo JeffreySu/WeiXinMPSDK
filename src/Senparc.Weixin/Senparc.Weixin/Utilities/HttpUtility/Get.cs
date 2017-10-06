@@ -45,10 +45,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Net;
+#if !NET40
 using System.Net.Http;
+#endif
 using System.Text;
 using System.Threading.Tasks;
-#if NET45
+#if NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Entities;
@@ -77,7 +79,7 @@ namespace Senparc.Weixin.HttpUtility
 
             WeixinTrace.SendApiLog(url, returnText);
 
-#if NET45
+#if NET40 || NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
             if (maxJsonLength.HasValue)
             {
@@ -89,8 +91,8 @@ namespace Senparc.Weixin.HttpUtility
             {
                 //可能发生错误
 
-#if NET45
-   WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+#if NET40 || NET45
+                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
 #else
                 WxJsonResult errorResult =
                     Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
@@ -104,7 +106,7 @@ namespace Senparc.Weixin.HttpUtility
                                         (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
                 }
             }
-#if NET45
+#if NET40 || NET45
             T result = js.Deserialize<T>(returnText);
 #else
             T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
@@ -120,7 +122,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="stream"></param>
         public static void Download(string url, Stream stream)
         {
-#if NET45
+#if NET40 || NET45
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
@@ -138,10 +140,9 @@ namespace Senparc.Weixin.HttpUtility
             var data = t.Result;
             stream.Write(data, 0, data.Length);
 #endif
-
-
         }
 
+#if !NET40
         /// <summary>
         /// 从Url下载，并保存到指定目录
         /// </summary>
@@ -169,8 +170,10 @@ namespace Senparc.Weixin.HttpUtility
             }
             return null;
         }
+#endif
         #endregion
 
+#if !NET40
         #region 异步方法
 
         /// <summary>
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = await RequestUtility.HttpGetAsync(url, encoding);
 
-#if NET45
+#if NET40 || NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
             if (maxJsonLength.HasValue)
             {
@@ -198,8 +201,8 @@ namespace Senparc.Weixin.HttpUtility
             {
                 //可能发生错误
 
-#if NET45
-   WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+#if NET40 || NET45
+                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
 #else
                 WxJsonResult errorResult =
                     Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
@@ -213,7 +216,7 @@ namespace Senparc.Weixin.HttpUtility
                                         (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
                 }
             }
-#if NET45
+#if NET40 || NET45
             T result = js.Deserialize<T>(returnText);
 #else
             T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
@@ -230,7 +233,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task DownloadAsync(string url, Stream stream)
         {
-#if NET45
+#if NET40 || NET45
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
@@ -277,7 +280,7 @@ namespace Senparc.Weixin.HttpUtility
             return null;
         }
         #endregion
-
+#endif
 
     }
 }

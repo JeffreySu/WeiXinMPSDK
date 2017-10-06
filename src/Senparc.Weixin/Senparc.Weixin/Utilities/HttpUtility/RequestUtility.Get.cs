@@ -40,7 +40,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
-#if NET45
+#if NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.HttpUtility
     {
         #region 公用静态方法
 
-#if NET45
+#if NET40 || NET45
         /// <summary>
         /// .NET 4.5 版本的HttpWebRequest参数设置
         /// </summary>
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null)
         {
-#if NET45
+#if NET40 || NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
@@ -163,8 +163,8 @@ namespace Senparc.Weixin.HttpUtility
         public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
-#if NET45
-            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer , encoding , cer , refererUrl , timeOut);
+#if NET40 || NET45
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, timeOut);
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -192,6 +192,7 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
+#if !NET40
         #region 异步方法
 
         /// <summary>
@@ -203,7 +204,7 @@ namespace Senparc.Weixin.HttpUtility
         {
 
 
-#if NET45
+#if NET40 || NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
@@ -228,7 +229,7 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
-#if NET45
+#if NET40 || NET45
             HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer , encoding , cer , refererUrl , timeOut);
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
@@ -253,5 +254,6 @@ namespace Senparc.Weixin.HttpUtility
         }
 
         #endregion
+#endif
     }
 }

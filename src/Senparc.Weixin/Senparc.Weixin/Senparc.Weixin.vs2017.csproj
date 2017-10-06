@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.16.9</Version>
+    <Version>4.16.10-beta5</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -191,6 +191,7 @@
       v4.16.7 继续解决.net core 2.0下utf8和utf-8的问题处理
       v4.16.8 优化 .net core 2.0 RequestUtility异步方法
       v4.16.9 添加 ObjectExtensions，补充扩展方法
+      v4.16.10 优化.net core环境下的WeixinTrace日志输出路径
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

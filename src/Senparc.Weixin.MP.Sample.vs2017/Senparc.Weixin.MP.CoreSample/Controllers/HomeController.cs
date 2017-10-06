@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CoreSample.Models;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
@@ -39,12 +39,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public IActionResult Index()
         {
+
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
 #if NET45
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 #elif NETCOREAPP2_0 || NETSTANDARD2_0
             {
-                var dllPath = Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName));//dll所在目录
+                var dllPath =
+                    Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(
+                        System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName)); //dll所在目录
                 return FileVersionInfo.GetVersionInfo(dllPath);
             };
 #else
@@ -55,7 +58,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 #endif
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
-               Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
+                Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
 
             TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
             TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
@@ -64,7 +67,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
             TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
-            TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
+            TempData["MemcachedCacheVersion"] =
+                getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
             TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
             TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
 
@@ -82,9 +86,16 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 #if NET45
             Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
 #else
-            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));//or use Header: REMOTE_ADDR
+            Weixin.WeixinTrace.SendCustomLog("首页被访问",
+                    string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
+            //or use Header: REMOTE_ADDR
 #endif
-
+            //测试Get方法
+            var html = RequestUtility.HttpGet("https://baidu.com", refererUrl: "https://sdk.weixin.senparc.com");
+            if (html.Length == 0)
+            {
+                throw new Exception("RequestUtility.HttpGet()方法测试失败");
+            }
 
             return View();
         }

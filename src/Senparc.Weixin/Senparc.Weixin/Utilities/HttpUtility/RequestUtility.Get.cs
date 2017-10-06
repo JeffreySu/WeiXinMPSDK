@@ -58,8 +58,73 @@ namespace Senparc.Weixin.HttpUtility
     /// </summary>
     public static partial class RequestUtility
     {
-        #region 公用方法
+        #region 公用静态方法
 
+#if NET45
+        /// <summary>
+        /// .NET 4.5 版本的HttpWebRequest参数设置
+        /// </summary>
+        /// <returns></returns>
+        private static HttpWebRequest HttpGet_Common_Net45(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, int timeOut = Config.TIME_OUT)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.Timeout = timeOut;
+            request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
+
+            if (cookieContainer != null)
+            {
+                request.CookieContainer = cookieContainer;
+            }
+
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            request.KeepAlive = true;
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+            if (refererUrl != null)
+            {
+                request.Referer = refererUrl;
+            }
+            return request;
+        }
+#endif
+
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+        /// <summary>
+        /// .NET Core 版本的HttpWebRequest参数设置
+        /// </summary>
+        /// <returns></returns>
+        private static HttpClient HttpGet_Common_NetCore(string url, CookieContainer cookieContainer = null,
+            Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, int timeOut = Config.TIME_OUT)
+        {
+
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = cookieContainer ?? new CookieContainer(),
+                UseCookies = true,
+            };
+
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+
+            HttpClient httpClient = new HttpClient(handler);
+            HttpClientHeader(httpClient, timeOut);
+
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
+            }
+
+            return httpClient;
+        }
+#endif
 
         #endregion
 
@@ -99,27 +164,7 @@ namespace Senparc.Weixin.HttpUtility
             string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
 #if NET45
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-            request.Proxy = _webproxy;
-            if (cer != null)
-            {
-                request.ClientCertificates.Add(cer);
-            }
-
-            if (cookieContainer != null)
-            {
-                request.CookieContainer = cookieContainer;
-            }
-
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            request.KeepAlive = true;
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
-            if (refererUrl != null)
-            {
-                request.Referer = refererUrl;
-            }
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer , encoding , cer , refererUrl , timeOut);
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -138,43 +183,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 #else
 
-            var handler = new HttpClientHandler
-            {
-                CookieContainer = cookieContainer ?? new CookieContainer(),
-                UseCookies = true,
-            };
-            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
-            if (cer != null)
-            {
-                handler.ClientCertificates.Add(cer);
-            }
-
-            //#endif
-            HttpClient httpClient = new HttpClient(handler);
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-
-            //HttpContent hc = new StringContent(null);
-            //HttpContentHeader(hc, timeOut);
-
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla","5.0 (Windows NT 10.0; WOW64)"));
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AppleWebKit", "537.36 (KHTML, like Gecko)"));
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "61.0.3163.100 Safari/537.36"));
-
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
-            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
-
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
             var t = httpClient.GetStringAsync(url);
             t.Wait();
             return t.Result;
@@ -219,37 +228,8 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
-            var httpClient = HttpGet_Common(cookieContainer, cer, refererUrl, timeOut);
-
-            return await httpClient.GetStringAsync(url);
-
-        }
-
-        private static HttpClient HttpGet_Common(CookieContainer cookieContainer, X509Certificate2 cer, string refererUrl,
-            int timeOut)
-        {
 #if NET45
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-            request.Proxy = _webproxy;
-            if (cer != null)
-            {
-                request.ClientCertificates.Add(cer);
-            }
-
-            if (cookieContainer != null)
-            {
-                request.CookieContainer = cookieContainer;
-            }
-
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            request.KeepAlive = true;
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
-            if (refererUrl != null)
-            {
-                request.Referer = refererUrl;
-            }
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer , encoding , cer , refererUrl , timeOut);
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -268,46 +248,11 @@ namespace Senparc.Weixin.HttpUtility
             }
 
 #else
-            var handler = new HttpClientHandler
-            {
-                CookieContainer = cookieContainer ?? new CookieContainer(),
-                UseCookies = true,
-            };
-            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
-            if (cer != null)
-            {
-                handler.ClientCertificates.Add(cer);
-            }
-
-            //#endif
-            HttpClient httpClient = new HttpClient(handler);
-
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-
-            //HttpContent hc = new StringContent(null);
-            //HttpContentHeader(hc, timeOut);
-
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla","5.0 (Windows NT 10.0; WOW64)"));
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AppleWebKit", "537.36 (KHTML, like Gecko)"));
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "61.0.3163.100 Safari/537.36"));
-
-            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
-            httpClient.DefaultRequestHeaders.Add("User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
-            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
-            return httpClient;
-
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+            return await httpClient.GetStringAsync(url);
+#endif
         }
+
 
         #endregion
     }

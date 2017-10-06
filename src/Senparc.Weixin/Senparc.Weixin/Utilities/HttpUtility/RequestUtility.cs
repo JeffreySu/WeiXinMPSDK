@@ -157,6 +157,54 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
+
+        private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
+        {
+            fileName = UrlEncode(fileName);
+            var fileContent = new StreamContent(stream);
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "\"media\"",
+                FileName = "\"" + fileName + "\""
+            }; // the extra quotes are key here
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+            return fileContent;
+        }
+
+        //private static void HttpContentHeader(HttpContent hc, int timeOut)
+        //{
+        //    hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+        //    hc.Headers.Add("Timeout", timeOut.ToString());
+        //    hc.Headers.Add("KeepAlive", "true");
+        //}
+
+        /// <summary>
+        /// 设置HTTP头
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="timeOut"></param>
+        private static void HttpClientHeader(HttpClient client, int timeOut)
+        {
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+            //HttpContent hc = new StringContent(null);
+            //HttpContentHeader(hc, timeOut);
+
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla","5.0 (Windows NT 10.0; WOW64)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AppleWebKit", "537.36 (KHTML, like Gecko)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "61.0.3163.100 Safari/537.36"));
+
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+            client.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
+            client.DefaultRequestHeaders.Add("KeepAlive", "true");
+        }
+
 #endif
 
         #endregion

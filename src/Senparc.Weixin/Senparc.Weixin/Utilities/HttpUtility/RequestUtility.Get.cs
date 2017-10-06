@@ -58,6 +58,11 @@ namespace Senparc.Weixin.HttpUtility
     /// </summary>
     public static partial class RequestUtility
     {
+        #region 公用方法
+
+
+        #endregion
+
         #region 同步方法
 
         /// <summary>
@@ -135,7 +140,7 @@ namespace Senparc.Weixin.HttpUtility
 
             var handler = new HttpClientHandler
             {
-                CookieContainer = cookieContainer,
+                CookieContainer = cookieContainer ?? new CookieContainer(),
                 UseCookies = true,
             };
             //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
@@ -143,6 +148,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 handler.ClientCertificates.Add(cer);
             }
+
             //#endif
             HttpClient httpClient = new HttpClient(handler);
 
@@ -152,8 +158,15 @@ namespace Senparc.Weixin.HttpUtility
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
 
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+            //HttpContent hc = new StringContent(null);
+            //HttpContentHeader(hc, timeOut);
 
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla","5.0 (Windows NT 10.0; WOW64)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AppleWebKit", "537.36 (KHTML, like Gecko)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "61.0.3163.100 Safari/537.36"));
+
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
             httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
             httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
 
@@ -206,6 +219,15 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
+            var httpClient = HttpGet_Common(cookieContainer, cer, refererUrl, timeOut);
+
+            return await httpClient.GetStringAsync(url);
+
+        }
+
+        private static HttpClient HttpGet_Common(CookieContainer cookieContainer, X509Certificate2 cer, string refererUrl,
+            int timeOut)
+        {
 #if NET45
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -248,7 +270,7 @@ namespace Senparc.Weixin.HttpUtility
 #else
             var handler = new HttpClientHandler
             {
-                CookieContainer = cookieContainer,
+                CookieContainer = cookieContainer ?? new CookieContainer(),
                 UseCookies = true,
             };
             //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
@@ -256,8 +278,8 @@ namespace Senparc.Weixin.HttpUtility
             {
                 handler.ClientCertificates.Add(cer);
             }
-            //#endif
 
+            //#endif
             HttpClient httpClient = new HttpClient(handler);
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
@@ -266,8 +288,16 @@ namespace Senparc.Weixin.HttpUtility
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
 
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+            //HttpContent hc = new StringContent(null);
+            //HttpContentHeader(hc, timeOut);
 
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla","5.0 (Windows NT 10.0; WOW64)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AppleWebKit", "537.36 (KHTML, like Gecko)"));
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Chrome", "61.0.3163.100 Safari/537.36"));
+
+            //httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+            httpClient.DefaultRequestHeaders.Add("User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
             httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
             httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
 
@@ -275,11 +305,9 @@ namespace Senparc.Weixin.HttpUtility
             {
                 httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
             }
+            return httpClient;
 
-            return await httpClient.GetStringAsync(url);
-#endif
         }
-
 
         #endregion
     }

@@ -160,9 +160,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="encoding"></param>
         /// <param name="cer">证书，如果不需要则保留null</param>
+        /// <param name="refererUrl">referer参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
+        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
 #if NET45
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -182,6 +184,10 @@ namespace Senparc.Weixin.HttpUtility
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.KeepAlive = true;
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+            if (referer != null)
+            {
+                request.Referer = referer;
+            }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -199,18 +205,36 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
+
             var handler = new HttpClientHandler
             {
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
             }
-#endif
+            //#endif
             HttpClient httpClient = new HttpClient(handler);
+
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+
+            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
+            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
+
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
+            }
+
             var t = httpClient.GetStringAsync(url);
             t.Wait();
             return t.Result;
@@ -247,7 +271,7 @@ namespace Senparc.Weixin.HttpUtility
 
         private static void HttpContentHeader(HttpContent hc, int timeOut)
         {
-            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
+            hc.Headers.Add("UserAgent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
             hc.Headers.Add("Timeout", timeOut.ToString());
             hc.Headers.Add("KeepAlive", "true");
         }
@@ -306,13 +330,13 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             HttpClient client = new HttpClient(handler);
-
-            HttpContent hc;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+            HttpContent hc;
 
 #endif
 
@@ -331,7 +355,6 @@ namespace Senparc.Weixin.HttpUtility
                                                 "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
 #else
                 hc = new MultipartFormDataContent(boundary);
-                HttpContentHeader(hc, timeOut);
 #endif
 
                 foreach (var file in fileDictionary)
@@ -406,13 +429,15 @@ namespace Senparc.Weixin.HttpUtility
                 request.ContentType = "application/x-www-form-urlencoded";
 #else
                 hc = new StreamContent(postStream);
-                HttpContentHeader(hc, timeOut);
 
                 //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
                 //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
 #endif
             }
+
+            HttpContentHeader(hc, timeOut);
+
             #endregion
 
 #if NET45
@@ -425,7 +450,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.Referer = refererUrl;
             }
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36";
 
             if (cookieContainer != null)
             {
@@ -493,7 +518,6 @@ namespace Senparc.Weixin.HttpUtility
             //return t1.Result;
 #endif
 
-
         }
 
         #endregion
@@ -557,8 +581,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="encoding"></param>
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
+        /// <param name="refererUrl">referer参数</param>
         /// <returns></returns>
-        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, int timeOut = Config.TIME_OUT)
         {
 #if NET45
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -597,14 +623,31 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+            //#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
             }
-#endif
+            //#endif
 
             HttpClient httpClient = new HttpClient(handler);
+
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"));
+
+            httpClient.DefaultRequestHeaders.Add("Timeout", timeOut.ToString());
+            httpClient.DefaultRequestHeaders.Add("KeepAlive", "true");
+
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
+            }
+
             return await httpClient.GetStringAsync(url);
 #endif
         }
@@ -654,7 +697,9 @@ namespace Senparc.Weixin.HttpUtility
             }
 #endif
             if (cookieContainer == null)
+            {
                 cookieContainer = new CookieContainer();
+            }
 
 #if NET45
 
@@ -679,13 +724,13 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             HttpClient client = new HttpClient(handler);
-            HttpContent hc;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
 
+            HttpContent hc;
 #endif
 
             #region 处理Form表单文件上传
@@ -696,14 +741,13 @@ namespace Senparc.Weixin.HttpUtility
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
 #if NET45
                 postStream = postStream ?? new MemoryStream();
-                
+
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                               "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
 #else
                 hc = new MultipartFormDataContent(boundary);
-                HttpContentHeader(hc, timeOut);
 #endif
                 foreach (var file in fileDictionary)
                 {
@@ -777,7 +821,6 @@ namespace Senparc.Weixin.HttpUtility
                 request.ContentType = "application/x-www-form-urlencoded";
 #else
                 hc = new StreamContent(postStream);
-                HttpContentHeader(hc, timeOut);
 
                 //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
                 //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
@@ -785,6 +828,9 @@ namespace Senparc.Weixin.HttpUtility
 #endif
 
             }
+
+            HttpContentHeader(hc, timeOut);
+
             #endregion
 
 #if NET45

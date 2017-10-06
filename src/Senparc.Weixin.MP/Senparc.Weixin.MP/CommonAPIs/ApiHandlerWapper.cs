@@ -41,7 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -201,6 +203,7 @@ namespace Senparc.Weixin.MP
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -270,5 +273,6 @@ namespace Senparc.Weixin.MP
         #endregion
 
         #endregion
+#endif
     }
 }

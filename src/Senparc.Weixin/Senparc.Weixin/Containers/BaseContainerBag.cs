@@ -104,9 +104,9 @@ namespace Senparc.Weixin.Containers
         {
             get { return _key; }
 #if NET35 || NET40
-            set { this.SetContainerProperty(ref _name, value, "Key"); }
+            set { this.SetContainerProperty(ref _key, value, "Key"); }
 #else
-            set { this.SetContainerProperty(ref _name, value); }
+            set { this.SetContainerProperty(ref _key, value); }
 #endif
         }
 

@@ -184,9 +184,9 @@ namespace Senparc.Weixin.HttpUtility
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             request.KeepAlive = true;
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
-            if (referer != null)
+            if (refererUrl != null)
             {
-                request.Referer = referer;
+                request.Referer = refererUrl;
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -291,15 +291,6 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-
-#if NET45
-            if (checkValidationResult)
-            {
-                ServicePointManager.ServerCertificateValidationCallback =
-                  new RemoteCertificateValidationCallback(CheckValidationResult);
-            }
-#endif
-
             if (cookieContainer == null)
             {
                 cookieContainer = new CookieContainer();
@@ -315,47 +306,27 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ClientCertificates.Add(cer);
             }
-#else
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.CookieContainer = cookieContainer;
 
             if (checkValidationResult)
             {
-                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+                ServicePointManager.ServerCertificateValidationCallback =
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
             }
-
-            if (cer != null)
-            {
-                handler.ClientCertificates.Add(cer);
-            }
-
-            HttpClient client = new HttpClient(handler);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
-
-            HttpContent hc;
-
-#endif
 
             #region 处理Form表单文件上传
-            var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
+      var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
 
                 //通过表单上传文件
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
-#if NET45
+
                 postStream = postStream ?? new MemoryStream();
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
                                                 "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
-#else
-                hc = new MultipartFormDataContent(boundary);
-#endif
+
 
                 foreach (var file in fileDictionary)
                 {
@@ -365,7 +336,7 @@ namespace Senparc.Weixin.HttpUtility
                         //准备文件流
                         using (var fileStream = FileHelper.GetFileStream(fileName))
                         {
-#if NET45
+
                             string formdata = null;
                             if (fileStream != null)
                             {
@@ -392,7 +363,69 @@ namespace Senparc.Weixin.HttpUtility
                                     postStream.Write(buffer, 0, bytesRead);
                                 }
                             }
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                //结尾
+                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                postStream.Write(footer, 0, footer.Length);
+
+                request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+            }
+            else
+            {
+                request.ContentType = "application/x-www-form-urlencoded";
+            }
+            #endregion
+
 #else
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.CookieContainer = cookieContainer;
+
+            if (checkValidationResult)
+            {
+                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+            }
+
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+
+            HttpClient client = new HttpClient(handler);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+            HttpContent hc;
+
+
+            #region 处理Form表单文件上传
+
+
+            var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
+            if (formUploadFile)
+            {
+
+                //通过表单上传文件
+                string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+                hc = new MultipartFormDataContent(boundary);
+
+                foreach (var file in fileDictionary)
+                {
+                    try
+                    {
+                        var fileName = file.Value;
+                        //准备文件流
+                        using (var fileStream = FileHelper.GetFileStream(fileName))
+                        {
                             if (fileStream != null)
                             {
                                 //存在文件
@@ -405,7 +438,6 @@ namespace Senparc.Weixin.HttpUtility
                                 //不存在文件或只是注释
                                 (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
                             }
-#endif
                         }
                     }
                     catch (Exception ex)
@@ -413,32 +445,22 @@ namespace Senparc.Weixin.HttpUtility
                         throw ex;
                     }
                 }
-#if NET45
-                //结尾
-                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
-                postStream.Write(footer, 0, footer.Length);
 
-                request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
-#else
                 hc.Headers.ContentType = MediaTypeHeaderValue.Parse(string.Format("multipart/form-data; boundary={0}", boundary));
-#endif
             }
             else
             {
-#if NET45
-                request.ContentType = "application/x-www-form-urlencoded";
-#else
                 hc = new StreamContent(postStream);
 
                 //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
                 //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
-#endif
             }
 
             HttpContentHeader(hc, timeOut);
-
             #endregion
+#endif
+
 
 #if NET45
 
@@ -520,7 +542,7 @@ namespace Senparc.Weixin.HttpUtility
 
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// 验证服务器证书
@@ -548,9 +570,9 @@ namespace Senparc.Weixin.HttpUtility
             return true;
         }
 #endif
-        #endregion
+#endregion
 
-        #region 异步方法
+#region 异步方法
 
         /// <summary>
         /// 使用Get方法获取字符串结果（没有加入Cookie）
@@ -733,7 +755,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpContent hc;
 #endif
 
-            #region 处理Form表单文件上传
+#region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -829,9 +851,12 @@ namespace Senparc.Weixin.HttpUtility
 
             }
 
-            HttpContentHeader(hc, timeOut);
+#if NET45
 
-            #endregion
+#else
+            HttpContentHeader(hc, timeOut);
+#endif
+#endregion
 
 #if NET45
             request.ContentLength = postStream != null ? postStream.Length : 0;
@@ -849,7 +874,7 @@ namespace Senparc.Weixin.HttpUtility
                 request.CookieContainer = cookieContainer;
             }
 
-            #region 输入二进制流
+#region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -872,7 +897,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-            #endregion
+#endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -923,7 +948,7 @@ namespace Senparc.Weixin.HttpUtility
             stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
         }
 
-        #endregion
+#endregion
 
         ///// <summary>
         ///// 请求是否发起自微信客户端的浏览器

@@ -38,9 +38,11 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+#if !NET35
 using System.Threading.Tasks;
+#endif
 using Senparc.Weixin.Helpers;
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -60,7 +62,7 @@ namespace Senparc.Weixin.HttpUtility
     {
         #region 静态公共方法
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 
 
         public static HttpWebRequest HttpPost_Common_Net45(string url, CookieContainer cookieContainer = null,
@@ -293,7 +295,7 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, timeOut, checkValidationResult);
 
             #region 输入二进制流
@@ -358,7 +360,7 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
-#if !NET40
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -367,7 +369,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
             return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
@@ -400,7 +402,7 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, timeOut, checkValidationResult);
 
         #region 输入二进制流

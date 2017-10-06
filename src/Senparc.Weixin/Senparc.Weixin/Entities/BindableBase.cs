@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Annotations;
 
 namespace Senparc.Weixin.Entities
@@ -38,7 +37,7 @@ namespace Senparc.Weixin.Entities
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-#if NET40
+#if NET35 || NET40
         protected virtual void OnPropertyChanged(string propertyName)
 #else
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -61,8 +60,8 @@ namespace Senparc.Weixin.Entities
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        /// #if NET40
-#if NET40
+        /// #if NET35 || NET40
+#if NET35 || NET40
         protected bool SetProperty<T>(ref T storage, T value, String propertyName)
 #else
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)

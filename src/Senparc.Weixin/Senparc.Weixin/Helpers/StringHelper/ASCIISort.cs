@@ -37,7 +37,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Helpers.StringHelper
 {
@@ -58,7 +57,7 @@ namespace Senparc.Weixin.Helpers.StringHelper
         public int Compare(object x, object y)
         {
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             byte[] xBytes = System.Text.Encoding.Default.GetBytes(x.ToString());
             byte[] yBytes = System.Text.Encoding.Default.GetBytes(y.ToString());
 #else

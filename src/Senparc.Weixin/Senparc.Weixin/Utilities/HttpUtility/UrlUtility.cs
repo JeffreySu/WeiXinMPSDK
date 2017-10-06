@@ -36,8 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -66,7 +65,7 @@ namespace Senparc.Weixin.HttpUtility
 #endif
         {
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 
             if (httpContext.Request.Url == null)
             {

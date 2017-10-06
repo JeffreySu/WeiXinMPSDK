@@ -42,7 +42,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -88,7 +87,7 @@ namespace Senparc.Weixin.Helpers
         {
             string retStr;
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
 #else
             MD5 m5 = MD5.Create();
@@ -133,7 +132,7 @@ namespace Senparc.Weixin.Helpers
                 //使用UTF-8编码
                 return GetMD5("utf-8", Encoding.GetEncoding(charset));
 
-                //#if NET40 || NET45
+                //#if NET35 || NET40 || NET45
                 //                inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
                 //#else
                 //                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
@@ -164,7 +163,7 @@ namespace Senparc.Weixin.Helpers
         public static byte[] AESEncrypt(byte[] inputdata, byte[] iv, string strKey)
         {
             //分组加密算法   
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             SymmetricAlgorithm des = Rijndael.Create();
 #else
             SymmetricAlgorithm des = Aes.Create();
@@ -198,7 +197,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             SymmetricAlgorithm des = Rijndael.Create();
 #else
             SymmetricAlgorithm des = Aes.Create();
@@ -237,7 +236,7 @@ namespace Senparc.Weixin.Helpers
 
 
             //RijndaelManaged aes = new RijndaelManaged();
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
             SymmetricAlgorithm aes = Rijndael.Create();
 #else
             SymmetricAlgorithm aes = Aes.Create();
@@ -259,7 +258,7 @@ namespace Senparc.Weixin.Helpers
             }
             finally
             {
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
                 cryptoStream.Close();
                 mStream.Close();
                 aes.Clear();

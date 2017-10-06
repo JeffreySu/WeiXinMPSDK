@@ -43,7 +43,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Helpers
         }
     }
 
-#if NET40 || NET45
+#if NET35 || NET40 || NET45
 
     /// <summary>
     /// 微信 JSON 转换器
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.Helpers
 
                         //当值匹配时需要忽略的属性
 
-#if NET40
+#if NET35 || NET40
                         JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.IgnoreValueAttribute), false).FirstOrDefault() as JsonSetting.IgnoreValueAttribute;
                         if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj, null)))
                         {

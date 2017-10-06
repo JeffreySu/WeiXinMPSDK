@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.16.10-beta5</Version>
+    <Version>4.17.0-beta1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -182,6 +182,7 @@
       1、添加 WeixinNullReferenceException 异常类型
       2、添加 UrlUtility（Url工具类），生成 OAuth 用的额 CallbackUrl 参数
       v4.15.1 优化 DateTimeHelper 计算方式
+
       v4.16.0 添加 Senparc.Weixin.Config.UseSandBoxPay 属性，使用微信支付接口时自动判断是否调用沙箱
       v4.16.1 （.NET Core）添加CoreWebProxy.cs
       v4.16.3 在 NetStandard 2.0中恢复 WeixinTrace 的日志功能
@@ -192,6 +193,8 @@
       v4.16.8 优化 .net core 2.0 RequestUtility异步方法
       v4.16.9 添加 ObjectExtensions，补充扩展方法
       v4.16.10 优化.net core环境下的WeixinTrace日志输出路径
+      
+      v4.17.0-beta1 重构HttpUtility，重新支持.NET 4.0
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -323,8 +326,5 @@
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
   </ItemGroup>
-
-
-
 
 </Project>

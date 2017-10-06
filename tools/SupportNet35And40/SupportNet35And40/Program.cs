@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace SupportNet35And40
 {
@@ -27,10 +28,11 @@ namespace SupportNet35And40
                 {
                     Console.WriteLine("扫描文件：" + file);
 
+                    string newContent = null;
+
                     using (var fs = new FileStream(file, FileMode.Open))
                     {
-                        string newContent = null;
-                        var sr = new StreamReader(fs);
+                        var sr = new StreamReader(fs,Encoding.UTF8);
                         var fileContent = sr.ReadToEnd();
                         var hit = fileContent.Contains("\r\n\r\n        #region 异步请求");
                         if (hit)
@@ -43,7 +45,7 @@ namespace SupportNet35And40
                             var endIndex = newContent.LastIndexOf(endContent);
                             if (endIndex >= 0)
                             {
-                                newContent.Insert(endIndex + endContent.Length, "\r\n#endif");
+                                newContent = newContent.Insert(endIndex + endContent.Length, "\r\n#endif");
 
                                 //var frontContent = newContent.Substring(0, endIndex + endContent.Length);
                                 //newContent = newContent.Replace(frontContent, frontContent + "\r\n#endif");
@@ -55,14 +57,18 @@ namespace SupportNet35And40
                             }
                         }
 
-                        if (newContent != null)
+                    }
+
+                    if (newContent != null)
+                    {
+                        using (var fs = new FileStream(file, FileMode.Create))
                         {
-                            fs.Seek(0, SeekOrigin.Begin);
-                            var sw = new StreamWriter(fs);
+                            var sw = new StreamWriter(fs, Encoding.UTF8);
                             sw.Write(newContent);
-                            fs.Flush();
-                            Console.WriteLine("已保存");
+                            sw.Flush();
+                            fs.Flush(true);
                         }
+                        Console.WriteLine("已保存");
                     }
                 }
                 ReplaceCode(dir);

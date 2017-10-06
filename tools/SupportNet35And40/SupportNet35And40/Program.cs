@@ -12,6 +12,8 @@ namespace SupportNet35And40
         static void Main(string[] args)
         {
             ReplaceCode("../src/");
+
+            Console.ReadKey();
         }
 
         private static void ReplaceCode(string root)
@@ -28,35 +30,38 @@ namespace SupportNet35And40
                     using (var fs = new FileStream(file, FileMode.Open))
                     {
                         string newContent = null;
-                        using (var sr = new StreamReader(fs))
+                        var sr = new StreamReader(fs);
+                        var fileContent = sr.ReadToEnd();
+                        var hit = fileContent.Contains("\r\n\r\n        #region 异步请求");
+                        if (hit)
                         {
-                            var fileContent = sr.ReadToEnd();
-                            var hit = fileContent.Contains("\r\n\r\n        #region 异步请求");
-                            if (hit)
-                            {
-                                Console.WriteLine("命中，改写中");
-                                newContent = fileContent.Replace("\r\n\r\n        #region 异步请求",
-                                   "\r\n\r\n\r\n#if !NET35 && !NET40        #region 异步请求");
+                            Console.WriteLine("命中，改写中");
+                            newContent = fileContent.Replace("\r\n\r\n        #region 异步请求",
+                               "\r\n\r\n#if !NET35 && !NET40\r\n        #region 异步请求");
 
-                                var endContent = "#endregion";
-                                var endIndex = fileContent.LastIndexOf(endContent);
-                                if (endIndex >= 0)
-                                {
-                                    var frontContent = fileContent.Substring(0, endIndex + endContent.Length);
-                                    fileContent.Replace(frontContent, frontContent + "\r\n#endif");
-                                }
+                            var endContent = "#endregion";
+                            var endIndex = newContent.LastIndexOf(endContent);
+                            if (endIndex >= 0)
+                            {
+                                newContent.Insert(endIndex + endContent.Length, "\r\n#endif");
+
+                                //var frontContent = newContent.Substring(0, endIndex + endContent.Length);
+                                //newContent = newContent.Replace(frontContent, frontContent + "\r\n#endif");
+                            }
+
+                            if (newContent.Contains("using System.Threading.Tasks;"))
+                            {
+                                newContent = newContent.Replace("using System.Threading.Tasks;", "#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif");
                             }
                         }
 
                         if (newContent != null)
                         {
                             fs.Seek(0, SeekOrigin.Begin);
-                            using (var sw = new StreamWriter(fs))
-                            {
-                                sw.Write(newContent);
-                                sw.Flush();
-                                Console.WriteLine("已保存");
-                            }
+                            var sw = new StreamWriter(fs);
+                            sw.Write(newContent);
+                            fs.Flush();
+                            Console.WriteLine("已保存");
                         }
                     }
                 }

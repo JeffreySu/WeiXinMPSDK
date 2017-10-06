@@ -246,13 +246,11 @@ namespace Senparc.Weixin.HttpUtility
                     return retString;
                 }
             }
-
 #else
             var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
             return await httpClient.GetStringAsync(url);
 #endif
         }
-
 
         #endregion
     }

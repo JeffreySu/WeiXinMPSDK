@@ -69,7 +69,7 @@ namespace Senparc.Weixin.HttpUtility
     /// <summary>
     /// HTTP 请求工具类
     /// </summary>
-    public static class RequestUtility
+    public static partial class RequestUtility
     {
         #region 代理
 
@@ -255,6 +255,7 @@ namespace Senparc.Weixin.HttpUtility
             formData.FillFormDataStream(ms);//填充formData
             return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
+
 #if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
         private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
         {
@@ -572,7 +573,7 @@ namespace Senparc.Weixin.HttpUtility
 #endif
 #endregion
 
-#region 异步方法
+        #region 异步方法
 
         /// <summary>
         /// 使用Get方法获取字符串结果（没有加入Cookie）

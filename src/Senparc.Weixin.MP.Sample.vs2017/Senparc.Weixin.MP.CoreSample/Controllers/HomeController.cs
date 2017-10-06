@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CoreSample.Models;
 using Senparc.Weixin.MP.Sample.CommonService.Download;

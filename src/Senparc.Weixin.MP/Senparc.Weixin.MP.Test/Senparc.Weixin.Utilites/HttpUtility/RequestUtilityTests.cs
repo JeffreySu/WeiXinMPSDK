@@ -21,6 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
@@ -56,22 +58,56 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var url = "http://localhost:65395/Media/TestUploadMediaFile/?token={0}&type={1}&contentLength={2}";
 
-            FileStream fs = new FileStream(file, FileMode.Open);
+            {
+                //同步方法测试
+                FileStream fs = new FileStream(file, FileMode.Open);
 
+                url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
 
-            url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
+                //获取字符串结果
+                var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), fs, encoding: null);
+                Assert.IsNotNull(actualResult);
+                Console.WriteLine(actualResult);
 
-            //获取字符串结果
-            var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), fs, encoding: null);
-            Assert.IsNotNull(actualResult);
-            Console.WriteLine(actualResult);
+                //比较强类型示例的结果
+                UploadTemporaryMediaResult resultEntity = Post.GetResult<UploadTemporaryMediaResult>(actualResult);
+                Assert.IsNotNull(resultEntity);
+                Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
+                Assert.AreEqual("MEDIA_ID", resultEntity.media_id);
+                Assert.AreEqual(123456789, resultEntity.created_at);
+            }
 
-            //比较强类型示例的结果
-            UploadTemporaryMediaResult resultEntity = Post.GetResult<UploadTemporaryMediaResult>(actualResult);
-            Assert.IsNotNull(resultEntity);
-            Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
-            Assert.AreEqual("MEDIA_ID", resultEntity.media_id);
-            Assert.AreEqual(123456789, resultEntity.created_at);
+            {
+                //异步方法测试
+                var finished = false;
+                Task.Factory.StartNew(async () =>
+                {
+                    Console.WriteLine("开始异步方法测试");
+
+                    FileStream fs = new FileStream(file, FileMode.Open);
+
+                    url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
+
+                    //获取字符串结果
+                    var actualResult = await RequestUtility.HttpPostAsync(url, new CookieContainer(), fs, encoding: null);
+                    Assert.IsNotNull(actualResult);
+                    Console.WriteLine(actualResult);
+
+                    //比较强类型示例的结果
+                    UploadTemporaryMediaResult resultEntity = Post.GetResult<UploadTemporaryMediaResult>(actualResult);
+                    Assert.IsNotNull(resultEntity);
+                    Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
+                    Assert.AreEqual("MEDIA_ID", resultEntity.media_id);
+                    Assert.AreEqual(123456789, resultEntity.created_at);
+                    finished = true;
+
+                });
+
+                while (!finished)
+                {
+                    Thread.Sleep(10);
+                }
+            }
         }
     }
 }

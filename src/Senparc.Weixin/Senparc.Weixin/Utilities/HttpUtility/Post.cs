@@ -55,12 +55,15 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-#if NET45
-using System.Web.Script.Serialization;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+
+#if NET35 || NET40 || NET45
+using System.Web.Script.Serialization;
+#endif
+#if !NET35 && !NET40
 using System.Net.Http;
+#endif
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -77,14 +80,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static T GetResult<T>(string returnText)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
 #endif
 
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
-#if NET45
+#if NET35 || NET40 || NET45
                 WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
 #else
                 WxJsonResult errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
@@ -100,7 +103,7 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 
-#if NET45
+#if NET35 || NET40 || NET45
             T result = js.Deserialize<T>(returnText);
 #else
             T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
@@ -185,7 +188,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="stream"></param>
         public static void Download(string url, string data, Stream stream)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             WebClient wc = new WebClient();
             var file = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
             stream.Write(file, 0, file.Length);
@@ -209,8 +212,8 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
-        #region 异步方法
-
+#if !NET35 && !NET40
+#region 异步方法
 
         /// <summary>
         /// 【异步方法】发起Post请求，可上传文件
@@ -305,7 +308,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="stream"></param>
         public static async Task DownloadAsync(string url, string data, Stream stream)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             WebClient wc = new WebClient();
 
             var fileBytes = await wc.UploadDataTaskAsync(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
@@ -320,6 +323,7 @@ namespace Senparc.Weixin.HttpUtility
 
         }
 
-        #endregion
+#endregion
+#endif
     }
 }

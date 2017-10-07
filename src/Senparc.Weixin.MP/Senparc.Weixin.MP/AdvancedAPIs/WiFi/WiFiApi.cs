@@ -569,6 +569,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】获取Wi-Fi门店列表
@@ -1074,6 +1075,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
 
     }
 }

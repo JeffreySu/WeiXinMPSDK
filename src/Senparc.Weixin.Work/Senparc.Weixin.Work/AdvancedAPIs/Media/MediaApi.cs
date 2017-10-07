@@ -332,6 +332,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】上传临时媒体文件【QY移植修改】
@@ -603,5 +604,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

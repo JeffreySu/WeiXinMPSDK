@@ -440,6 +440,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -455,5 +456,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return result;
         }
         #endregion
+#endif
     }
 }

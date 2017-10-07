@@ -41,7 +41,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 
-#if !NET45
+#if !NET35 && !NET40 && !NET45
 using System.Net.Http;
 # endif
 
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
 #region 发起post请求

@@ -1083,6 +1083,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】申请开通功能
@@ -2087,6 +2088,7 @@ int timeOut = Config.TIME_OUT)
            }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 
 }

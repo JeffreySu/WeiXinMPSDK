@@ -52,7 +52,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
-#if NET45
+#if NET35 || NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.HttpUtility
     {
         #region 代理
 
-#if NET45
+#if NET35 || NET40 || NET45
         private static System.Net.WebProxy _webproxy = null;
         /// <summary>
         /// 设置Web代理
@@ -226,6 +226,7 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -242,6 +243,7 @@ namespace Senparc.Weixin.HttpUtility
         }
 
         #endregion
+#endif
 
         #region 只需要使用同步的方法
 
@@ -295,7 +297,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HtmlEncode(this string html)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             return System.Web.HttpUtility.HtmlEncode(html);
 #else
             return WebUtility.HtmlEncode(html);
@@ -308,7 +310,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string HtmlDecode(this string html)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             return System.Web.HttpUtility.HtmlDecode(html);
 #else
             return WebUtility.HtmlDecode(html);
@@ -321,7 +323,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string UrlEncode(this string url)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             return System.Web.HttpUtility.UrlEncode(url);
 #else
             return WebUtility.UrlEncode(url);//转义后字母为大写
@@ -334,7 +336,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string UrlDecode(this string url)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             return System.Web.HttpUtility.UrlDecode(url);
 #else
             return WebUtility.UrlDecode(url);

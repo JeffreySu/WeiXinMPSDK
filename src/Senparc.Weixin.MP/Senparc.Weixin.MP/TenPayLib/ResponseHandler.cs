@@ -42,7 +42,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// </summary>
         protected string Content;
 
-#if NET45
+#if NET35 || NET40 || NET45
         private string Charset = "gb2312";
 #else
         private int Charset = 936;
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
         {
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
             Parameters = new Hashtable();
             XmlMap = new Hashtable();
 

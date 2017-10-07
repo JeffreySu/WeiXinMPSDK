@@ -68,6 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
          
         /// <summary>
@@ -85,5 +86,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Get.GetJsonAsync<WxJsonResult>(url);
         }
         #endregion
+#endif
     }
 }

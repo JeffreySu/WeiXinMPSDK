@@ -53,9 +53,13 @@ namespace SupportNet35And40
                                 //newContent = newContent.Replace(frontContent, frontContent + "\r\n#endif");
                             }
 
-                            if (newContent.Contains("using System.Threading.Tasks;"))
+
+                            #region MyRegion
+
+                            #endregion
+                            if (newContent.Contains("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif"))
                             {
-                                newContent = newContent.Replace("using System.Threading.Tasks;", "#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif");
+                                newContent = newContent.Replace("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif", "using System.Threading.Tasks;");
                             }
                         }
 

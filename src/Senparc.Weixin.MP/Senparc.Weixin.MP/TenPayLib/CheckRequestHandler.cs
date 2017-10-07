@@ -35,7 +35,7 @@ using System.Collections;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;

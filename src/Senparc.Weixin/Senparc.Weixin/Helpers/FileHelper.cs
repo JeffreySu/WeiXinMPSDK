@@ -73,7 +73,11 @@ namespace Senparc.Weixin.Helpers
             using (FileStream fs = new FileStream(fullFilePathAndName, FileMode.OpenOrCreate))
             {
                 HttpUtility.Get.Download(url, fs);
+#if NET35
+                fs.Flush();
+#else
                 fs.Flush(true);
+#endif
             }
         }
     }

@@ -439,6 +439,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -456,5 +457,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
         //TODO：更多异步方法
         #endregion
+#endif
     }
 }

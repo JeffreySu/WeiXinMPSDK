@@ -282,6 +282,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
          /// <summary>
         /// 【异步方法】获取第三方平台access_token
@@ -505,6 +506,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return result;
         }
         #endregion
+#endif
         //////////////////////////////////////////////////////////////////////////////////
     }
 }

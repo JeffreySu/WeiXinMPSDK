@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class MediaApi
     {
-        #region 同步处理
+        #region 同步方法
 
         #region 临时素材
         /// <summary>
@@ -416,7 +416,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-        #region 异步处理
+#if !NET35 && !NET40
+        #region 异步方法
 
         #region 临时素材
         /// <summary>
@@ -756,6 +757,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
         #endregion
+#endif
 
     }
 }

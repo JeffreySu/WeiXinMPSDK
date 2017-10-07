@@ -35,7 +35,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 
@@ -60,7 +59,7 @@ namespace Senparc.Weixin.EntityUtility
             }
             
             var t = typeof(T);
-#if NET45
+#if NET35 || NET40 || NET45
             if (t.IsGenericType)
 #else
             if (t.GetTypeInfo().IsGenericType)

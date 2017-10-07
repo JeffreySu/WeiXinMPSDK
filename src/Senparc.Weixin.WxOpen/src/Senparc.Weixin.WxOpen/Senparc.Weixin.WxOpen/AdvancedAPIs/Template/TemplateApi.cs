@@ -117,6 +117,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】小程序模板消息接口
@@ -152,6 +153,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         }
 
         #endregion
+#endif
     }
 }
  

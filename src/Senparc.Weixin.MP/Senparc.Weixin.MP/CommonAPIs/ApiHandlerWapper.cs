@@ -201,6 +201,7 @@ namespace Senparc.Weixin.MP
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -270,5 +271,6 @@ namespace Senparc.Weixin.MP
         #endregion
 
         #endregion
+#endif
     }
 }

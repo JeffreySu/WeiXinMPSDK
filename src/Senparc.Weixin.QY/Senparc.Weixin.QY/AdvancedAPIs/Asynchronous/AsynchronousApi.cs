@@ -22,9 +22,7 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E6%8E%A5%E5%8F%A3
  */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.QY.CommonAPIs;

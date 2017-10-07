@@ -35,9 +35,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.QY.AdvancedAPIs.Mass;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;

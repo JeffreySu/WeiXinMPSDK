@@ -26,9 +26,7 @@
  */
 
 using System;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;

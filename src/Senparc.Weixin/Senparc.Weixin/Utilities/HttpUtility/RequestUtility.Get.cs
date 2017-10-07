@@ -38,9 +38,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Helpers;
 #if NET35 || NET40 || NET45
 using System.Web;

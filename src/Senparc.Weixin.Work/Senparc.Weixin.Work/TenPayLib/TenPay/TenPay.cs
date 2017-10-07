@@ -21,9 +21,7 @@
 using System;
 using System.IO;
 using System.Text;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs

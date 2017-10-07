@@ -35,9 +35,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 

@@ -21,9 +21,7 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%85%B3%E6%B3%A8%E4%B8%8E%E5%8F%96%E6%B6%88%E5%85%B3%E6%B3%A8
  */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 

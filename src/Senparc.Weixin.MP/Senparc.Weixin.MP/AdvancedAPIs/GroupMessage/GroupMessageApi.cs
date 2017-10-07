@@ -30,9 +30,7 @@
 */
 
 using System;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;

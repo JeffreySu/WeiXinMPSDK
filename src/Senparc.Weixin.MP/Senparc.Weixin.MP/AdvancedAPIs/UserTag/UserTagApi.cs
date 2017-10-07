@@ -39,9 +39,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

@@ -55,9 +55,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
  */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;

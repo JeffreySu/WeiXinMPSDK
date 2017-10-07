@@ -20,9 +20,7 @@
  */
 
 using System.Linq;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 

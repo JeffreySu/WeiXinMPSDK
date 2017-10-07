@@ -50,9 +50,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.CommonAPIs;
 

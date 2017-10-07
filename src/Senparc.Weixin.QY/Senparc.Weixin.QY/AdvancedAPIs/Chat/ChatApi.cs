@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Chat;

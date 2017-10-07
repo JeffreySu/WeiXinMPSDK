@@ -33,9 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.IO;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 
 namespace Senparc.Weixin.StreamUtility
 {

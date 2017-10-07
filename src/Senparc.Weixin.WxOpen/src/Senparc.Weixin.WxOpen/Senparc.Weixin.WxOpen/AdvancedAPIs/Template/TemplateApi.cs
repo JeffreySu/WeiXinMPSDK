@@ -36,9 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     API：https://mp.weixin.qq.com/debug/wxadoc/dev/api/notice.html#接口说明
  */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.CommonAPIs;

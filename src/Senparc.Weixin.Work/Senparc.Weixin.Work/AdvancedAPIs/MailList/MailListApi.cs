@@ -45,9 +45,7 @@
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
  */
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.MailList;

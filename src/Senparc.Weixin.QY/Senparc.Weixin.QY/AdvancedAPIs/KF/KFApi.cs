@@ -21,9 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.QY.AdvancedAPIs.KF;
 using Senparc.Weixin.QY.CommonAPIs;

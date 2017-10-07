@@ -23,9 +23,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 

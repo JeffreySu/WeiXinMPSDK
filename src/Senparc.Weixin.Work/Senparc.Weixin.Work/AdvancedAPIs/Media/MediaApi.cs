@@ -32,9 +32,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Media;

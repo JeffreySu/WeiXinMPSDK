@@ -94,9 +94,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-#if !NET35
 using System.Threading.Tasks;
-#endif
 using System.Xml.Linq;
 using Senparc.Weixin.HttpUtility;
 

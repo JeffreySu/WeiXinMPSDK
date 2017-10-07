@@ -32,8 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #if NET35
 namespace System.Threading.Tasks
 {
-    public class JustForNet35
+    public static class JustForNet35
     {
+
     }
 }
 #endif

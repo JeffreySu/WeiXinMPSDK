@@ -19,5 +19,40 @@ namespace Senparc.Weixin.Helpers.Extensions
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(data);
         }
+
+        /// <summary>
+        /// string.IsNullOrWhiteSpace()的扩展方法
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsNullOrWhiteSpace(this string str)
+        {
+#if NET35
+            return string.IsNullOrEmpty(string.Trim(str));
+#else
+            return string.IsNullOrWhiteSpace(str);
+#endif
+        }
+
+        /// <summary>
+        /// string.IsNullOrEmpty()的扩展方法
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
+
+        /// <summary>
+        /// string.Format()的扩展方法
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static string FormatWith(this string format, params object[] args)
+        {
+            return string.Format(format, args);
+        }
     }
 }

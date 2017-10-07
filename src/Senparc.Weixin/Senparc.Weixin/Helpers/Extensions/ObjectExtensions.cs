@@ -28,7 +28,7 @@ namespace Senparc.Weixin.Helpers.Extensions
         public static bool IsNullOrWhiteSpace(this string str)
         {
 #if NET35
-            return string.IsNullOrEmpty(string.Trim(str));
+            return string.IsNullOrEmpty(str.Trim());
 #else
             return string.IsNullOrWhiteSpace(str);
 #endif

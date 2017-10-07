@@ -142,7 +142,7 @@ namespace Senparc.Weixin.HttpUtility
 #endif
         }
 
-#if !NET35 && !NET40
+        //#if !NET35 && !NET40
         /// <summary>
         /// 从Url下载，并保存到指定目录
         /// </summary>
@@ -152,6 +152,22 @@ namespace Senparc.Weixin.HttpUtility
         public static string Download(string url, string dir)
         {
             Directory.CreateDirectory(dir);
+#if NET35 || NET40 || NET45
+            WebClient wc = new WebClient();
+            var data = wc.DownloadData(url);
+            var fullName = Path.Combine(dir, DateTime.Now.Ticks.ToString());
+            using (var fs = File.Open(fullName, FileMode.Create))
+            {
+                using (var sw = new StreamWriter(fs))
+                {
+                    sw.Write(data);
+                    sw.Flush();
+                    fs.Flush();
+                    return fullName;
+                }
+            }
+#else
+
             System.Net.Http.HttpClient httpClient = new HttpClient();
             using (var responseMessage = httpClient.GetAsync(url).Result)
             {
@@ -168,9 +184,10 @@ namespace Senparc.Weixin.HttpUtility
                     }
                 }
             }
+#endif
             return null;
         }
-#endif
+        //#endif
         #endregion
 
 #if !NET35 && !NET40

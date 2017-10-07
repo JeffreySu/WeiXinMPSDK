@@ -62,6 +62,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                  {
@@ -139,7 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
 
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -187,7 +188,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendVoice(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
 
                 data = new
@@ -240,7 +241,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "", string thumb_media_id = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -298,7 +299,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -355,7 +356,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendNews(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -416,7 +417,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendMpNews(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -554,7 +555,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -602,7 +603,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendVoiceAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -653,7 +654,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "", string thumb_media_id = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -710,7 +711,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -768,7 +769,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendNewsAsync(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -832,7 +833,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendMpNewsAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
             object data = null;
-            if (string.IsNullOrWhiteSpace(kfAccount))
+            if (kfAccount.IsNullOrWhiteSpace())
             {
                 data = new
                 {
@@ -904,9 +905,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 #endif
 
-        ///
-        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
-        ///
+        /////
+        ///// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        /////
 
     }
 }

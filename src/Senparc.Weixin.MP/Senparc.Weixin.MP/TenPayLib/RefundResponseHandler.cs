@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected HttpContext HttpContext;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>

@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
                 try
                 {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 }
                 catch (Exception ex)
                 {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
                 try
                 {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlDecode(instr);
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 }
                 catch (Exception ex)
                 {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlDecode(instr);

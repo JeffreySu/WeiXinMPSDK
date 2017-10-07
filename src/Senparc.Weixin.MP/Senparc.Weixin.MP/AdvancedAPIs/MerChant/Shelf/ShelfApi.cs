@@ -170,6 +170,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】增加货架
@@ -293,5 +294,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdShelfResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

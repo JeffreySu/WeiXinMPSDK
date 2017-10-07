@@ -31,6 +31,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v13.8.8 添加tag_id和language匹配项
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Helpers.Extensions;
+
 namespace Senparc.Weixin.MP.Entities.Menu
 {
     /// <summary>
@@ -82,14 +84,14 @@ namespace Senparc.Weixin.MP.Entities.Menu
         /// <returns></returns>
         public bool CheckAllNull()
         {
-            return string.IsNullOrWhiteSpace(group_id)
-                   && string.IsNullOrWhiteSpace(sex)
-                   && string.IsNullOrWhiteSpace(country)
-                   && string.IsNullOrWhiteSpace(province)
-                   && string.IsNullOrWhiteSpace(city)
-                   && string.IsNullOrWhiteSpace(client_platform_type)
-                   && string.IsNullOrWhiteSpace(tag_id)
-                   && string.IsNullOrWhiteSpace(language);
+            return    group_id.IsNullOrWhiteSpace()
+                   && sex.IsNullOrWhiteSpace()
+                   && country.IsNullOrWhiteSpace()
+                   && province.IsNullOrWhiteSpace()
+                   && city.IsNullOrWhiteSpace()
+                   && client_platform_type.IsNullOrWhiteSpace()
+                   && tag_id.IsNullOrWhiteSpace()
+                   && language.IsNullOrWhiteSpace();
         }
     }
 }

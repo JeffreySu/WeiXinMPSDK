@@ -35,7 +35,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Globalization;
 using System.Text.RegularExpressions;
-#if NET45
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
 #else
 using Newtonsoft.Json;
@@ -73,12 +73,14 @@ namespace Senparc.Weixin.Helpers
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
             string jsonString;
-#if NET45
+#if NET35 || NET40 || NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             jsSerializer.RegisterConverters(new JavaScriptConverter[]
             {
                 new WeixinJsonConventer(data.GetType(), jsonSetting),
+#if !NET35
                 new ExpandoJsonConverter()
+#endif
             });
             jsonString = jsSerializer.Serialize(data);
 #else
@@ -105,7 +107,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public T GetObject<T>(string jsonString)
         {
-#if NET45
+#if NET35 || NET40 || NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             return jsSerializer.Deserialize<T>(jsonString);
 #else

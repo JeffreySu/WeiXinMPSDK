@@ -63,6 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
         {
@@ -79,5 +80,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return json;
         }
         #endregion
+#endif
     }
 }

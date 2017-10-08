@@ -5,8 +5,7 @@ Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/Jef
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 
-.NET [4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) / 
-[4.5 / 4.6.1 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)。
+[.NET 3.5 / 4.0 / 4.5 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)。
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 

@@ -141,7 +141,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
 #else
             TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);

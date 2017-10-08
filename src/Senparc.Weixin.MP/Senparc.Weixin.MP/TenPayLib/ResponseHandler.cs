@@ -371,7 +371,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

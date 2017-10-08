@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>2.7.5</Version>
+    <Version>2.8.0-beta1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -98,6 +98,8 @@
       v2.7.5
       1、修复小程序可见状态
       2、修复bug
+
+      v2.8.0-beta1 重新支持.NET 3.5/4.0
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

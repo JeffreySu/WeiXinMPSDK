@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
             全部打卡 = 3
         }
 
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 获取打卡数据【QY移植新增】
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
         #endregion
 
-        #region 异步接口
+        #region 异步方法
 
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】

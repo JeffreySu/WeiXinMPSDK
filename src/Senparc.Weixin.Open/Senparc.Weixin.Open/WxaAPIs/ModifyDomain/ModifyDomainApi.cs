@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class ModifyDomainApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 修改服务器地址 接口
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
-        #region 异步接口
+        #region 异步方法
 
         /// <summary>
         /// 【异步接口】修改服务器地址 接口

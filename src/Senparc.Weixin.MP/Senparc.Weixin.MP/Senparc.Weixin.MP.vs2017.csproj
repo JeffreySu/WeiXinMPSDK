@@ -338,7 +338,7 @@
       v14.7.0 TenPayV3的接口添加对 UseSandBoxPay 的判断，可以自动使用沙箱
       v14.7.1（.NET Core）恢复从.NET Framework中移植的RequestUtility.SetHttpProxy()和RemoveHttpProxy()方法
      
-     v14.8.0-beta1 重新支持.NET 3.5/4.0
+      v14.8.0-beta1 重新支持.NET 3.5/4.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

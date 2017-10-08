@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class CodeApi
     {
-        #region 同步接口
+        #region 同步方法
         /// <summary>
         /// 为授权的小程序帐号上传小程序代码
         /// </summary>
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
-        #region 异步接口
+        #region 异步方法
         /// <summary>
         /// 为授权的小程序帐号上传小程序代码
         /// </summary>

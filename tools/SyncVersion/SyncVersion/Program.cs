@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,23 +15,24 @@ namespace SyncVersion
         static void Main(string[] args)
         {
             Console.WriteLine("开始更新AssemblyInfo.cs文件的Version版本");
+            SyncVersion("../src/");
+            Console.WriteLine("完成");
         }
 
         private static void SyncVersion(string root)
         {
-            Console.WriteLine("开始扫描文件夹：" + root);
+            //Console.WriteLine("开始扫描文件夹：" + root);
             var dirs = System.IO.Directory.GetDirectories(root);
             foreach (var dir in dirs)
             {
                 var files = System.IO.Directory.GetFiles(dir, "*.csproj");
                 foreach (var file in files)
                 {
+                    Console.WriteLine();
                     Console.WriteLine("扫描文件：" + file);
 
-                    string newContent = null;
-
                     XDocument doc = XDocument.Load(file);
-                    var versionElement = doc.Root.Element("PropertyGroup").Element("Version");
+                    var versionElement = doc.Root?.Element("PropertyGroup")?.Element("Version");
                     if (versionElement != null)
                     {
                         var version = versionElement.Value;
@@ -45,14 +47,24 @@ namespace SyncVersion
                         {
                             Console.WriteLine("找到AssemblyInfo.cs");
                             string newContent = null;
-                            using (var fs = new FileStream(assemblyInfoFilePath, FileMode.Open))
+                            using (var sr = new StreamReader(assemblyInfoFilePath, Encoding.UTF8))
                             {
-                                var sr = new StreamReader(fs, Encoding.UTF8);
                                 var fileContent = sr.ReadToEnd();
-                                newContent = Regex.Replace(fileContent,
-                                    @"(?<=\[assembly: AssemblyVersion\("")(\d +\.\d +\.\d +\.\*)(?= ""\)\])", versionStr);
-                            }
+                                var regex = new Regex(@"(?<=[^ ])(?<=\[assembly: AssemblyVersion\("")(\d+\.\d+\.\d+\.\*)(?=""\)\])");
+                                var match = regex.Match(fileContent);
+                                if (match.Success)
+                                {
+                                    Console.WriteLine("匹配成功");
+                                    newContent = regex.Replace(fileContent, versionStr);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("匹配失败");
+                                }
+                                //newContent = Regex.Replace(fileContent,
+                                //    @"(?<=\[assembly: AssemblyVersion\("")(\d +\.\d +\.\d +\.\*)(?= ""\)\])",versionStr);
 
+                            }
                             if (newContent != null)
                             {
                                 using (var fs = new FileStream(assemblyInfoFilePath, FileMode.Create))
@@ -70,8 +82,13 @@ namespace SyncVersion
                             Console.WriteLine("未找到AssemblyInfo.cs");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("非Multi-Targeting项目");
+                    }
                 }
                 SyncVersion(dir);
             }
         }
     }
+}

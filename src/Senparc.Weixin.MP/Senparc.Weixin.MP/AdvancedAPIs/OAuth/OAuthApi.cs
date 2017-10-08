@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public static class OAuthApi
     {
-        #region 同步请求
+        #region 同步方法
         /*此接口不提供异步方法*/
         /// <summary>
         /// 获取验证地址
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取AccessToken
         /// </summary>

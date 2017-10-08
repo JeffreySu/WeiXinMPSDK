@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class GroupApi
     {
-        #region 同步请求
+        #region 同步方法
         
        
         /// <summary>

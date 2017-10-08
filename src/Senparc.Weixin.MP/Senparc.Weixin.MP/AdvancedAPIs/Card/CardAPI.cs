@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class CardApi
     {
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 创建卡券
         /// </summary>

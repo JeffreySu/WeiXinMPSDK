@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 {
     public partial class CommonApi
     {
-        #region 同步请求
+        #region 同步方法
         
         /// <summary>
         /// 创建菜单
@@ -441,7 +441,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】删除菜单

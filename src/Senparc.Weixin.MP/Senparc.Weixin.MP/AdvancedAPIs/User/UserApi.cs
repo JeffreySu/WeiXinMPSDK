@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class UserApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取用户信息
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取用户信息
         /// </summary>

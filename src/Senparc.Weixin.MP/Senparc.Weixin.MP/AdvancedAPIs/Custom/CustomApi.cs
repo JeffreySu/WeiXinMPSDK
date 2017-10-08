@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
 
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 发送文本信息

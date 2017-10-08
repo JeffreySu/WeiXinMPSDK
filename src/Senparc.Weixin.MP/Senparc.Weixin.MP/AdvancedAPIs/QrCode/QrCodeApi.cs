@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class QrCodeApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 创建二维码

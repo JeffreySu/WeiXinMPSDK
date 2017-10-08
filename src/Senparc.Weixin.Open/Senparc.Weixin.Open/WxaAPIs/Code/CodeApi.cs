@@ -209,6 +209,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 为授权的小程序帐号上传小程序代码
@@ -381,5 +382,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
             return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
+#endif
     }
 }

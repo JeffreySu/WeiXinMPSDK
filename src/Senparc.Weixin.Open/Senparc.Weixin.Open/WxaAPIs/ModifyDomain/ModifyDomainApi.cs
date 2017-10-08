@@ -91,6 +91,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -139,5 +140,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
 
         #endregion
+#endif
     }
 }

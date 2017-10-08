@@ -36,12 +36,12 @@ namespace SupportNet35And40
                     {
                         var sr = new StreamReader(fs,Encoding.UTF8);
                         var fileContent = sr.ReadToEnd();
-                        var hit = fileContent.Contains("\r\n\r\n        #region 异步请求");
+                        var hit = fileContent.Contains("\r\n\r\n        #region 异步方法");
                         if (hit)
                         {
                             Console.WriteLine("命中，改写中");
-                            newContent = fileContent.Replace("\r\n\r\n        #region 异步请求",
-                               "\r\n\r\n#if !NET35 && !NET40\r\n        #region 异步请求");
+                            newContent = fileContent.Replace("\r\n\r\n        #region 异步方法",
+                               "\r\n\r\n#if !NET35 && !NET40\r\n        #region 异步方法");
 
                             var endContent = "#endregion";
                             var endIndex = newContent.LastIndexOf(endContent);
@@ -52,22 +52,13 @@ namespace SupportNet35And40
                                 //var frontContent = newContent.Substring(0, endIndex + endContent.Length);
                                 //newContent = newContent.Replace(frontContent, frontContent + "\r\n#endif");
                             }
-
-
-                            #region MyRegion
-
-
-                            #endregion
-                            if (newContent.Contains("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif"))
-                            {
-                            }
                         }
 
-                        var resetHit = fileContent.Contains("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif");
-                        if (resetHit)
-                        {
-                                newContent = fileContent.Replace("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif", "using System.Threading.Tasks;");
-                        }
+                        //var resetHit = fileContent.Contains("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif");
+                        //if (resetHit)
+                        //{
+                        //        newContent = fileContent.Replace("#if !NET35\r\nusing System.Threading.Tasks;\r\n#endif", "using System.Threading.Tasks;");
+                        //}
 
                     }
 

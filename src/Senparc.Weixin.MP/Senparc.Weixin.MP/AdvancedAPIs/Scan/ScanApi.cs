@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class ScanApi
     {
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>

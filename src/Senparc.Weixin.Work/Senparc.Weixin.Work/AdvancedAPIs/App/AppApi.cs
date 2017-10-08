@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class AppApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取企业号应用信息【QY移植修改】
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】获取企业号应用信息【QY移植修改】

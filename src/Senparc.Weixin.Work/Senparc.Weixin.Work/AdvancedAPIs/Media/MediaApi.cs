@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class MediaApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 上传临时媒体文件【QY移植修改】
@@ -333,7 +333,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】上传临时媒体文件【QY移植修改】
         /// </summary>

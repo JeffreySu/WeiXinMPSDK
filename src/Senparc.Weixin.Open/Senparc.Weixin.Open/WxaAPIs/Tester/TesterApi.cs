@@ -123,6 +123,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】创建开放平台帐号并绑定公众号/小程序。
@@ -195,5 +196,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         #endregion
+#endif
     }
 }

@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class AutoReplyApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取自动回复规则

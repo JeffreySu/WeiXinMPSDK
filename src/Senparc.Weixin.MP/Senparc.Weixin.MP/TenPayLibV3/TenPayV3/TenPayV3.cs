@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         #endregion
 
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。

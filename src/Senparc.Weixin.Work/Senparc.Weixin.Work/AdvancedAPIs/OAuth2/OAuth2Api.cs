@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     public static class OAuth2Api
     {
-        #region 同步请求
+        #region 同步方法
         
         
         /*此接口不提供异步方法*/
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
         /// </summary>

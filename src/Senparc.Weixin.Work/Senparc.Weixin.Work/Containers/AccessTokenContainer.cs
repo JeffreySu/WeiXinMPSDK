@@ -289,6 +289,7 @@ namespace Senparc.Weixin.Work.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
@@ -385,5 +386,6 @@ namespace Senparc.Weixin.Work.Containers
             return accessTokenBag.AccessTokenResult;
         }
         #endregion
+#endif
     }
 }

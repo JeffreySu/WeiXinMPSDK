@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class ConcernApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 二次验证
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】二次验证

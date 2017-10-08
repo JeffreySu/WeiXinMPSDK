@@ -480,6 +480,7 @@ namespace Senparc.Weixin.Open.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         #region 授权信息
@@ -666,5 +667,6 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
 
         #endregion
+#endif
     }
 }

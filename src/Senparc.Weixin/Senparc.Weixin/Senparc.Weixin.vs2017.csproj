@@ -202,7 +202,7 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
@@ -250,6 +250,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net35|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET35</DefineConstants>
   </PropertyGroup>
 
 

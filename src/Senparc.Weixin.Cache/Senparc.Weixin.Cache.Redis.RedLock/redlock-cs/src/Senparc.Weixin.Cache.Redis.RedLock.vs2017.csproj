@@ -39,10 +39,12 @@
 
       v0.0.4
       提供.net framework 4.6.1 支持
-      
+
       v0.1.0
       提供.NET Core支持
-    
+
+      v1.0.0-beta1 支持.NET Core 2.0
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -1,5 +1,7 @@
-# Tools文件夹
+# Tools 文件夹
 此文件夹将放置方便 Senparc.Weixin SDK 开发的小工具、批处理文件或补丁文件。
+
+> 说明：这些工具转为本项目的需求而开发，开放源代码只做共享交流之用，对其他项目不具备通用性，请勿直接使用以免发生杯具。
 
 ## ClearDotNetCoreBadFiles
 ClearDotNetCoreBadFiles.exe 用于解决当项目在.NET Core（或.NET Standard）环境下编译后，会在obj文件夹下生成一些文件，

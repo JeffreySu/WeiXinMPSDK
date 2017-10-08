@@ -171,8 +171,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
-
-
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>

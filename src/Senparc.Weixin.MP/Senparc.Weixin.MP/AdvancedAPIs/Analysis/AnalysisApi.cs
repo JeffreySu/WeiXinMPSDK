@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class AnalysisApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 获取图文群发每日数据（getarticlesummary）

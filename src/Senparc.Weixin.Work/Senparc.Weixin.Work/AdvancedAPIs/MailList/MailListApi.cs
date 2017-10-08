@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class MailListApi
     {
-        #region 同步请求
+        #region 同步方法
 
         #region 成员管理
 
@@ -601,7 +601,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
 
         #region 成员管理
 

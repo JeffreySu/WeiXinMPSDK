@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class CustomServiceApi
     {
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -406,7 +406,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
 
 
         /// <summary>

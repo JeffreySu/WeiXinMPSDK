@@ -37,7 +37,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// </summary>
     public static class ComponentApi
     {
-        #region 同步请求
+        #region 同步方法
         
       
         /// <summary>
@@ -283,7 +283,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
          /// <summary>
         /// 【异步方法】获取第三方平台access_token
         /// </summary>

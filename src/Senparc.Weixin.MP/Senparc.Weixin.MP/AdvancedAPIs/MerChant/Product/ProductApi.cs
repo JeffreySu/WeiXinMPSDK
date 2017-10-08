@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class ProductApi
     {
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 增加商品
         /// </summary>
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】增加商品
         /// </summary>

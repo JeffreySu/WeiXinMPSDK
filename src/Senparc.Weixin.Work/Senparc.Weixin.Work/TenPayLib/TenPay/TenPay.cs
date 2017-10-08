@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     
     public static class TenPay
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 用于企业向微信用户个人付款 
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         ///【异步方法】 用于企业向微信用户个人付款 
         /// 目前支持向指定微信用户的openid付款

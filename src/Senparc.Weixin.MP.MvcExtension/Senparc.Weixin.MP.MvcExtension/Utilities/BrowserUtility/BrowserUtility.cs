@@ -35,7 +35,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
         /// </summary>
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
    public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;

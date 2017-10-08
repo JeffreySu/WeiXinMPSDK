@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string getCharset()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

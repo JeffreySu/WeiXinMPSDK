@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class GroupsApi
     {
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 创建分组
         /// </summary>
@@ -218,7 +218,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】创建分组
         /// </summary>

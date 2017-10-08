@@ -49,7 +49,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     /// </summary>
     public static class TemplateApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 小程序模板消息接口
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         #endregion
 
 #if !NET35 && !NET40
-        #region 异步请求
+        #region 异步方法
         /// <summary>
         /// 【异步方法】小程序模板消息接口
         /// </summary>

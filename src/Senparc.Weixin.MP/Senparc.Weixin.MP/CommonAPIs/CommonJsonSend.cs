@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public static class CommonJsonSend
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法

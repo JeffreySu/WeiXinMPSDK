@@ -4,7 +4,7 @@
 
 ## .NET Core 及所有版本 Demo
 
-返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
+返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)。
 
 
 ## 其他说明

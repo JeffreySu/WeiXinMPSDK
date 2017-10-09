@@ -4,7 +4,7 @@
 
 ## .NET Framwork 4.5 Demo
 
-返回上一级后见：Senparc.Weixin.MP.Sample。
+返回上一级后见：[Senparc.Weixin.MP.Sample](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)。
 
 使用 .NET Framework 4.5 Sample 部署的 Senparc 官方在线 Demo：https://sdk.weixin.senparc.com/。
 

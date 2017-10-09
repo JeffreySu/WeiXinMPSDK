@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>0.1.1</Version>
+    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
+    <Version>1.0.1-beta1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis.RedLock</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis.RedLock</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -39,10 +39,12 @@
 
       v0.0.4
       提供.net framework 4.6.1 支持
-      
+
       v0.1.0
       提供.NET Core支持
-    
+
+      v1.0.1-beta1 支持.NET Core 2.0
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -62,23 +64,31 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>-->
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>-->
+
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
   </PropertyGroup>
   
   <!--<ItemGroup>
@@ -108,6 +118,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 </Project>

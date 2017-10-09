@@ -15,7 +15,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Senparc.Weixin.MP.AdvancedAPIs;
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             Justification = "Unsealed so that subclassed types can set properties in the default constructor or override our behavior.")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public abstract class SenparcOAuthAttribute :
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         FilterAttribute,/* AuthorizeAttribute,*/ IAuthorizationFilter
 #else
         ActionFilterAttribute,/* AuthorizeAttribute,*/ IAuthorizationFilter
@@ -58,13 +58,13 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         public abstract bool IsLogined(HttpContextBase httpContext);
 #else
         public abstract bool IsLogined(HttpContext httpContext);
 #endif
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         protected virtual bool AuthorizeCore(HttpContextBase httpContext)
 #else
         protected virtual bool AuthorizeCore(HttpContext httpContext)
@@ -86,21 +86,21 @@ namespace Senparc.Weixin.MP.MvcExtension
         }
 
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
         {
             validationStatus = OnCacheAuthorization(new HttpContextWrapper(context));
         }
 #endif
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
 
 #else
 
 #endif
 
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         public virtual void OnAuthorization(AuthorizationContext filterContext)
 #else
         public virtual void OnAuthorization(AuthorizationFilterContext filterContext)
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                 // then we hook our custom authorization code into the caching mechanism so that we have
                 // the final say on whether a page should be served from the cache.
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
                 HttpCachePolicyBase cachePolicy = filterContext.HttpContext.Response.Cache;
                 cachePolicy.SetProxyMaxAge(new TimeSpan(0));
                 cachePolicy.AddValidationCallback(CacheValidateHandler, null /* data */);
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             }
         }
 
-#if NET45
+#if NET35 || NET40 || NET45 || NET461
         // This method must be thread-safe since it is called by the caching module.
         protected virtual HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext)
         {

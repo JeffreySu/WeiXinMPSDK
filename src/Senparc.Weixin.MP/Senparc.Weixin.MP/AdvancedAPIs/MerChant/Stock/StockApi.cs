@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class StockApi
     {
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 增加库存
         /// </summary>
@@ -74,7 +74,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】增加库存
         /// </summary>
@@ -101,5 +102,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
         #endregion
+#endif
     }
 }

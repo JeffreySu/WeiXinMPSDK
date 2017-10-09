@@ -41,7 +41,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string Key
         {
             get { return _key; }
-            set { base.SetContainerProperty(ref _key, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _key, value, "Key"); }
+#else
+            set { this.SetContainerProperty(ref _key, value); }
+#endif
         }
 
         /// <summary>
@@ -50,7 +54,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string OpenId
         {
             get { return _openId; }
-            set { base.SetContainerProperty(ref _openId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _openId, value, "OpenId"); }
+#else
+            set { this.SetContainerProperty(ref _openId, value); }
+#endif
         }
 
         /// <summary>
@@ -59,7 +67,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string SessionKey
         {
             get { return _sessionKey; }
-            set { base.SetContainerProperty(ref _sessionKey, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _sessionKey, value, "SessionKey"); }
+#else
+            set { this.SetContainerProperty(ref _sessionKey, value); }
+#endif
         }
 
         /// <summary>
@@ -68,7 +80,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _expireTime, value); }
+#endif
         }
 
         private string _key;

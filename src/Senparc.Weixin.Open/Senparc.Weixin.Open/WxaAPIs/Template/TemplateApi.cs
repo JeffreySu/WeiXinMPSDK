@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
     /// </summary>
     public static class TemplateApi
     {
-        #region 同步请求
+        #region 同步方法
 
 
         #region 模板快速设置
@@ -150,7 +150,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
 
         #region 模板快速设置
@@ -257,5 +258,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
 
         #endregion
+#endif
     }
 }

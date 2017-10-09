@@ -60,24 +60,40 @@ namespace Senparc.Weixin.Work.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+#else
+            set { this.SetContainerProperty(ref _appId, value); }
+#endif
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _appSecret, value); }
+#endif
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+#else
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+#endif
         }
 
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _expireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -200,6 +216,7 @@ namespace Senparc.Weixin.Work.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -257,5 +274,6 @@ namespace Senparc.Weixin.Work.Containers
             return jsApiTicketBag.JsApiTicketResult;
         }
         #endregion
+#endif
     }
 }

@@ -57,7 +57,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
     /// </summary>
     public static class WxAppApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取小程序页面的小程序码
@@ -171,8 +171,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
-
-
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>
@@ -228,7 +226,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 获取小程序页面的小程序码
@@ -398,5 +397,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         #endregion
+#endif
     }
 }

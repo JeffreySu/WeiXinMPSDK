@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
     /// </summary>
     public static class SnsApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// code 换取 session_key
@@ -65,7 +65,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】code 换取 session_key
@@ -88,5 +89,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         }
 
         #endregion
+#endif
     }
 }

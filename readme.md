@@ -37,11 +37,12 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [捐助](#捐助)
 * [License](#license)
 
-本库为.NET 4.5，其他.NET版本请看各自分支：
+本库为包含了 .NET 3.5/4.0/4.5/.NET Core 1.1/2.0 多个版本的源代码（核心逻辑完全一致）：
 
-* [.NET Core 2.0 + .NET Core 1.0 + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer)
-* [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) （已暂停更新） 
-* [.NET 3.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET3.5) （已停止更新）
+* 使用 Visual Studio 2017 打开 Demo（支持所有版本）：[/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
+* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[/src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
+
+* 使用 Visual Studio 2010 SP1 打开 Demo（仅支持 .NET 4.5）：[/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
 
 
 各模块类库
@@ -516,8 +517,8 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 | Developer | 1、开发分支，此分支通常为 Beta 版本，新版本都会先在此分支中进行开发，最后推送稳定版到 master 分支，如果想对新功能先睹为快，可以使用此分支。<br> 2、此分支同时兼容 .NET 4.5 / .NET Core / .NET Core 2.0 版本，建议 Pull Request 的代码都到这个分支下，而不是 master
 | BookVersion1 | 此分支为[《微信开发深度解析：微信公众号、小程序高效开发秘籍》](https://book.weixin.senparc.com/book/link?code=github-homepage2)图书出版时对应代码快照。
 | DotNET-Core_MySQL | 此分支为 .NET Core 环境下的 [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 框架集成演示分支。
-| NET4.0     | .NET 4.0 分支，此分支已于2017年停止更新。.NET 4.0 最新代码随 master / Developer 分支同步更新
-| NET3.5     | .NET 3.5 分支，此已于2015年停止更新。.NET 3.5 最新代码随 master / Developer 分支同步更新
+| NET4.0     | 仅支持 .NET 4.0 的分支，此分支已于2017年停止更新。.NET 4.0 最新代码随 master / Developer 分支同步更新
+| NET3.5     | 仅支持 .NET 3.5 的分支，此分支已于2015年停止更新。.NET 3.5 最新代码随 master / Developer 分支同步更新
 | Developer-Senparc.SDK | 此分支仅用于 Senparc 团队内部测试，可忽略。
 
 

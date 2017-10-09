@@ -74,8 +74,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            var random = new Random();
-            return EncryptHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         /// <summary>

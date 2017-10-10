@@ -103,15 +103,16 @@ namespace Senparc.Weixin
 
             using (Cache.BeginCacheLock(LockName, ""))
             {
+                string logDir;
 #if NET35
-                var logDir = Path.Combine(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data"), "WeixinTraceLog");
+                logDir = Path.Combine(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data"), "WeixinTraceLog");
 #else
 
 #if NET40 || NET45 || NET461
                 var logDir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", "WeixinTraceLog");
 #else
                 //var logDir = Path.Combine(AppContext.BaseDirectory, "App_Data", "WeixinTraceLog");
-                var logDir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data", "WeixinTraceLog");
+                logDir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data", "WeixinTraceLog");
 #endif
 #endif
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.17.0-beta4</Version>
+    <Version>4.17.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -197,6 +197,8 @@
       v4.17.0-beta1 重构HttpUtility，重新支持 .NET 4.0
       v4.17.0-beta3 重新支持 .NET 3.5
       v4.17.0-beta4 优化
+      v4.17.1 优化WeixinTrace
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

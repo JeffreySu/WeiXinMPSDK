@@ -61,8 +61,11 @@ namespace Senparc.Weixin.MP.CoreSample
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
 
             //提供网站根目录
-            Senparc.Weixin.Config.RootDictionaryPath = env.ContentRootPath;
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
+            if (env.ContentRootPath != null)
+            {
+                Senparc.Weixin.Config.RootDictionaryPath = env.ContentRootPath;
+                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
+            }
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
 
             #endregion

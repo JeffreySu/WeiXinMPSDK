@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170817
     修改描述：v14.6.3 添加 JSSDKHelper.GetJsSdkUiPackageAsync() 异步方法
 
+    修改标识：Senparc - 20171010
+    修改描述：v14.8.1 修复几处GetNoncestr还在使用GBK编码
+
 ----------------------------------------------------------------*/
 
 using System;

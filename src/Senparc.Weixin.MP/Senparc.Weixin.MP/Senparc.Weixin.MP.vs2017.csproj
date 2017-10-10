@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.8.0-beta2</Version>
+    <Version>14.8.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -340,6 +340,7 @@
 
       v14.8.0-beta1 重新支持.NET 3.5/4.0
       v14.8.0-beta2 优化多版本支持代码
+      v14.8.1 修复几处GetNoncestr还在使用GBK编码
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

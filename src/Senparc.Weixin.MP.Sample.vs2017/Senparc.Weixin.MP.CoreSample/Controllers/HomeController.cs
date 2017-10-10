@@ -37,8 +37,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 #endif
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            //测试Get方法
+            var html = await RequestUtility.HttpGetAsync("https://baidu.com", refererUrl: "https://sdk.weixin.senparc.com");
+
+
+            #region 获取版本信息
+
 
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
 #if NET45
@@ -72,7 +78,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
             TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
 
-
+            
             //缓存
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
@@ -90,8 +96,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
             //or use Header: REMOTE_ADDR
 #endif
-            //测试Get方法
-            var html = RequestUtility.HttpGet("https://baidu.com", refererUrl: "https://sdk.weixin.senparc.com");
+
+            #endregion
+
             if (html.Length == 0)
             {
                 throw new Exception("RequestUtility.HttpGet()方法测试失败");

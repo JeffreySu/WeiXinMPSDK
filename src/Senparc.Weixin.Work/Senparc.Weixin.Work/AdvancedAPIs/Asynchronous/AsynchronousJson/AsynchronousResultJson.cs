@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AsynchronousPostData.cs
     文件功能描述：异步任务接口提交数据Json
@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
     /// <summary>
     /// 异步任务Id返回结果
     /// </summary>
-    public class AsynchronousJobId : QyJsonResult
+    public class AsynchronousJobId : WorkJsonResult
     {
         /// <summary>
         /// 异步任务id，最大长度为64字符
@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
         public string jobid { get; set; }
     }
 
-    public class BaseAsynchronousResult : QyJsonResult
+    public class BaseAsynchronousResult : WorkJsonResult
     {
         /// <summary>
         /// 任务状态，整型，1表示任务开始，2表示任务进行中，3表示任务已完成
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
         public List<AsynchronousInviteUserItem> result { get; set; }
     }
 
-    public class AsynchronousInviteUserItem : QyJsonResult
+    public class AsynchronousInviteUserItem : WorkJsonResult
     {
         /// <summary>
         /// 成员UserID。对应管理端的帐号
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
         public List<AsynchronousReplaceUserResult> result { get; set; }
     }
 
-    public class AsynchronousReplaceUserItem : QyJsonResult
+    public class AsynchronousReplaceUserItem : WorkJsonResult
     {
         /// <summary>
         /// 成员UserID。对应管理端的帐号
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
         public List<AsynchronousReplacePartyItem> result { get; set; }
     }
 
-    public class AsynchronousReplacePartyItem : QyJsonResult
+    public class AsynchronousReplacePartyItem : WorkJsonResult
     {
         /// <summary>
         /// 部门ID

@@ -1,4 +1,24 @@
-﻿using System;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +36,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
     public class QyMessageHandlersTest
     {
-        public class CustomerMessageHandlers : QyMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+        public class CustomerMessageHandlers : WorkMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
         {
             public CustomerMessageHandlers(XDocument requestDoc, PostModel postModel, int maxRecordCount = 0)
                 : base(requestDoc, postModel, maxRecordCount)
@@ -51,8 +71,10 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 </xml>";
 
 
+        private string testXml2 = @"<xml><ToUserName><![CDATA[tj99bf85a7c6525277]]></ToUserName><Encrypt><![CDATA[mOYGyroKLkpIDLNn6DAPjdZbRsQlkUggk+LnYY2S/7O/nRxxu3hDsJLiod29NVMYpwVNHMqTnZALXmycI6c7+wWxway/T/91okclPXn+EB/u4vss5FKntesFMxtGPRxt1aChMN9yNJNRhom05UD4c3B3lSicS10LE3MwWenb9t3CzbovlwM7T9jq1PFOA/0HyGZtwIoNdPjc0xaPe09oMvRtn69vu7whudjq2oI27jmEvXAfrWxN29oYTb+dPmBgXx/y4Hs2nWctuiCS7l9jN/dgzKTfPP056k7AKp49XIe2PHJZsmq/jhKLh+7aVRjGcWQepgshtbRwNtolPsT3AoblAa/be7d3igl/EbfguPTK/mAANEb73grwQxfNVH/MJr4sQrTKn/DHjbP9GyoKrr6qFxpDiziZB7LD/kvUqSw=]]></Encrypt><AgentID><![CDATA[]]></AgentID></xml>";
 
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+
+        [TestMethod]
         public void TextTest()
         {
             var postModel = new PostModel()
@@ -64,6 +86,34 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
                 Token = "fzBsmSaI8XE1OwBh",
                 EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
                 CorpId = "wx7618c0a6d9358622"
+            };
+            var messageHandler = new CustomerMessageHandlers(XDocument.Parse(testXml), postModel, 10);
+            Assert.IsNotNull(messageHandler.RequestDocument);
+            Assert.IsNotNull(messageHandler.RequestMessage);
+            Assert.IsNotNull(messageHandler.EncryptPostData);
+            Assert.IsTrue(messageHandler.AgentId == 2);
+
+            messageHandler.Execute();
+
+            Assert.IsNotNull(messageHandler.ResponseDocument);
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+
+
+            Console.WriteLine(messageHandler.RequestDocument);
+        }
+
+        [TestMethod]
+        public void TextTest2()
+        {
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "118b034be74c917464f833cd32fc3f74958b2c93",
+                Timestamp = "1505643268",
+                Nonce = "1504921331",
+
+                Token = "3J5JTpb4j8Yfk",
+                EncodingAESKey = "XtJUgDlFYncPP3z4V7W6Jv4ietcIFveUn6LP1KzOBNf",
+                CorpId = ""
             };
             var messageHandler = new CustomerMessageHandlers(XDocument.Parse(testXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);

@@ -34,9 +34,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
         [TestMethod()]
         public void BuildRandomStrTest()
         {
-            var result = TenPayV3Util.BuildRandomStr(100);
-            Assert.AreEqual(100, result.Length);
-            Console.WriteLine(result);
+            var list = new List<string>();
+            for (int i = 0; i < 1000; i++)
+            {
+                var result = TenPayV3Util.BuildRandomStr(100);
+                Assert.AreEqual(100, result.Length);
+                Console.WriteLine(result);
+                Assert.IsFalse(list.Contains(result));
+                list.Add(result);
+            }
         }
 
         [TestMethod()]
@@ -45,6 +51,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
             var result = TenPayV3Util.BuildDailyRandomStr(10);
             Assert.IsNotNull(result);
             Console.WriteLine(result);
+        }
+
+        [TestMethod()]
+        public void GetNoncestrTest()
+        {
+            var list = new List<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                var result = TenPayV3Util   .GetNoncestr();
+                Assert.IsNotNull(result);
+                Console.WriteLine(result);
+                Assert.IsFalse(list.Contains(result));
+
+                list.Add(result);
+            }
         }
     }
 }

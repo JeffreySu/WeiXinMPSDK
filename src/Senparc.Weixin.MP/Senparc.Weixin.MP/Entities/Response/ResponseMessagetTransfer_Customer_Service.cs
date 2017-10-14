@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Entities
 			TransInfo = new List<CustomerServiceAccount>();
 		}
 
-		new public virtual ResponseMsgType MsgType
+		public new virtual ResponseMsgType MsgType
 		{
 			get { return ResponseMsgType.Transfer_Customer_Service; }
 		}

@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,7 +30,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -55,6 +55,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -75,17 +76,25 @@
     <Compile Include="Cache\CacheStrategyFactoryTests.cs" />
     <Compile Include="Cache\Lock\CacheLockTest.cs" />
     <Compile Include="Containers\BaseContainerTests.cs" />
+    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtensionTests.cs" />
     <Compile Include="Exceptions\CommonTests.cs" />
     <Compile Include="Helpers\Containers\ContainerHelperTests.cs" />
+    <Compile Include="Helpers\EncryptHelperTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
+    <Compile Include="Helpers\StringHelper\ASCIISortTests.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threads\ThreadUtilityTest.cs" />
     <Compile Include="Utilities\HttpUtility\GetTests.cs" />
     <Compile Include="Utilities\HttpUtility\PostTests.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
+    <Compile Include="Utilities\HttpUtility\UrlUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">
+      <Project>{5b729497-5323-41d7-a104-0632119bedde}</Project>
+      <Name>Senparc.Weixin.Cache.Memcached</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
       <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
       <Name>Senparc.Weixin.Cache.Redis</Name>
@@ -94,12 +103,19 @@
       <Project>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+      <Project>{1D815FBF-451C-4E23-939C-CB80172F445C}</Project>
+      <Name>Senparc.Weixin.MP</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Utilities\HttpUtility\Upload.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utilities\CachedUtility\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

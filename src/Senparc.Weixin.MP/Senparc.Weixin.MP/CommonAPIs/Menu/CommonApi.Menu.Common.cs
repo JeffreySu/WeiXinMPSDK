@@ -47,6 +47,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170419
     修改描述：v14.3.143 修复上一版本造成的菜单获取错误问题
+
+    修改标识：Senparc - 20170419
+    修改描述：v14.4.13 修复二级菜单小程序无法设置的问题
+
 ----------------------------------------------------------------*/
 
 /*
@@ -57,7 +61,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -186,6 +189,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
+                    else if (rootButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleMediaIdButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleViewLimitedButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
                     else
                     {
                         throw new WeixinMenuException("菜单类型无法处理：" + rootButton.type);
@@ -238,7 +261,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (subSubButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
                         {
                             //小程序
-                            buttonGroup.button.Add(new SingleMiniProgramButton()
+                            subButton.sub_button.Add(new SingleMiniProgramButton()
                             {
                                 name = subSubButton.name,
                                 url = subSubButton.url,
@@ -294,6 +317,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             {
                                 name = subSubButton.name,
                                 key = subSubButton.key,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleMediaIdButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleViewLimitedButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
                                 type = subSubButton.type
                             });
                         }

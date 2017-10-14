@@ -230,7 +230,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <returns></returns>
         public bool Call()
         {
-            StreamReader sr = null;
+#if NET35 || NET40 || NET45 || NET461
+                        StreamReader sr = null;
             HttpWebResponse wr = null;
 
             HttpWebRequest hp = null;
@@ -306,6 +307,9 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             this.ResponseCode = Convert.ToInt32(wr.StatusCode);
 
+#else
+
+#endif
             return true;
         }
     }

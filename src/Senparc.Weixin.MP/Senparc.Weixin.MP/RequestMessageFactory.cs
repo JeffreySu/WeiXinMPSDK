@@ -191,6 +191,54 @@ namespace Senparc.Weixin.MP
                             case "SHAKEAROUNDUSERSHAKE"://摇一摇事件通知
                                 requestMessage = new RequestMessageEvent_ShakearoundUserShake();
                                 break;
+                            case "USER_GIFTING_CARD"://卡券转赠事件推送
+                                requestMessage = new RequestMessageEvent_User_Gifting_Card();
+                                break;
+                            case "USER_PAY_FROM_PAY_CELL":// 微信买单完成
+                                requestMessage = new RequestMessageEvent_User_Pay_From_Pay_Cell();
+                                break;
+                            case "UPDATE_MEMBER_CARD":// 会员卡内容更新事件：会员卡积分余额发生变动时
+                                requestMessage = new RequestMessageEvent_Update_Member_Card();
+                                break;
+
+                            case "CARD_SKU_REMIND"://卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+                                requestMessage = new RequestMessageEvent_Card_Sku_Remind();
+                                break;
+                            case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_Card_Pay_Order();
+                                break;
+
+                            #region 微信认证事件推送
+                            case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
+                                requestMessage = new RequestMessageEvent_QualificationVerifySuccess();
+                                break;
+                            case "QUALIFICATION_VERIFY_FAIL"://资质认证失败
+                                requestMessage = new RequestMessageEvent_QualificationVerifyFail();
+                                break;
+                            case "NAMING_VERIFY_SUCCESS"://名称认证成功（即命名成功）
+                                requestMessage = new RequestMessageEvent_NamingVerifySuccess();
+                                break;
+                            case "NAMING_VERIFY_FAIL"://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+                                requestMessage = new RequestMessageEvent_NamingVerifyFail();
+                                break;
+                            case "ANNUAL_RENEW"://年审通知
+                                requestMessage = new RequestMessageEvent_AnnualRenew();
+                                break;
+                            case "VERIFY_EXPIRED"://认证过期失效通知
+                                requestMessage = new RequestMessageEvent_VerifyExpired();
+                                break;
+
+                            #endregion
+
+                            #region 小程序审核事件推送
+                            case "WEAPP_AUDIT_SUCCESS": //小程序审核成功
+                                requestMessage = new RequestMessageEvent_WeAppAuditSuccess();
+                                break;
+                            case "WEAPP_AUDIT_FAIL": //小程序审核失败
+                                requestMessage = new RequestMessageEvent_WeAppAuditFail();
+                                break;
+                            #endregion
+
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

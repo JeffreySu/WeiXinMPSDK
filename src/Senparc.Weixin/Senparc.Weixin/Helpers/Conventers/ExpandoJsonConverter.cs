@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+#if NET40 || NET45
 
 using System;
 using System.Collections.Generic;
@@ -67,3 +68,4 @@ namespace Senparc.Weixin.Helpers
         }
     }
 }
+#endif

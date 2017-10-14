@@ -31,7 +31,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using System;
-using System.Collections.Generic;
 
 namespace Senparc.Weixin.Cache
 {

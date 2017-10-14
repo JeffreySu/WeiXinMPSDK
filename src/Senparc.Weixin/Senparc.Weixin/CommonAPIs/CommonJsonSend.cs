@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
     创建标识：Senparc - 20151012
-
+           
+    修改标识：Senparc - 20170606
+    修改描述：v14.4.11 完善CommonJsonSend.SendAsync()方法参数
+        
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,7 +48,7 @@ namespace Senparc.Weixin.CommonAPIs
     /// </summary>
     public static class CommonJsonSend
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -110,7 +113,8 @@ namespace Senparc.Weixin.CommonAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -120,9 +124,9 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, JsonSetting jsonSetting = null)
         {
-            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
+            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -174,5 +178,6 @@ namespace Senparc.Weixin.CommonAPIs
         }
 
         #endregion
+#endif
     }
 }

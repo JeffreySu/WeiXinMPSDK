@@ -21,8 +21,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections;
 using System.Text;
-using System.Web;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET35 || NET40 || NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -32,7 +38,11 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
+#if NET35 || NET40 || NET45 || NET461
             this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
 
         /// <summary>
@@ -111,7 +121,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             StringBuilder sb = new StringBuilder();
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
             foreach (string k in akeys)
             {
                 string v = (string)Parameters[k];
@@ -143,7 +153,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -223,7 +233,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

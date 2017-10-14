@@ -69,7 +69,11 @@ namespace Senparc.Weixin.Open.Containers
         public string AuthorizerAppId
         {
             get { return _authorizerAppId; }
-            set { base.SetContainerProperty(ref _authorizerAppId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizerAppId, value, "AuthorizerAppId"); }
+#else
+            set { this.SetContainerProperty(ref _authorizerAppId, value); }
+#endif
         }
 
         /// <summary>
@@ -78,7 +82,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
+#else
+            set { this.SetContainerProperty(ref _componentAppId, value); }
+#endif
         }
 
         ///// <summary>
@@ -106,13 +114,21 @@ namespace Senparc.Weixin.Open.Containers
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+#else
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+#endif
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -121,17 +137,27 @@ namespace Senparc.Weixin.Open.Containers
         public AuthorizationInfo AuthorizationInfo
         {
             get { return _authorizationInfo; }
-            set
-            {
-                base.SetContainerProperty(ref _authorizationInfo, value);
-                //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
-            }
+            //set
+            //{
+            //    base.SetContainerProperty(ref _authorizationInfo, value);
+            //    //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
+            //}
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizationInfo, value, "AuthorizationInfo"); }
+#else
+            set { this.SetContainerProperty(ref _authorizationInfo, value); }
+#endif
+
         }
 
         public DateTime AuthorizationInfoExpireTime
         {
             get { return _authorizationInfoExpireTime; }
-            set { base.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value, "AuthorizationInfoExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -140,7 +166,11 @@ namespace Senparc.Weixin.Open.Containers
         public AuthorizerInfo AuthorizerInfo
         {
             get { return _authorizerInfo; }
-            set { base.SetContainerProperty(ref _authorizerInfo, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizerInfo, value, "AuthorizerInfo"); }
+#else
+            set { this.SetContainerProperty(ref _authorizerInfo, value); }
+#endif
         }
 
         //public DateTime AuthorizerInfoExpireTime { get; set; }
@@ -254,7 +284,7 @@ namespace Senparc.Weixin.Open.Containers
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
                     //获取新的AuthorizerAccessToken
-                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid);
 
                     if (refreshToken == null)
                     {
@@ -358,7 +388,7 @@ namespace Senparc.Weixin.Open.Containers
                 //通知变更
                 if (refreshTokenChanged)
                 {
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
                         new RefreshAuthorizerTokenResult(authorizationInfo.authorizer_access_token,
                             authorizationInfo.authorizer_refresh_token, authorizationInfo.expires_in));
                 }
@@ -394,7 +424,7 @@ namespace Senparc.Weixin.Open.Containers
                 //通知变更
                 if (refreshTokenChanged)
                 {
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
                         new RefreshAuthorizerTokenResult(authorizerAccessToken, authorizerRefreshToken, expiresIn));
                 }
             }
@@ -414,7 +444,7 @@ namespace Senparc.Weixin.Open.Containers
             var refreshResult = ComponentApi.ApiAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
-            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid, refreshResult);
             return refreshResult;
         }
 
@@ -477,8 +507,10 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         #endregion
+
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         #region 授权信息
@@ -506,14 +538,14 @@ namespace Senparc.Weixin.Open.Containers
                     var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
 
                     //获取新的AuthorizerAccessToken
-                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid);
 
                     if (refreshToken == null)
                     {
                         return null;
                     }
 
-                    var refreshResult =await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
+                    var refreshResult = await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
                         refreshToken);
 
                     //更新数据
@@ -600,7 +632,7 @@ namespace Senparc.Weixin.Open.Containers
             var refreshResult = await ComponentApi.ApiAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
-            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid, refreshResult);
             return refreshResult;
         }
 
@@ -665,5 +697,6 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
 
         #endregion
+#endif
     }
 }

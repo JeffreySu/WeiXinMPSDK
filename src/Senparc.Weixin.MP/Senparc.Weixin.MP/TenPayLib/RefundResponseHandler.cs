@@ -29,14 +29,24 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20170623
+    修改描述：使用 ASCII 字典排序
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
-using System.Web;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET35 || NET40 || NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -62,6 +72,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected HttpContext HttpContext;
 
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -87,6 +98,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 this.SetParameter(k, v);
             }
         }
+#endif
 
         /// <summary>
         /// 获取密钥
@@ -140,7 +152,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -160,6 +172,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -178,7 +191,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             this.HttpContext.Response.End();
         }
-
+#endif
         /// <summary>
         /// 获取debug信息
         /// </summary>
@@ -195,8 +208,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string getCharset()
         {
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
-
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
 
         /// <summary>

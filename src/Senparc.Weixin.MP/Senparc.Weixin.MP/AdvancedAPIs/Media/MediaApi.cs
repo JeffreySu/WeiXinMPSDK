@@ -50,6 +50,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    
     修改标识：Senparc - 20170305
     修改描述：v14.3.131 为MediaApi.Get()方法提供ApiHandlerWapper.TryCommonApi()方法支持，可以传入AppId
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
 ----------------------------------------------------------------*/
 
 /*
@@ -73,14 +76,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class MediaApi
     {
-        #region 同步处理
-
+        #region 同步方法
 
         #region 临时素材
         /// <summary>
         /// 新增临时素材（原上传媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type"></param>
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -122,7 +124,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
@@ -138,7 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取临时素材（原下载媒体文件），保存到指定文件夹
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -186,7 +188,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -211,7 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 新增永久视频素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
@@ -234,7 +236,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -273,7 +275,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -294,7 +296,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要修改的图文消息的id</param>
         /// <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -322,7 +324,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 永久素材的总数，也会计算公众平台官网素材管理中的素材
         /// 图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static GetMediaCountResultJson GetMediaCount(string accessTokenOrAppId)
         {
@@ -338,7 +340,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取图文素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -365,7 +367,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取图片、视频、语音素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
@@ -393,7 +395,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 上传图文消息内的图片获取URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -411,26 +413,29 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
 
-        #region 异步处理
+#if !NET35 && !NET40
+        #region 异步方法
+
         #region 临时素材
         /// <summary>
         /// 【异步方法】新增临时素材（原上传媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type"></param>
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<UploadTemporaryMediaResult> UploadTemporaryMediaAsync(string accessTokenOrAppId, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(url, null, fileDictionary, null, null, null, timeOut);
+               return await Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(url, null, fileDictionary, null, null, null, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -444,7 +449,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<UploadTemporaryMediaResult> UploadTemporaryNewsAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
 
@@ -452,7 +457,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                {
                    articles = news
                };
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadTemporaryMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadTemporaryMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -460,7 +465,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
@@ -476,7 +481,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件），保存到指定文件夹
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -509,7 +514,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<UploadForeverMediaResult> UploadNewsAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token={0}";
 
@@ -517,7 +522,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                {
                    articles = news
                };
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -525,13 +530,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<UploadForeverMediaResult> UploadForeverMediaAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
@@ -542,7 +547,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var fileDictionary = new Dictionary<string, string>();
                //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
                fileDictionary["media"] = file;
-               return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+               return await Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -550,7 +555,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】新增永久视频素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
@@ -558,14 +563,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<UploadForeverMediaResult> UploadForeverVideoAsync(string accessTokenOrAppId, string file, string title, string introduction, int timeOut = 40000)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
                fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
-               return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+               return await Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -573,20 +578,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<GetNewsResultJson> GetForeverNewsAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}";
                var data = new
                {
                    media_id = mediaId
                };
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -612,20 +617,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteForeverMediaAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token={0}";
                var data = new
                {
                    media_id = mediaId
                };
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -633,7 +638,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要修改的图文消息的id</param>
         /// <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -641,7 +646,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UpdateForeverNewsAsync(string accessTokenOrAppId, string mediaId, int? index, NewsModel news, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
 
@@ -651,7 +656,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    index = index,
                    articles = news
                };
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -661,15 +666,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 永久素材的总数，也会计算公众平台官网素材管理中的素材
         /// 图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<GetMediaCountResultJson> GetMediaCountAsync(string accessTokenOrAppId)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
-               return HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
+               return await HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
 
            }, accessTokenOrAppId);
         }
@@ -677,14 +682,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取图文素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<MediaList_NewsResult> GetNewsMediaListAsync(string accessTokenOrAppId, int offset, int count, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
@@ -695,7 +700,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
 
@@ -704,7 +709,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取图片、视频、语音素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
@@ -713,7 +718,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<MediaList_OthersResult> GetOthersMediaListAsync(string accessTokenOrAppId, UploadMediaFileType type, int offset,
                                                            int count, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
@@ -724,7 +729,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -732,25 +737,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传图文消息内的图片获取URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<UploadImgResult> UploadImgAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
+               return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
 
         #endregion
+
         #endregion
+#endif
 
     }
 }

@@ -18,6 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+using System.Net;
 using System.Text;
 
 namespace Senparc.Weixin.MP.TenPayLib
@@ -35,7 +36,12 @@ namespace Senparc.Weixin.MP.TenPayLib
         public static string UrlEncode1(string con)
         {
             string UrlEncode = "";
+
+#if NET35 || NET40 || NET45 || NET461
             UrlEncode = System.Web.HttpUtility.UrlEncode(con, Encoding.UTF8);
+#else
+            UrlEncode = WebUtility.UrlEncode(con);
+#endif
             UrlEncode = UrlEncode.Replace("+", "%20");
             return UrlEncode;
         }

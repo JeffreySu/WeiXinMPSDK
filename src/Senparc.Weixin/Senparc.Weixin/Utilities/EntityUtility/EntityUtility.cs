@@ -35,7 +35,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.EntityUtility
@@ -57,20 +57,23 @@ namespace Senparc.Weixin.EntityUtility
             {
                 return default(T);
             }
-
-            if (!typeof(T).IsGenericType)
+            
+            var t = typeof(T);
+#if NET35 || NET40 || NET45
+            if (t.IsGenericType)
+#else
+            if (t.GetTypeInfo().IsGenericType)
+#endif
             {
-                return (T)Convert.ChangeType(convertibleValue, typeof(T));
-            }
-            else
-            {
-                Type genericTypeDefinition = typeof(T).GetGenericTypeDefinition();
-                if (genericTypeDefinition == typeof(Nullable<>))
+                if (t.GetGenericTypeDefinition() != typeof(Nullable<>))
                 {
-                    return (T)Convert.ChangeType(convertibleValue, Nullable.GetUnderlyingType(typeof(T)));
+                    throw new InvalidCastException(string.Format("Invalid cast from type \"{0}\" to type \"{1}\".", convertibleValue.GetType().FullName, typeof(T).FullName));
                 }
+
+                t = Nullable.GetUnderlyingType(t);
             }
-            throw new InvalidCastException(string.Format("Invalid cast from type \"{0}\" to type \"{1}\".", convertibleValue.GetType().FullName, typeof(T).FullName));
+
+            return (T)Convert.ChangeType(convertibleValue, t);
         }
 
 
@@ -152,5 +155,21 @@ namespace Senparc.Weixin.EntityUtility
                     break;
             }
         }
+
+        ///// <summary>
+        ///// 将ApiData专为Dictionary类型
+        ///// </summary>
+        ///// <param name="apiData"></param>
+        //public static Dictionary<string, string> ConvertDataEntityToDictionary<T>(T apiData)
+        //    where T : IApiData
+        //{
+        //    Dictionary<string, string> dic = new Dictionary<string, string>();
+        //    var props = typeof(T).GetProperties(BindingFlags.Public);
+        //    foreach (var propertyInfo in props)
+        //    {
+        //        dic[propertyInfo.Name] = (propertyInfo.GetValue(apiData) ?? "").ToString();
+        //    }
+        //    return dic;
+        //}
     }
 }

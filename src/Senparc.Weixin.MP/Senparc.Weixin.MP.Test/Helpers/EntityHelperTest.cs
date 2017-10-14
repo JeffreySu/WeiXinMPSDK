@@ -91,6 +91,71 @@ namespace Senparc.Weixin.MP.Test
         }
         #endregion
 
+        #region 多层嵌套Entity测试
+
+        private string embedXml = @"<xml>
+    <ToUserName><![CDATA[gh_4d00ed8d6399]]></ToUserName>
+    <FromUserName><![CDATA[oV5CrjpxgaGXNHIQigzNlgLTnwic]]></FromUserName>
+    <CreateTime>1481013459</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+    <MsgID>1000001625</MsgID>
+    <Status><![CDATA[err(30003)]]></Status>
+    <TotalCount>0</TotalCount>
+    <FilterCount>0</FilterCount>
+    <SentCount>0</SentCount>
+    <ErrorCount>0</ErrorCount>
+    <CopyrightCheckResult>
+    <Count>2</Count>
+    <ResultList>
+        <item>
+        <ArticleIdx>1</ArticleIdx>
+        <UserDeclareState>0</UserDeclareState>
+        <AuditState>2</AuditState>
+        <OriginalArticleUrl><![CDATA[Url_1]]></OriginalArticleUrl>
+        <OriginalArticleType>1</OriginalArticleType>
+        <CanReprint>1</CanReprint>
+        <NeedReplaceContent>1</NeedReplaceContent>
+        <NeedShowReprintSource>1</NeedShowReprintSource>
+        </item>
+        <item>
+        <ArticleIdx>2</ArticleIdx>
+        <UserDeclareState>0</UserDeclareState>
+        <AuditState>2</AuditState>
+        <OriginalArticleUrl><![CDATA[Url_2]]></OriginalArticleUrl>
+        <OriginalArticleType>1</OriginalArticleType>
+        <CanReprint>1</CanReprint>
+        <NeedReplaceContent>1</NeedReplaceContent>
+        <NeedShowReprintSource>1</NeedShowReprintSource>
+        </item>
+    </ResultList>
+    <CheckState>2</CheckState>
+    </CopyrightCheckResult>
+</xml>";
+
+
+        /// <summary>
+        /// 测试多层复杂结构XML
+        /// </summary>
+        [TestMethod]
+        public void FillEntityWithEmbedXmlTest()
+        {
+            var doc = XDocument.Parse(embedXml);
+            var entity = RequestMessageFactory.GetRequestEntity(doc);
+            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+
+            Assert.AreEqual("gh_4d00ed8d6399", entity.ToUserName);
+            Assert.AreEqual(RequestMsgType.Event, entity.MsgType);
+
+            var strongEntity = entity as RequestMessageEvent_MassSendJobFinish;
+            Assert.IsNotNull(strongEntity);
+            Assert.AreEqual(2,strongEntity.CopyrightCheckResult.Count);
+            Assert.AreEqual("Url_1", strongEntity.CopyrightCheckResult.ResultList[0].item.OriginalArticleUrl);
+            Assert.AreEqual("Url_2", strongEntity.CopyrightCheckResult.ResultList[1].item.OriginalArticleUrl);
+        }
+
+        #endregion
+
 
         [TestMethod]
         public void ConvertEntityToXmlTest()

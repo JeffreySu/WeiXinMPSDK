@@ -14,7 +14,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+#if NET45
 using System.Web.Routing;
+#else
+using Microsoft.AspNetCore.Routing;
+#endif
 
 namespace Senparc.WebSocket
 {
@@ -25,6 +30,7 @@ namespace Senparc.WebSocket
     {
         internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
+#if NET45
         /// <summary>
         /// 注册WebSocket路由规则
         /// </summary>
@@ -34,6 +40,7 @@ namespace Senparc.WebSocket
             var route = new WebSocketRoute("SenparcWebSocket", new WebSocketRouteHandler());
             routes.Add("SenparcWebSocketRoute", route);//SenparcWebSocket/{app}
         }
+#endif
 
         /// <summary>
         /// 注册WebSocketMessageHandler
@@ -42,6 +49,15 @@ namespace Senparc.WebSocket
         public static void RegisterMessageHandler<T>() where T : WebSocketMessageHandler, new()
         {
             WebSocketMessageHandlerFunc = () => new T();
+        }
+
+        /// <summary>
+        /// 注册WebSocketMessageHandler，自定义对象的实例化方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void RegisterMessageHandler<T>(Func<T> func) where T : WebSocketMessageHandler, new()
+        {
+            WebSocketMessageHandlerFunc = func;
         }
     }
 }

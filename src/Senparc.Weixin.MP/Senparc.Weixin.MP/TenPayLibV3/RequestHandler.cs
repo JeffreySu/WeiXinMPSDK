@@ -48,8 +48,15 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET35 || NET40 || NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.StringHelper;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -80,7 +87,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-            this.HttpContext = httpContext ?? HttpContext.Current;
+#if NET35 || NET40 || NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
 
         }
         /// <summary>
@@ -175,7 +186,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -190,7 +201,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
 
             return sign;
         }
@@ -239,12 +254,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected virtual string GetCharset()
         {
-            if (this.HttpContext == null)
+#if NET35 || NET40 || NET45 || NET461
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;
             }
 
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
+            {
+                return Encoding.UTF8.WebName;
+            }
+
+            return this.HttpContext.Request.Headers["charset"];
+#endif
+
         }
     }
 }

@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
               其改为Senparc.Weixin.MP.AdvancedAPIs      
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
 ----------------------------------------------------------------*/
 
 using System;
@@ -48,13 +51,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     将一条长链接转成短链接。
         主要使用场景： 开发者用于生成二维码的原链接（商品、支付二维码等）太长导致扫码速度和成功率下降，将原长链接通过此接口转成短链接再生成二维码将大大提升扫码速度和成功率。
         */
-        #region 同步请求
+        #region 同步方法
         
         
         ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
@@ -74,17 +77,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
          ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
         public static async Task<ShortUrlResult> ShortUrlAsync(string accessTokenOrAppId, string action, string longUrl, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token={0}";
                 var data = new
@@ -92,10 +96,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     action = action,
                     long_url = longUrl
                 };
-                return Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

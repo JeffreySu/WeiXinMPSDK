@@ -10,13 +10,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Web;
-using System.Web.Configuration;
+
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
@@ -25,11 +23,20 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.Request;
+
+#if NET45
+using System.Web;
+using System.Configuration;
+using System.Web.Configuration;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#else
+using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+#endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -46,7 +53,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if DEBUG
+#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -57,8 +64,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
+#if NET45
         private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+#else
+        private string appId = "appId";
+        private string appSecret = "appSecret";
+#endif
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
@@ -191,7 +203,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     #region 暂时转发到SDK线上Demo
 
                     agentUrl = "http://sdk.weixin.senparc.com/weixin";
-                    agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
+                    //agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                     //修改内容，防止死循环
                     var agentDoc = XDocument.Parse(agentXml);
@@ -252,6 +264,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Keyword("AsyncTest", () =>
                 {
                     //异步并发测试（提供给单元测试使用）
+#if NET45
                     DateTime begin = DateTime.Now;
                     int t1, t2, t3;
                     System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
@@ -266,6 +279,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                             end,
                             t2 - t1
                             );
+#endif
+
                     return defaultResponseMessage;
                 })
                 .Keyword("OPEN", () =>
@@ -291,7 +306,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 })
                 .Keyword("容错", () =>
                 {
-                    Thread.Sleep(1500);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                    Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
                     var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                     faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
                         DateTime.Now.Ticks);
@@ -321,9 +336,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
                     return defaultResponseMessage;
                 })
-                .Keyword("MUTE", () =>
+                .Keyword("MUTE", () => //不回复任何消息
                 {
+                    //方案一：
                     return new SuccessResponseMessage();
+
+                    //方案二：
+                    var muteResponseMessage = base.CreateResponseMessage<ResponseMessageNoResponse>();
+                    return muteResponseMessage;
+
+                    //方案三：
                     base.TextResponseMessage = "success";
                     return null;
                 })
@@ -346,7 +368,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         {
                             var historyMessage = CurrentMessageContext.RequestMessages[i];
                             result.AppendFormat("{0} 【{1}】{2}\r\n",
-                                historyMessage.CreateTime.ToShortTimeString(),
+                                historyMessage.CreateTime.ToString("HH:mm:ss"),
                                 historyMessage.MsgType.ToString(),
                                 (historyMessage is RequestMessageText)
                                     ? (historyMessage as RequestMessageText).Content
@@ -364,6 +386,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     defaultResponseMessage.Content = result.ToString();
                     return defaultResponseMessage;
+                })
+                //“一次订阅消息”接口测试
+                .Keyword("订阅", () =>
+                {
+                        defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
+                        return defaultResponseMessage;
                 })
                 //正则表达式
                 .Regex(@"^\d+#\d+$", () =>
@@ -401,23 +429,34 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
-            var responseMessage = CreateResponseMessage<ResponseMessageNews>();
-            responseMessage.Articles.Add(new Article()
+            //一隔一返回News或Image格式
+            if (base.WeixinContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {
-                Title = "您刚才发送了图片信息",
-                Description = "您发送的图片将会显示在边上",
-                PicUrl = requestMessage.PicUrl,
-                Url = "http://sdk.weixin.senparc.com"
-            });
-            responseMessage.Articles.Add(new Article()
-            {
-                Title = "第二条",
-                Description = "第二条带连接的内容",
-                PicUrl = requestMessage.PicUrl,
-                Url = "http://sdk.weixin.senparc.com"
-            });
+                var responseMessage = CreateResponseMessage<ResponseMessageNews>();
 
-            return responseMessage;
+                responseMessage.Articles.Add(new Article()
+                {
+                    Title = "您刚才发送了图片信息",
+                    Description = "您发送的图片将会显示在边上",
+                    PicUrl = requestMessage.PicUrl,
+                    Url = "http://sdk.weixin.senparc.com"
+                });
+                responseMessage.Articles.Add(new Article()
+                {
+                    Title = "第二条",
+                    Description = "第二条带连接的内容",
+                    PicUrl = requestMessage.PicUrl,
+                    Url = "http://sdk.weixin.senparc.com"
+                });
+
+                return responseMessage;
+            }
+            else
+            {
+                var responseMessage = CreateResponseMessage<ResponseMessageImage>();
+                responseMessage.Image.MediaId = requestMessage.MediaId;
+                return responseMessage;
+            }
         }
 
         /// <summary>

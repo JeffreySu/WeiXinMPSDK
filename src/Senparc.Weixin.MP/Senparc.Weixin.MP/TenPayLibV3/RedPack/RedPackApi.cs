@@ -453,8 +453,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 #endif
 
             XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
-            doc.Load(response);
+            doc.LoadXml(responseContent);
+            //doc.Load(response);
 
             //XDocument xDoc = XDocument.Load(responseContent);
 
@@ -626,8 +626,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
 
             XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
-            doc.Load(response);
+            doc.LoadXml(responseContent);
+            //doc.Load(response);
 
             SearchRedPackResult searchReturn = new SearchRedPackResult
             {

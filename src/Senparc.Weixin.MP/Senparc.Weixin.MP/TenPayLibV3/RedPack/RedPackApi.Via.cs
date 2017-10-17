@@ -49,10 +49,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 {
     public partial class RedPackApi
     {
-#region 同步方法
+        #region 同步方法
 
-        
-#region 服务商
+
+        #region 服务商
 
         /// <summary>
         /// 普通红包发送(服务商）
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
-#region 发起post请求
+            #region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -169,9 +169,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string response = streamReader.ReadToEnd();
-#endregion
+            #endregion
 #else
-#region 发起post请求
+            #region 发起post请求
             HttpClientHandler handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cer);
 
@@ -179,12 +179,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             HttpContent hc = new StringContent(data);
             var request = client.PostAsync(url, hc).Result;
             var response = request.Content.ReadAsStreamAsync().Result;
-#endregion
+            #endregion
 #endif
 
             XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
-            doc.Load(response);
+            doc.LoadXml(responseContent);
+            //doc.Load(response);
 
             //XDocument xDoc = XDocument.Load(responseContent);
 
@@ -282,19 +282,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return normalReturn;
         }
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
 
-#region 异步方法
+        #region 异步方法
 
 
-#region 服务商
+        #region 服务商
 
         //暂未提供异步方法
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
     }
 }

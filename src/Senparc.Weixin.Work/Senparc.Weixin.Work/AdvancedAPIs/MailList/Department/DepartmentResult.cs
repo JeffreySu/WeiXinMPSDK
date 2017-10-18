@@ -51,7 +51,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 上级部门id
         /// </summary>
-        public int parentid { get; set; }
+        public long parentid { get; set; }
         /// <summary>
         /// 在父部门中的次序值。order值小的排序靠前。
         /// </summary>

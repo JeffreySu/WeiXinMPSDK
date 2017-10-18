@@ -304,7 +304,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, long parentId, int order = 1, int? id = null, int timeOut = Config.TIME_OUT)
+        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, long parentId, int order = 1, long? id = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

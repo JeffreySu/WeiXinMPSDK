@@ -75,7 +75,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
+#else
+            set { this.SetContainerProperty(ref _componentAppId, value); }
+#endif
         }
 
         /// <summary>
@@ -84,7 +88,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppSecret
         {
             get { return _componentAppSecret; }
-            set { base.SetContainerProperty(ref _componentAppSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _componentAppSecret, value); }
+#endif
         }
 
         /// <summary>
@@ -93,7 +101,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentVerifyTicket
         {
             get { return _componentVerifyTicket; }
-            set { base.SetContainerProperty(ref _componentVerifyTicket, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
+#else
+            set { this.SetContainerProperty(ref _componentVerifyTicket, value); }
+#endif
         }
 
         /// <summary>
@@ -102,7 +114,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentVerifyTicketExpireTime
         {
             get { return _componentVerifyTicketExpireTime; }
-            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+#endif
 
         }
 
@@ -112,7 +128,11 @@ namespace Senparc.Weixin.Open.Containers
         public ComponentAccessTokenResult ComponentAccessTokenResult
         {
             get { return _componentAccessTokenResult; }
-            set { base.SetContainerProperty(ref _componentAccessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _componentAccessTokenResult, value); }
+#endif
         }
 
         /// <summary>
@@ -121,7 +141,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentAccessTokenExpireTime
         {
             get { return _componentAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+#endif
         }
 
 
@@ -131,7 +155,11 @@ namespace Senparc.Weixin.Open.Containers
         public PreAuthCodeResult PreAuthCodeResult
         {
             get { return _preAuthCodeResult; }
-            set { base.SetContainerProperty(ref _preAuthCodeResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
+#else
+            set { this.SetContainerProperty(ref _preAuthCodeResult, value); }
+#endif
         }
 
         /// <summary>
@@ -140,7 +168,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime PreAuthCodeExpireTime
         {
             get { return _preAuthCodeExpireTime; }
-            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -149,7 +181,11 @@ namespace Senparc.Weixin.Open.Containers
         public string AuthorizerAccessToken
         {
             get { return _authorizerAccessToken; }
-            set { base.SetContainerProperty(ref _authorizerAccessToken, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
+#else
+            set { this.SetContainerProperty(ref _authorizerAccessToken, value); }
+#endif
         }
 
         /// <summary>
@@ -471,6 +507,7 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         #region component_access_token
 
@@ -636,5 +673,6 @@ namespace Senparc.Weixin.Open.Containers
         }
         #endregion
         #endregion
+#endif
     }
 }

@@ -39,10 +39,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
+#endif
+
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers
@@ -106,6 +110,8 @@ namespace Senparc.Weixin.Helpers
             TypesToIgnore = typesToIgnore ?? new List<Type>();
         }
     }
+
+#if NET35 || NET40 || NET45
 
     /// <summary>
     /// 微信 JSON 转换器
@@ -171,6 +177,25 @@ namespace Senparc.Weixin.Helpers
 
 
                         //当值匹配时需要忽略的属性
+
+#if NET35 || NET40
+                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.IgnoreValueAttribute), false).FirstOrDefault() as JsonSetting.IgnoreValueAttribute;
+                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj, null)))
+                        {
+                            continue;
+                        }
+
+                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.EnumStringAttribute), false).FirstOrDefault() as JsonSetting.EnumStringAttribute;
+                        if (enumStringAttri != null)
+                        {
+                            //枚举类型显示字符串
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null).ToString());
+                        }
+                        else
+                        {
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                        }
+#else
                         JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
                         if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
                         {
@@ -187,6 +212,7 @@ namespace Senparc.Weixin.Helpers
                         {
                             result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
                         }
+#endif
                     }
                 }
             }
@@ -198,4 +224,6 @@ namespace Senparc.Weixin.Helpers
             throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
+#endif
+
 }

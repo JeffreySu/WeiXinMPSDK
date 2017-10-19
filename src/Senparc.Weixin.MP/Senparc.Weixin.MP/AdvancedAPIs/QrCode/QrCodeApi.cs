@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class QrCodeApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 创建二维码
@@ -132,6 +132,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case QrCode_ActionName.QR_STR_SCENE:
                         data = new
                         {
+                            expire_seconds = expireSeconds,
                             action_name = "QR_STR_SCENE",
                             action_info = new
                             {
@@ -204,7 +205,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 创建二维码
@@ -268,6 +270,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case QrCode_ActionName.QR_STR_SCENE:
                         data = new
                         {
+                            expire_seconds = expireSeconds,
                             action_name = "QR_STR_SCENE",
                             action_info = new
                             {
@@ -327,5 +330,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+#endif
     }
 }

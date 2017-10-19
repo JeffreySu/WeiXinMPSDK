@@ -35,7 +35,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Globalization;
 using System.Text.RegularExpressions;
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace Senparc.Weixin.Helpers
 {
@@ -68,14 +72,26 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
+            string jsonString;
+#if NET35 || NET40 || NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             jsSerializer.RegisterConverters(new JavaScriptConverter[]
             {
                 new WeixinJsonConventer(data.GetType(), jsonSetting),
+#if !NET35
                 new ExpandoJsonConverter()
+#endif
             });
+            jsonString = jsSerializer.Serialize(data);
+#else
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
 
-            var jsonString = jsSerializer.Serialize(data);
+            jsonString = JsonConvert.SerializeObject(data, settings);
+#endif
+
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
@@ -91,8 +107,13 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public T GetObject<T>(string jsonString)
         {
+#if NET35 || NET40 || NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             return jsSerializer.Deserialize<T>(jsonString);
+#else
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(T));
+#endif
+
         }
     }
 }

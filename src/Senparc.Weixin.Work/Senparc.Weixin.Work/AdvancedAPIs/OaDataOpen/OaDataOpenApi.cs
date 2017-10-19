@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
             全部打卡 = 3
         }
 
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 获取打卡数据【QY移植新增】
@@ -66,8 +66,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
 
@@ -75,10 +73,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 获取审批数据【QY移植新增】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
-        /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static GetApprovalDataJsonResult GetApprovalData(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
@@ -104,7 +100,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
         #endregion
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】
@@ -167,5 +164,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         #endregion
+#endif
     }
 }

@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20160722
     修改描述：增加了thumb_url的参数
+    
+    修改标识：Senparc - 20170810
+    修改描述：v14.5.9 增加need_open_comment、only_fans_can_comment参数
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
@@ -59,5 +62,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// 缩略图的URL
         /// </summary>
         public string  thumb_url { get; set; }
+
+        /// <summary>
+        /// 是否打开评论，0不打开，1打开
+        /// </summary>
+        public int need_open_comment { get; set; }
+        /// <summary>
+        /// 是否粉丝才可评论，0所有人可评论，1粉丝才可评论
+        /// </summary>
+        public int only_fans_can_comment { get; set; }
+
     }
 }

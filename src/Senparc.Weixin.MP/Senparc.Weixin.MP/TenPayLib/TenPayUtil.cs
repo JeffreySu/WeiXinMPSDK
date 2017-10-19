@@ -1,4 +1,4 @@
-#region Apache License Version 2.0
+ï»¿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -21,39 +21,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
  
-    ÎÄ¼şÃû£ºTenPayUtil.cs
-    ÎÄ¼ş¹¦ÄÜÃèÊö£ºÎ¢ĞÅÖ§¸¶ÅäÖÃÎÄ¼ş
+    æ–‡ä»¶åï¼šTenPayUtil.cs
+    æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜é…ç½®æ–‡ä»¶
     
     
-    ´´½¨±êÊ¶£ºSenparc - 20150211
+    åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
     
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20150303
-    ĞŞ¸ÄÃèÊö£ºÕûÀí½Ó¿Ú
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+    ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
  
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20161014
-    ĞŞ¸ÄÃèÊö£ºĞŞ¸ÄTenPayUtil.BuildRandomStr()·½·¨
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20161014
+    ä¿®æ”¹æè¿°ï¼šä¿®æ”¹TenPayUtil.BuildRandomStr()æ–¹æ³•
+        
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20171010
+    ä¿®æ”¹æè¿°ï¼šv14.8.1 ä¿®å¤å‡ å¤„GetNoncestrè¿˜åœ¨ä½¿ç”¨GBKç¼–ç 
 ----------------------------------------------------------------*/
 
 using System;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
+using System.Net;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
-    /// TenpayUtil µÄÕªÒªËµÃ÷¡£
-    /// ÅäÖÃÎÄ¼ş
+    /// TenpayUtil çš„æ‘˜è¦è¯´æ˜ã€‚
+    /// é…ç½®æ–‡ä»¶
     /// </summary>
     public class TenPayUtil
     {
         /// <summary>
-        /// Ëæ»úÉú³ÉNoncestr
+        /// éšæœºç”ŸæˆNoncestr
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            Random random = new Random();
-            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         public static string GetTimestamp()
@@ -63,7 +67,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         }
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞURL±àÂë
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLç¼–ç 
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -75,25 +79,31 @@ namespace Senparc.Weixin.MP.TenPayLib
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
             }
         }
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞURL½âÂë
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLè§£ç 
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -108,32 +118,42 @@ namespace Senparc.Weixin.MP.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
 
             }
         }
 
-
         /// <summary>
-        /// È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êı,Ìæ»»½»Ò×µ¥ºÅÖĞµÄºó10Î»Á÷Ë®ºÅ
+        /// å–æ—¶é—´æˆ³ç”Ÿæˆéšå³æ•°,æ›¿æ¢äº¤æ˜“å•å·ä¸­çš„å10ä½æµæ°´å·
         /// </summary>
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if NET35 || NET40 || NET45 || NET461
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
+
         /// <summary>
-        /// È¡Ëæ»úÊı
+        /// å–éšæœºæ•°
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>

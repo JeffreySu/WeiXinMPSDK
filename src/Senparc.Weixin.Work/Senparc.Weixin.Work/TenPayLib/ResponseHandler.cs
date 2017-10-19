@@ -16,10 +16,15 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.Work.Helpers;
+
+#if NET35 || NET40 || NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -68,9 +73,13 @@ namespace Senparc.Weixin.Work.TenPayLib
         /// </summary>
         protected string Content;
 
-        private string Charset = "gb2312";
+#if NET35 || NET40 || NET45 || NET461
+        //private string Charset = "gb2312";
+#else
+        private int Charset = 936;
+#endif
 
-		protected HttpContext HttpContext;
+        protected HttpContext HttpContext;
 
         /// <summary>
         /// 初始化函数
@@ -79,6 +88,50 @@ namespace Senparc.Weixin.Work.TenPayLib
         {
         }
 
+#if NET35 || NET40 || NET45 || NET461
+		/// <summary>
+		/// 获取页面提交的get和post参数
+		/// </summary>
+		/// <param name="httpContext"></param>
+		public ResponseHandler(HttpContext httpContext)
+		{
+			Parameters = new Hashtable();
+			XmlMap = new Hashtable();
+
+			this.HttpContext = httpContext ?? HttpContext.Current;
+			NameValueCollection collection;
+			//post data
+			if (this.HttpContext.Request.HttpMethod == "POST")
+			{
+				collection = this.HttpContext.Request.Form;
+				foreach (string k in collection)
+				{
+					string v = (string)collection[k];
+					this.SetParameter(k, v);
+				}
+			}
+			//query string
+			collection = this.HttpContext.Request.QueryString;
+			foreach (string k in collection)
+			{
+				string v = (string)collection[k];
+				this.SetParameter(k, v);
+			}
+			if (this.HttpContext.Request.InputStream.Length > 0)
+			{
+				XmlDocument xmlDoc = new XmlDocument();
+				xmlDoc.Load(this.HttpContext.Request.InputStream);
+				XmlNode root = xmlDoc.SelectSingleNode("xml");
+				XmlNodeList xnl = root.ChildNodes;
+
+				foreach (XmlNode xnf in xnl)
+				{
+					XmlMap.Add(xnf.Name, xnf.InnerText);
+					this.SetParameter(xnf.Name, xnf.InnerText);
+				}
+			}
+		}
+#else
         /// <summary>
         /// 获取页面提交的get和post参数
         /// </summary>
@@ -88,46 +141,43 @@ namespace Senparc.Weixin.Work.TenPayLib
             Parameters = new Hashtable();
             XmlMap = new Hashtable();
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
-            NameValueCollection collection;
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+            IFormCollection collection;
             //post data
-            if (this.HttpContext.Request.HttpMethod == "POST")
+            if (this.HttpContext.Request.Method.ToUpper() == "POST" && this.HttpContext.Request.HasFormContentType)
             {
                 collection = this.HttpContext.Request.Form;
-                foreach (string k in collection)
+                foreach (var k in collection)
                 {
-                    string v = (string)collection[k];
-                    this.SetParameter(k, v);
+                    this.SetParameter(k.Key, k.Value[0]);
                 }
             }
             //query string
-            collection = this.HttpContext.Request.QueryString;
-            foreach (string k in collection)
+            var coll = this.HttpContext.Request.Query;
+            foreach (var k in coll)
             {
-                string v = (string)collection[k];
-                this.SetParameter(k, v);
+                this.SetParameter(k.Key, k.Value[0]);
             }
-            if (this.HttpContext.Request.InputStream.Length > 0)
+            if (this.HttpContext.Request.Body.Length > 0)
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(this.HttpContext.Request.InputStream);
+                xmlDoc.Load(this.HttpContext.Request.Body);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;
 
                 foreach (XmlNode xnf in xnl)
                 {
                     XmlMap.Add(xnf.Name, xnf.InnerText);
-                    this.SetParameter(xnf.Name, xnf.InnerText);
                 }
             }
         }
-    
+#endif
 
-		/// <summary>
+        /// <summary>
         /// 获取密钥
-		/// </summary>
-		/// <returns></returns>
-		public string GetKey() 
+        /// </summary>
+        /// <returns></returns>
+        public string GetKey() 
 		{ return Key;}
 
 		/// <summary>
@@ -212,9 +262,13 @@ namespace Senparc.Weixin.Work.TenPayLib
 
 		protected virtual string GetCharset()
 		{
-			return this.HttpContext.Request.ContentEncoding.BodyName;
-			
-		}
+#if NET35 || NET40 || NET45 || NET461
+            return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
+
+        }
 
         /// <summary>
         /// 输出XML

@@ -1,0 +1,4 @@
+# git ignore file
+*.txt
+WeixinTraceLog/*
+/MP

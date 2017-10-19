@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class PictureApi
     {
-        #region 同步请求
+        #region 同步方法
         public static PictureResult UploadImg(string accessToken, string fileName)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
@@ -63,7 +63,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
@@ -79,5 +80,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return json;
         }
         #endregion
+#endif
     }
 }

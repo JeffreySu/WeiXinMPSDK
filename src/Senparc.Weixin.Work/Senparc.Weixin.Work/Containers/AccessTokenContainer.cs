@@ -62,7 +62,11 @@ namespace Senparc.Weixin.Work.Containers
         public string CorpId
         {
             get { return _corpId; }
-            set { base.SetContainerProperty(ref _corpId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _corpId, value, "CorpId"); }
+#else
+            set { this.SetContainerProperty(ref _corpId, value); }
+#endif
         }
         /// <summary>
         /// CorpSecret
@@ -70,7 +74,11 @@ namespace Senparc.Weixin.Work.Containers
         public string CorpSecret
         {
             get { return _corpSecret; }
-            set { base.SetContainerProperty(ref _corpSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _corpSecret, value, "CorpSecret"); }
+#else
+            set { this.SetContainerProperty(ref _corpSecret, value); }
+#endif
         }
         /// <summary>
         /// 过期时间
@@ -78,7 +86,11 @@ namespace Senparc.Weixin.Work.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _expireTime, value); }
+#endif
         }
         /// <summary>
         /// AccessTokenResult
@@ -86,7 +98,11 @@ namespace Senparc.Weixin.Work.Containers
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
-            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _accessTokenResult, value); }
+#endif
         }
 
         /// <summary>
@@ -289,6 +305,7 @@ namespace Senparc.Weixin.Work.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
@@ -385,5 +402,6 @@ namespace Senparc.Weixin.Work.Containers
             return accessTokenBag.AccessTokenResult;
         }
         #endregion
+#endif
     }
 }

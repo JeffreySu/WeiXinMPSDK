@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class TenPay
     {
-        #region 同步处理
+        #region 同步方法
         
        /*此接口不提供异步方法*/
         /// <summary>
@@ -132,7 +132,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步处理
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】发货通知
         /// </summary>
@@ -195,5 +196,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OrderqueryResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

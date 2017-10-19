@@ -7,6 +7,8 @@
 
     创建标识：Senparc - 20170629
     
+    修改标识：Senparc - 20160707
+    修改描述：完善微信开放平台帐号管理
 ----------------------------------------------------------------*/
 
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
 {
     public static class OpenApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 创建开放平台帐号并绑定公众号/小程序。
@@ -76,7 +78,8 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
 
         #endregion
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】创建开放平台帐号并绑定公众号/小程序。
@@ -134,5 +137,6 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         }
 
         #endregion
+#endif
     }
 }

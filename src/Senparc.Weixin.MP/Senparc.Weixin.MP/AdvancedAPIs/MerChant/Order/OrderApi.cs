@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class OrderApi
     {
-        #region 同步请求
+        #region 同步方法
         
         
         /// <summary>
@@ -147,7 +147,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
         #endregion
-        #region 异步请求
+
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】根据订单ID获取订单详情
         /// </summary>
@@ -243,5 +245,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

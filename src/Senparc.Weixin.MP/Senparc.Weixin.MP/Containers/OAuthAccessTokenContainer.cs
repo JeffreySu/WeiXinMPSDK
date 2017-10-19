@@ -41,6 +41,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -68,24 +69,40 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+#else
+            set { this.SetContainerProperty(ref _appId, value); }
+#endif
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _appSecret, value); }
+#endif
         }
 
         public OAuthAccessTokenResult OAuthAccessTokenResult
         {
             get { return _oAuthAccessTokenResult; }
-            set { base.SetContainerProperty(ref _oAuthAccessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _oAuthAccessTokenResult, value, "OAuthAccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _oAuthAccessTokenResult, value); }
+#endif
         }
 
         public DateTime OAuthAccessTokenExpireTime
         {
             get { return _oAuthAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _oAuthAccessTokenExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _oAuthAccessTokenExpireTime, value, "OAuthAccessTokenExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _oAuthAccessTokenExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -202,6 +219,7 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         #region OAuthAccessToken
 
@@ -267,5 +285,6 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
         #endregion
+#endif
     }
 }

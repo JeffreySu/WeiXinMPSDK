@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
     {
         public const string API_URL = "https://qyapi.weixin.qq.com/cgi-bin";
 
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取AccessToken
@@ -154,7 +154,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// 【异步方法】<summary>
         /// 获取AccessToken
         /// </summary>
@@ -263,5 +264,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
+#endif
     }
 }

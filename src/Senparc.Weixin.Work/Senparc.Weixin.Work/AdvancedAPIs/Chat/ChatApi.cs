@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     public static class ChatApi
     {
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -45,6 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -292,7 +293,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】创建会话
         /// </summary>
@@ -303,6 +305,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -549,5 +552,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

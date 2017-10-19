@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
 
 
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -57,7 +57,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】获取企业号管理员登录信息【Work中未定义】
@@ -84,6 +85,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
 
     }
 }

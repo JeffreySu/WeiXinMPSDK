@@ -61,7 +61,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -190,6 +189,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
+                    else if (rootButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleMediaIdButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleViewLimitedButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
                     else
                     {
                         throw new WeixinMenuException("菜单类型无法处理：" + rootButton.type);
@@ -298,6 +317,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             {
                                 name = subSubButton.name,
                                 key = subSubButton.key,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleMediaIdButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleViewLimitedButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
                                 type = subSubButton.type
                             });
                         }

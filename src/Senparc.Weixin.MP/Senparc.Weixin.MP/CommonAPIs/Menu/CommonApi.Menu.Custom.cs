@@ -51,12 +51,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+
+#if NET35 || NET40 || NET45
+using System.Web.Script.Serialization;
+#endif
+
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -153,8 +157,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
 
+#if NET35 || NET40 || NET45
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 jsonResult = js.Deserialize<object>(jsonString);
+#else
+                jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(jsonString);
+#endif
 
                 var fullResult = jsonResult as Dictionary<string, object>;
                 if (fullResult != null && fullResult.ContainsKey("menu"))
@@ -219,10 +227,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;
-                JavaScriptSerializer js = new JavaScriptSerializer();
                 try
                 {
+
+#if NET35 || NET40 || NET45
+                    JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
+#else
+                    var jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
+#endif
+
                     if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
                     {
                         throw new WeixinMenuException(jsonResult.errmsg);
@@ -237,7 +251,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 }
                 catch (Exception)
                 {
-                    throw; 
+                    throw;
                 }
 
                 return finalResult;

@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20171008
+    修改描述：为支持.NET 3.5修改GetQRConnectUrl()方法
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -29,7 +32,7 @@ namespace Senparc.Weixin.Open.QRConnect
     /// </summary>
     public static class QRConnectAPI
     {
-        #region 同步请求
+        #region 同步方法
         
        
         /*此接口不提供异步方法*/
@@ -47,7 +50,7 @@ namespace Senparc.Weixin.Open.QRConnect
             //此URL比MP中的对应接口多了&component_appid=component_appid参数
             var url =
                 string.Format("https://open.weixin.qq.com/connect/qrconnect?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}#wechat_redirect",
-                                appId.AsUrlData(), redirectUrl.AsUrlData(), responseType.AsUrlData(), string.Join(",", scopes.Select(z => z.ToString())).AsUrlData(), state.AsUrlData());
+                                appId.AsUrlData(), redirectUrl.AsUrlData(), responseType.AsUrlData(), string.Join(",", scopes.Select(z => z.ToString()).ToArray()).AsUrlData(), state.AsUrlData());
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 用户允许授权后，将会重定向到redirect_uri的网址上，并且带上code和state参数redirect_uri?code=CODE&state=STATE
@@ -132,7 +135,8 @@ namespace Senparc.Weixin.Open.QRConnect
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
          /// <summary>
         /// 【异步方法】获取AccessToken
         /// </summary>
@@ -208,5 +212,6 @@ namespace Senparc.Weixin.Open.QRConnect
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
+#endif
     }
 }

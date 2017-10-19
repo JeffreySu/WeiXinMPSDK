@@ -34,7 +34,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class AsynchronousApi
     {
-        #region 同步请求
+        #region 同步方法
 
         #region 通讯录更新
 
@@ -220,7 +220,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         #region 通讯录更新
 
@@ -405,5 +406,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
         #endregion
+#endif
     }
 }

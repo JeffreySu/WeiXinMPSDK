@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -27,7 +27,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
@@ -57,7 +57,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -73,6 +73,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -129,11 +132,14 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
+    <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
+    <Compile Include="Helpers\Entity\EntityHelper.cs" />
+    <Compile Include="Helpers\Extensions\ObjectExtensions.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
@@ -143,6 +149,7 @@
     <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
+    <Compile Include="NET35\System.Threading.Tasks.cs" />
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Threads\ThreadUtility.cs" />
@@ -151,6 +158,9 @@
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
     <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
     <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.Get.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.Post.cs" />
+    <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
     <Compile Include="Utilities\HttpUtility\Get.cs" />
@@ -168,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

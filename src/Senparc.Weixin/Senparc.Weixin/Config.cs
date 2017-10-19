@@ -34,6 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.7.7 添加DefaultCacheNamespace
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -87,5 +88,23 @@ namespace Senparc.Weixin
         /// 默认缓存键的第一级命名空间，默认值：DefaultCache
         /// </summary>
         public static string DefaultCacheNamespace = "DefaultCache";//TODO:需要考虑分布式的情况，后期需要储存在缓存中,或进行全局配置
+
+#if !NET45
+         /// <summary>
+        /// 默认微信配置
+        /// </summary>
+        public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
+#endif
+
+
+        /// <summary>
+        /// 微信支付使用沙箱模式
+        /// </summary>
+        public static bool UseSandBoxPay { get; set; }
+
+        /// <summary>
+        /// 网站根目录绝对路径
+        /// </summary>
+        public static string RootDictionaryPath { get; set; }
     }
 }

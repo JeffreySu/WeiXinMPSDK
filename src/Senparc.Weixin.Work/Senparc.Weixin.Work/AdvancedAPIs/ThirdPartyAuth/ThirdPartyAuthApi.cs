@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取应用套件令牌【QY移植修改】
@@ -293,7 +293,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         ///【异步方法】 获取应用套件令牌【QY移植修改】
@@ -539,5 +540,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

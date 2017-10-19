@@ -65,6 +65,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170702
     修改描述：v14.5.0 为了配合新版本ApiHandlerWapper方法，GetAccessTokenResultAsync方法的返回值从Task<AccessTokenResult>改为Task<IAccessTokenResult>
+    
+    修改标识：Senparc - 20170702
+    修改描述：v14.5.5 修改Container中的锁及异步调用方法
+
+    修改标识：Senparc - 20170702
+    修改描述：v14.6.2 回滚 v14.5.5中修改的方法（同步方法中调用异步方法）
 
 ----------------------------------------------------------------*/
 
@@ -93,25 +99,41 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+#else
+            set { this.SetContainerProperty(ref _appId, value); }
+#endif
         }
 
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _appSecret, value); }
+#endif
         }
 
         public DateTime AccessTokenExpireTime
         {
             get { return _accessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _accessTokenExpireTime, value); }
+#endif
         }
 
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
-            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _accessTokenResult, value); }
+#endif
         }
 
         private AccessTokenResult _accessTokenResult;
@@ -225,6 +247,7 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         #region AccessToken
@@ -288,7 +311,8 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
-
         #endregion
+#endif
     }
 }
+

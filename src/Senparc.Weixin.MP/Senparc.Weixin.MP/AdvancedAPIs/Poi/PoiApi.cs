@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class PoiApi
     {
-        #region 同步请求
+        #region 同步方法
         
      
         /// <summary>
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 
@@ -231,7 +231,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
          /// <summary>
         /// 【异步方法】上传图片
         /// </summary>
@@ -264,7 +265,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -282,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -372,12 +373,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

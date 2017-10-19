@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class TenPayRights
     {
-        #region 同步请求
+        #region 同步方法
         
         
         /// <summary>
@@ -68,7 +68,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
          
         /// <summary>
         /// 【异步方法】标记客户的投诉处理状态
@@ -85,5 +86,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Get.GetJsonAsync<WxJsonResult>(url);
         }
         #endregion
+#endif
     }
 }

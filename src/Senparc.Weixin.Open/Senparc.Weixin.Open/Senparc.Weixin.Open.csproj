@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Open.XML</DocumentationFile>
@@ -102,8 +102,22 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
+    <Compile Include="WxaAPIs\Code\CodeApi.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetPageResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetCategoryResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditPageInfo.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
@@ -118,6 +132,7 @@
   <ItemGroup>
     <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

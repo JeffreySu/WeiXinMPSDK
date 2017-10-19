@@ -54,7 +54,11 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             stream.Read(arr, 0, (int)stream.Length);
+#if NET35 || NET40 || NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
+#else
+            return Convert.ToBase64String(arr);
+#endif
         }
 
         /// <summary>
@@ -95,10 +99,11 @@ namespace Senparc.Weixin.StreamUtility
 
         #endregion
 
-        #region 同步方法
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
-        /// 获取Stream的Base64字符串
+        /// 【异步方法】获取Stream的Base64字符串
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -107,11 +112,15 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             await stream.ReadAsync(arr, 0, (int)stream.Length);
+#if NET35 || NET40 || NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
+#else
+            return Convert.ToBase64String(arr);
+#endif
         }
 
         /// <summary>
-        /// 将base64String反序列化到流，或保存成文件
+        /// 【异步方法】将base64String反序列化到流，或保存成文件
         /// </summary>
         /// <param name="base64String"></param>
         /// <param name="savePath">如果为null则不保存</param>
@@ -133,7 +142,7 @@ namespace Senparc.Weixin.StreamUtility
         }
 
         /// <summary>
-        /// 将memoryStream保存到文件
+        /// 【异步方法】将memoryStream保存到文件
         /// </summary>
         /// <param name="memoryStream"></param>
         /// <param name="savePath"></param>
@@ -147,6 +156,7 @@ namespace Senparc.Weixin.StreamUtility
         }
 
         #endregion
+#endif
 
 
     }

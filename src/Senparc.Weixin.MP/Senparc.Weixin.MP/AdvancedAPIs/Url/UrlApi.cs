@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     将一条长链接转成短链接。
         主要使用场景： 开发者用于生成二维码的原链接（商品、支付二维码等）太长导致扫码速度和成功率下降，将原长链接通过此接口转成短链接再生成二维码将大大提升扫码速度和成功率。
         */
-        #region 同步请求
+        #region 同步方法
         
         
         ///  <summary>
@@ -77,7 +77,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
          ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
@@ -100,5 +101,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

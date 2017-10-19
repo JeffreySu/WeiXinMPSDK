@@ -21,6 +21,7 @@
 using System;
 using System.Text;
 using Senparc.Weixin.Helpers;
+using System.Net;
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -64,12 +65,19 @@ namespace Senparc.Weixin.Work.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
 
@@ -93,12 +101,19 @@ namespace Senparc.Weixin.Work.TenPayLib
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
 
 
@@ -114,7 +129,11 @@ namespace Senparc.Weixin.Work.TenPayLib
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if NET35 || NET40 || NET45 || NET461
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
         /// <summary>

@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class GroupMessageApi
     {
 
-        #region 同步请求
+        #region 同步方法
 
 
 
@@ -478,7 +478,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】根据分组进行群发【订阅号与服务号认证后均可用】
@@ -909,5 +910,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

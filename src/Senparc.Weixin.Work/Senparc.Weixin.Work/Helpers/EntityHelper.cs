@@ -9,6 +9,10 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20172008
+    修改描述：v1.2.0-beta1 为支持.NET 3.5/4.0进行重构
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -19,9 +23,13 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
+using System.Reflection;
 
 namespace Senparc.Weixin.Work.Helpers
 {
+    /// <summary>
+    /// EntityHelper
+    /// </summary>
     public static class EntityHelper
     {
         /// <summary>
@@ -158,17 +166,29 @@ namespace Senparc.Weixin.Work.Helpers
                         case "AgentType":
                             {
                                 AgentType tp;
+#if NET35
+                                try
+                                {
+                                    tp = (AgentType)Enum.Parse(typeof(AgentType), root.Element(propName).Value, true);
+                                    prop.SetValue(entity, tp, null);
+                                }
+                                catch
+                                {
+
+                                }
+#else
                                 if (Enum.TryParse(root.Element(propName).Value, out tp))
                                 {
-                                    prop.SetValue(entity, tp);
+                                    prop.SetValue(entity, tp, null);
                                 }
+#endif
                                 break;
                             }
                         case "Receiver":
                             {
                                 Receiver receiver = new Receiver();
                                 FillEntityWithXml(receiver, new XDocument(root.Element(propName)));
-                                prop.SetValue(entity, receiver);
+                                prop.SetValue(entity, receiver, null);
                                 break;
                             }
                         default:
@@ -188,8 +208,23 @@ namespace Senparc.Weixin.Work.Helpers
                             var msgTypeEle = item.Element("MsgType");
                             if (msgTypeEle != null)
                             {
-                                RequestMsgType type;
-                                if (Enum.TryParse(msgTypeEle.Value, true, out type))
+                                RequestMsgType type = RequestMsgType.DEFAULT;
+                                var parseSuccess = false;
+#if NET35
+                                try
+                                {
+                                    type = (RequestMsgType)Enum.Parse(typeof(RequestMsgType), msgTypeEle.Value, true);
+                                    parseSuccess = true;
+                                }
+                                catch
+                                {
+
+                                }
+#else
+                                parseSuccess = Enum.TryParse(msgTypeEle.Value, true, out type);
+#endif
+                                if (parseSuccess)
+                                {
                                     switch (type)
                                     {
                                         case RequestMsgType.Event:
@@ -220,7 +255,7 @@ namespace Senparc.Weixin.Work.Helpers
                                         case RequestMsgType.Text:
                                             {
                                                 reqItem = new Entities.Request.KF.RequestMessageText();
-                                               
+
                                                 break;
                                             }
                                         case RequestMsgType.Voice:
@@ -229,6 +264,7 @@ namespace Senparc.Weixin.Work.Helpers
                                                 break;
                                             }
                                     }
+                                }
                             }
                             if (reqItem != null)
                             {
@@ -256,8 +292,8 @@ namespace Senparc.Weixin.Work.Helpers
             var root = doc.Root;
 
             /* 注意！
-             * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
-            */
+			 * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
+			*/
             var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
             //不同返回类型需要对应不同特殊格式的排序
             if (entity is ResponseMessageNews)
@@ -371,23 +407,23 @@ namespace Senparc.Weixin.Work.Helpers
         }
 
         /// <summary>
-		/// 将实体转为XML字符串
-		/// </summary>
-		/// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
-		/// <param name="entity">实体</param>
-		/// <returns></returns>
-		public static string ConvertEntityToXmlString<T>(this T entity) where T : class, new()
+        /// 将实体转为XML字符串
+        /// </summary>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public static string ConvertEntityToXmlString<T>(this T entity) where T : class, new()
         {
             return entity.ConvertEntityToXml().ToString();
         }
 
         /// <summary>
         /// ResponseMessageBase.CreateFromRequestMessage&lt;T&gt;(requestMessage)的扩展方法
-		/// </summary>
-		/// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
-		/// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
-		/// <returns></returns>
-		public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        /// </summary>
+        /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
+        /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
+        /// <returns></returns>
+        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
         {
             return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
         }

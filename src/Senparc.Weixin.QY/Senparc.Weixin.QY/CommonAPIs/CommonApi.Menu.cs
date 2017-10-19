@@ -10,20 +10,15 @@
     修改标识：Senparc - 20150313
     修改描述：整理接口
  
-    修改标识：Senparc - 20150313
-    修改描述：开放代理请求超时时间
+	修改标识：Senparc - 20150313
+	修改描述：开放代理请求超时时间
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
-
-    -----------------------------------
-    
-    修改标识：Senparc - 20170617
-    修改描述：从QY移植，同步Work接口
 ----------------------------------------------------------------*/
 
 /*
-    文档：http://work.weixin.qq.com/api/doc#10786
+    获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95
  */
 
 using System;
@@ -31,12 +26,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Entities.Menu;
+
+#if NET45
+using System.Web.Script.Serialization;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
@@ -106,9 +106,11 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                jsonResult = js.Deserialize<object>(jsonString);
+#if NET45
 
+#else
+                jsonResult = JsonConvert.DeserializeObject<object>(jsonString);
+#endif
                 var fullResult = jsonResult as Dictionary<string, object>;
                 if (fullResult != null && fullResult.ContainsKey("menu"))
                 {
@@ -171,10 +173,14 @@ namespace Senparc.Weixin.QY.CommonAPIs
             //var finalResult = GetMenuFromJson(jsonString);
 
             GetMenuResult finalResult;
-            JavaScriptSerializer js = new JavaScriptSerializer();
             try
             {
+#if NET45
+                JavaScriptSerializer js = new JavaScriptSerializer();
                 var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
+#else
+                var jsonResult = JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
+#endif
                 if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
                 {
                     throw new WeixinException(jsonResult.errmsg);
@@ -433,6 +439,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         /// <summary>
@@ -450,5 +457,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
         //TODO：更多异步方法
         #endregion
+#endif
     }
 }

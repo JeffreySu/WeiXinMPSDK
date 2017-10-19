@@ -71,8 +71,10 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
 </xml>";
 
 
+        private string testXml2 = @"<xml><ToUserName><![CDATA[tj99bf85a7c6525277]]></ToUserName><Encrypt><![CDATA[mOYGyroKLkpIDLNn6DAPjdZbRsQlkUggk+LnYY2S/7O/nRxxu3hDsJLiod29NVMYpwVNHMqTnZALXmycI6c7+wWxway/T/91okclPXn+EB/u4vss5FKntesFMxtGPRxt1aChMN9yNJNRhom05UD4c3B3lSicS10LE3MwWenb9t3CzbovlwM7T9jq1PFOA/0HyGZtwIoNdPjc0xaPe09oMvRtn69vu7whudjq2oI27jmEvXAfrWxN29oYTb+dPmBgXx/y4Hs2nWctuiCS7l9jN/dgzKTfPP056k7AKp49XIe2PHJZsmq/jhKLh+7aVRjGcWQepgshtbRwNtolPsT3AoblAa/be7d3igl/EbfguPTK/mAANEb73grwQxfNVH/MJr4sQrTKn/DHjbP9GyoKrr6qFxpDiziZB7LD/kvUqSw=]]></Encrypt><AgentID><![CDATA[]]></AgentID></xml>";
 
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
+
+        [TestMethod]
         public void TextTest()
         {
             var postModel = new PostModel()
@@ -84,6 +86,34 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
                 Token = "fzBsmSaI8XE1OwBh",
                 EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
                 CorpId = "wx7618c0a6d9358622"
+            };
+            var messageHandler = new CustomerMessageHandlers(XDocument.Parse(testXml), postModel, 10);
+            Assert.IsNotNull(messageHandler.RequestDocument);
+            Assert.IsNotNull(messageHandler.RequestMessage);
+            Assert.IsNotNull(messageHandler.EncryptPostData);
+            Assert.IsTrue(messageHandler.AgentId == 2);
+
+            messageHandler.Execute();
+
+            Assert.IsNotNull(messageHandler.ResponseDocument);
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+
+
+            Console.WriteLine(messageHandler.RequestDocument);
+        }
+
+        [TestMethod]
+        public void TextTest2()
+        {
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "118b034be74c917464f833cd32fc3f74958b2c93",
+                Timestamp = "1505643268",
+                Nonce = "1504921331",
+
+                Token = "3J5JTpb4j8Yfk",
+                EncodingAESKey = "XtJUgDlFYncPP3z4V7W6Jv4ietcIFveUn6LP1KzOBNf",
+                CorpId = ""
             };
             var messageHandler = new CustomerMessageHandlers(XDocument.Parse(testXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);

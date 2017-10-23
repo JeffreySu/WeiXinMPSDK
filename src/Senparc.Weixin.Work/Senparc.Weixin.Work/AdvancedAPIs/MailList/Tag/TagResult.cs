@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150409
     修改描述：整理接口
+
+    修改标识：Senparc - 20171017
+    修改描述：v1.2.0 部门id改为long类型
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -42,7 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 部门列表
         /// </summary>
-        public int[] partylist { get; set; }
+        public long[] partylist { get; set; }
     }
 
     public class Tag_UserList
@@ -85,7 +88,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     public class DelTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
-        public int[] invalidparty { get; set; }
+        public long[] invalidparty { get; set; }
     }
 
     /// <summary>

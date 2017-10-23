@@ -185,6 +185,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
         /// </summary>
         public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
+		
+		/// <summary>
+        /// 构造MessageHandler
+        /// add by ray
+        /// </summary>
+        /// <param name="postString">请求消息流</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
+        public MessageHandler(string postString, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(postString, maxRecordCount, postModel)
+        {
+            DeveloperInfo = developerInfo;
+        }
 
         /// <summary>
         /// 构造MessageHandler

@@ -194,18 +194,45 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         //}
 
         //以下增加
+
         /// <summary>
-        /// 设置本卡券支持全部门店
+        /// add by ray 设置本卡券支持全部门店，与location_id_list互斥
         /// </summary>
-        public bool use_all_locations { get; set;}
+        public bool use_all_locations { get; set; }
         /// <summary>
-        ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
+        /// add by ray 卡券顶部居中的按钮，仅在卡券状态正常(可以核销)时显示
+        /// </summary>
+        public string center_title { get; set; }
+        /// <summary>
+        /// add by ray 显示在入口下方的提示语，仅在卡券状态正常(可以核销)时显示。
+        /// </summary>
+        public string center_sub_title { get; set; }
+        /// <summary>
+        /// add by ray 顶部居中的url，仅在卡券状态正常(可以核销)时显示。
+        /// </summary>
+        public string center_url { get; set; }
+        /// <summary>
+        /// add by ray 填写true为用户点击进入会员卡时推送事件，默认为false。详情见进入会员卡事件推送
         /// </summary>
         public bool need_push_on_view { get; set; }
         /// <summary>
-        /// 会员卡支持微信支付刷卡
+        /// add by ray 支付信息
         /// </summary>
-        public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set; }
+        ///// <summary>
+        ///// add by ray 卡券状态
+
+        ///// “CARD_STATUS_NOT_VERIFY”,待审核；
+
+        ///// “CARD_STATUS_VERIFY_FAIL”,审核失败；
+
+        ///// “CARD_STATUS_VERIFY_OK”，通过审核；
+
+        ///// “CARD_STATUS_USER_DELETE”，卡券被商户删除；
+
+        ///// “CARD_STATUS_DISPATCH”，在公众平台投放过的卡券；
+        ///// </summary>
+        //public string status { get; set; }
     }
 
     public class Card_BaseInfoBase_SubMerchantInfo

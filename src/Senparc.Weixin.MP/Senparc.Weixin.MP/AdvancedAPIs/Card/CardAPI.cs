@@ -89,8 +89,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 同步方法
         /// <summary>
         /// 创建卡券
+        /// edit by ray
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -105,56 +106,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 switch (cardType)
                 {
-                    case CardType.GENERAL_COUPON:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_GeneralCoupon()
-                            {
-                                card_type = cardType.ToString(),
-                                general_coupon = cardInfo as Card_GeneralCouponData
-                            }
-                        };
-                        break;
-                    case CardType.GROUPON:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Groupon()
-                            {
-                                card_type = cardType.ToString(),
-                                groupon = cardInfo as Card_GrouponData
-                            }
-                        };
-                        break;
-                    case CardType.GIFT:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Gift()
-                            {
-                                card_type = cardType.ToString(),
-                                gift = cardInfo as Card_GiftData
-                            }
-                        };
-                        break;
-                    case CardType.CASH:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Cash()
-                            {
-                                card_type = cardType.ToString(),
-                                cash = cardInfo as Card_CashData
-                            }
-                        };
-                        break;
-                    case CardType.DISCOUNT:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_DisCount()
-                            {
-                                card_type = cardType.ToString(),
-                                discount = cardInfo as Card_DisCountData
-                            }
-                        };
-                        break;
                     case CardType.MEMBER_CARD:
                         cardData = new CardCreateInfo()
                         {
@@ -213,6 +164,95 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             {
                                 card_type = cardType.ToString(),
                                 meeting_ticket = cardInfo as Card_MeetingTicketData
+                            }
+                        };
+                        break;
+                    default:
+                        break;
+                }
+
+                var jsonSetting = new JsonSetting(true, null,
+                    new List<Type>()
+                    {
+        //typeof (Modify_Msg_Operation),
+        //typeof (CardCreateInfo),
+        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+                    });
+
+                var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                    //针对特殊字段的null值进行过滤
+                    jsonSetting: jsonSetting);
+                return result;
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 创建卡券
+        /// add by ray
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static CardCreateResultJson CreateCard(string accessTokenOrAppId, BaseWechatCardInfo cardInfo, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken.AsUrlData());
+
+                CardCreateInfo cardData = null;
+                CardType cardType = cardInfo.GetCardType();
+
+                switch (cardType)
+                {
+                    case CardType.GENERAL_COUPON:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_GeneralCoupon()
+                            {
+                                card_type = cardType.ToString(),
+                                general_coupon = cardInfo as Card_GeneralCouponData
+                            }
+                        };
+                        break;
+                    case CardType.GROUPON:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Groupon()
+                            {
+                                card_type = cardType.ToString(),
+                                groupon = cardInfo as Card_GrouponData
+                            }
+                        };
+                        break;
+                    case CardType.GIFT:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Gift()
+                            {
+                                card_type = cardType.ToString(),
+                                gift = cardInfo as Card_GiftData
+                            }
+                        };
+                        break;
+                    case CardType.CASH:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Cash()
+                            {
+                                card_type = cardType.ToString(),
+                                cash = cardInfo as Card_CashData
+                            }
+                        };
+                        break;
+                    case CardType.DISCOUNT:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_DisCount()
+                            {
+                                card_type = cardType.ToString(),
+                                discount = cardInfo as Card_DisCountData
                             }
                         };
                         break;
@@ -943,6 +983,41 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card_id = cardId,
                             scenic_ticket = data as Card_ScenicTicketData
+                        };
+                        break;
+                    case CardType.GENERAL_COUPON://add by ray
+                        cardData = new CardUpdate_GeneralCoupon()
+                        {
+                            card_id = cardId,
+                            general_coupon = data as Card_GeneralCouponUpdateData
+                        };
+                        break;
+                    case CardType.GROUPON://add by ray
+                        cardData = new CardUpdate_Groupon()
+                        {
+                            card_id = cardId,
+                            groupon = data as Card_GrouponUpdateData
+                        };
+                        break;
+                    case CardType.CASH://add by ray
+                        cardData = new CardUpdate_Cash()
+                        {
+                            card_id = cardId,
+                            cash = data as Card_CashUpdateData
+                        };
+                        break;
+                    case CardType.DISCOUNT://add by ray
+                        cardData = new CardUpdate_Discount()
+                        {
+                            card_id = cardId,
+                            discount = data as Card_DiscountUpdateData
+                        };
+                        break;
+                    case CardType.GIFT://add by ray
+                        cardData = new CardUpdate_Gift()
+                        {
+                            card_id = cardId,
+                            gift = data as Card_GiftUpdateData
                         };
                         break;
                     default:
@@ -1714,14 +1789,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】创建卡券
+        /// edit by ray
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<CardCreateResultJson> CreateCardAsync(string accessTokenOrAppId, BaseCardInfo cardInfo, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken.AsUrlData());
 
@@ -1730,56 +1806,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 switch (cardType)
                 {
-                    case CardType.GENERAL_COUPON:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_GeneralCoupon()
-                            {
-                                card_type = cardType.ToString(),
-                                general_coupon = cardInfo as Card_GeneralCouponData
-                            }
-                        };
-                        break;
-                    case CardType.GROUPON:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Groupon()
-                            {
-                                card_type = cardType.ToString(),
-                                groupon = cardInfo as Card_GrouponData
-                            }
-                        };
-                        break;
-                    case CardType.GIFT:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Gift()
-                            {
-                                card_type = cardType.ToString(),
-                                gift = cardInfo as Card_GiftData
-                            }
-                        };
-                        break;
-                    case CardType.CASH:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_Cash()
-                            {
-                                card_type = cardType.ToString(),
-                                cash = cardInfo as Card_CashData
-                            }
-                        };
-                        break;
-                    case CardType.DISCOUNT:
-                        cardData = new CardCreateInfo()
-                        {
-                            card = new Card_DisCount()
-                            {
-                                card_type = cardType.ToString(),
-                                discount = cardInfo as Card_DisCountData
-                            }
-                        };
-                        break;
                     case CardType.MEMBER_CARD:
                         cardData = new CardCreateInfo()
                         {
@@ -1856,7 +1882,96 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var result = Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
                     //针对特殊字段的null值进行过滤
                     jsonSetting: jsonSetting);
-                return await result;
+                return result;
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建卡券
+        /// add by ray
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<CardCreateResultJson> CreateCardAsync(string accessTokenOrAppId, BaseWechatCardInfo cardInfo, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken.AsUrlData());
+
+                CardCreateInfo cardData = null;
+                CardType cardType = cardInfo.GetCardType();
+
+                switch (cardType)
+                {
+                    case CardType.GENERAL_COUPON:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_GeneralCoupon()
+                            {
+                                card_type = cardType.ToString(),
+                                general_coupon = cardInfo as Card_GeneralCouponData
+                            }
+                        };
+                        break;
+                    case CardType.GROUPON:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Groupon()
+                            {
+                                card_type = cardType.ToString(),
+                                groupon = cardInfo as Card_GrouponData
+                            }
+                        };
+                        break;
+                    case CardType.GIFT:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Gift()
+                            {
+                                card_type = cardType.ToString(),
+                                gift = cardInfo as Card_GiftData
+                            }
+                        };
+                        break;
+                    case CardType.CASH:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_Cash()
+                            {
+                                card_type = cardType.ToString(),
+                                cash = cardInfo as Card_CashData
+                            }
+                        };
+                        break;
+                    case CardType.DISCOUNT:
+                        cardData = new CardCreateInfo()
+                        {
+                            card = new Card_DisCount()
+                            {
+                                card_type = cardType.ToString(),
+                                discount = cardInfo as Card_DisCountData
+                            }
+                        };
+                        break;
+                    default:
+                        break;
+                }
+
+                var jsonSetting = new JsonSetting(true, null,
+                    new List<Type>()
+                    {
+        //typeof (Modify_Msg_Operation),
+        //typeof (CardCreateInfo),
+        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+                    });
+
+                var result = Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                    //针对特殊字段的null值进行过滤
+                    jsonSetting: jsonSetting);
+                return result;
 
             }, accessTokenOrAppId);
         }

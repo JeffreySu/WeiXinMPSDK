@@ -620,6 +620,11 @@ namespace Senparc.Weixin.MP
         /// 里程
         /// </summary>
         FIELD_NAME_TYPE_MILEAGE = 5,
+
+        /// <summary>
+        /// add by ray 未知
+        /// </summary>
+        FIELD_NAME_TYPE_UNKNOW = -1
     }
 
     /// <summary>

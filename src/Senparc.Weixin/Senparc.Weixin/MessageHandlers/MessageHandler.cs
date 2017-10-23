@@ -211,6 +211,25 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
+        /// add by ray
+        /// </summary>
+        /// <param name="postString"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(string postString, int maxRecordCount = 0, object postData = null)
+        {
+            //NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+            byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(postString);
+            //byte[] byteArray = System.Text.Encoding.ASCII.GetBytes(postString);
+            MemoryStream stream = new MemoryStream(byteArray);
+
+            var postDataDocument = XmlUtility.XmlUtility.Convert(stream);
+
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="inputStream"></param>

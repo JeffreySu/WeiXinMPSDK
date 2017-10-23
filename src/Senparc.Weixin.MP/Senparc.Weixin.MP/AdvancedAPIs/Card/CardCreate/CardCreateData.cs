@@ -58,8 +58,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     /// <summary>
     /// 通用券数据
+    /// edit by ray
     /// </summary>
-    public class Card_GeneralCouponData : BaseCardInfo
+    public class Card_GeneralCouponData : BaseWechatCardInfo
     {
         /// <summary>
         /// 描述文本
@@ -75,8 +76,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     /// <summary>
     /// 团购券数据
+    /// edit by ray
     /// </summary>
-    public class Card_GrouponData : BaseCardInfo
+    public class Card_GrouponData : BaseWechatCardInfo
     {
         /// <summary>
         /// 团购券专用，团购详情
@@ -92,8 +94,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     /// <summary>
     /// 礼品券数据
+    /// edit by ray
     /// </summary>
-    public class Card_GiftData : BaseCardInfo
+    public class Card_GiftData : BaseWechatCardInfo
     {
         /// <summary>
         /// 礼品券专用，表示礼品名字
@@ -109,19 +112,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     /// <summary>
     /// 代金券数据
+    /// edit by ray
     /// </summary>
-    public class Card_CashData : BaseCardInfo
+    public class Card_CashData : BaseWechatCardInfo
     {
         /// <summary>
         /// 代金券专用，表示起用金额（单位为分）
         /// 非必填
         /// </summary>
-        public int least_cost { get; set; }
+        public decimal least_cost { get; set; }
         /// <summary>
         /// 代金券专用，表示减免金额（单位为分）
         /// 必填
         /// </summary>
-        public int reduce_cost { get; set; }
+        public decimal reduce_cost { get; set; }
 
         public Card_CashData()
             : base(CardType.CASH)
@@ -131,8 +135,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     /// <summary>
     /// 折扣券数据
+    /// edit by ray
     /// </summary>
-    public class Card_DisCountData : BaseCardInfo
+    public class Card_DisCountData : BaseWechatCardInfo
     {
         /// <summary>
         ///折扣券专用，表示打折额度（百分比）。填30 就是七折。

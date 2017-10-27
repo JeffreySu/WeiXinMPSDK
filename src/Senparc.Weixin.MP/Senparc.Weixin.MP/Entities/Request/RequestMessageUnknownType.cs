@@ -18,31 +18,37 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+    
+    文件名：RequestMessageUnknownType.cs
+    文件功能描述：未知请求类型
+    
+    
+    创建标识：Senparc - 20171027
+    
+----------------------------------------------------------------*/
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.TenPayLib;
+using System.Xml.Linq;
 
-namespace Senparc.Weixin.MP.Test.AdvancedAPIs
+namespace Senparc.Weixin.MP.Entities
 {
-    //需要通过微信支付审核的账户才能成功
-    [TestClass]
-    public class ProductTest : CommonApiTest
+    public class RequestMessageUnknownType : RequestMessageBase, IRequestMessageBase
     {
-        [TestMethod]
-        public void AddProdectTest()
+        public override RequestMsgType MsgType
         {
-            var addProductData = new AddProductData();
-            var result = ProductApi.AddProduct("[appid]", addProductData);
-            Console.Write(result);
-            Assert.IsNotNull(result);
+            get { return RequestMsgType.Unknown; }
         }
+
+        /// <summary>
+        /// 请求消息的XML对象（明文）
+        /// </summary>
+        public XDocument RequestDocument { get; set; }
+
     }
 }

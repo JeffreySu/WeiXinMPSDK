@@ -202,6 +202,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	185、	zhaochenghang	<br>
 > 	186、	397712418	<br>
 > 	187、	xuSs1994	<br>
-
-
+> 	188、	kistliu	<br>
+> 	189、	Hieasywork	<br>
 

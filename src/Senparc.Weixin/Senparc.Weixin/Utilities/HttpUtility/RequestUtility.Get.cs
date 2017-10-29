@@ -190,6 +190,54 @@ namespace Senparc.Weixin.HttpUtility
 #endif
         }
 
+#if NET35 || NET40 || NET45
+
+        /// <summary>
+        /// 获取HttpWebResponse或HttpClient对象，本方法通常用于测试）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static HttpWebResponse HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+    string refererUrl = null, int timeOut = Config.TIME_OUT)
+        {
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (cookieContainer != null)
+            {
+                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+            }
+
+            return response;
+        }
+#else
+        /// <summary>
+        /// 获取HttpWebResponse或HttpClient对象，本方法通常用于测试）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static HttpClient HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+   string refererUrl = null, int timeOut = Config.TIME_OUT)
+        {
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+            return httpClient;
+        }
+
+#endif
+
+
+
         #endregion
 
 #if !NET35 && !NET40

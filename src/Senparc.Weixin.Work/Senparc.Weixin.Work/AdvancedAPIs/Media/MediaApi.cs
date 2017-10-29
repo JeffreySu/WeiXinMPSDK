@@ -63,7 +63,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -99,12 +99,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="dir">保存目录</param>
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
         {
-            var result =  ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                var fileName = HttpUtility.Get.Download(url, dir);
-                return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
-            }, accessTokenOrAppKey);
+            var result = ApiHandlerWapper.TryCommonApi(accessToken =>
+           {
+               var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+               var fileName = HttpUtility.Get.Download(url, dir);
+               return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
+           }, accessTokenOrAppKey);
             return result.errmsg;
         }
         /// <summary>
@@ -153,7 +153,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -349,7 +349,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -420,7 +420,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -444,7 +444,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetForeverMpNewsResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
-            
+
         }
 
         /// <summary>

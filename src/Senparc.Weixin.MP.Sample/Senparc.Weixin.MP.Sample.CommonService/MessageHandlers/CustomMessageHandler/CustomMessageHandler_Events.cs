@@ -185,6 +185,8 @@ QQ群：342319110
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
                                                                      Server.GetMapPath("~/Images/Logo.thumb.jpg"));
+                        //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
+                        
                         //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;

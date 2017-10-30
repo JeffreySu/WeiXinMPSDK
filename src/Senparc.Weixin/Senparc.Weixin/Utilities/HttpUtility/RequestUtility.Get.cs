@@ -112,7 +112,6 @@ namespace Senparc.Weixin.HttpUtility
             HttpClient httpClient = new HttpClient(handler);
             HttpClientHeader(httpClient, refererUrl, useAjax, timeOut);
 
-
             return httpClient;
         }
 #endif

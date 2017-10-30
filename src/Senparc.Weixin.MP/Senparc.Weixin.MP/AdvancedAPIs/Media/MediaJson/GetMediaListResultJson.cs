@@ -34,7 +34,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// </summary>
     public class MediaList_NewsResult : BaseMediaListResultJson
     {
-        public List<MediaList_News_Item> item { get; set; }
+        //updated by ray
+        //public List<MediaList_News_Item> item { get; set; }
+        public List<Sync_MediaList_News_Item> item { get; set; }
     }
 
     public class MediaList_News_Item
@@ -49,7 +51,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 
     public class Media_News_Content
     {
-        public List<Media_News_Content_Item> news_item { get; set; } 
+        //updated by ray
+        //public List<Media_News_Content_Item> news_item { get; set; } 
+        public List<SyncNewsModel> news_item { get; set; }
     }
 
     public class Media_News_Content_Item : NewsModel
@@ -85,5 +89,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// 图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL
         /// </summary>
         public string url { get; set; }
+    }
+
+    //added by ray
+    public class Sync_MediaList_News_Item
+    {
+        public string media_id { get; set; }
+        public Media_News_Content content { get; set; }
+        public string update_time { get; set; }
     }
 }

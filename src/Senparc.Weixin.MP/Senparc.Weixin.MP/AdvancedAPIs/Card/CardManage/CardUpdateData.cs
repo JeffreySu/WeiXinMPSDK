@@ -91,12 +91,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string bonus_url { get; set; }
-        /// <summary>
-        /// 初始设置积分 int型数据
-        /// 非必填,null时显示查看
-        /// </summary>
-        //[JsonSetting.IgnoreValueAttribute("0")]
-        //public string init_increase_bonus { get; set; }
+        ///// <summary>
+        ///// 初始设置积分 int型数据
+        ///// 非必填,null时显示查看
+        ///// delete by ray
+        ///// </summary>
+        //[JsonSetting.IgnoreValueAttribute(0)]
+        //public int init_increase_bonus { get; set; }
 
         /// <summary>
         /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
@@ -187,5 +188,50 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 登机时间，只显示“时分”不显示日期，按时间戳格式填写。如发生登机时间变更，建议商家实时调用该接口变更
         /// </summary>
         public string boarding_time { get; set; }
+    }
+
+    /// <summary>
+    /// 优惠券数据
+    /// add by ray
+    /// </summary>
+    public class Card_GeneralCouponUpdateData : BaseUpdateInfo
+    {
+        
+    }
+
+    /// <summary>
+    /// 团购券数据
+    /// add by ray
+    /// </summary>
+    public class Card_GrouponUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 代金券数据
+    /// add by ray
+    /// </summary>
+    public class Card_CashUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 折扣券数据
+    /// add by ray
+    /// </summary>
+    public class Card_DiscountUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 兑换券数据
+    /// add by ray
+    /// </summary>
+    public class Card_GiftUpdateData : BaseUpdateInfo
+    {
+
     }
 }

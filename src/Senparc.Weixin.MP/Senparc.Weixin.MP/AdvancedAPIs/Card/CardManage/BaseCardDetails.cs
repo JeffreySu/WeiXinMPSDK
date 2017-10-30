@@ -218,6 +218,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 折扣
         /// </summary>
         public int discount { get; set; }
+        /// <summary>
+        /// 设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段。
+        /// add by ray
+        /// </summary>
+        public string bonus_url { get; set; }
+        /// <summary>
+        /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
+        /// add by ray
+        /// </summary>
+        public string balance_url { get; set; }
     }
     /// <summary>
     /// 门票数据
@@ -310,6 +320,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 基本的卡券数据
         /// </summary>
         public BaseInfoResult base_info { get; set; }
+
+        /// <summary>
+        /// 基本的卡券数据
+        /// add by ray
+        /// </summary>
+        public Card_AdvancedInfoBase advanced_info { get; set; }
     }
 
     #region 基本的卡券数据，所有卡券通用(BaseInfoResult)

@@ -87,6 +87,7 @@
     <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
     <Compile Include="AdvancedAPIs\Card\Code\CodeResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_AdvancedInfo\Card_AdvancedInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SyncNewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\VideoMediaIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />

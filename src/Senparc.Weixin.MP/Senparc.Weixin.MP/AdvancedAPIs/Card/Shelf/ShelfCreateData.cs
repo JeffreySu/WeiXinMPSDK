@@ -59,8 +59,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public bool can_share { get; set; }
         /// <summary>
         /// 投放页面的场景值；SCENE_NEAR_BY 附近 SCENE_MENU	自定义菜单 SCENE_QRCODE	二维码 SCENE_ARTICLE	公众号文章 SCENE_H5	h5页面 SCENE_IVR	自动回复 SCENE_CARD_CUSTOM_CELL	卡券自定义cell
+        /// edit by ray
         /// </summary>
-        public CardShelfCreate_Scene scene { get; set; }
+        public string scene { get; set; }
         /// <summary>
         /// 卡券列表
         /// </summary>

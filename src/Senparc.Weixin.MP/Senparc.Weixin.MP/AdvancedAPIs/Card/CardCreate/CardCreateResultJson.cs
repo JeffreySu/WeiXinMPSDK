@@ -294,11 +294,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string ticket { get; set; }
         /// <summary>
+        /// 有效时间
+        /// add by ray
+        /// </summary>
+        public int expire_seconds { get; set; }
+
+        /// <summary>
         /// 二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
+        /// add by ray
         /// </summary>
         public string url { get; set; }
+
         /// <summary>
         /// 二维码显示地址，点击后跳转二维码页面
+        /// add by ray
         /// </summary>
         public string show_qrcode_url { get; set; }
     }

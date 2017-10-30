@@ -191,26 +191,112 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// 门店所在的详细街道地址（不要填写省市信息）
         /// </summary>
         public string address { get; set; }
-
-        public string telephone { get; set; }
-        public List<string> categories { get; set; }
-        public string city { get; set; }
-        public string province { get; set; }
-        public int offset_type { get; set; }
-        public double longitude { get; set; }
-        public double latitude { get; set; }
-        public List<GetStoreList_BaseInfo_PhotoList> photo_list { get; set; }
-        public string introduction { get; set; }
-        public string recommend { get; set; }
-        public string special { get; set; }
-        public string open_time { get; set; }
-        public int avg_price { get; set; }
         /// <summary>
         /// 门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
         /// </summary>
-        public int available_state { get; set; }
+        public int? available_state { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店的电话（纯数字，区号、分机号均由“-”隔开）
+        /// </summary>
+        public string telephone { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店的类型（不同级分类用“,”隔开，如：美食，川菜，火锅。详细分类参见附件：微信门店类目表）
+        /// </summary>
+        public string[] categories { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店所在的城市
+        /// </summary>
+        public string city { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店所在的省份（直辖市填城市名,如：北京市）
+        /// </summary>
+        public string province { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 坐标类型，1 为火星坐标（目前只能选1）
+        /// </summary>
+        public int? offset_type { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店所在地理位置的经度（经纬度均为火星坐标，最好选用腾讯地图标记的坐标）
+        /// </summary>
+        public decimal? longitude { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店所在地理位置的纬度（经纬度均为火星坐标，最好选用腾讯地图标记的坐标）
+        /// </summary>
+        public decimal? latitude { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 图片列表，url 形式，可以有多张图片，尺寸为640*340px。必须为上一接口生成的url。图片内容不允许与门店不相关，不允许为二维码、员工合照（或模特肖像）、营业执照、无门店正门的街景、地图截图、公交地铁站牌、菜单截图等
+        /// </summary>
+        public PoiPhoto[] photo_list { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 商户简介，主要介绍商户信息等
+        /// </summary>
+        public string introduction { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 商户简介，主要介绍商户信息等
+        /// </summary>
+        public string recommend { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 特色服务，如免费wifi，免费停车，送货上门等商户能提供的特色功能或服务
+        /// </summary>
+        public string special { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 营业时间，24 小时制表示，用“-”连接，如 8:00-20:00
+        /// </summary>
+        public string open_time { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 人均价格，大于0 的整数
+        /// </summary>
+        public int? avg_price { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 门店所在地区
+        /// </summary>
         public string district { get; set; }
-        public int update_status { get; set; }
+
+        /// <summary>
+        /// add by ray
+        /// 更新状态
+        /// </summary>
+        public int? update_status { get; set; }
+    }
+
+    /// <summary>
+    /// add by ray
+    /// 门店图片
+    /// </summary>
+    public class PoiPhoto
+    {
+        /// <summary>
+        /// 图片Url
+        /// </summary>
+        public string photo_url { get; set; }
     }
 
     /// <summary>
@@ -220,10 +306,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
     {
         public List<string> category_list { get; set; } 
     }
-
-    public class GetStoreList_BaseInfo_PhotoList
-    {
-        public string photo_url { get; set; }
-    }
-
 }

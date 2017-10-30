@@ -160,4 +160,35 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
             CardType = cardType;
         }
     }
+
+    /// <summary>
+    /// add by ray
+    /// </summary>
+    public abstract class BaseWechatCardInfo
+    {
+        /// <summary>
+        /// 基本的卡券数据
+        /// </summary>
+        public Card_BaseInfoBase base_info { get; set; }
+
+        /// <summary>
+        /// 高级的卡券数据
+        /// </summary>
+        public Card_AdvancedInfoBase advanced_info { get; set; }
+
+        /// <summary>
+        /// 卡类型（不在Json数据中）
+        /// </summary>
+        protected CardType CardType { get; set; }
+
+        public CardType GetCardType()
+        {
+            return CardType;
+        }
+
+        public BaseWechatCardInfo(CardType cardType)
+        {
+            CardType = cardType;
+        }
+    }
 }

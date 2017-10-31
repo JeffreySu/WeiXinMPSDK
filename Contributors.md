@@ -11,7 +11,7 @@ Senparc.Weixin SDK 项目贡献者
 
 贡献者名单
 -----------
-> 更新时间：2017年10月9日<br>
+> 更新时间：2017年10月27日<br>
 > 按照字母排序，排名不分先后
 
 
@@ -202,6 +202,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	185、	zhaochenghang	<br>
 > 	186、	397712418	<br>
 > 	187、	xuSs1994	<br>
-
-
+> 	188、	kistliu	<br>
+> 	189、	Hieasywork	<br>
 

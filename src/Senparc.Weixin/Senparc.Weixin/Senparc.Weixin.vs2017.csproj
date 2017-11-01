@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.18.0</Version>
+    <Version>4.18.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -200,9 +200,9 @@
       v4.17.1 优化WeixinTrace
       v4.17.2 丰富SenparcWeixinSetting参数
       v4.17.3 添加RequestUtility.HttpResponseGet()方法，提供外部测试通道
-      
+
       v4.18.0 RequestUtility的Post和Get方法开始支持模拟Ajax请求
-    
+      v4.18.1 修改Get.Download()方法
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

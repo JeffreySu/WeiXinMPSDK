@@ -158,7 +158,7 @@ namespace Senparc.Weixin.HttpUtility
             var fullName = Path.Combine(dir, DateTime.Now.Ticks.ToString());
             using (var fs = File.Open(fullName, FileMode.Create))
             {
-                using (var sw = new StreamWriter(fs))
+                using (var sw = new BinaryWriter(fs))
                 {
                     sw.Write(data);
                     sw.Flush();

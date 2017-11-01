@@ -46,8 +46,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #region 同步方法
 
-
-
         /// <summary>
         /// 根据分组进行群发【订阅号与服务号认证后均可用】
         /// 

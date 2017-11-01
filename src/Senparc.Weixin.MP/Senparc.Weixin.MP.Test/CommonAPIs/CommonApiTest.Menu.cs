@@ -37,52 +37,91 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             ButtonGroup bg = new ButtonGroup();
 
-            //单击
-            bg.button.Add(new SingleClickButton()
-            {
-                name = "单击测试",
-                key = "OneClick",
-                type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
-            });
-
-            //二级菜单
+   //二级菜单
             var subButton = new SubButton()
             {
                 name = "二级菜单"
             };
+            bg.button.Add(subButton);
+
+            subButton.sub_button.Add(new SingleViewButton()
+            {
+                 url = "https://book.weixin.senparc.com/book/link?code=SenparcRobotMenu",
+                name = "《微信开发深度解析》"
+            });
+            subButton.sub_button.Add(new SingleViewButton()
+            {
+                url = "https://sdk.weixin.senparc.com/TenpayV3/ProductList",
+                name = "微信支付"
+            });
             subButton.sub_button.Add(new SingleClickButton()
+            {
+                key = "Description",
+                name = "测试使用说明"
+            });
+            subButton.sub_button.Add(new SingleClickButton()
+            {
+                key = "OneClick",
+                name = "单击测试"
+            });
+            subButton.sub_button.Add(new SingleViewButton()
+            {
+                url = "https://weixin.senparc.com/",
+                name = "Url跳转"
+            });
+
+            //二级菜单
+            var subButton2 = new SubButton()
+            {
+                name = "二级菜单"
+            };
+            bg.button.Add(subButton2);
+
+            subButton2.sub_button.Add(new SingleClickButton()
             {
                 key = "SubClickRoot_Text",
                 name = "返回文本"
             });
-            subButton.sub_button.Add(new SingleClickButton()
+            subButton2.sub_button.Add(new SingleClickButton()
             {
                 key = "SubClickRoot_News",
                 name = "返回图文"
             });
-            subButton.sub_button.Add(new SingleClickButton()
+            subButton2.sub_button.Add(new SingleClickButton()
             {
                 key = "SubClickRoot_Music",
                 name = "返回音乐"
             });
-            subButton.sub_button.Add(new SingleViewButton()
+            subButton2.sub_button.Add(new SingleClickButton()
             {
-                url = "http://sdk.weixin.senparc.com",
-                name = "Url跳转"
+                key = "SubClickRoot_Image",
+                name = "返回图片"
             });
-            subButton.sub_button.Add(new SingleLocationSelectButton()
+            subButton2.sub_button.Add(new SingleClickButton()
             {
-                key = "SingleLocationSelectButton",
-                name = "位置",
+                key = "OAuth",
+                name = "OAuth2.0授权测试"
             });
-            bg.button.Add(subButton);
 
 
-            var result = CommonApi.CreateMenu(accessToken, bg);
+            //二级菜单
+            var subButton3 = new SubButton()
+            {
+                name = "更多"
+            };
+            bg.button.Add(subButton3);
+
+            subButton3.sub_button.Add(new SingleClickButton()
+            {
+                key = "SubClickRoot_Agent",
+                name = "代理消息-返回图文"
+            });
+
+            var result = CommonApi.CreateMenu(_appId, bg);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);

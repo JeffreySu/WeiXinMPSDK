@@ -191,6 +191,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="encoding"></param>
         /// <param name="cer"></param>
         /// <param name="refererUrl"></param>
+        /// <param name="useAjax"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static HttpWebResponse HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
@@ -229,7 +230,6 @@ namespace Senparc.Weixin.HttpUtility
         }
 
 #endif
-
 
 
         #endregion

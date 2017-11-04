@@ -35,9 +35,9 @@ Index
     * [How to use distributed cache?](#how-to-use-distributed-cache)
 * [How to develop Mini Program?](#how-to-develop-mini-program)
 <!--* [已实现功能](#已实现功能)-->
-* [Branch Description](#Branch-Description)
-* [Thanks for Cntributors](#Thanks-for-Cntributors)
-* [Donate](#Donate)
+* [Branch Description](#branch-description)
+* [Thanks for Contributors](#thanks-for-contributors)
+* [Donate](#donate)
 * [License](#license)
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Core 1.1/2.0.
@@ -544,7 +544,7 @@ Branch Description
 
 
 
-Thanks for Cntributors
+Thanks for Contributors
 --------------
 Thanks to the developers who have contributed to this project, you have not only perfected this project, but also made a contribution to Open Source Enterprise. Thank you!
 [Click Here](https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Contributors.md) to see the list.

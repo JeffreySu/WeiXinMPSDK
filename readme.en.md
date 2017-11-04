@@ -1,4 +1,4 @@
-Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK) [Chinese](readme.md)
 =================
 
 > Wechat is the most famous IM APP in China which has more than 8.89 billion active user and more than ten million Official Accounts.
@@ -8,7 +8,7 @@ Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
-Now, Senparc.Weixin has been supported almost all APIs for Wechat's all modules. It supports mutipule .net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
+Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 
 For more than five years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who help us along the way!
 
@@ -24,27 +24,30 @@ Index
 * [Project folder description (under src folder)](#Project-folder-description-under-src-folder))
 * [Senparc.Weixin.MP.Sample Key Code](#senparcweixinmpsample-key-code)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
-    * [How to handle WeChat Official Account request?](#如何处理微信公众账号请求)
-* [Use Nuget to install the project](#使用nuget安装到项目中)
-    * [How to handle WeChat Official Account request?](#如何处理微信公众号请求)
-    * [How to handle WeChat Mini Program request?](#如何处理微信小程序请求)
-    * [How to enhance the functionality of ASP.NET MVC project?](#如何增强-aspnet-mvc-项目的功能)
-        * [How to handle WeChat Corporate Account request?](#如何处理企业微信请求)
-    * [How to handle Corporate Wechat request?](#如何处理企业微信请求)
-    * [How to handle Wechat Open Platform request?](#如何处理微信开放平台请求)
-    * [How to use distributed cache?](#如何使用分布式缓存)
-* [How to develop Mini Program?](#如何开发小程序)
+    * [How to handle WeChat Official Account request?](#how-to-handle-wechat-official-account-request)
+* [Use Nuget to install the project](#use-nuget-to-install-the-project)
+    * [How to handle WeChat Official Account?](#how-to-handle-wechat-official-account)
+    * [How to handle WeChat Mini Program?](#how-to-handle-wechat-mini-program-request)
+    * [How to enhance the functionality of ASP.NET MVC project?](#how-to-enhance-the-functionality-of-aspnet-mvc-project)
+        * [How to handle WeChat Corporate Account?](#how-to-handle-wechat-corporate-account-request)
+    * [How to handle Corporate Wechat?](#how-to-handle-corporate-wechat-request)
+    * [How to handle Wechat Open Platform?](#how-to-handle-wechat-open-platform-request)
+    * [How to use distributed cache?](#how-to-use-distributed-cache)
+* [How to develop Mini Program?](#how-to-develop-mini-program)
 <!--* [已实现功能](#已实现功能)-->
 * [Branch Description](#Branch-Description)
 * [Thanks for Cntributors](#Thanks-for-Cntributors)
 * [Donate](#Donate)
 * [License](#license)
 
-本库为包含了 .NET 3.5/4.0/4.5/.NET Core 1.1/2.0 多个版本的源代码（核心逻辑完全一致）：
+The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Core 1.1/2.0.
 
-* 使用 Visual Studio 2017 打开 Demo（支持所有版本）：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
-* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* 使用 Visual Studio 2010 SP1 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
+* Use Visual Studio 2017 to open the Demo (support all versions)
+: [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
+* Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
+[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
+* Open Demo with Visual Studio 2010 SP1 (support.net 4.5 only) :
+[Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
 
 
 SDK Modules
@@ -257,7 +260,7 @@ public ActionResult Post(PostModel postModel)
     ...
 }
 ```
-### 如何处理微信公众账号请求？
+### How to handle WeChat Official Account request?
 
 Senparc.Weixin.MP provides two ways to process requests, [traditional methos](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法) and [MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B) (recommended). 
 
@@ -350,7 +353,7 @@ Starting with v0.4.0, the MessageHandler adds support for user Session context, 
 
 Use Nuget to install the project
 --------------
-### How to handle WeChat Official Account request?
+### How to handle WeChat Official Account?
 
 * Nuget Address: https://www.nuget.org/packages/Senparc.Weixin.MP
 
@@ -360,7 +363,7 @@ PM> Install-Package Senparc.Weixin.MP
 ```
 
 
-###  How to handle WeChat Mini Program request?
+###  How to handle WeChat Mini Program?
 
 Senparc.Weixin.WxOpen encapsulates the message and API of WeChat mini programs, keeping the development process of the Official Account request consistent.
 
@@ -371,7 +374,7 @@ Senparc.Weixin.WxOpen encapsulates the message and API of WeChat mini programs, 
 PM> Install-Package Senparc.Weixin.WxOpen
 ```
 
-### How to enhance the functionality of ASP.NET MVC project?
+### How to enhance the functionality of ASP.NET MVC?
 
 Senparc.Weixin.MP.MVC has done more optimization for ASP.NET MVC project, including convenient browser environment judgment, official bug fix, etc.
 
@@ -382,7 +385,7 @@ Senparc.Weixin.MP.MVC has done more optimization for ASP.NET MVC project, includ
 PM> Install-Package Senparc.Weixin.MP.MVC
 ```
 
-### How to handle WeChat Corporate Account request?
+### How to handle WeChat Corporate Account?
 
 Senparc.Weixin.QY.dll for `Corporate Account` encapsulation were conducted for the relevant functions, operation process remain the same with WeChat Official Account SDK (Senparc.Weixin.MP) .
 
@@ -396,7 +399,7 @@ PM> Install-Package Senparc.Weixin.QY
 > Note: QY has been stopped updating with the WeChat Corporate Account and has been seamlessly ported to Work (Corporate WeChat).
 
 
-### How to handle Corporate Wechat request?
+### How to handle Corporate Wechat?
 
 Senparc.Weixin.Work.dll for `Corporate Wechat` encapsulation were conducted for the relevant functions, operation process remain the same with WeChat Official Account SDK (Senparc.Weixin.MP) and WeChat Corporate Account (Senparc.Weixin.QY.dll).
 
@@ -408,7 +411,7 @@ PM> Install-Package Senparc.Weixin.Work
 ```
 
 
-### How to handle Wechat Open Platform request?
+### How to handle Wechat Open Platform?
 
 
 Senparc.Weixin.Open.dll is encapsulatied all Open Platform APIs , message operation process remain the same with WeChat Official Account SDK (Senparc.Weixin.MP), some other special message process please read the official document, then compares Demo in the Senparc.Weixin.MP.Sample project.

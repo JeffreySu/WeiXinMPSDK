@@ -1,6 +1,7 @@
-Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK) [Chinese](readme.md)
+Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
-
+ [[Chinese Version](readme.md)]
+ 
 > Wechat is the most famous IM APP in China which has more than 8.89 billion active user and more than ten million Official Accounts.
 
 

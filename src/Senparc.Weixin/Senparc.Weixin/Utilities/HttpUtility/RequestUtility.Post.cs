@@ -40,7 +40,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Utilities.HttpUtility;
+
 #if NET35 || NET40 || NET45
 using System.Web;
 #else

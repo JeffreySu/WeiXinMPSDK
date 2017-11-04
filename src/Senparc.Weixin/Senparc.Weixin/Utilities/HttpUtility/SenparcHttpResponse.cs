@@ -44,7 +44,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
 
-namespace Senparc.Weixin.Utilities.HttpUtility
+namespace Senparc.Weixin.HttpUtility
 {
     /// <summary>
     /// 统一封装HttpResonse请求，提供Http请求过程中的调试、跟踪等扩展能力

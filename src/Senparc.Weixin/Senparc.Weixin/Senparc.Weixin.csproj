@@ -160,6 +160,7 @@
     <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtility.Get.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtility.Post.cs" />
+    <Compile Include="Utilities\HttpUtility\SenparcHttpResponse.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />

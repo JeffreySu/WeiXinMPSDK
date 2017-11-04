@@ -157,7 +157,7 @@ Senparc official tutorials
 ----------------
 <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
 
-> By Jeffrey Su and Senparc team took 2 years to complete the development of WeChat books have been published, the title: "Depth Analysis of WeChat Development: the efficient development of the Official Account and Mini Program", the auxiliary reading system has been on the line: [BookHelper](http://book.weixin.senparc.com)。<br>
+> By Jeffrey Su and Senparc team took 2 years to complete the development of WeChat book have been published, the book's full name is: *Depth Analysis of WeChat Development: the efficient development of the Official Account and Mini Program*, the auxiliary reading system has been on the line: [BookHelper](http://book.weixin.senparc.com)。<br>
 > Welcome to buy genuine books:[【Buy】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
 > The branch of code snapshot for the book published version [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
@@ -374,7 +374,7 @@ Senparc.Weixin.WxOpen encapsulates the message and API of WeChat mini programs, 
 PM> Install-Package Senparc.Weixin.WxOpen
 ```
 
-### How to enhance the functionality of ASP.NET MVC?
+### How to enhance the functionality of ASP.NET MVC Project?
 
 Senparc.Weixin.MP.MVC has done more optimization for ASP.NET MVC project, including convenient browser environment judgment, official bug fix, etc.
 

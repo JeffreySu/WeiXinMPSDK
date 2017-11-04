@@ -97,28 +97,9 @@ namespace Senparc.Weixin.HttpUtility.Tests
         }
 
         [TestMethod]
-        public void PostTest()
-        {
-
-        }
-
-        [TestMethod]
         public void DownLoadTest()
         {
-            var data = "Jeffrey";
-            Stream stream = new MemoryStream();
-            var bytes = Encoding.UTF8.GetBytes(data);
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Seek(0, SeekOrigin.Begin);
 
-            var cookieContainer = new CookieContainer();
-            var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(url,
-                cookieContainer, stream, useAjax: true);
-
-            Console.WriteLine(result);
-
-            Assert.IsNotNull(result);
         }
 
 

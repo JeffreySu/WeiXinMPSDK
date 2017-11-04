@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -23,6 +24,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             var isAjax = Request.IsAjaxRequest();
+
+            Response.SetCookie(new HttpCookie("TestCookie", DateTime.Now.ToString()));
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }

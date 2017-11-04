@@ -67,20 +67,20 @@ namespace Senparc.Weixin.HttpUtility
         }
 #endif
 
-        /// <summary>
-        /// 是Ajax请求
-        /// </summary>
-        public bool IsAjax
-        {
-            get
-            {
-#if NET35 || NET40 || NET45
-                var values = Result.Headers.GetValues("X-Requested-With");
-                return values != null ? values.FirstOrDefault().IsNullOrEmpty() : false;
-#else
-                return !Result.RequestMessage.Headers.GetValues("X-Requested-With").FirstOrDefault().IsNullOrEmpty();
-#endif
-            }
-        }
+//        /// <summary>
+//        /// 是Ajax请求
+//        /// </summary>
+//        public bool IsAjax
+//        {
+//            get
+//            {
+//#if NET35 || NET40 || NET45
+//                var values = Result.Headers.GetValues("X-Requested-With");
+//                return values != null ? values.FirstOrDefault().IsNullOrEmpty() : false;
+//#else
+//                return !Result.RequestMessage.Headers.GetValues("X-Requested-With").FirstOrDefault().IsNullOrEmpty();
+//#endif
+//            }
+//        }
     }
 }

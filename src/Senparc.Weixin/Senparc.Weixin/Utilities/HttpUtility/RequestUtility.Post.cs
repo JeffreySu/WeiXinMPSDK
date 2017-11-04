@@ -40,6 +40,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Utilities.HttpUtility;
 #if NET35 || NET40 || NET45
 using System.Web;
 #else
@@ -96,7 +97,7 @@ namespace Senparc.Weixin.HttpUtility
                   new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
-        #region 处理Form表单文件上传
+            #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -164,7 +165,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-        #endregion
+            #endregion
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
 
@@ -218,7 +219,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpClientHeader(client, refererUrl, useAjax, timeOut);
 
 
-            #region 处理Form表单文件上传
+        #region 处理Form表单文件上传
 
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -268,7 +269,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             //HttpContentHeader(hc, timeOut);
-            #endregion
+        #endregion
 
             if (!string.IsNullOrEmpty(refererUrl))
             {
@@ -351,11 +352,12 @@ namespace Senparc.Weixin.HttpUtility
 
             #endregion
 
-            HttpWebResponse response = HttpResponsePost(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var senparcResponse = HttpResponsePost(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            HttpWebResponse response = senparcResponse.Result;
 
             response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
 
-            using (Stream responseStream = response.GetResponseStream())
+            using (Stream responseStream = response.GetResponseStream() ?? new MemoryStream())
             {
                 using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
                 {
@@ -364,7 +366,8 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            var response = HttpResponsePost(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var senparcResponse = HttpResponsePost(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var response = senparcResponse.Result;
 
             if (response.Content.Headers.ContentType.CharSet != null &&
                 response.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
@@ -395,18 +398,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="refererUrl"></param>
         /// <returns></returns>
-#if NET35 || NET40 || NET45
-       
-        public static   HttpWebResponse HttpResponsePost(string url, CookieContainer cookieContainer = null, Stream postStream = null,
+
+        public static SenparcHttpResponse HttpResponsePost(string url, CookieContainer cookieContainer = null, Stream postStream = null,
             Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
             X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
-#else
-        public static HttpResponseMessage HttpResponsePost(string url, CookieContainer cookieContainer = null, Stream postStream = null,
-            Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
-            X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
-            bool checkValidationResult = false)
-#endif
         {
             if (cookieContainer == null)
             {
@@ -414,9 +410,9 @@ namespace Senparc.Weixin.HttpUtility
             }
 
 #if NET35 || NET40 || NET45
-             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-        #region 输入二进制流
+            #region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -438,22 +434,22 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-        #endregion
+            #endregion
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            return response;
+            return new SenparcHttpResponse(response);
 #else
             HttpContent hc;
             var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-            var t = client.PostAsync(url, hc).GetAwaiter().GetResult();
-            return t;
+            var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
+            return new SenparcHttpResponse(response);
 #endif
 
 
         }
 
-#endregion
+        #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
@@ -502,7 +498,7 @@ namespace Senparc.Weixin.HttpUtility
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-            #region 输入二进制流
+        #region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -525,7 +521,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-            #endregion
+        #endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 

@@ -1,7 +1,7 @@
 Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
  [[Chinese Version](readme.md)]
- 
+
 > Wechat is the most famous IM APP in China which has more than 8.89 billion active user and more than ten million Official Accounts.
 
 
@@ -30,7 +30,7 @@ Index
     * [How to handle WeChat Official Account?](#how-to-handle-wechat-official-account)
     * [How to handle WeChat Mini Program?](#how-to-handle-wechat-mini-program)
     * [How to enhance the functionality of ASP.NET MVC project?](#how-to-enhance-the-functionality-of-aspnet-mvc-project)
-        * [How to handle WeChat Corporate Account?](#how-to-handle-wechat-corporate-account)
+    * [How to handle WeChat Corporate Account?](#how-to-handle-wechat-corporate-account)
     * [How to handle Corporate Wechat?](#how-to-handle-corporate-wechat)
     * [How to handle Wechat Open Platform?](#how-to-handle-wechat-open-platform)
     * [How to use distributed cache?](#how-to-use-distributed-cache)

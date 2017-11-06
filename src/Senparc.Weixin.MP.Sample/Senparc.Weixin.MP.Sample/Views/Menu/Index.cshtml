@@ -249,7 +249,7 @@
                         {
                             var isRootMenu = i == 5;
                             <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                                <td class="menuRowTip">
+                                <td class="menuRowTip @(isRootMenu?"rootMenu":"")">
                                     @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
                                 </td>
                                 @for (int j = 0; j < 3; j++)

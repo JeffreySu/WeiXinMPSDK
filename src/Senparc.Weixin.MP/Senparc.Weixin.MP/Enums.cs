@@ -75,6 +75,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170826
     修改描述：v14.6.8 添加Event下“微信认证事件推送”一系列事件类型
 
+    修改标识：Senparc - 20171108
+    修改描述：v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -621,6 +624,11 @@ namespace Senparc.Weixin.MP
         /// 里程
         /// </summary>
         FIELD_NAME_TYPE_MILEAGE = 5,
+
+        /// <summary>
+        /// 未知类型（新加入，文档中没有：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272）
+        /// </summary>
+        FIELD_NAME_TYPE_UNKNOW = -1
     }
 
     /// <summary>

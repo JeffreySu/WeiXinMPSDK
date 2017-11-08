@@ -13,6 +13,10 @@ Now, Senparc.Weixin has been supported almost all of the API for Wechat's all mo
 
 For more than five years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who help us along the way!
 
+
+<img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
+
+
 Index
 ----------------
 
@@ -156,7 +160,9 @@ donate: [Enter](http://sdk.weixin.senparc.com#donate)
 
 Senparc official tutorials
 ----------------
-<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
+
+<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" align="right">
+
 
 > By Jeffrey Su and Senparc team took 2 years to complete the development of WeChat book have been published, the book's full name is: *Depth Analysis of WeChat Development: the efficient development of the Official Account and Mini Program*, the auxiliary reading system has been on the line: [BookHelper](http://book.weixin.senparc.com)。<br>
 > Welcome to buy genuine books:[【Buy】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>

@@ -15,6 +15,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 下文索引
 ----------------
 
+<img src="https://sdk.weixin.senparc.com/images/SenparcRobotSnapshoot.jpg" width="400" align="right">
+
 * [各模块类库](#各模块类库)
 * [资源](#资源)
 * [:book: Senparc 官方教程](#senparc-官方教程)

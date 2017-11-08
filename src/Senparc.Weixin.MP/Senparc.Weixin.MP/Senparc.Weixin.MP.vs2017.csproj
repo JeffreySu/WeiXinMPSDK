@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.8.4</Version>
+    <Version>14.8.5</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -345,8 +345,8 @@
       v14.8.3
       1、添加RequestMessageUnknownType以及相关处理机制，处理未知类型的请求
       2、新增新增MsgTypeHelper.GetRequestMsgTypeString()方法
-
       v14.8.4 支持Senparc.Weixin v4.18.0，支持Ajax模拟请求
+      v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

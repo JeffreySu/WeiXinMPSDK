@@ -42,11 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170711
     修改描述：v14.5.2 Card_MemberCardData添加wx_activate_after_submit和wx_activate_after_submit_url
 
-
-
 ----------------------------------------------------------------*/
-
-
 
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;

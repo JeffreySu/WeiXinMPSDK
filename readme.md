@@ -17,6 +17,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotSnapshoot.jpg" width="400" align="right">
 
+
 * [各模块类库](#各模块类库)
 * [资源](#资源)
 * [:book: Senparc 官方教程](#senparc-官方教程)
@@ -167,7 +168,7 @@ Senparc 官方教程
 
 ## 如何使用.NET Core开发
 
-> 当前分支包含了 .NET Framework 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 的全版本代码。<br>
+> 当前分支包含了 .NET Framework 3.5 / 4.0 / 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 的全版本代码。<br>
 > 其中 .NET Framework 4.5 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample` 目录下，<br>
 > .NET Core 2.0 的 Demo 位于 `/src/Senparc.Weixin.MP.Sample.vs2017` 目录下。<br>
 > 注意：以上两个 Demo 所引用的 Senparc.Weixin SDK 库源代码是完全一致的，只是在编译运行的时候会根据条件自动选择输出版本。

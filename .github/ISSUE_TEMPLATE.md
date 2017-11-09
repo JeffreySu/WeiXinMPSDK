@@ -49,3 +49,7 @@
 - [ ] Redis 版本：
 - [ ] Memcached 版本：
 - [ ] 其他
+
+##### 联系方式
+Email：
+或将问题地址及联系方式发送到www.jeffrey.su@gmail.com

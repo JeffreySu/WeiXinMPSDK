@@ -52,4 +52,5 @@
 
 ##### 联系方式
 Email：
-（或将问题地址及联系方式发送到 www.jeffrey.su@gmail.com）
+
+（也可将问题地址及联系方式发送到 www.jeffrey.su@gmail.com）

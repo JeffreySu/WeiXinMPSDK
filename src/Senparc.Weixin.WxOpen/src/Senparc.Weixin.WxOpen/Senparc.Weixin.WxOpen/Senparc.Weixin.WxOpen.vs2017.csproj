@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.7.0-beta1</Version>
+    <Version>1.7.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -64,6 +64,7 @@
       1、添加获取用户手机号方法（同时提供了Demo）
 
       v1.7.0-beta1 提供.NET 4.0支持
+      v1.7.1 发布正式版；修复WxAppApi.GetWxaCodeUnlimit()方法参数错误的问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

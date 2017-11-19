@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             ButtonGroup bg = new ButtonGroup();
 
-   //二级菜单
+            //二级菜单
             var subButton = new SubButton()
             {
                 name = "二级菜单"

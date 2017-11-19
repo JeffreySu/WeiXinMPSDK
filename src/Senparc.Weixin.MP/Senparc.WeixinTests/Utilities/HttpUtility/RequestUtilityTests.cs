@@ -79,10 +79,10 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);
-
+#if !NET45
             var resultString = result.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             Console.WriteLine("resultString:{0}", resultString);
-
+#endif
             var cookie = cookieContainer.GetCookies(new Uri("http://localhost:65395"));
             Console.WriteLine("TestCookie：{0}", cookie["TestCookie"]);
         }

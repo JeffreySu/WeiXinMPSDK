@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
 
     /// <summary>
-    /// 查询code返回结果
+    /// 查询code返回结果,check_consume=false 的结果。
     /// </summary>
     public class CardGetResultJson : WxJsonResult
     {
@@ -53,6 +53,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 用户openid
         /// </summary>
         public string openid { get; set; }
+        //can_consume
+        public bool can_consume { get; set; }
+        public UserCardStatus user_card_status { get; set; }
         public Get_Card card { get; set; }
     }
 

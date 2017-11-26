@@ -394,6 +394,41 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 ResponseHandler resHandler = new ResponseHandler(null);
 
+                string return_code = resHandler.GetParameter("return_code");
+                string return_msg = resHandler.GetParameter("return_msg");
+
+                string res = null;
+
+                resHandler.SetKey(TenPayV3Info.Key);
+                //验证请求是否从微信发过来（安全）
+                if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
+                {
+                    res = "success";//正确的订单处理
+                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
+                }
+                else
+                {
+                    res = "wrong";//错误的订单处理
+                }
+
+                /* 这里可以进行订单处理的逻辑 */
+
+                //发送支付成功的模板消息
+                try
+                {
+                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string openId = resHandler.GetParameter("openid");
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId+" , "+openId);
+
+                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                }
+                catch(Exception ex)
+                {
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息",ex.ToString());
+                }
+
                 #region 记录日志
 
                 var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
@@ -415,42 +450,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 #endregion
 
-
-                string return_code = resHandler.GetParameter("return_code");
-                string return_msg = resHandler.GetParameter("return_msg");
-
-                string res = null;
-
-                resHandler.SetKey(TenPayV3Info.Key);
-                //验证请求是否从微信发过来（安全）
-                if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
-                {
-                    res = "success";//正确的订单处理
-                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
-                }
-                else
-                {
-                    res = "wrong";//错误的订单处理
-                }
-
-
-                //这里可以进行订单处理的逻辑
-
-                //发送支付成功的模板消息
-                try
-                {
-                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
-
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId+" , "+openId);
-
-                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
-                }
-                catch(Exception ex)
-                {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息",ex.ToString());
-                }
 
                 string xml = string.Format(@"<xml>
 <return_code><![CDATA[{0}]]></return_code>

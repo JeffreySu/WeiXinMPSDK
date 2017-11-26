@@ -16,18 +16,18 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
         const string TEMPLATE_ID = "66Gf81swxfWt_P_HkH0Bapvj1nlpiWGmEkXDeCvWcVo";//每个公众号都不同，需要根据实际情况修改
 
 
-        public TemplateDataItem _name { get; set; }
+        public TemplateDataItem name { get; set; }
         /// <summary>
         /// Time
         /// </summary>
-        public TemplateDataItem _remark { get; set; }
+        public TemplateDataItem remark { get; set; }
 
 
         public WeixinTemplate_PaySuccess(string url,string productName,string notice) 
             : base(TEMPLATE_ID, url, "购买成功通知")
         {
-            _name = new TemplateDataItem(productName);
-            _remark = new TemplateDataItem(notice);
+            name = new TemplateDataItem(productName);
+            remark = new TemplateDataItem(notice);
         }
     }
 }

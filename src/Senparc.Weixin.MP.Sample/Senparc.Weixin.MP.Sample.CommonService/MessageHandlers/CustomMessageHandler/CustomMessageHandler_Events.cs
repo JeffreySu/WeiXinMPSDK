@@ -569,7 +569,8 @@ QQ群：342319110
             {
                 var msg = @"已向您发送模板消息
 状态：{0}
-MsgId：{1}".FormatWith(requestMessage.Status, requestMessage.MsgID);
+MsgId：{1}
+（这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
                 CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
             }
             catch (Exception e)

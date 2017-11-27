@@ -68,7 +68,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static GetUserInfoResult GetUserId(string accessToken, string code, string agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserDetailResult GetUserDetail(string accessToken,string userTicket)
         {
-            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
 
             var data = new
             {
@@ -120,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code, string agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
         }
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
         }
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
         {
-            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
 
             var data = new
             {

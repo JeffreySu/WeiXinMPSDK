@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class MassApi
     {
-        private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
+        private const string URL_FORMAT = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
 
         #region 同步方法
 

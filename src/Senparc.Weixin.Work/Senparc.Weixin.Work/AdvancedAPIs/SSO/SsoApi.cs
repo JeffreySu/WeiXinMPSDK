@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static ProviderTokenResult GetProviderToken(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
         {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
+                var url = Config.ApiWorkHost + "/cgi-bin/service/get_provider_token";
 
                 var data = new
                 {
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static GetLoginInfoResult GetLoginInfo(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
+                string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_info?provider_access_token={0}";
 
                 var data = new
                 {
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static async Task<GetLoginInfoResult> GetLoginInfoAsync(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
+                string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_info?provider_access_token={0}";
 
                 var data = new
                 {
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static async Task<ProviderTokenResult> GetProviderTokenAsync(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
         {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
+                var url = Config.ApiWorkHost + "/cgi-bin/service/get_provider_token";
 
                 var data = new
                 {

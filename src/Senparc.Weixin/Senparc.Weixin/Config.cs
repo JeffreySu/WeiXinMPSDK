@@ -112,11 +112,11 @@ namespace Senparc.Weixin
         public static string RootDictionaryPath { get; set; }
 
         /// <summary>
-        /// 公众号（小程序）API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// 公众号（小程序）、开放平台 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
         private static string _apiMpHost = "https://api.weixin.qq.com";
         /// <summary>
-        /// 公众号（小程序）API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// 公众号（小程序）、开放平台 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
         public static string ApiMpHost
         {
@@ -127,7 +127,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
         /// </summary>
-        private static string _apiWorkHost = "https://qyapi.weixin.qq.com";
+        private static string _apiWorkHost = Config.ApiWorkHost + "";
         /// <summary>
         /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
         /// </summary>

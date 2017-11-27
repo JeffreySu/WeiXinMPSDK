@@ -15,7 +15,9 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -549,6 +551,7 @@ QQ群：342319110
             {
                 case "success":
                     //发送成功
+                   
                     break;
                 case "failed:user block":
                     //送达由于用户拒收（用户设置拒绝接收公众号消息）而失败
@@ -561,6 +564,20 @@ QQ群：342319110
             }
 
             //注意：此方法内不能再发送模板消息，否则会造成无限循环！
+
+            try
+            {
+                var msg = @"已向您发送模板消息
+状态：{0}
+MsgId：{1}
+（这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
+                CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
+            }
+            catch (Exception e)
+            {
+                Senparc.Weixin.WeixinTrace.SendCustomLog("模板消息发送失败", e.ToString());
+            }
+
 
             //无需回复文字内容
             //return requestMessage

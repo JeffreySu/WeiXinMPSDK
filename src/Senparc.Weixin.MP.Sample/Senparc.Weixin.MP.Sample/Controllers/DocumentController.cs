@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //chm二维码
             var qrCodeId = configHelper.GetQrCodeId();
-            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId,10000, qrCodeId, QrCode_ActionName.QR_SCENE);
+            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
             var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
             ViewData["QrCodeUrl"] = qrCodeUrl;
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 
                     file.FileDownloadName = string.Format("Senparc.Weixin{0}-v{1}.rar",
-                        codeRecord.IsWebVersion?"-Web":"",
+                        codeRecord.IsWebVersion ? "-Web" : "",
                         codeRecord.Version);
                     return file;
                 }

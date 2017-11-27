@@ -35,13 +35,13 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void CreateMenuTest()
         {
-            return;//已经通过测试
+            //return;//已经通过测试
 
             //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             ButtonGroup bg = new ButtonGroup();
 
-   //二级菜单
+            //二级菜单
             var subButton = new SubButton()
             {
                 name = "二级菜单"

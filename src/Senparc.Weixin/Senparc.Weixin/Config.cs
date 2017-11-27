@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160813
     修改描述：v4.7.7 添加DefaultCacheNamespace
+
+    修改标识：Senparc - 20171127
+    修改描述：v4.18.5 添加Config.ApiHost属性，可以设置API域名
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -107,7 +111,9 @@ namespace Senparc.Weixin
         /// </summary>
         public static string RootDictionaryPath { get; set; }
 
-
+        /// <summary>
+        /// API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// </summary>
         private static string _apiHost = "https://api.weixin.qq.com";
         /// <summary>
         /// API的服务器地址（默认为：https://api.weixin.qq.com）

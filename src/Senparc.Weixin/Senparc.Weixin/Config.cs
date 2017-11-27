@@ -90,7 +90,7 @@ namespace Senparc.Weixin
         public static string DefaultCacheNamespace = "DefaultCache";//TODO:需要考虑分布式的情况，后期需要储存在缓存中,或进行全局配置
 
 #if !NET45
-         /// <summary>
+        /// <summary>
         /// 默认微信配置
         /// </summary>
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
@@ -106,5 +106,16 @@ namespace Senparc.Weixin
         /// 网站根目录绝对路径
         /// </summary>
         public static string RootDictionaryPath { get; set; }
+
+
+        private static string _apiHost = "https://api.weixin.qq.com";
+        /// <summary>
+        /// API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// </summary>
+        public static string ApiHost
+        {
+            get { return _apiHost; }
+            set { _apiHost = value; }
+        }
     }
 }

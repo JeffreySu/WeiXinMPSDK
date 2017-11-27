@@ -113,7 +113,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="iP">发送红包的服务器地址</param>
         /// <param name="redPackAmount">付款金额，单位分。红包金额大于200时，请求参数scene必传。</param>
         /// <param name="wishingWord">祝福语</param>
-        /// <param name="actionName">活动名称</param>
+        /// <param name="actionName">活动名称（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）</param>
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
@@ -339,7 +339,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="iP">发送红包的服务器地址</param>
         /// <param name="redPackAmount">付款金额，单位分。红包金额大于200时，请求参数scene必传。</param>
         /// <param name="wishingWord">祝福语</param>
-        /// <param name="actionName">活动名称</param>
+        /// <param name="actionName">活动名称（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）</param>
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>

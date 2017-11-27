@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         public static OAuthAccessTokenResult GetAccessToken(string appId, string componentAppid, string componentAccessToken, string code, string grantType = "authorization_code")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/component/access_token?appid={0}&code={1}&grant_type={2}&component_appid={3}&component_access_token={4}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/component/access_token?appid={0}&code={1}&grant_type={2}&component_appid={3}&component_access_token={4}",
                                 appId.AsUrlData(), code.AsUrlData(), grantType.AsUrlData(), componentAppid.AsUrlData(), componentAccessToken.AsUrlData());
 
             /* 期望返回：
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <returns></returns>
         public static OAuthAccessTokenResult RefreshToken(string appId, string refreshToken, string componentAppid, string componentAccessToken, string grantType = "refresh_token")
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
+            var url = string.Format(Config.ApiMpHost + "/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
                                 appId.AsUrlData(), grantType.AsUrlData(), componentAppid.AsUrlData(), componentAccessToken.AsUrlData(), refreshToken.AsUrlData());
 
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <returns></returns>
         public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
             /*
              期望返回：{    "openid":" OPENID",    " nickname": NICKNAME,    "sex":"1",    "province":"PROVINCE"    "city":"CITY",    "country":"COUNTRY",     "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",  "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],     "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL" }
              错误时微信会返回JSON数据包如下（示例为openid无效）:{"errcode":40003,"errmsg":" invalid openid "}
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         ///// <returns></returns>
         //public static WxJsonResult Auth(string accessToken, string openId)
         //{
-        //    var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+        //    var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
         //    return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         //}
         #endregion
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         public static async Task<OAuthAccessTokenResult> GetAccessTokenAsync(string appId, string componentAppid, string componentAccessToken, string code, string grantType = "authorization_code")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/component/access_token?appid={0}&code={1}&grant_type={2}&component_appid={3}&component_access_token={4}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/component/access_token?appid={0}&code={1}&grant_type={2}&component_appid={3}&component_access_token={4}",
                                 appId.AsUrlData(), code.AsUrlData(), grantType.AsUrlData(), componentAppid.AsUrlData(), componentAccessToken.AsUrlData());
 
             /* 期望返回：
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <returns></returns>
         public static async Task<OAuthAccessTokenResult> RefreshTokenAsync(string appId, string refreshToken, string componentAppid, string componentAccessToken, string grantType = "refresh_token")
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
+            var url = string.Format(Config.ApiMpHost + "/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
                                 appId.AsUrlData(), grantType.AsUrlData(), componentAppid.AsUrlData(), componentAccessToken.AsUrlData(), refreshToken.AsUrlData());
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <returns></returns>
         public static async Task<OAuthUserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
             /*
              期望返回：{    "openid":" OPENID",    " nickname": NICKNAME,    "sex":"1",    "province":"PROVINCE"    "city":"CITY",    "country":"COUNTRY",     "headimgurl":    "http://wx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46",  "privilege":[ "PRIVILEGE1" "PRIVILEGE2"     ],     "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL" }
              错误时微信会返回JSON数据包如下（示例为openid无效）:{"errcode":40003,"errmsg":" invalid openid "}
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         ///// <returns></returns>
         //public static WxJsonResult Auth(string accessToken, string openId)
         //{
-        //    var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+        //    var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
         //    return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         //}
         #endregion

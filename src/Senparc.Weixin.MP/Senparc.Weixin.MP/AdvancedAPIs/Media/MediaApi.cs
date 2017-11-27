@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/media/uploadnews?access_token={0}";
 
                 var data = new
                 {
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
                 HttpUtility.Get.Download(url, stream);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
                 var str = HttpUtility.Get.Download(url, dir);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
             }, accessTokenOrAppId);
@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/material/add_news?access_token={0}";
 
                 var data = new
                 {
@@ -196,7 +196,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
                 //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
                 //var dataDictionary = new Dictionary<string, string>();
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
@@ -244,7 +244,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}";
+                string url = Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}";
                 var data = new
                 {
                     media_id = mediaId
@@ -262,7 +262,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 media_id = mediaId
@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token={0}";
+                string url = Config.ApiMpHost + "/cgi-bin/material/del_material?access_token={0}";
                 var data = new
                 {
                     media_id = mediaId
@@ -306,7 +306,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
+                string url = Config.ApiMpHost + "/cgi-bin/material/update_news?access_token={0}";
 
                 var data = new
                 {
@@ -330,7 +330,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
                 return HttpUtility.Get.GetJson<GetMediaCountResultJson>(url);
 
@@ -349,7 +349,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
                 var date = new
                 {
@@ -378,7 +378,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
                 var date = new
                 {
@@ -403,7 +403,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
@@ -432,7 +432,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
                return await Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(url, null, fileDictionary, null, null, null, false, timeOut);
@@ -451,7 +451,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
+               string urlFormat = Config.ApiMpHost + "/cgi-bin/media/uploadnews?access_token={0}";
 
                var data = new
                {
@@ -472,7 +472,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
                 await HttpUtility.Get.DownloadAsync(url, stream);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
                 var str = await HttpUtility.Get.DownloadAsync(url, dir);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
             }, accessTokenOrAppId);
@@ -516,7 +516,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token={0}";
+               string urlFormat = Config.ApiMpHost + "/cgi-bin/material/add_news?access_token={0}";
 
                var data = new
                {
@@ -538,7 +538,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
                //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
                //var dataDictionary = new Dictionary<string, string>();
@@ -565,7 +565,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
                fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
@@ -586,7 +586,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}";
+               string url = Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}";
                var data = new
                {
                    media_id = mediaId
@@ -604,7 +604,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         public static async Task GetForeverMediaAsync(string accessToken, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
             var data = new
             {
                 media_id = mediaId
@@ -625,7 +625,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token={0}";
+               string url = Config.ApiMpHost + "/cgi-bin/material/del_material?access_token={0}";
                var data = new
                {
                    media_id = mediaId
@@ -648,7 +648,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
+               string url = Config.ApiMpHost + "/cgi-bin/material/update_news?access_token={0}";
 
                var data = new
                {
@@ -672,7 +672,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
                return await HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
 
@@ -691,7 +691,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
                var date = new
                {
@@ -720,7 +720,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/batchget_material?access_token={0}", accessToken.AsUrlData());
 
                var date = new
                {
@@ -745,7 +745,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;

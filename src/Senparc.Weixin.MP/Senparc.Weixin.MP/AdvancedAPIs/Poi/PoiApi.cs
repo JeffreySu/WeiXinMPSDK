@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -207,7 +207,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 
@@ -244,7 +244,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
@@ -265,7 +265,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -331,7 +331,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -357,7 +357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
 
@@ -373,7 +373,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 

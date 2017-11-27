@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/delivernotify?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/orderquery?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/delivernotify?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/orderquery?access_token={0}";
 
             //组装发送消息
             var data = new

@@ -73,7 +73,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacode?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { scene = scene, page = page, width = width };
@@ -184,7 +184,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { scene = scene, page = page, width = width };
@@ -328,7 +328,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/wxa/getwxacode?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
@@ -355,7 +355,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };

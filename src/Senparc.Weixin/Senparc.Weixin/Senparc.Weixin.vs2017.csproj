@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.18.4</Version>
+    <Version>4.18.5</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -206,6 +206,7 @@
       v4.18.2 新建SenparcHttpResponse，重构重构RequestUtility.HttpPost()方法
       v4.18.3 v4.18.2-beta发布正式版
       v4.18.4 修正当.net core 2.0中对请求的流不支持Seek 时的判断
+      v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

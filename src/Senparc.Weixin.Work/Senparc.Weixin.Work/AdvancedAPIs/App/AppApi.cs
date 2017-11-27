@@ -60,7 +60,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
                 return Get.GetJson<GetAppInfoResult>(url);
             }, accessTokenOrAppKey);
         }
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetAppListResult>(url);
             }, accessTokenOrAppKey);
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
 
                 return await Get.GetJsonAsync<GetAppInfoResult>(url);
             }, accessTokenOrAppKey);
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 //TODO:需要对SetAppPostData中的null值过滤
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
 
                 return await Get.GetJsonAsync<GetAppListResult>(url);
             }, accessTokenOrAppKey);

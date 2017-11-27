@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static CodeResultJson Commit(string accessToken, int template_id, string ext_json, string user_version, string user_desc, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/commit?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/commit?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         public static CodeResultJson GetQRCode(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
             Get.Download(url, stream);
             return new CodeResultJson()
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static GetCategoryResultJson GetCategory(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_category?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_category?access_token={0}", accessToken.AsUrlData());
 
             return CommonJsonSend.Send<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static GetPageResultJson GetPage(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_page?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_page?access_token={0}", accessToken.AsUrlData());
 
 
             return CommonJsonSend.Send<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static GetAuditStatusResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo>  item_list, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static GetAuditStatusResultJson GetAuditStatus(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static GetAuditStatusResultJson GetLatestAuditStatus(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
 
             return CommonJsonSend.Send<GetAuditStatusResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static CodeResultJson Release(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/release?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/release?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -196,7 +196,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static CodeResultJson ChangeVisitStatus(string accessToken, ChangVisitStatusAction action, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<CodeResultJson> CommitAsync(string accessToken, int template_id, string ext_json, string user_version, string user_desc, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/commit?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/commit?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         public static async Task<CodeResultJson> GetQRCodeAsync(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
             await Get.DownloadAsync(url, stream);
             return new CodeResultJson()
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<GetCategoryResultJson> GetCategoryAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_category?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_category?access_token={0}", accessToken.AsUrlData());
 
 
             return await CommonJsonSend.SendAsync<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
@@ -277,7 +277,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<GetPageResultJson> GetPageAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_page?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_page?access_token={0}", accessToken.AsUrlData());
 
 
             return await CommonJsonSend.SendAsync<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<GetAuditStatusResultJson> SubmitAuditAsync(string accessToken, List<SubmitAuditPageInfo> item_list, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -312,7 +312,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<GetAuditStatusResultJson> GetAuditStatusAsync(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -332,7 +332,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<GetAuditStatusResultJson> GetLatestAuditStatusAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<CodeResultJson> ReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/release?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/release?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -370,7 +370,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<CodeResultJson> ChangeVisitStatusAsync(string accessToken, ChangVisitStatusAction action, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
 
             object data;
 

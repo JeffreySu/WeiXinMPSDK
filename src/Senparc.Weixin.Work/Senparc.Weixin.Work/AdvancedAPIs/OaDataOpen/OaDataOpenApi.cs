@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckindata?access_token={0}";
 
                 var data = new
                 {
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getapprovaldata?access_token={0}";
 
                 var data = new
                 {
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckindata?access_token={0}";
 
                 var data = new
                 {
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getapprovaldata?access_token={0}";
 
                 var data = new
                 {

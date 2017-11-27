@@ -74,7 +74,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
                 return CommonJsonSend.Send<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
           {
-              var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/create?access_token={0}", accessToken.AsUrlData());
+              var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/create?access_token={0}", accessToken.AsUrlData());
               var data = new
               {
                   keystandard = keyStandard,
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/modstatus?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/modstatus?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/testwhitelist/set?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/testwhitelist/set?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     openid = openId,
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/get?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/get?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -184,7 +184,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getlist?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/getlist?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     offset = offset,
@@ -207,7 +207,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/clear?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/clear?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -230,7 +230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
 
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
           {
-              var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/create?access_token={0}", accessToken.AsUrlData());
+              var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/create?access_token={0}", accessToken.AsUrlData());
               var data = new
               {
                   keystandard = keyStandard,
@@ -327,7 +327,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/modstatus?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/modstatus?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -349,7 +349,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/testwhitelist/set?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/testwhitelist/set?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     openid = openId,
@@ -371,7 +371,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/get?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/get?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -393,7 +393,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getlist?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/getlist?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     offset = offset,
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/clear?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/clear?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     keystandard = keyStandard,
@@ -439,7 +439,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
 
@@ -465,7 +465,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/getqrcode?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {

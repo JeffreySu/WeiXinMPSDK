@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
 
                 data.industry_id = RegisterData.ConvertIndustryId(industry_Id);
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetAuditStatusResultJson>(url);
 
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/applyid?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/applyid?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/applystatus?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/applystatus?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/update?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
 
                 var data = type == 2
                     ? new
@@ -276,7 +276,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询设备列表Api url
         /// </summary>
-        private static string searchDeviceUrl = "https://api.weixin.qq.com/shakearound/device/search?access_token={0}";
+        private static string searchDeviceUrl = Config.ApiMpHost + "/shakearound/device/search?access_token={0}";
 
         /// <summary>
         /// 根据指定的设备Id查询设备列表
@@ -387,7 +387,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -411,7 +411,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/add?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -444,7 +444,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -464,7 +464,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 查询页面列表
 
         private static string searchPageUrl =
-            "https://api.weixin.qq.com/shakearound/page/search?access_token={0}";
+            Config.ApiMpHost + "/shakearound/page/search?access_token={0}";
 
         /// <summary>
         /// 根据页面Id查询页面列表
@@ -527,7 +527,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/delete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -556,7 +556,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/bindpage?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/bindpage?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -582,7 +582,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -608,7 +608,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -636,7 +636,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/user/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -666,7 +666,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/device?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/device?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -695,7 +695,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/page?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/page?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -720,7 +720,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -745,7 +745,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/pagelist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/pagelist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -769,7 +769,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/add?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -792,7 +792,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -818,7 +818,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/delete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -840,7 +840,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getlist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/getlist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -864,7 +864,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getdetail?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/getdetail?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -889,7 +889,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
                 object data = new
                 {
                     group_id = groupId,
@@ -938,7 +938,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
                 var data = new object();
                 if (!deviceIdentifier.device_id.HasValue)
                 {
@@ -985,7 +985,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1019,7 +1019,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1047,7 +1047,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1070,7 +1070,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1097,7 +1097,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
 
                 data.industry_id = RegisterData.ConvertIndustryId(industry_Id);
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -1114,7 +1114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
                 return await Get.GetJsonAsync<GetAuditStatusResultJson>(url);
 
@@ -1135,7 +1135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/applyid?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/applyid?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1163,7 +1163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/applystatus?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/applystatus?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1192,7 +1192,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/update?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1230,7 +1230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
 
                 var data = type == 2
                     ? new
@@ -1282,7 +1282,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1306,7 +1306,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询设备列表Api url
         /// </summary>
-        // private static string searchDeviceUrl = "https://api.weixin.qq.com/shakearound/device/search?access_token={0}";
+        // private static string searchDeviceUrl = Config.ApiMpHost + "/shakearound/device/search?access_token={0}";
 
         /// <summary>
         /// 根据指定的设备Id查询设备列表
@@ -1393,7 +1393,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return await Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -1417,7 +1417,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/add?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1450,7 +1450,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1469,7 +1469,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #region 查询页面列表
 
-        /*private static string searchPageUrl ="https://api.weixin.qq.com/shakearound/page/search?access_token={0}";*/
+        /*private static string searchPageUrl =Config.ApiMpHost + "/shakearound/page/search?access_token={0}";*/
 
         /// <summary>
         /// 【异步方法】根据页面Id查询页面列表
@@ -1532,7 +1532,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/page/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/page/delete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1561,7 +1561,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/bindpage?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/bindpage?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1587,7 +1587,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1613,7 +1613,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/relation/search?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1641,7 +1641,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/user/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1671,7 +1671,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/device?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/device?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1700,7 +1700,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/page?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/page?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1725,7 +1725,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1750,7 +1750,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/pagelist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/statistics/pagelist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1774,7 +1774,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/add?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/add?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1799,7 +1799,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1825,7 +1825,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/delete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1847,7 +1847,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getlist?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/getlist?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1871,7 +1871,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getdetail?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/getdetail?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1895,7 +1895,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
                object data = new
                {
                    group_id = groupId,
@@ -1944,7 +1944,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
                var data = new object();
                if (!deviceIdentifier.device_id.HasValue)
                {
@@ -1991,7 +1991,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
 
                var data = new
                {
@@ -2025,7 +2025,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
 
                var data = new
                {
@@ -2053,7 +2053,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
 
                var data = new
                {
@@ -2076,7 +2076,7 @@ int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
+               var url = string.Format(Config.ApiMpHost + "/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
 
                var data = new
                {

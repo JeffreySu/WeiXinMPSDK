@@ -34,7 +34,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class KFApi
     {
-        private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/kf/send?access_token={0}";
+        private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/kf/send?access_token={0}";
+
         #region 同步方法
 
 
@@ -72,7 +73,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         content = content
                     }
                 };
-                return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -112,7 +113,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -152,7 +153,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -192,7 +193,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -209,7 +210,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
 
                 return CommonJsonSend.Send<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, accessTokenOrAppKey);
@@ -254,7 +255,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         content = content
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -294,7 +295,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -334,7 +335,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -374,7 +375,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                         media_id = mediaId
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -391,7 +392,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, accessTokenOrAppKey);

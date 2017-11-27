@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByGroupId baseData = null;
                 var filter = new GroupMessageByGroupId_GroupId()
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/send?access_token={0}";
 
                 BaseGroupMessageDataByOpenId baseData = null;
                 switch (type)
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/send?access_token={0}";
 
                 BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_MpVideoData()
                 {
@@ -287,7 +287,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/delete?access_token={0}";
 
                 var data = new
                 {
@@ -313,7 +313,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/preview?access_token={0}";
 
                 BaseGroupMessageDataPreview baseData = null;
                 switch (type)
@@ -405,7 +405,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/preview?access_token={0}";
 
                 BaseGroupMessageDataPreview baseData = new GroupMessagePreview_WxCardData()
                 {
@@ -435,7 +435,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/get?access_token={0}";
 
                 var data = new
                 {
@@ -501,7 +501,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByGroupId baseData = null;
                 var filter = new GroupMessageByGroupId_GroupId()
@@ -602,7 +602,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/send?access_token={0}";
 
                 BaseGroupMessageDataByOpenId baseData = null;
                 switch (type)
@@ -689,7 +689,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/send?access_token={0}";
 
                 BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_MpVideoData()
                 {
@@ -720,7 +720,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/delete?access_token={0}";
 
                 var data = new
                 {
@@ -746,7 +746,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/preview?access_token={0}";
 
                 BaseGroupMessageDataPreview baseData = null;
                 switch (type)
@@ -838,7 +838,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/preview?access_token={0}";
 
                 BaseGroupMessageDataPreview baseData = new GroupMessagePreview_WxCardData()
                 {
@@ -868,7 +868,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/get?access_token={0}";
 
                 var data = new
                 {

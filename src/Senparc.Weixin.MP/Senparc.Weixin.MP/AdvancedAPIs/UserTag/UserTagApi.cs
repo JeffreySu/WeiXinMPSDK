@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/create?access_token={0}";
                 var data = new
                 {
                     tag = new
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
                 return HttpUtility.Get.GetJson<TagJson>(url);
 
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/update?access_token={0}";
                 var data = new
                 {
                     tag = new
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/delete?access_token={0}";
 
                 var data = new
                 {
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/user/tag/get?access_token={0}";
                 var data = new
                 {
                     tagid = tagid,
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/members/batchtagging?access_token={0}";
                 var data = new
                 {
                     openid_list = openid_list,
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/members/batchuntagging?access_token={0}";
                 var data = new
                 {
                     openid_list = openid_list,
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/getidlist?access_token={0}";
                 var data = new
                 {
                     openid = openid
@@ -236,7 +236,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/create?access_token={0}";
                 var data = new
                 {
                     tag = new
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
                 return await HttpUtility.Get.GetJsonAsync<TagJson>(url);
 
@@ -274,7 +274,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/update?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/update?access_token={0}";
                 var data = new
                 {
                     tag = new
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/delete?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/delete?access_token={0}";
 
                 var data = new
                 {
@@ -324,7 +324,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/user/tag/get?access_token={0}";
                 var data = new
                 {
                     tagid = tagid,
@@ -345,7 +345,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/members/batchtagging?access_token={0}";
                 var data = new
                 {
                     openid_list = openid_list,
@@ -367,7 +367,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/members/batchuntagging?access_token={0}";
                 var data = new
                 {
                     openid_list = openid_list,
@@ -388,7 +388,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/getidlist?access_token={0}";
                 var data = new
                 {
                     openid = openid

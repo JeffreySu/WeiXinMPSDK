@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class CustomApi
     {
-        private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
+        private static string _urlFormat = Config.ApiMpHost + "/cgi-bin/message/custom/send?access_token={0}";
 
         #region 同步方法
 
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
                 
             }, accessTokenOrAppId);
         }
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -278,7 +278,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -339,7 +339,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -399,7 +399,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -448,7 +448,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -481,7 +481,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -537,7 +537,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -586,7 +586,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -634,7 +634,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -690,7 +690,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -752,7 +752,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -814,7 +814,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -864,7 +864,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -897,7 +897,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return  await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return  await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }

@@ -58,7 +58,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static LibraryListJsonResult LibraryList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
             var data = new
             {
                 offset = offset,
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static LibraryGetJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
             var data = new
             {
                 id = id
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static LibraryGetJsonResult Add(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
             var data = new
             {
                 id = id,
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static ListJsonResult List(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
             var data = new
             {
                 offset = offset,
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static WxJsonResult Del(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
             var data = new
             {
                 template_id = templateId
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static async Task<LibraryListJsonResult> LibraryListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
             var data = new
             {
                 offset = offset,
@@ -184,7 +184,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static async Task<LibraryGetJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
             var data = new
             {
                 id = id
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static async Task<LibraryGetJsonResult> AddAsync(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
             var data = new
             {
                 id = id,
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static async Task<ListJsonResult> ListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
             var data = new
             {
                 offset = offset,
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <returns></returns>
         public static async Task<WxJsonResult> DelAsync(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
             var data = new
             {
                 template_id = templateId

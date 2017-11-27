@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = Config.ApiMpHost + "/cgi-bin/shorturl?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/shorturl?access_token={0}";
                 var data = new
                 {
                     action = action,
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = Config.ApiMpHost + "/cgi-bin/shorturl?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/shorturl?access_token={0}";
                 var data = new
                 {
                     action = action,

@@ -60,7 +60,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <returns></returns>
         public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
+            string urlFormat =
                 Config.ApiMpHost + "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <returns></returns>
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
+            string urlFormat =
                 Config.ApiMpHost + "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);

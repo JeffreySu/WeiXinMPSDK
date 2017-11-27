@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.8.7</Version>
+    <Version>14.8.8</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -348,6 +348,7 @@
       v14.8.4 支持Senparc.Weixin v4.18.0，支持Ajax模拟请求
       v14.8.5 卡券Membe完善CardGetResultJson字段rCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
       v14.8.7 完善CardGetResultJson字段
+      v14.8.8 修正了统计接口关注用户实体类的属性数据类型错误
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

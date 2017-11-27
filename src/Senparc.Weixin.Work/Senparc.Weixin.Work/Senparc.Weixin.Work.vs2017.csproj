@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -51,6 +51,7 @@
       v1.2.0-beta1 支持 .NET 3.5/4.0
       v1.2.0-beta2 部门id改为long类型
       v1.2.2 支持Senparc.Weixin v4.18.0，支持Ajax模拟请求
+      v1.2.3 GetDepartmentListResult.order改为long类型
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

@@ -34,7 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.7.7 添加DefaultCacheNamespace
 
     修改标识：Senparc - 20171127
-    修改描述：v4.18.5 添加Config.ApiHost属性，可以设置API域名
+    修改描述：v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
 
 ----------------------------------------------------------------*/
 
@@ -112,16 +112,29 @@ namespace Senparc.Weixin
         public static string RootDictionaryPath { get; set; }
 
         /// <summary>
-        /// API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// 公众号（小程序）API的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
-        private static string _apiHost = "https://api.weixin.qq.com";
+        private static string _apiMpHost = "https://api.weixin.qq.com";
         /// <summary>
-        /// API的服务器地址（默认为：https://api.weixin.qq.com）
+        /// 公众号（小程序）API的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
-        public static string ApiHost
+        public static string ApiMpHost
         {
-            get { return _apiHost; }
-            set { _apiHost = value; }
+            get { return _apiMpHost; }
+            set { _apiMpHost = value; }
+        }
+
+        /// <summary>
+        /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
+        /// </summary>
+        private static string _apiWorkHost = "https://qyapi.weixin.qq.com";
+        /// <summary>
+        /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
+        /// </summary>
+        public static string ApiWorkHost
+        {
+            get { return _apiWorkHost; }
+            set { _apiWorkHost = value; }
         }
     }
 }

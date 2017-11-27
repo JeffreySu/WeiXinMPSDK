@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class CustomApi
     {
-        private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
+        private const string URL_FORMAT = Config.ApiMpHost + "/cgi-bin/message/custom/send?access_token={0}";
 
         #region 同步方法
 

@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
             AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                         accessToken.AsUrlData(), openId.AsUrlData());
                 WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
                 return result;
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
                 JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetCallBackIpResult>(url);
 
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static async Task<AccessTokenResult> GetTokenAsync(string appid, string secret, string grant_type = "client_credential")
         {
             //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
             AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               var url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+               var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                        accessToken.AsUrlData(), openId.AsUrlData());
                var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
                return await result;
@@ -219,7 +219,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
                 var result = Get.GetJsonAsync<JsApiTicketResult>(url);
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
                 return await Get.GetJsonAsync<GetCallBackIpResult>(url);
 

@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static CreateJsonResult Create(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static WxJsonResult Bind(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static WxJsonResult Unbind(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/unbind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static GetJsonResult Get(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, data);
         }
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<CreateJsonResult> CreateAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<WxJsonResult> BindAsync(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<WxJsonResult> UnbindAsync(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/unbind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<GetJsonResult> GetAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
         }

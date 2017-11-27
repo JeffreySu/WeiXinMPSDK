@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static OAuthAccessTokenResult GetAccessToken(string appId, string secret, string code, string grantType = "authorization_code")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
                                 appId.AsUrlData(), secret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static RefreshTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId.AsUrlData(), grantType.AsUrlData(), refreshToken.AsUrlData());
 
             return CommonJsonSend.Send<RefreshTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
             return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
 
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult Auth(string accessToken, string openId)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<OAuthAccessTokenResult> GetAccessTokenAsync(string appId, string secret, string code, string grantType = "authorization_code")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
                                 appId.AsUrlData(), secret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<OAuthAccessTokenResult> RefreshTokenAsync(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
-                string.Format("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
+                string.Format(Config.ApiMpHost + "/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId.AsUrlData(), grantType.AsUrlData(), refreshToken.AsUrlData());
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<OAuthUserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
 
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> AuthAsync(string accessToken, string openId)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion

@@ -40,7 +40,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         public void PostGetJsonTest()
         {
             return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
-            var url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=TOKEN&type=image";
+            var url = Config.ApiMpHost + "/cgi-bin/media/upload?access_token=TOKEN&type=image";
             try
             {
                 //这里因为参数错误，系统会返回错误信息
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         public async Task PostGetJsonAsyncTest()
         {
             //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
-            var url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=TOKEN&type=image";
+            var url = Config.ApiMpHost + "/cgi-bin/media/upload?access_token=TOKEN&type=image";
 
             try
             {

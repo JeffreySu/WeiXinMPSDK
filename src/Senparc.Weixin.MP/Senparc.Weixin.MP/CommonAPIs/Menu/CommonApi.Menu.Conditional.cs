@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
-                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}";
+                 var urlFormat = Config.ApiMpHost + "/cgi-bin/menu/addconditional?access_token={0}";
                  //var jsonSetting = new JsonSetting(true);//设置成true会导致发布失败
                  var jsonSetting = new JsonSetting(false);
                  return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut, jsonSetting: jsonSetting);
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/trymatch?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delconditional?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {

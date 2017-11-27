@@ -69,7 +69,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             {
                 var url =
-             "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+             Config.ApiMpHost + "/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
                 try
                 {
                     //这里因为参数错误，系统会返回错误信息
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         {
             //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
             var url =
-                "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+                Config.ApiMpHost + "/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
             var t1 = Task.Factory.StartNew(async delegate { await Run(url); });
             var t2 = Task.Factory.StartNew(delegate { Run(url); });

@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
                 var msgData = new TempleteModel()
                 {
                     touser = openId,
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/api_set_industry?access_token={0}";
                 var msgData = new
                 {
                     industry_id1 = ((int)industry_id1).ToString(),
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_industry?access_token={0}";
                 return CommonJsonSend.Send<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -182,7 +182,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/api_add_template?access_token={0}";
                 var msgData = new
                 {
                     template_id_short = template_id_short
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_all_private_template?access_token={0}";
                 return CommonJsonSend.Send<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -219,7 +219,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/del_private_template?access_token={0}";
                 var msgData = new
                 {
                     template_id = template_id
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
                 var msgData = new
                 {
@@ -282,7 +282,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
                 var msgData = new TempleteModel()
                 {
                     touser = openId,
@@ -326,7 +326,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/api_set_industry?access_token={0}";
                 var msgData = new
                 {
                     industry_id1 = ((int)industry_id1).ToString(),
@@ -348,7 +348,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_industry?access_token={0}";
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -364,7 +364,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/api_add_template?access_token={0}";
                 var msgData = new
                 {
                     template_id_short = template_id_short
@@ -385,7 +385,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_all_private_template?access_token={0}";
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -401,7 +401,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/template/del_private_template?access_token={0}";
                 var msgData = new
                 {
                     template_id = template_id
@@ -428,7 +428,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token={0}";
+                const string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
                 var msgData = new
                 {

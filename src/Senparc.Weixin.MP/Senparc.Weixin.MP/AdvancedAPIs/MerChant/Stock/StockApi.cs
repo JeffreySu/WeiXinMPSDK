@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult AddStock(string accessToken, AddStockData addStockData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/add?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, addStockData);
         }
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/reduce?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> AddStockAsync(string accessToken, AddStockData addStockData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/add?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, addStockData);
         }
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> ReduceStockAsync(string accessToken, ReduceStockData reduceStockData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/reduce?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }

@@ -113,7 +113,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="iP">发送红包的服务器地址</param>
         /// <param name="redPackAmount">付款金额，单位分。红包金额大于200时，请求参数scene必传。</param>
         /// <param name="wishingWord">祝福语</param>
-        /// <param name="actionName">活动名称</param>
+        /// <param name="actionName">活动名称（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）</param>
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
@@ -132,7 +132,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNormalRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, 
+            out string nonceStr, out string paySign,
             string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null)
         {
             mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
@@ -196,7 +196,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
-#region 发起post请求
+            #region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -211,9 +211,9 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string response = streamReader.ReadToEnd();
-#endregion
+            #endregion
 #else
-#region 发起post请求
+            #region 发起post请求
             HttpClientHandler handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cer);
 
@@ -221,7 +221,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpContent hc = new StringContent(data);
             var request = client.PostAsync(url, hc).Result;
             var response = request.Content.ReadAsStreamAsync().Result;
-#endregion
+            #endregion
 #endif
 
             XmlDocument doc = new XmlDocument();
@@ -339,7 +339,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="iP">发送红包的服务器地址</param>
         /// <param name="redPackAmount">付款金额，单位分。红包金额大于200时，请求参数scene必传。</param>
         /// <param name="wishingWord">祝福语</param>
-        /// <param name="actionName">活动名称</param>
+        /// <param name="actionName">活动名称（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）</param>
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
@@ -420,11 +420,14 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
+            XmlDocument doc = new XmlDocument();
+
+            #region 发起post请求，载入到doc中
+
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
 
-#region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -439,9 +442,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string response = streamReader.ReadToEnd();
-#endregion
+            doc.LoadXml(response);
 #else
-#region 发起post请求
             HttpClientHandler handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cer);
 
@@ -449,12 +451,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpContent hc = new StringContent(data);
             var request = client.PostAsync(url, hc).Result;
             var response = request.Content.ReadAsStreamAsync().Result;
-#endregion
-#endif
-
-            XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
             doc.Load(response);
+#endif
+            #endregion
+
 
             //XDocument xDoc = XDocument.Load(responseContent);
 
@@ -555,7 +555,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             return normalReturn;
         }
-#endregion
+        #endregion
 
 
         /// <summary>
@@ -593,10 +593,12 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             //X509Certificate cer = new X509Certificate(cert, password);
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
+            XmlDocument doc = new XmlDocument();
+            #region 发起post请求，载入到doc中
+
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
-#region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -611,9 +613,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string response = streamReader.ReadToEnd();
-#endregion
+            doc.LoadXml(response);
 #else
-#region 发起post请求
             HttpClientHandler handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cer);
 
@@ -621,13 +622,13 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpContent hc = new StringContent(data);
             var request = client.PostAsync(url, hc).Result;
             var response = request.Content.ReadAsStreamAsync().Result;
-#endregion
-#endif
-
-
-            XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
             doc.Load(response);
+
+#endif
+            #endregion
+
+
+
 
             SearchRedPackResult searchReturn = new SearchRedPackResult
             {

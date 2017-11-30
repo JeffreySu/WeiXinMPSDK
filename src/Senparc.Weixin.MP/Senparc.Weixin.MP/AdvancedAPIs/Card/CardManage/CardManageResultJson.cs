@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20171127
+    修改描述：v14.8.7 完善CardGetResultJson字段
+
 ----------------------------------------------------------------*/
 
 
@@ -45,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
 
     /// <summary>
-    /// 查询code返回结果
+    /// 查询code返回结果,check_consume=false 的结果。
     /// </summary>
     public class CardGetResultJson : WxJsonResult
     {
@@ -53,6 +57,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 用户openid
         /// </summary>
         public string openid { get; set; }
+        //can_consume
+        public bool can_consume { get; set; }
+        public UserCardStatus user_card_status { get; set; }
         public Get_Card card { get; set; }
     }
 

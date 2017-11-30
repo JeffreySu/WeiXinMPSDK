@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
-                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                 var urlFormat = Config.ApiMpHost + "/cgi-bin/menu/create?access_token={0}";
                  ////对特殊符号进行URL转义
                  //foreach (var button in buttonData.button)
                  //{
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/menu/create?access_token={0}";
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
 
                 var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<WxJsonResult>(url);
 

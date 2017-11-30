@@ -120,7 +120,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string remark { get; set; }
 
         /// <summary>
-        /// 活动名称
+        /// 活动名称（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）
         /// </summary>
         public string act_name { get; set; }
 

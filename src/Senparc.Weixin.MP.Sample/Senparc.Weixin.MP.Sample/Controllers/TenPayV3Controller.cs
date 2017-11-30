@@ -25,6 +25,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.BrowserUtility;
@@ -40,6 +41,7 @@ using ZXing.Common;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.Filters;
 using System.Web.Security;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -81,7 +83,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return RedirectToAction("ProductList");
             }
 
-            var returnUrl = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi");
+            var returnUrl = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi");
             var state = string.Format("{0}|{1}", productId, hc);
             var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 
@@ -157,7 +159,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var nonceStr = TenPayV3Util.GetNoncestr();
 
                 var body = product == null ? "test" : product.Name;
-                var price = product == null ? 100 : (int)product.Price * 100;
+                var price = product == null ? 100 : (int)product.Price * 100;//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
@@ -409,6 +411,24 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     res = "wrong";//错误的订单处理
                 }
 
+                /* 这里可以进行订单处理的逻辑 */
+
+                //发送支付成功的模板消息
+                try
+                {
+                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string openId = resHandler.GetParameter("openid");
+                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId+" , "+openId);
+
+                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                }
+                catch(Exception ex)
+                {
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息",ex.ToString());
+                }
+
                 #region 记录日志
 
                 var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
@@ -416,6 +436,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     Directory.CreateDirectory(logDir);
                 }
+
                 var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
 
                 using (var fileStream = System.IO.File.OpenWrite(logPath))
@@ -428,6 +449,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 }
 
                 #endregion
+
 
                 string xml = string.Format(@"<xml>
 <return_code><![CDATA[{0}]]></return_code>
@@ -754,6 +776,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View(products);
         }
 
+
         public ActionResult ProductItem(int productId, int hc)
         {
             var products = ProductModel.GetFakeProductList();
@@ -932,7 +955,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
                 }
                 return Content(msg);
-        }
+            }
         }
 
         #endregion

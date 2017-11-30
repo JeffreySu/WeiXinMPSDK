@@ -49,10 +49,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 {
     public partial class RedPackApi
     {
-#region 同步方法
+        #region 同步方法
 
-        
-#region 服务商
+
+        #region 服务商
 
         /// <summary>
         /// 普通红包发送(服务商）
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="iP">发送红包的服务器地址</param>
         /// <param name="redPackAmount">付款金额，单位分。红包金额大于200时，请求参数scene必传。</param>
         /// <param name="wishingWord">红包发放总人数</param>
-        /// <param name="actionName">红包祝福语</param>
+        /// <param name="actionName">红包祝福语（请注意活动名称长度，官方文档提示为32个字符，实际限制不足32个字符）</param>
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
@@ -151,10 +151,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            XmlDocument doc = new XmlDocument();
+
+            #region 发起post请求，载入到doc中
+
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
-#region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -169,9 +173,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string response = streamReader.ReadToEnd();
-#endregion
+            doc.LoadXml(response);
 #else
-#region 发起post请求
             HttpClientHandler handler = new HttpClientHandler();
             handler.ClientCertificates.Add(cer);
 
@@ -179,12 +182,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             HttpContent hc = new StringContent(data);
             var request = client.PostAsync(url, hc).Result;
             var response = request.Content.ReadAsStreamAsync().Result;
-#endregion
-#endif
-
-            XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(responseContent);
             doc.Load(response);
+#endif
+            #endregion
+
 
             //XDocument xDoc = XDocument.Load(responseContent);
 
@@ -282,19 +283,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return normalReturn;
         }
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
 
-#region 异步方法
+#if !NET35 && !NET40
+        #region 异步方法
 
 
-#region 服务商
+        #region 服务商
 
         //暂未提供异步方法
 
-#endregion
+        #endregion
 
-#endregion
+        #endregion
+#endif
     }
 }

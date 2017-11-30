@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{

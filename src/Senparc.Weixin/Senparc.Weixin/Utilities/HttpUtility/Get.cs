@@ -39,6 +39,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170409
     修改描述：v4.11.9 修改Download方法
 
+    修改标识：Senparc - 20171101
+    修改描述：v4.18.1 修改Get.Download()方法
+
 ----------------------------------------------------------------*/
 
 
@@ -158,7 +161,7 @@ namespace Senparc.Weixin.HttpUtility
             var fullName = Path.Combine(dir, DateTime.Now.Ticks.ToString());
             using (var fs = File.Open(fullName, FileMode.Create))
             {
-                using (var sw = new StreamWriter(fs))
+                using (var sw = new BinaryWriter(fs))
                 {
                     sw.Write(data);
                     sw.Flush();

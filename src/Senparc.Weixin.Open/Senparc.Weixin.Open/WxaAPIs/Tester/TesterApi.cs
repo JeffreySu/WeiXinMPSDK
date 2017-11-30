@@ -59,7 +59,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Create()方法")]
         public static CreateJsonResult CreateTester(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static TesterResultJson BindTester(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static TesterResultJson UnBindTester(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.Get()方法")]
         public static GetJsonResult GetTester(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, data);
         }
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.CreateAsync()方法")]
         public static async Task<CreateJsonResult> CreateTesterAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<TesterResultJson> BindTesterSync(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/bind_tester?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <returns></returns>
         public static async Task<TesterResultJson> UnBindTesterSync(string accessToken, string wechatid, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/unbind_tester?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         [Obsolete("此方法已过期，请使用Senparc.Weixin.Open.MpAPIs.Open.GetAsync()方法")]
         public static async Task<GetJsonResult> GetTesterAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
         }

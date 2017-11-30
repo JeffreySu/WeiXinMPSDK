@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         #region 同步方法
         public static PictureResult UploadImg(string accessToken, string fileName)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
+            var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData(), fileName.AsUrlData());
 
             var json = new PictureResult();
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         #region 异步方法
         public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
+            var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData(), fileName.AsUrlData());
 
             var json = new PictureResult();

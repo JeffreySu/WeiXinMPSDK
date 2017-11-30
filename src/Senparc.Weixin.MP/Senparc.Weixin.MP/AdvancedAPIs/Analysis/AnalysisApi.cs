@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticlesummary?access_token={0}";
 
                 var data = new
                 {
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticletotal?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticletotal?access_token={0}";
 
                 var data = new
                 {
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserread?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserread?access_token={0}";
 
                 var data = new
                 {
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserreadhour?access_token={0}";
 
                 var data = new
                 {
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusershare?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusershare?access_token={0}";
 
                 var data = new
                 {
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersharehour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersharehour?access_token={0}";
 
                 var data = new
                 {
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummary?access_token={0}";
 
                 var data = new
                 {
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummaryhour?access_token={0}";
 
                 var data = new
                 {
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsg?access_token={0}";
 
                 var data = new
                 {
@@ -312,7 +312,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsghour?access_token={0}";
 
                 var data = new
                 {
@@ -338,7 +338,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgweek?access_token={0}";
 
                 var data = new
                 {
@@ -364,7 +364,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgmonth?access_token={0}";
 
                 var data = new
                 {
@@ -390,7 +390,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdist?access_token={0}";
 
                 var data = new
                 {
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistweek?access_token={0}";
 
                 var data = new
                 {
@@ -442,7 +442,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistmonth?access_token={0}";
 
                 var data = new
                 {
@@ -468,7 +468,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersummary?access_token={0}";
 
                 var data = new
                 {
@@ -494,7 +494,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusercumulate?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusercumulate?access_token={0}";
 
                 var data = new
                 {
@@ -525,7 +525,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticlesummary?access_token={0}";
 
                 var data = new
                 {
@@ -555,7 +555,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticletotal?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticletotal?access_token={0}";
 
                 var data = new
                 {
@@ -581,7 +581,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserread?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserread?access_token={0}";
 
                 var data = new
                 {
@@ -607,7 +607,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserreadhour?access_token={0}";
 
                 var data = new
                 {
@@ -633,7 +633,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusershare?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusershare?access_token={0}";
 
                 var data = new
                 {
@@ -659,7 +659,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersharehour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersharehour?access_token={0}";
 
                 var data = new
                 {
@@ -685,7 +685,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummary?access_token={0}";
 
                 var data = new
                 {
@@ -711,7 +711,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummaryhour?access_token={0}";
 
                 var data = new
                 {
@@ -736,7 +736,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsg?access_token={0}";
 
                 var data = new
                 {
@@ -762,7 +762,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsghour?access_token={0}";
 
                 var data = new
                 {
@@ -788,7 +788,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgweek?access_token={0}";
 
                 var data = new
                 {
@@ -814,7 +814,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgmonth?access_token={0}";
 
                 var data = new
                 {
@@ -840,7 +840,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdist?access_token={0}";
 
                 var data = new
                 {
@@ -866,7 +866,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistweek?access_token={0}";
 
                 var data = new
                 {
@@ -892,7 +892,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistmonth?access_token={0}";
 
                 var data = new
                 {
@@ -918,7 +918,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersummary?access_token={0}";
 
                 var data = new
                 {
@@ -944,7 +944,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusercumulate?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusercumulate?access_token={0}";
 
                 var data = new
                 {

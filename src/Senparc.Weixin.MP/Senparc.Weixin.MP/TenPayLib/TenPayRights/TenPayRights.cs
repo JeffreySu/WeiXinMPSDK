@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult UpDateFeedBack(string accessToken, string openId, string feedBackId)
         {
-            var urlFormat = "https://api.weixin.qq.com/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
+            var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
             return Get.GetJson<WxJsonResult>(url);
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UpDateFeedBackAsync(string accessToken, string openId, string feedBackId)
         {
-            var urlFormat = "https://api.weixin.qq.com/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
+            var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
             return await Get.GetJsonAsync<WxJsonResult>(url);

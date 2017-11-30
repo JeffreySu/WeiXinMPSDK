@@ -66,7 +66,7 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <returns></returns>
         private static HttpWebRequest HttpGet_Common_Net45(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -82,13 +82,8 @@ namespace Senparc.Weixin.HttpUtility
                 request.CookieContainer = cookieContainer;
             }
 
-            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            request.KeepAlive = true;
-            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
-            if (refererUrl != null)
-            {
-                request.Referer = refererUrl;
-            }
+            HttpClientHeader(request, refererUrl, useAjax, timeOut);//设置头信息
+
             return request;
         }
 #endif
@@ -100,7 +95,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         private static HttpClient HttpGet_Common_NetCore(string url, CookieContainer cookieContainer = null,
             Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
 
             var handler = new HttpClientHandler
@@ -115,12 +110,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             HttpClient httpClient = new HttpClient(handler);
-            HttpClientHeader(httpClient, timeOut);
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                httpClient.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
+            HttpClientHeader(httpClient, refererUrl, useAjax, timeOut);
 
             return httpClient;
         }
@@ -158,13 +148,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="encoding"></param>
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="refererUrl">referer参数</param>
+        /// <param name="useAjax">是否使用Ajax</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
 #if NET35 || NET40 || NET45
-            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -183,12 +174,63 @@ namespace Senparc.Weixin.HttpUtility
             }
 #else
 
-            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
             var t = httpClient.GetStringAsync(url);
             t.Wait();
             return t.Result;
 #endif
         }
+
+#if NET35 || NET40 || NET45
+
+        /// <summary>
+        /// 获取HttpWebResponse或HttpResponseMessage对象，本方法通常用于测试）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="useAjax"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static HttpWebResponse HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+    string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        {
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (cookieContainer != null)
+            {
+                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+            }
+
+            return response;
+        }
+#else
+        /// <summary>
+        /// 获取HttpWebResponse或HttpResponseMessage对象，本方法通常用于测试）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="useAjax">是否使用Ajax请求</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static HttpResponseMessage HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
+   string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        {
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+            var task = httpClient.GetAsync(url);
+            HttpResponseMessage response = task.Result;
+            return response;
+        }
+
+#endif
+
 
         #endregion
 
@@ -227,10 +269,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="refererUrl">referer参数</param>
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
-            string refererUrl = null, int timeOut = Config.TIME_OUT)
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
 #if NET35 || NET40 || NET45
-            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer , encoding , cer , refererUrl , timeOut);
+            HttpWebRequest request = HttpGet_Common_Net45(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -248,7 +290,7 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, timeOut);
+            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
             return await httpClient.GetStringAsync(url);
 #endif
         }

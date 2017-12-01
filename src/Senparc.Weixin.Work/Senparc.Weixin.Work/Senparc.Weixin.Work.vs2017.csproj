@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.2.4</Version>
+    <Version>1.2.5</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -53,6 +53,7 @@
       v1.2.2 支持Senparc.Weixin v4.18.0，支持Ajax模拟请求
       v1.2.3 GetDepartmentListResult.order改为long类型
       v1.2.4 支持Senparc.Weixin v4.18.5 可自定义API域名
+      v1.2.5 支持Senparc.Weixin v4.18.6 修复自定义API域名问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

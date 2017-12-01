@@ -69,9 +69,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
         public object data { get; set; }
 
         /// <summary>
-        /// 
+        /// 模板需要放大的关键词，不填则默认无放大（非必填）
         /// </summary>
         public string emphasis_keyword { get; set; }
+
+        /// <summary>
+        /// 模板内容字体的颜色，不填默认黑色（非必填）
+        /// </summary>
+        public string color { get; set; }
 
 
 

@@ -71,8 +71,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 var miniProgram = new TempleteModel_MiniProgram()
                 {
-                    appid = "wxfcb0a0031394a51c",//【盛派网络小助手】小程序
-                    pagepath = "index"
+                    appid = "wxfcb0a0031394a51c",//【盛派互动（BookHelper）】小程序
+                    pagepath = "pages/index/index"
                 };
 
                 var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData, miniProgram);

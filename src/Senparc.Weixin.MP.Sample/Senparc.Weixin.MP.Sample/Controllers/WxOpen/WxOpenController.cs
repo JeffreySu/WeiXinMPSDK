@@ -238,7 +238,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 Senparc.Weixin.WxOpen.AdvancedAPIs
                     .Template.TemplateApi
                     .SendTemplateMessage(
-                        AppId, openId, data.TemplateId, data, formId, null, "图书", "#fff00");
+                        AppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }

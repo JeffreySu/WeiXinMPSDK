@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
 
 
-                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Oc7R_U_23T8DtVgWn3d__-WkIctx_yDWTg8_4Mx8wgY", data, receivedMessage.FormId, null,
+                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, null,
                          null);
             }
             catch (Exception ex)

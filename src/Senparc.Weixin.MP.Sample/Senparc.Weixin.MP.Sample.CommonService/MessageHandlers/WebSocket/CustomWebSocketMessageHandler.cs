@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
                 var data = new
                 {
-                    keyword1 = new TemplateDataItem("ADD"),
+                    keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息"),
                     keyword2 = new TemplateDataItem(DateTime.Now.ToString()),
                     keyword3 = new TemplateDataItem("Name"),
                     keyword4 = new TemplateDataItem("Number"),
@@ -89,9 +89,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                     keyword6 = new TemplateDataItem("400-9939-858"),
                 };
 
-
-
-                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, null,
+                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, null, "websocket",
                          null);
             }
             catch (Exception ex)

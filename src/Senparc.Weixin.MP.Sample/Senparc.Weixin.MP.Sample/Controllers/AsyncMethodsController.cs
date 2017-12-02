@@ -69,7 +69,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
-                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData);
+                var miniProgram = new TempleteModel_MiniProgram()
+                {
+                    appid = "wxfcb0a0031394a51c",//【盛派网络小助手】小程序
+                    pagepath = "index"
+                };
+
+                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData, miniProgram);
                 return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看。此前的验证码已失效，如需继续测试，请重新获取验证码。");
             }
         }

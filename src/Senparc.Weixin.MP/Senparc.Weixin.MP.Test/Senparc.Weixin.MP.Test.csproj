@@ -137,6 +137,7 @@
     <Compile Include="ResponseMessageFactoryTest.cs" />
     <Compile Include="TenPayV3\TenPayV3Test.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapperTest.cs" />
+    <Compile Include="Utilities\Senparc.Weixin.Utilities.HttpUtility\GetTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -165,9 +166,7 @@
       <Name>Senparc.WeixinTests</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

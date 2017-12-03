@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.18.6</Version>
+    <Version>4.18.7</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -208,6 +208,7 @@
       v4.18.4 修正当.net core 2.0中对请求的流不支持Seek 时的判断
       v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
       v4.18.6 重新设置企业微信默认域名
+      v4.18.7 调整HttpUtility.Get.Download(string url, string filePathName)，改为输入完整文件路径+文件名
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

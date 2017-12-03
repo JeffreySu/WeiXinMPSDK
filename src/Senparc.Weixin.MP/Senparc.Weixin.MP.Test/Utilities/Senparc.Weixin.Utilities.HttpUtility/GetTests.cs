@@ -31,11 +31,11 @@ namespace Senparc.Weixin.MP.Test.Utilities
             //上传素材
             var result = MediaApi.UploadTemporaryMedia(base._appId, UploadMediaFileType.image, fileName);
             Console.WriteLine("MediaId：" + result.media_id);
-    
+
             //下载
             var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
-
-           var downloadResult =  Senparc.Weixin.HttpUtility.Get.Download(url, "/");
+            var filePath = @"E:\Senparc项目\WeiXinMPSDK\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\qr_" + DateTime.Now.ToString("HHmmss") + ".jpg";
+            var downloadResult = Senparc.Weixin.HttpUtility.Get.Download(url, filePath);
             Console.WriteLine(downloadResult);
         }
 

@@ -127,7 +127,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
         /// </summary>
-        private static string _apiWorkHost = Config.ApiWorkHost + "";
+        private static string _apiWorkHost = "https://qyapi.weixin.qq.com";
         /// <summary>
         /// 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）
         /// </summary>

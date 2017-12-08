@@ -48,9 +48,9 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 Get.Download(url, ms);//下载
                 ms.Seek(0, SeekOrigin.Begin);//将指针放到流的开始位置
                 string base64Img = Convert.ToBase64String(ms.ToArray());//输出图片base64编码
+                Console.WriteLine(base64Img);
             }
         }
-
 
         [TestMethod]
         public void GetJsonTest()

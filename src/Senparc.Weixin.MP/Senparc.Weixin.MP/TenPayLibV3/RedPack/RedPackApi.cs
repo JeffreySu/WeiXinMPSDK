@@ -45,7 +45,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170925
     修改描述：添加新规定提示：红包超过2000元必须提供scene_id参数：
               https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_4&index=3
-
                   
     修改标识：Senparc - 20171208
     修改描述：v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题

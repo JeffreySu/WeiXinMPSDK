@@ -132,7 +132,7 @@ namespace Senparc.Weixin.HttpUtility
 
             HttpClientHeader(request, refererUrl, useAjax, timeOut);
 
-            return httpClient;
+            return httpClient;                  
         }
 #endif
 

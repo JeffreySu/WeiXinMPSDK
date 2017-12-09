@@ -34,10 +34,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.WebProxy;
 using System.Net.Http;
 using System.Threading.Tasks;
+
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.Weixin.HttpUtility
 {

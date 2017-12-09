@@ -97,7 +97,7 @@ namespace Senparc.Weixin.HttpUtility
                   new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
-            #region 处理Form表单文件上传
+        #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+        #endregion
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
 
@@ -186,6 +186,7 @@ namespace Senparc.Weixin.HttpUtility
         /// 给.NET Core使用的HttpPost请求公共设置方法
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="request"></param>
         /// <param name="hc"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
@@ -197,7 +198,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
-        public static HttpClient HttpPost_Common_NetCore(string url, out HttpContent hc, CookieContainer cookieContainer = null,
+        public static HttpClient HttpPost_Common_NetCore(string url, HttpRequestMessage request, out HttpContent hc, CookieContainer cookieContainer = null,
             Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null,
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
@@ -210,16 +211,18 @@ namespace Senparc.Weixin.HttpUtility
                 handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
             }
 
+            //TODO:证书需要找专门的处理方案
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
             }
 
-            HttpClient client = new HttpClient(handler);
-            HttpClientHeader(client, refererUrl, useAjax, timeOut);
+            HttpClient client = SenparcHttpClient.Instance;//new HttpClient(handler);
+            //TODO:CookieContainer需要处理
+            HttpClientHeader(request, refererUrl, useAjax, timeOut);
 
 
-        #region 处理Form表单文件上传
+            #region 处理Form表单文件上传
 
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -269,12 +272,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             //HttpContentHeader(hc, timeOut);
-        #endregion
-
-            if (!string.IsNullOrEmpty(refererUrl))
-            {
-                client.DefaultRequestHeaders.Referrer = new Uri(refererUrl);
-            }
+            #endregion
 
             return client;
         }
@@ -439,10 +437,15 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             return new SenparcHttpResponse(response);
 #else
-            HttpContent hc;
-            var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
 
-            var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
+            HttpContent hc;
+            var client = HttpPost_Common_NetCore(url, request, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+
+            request.Content = hc;
+
+            var response = client.SendAsync(request).GetAwaiter().GetResult();// client.PostAsync(url, hc).GetAwaiter().GetResult();
             return new SenparcHttpResponse(response);
 #endif
 
@@ -498,7 +501,7 @@ namespace Senparc.Weixin.HttpUtility
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-        #region 输入二进制流
+            #region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -521,7 +524,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-        #endregion
+            #endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -539,18 +542,25 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            HttpContent hc;
-            var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
-
-            var r = await client.PostAsync(url, hc);
-
-            if (r.Content.Headers.ContentType.CharSet != null &&
-                r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+            using (var request = new HttpRequestMessage())
             {
-                r.Content.Headers.ContentType.CharSet = "utf-8";
-            }
+                request.Method = HttpMethod.Post;
 
-            return await r.Content.ReadAsStringAsync();
+                HttpContent hc;
+                var client = HttpPost_Common_NetCore(url, request, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+
+                request.Content = hc;
+
+                var r = await client.SendAsync(request);
+
+                if (r.Content.Headers.ContentType.CharSet != null &&
+                    r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
+                {
+                    r.Content.Headers.ContentType.CharSet = "utf-8";
+                }
+
+                return await r.Content.ReadAsStringAsync();
+            }
 #endif
         }
 

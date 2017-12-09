@@ -29,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NET45 || NET461 || NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.HttpUtility
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly System.Net.Http.HttpClient instance  = DefaultHttpClientInstance();
+            internal static readonly System.Net.Http.HttpClient instance = DefaultHttpClientInstance();
         }
 
         #endregion

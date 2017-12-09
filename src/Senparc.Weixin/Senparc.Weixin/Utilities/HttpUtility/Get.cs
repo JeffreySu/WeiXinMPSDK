@@ -288,7 +288,12 @@ namespace Senparc.Weixin.HttpUtility
             var dir = Path.GetDirectoryName(filePathName) ?? "/";
             Directory.CreateDirectory(dir);
 
+#if NET45
+            System.Net.Http.HttpClient httpClient = new HttpClient();
+#else
             System.Net.Http.HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
+#endif
+
             using (var responseMessage = await httpClient.GetAsync(url))
             {
                 if (responseMessage.StatusCode == HttpStatusCode.OK)

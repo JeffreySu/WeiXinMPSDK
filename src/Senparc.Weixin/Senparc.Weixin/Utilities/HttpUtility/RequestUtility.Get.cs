@@ -93,10 +93,29 @@ namespace Senparc.Weixin.HttpUtility
         /// .NET Core 版本的HttpWebRequest参数设置
         /// </summary>
         /// <returns></returns>
-        private static HttpClient HttpGet_Common_NetCore(string url, CookieContainer cookieContainer = null,
+        private static HttpClient HttpGet_Common_NetCore(string url, HttpRequestMessage request, CookieContainer cookieContainer = null,
             Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
+
+            //using (var request = new HttpRequestMessage())
+            //{
+
+            //    request.Headers.Add(...);
+            //    ...
+            //    using (var response = await _httpClient.SendAsync(request))
+            //    {
+            //        ...
+            //    }
+            //}
+
+            request.RequestUri = new Uri(url);
+
+            if (encoding != null)
+            {
+                //TODO: set request encoding
+            }
+
 
             var handler = new HttpClientHandler
             {
@@ -109,8 +128,9 @@ namespace Senparc.Weixin.HttpUtility
                 handler.ClientCertificates.Add(cer);
             }
 
-            HttpClient httpClient = new HttpClient(handler);
-            HttpClientHeader(httpClient, refererUrl, useAjax, timeOut);
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient(handler);
+
+            HttpClientHeader(request, refererUrl, useAjax, timeOut);
 
             return httpClient;
         }
@@ -124,6 +144,7 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Get方法获取字符串结果（没有加入Cookie）
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="encoding"></param>
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null)
         {
@@ -133,10 +154,15 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
-            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
+            using (var request = new HttpRequestMessage())
+            {
+                var httpClient = HttpGet_Common_NetCore(url, request, null, encoding);
+                return httpClient.SendAsync(request).Result.Content.ReadAsStringAsync().Result;
+            }
+
+            //var t = httpClient.GetStringAsync(url);
+            //t.Wait();
+            //return t.Result;
 #endif
         }
 
@@ -173,11 +199,14 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-
-            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
+            using (var request = new HttpRequestMessage())
+            {
+                var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+                using (var response = httpClient.SendAsync(request).Result)
+                {
+                    return response.Content.ReadAsStringAsync().Result;
+                }
+            }
 #endif
         }
 
@@ -223,9 +252,10 @@ namespace Senparc.Weixin.HttpUtility
         public static HttpResponseMessage HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
    string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
-            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
-            var task = httpClient.GetAsync(url);
-            HttpResponseMessage response = task.Result;
+            var request = new HttpRequestMessage();
+
+            var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+            HttpResponseMessage response = httpClient.SendAsync(request).Result;
             return response;
         }
 
@@ -290,8 +320,15 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
-            return await httpClient.GetStringAsync(url);
+            using (var request = new HttpRequestMessage())
+            {
+                var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+                using (var response = await httpClient.SendAsync(request))
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+            //return await httpClient.GetStringAsync(url);
 #endif
         }
 

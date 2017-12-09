@@ -448,8 +448,6 @@ namespace Senparc.Weixin.HttpUtility
             var response = client.SendAsync(request).GetAwaiter().GetResult();// client.PostAsync(url, hc).GetAwaiter().GetResult();
             return new SenparcHttpResponse(response);
 #endif
-
-
         }
 
         #endregion

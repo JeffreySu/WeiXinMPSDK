@@ -37,6 +37,8 @@ using System.Text;
 using Senparc.Weixin.WebProxy;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
 
 #if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
 using Microsoft.AspNetCore.Http;
@@ -83,6 +85,113 @@ namespace Senparc.Weixin.HttpUtility
         }
 
         #endregion
+
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+
+        /// <summary>
+        /// 设置HTTP头
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="useAjax">是否使用Ajax</param>
+        /// <param name="timeOut"></param>
+        private void HttpClientHeader(HttpRequestMessage request, string refererUrl, bool useAjax, int timeOut)
+        {
+            request.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+            request.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+            request.Headers.Add("Timeout", timeOut.ToString());
+            request.Headers.Add("Connection", "keep-alive");
+
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                request.Headers.Add("Referer", refererUrl);
+            }
+
+            if (useAjax)
+            {
+                request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            }
+        }
+
+        /// <summary>
+        /// .NET Core 版本的HttpWebRequest参数设置
+        /// </summary>
+        /// <returns></returns>
+        private HttpClient HttpGet_Common_NetCore(string url, HttpRequestMessage request, CookieContainer cookieContainer = null,
+            Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        {
+
+            //using (var request = new HttpRequestMessage())
+            //{
+
+            //    request.Headers.Add(...);
+            //    ...
+            //    using (var response = await _httpClient.SendAsync(request))
+            //    {
+            //        ...
+            //    }
+            //}
+
+            request.RequestUri = new Uri(url);
+
+            if (encoding != null)
+            {
+                //TODO: set request encoding
+            }
+
+
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = cookieContainer ?? new CookieContainer(),
+                UseCookies = true,
+            };
+
+            if (cer != null)
+            {
+                handler.ClientCertificates.Add(cer);
+            }
+
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient(handler);
+
+            return httpClient;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="request"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer"></param>
+        /// <param name="refererUrl"></param>
+        /// <param name="useAjax"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public Task<HttpResponseMessage> SendAsync(string url, HttpRequestMessage request, CookieContainer cookieContainer = null,
+            Encoding encoding = null, X509Certificate2 cer = null,
+            string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        {
+            var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+
+            if (cookieContainer != null)
+            {
+                //TODO:sync cookie
+            }
+
+            HttpClientHeader(request, refererUrl, useAjax, timeOut);
+
+            var response = httpClient.SendAsync(request);
+            return response;
+        }
+
+        public void SyncCookie(HttpResponseMessage response, CookieContainer cookieContainer)
+        {
+            //TODO:sync cookie
+
+        }
+#endif
     }
 }
 #endif

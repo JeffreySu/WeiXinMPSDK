@@ -175,7 +175,10 @@ namespace Senparc.Weixin.HttpUtility
         {
             var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
 
-            //TODO:sync cookie
+            if (cookieContainer != null)
+            {
+                //TODO:sync cookie
+            }
 
             HttpClientHeader(request, refererUrl, useAjax, timeOut);
 

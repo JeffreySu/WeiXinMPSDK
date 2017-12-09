@@ -154,10 +154,18 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
+            //TODO:请求的encoding未设置
             using (var request = new HttpRequestMessage())
             {
-                var httpClient = HttpGet_Common_NetCore(url, request, null, encoding);
-                return httpClient.SendAsync(request).Result.Content.ReadAsStringAsync().Result;
+                var httpClient = HttpGet_Common_NetCore(url, request);
+                using (var response = httpClient.SendAsync(request).Result)
+                {
+                    if (encoding != null)
+                    {
+                        response.Content.Headers.ContentType.CharSet = encoding.EncodingName;//TODO:需要测试
+                    }
+                    return response.Content.ReadAsStringAsync().Result;
+                }
             }
 
             //var t = httpClient.GetStringAsync(url);

@@ -39,13 +39,18 @@ using Senparc.Weixin.WebProxy;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Utilities.HttpUtility
+namespace Senparc.Weixin.HttpUtility
 {
     /// <summary>
     /// SenparcHttpClient，全局 HttpClient 单例
     /// </summary>
     public class SenparcHttpClient
     {
+
+        /// <summary>
+        /// 默认HttpClient配置
+        /// </summary>
+        public static Func<HttpClient> DefaultHttpClientInstance = () => new HttpClient();
 
         #region 全局 HttpClient 单例
 
@@ -71,7 +76,7 @@ namespace Senparc.Weixin.Utilities.HttpUtility
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly System.Net.Http.HttpClient instance = new HttpClient();
+            internal static readonly System.Net.Http.HttpClient instance  = DefaultHttpClientInstance();
         }
 
         #endregion

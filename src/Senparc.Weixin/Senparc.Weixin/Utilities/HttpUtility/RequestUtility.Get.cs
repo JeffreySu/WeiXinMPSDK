@@ -133,7 +133,7 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             var t = httpClient.GetStringAsync(url);
             t.Wait();
             return t.Result;
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return await wc.DownloadStringTaskAsync(url);
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             return await httpClient.GetStringAsync(url);
 #endif
 

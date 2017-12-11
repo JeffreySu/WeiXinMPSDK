@@ -186,10 +186,14 @@ namespace Senparc.Weixin.HttpUtility
             return response;
         }
 
+        /// <summary>
+        /// 同步Cookie（自动处理CookieContainer）
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="cookieContainer"></param>
         public void SyncCookie(HttpResponseMessage response, CookieContainer cookieContainer)
         {
             //TODO:sync cookie
-
         }
 #endif
     }

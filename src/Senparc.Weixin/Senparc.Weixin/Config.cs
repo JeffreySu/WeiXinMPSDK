@@ -38,6 +38,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -136,5 +137,37 @@ namespace Senparc.Weixin
             get { return _apiWorkHost; }
             set { _apiWorkHost = value; }
         }
+
+        /// <summary>
+        /// 默认的AppId检查规则
+        /// </summary>
+        public static Func<string, PlatformType, bool> DefaultAppIdCheckFunc = (accessTokenOrAppId, platFormType) =>
+        {
+            if (platFormType == PlatformType.QY || platFormType == PlatformType.Work)
+            {
+               /*
+                * 企业号（企业微信）AppKey（Length=84）：wx7618c00000000222@044ZI5s6-ACxpAuOcm4md410pZ460pQUmxO9hIoMd09kRaJ1iSqhPfmg3-aBFF7q
+                * 企业号（企业微信）AccessToken（length=300）：MGelzm_P0N-41qH3PwHsNxp70rdVuB0SMEN7dE4E8eKpb0OpNQSp8jPUfgwIL_P9jcz-qGIOLbLEy3d8XQEJFfZtOLgTJqyg0rJbj6WyQJxdRVjbLnHr0-pg7oN9dD1NFI7-T7GLuJER3Pun-5cSiSmZgAegTDhXKZC8XfgjQAPPYLjZl7StBnO7dVcZStdyivZ92zq4PrDdNif9fa2p9lPSLqkur2PpDB9P7MsR8PDJWsKghEcmjB41OXohHGnqPWd5lUZaV1Y8p35BVz6PqjF-90UgAjI9IohVKVRClks
+                */
+
+               //return accessTokenOrAppId != null && accessTokenOrAppId.Length < 256;
+
+               /*
+                * 2017年9月26日开始，AccessToken长度有变化（长度有300、215、191等）
+                * AccessToken（Length=215）：_0evr6HbAnWCUfn1tRpbVY2uV63fDOfT-fUnpQcq6egl8bYFp3Xq45ebImXn5Aj1_nz_mFCUz9sDnoEkfy-jyXqJEc4Hty0BAo2VQTB8ogx7qkL2w1p0H2E1fKWwJrQ1285V0XhEQ0pcHMLwy9RbHuD4sHdAJ5ZkXGchNQ1eHsmseoBxucKvyAnEq9psJVLMjkU4G3ZRa0NoTBSy0g6ujg
+                */
+
+                return accessTokenOrAppId != null && accessTokenOrAppId.Contains("@");
+            }
+            else
+            {
+               /*
+                * 公众号AppId：wxe273c3a02e09ff8c
+                * 公众号AccessToken：ga0wJ5ZmdB1Ef1gMMxmps6Uz1a9TXoutQtRqgYTbIqHfTm4Ssfoj0DjMLp1_KkG7FkaqS7m7f9rrYbqBQMBizRBQjHFG5ZIov8Wb0FBnHDq5fGpCu0S2H2j2aM8c6KDqGGEiAIAJJH
+                */
+                return accessTokenOrAppId != null && accessTokenOrAppId.Length <= 32 /*wxc3c90837b0e76080*/
+                ;
+            }
+        };
     }
 }

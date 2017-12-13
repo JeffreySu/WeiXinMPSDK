@@ -22,6 +22,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.Open.CommonAPIs;
 
@@ -100,6 +101,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             Senparc.Weixin.Config.IsDebug = false;
             return Content("Debug状态已关闭。");
+        }
+
+        public ActionResult GetAccessTokenBags()
+        {
+            if (!Request.IsLocal)
+            {
+                return new HttpUnauthorizedResult();//只允许本地访问
+            }
+            var accessTokenBags = AccessTokenContainer.GetAllItems();
+            return Json(accessTokenBags, JsonRequestBehavior.AllowGet);
         }
     }
 }

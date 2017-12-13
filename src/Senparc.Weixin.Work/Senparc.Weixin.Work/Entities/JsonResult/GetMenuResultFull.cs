@@ -21,11 +21,6 @@ namespace Senparc.Weixin.Work
     /// </summary>
     public class GetMenuResultFull : WorkJsonResult
     {
-        public MenuFull_ButtonGroup menu { get; set; }
-    }
-
-    public class MenuFull_ButtonGroup
-    {
         public List<MenuFull_RootButton> button { get; set; }
     }
 

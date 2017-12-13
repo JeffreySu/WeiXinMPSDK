@@ -127,7 +127,8 @@ namespace Senparc.Weixin.HttpUtility
         public static void Download(string url, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             WebClient wc = new WebClient();
@@ -259,7 +260,8 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task DownloadAsync(string url, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             WebClient wc = new WebClient();

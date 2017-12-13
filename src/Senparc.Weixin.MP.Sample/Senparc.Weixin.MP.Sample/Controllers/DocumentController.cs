@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 //using Senparc.Weixin.MP.Sample.CommonService.Download;
 
@@ -30,27 +32,40 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             var configHelper = new ConfigHelper(this.HttpContext);
 
-            //chm二维码
-            var qrCodeId = configHelper.GetQrCodeId();
-            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
-
-            var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
-            ViewData["QrCodeUrl"] = qrCodeUrl;
-
-            ConfigHelper.CodeCollection[guid] = new CodeRecord()
+            try
             {
-                Key = guid,
-                QrCodeId = qrCodeId,
-                QrCodeTicket = qrResult
-            };//添加对应关系
+                //chm二维码
+                var qrCodeId = configHelper.GetQrCodeId();
+                var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
-            //下载版本
-            var config = configHelper.GetConfig();
-            ViewData["Versions"] = config.Versions;
-            ViewData["WebVersions"] = config.WebVersions;
-            ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
+                var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
+                ViewData["QrCodeUrl"] = qrCodeUrl;
 
-            return View();
+                ConfigHelper.CodeCollection[guid] = new CodeRecord()
+                {
+                    Key = guid,
+                    QrCodeId = qrCodeId,
+                    QrCodeTicket = qrResult
+                };//添加对应关系
+
+                //下载版本
+                var config = configHelper.GetConfig();
+                ViewData["Versions"] = config.Versions;
+                ViewData["WebVersions"] = config.WebVersions;
+                ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                WeixinTrace.SendCustomLog("Document发生appsecret错误！",e.ToString());
+                var accessTokenBags = AccessTokenContainer.GetAllItems();
+
+                WeixinTrace.SendCustomLog("当前AccessToken信息", accessTokenBags.ToJson());
+
+                throw;
+            }
+           
         }
 
         /// <summary>

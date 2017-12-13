@@ -160,6 +160,7 @@
     <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtility.Get.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtility.Post.cs" />
+    <Compile Include="Utilities\HttpUtility\SenparcHttpClient.cs" />
     <Compile Include="Utilities\HttpUtility\SenparcHttpResponse.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
     <Compile Include="Trace\WeixinTrace.cs" />
+    <Compile Include="WebProxy\CoreWebProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />

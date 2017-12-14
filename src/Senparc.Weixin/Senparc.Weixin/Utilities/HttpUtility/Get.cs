@@ -46,6 +46,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 #if !NET35 && !NET40
@@ -149,24 +150,25 @@ namespace Senparc.Weixin.HttpUtility
         /// <summary>
         /// 从Url下载，并保存到指定目录
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="dir"></param>
+        /// <param name="url">需要下载文件的Url</param>
+        /// <param name="filePathName"></param>
         /// <returns></returns>
-        public static string Download(string url, string dir)
+        public static string Download(string url, string filePathName)
         {
+            var dir = Path.GetDirectoryName(filePathName) ?? "/";
             Directory.CreateDirectory(dir);
-#if NET35 || NET40 || NET45
+
+#if NET35 || NET40
             WebClient wc = new WebClient();
             var data = wc.DownloadData(url);
-            var fullName = Path.Combine(dir, DateTime.Now.Ticks.ToString());
-            using (var fs = File.Open(fullName, FileMode.Create))
+            using (var fs = File.Open(filePathName, FileMode.OpenOrCreate))
             {
                 using (var sw = new BinaryWriter(fs))
                 {
                     sw.Write(data);
                     sw.Flush();
                     fs.Flush();
-                    return fullName;
+                    return filePathName;
                 }
             }
 #else
@@ -176,7 +178,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 if (responseMessage.StatusCode == HttpStatusCode.OK)
                 {
-                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+                    var fullName = filePathName;// Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));//ContentDisposition可能会为Null
                     using (var fs = File.Open(fullName, FileMode.Create))
                     {
                         using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
@@ -186,9 +188,12 @@ namespace Senparc.Weixin.HttpUtility
                         }
                     }
                 }
+                else
+                {
+                    return null;
+                }
             }
 #endif
-            return null;
         }
         //#endif
         #endregion
@@ -275,18 +280,20 @@ namespace Senparc.Weixin.HttpUtility
         /// <summary>
         /// 【异步方法】从Url下载，并保存到指定目录
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="dir"></param>
+        /// <param name="url">需要下载文件的Url</param>
+        /// <param name="filePathName"></param>
         /// <returns></returns>
-        public static async Task<string> DownloadAsync(string url, string dir)
+        public static async Task<string> DownloadAsync(string url, string filePathName)
         {
+            var dir = Path.GetDirectoryName(filePathName) ?? "/";
             Directory.CreateDirectory(dir);
+
             System.Net.Http.HttpClient httpClient = new HttpClient();
             using (var responseMessage = await httpClient.GetAsync(url))
             {
                 if (responseMessage.StatusCode == HttpStatusCode.OK)
                 {
-                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+                    var fullName = filePathName;// Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));//ContentDisposition可能会为Null
                     using (var fs = File.Open(fullName, FileMode.Create))
                     {
                         using (var responseStream = await responseMessage.Content.ReadAsStreamAsync())
@@ -296,8 +303,11 @@ namespace Senparc.Weixin.HttpUtility
                         }
                     }
                 }
+                else
+                {
+                    return null;
+                }
             }
-            return null;
         }
         #endregion
 #endif

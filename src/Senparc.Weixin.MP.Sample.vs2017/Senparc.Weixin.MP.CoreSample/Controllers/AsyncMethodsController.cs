@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
-                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData);
+                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, "pages/index/index", testData);
                 return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看。此前的验证码已失效，如需继续测试，请重新获取验证码。");
             }
         }

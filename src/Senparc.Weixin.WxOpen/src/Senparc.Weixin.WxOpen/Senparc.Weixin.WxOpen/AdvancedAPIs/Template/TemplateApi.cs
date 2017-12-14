@@ -28,7 +28,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v1.2.1 修改模板消息URL
 
     修改标识：Senparc - 20170707
-    修改描述：v14.5.1 完善异步方法async/await
+    修改描述：完善异步方法async/await
+
+    修改标识：Senparc - 20170707
+    修改描述：v1.7.4 完善模板消息发送参数
 
 ----------------------------------------------------------------*/
 
@@ -59,12 +62,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId"></param>
         /// <param name="data"></param>
         /// <param name="emphasisKeyword">模板需要放大的关键词，不填则默认无放大</param>
+        /// <param name="color">模板内容字体的颜色，不填默认黑色（非必填）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
-        /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转</param>
+        /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
         public static WxJsonResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId,
-            object data, string formId, string page = null, string emphasisKeyword = null, int timeOut = Config.TIME_OUT)
+            object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -73,8 +77,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 {
                     touser = openId,
                     template_id = templateId,
-                    // topcolor = topcolor,
-                    //page = page,
+                    color = color,
+                    page = page,
                     form_id = formId,
                     data = data,
                     emphasis_keyword = emphasisKeyword,
@@ -119,6 +123,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
 #if !NET35 && !NET40
         #region 异步方法
+
         /// <summary>
         /// 【异步方法】小程序模板消息接口
         /// </summary>
@@ -127,11 +132,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId"></param>
         /// <param name="data"></param>
         /// <param name="emphasisKeyword">模板需要放大的关键词，不填则默认无放大</param>
+        /// <param name="color">模板内容字体的颜色，不填默认黑色（非必填）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
-        /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转</param>
+        /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -140,7 +146,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 {
                     touser = openId,
                     template_id = templateId,
-                    // topcolor = topcolor,
+                    color = color,
                     page = page,
                     form_id = formId,
                     data = data,
@@ -156,4 +162,3 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 #endif
     }
 }
- 

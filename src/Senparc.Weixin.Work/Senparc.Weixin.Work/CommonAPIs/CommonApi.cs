@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 */
             #endregion
 
-            var url = string.Format(_apiUrl + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
+            var url = string.Format(_apiUrl + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = Get.GetJson<AccessTokenResult>(url);
             return result;
         }

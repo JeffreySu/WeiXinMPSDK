@@ -33,9 +33,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             {
                 _appDomainAppPath = value;
 #if NETSTANDARD1_6 || NETSTANDARD2_0
-                if (!_appDomainAppPath.EndsWith("\\"))
+                if (!_appDomainAppPath.EndsWith("/"))
                 {
-                    _appDomainAppPath += "\\";
+                    _appDomainAppPath += "/";
                 }
 #endif
             }
@@ -49,12 +49,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
         {
             get
             {
-                if (_webRootPath==null)
+                if (_webRootPath == null)
                 {
 #if NET45
                     _webRootPath = AppDomainAppPath;
 #else
-                    _webRootPath = AppDomainAppPath + "wwwroot\\";//asp.net core的wwwroot文件目录结构不一样
+                    _webRootPath = AppDomainAppPath + "wwwroot/";//asp.net core的wwwroot文件目录结构不一样
 #endif
                 }
                 return _webRootPath;
@@ -70,11 +70,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             }
             else if (virtualPath.StartsWith("~/"))
             {
-                return virtualPath.Replace("~/", AppDomainAppPath).Replace("/", "\\");
+                return virtualPath.Replace("~/", AppDomainAppPath);
             }
             else
             {
-                return Path.Combine(AppDomainAppPath, virtualPath.Replace("/", "\\"));
+                return Path.Combine(AppDomainAppPath, virtualPath);
             }
         }
 

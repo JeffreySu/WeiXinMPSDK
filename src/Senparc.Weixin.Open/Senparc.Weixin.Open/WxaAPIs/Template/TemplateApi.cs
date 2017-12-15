@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
     
     文件名：SnsApi.cs
-    文件功能描述：小程序微信登录
+    文件功能描述：小程序模板消息
     
     创建标识：Senparc - 20170827
 

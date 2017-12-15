@@ -47,7 +47,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
     /// </summary>
     public static class SnsApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// code 换取 session_key
@@ -60,8 +60,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <returns></returns>
         public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
-                "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
+            string urlFormat =
+                Config.ApiMpHost + "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
             var result = Get.GetJson<JsCode2JsonResult>(url);
@@ -70,7 +70,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】code 换取 session_key
@@ -83,8 +84,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <returns></returns>
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
-                "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
+            string urlFormat =
+                Config.ApiMpHost + "/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
 
@@ -93,5 +94,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         }
 
         #endregion
+#endif
     }
 }

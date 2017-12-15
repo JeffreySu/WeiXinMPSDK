@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20171027
+    修改描述：v14.8.3 优化GetRequestMsgType()方法，新增GetRequestMsgTypeString()方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -46,9 +50,23 @@ namespace Senparc.Weixin.MP.Helpers
         /// 根据xml信息，返回RequestMsgType
         /// </summary>
         /// <returns></returns>
-        public static RequestMsgType GetRequestMsgType(XDocument doc)
+        public static string GetRequestMsgTypeString(XDocument requestMessageDocument)
         {
-            return GetRequestMsgType(doc.Root.Element("MsgType").Value);
+            if (requestMessageDocument == null || requestMessageDocument.Root == null || requestMessageDocument.Root.Element("MsgType") == null)
+            {
+                return "Unknow";
+            }
+
+            return requestMessageDocument.Root.Element("MsgType").Value;
+        }
+
+        /// <summary>
+        /// 根据xml信息，返回RequestMsgType
+        /// </summary>
+        /// <returns></returns>
+        public static RequestMsgType GetRequestMsgType(XDocument requestMessageDocument)
+        {
+            return GetRequestMsgType(GetRequestMsgTypeString(requestMessageDocument));
         }
         /// <summary>
         /// 根据xml信息，返回RequestMsgType
@@ -56,7 +74,14 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static RequestMsgType GetRequestMsgType(string str)
         {
-            return (RequestMsgType)Enum.Parse(typeof(RequestMsgType), str, true);
+            try
+            {
+                return (RequestMsgType)Enum.Parse(typeof(RequestMsgType), str, true);
+            }
+            catch
+            {
+                return RequestMsgType.Unknown;
+            }
         }
 
         #endregion

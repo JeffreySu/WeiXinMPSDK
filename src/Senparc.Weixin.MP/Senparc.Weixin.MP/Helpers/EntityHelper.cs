@@ -369,7 +369,7 @@ namespace Senparc.Weixin.MP.Helpers
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
                             break;
                         default:
-#if NET45
+#if NET35 || NET40 || NET45
                             if (prop.PropertyType.IsClass && prop.PropertyType.IsPublic)
 #else
                             if (prop.PropertyType.GetTypeInfo().IsClass && prop.PropertyType.GetTypeInfo().IsPublic)

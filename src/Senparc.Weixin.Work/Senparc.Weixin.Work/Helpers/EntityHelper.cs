@@ -9,6 +9,10 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20172008
+    修改描述：v1.2.0-beta1 为支持.NET 3.5/4.0进行重构
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -162,17 +166,29 @@ namespace Senparc.Weixin.Work.Helpers
                         case "AgentType":
                             {
                                 AgentType tp;
+#if NET35
+                                try
+                                {
+                                    tp = (AgentType)Enum.Parse(typeof(AgentType), root.Element(propName).Value, true);
+                                    prop.SetValue(entity, tp, null);
+                                }
+                                catch
+                                {
+
+                                }
+#else
                                 if (Enum.TryParse(root.Element(propName).Value, out tp))
                                 {
-                                    prop.SetValue(entity, tp);
+                                    prop.SetValue(entity, tp, null);
                                 }
+#endif
                                 break;
                             }
                         case "Receiver":
                             {
                                 Receiver receiver = new Receiver();
                                 FillEntityWithXml(receiver, new XDocument(root.Element(propName)));
-                                prop.SetValue(entity, receiver);
+                                prop.SetValue(entity, receiver, null);
                                 break;
                             }
                         default:
@@ -192,8 +208,23 @@ namespace Senparc.Weixin.Work.Helpers
                             var msgTypeEle = item.Element("MsgType");
                             if (msgTypeEle != null)
                             {
-                                RequestMsgType type;
-                                if (Enum.TryParse(msgTypeEle.Value, true, out type))
+                                RequestMsgType type = RequestMsgType.DEFAULT;
+                                var parseSuccess = false;
+#if NET35
+                                try
+                                {
+                                    type = (RequestMsgType)Enum.Parse(typeof(RequestMsgType), msgTypeEle.Value, true);
+                                    parseSuccess = true;
+                                }
+                                catch
+                                {
+
+                                }
+#else
+                                parseSuccess = Enum.TryParse(msgTypeEle.Value, true, out type);
+#endif
+                                if (parseSuccess)
+                                {
                                     switch (type)
                                     {
                                         case RequestMsgType.Event:
@@ -233,6 +264,7 @@ namespace Senparc.Weixin.Work.Helpers
                                                 break;
                                             }
                                     }
+                                }
                             }
                             if (reqItem != null)
                             {

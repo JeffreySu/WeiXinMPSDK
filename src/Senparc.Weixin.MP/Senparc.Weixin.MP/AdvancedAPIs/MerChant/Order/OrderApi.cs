@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class OrderApi
     {
-        #region 同步请求
+        #region 同步方法
         
         
         /// <summary>
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static GetByIdOrderResult GetByIdOrder(string accessToken, string orderId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyid?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/getbyid?access_token={0}";
 
             var data = new
             {
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static GetByFilterResult GetByFilterOrder(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/getbyfilter?access_token={0}";
 
             var data = new
             {
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 易迅快递	zj001yixun
         public static WxJsonResult SetdeliveryOrder(string accessToken, string orderId, string deliveryCompany, string deliveryTrackNo, int needDelivery = 1, int isOthers = 0)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/setdelivery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/setdelivery?access_token={0}";
 
             var data = new
             {
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult CloseOrder(string accessToken, string orderId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/close?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/close?access_token={0}";
 
             var data = new
             {
@@ -147,7 +147,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
         #endregion
-        #region 异步请求
+
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】根据订单ID获取订单详情
         /// </summary>
@@ -156,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<GetByIdOrderResult> GetByIdOrderAsync(string accessToken, string orderId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyid?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/getbyid?access_token={0}";
 
             var data = new
             {
@@ -176,7 +178,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<GetByFilterResult> GetByFilterOrderAsync(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/getbyfilter?access_token={0}";
 
             var data = new
             {
@@ -211,7 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 易迅快递	zj001yixun
         public static async Task<WxJsonResult> SetdeliveryOrderAsync(string accessToken, string orderId, string deliveryCompany, string deliveryTrackNo, int needDelivery = 1, int isOthers = 0)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/setdelivery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/setdelivery?access_token={0}";
 
             var data = new
             {
@@ -233,7 +235,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> CloseOrderAsync(string accessToken, string orderId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/order/close?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/order/close?access_token={0}";
 
             var data = new
             {
@@ -243,5 +245,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

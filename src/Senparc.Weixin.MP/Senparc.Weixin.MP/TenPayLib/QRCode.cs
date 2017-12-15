@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             string UrlEncode = "";
 
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             UrlEncode = System.Web.HttpUtility.UrlEncode(con, Encoding.UTF8);
 #else
             UrlEncode = WebUtility.UrlEncode(con);

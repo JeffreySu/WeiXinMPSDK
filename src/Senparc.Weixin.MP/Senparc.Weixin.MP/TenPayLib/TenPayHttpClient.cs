@@ -230,7 +230,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <returns></returns>
         public bool Call()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
                         StreamReader sr = null;
             HttpWebResponse wr = null;
 

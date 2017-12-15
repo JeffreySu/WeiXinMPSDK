@@ -238,7 +238,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 Senparc.Weixin.WxOpen.AdvancedAPIs
                     .Template.TemplateApi
                     .SendTemplateMessage(
-                        AppId, openId, data.TemplateId, data, formId);
+                        AppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
@@ -255,7 +255,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             {
                 var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
                iv);
-                
+
                 //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
 
                 return Json(new { success = true, phoneNumber = phoneNumber });
@@ -265,7 +265,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 return Json(new { success = false, msg = ex.Message });
 
             }
-           
+
         }
     }
 }

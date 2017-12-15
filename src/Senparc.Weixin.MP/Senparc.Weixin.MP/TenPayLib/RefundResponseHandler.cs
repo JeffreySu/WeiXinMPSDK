@@ -41,7 +41,7 @@ using System.Text;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected HttpContext HttpContext;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string getCharset()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

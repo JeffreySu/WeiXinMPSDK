@@ -125,8 +125,6 @@ namespace Senparc.Weixin.Open
             {
                 var doc = XDocument.Load(xr);
 
-                //
-
                 return GetRequestEntity(doc);
             }
         }

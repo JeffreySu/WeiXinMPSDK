@@ -5,8 +5,8 @@
 
 Nuget 包也由此项目生成
 
-项目文件夹说明
---------------
+## 项目文件夹说明
+
 
 | 文件夹 | 说明 |
 |--------|--------|
@@ -23,3 +23,12 @@ Nuget 包也由此项目生成
 |Senparc.Weixin.Work|Senparc.Weixin.Work.dll 企业微信SDK源代码|
 |Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll 微信小程序SDK源代码|
 |Senparc.Wiexin|所有Senparc.Weixin.[x].dll 基础类库源代码|
+
+
+## 帮你选择
+
+> 如果你已经安装了 VS2017，并且希望调试 .NET Core 版本（同时支持 .NET Framework 4.5 / .NET Core 1.1 / .NET Core 2.0），那么请打开：Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln 解决方案
+
+> 其他情况（如没有安装 VS2017，或者只是想调试 .NET Framework 4.5 项目），那么请打开：Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.sln 解决方案
+
+无论选择哪个解决方案，类库的功能都是一致的。

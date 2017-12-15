@@ -42,11 +42,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170711
     修改描述：v14.5.2 Card_MemberCardData添加wx_activate_after_submit和wx_activate_after_submit_url
 
-
+    修改标识：Senparc - 20171117
+    修改描述：v14.8.6 修改Card_MemberCardData.wx_activate_after_submit_url为string类型
 
 ----------------------------------------------------------------*/
-
-
 
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
@@ -139,7 +138,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public float discount { get; set; }
-       
+
         public Card_DisCountData()
             : base(CardType.DISCOUNT)
         {
@@ -256,9 +255,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public bool? wx_activate_after_submit { get; set; }
         /// <summary>
-        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接           
+        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接（官方文档为bool类型：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283）
         /// </summary>
-        public bool? wx_activate_after_submit_url { get; set; }
+        public string wx_activate_after_submit_url { get; set; }
 
 
         public Card_MemberCardData()
@@ -267,7 +266,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         }
     }
 
-    public class CustomField: IJsonEnumString
+    public class CustomField : IJsonEnumString
     {
         /// <summary>
         /// 会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。

@@ -112,12 +112,15 @@ namespace Senparc.Weixin.XmlUtility
         /// <returns></returns>
         public static XDocument Convert(Stream stream)
         {
-            stream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
+            if (stream.CanSeek)
+            {
+                stream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
+            }
             using (XmlReader xr = XmlReader.Create(stream))
             {
                 return XDocument.Load(xr);
             }
-//#if NET45
+//#if NET35 || NET40 || NET45
 //            using (XmlReader xr = XmlReader.Create(stream))
 //            {
 //                return XDocument.Load(xr);

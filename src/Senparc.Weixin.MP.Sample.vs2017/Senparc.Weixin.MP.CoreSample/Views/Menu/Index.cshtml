@@ -6,15 +6,20 @@
 @section HeaderContent
 {
     <style>
-        .red{color:#ff0000}
-        .bold{font-weight:bold}
+        .red {
+            color: #ff0000
+        }
 
-         #menuNotice {
-             width: 100%;
-             padding: 5px;
-             margin-top: 5px;
-             background-color: #ececec;
-         }
+        .bold {
+            font-weight: bold
+        }
+
+        #menuNotice {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            background-color: #ececec;
+        }
 
         #menuNotice ul {
             margin-top: 10px;
@@ -142,6 +147,11 @@
         #menuTable .menuRowTip {
             padding: 2px;
         }
+
+        #menuTable .rootMenu {
+            color: #E65100;
+            font-weight: bold;
+        }
     </style>
 }
 <div class="wrapper">
@@ -244,7 +254,7 @@
                         {
                             var isRootMenu = i == 5;
                             <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                                <td class="menuRowTip">
+                                <td class="menuRowTip @(isRootMenu?"rootMenu":"")">
                                     @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
                                 </td>
                                 @for (int j = 0; j < 3; j++)

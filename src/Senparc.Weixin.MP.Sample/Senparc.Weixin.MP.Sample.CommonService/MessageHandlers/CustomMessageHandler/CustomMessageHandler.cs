@@ -6,6 +6,10 @@
 
 
     创建标识：Senparc - 20150312
+
+    修改标识：Senparc - 20171027
+    修改描述：v14.8.3 添加OnUnknownTypeRequest()方法Demo
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -568,6 +572,23 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
 
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";
+            return responseMessage;
+        }
+
+
+        public override IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
+        {
+            /*
+             * 此方法用于应急处理SDK没有提供的消息类型，
+             * 原始XML可以通过requestMessage.RequestDocument（或this.RequestDocument）获取到。
+             * 如果不重写此方法，遇到未知的请求类型将会抛出异常（v14.8.3 之前的版本就是这么做的）
+             */
+            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "未知消息类型：" + msgType;
+
+            WeixinTrace.SendCustomLog("未知请求消息类型", requestMessage.RequestDocument.ToString());//记录到日志中
+
             return responseMessage;
         }
     }

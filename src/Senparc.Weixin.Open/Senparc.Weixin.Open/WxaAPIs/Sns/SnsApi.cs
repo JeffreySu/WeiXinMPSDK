@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
     /// </summary>
     public static class SnsApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// code 换取 session_key
@@ -55,8 +55,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         /// <returns></returns>
         public static JsCode2JsonResult JsCode2Json(string appId, string componentAppId, string componentAccessToken, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
-                "https://api.weixin.qq.com/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
+            string urlFormat =
+                Config.ApiMpHost + "/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
 
             var url = string.Format(urlFormat, appId, jsCode, grantType, componentAppId, componentAccessToken);
             var result = Get.GetJson<JsCode2JsonResult>(url);
@@ -65,7 +65,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】code 换取 session_key
@@ -79,8 +80,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         /// <returns></returns>
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string componentAppId, string componentAccessToken, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat =
-                "https://api.weixin.qq.com/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
+            string urlFormat =
+                Config.ApiMpHost + "/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
 
             var url = string.Format(urlFormat, appId, jsCode, grantType, componentAppId, componentAccessToken);
             var result = await Get.GetJsonAsync<JsCode2JsonResult>(url);
@@ -88,5 +89,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
         }
 
         #endregion
+#endif
     }
 }

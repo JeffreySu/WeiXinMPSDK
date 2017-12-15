@@ -107,7 +107,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     {
         #region 私有方法
 
-
         /// <summary>
         /// 带证书提交
         /// </summary>
@@ -135,6 +134,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+#if !NET35 && !NET40
         /// <summary>
         /// 【异步方法】带证书提交
         /// </summary>
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return responseContent;
             }
         }
-
+#endif
         /// <summary>
         /// 返回可用的微信支付地址（自动判断是否使用沙箱）
         /// </summary>
@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         #endregion
 
-        #region 同步请求
+        #region 同步方法
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -659,7 +659,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -1100,5 +1101,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         #endregion
+#endif
     }
 }

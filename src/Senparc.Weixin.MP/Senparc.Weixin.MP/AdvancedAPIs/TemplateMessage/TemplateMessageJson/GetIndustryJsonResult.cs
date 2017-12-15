@@ -67,11 +67,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         {
             var enumName = string.Format("{0}_{1}", first_class,
                 second_class.Replace("|", "_").Replace("/", "_"));
+
             IndustryCode code;
+#if NET35
+            try
+            {
+                code = (IndustryCode)Enum.Parse(typeof(IndustryCode), enumName, true);
+            }
+            catch
+            {
+                return IndustryCode.其它_其它;//没有成功，此处也可以抛出异常
+            }
+#else
             if (!Enum.TryParse(enumName,true,out code))
             {
                 return IndustryCode.其它_其它;//没有成功，此处也可以抛出异常
             }
+#endif
             return code;
         }
     }

@@ -54,7 +54,7 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             stream.Read(arr, 0, (int)stream.Length);
-#if NET45
+#if NET35 || NET40 || NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
 #else
             return Convert.ToBase64String(arr);
@@ -99,6 +99,7 @@ namespace Senparc.Weixin.StreamUtility
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -111,7 +112,7 @@ namespace Senparc.Weixin.StreamUtility
             byte[] arr = new byte[stream.Length];
             stream.Position = 0;
             await stream.ReadAsync(arr, 0, (int)stream.Length);
-#if NET45
+#if NET35 || NET40 || NET45
             return Convert.ToBase64String(arr, Base64FormattingOptions.None);
 #else
             return Convert.ToBase64String(arr);
@@ -155,6 +156,7 @@ namespace Senparc.Weixin.StreamUtility
         }
 
         #endregion
+#endif
 
 
     }

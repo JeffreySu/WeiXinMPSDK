@@ -40,9 +40,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public SimulateToolController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             _senparcWeixinSetting = senparcWeixinSetting.Value;
-#endif
-        }
 
+        }
+#endif
         /// <summary>
         /// 获取请求XML
         /// </summary>
@@ -297,7 +297,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+#if NETSTANDARD1_6 || NETSTANDARD2_0
             ViewData["Token"] = _senparcWeixinSetting.Token;
+#endif
             return View();
         }
 

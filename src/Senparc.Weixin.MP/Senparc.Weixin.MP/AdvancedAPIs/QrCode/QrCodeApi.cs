@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class QrCodeApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 创建二维码
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/qrcode/create?access_token={0}";
                 object data = null;
 
                 switch (actionName)
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //{
         //    return ApiHandlerWapper.TryCommonApi(accessToken =>
         //    {
-        //        var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+        //        var urlFormat = Config.ApiMpHost + "/cgi-bin/qrcode/create?access_token={0}";
         //        var data = new
         //        {
         //            action_name = "QR_LIMIT_STR_SCENE", action_info = new
@@ -205,7 +205,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 创建二维码
@@ -221,7 +222,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/qrcode/create?access_token={0}";
                 object data = null;
 
                 switch (actionName)
@@ -300,7 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //{
         //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
         //    {
-        //        var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+        //        var urlFormat = Config.ApiMpHost + "/cgi-bin/qrcode/create?access_token={0}";
         //        var data = new
         //        {
         //            action_name = "QR_LIMIT_STR_SCENE", action_info = new
@@ -329,5 +330,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+#endif
     }
 }

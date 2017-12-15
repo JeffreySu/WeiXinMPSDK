@@ -57,7 +57,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 
-#if NET45
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
-                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                 var urlFormat = Config.ApiMpHost + "/cgi-bin/menu/create?access_token={0}";
                  ////对特殊符号进行URL转义
                  //foreach (var button in buttonData.button)
                  //{
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/menu/create?access_token={0}";
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
 
-#if NET45
+#if NET35 || NET40 || NET45
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 jsonResult = js.Deserialize<object>(jsonString);
 #else
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
 
                 var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
@@ -230,7 +230,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET45
+#if NET35 || NET40 || NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<WxJsonResult>(url);
 

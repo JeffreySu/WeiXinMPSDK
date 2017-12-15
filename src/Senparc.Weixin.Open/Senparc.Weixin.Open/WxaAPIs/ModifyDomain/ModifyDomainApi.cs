@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
     创建标识：Senparc - 20170601
-    
+
+    修改标识：Senparc - 20171201
+    修改描述：v1.7.3 修复ModifyDomainApi.ModifyDomain()方法判断问题
+        
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.CommonAPIs;
@@ -42,7 +45,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 {
     public class ModifyDomainApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 修改服务器地址 接口
@@ -62,11 +65,11 @@ namespace Senparc.Weixin.Open.WxaAPIs
             List<string> downloaddomain,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
-            if (action == ModifyDomainAction.set)
+            if (action == ModifyDomainAction.get)
             {
                 data = new
                 {
@@ -91,7 +94,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步接口】修改服务器地址 接口
@@ -111,11 +115,11 @@ namespace Senparc.Weixin.Open.WxaAPIs
             List<string> downloaddomain,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/wxa/modify_domain?access_token={0}", accessToken.AsUrlData());
 
             object data;
 
-            if (action == ModifyDomainAction.set)
+            if (action == ModifyDomainAction.get)
             {
                 data = new
                 {
@@ -139,5 +143,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
 
         #endregion
+#endif
     }
 }

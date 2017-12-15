@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
 
 
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
-                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
+                string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_url?provider_access_token={0}";
 
                 var data = new
                 {
@@ -57,7 +57,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】获取企业号管理员登录信息【Work中未定义】
@@ -70,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetLoginUrlResult> GetLoginUrlAsync(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
-                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
+                string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_url?provider_access_token={0}";
 
                 var data = new
                 {
@@ -84,6 +85,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
 
     }
 }

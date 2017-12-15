@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public static class GroupApi
     {
-        #region 同步请求
+        #region 同步方法
         
        
         /// <summary>
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static AddGroupResult AddGroup(string accessToken, AddGroupData addGroupData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/add?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/add?access_token={0}";
 
             return CommonJsonSend.Send<AddGroupResult>(accessToken, urlFormat, addGroupData);
         }
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult DeleteGroup(string accessToken, int groupId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/del?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/del?access_token={0}";
 
             var data = new
             {
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult PropertyModGroup(string accessToken, PropertyModGroup propertyModGroup)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/propertymod?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/propertymod?access_token={0}";
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, propertyModGroup);
         }
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static WxJsonResult ProductModGroup(string accessToken, ProductModGroup productModGroup)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/productmod?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/productmod?access_token={0}";
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, productModGroup);
         }
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static GetAllGroup GetAllGroup(string accessToken)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/getall?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/getall?access_token={0}";
 
             return CommonJsonSend.Send<GetAllGroup>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static GetByIdGroup GetByIdGroup(string accessToken, int groupId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/getbyid?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/getbyid?access_token={0}";
 
             var data = new
             {
@@ -135,8 +135,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             return CommonJsonSend.Send<GetByIdGroup>(accessToken, urlFormat, data);
         }
+
         #endregion
-        #region 异步请求
+
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】增加分组
         /// </summary>
@@ -145,7 +148,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<AddGroupResult> AddGroupAsync(string accessToken, AddGroupData addGroupData)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/add?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/add?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddGroupResult>(accessToken, urlFormat, addGroupData);
         }
@@ -158,7 +161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteGroupAsync(string accessToken, int groupId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/del?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/del?access_token={0}";
 
             var data = new
             {
@@ -176,7 +179,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> PropertyModGroupAsync(string accessToken, PropertyModGroup propertyModGroup)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/propertymod?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/propertymod?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, propertyModGroup);
         }
@@ -189,7 +192,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<WxJsonResult> ProductModGroupAsync(string accessToken, ProductModGroup productModGroup)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/productmod?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/productmod?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, productModGroup);
         }
@@ -201,7 +204,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<GetAllGroup> GetAllGroupAsync(string accessToken)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/getall?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/getall?access_token={0}";
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllGroup>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
@@ -214,7 +217,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <returns></returns>
         public static async Task<GetByIdGroup> GetByIdGroupAsync(string accessToken, int groupId)
         {
-            var urlFormat = "https://api.weixin.qq.com/merchant/group/getbyid?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/merchant/group/getbyid?access_token={0}";
 
             var data = new
             {
@@ -224,5 +227,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdGroup>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

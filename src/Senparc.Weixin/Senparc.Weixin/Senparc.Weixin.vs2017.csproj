@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>4.16.4</Version>
+    <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <Version>4.18.7</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -182,18 +182,40 @@
       1、添加 WeixinNullReferenceException 异常类型
       2、添加 UrlUtility（Url工具类），生成 OAuth 用的额 CallbackUrl 参数
       v4.15.1 优化 DateTimeHelper 计算方式
+
       v4.16.0 添加 Senparc.Weixin.Config.UseSandBoxPay 属性，使用微信支付接口时自动判断是否调用沙箱
       v4.16.1 （.NET Core）添加CoreWebProxy.cs
       v4.16.3 在 NetStandard 2.0中恢复 WeixinTrace 的日志功能
       v4.16.4 在 2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
-    
+      v4.16.5 尝试解决微信{utf8"编码字符串带来的.net core runtime 对 content-type的解析错误
+      v4.16.6 提供NETCOREAPP2_0编译
+      v4.16.7 继续解决.net core 2.0下utf8和utf-8的问题处理
+      v4.16.8 优化 .net core 2.0 RequestUtility异步方法
+      v4.16.9 添加 ObjectExtensions，补充扩展方法
+      v4.16.10 优化.net core环境下的WeixinTrace日志输出路径
+
+      v4.17.0-beta1 重构HttpUtility，重新支持 .NET 4.0
+      v4.17.0-beta3 重新支持 .NET 3.5
+      v4.17.0-beta4 优化
+      v4.17.1 优化WeixinTrace
+      v4.17.2 丰富SenparcWeixinSetting参数
+      v4.17.3 添加RequestUtility.HttpResponseGet()方法，提供外部测试通道
+
+      v4.18.0 RequestUtility的Post和Get方法开始支持模拟Ajax请求
+      v4.18.1 修改Get.Download()方法
+      v4.18.2 新建SenparcHttpResponse，重构重构RequestUtility.HttpPost()方法
+      v4.18.3 v4.18.2-beta发布正式版
+      v4.18.4 修正当.net core 2.0中对请求的流不支持Seek 时的判断
+      v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
+      v4.18.6 重新设置企业微信默认域名
+      v4.18.7 调整HttpUtility.Get.Download(string url, string filePathName)，改为输入完整文件路径+文件名
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
@@ -205,29 +227,53 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net35|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NET35</DefineConstants>
   </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
+
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
 
 
@@ -239,40 +285,33 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
-  
-  
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />
-    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
 
-    <!--<PackageReference Include="Microsoft.Extensions.Logging" Version="4.3.0" />-->
-</ItemGroup>
-  
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
-    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
-    </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <!--<Reference Include="System.Net.Http" />-->
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="Microsoft.CSharp" />
-
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-    
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <!--<Reference Include="System.Net.Http" />-->
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -283,6 +322,44 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
+
+    <!--<PackageReference Include="Microsoft.Extensions.Logging" Version="4.3.0" />-->
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
+    <!--<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />-->
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

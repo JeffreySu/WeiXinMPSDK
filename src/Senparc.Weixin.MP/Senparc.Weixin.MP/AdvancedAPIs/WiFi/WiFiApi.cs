@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class WiFiApi
     {
-        #region 同步请求
+        #region 同步方法
         
       
         /// <summary>
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/list?access_token={0}";
 
                 var data = new
                 {
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/get?access_token={0}";
 
                 var data = new
                 {
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/update?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/update?access_token={0}";
 
                 var data = new
                 {
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/clean?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/clean?access_token={0}";
                 var data = new object();
                 if (string.IsNullOrEmpty(ssid))
                 {
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/add?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/add?access_token={0}";
 
                 var data = new
                 {
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/apportal/register?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/apportal/register?access_token={0}";
 
                 var data = new
                 {
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/list?access_token={0}";
 
                 object data = new object();
 
@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/delete?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/delete?access_token={0}";
 
                 var data = new
                 {
@@ -308,7 +308,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/qrcode/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/qrcode/get?access_token={0}";
 
                 var data = new
                 {
@@ -335,7 +335,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/homepage/set?access_token={0}";
 
                 var data = new object();
 
@@ -377,7 +377,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/homepage/get?access_token={0}";
 
                 var data = new
                 {
@@ -402,7 +402,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/bar/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/bar/set?access_token={0}";
 
                 var data = new
                     {
@@ -428,7 +428,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/finishpage/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/finishpage/set?access_token={0}";
 
                 var data = new
                 {
@@ -457,7 +457,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/statistics/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/statistics/list?access_token={0}";
 
                 var data = new
                 {
@@ -488,7 +488,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/couponput/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/couponput/set?access_token={0}";
 
                 var data = new
                 {
@@ -516,7 +516,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/couponput/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/couponput/get?access_token={0}";
 
                 var data = new
                 {
@@ -538,7 +538,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/account/get_connecturl?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/account/get_connecturl?access_token={0}";
 
                 return CommonJsonSend.Send<WiFiConnectUrlResultJson>(accessToken, urlFormat, null,
                     CommonJsonSendType.GET);
@@ -555,7 +555,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/openplugin/token?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/openplugin/token?access_token={0}";
 
                 var data = new
                 {
@@ -569,7 +569,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取Wi-Fi门店列表
         /// </summary>
@@ -582,7 +583,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/list?access_token={0}";
 
                 var data = new
                 {
@@ -606,7 +607,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/get?access_token={0}";
 
                 var data = new
                 {
@@ -631,7 +632,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/update?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/update?access_token={0}";
 
                 var data = new
                 {
@@ -656,7 +657,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/clean?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/shop/clean?access_token={0}";
                 var data = new object();
                 if (string.IsNullOrEmpty(ssid))
                 {
@@ -695,7 +696,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/add?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/add?access_token={0}";
 
                 var data = new
                 {
@@ -722,7 +723,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/apportal/register?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/apportal/register?access_token={0}";
 
                 var data = new
                 {
@@ -750,7 +751,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/list?access_token={0}";
 
                 object data = new object();
 
@@ -788,7 +789,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/device/delete?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/device/delete?access_token={0}";
 
                 var data = new
                 {
@@ -813,7 +814,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/qrcode/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/qrcode/get?access_token={0}";
 
                 var data = new
                 {
@@ -840,7 +841,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/homepage/set?access_token={0}";
 
                 var data = new object();
 
@@ -882,7 +883,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/homepage/get?access_token={0}";
 
                 var data = new
                 {
@@ -907,7 +908,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/bar/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/bar/set?access_token={0}";
 
                 var data = new
                     {
@@ -934,7 +935,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/finishpage/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/finishpage/set?access_token={0}";
 
                 var data = new
                 {
@@ -963,7 +964,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/statistics/list?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/statistics/list?access_token={0}";
 
                 var data = new
                 {
@@ -994,7 +995,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/couponput/set?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/couponput/set?access_token={0}";
 
                 var data = new
                 {
@@ -1022,7 +1023,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/couponput/get?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/couponput/get?access_token={0}";
 
                 var data = new
                 {
@@ -1044,7 +1045,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/account/get_connecturl?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/account/get_connecturl?access_token={0}";
 
                 return await  Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiConnectUrlResultJson>(accessToken, urlFormat, null,
                     CommonJsonSendType.GET);
@@ -1061,7 +1062,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/openplugin/token?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/bizwifi/openplugin/token?access_token={0}";
 
                 var data = new
                 {
@@ -1074,6 +1075,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
 
     }
 }

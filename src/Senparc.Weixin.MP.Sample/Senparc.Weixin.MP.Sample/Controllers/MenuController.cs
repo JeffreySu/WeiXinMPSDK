@@ -18,6 +18,7 @@ using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
@@ -109,6 +110,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var apiName = string.Format("使用接口：{0}。", (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
             try
             {
+                if (token.IsNullOrEmpty())
+                {
+                    throw new WeixinException("Token不能为空！");
+                }
+
                 //重新整理按钮信息
                 WxJsonResult result = null;
                 IButtonGroupBase buttonGroup = null;

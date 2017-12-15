@@ -16,10 +16,10 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         /// <param name="xml"></param>
         /// <param name="eventType"></param>
         /// <returns></returns>
-        private CustomerMessageHandlers VerifyEventTest<T>(string xml, Event eventType)
+        private CustomMessageHandlers VerifyEventTest<T>(string xml, Event eventType)
             where T : RequestMessageEventBase
         {
-            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(xml));
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xml));
             Assert.IsNotNull(messageHandlers.RequestDocument);
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.TextResponseMessage);

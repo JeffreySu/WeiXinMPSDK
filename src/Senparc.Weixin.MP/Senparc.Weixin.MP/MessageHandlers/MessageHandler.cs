@@ -368,6 +368,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
                         break;
+                    case RequestMsgType.Unknown:
+                        ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
+                        break;
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
@@ -375,6 +378,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
+                   
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }

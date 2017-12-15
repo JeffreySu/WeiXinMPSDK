@@ -22,23 +22,31 @@ senparc.menu = {
             var typeId = idPrefix + "_type";
             var urlId = idPrefix + "_url";
             var mediaIdId = idPrefix + "_mediaid";
+            var appidId = idPrefix + "_appid";
+            var pagepathId = idPrefix + "_pagepath";
 
             var txtDetailsKey = $('#buttonDetails_key');
             var txtDetailsName = $('#buttonDetails_name');
             var ddlDetailsType = $('#buttonDetails_type');
             var txtDetailsUrl = $('#buttonDetails_url');
             var txtMediaId = $('#buttonDetails_mediaId');
+            var txtDetailsAppid = $('#buttonDetails_appid');
+            var txtDetailsPagepath = $('#buttonDetails_pagepath');
 
             var hiddenButtonKey = $('#' + keyId);
             var hiddenButtonType = $('#' + typeId);
             var hiddenButtonUrl = $('#' + urlId);
             var hiddenButtonMediaId = $('#' + mediaIdId);
+            var hiddenButtonAppid = $('#' + appidId);
+            var hiddenButtonPagepath = $('#' + pagepathId);
 
             txtDetailsKey.val(hiddenButtonKey.val());
             txtDetailsName.val($('#' + nameId).val());
             ddlDetailsType.val(hiddenButtonType.val());
             txtDetailsUrl.val(hiddenButtonUrl.val());
             txtMediaId.val(hiddenButtonMediaId.val());
+            txtDetailsAppid.val(hiddenButtonAppid.val());
+            txtDetailsPagepath.val(hiddenButtonPagepath.val());
 
             senparc.menu.typeChanged();
 
@@ -53,6 +61,12 @@ senparc.menu = {
             });
             txtMediaId.unbind('blur').blur(function () {
                 hiddenButtonMediaId.val($(this).val());
+            });
+            txtDetailsAppid.unbind('blur').blur(function () {
+                hiddenButtonAppid.val($(this).val());
+            });
+            txtDetailsPagepath.unbind('blur').blur(function () {
+                hiddenButtonPagepath.val($(this).val());
             });
 
             //修改当前行列样式

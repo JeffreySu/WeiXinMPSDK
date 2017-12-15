@@ -99,25 +99,41 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+#else
+            set { this.SetContainerProperty(ref _appId, value); }
+#endif
         }
 
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _appSecret, value); }
+#endif
         }
 
         public DateTime AccessTokenExpireTime
         {
             get { return _accessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _accessTokenExpireTime, value); }
+#endif
         }
 
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
-            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _accessTokenResult, value); }
+#endif
         }
 
         private AccessTokenResult _accessTokenResult;
@@ -231,6 +247,7 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
         #region AccessToken
@@ -294,8 +311,8 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
-
         #endregion
+#endif
     }
 }
 

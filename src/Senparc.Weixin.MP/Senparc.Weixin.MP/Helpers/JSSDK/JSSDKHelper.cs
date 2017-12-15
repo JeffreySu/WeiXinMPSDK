@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170817
     修改描述：v14.6.3 添加 JSSDKHelper.GetJsSdkUiPackageAsync() 异步方法
 
+    修改标识：Senparc - 20171010
+    修改描述：v14.8.1 修复几处GetNoncestr还在使用GBK编码
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -74,8 +77,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            var random = new Random();
-            return EncryptHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         /// <summary>
@@ -278,6 +280,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
 
+#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -301,6 +304,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         #endregion
+#endif
     }
 }
 

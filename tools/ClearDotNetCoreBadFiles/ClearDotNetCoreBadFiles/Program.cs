@@ -26,7 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
                   生成的中间文件会导致.NET Framework编译失败的情况。
     
     创建标识：Senparc - 20170921
-    
+
+    修改标识：Senparc - 20170929
+    修改描述：v1.2 优化对异常的输出
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,7 +44,7 @@ namespace ClearDotNetCoreBadFiles
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(@"ClearDotNetCoreBadFiles v1.1
+            Console.WriteLine(@"ClearDotNetCoreBadFiles v1.2
 Copyrignt 2017 Senparc
 
 当前工具用于清理项目在.NET Core（包括.NET Standard）编译后，
@@ -51,7 +53,7 @@ Copyrignt 2017 Senparc
 例如遇到错误信息：
 ---------------------------------------------
 Your project.json doesn't have a runtimes section. You should add '""runtimes"": { ""win"": { } }' to your project.json and then re-run NuGet restore.
----------------------------------------------B
+---------------------------------------------
 
 工作原理为删除项目obj文件夹，弥补“清理解决方案”功能无法解决的问题。
 请了解原理后再使用本工具，以免发生意外！点击任意键开始进行清理（电源键除外）...
@@ -86,8 +88,18 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
             {
                 if (Path.GetFileName(dir).ToUpper() == "OBJ")
                 {
-                    Console.WriteLine("开始清除文件夹：" + dir);
-                    System.IO.Directory.Delete(dir, true);
+                    try
+                    {
+                        Console.WriteLine("开始清除文件夹：" + dir);
+                        System.IO.Directory.Delete(dir, true);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"清理文件夹{dir}发生错误：");
+                        Console.WriteLine(e);
+                        //throw;
+                    }
+                 
                 }
                 else
                 {

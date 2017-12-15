@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class UserApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取用户信息
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
                     accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
                 return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/get?access_token={0}", accessToken.AsUrlData());
                 if (!string.IsNullOrEmpty(nextOpenId))
                 {
                     url += "&next_openid=" + nextOpenId;
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info/updateremark?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     openid = openId,
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info/batchget?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     user_list = userList,
@@ -149,7 +149,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取用户信息
         /// </summary>
@@ -161,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
                    accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
                return await HttpUtility.Get.GetJsonAsync<UserInfoJson>(url);
 
@@ -181,7 +182,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}", accessToken.AsUrlData());
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/get?access_token={0}", accessToken.AsUrlData());
                if (!string.IsNullOrEmpty(nextOpenId))
                {
                    url += "&next_openid=" + nextOpenId;
@@ -203,7 +204,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
-               string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", accessToken.AsUrlData());
+               string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info/updateremark?access_token={0}", accessToken.AsUrlData());
                var data = new
                {
                    openid = openId,
@@ -225,7 +226,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info/batchget?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     user_list = userList,
@@ -234,5 +235,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

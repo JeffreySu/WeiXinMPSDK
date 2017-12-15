@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class SemanticApi
     {
-        #region 同步请求
+        #region 同步方法
  
         /// <summary>
         /// 发送语义理解请求
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -82,7 +82,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】发送语义理解请求
         /// </summary>
@@ -95,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -108,5 +109,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

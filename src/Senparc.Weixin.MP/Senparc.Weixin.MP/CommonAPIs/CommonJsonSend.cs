@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public static class CommonJsonSend
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -114,7 +114,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -169,5 +170,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         #endregion
+#endif
     }
 }

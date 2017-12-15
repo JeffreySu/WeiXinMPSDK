@@ -30,7 +30,7 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.WeixinTests;
+//using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {

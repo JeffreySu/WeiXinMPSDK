@@ -163,6 +163,7 @@
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
+    <Compile Include="Controllers\ForTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubscribeMsgController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />

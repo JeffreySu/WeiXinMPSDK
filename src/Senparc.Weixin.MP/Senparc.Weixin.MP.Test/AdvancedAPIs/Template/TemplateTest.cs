@@ -263,6 +263,7 @@ Task.Factory.StartNew(async () =>
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 
+#if !NET35 && !NET40
         #region 异步方法测试
         [TestMethod()]
         public void SendTemplateMessageAsyncTest()
@@ -295,5 +296,6 @@ Task.Factory.StartNew(async () =>
             });
         }
         #endregion
+#endif
     }
 }

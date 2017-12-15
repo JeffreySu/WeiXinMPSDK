@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
             全部打卡 = 3
         }
 
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 获取打卡数据【QY移植新增】
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckindata?access_token={0}";
 
                 var data = new
                 {
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getapprovaldata?access_token={0}";
 
                 var data = new
                 {
@@ -100,7 +100,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
         #endregion
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】
@@ -116,7 +117,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckindata?access_token={0}";
 
                 var data = new
                 {
@@ -147,7 +148,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getapprovaldata?access_token={0}";
 
                 var data = new
                 {
@@ -163,5 +164,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         #endregion
+#endif
     }
 }

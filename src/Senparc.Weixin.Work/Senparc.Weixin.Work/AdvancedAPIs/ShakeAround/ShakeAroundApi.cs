@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ShakeAroundApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取设备及用户信息
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -51,7 +51,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
@@ -63,7 +64,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -76,5 +77,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

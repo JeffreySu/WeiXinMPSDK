@@ -1,15 +1,21 @@
-﻿#if !NET45
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if NET40 || NET45
+using System.Web;
+#endif
 
 namespace Microsoft.AspNetCore.Http
 {
     public static class HttpRequestExtensions
     {
+
         public static string GetAbsoluteUri(this HttpRequest request)
         {
-            return new StringBuilder()
+#if NET40 || NET45
+            return request.Url.PathAndQuery;
+#else
+                 return new StringBuilder()
                 .Append(request.Scheme)
                 .Append("://")
                 .Append(request.Host)
@@ -17,7 +23,7 @@ namespace Microsoft.AspNetCore.Http
                 .Append(request.Path)
                 .Append(request.QueryString)
                 .ToString();
+#endif
         }
     }
 }
-#endif

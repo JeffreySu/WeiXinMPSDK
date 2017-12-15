@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     public static class OAuth2Api
     {
-        #region 同步请求
+        #region 同步方法
         
         
         /*此接口不提供异步方法*/
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static GetUserInfoResult GetUserId(string accessToken, string code, string agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetUserDetailResult GetUserDetail(string accessToken,string userTicket)
         {
-            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
 
             var data = new
             {
@@ -108,7 +108,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
         /// </summary>
@@ -119,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code, string agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
         }
@@ -133,7 +134,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserInfoResult> GetUserIdAsync(string accessToken, string code)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
         }
@@ -147,7 +148,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetUserDetailResult> GetUserDetailAsync(string accessToken, string userTicket)
         {
-            var urlFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token={0}";
+            var urlFormat = Config.ApiWorkHost + "/cgi-bin/user/getuserdetail?access_token={0}";
 
             var data = new
             {
@@ -157,5 +158,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

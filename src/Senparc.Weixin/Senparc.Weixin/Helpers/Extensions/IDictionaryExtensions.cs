@@ -19,6 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+#if !NET35
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -80,3 +81,4 @@ namespace Senparc.Weixin.Helpers
         }
     }
 }
+#endif

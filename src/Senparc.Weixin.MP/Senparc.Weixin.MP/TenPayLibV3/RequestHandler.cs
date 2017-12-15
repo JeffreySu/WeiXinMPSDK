@@ -50,7 +50,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.Weixin.MP.Helpers;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 			this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected virtual string GetCharset()
         {
-#if (NET45 || NET461)
+#if NET35 || NET40 || NET45 || NET461
             if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;

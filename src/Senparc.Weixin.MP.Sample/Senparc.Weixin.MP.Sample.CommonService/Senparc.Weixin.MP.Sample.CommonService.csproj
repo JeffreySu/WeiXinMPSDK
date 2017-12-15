@@ -83,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageHandlers\CustomThirdPartyMessageHandlers\CustomThirdPartyMessageHandler.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_ExceptionAlert.cs" />
+    <Compile Include="TemplateMessage\WeixinTemplate_PaySuccess.cs" />
     <Compile Include="TemplateMessage\WxOpen\WxOpenTemplateMessage_PaySuccessNotice.cs" />
     <Compile Include="Utilities\Server.cs" />
   </ItemGroup>

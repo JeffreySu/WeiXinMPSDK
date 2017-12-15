@@ -35,7 +35,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Threads
@@ -62,7 +61,7 @@ namespace Senparc.Weixin.Threads
             {
                 var mq = new SenparcMessageQueue();
 
-#if NET45
+#if NET35 || NET40 || NET45
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
                 System.Diagnostics.Trace.WriteLine(string.Format("当前队列数量：{0}", mq.GetCount()));
 #endif
@@ -72,7 +71,7 @@ namespace Senparc.Weixin.Threads
             catch (Exception ex)
             {
                 //此处可以添加日志
-#if NET45
+#if NET35 || NET40 || NET45
 
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
 #endif

@@ -319,6 +319,7 @@
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
+    <Compile Include="Entities\Request\RequestMessageUnknownType.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessage.cs" />

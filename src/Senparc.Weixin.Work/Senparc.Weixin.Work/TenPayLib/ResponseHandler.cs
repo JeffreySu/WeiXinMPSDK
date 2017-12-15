@@ -20,7 +20,7 @@ using System.Xml;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.Work.Helpers;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.Work.TenPayLib
         /// </summary>
         protected string Content;
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
         //private string Charset = "gb2312";
 #else
         private int Charset = 936;
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.Work.TenPayLib
         {
         }
 
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
 		/// <summary>
 		/// 获取页面提交的get和post参数
 		/// </summary>
@@ -262,7 +262,7 @@ namespace Senparc.Weixin.Work.TenPayLib
 
 		protected virtual string GetCharset()
 		{
-#if NET45 || NET461
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：代码模板草稿列表返回结果
     
     
-    创建标识：Senparc - 20170726
+    创建标识：Senparc - 20171215
 
 
 ----------------------------------------------------------------*/

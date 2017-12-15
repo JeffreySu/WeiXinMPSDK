@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.MassApi
             }
             catch (Senparc.Weixin.Exceptions.UnRegisterAppIdException e)
             {
-                Assert.Fail();//出现反馈问题中的“AppId未注册”错误
+                Assert.Fail(); //出现反馈问题中的“AppId未注册”错误
             }
             catch (Senparc.Weixin.Exceptions.ErrorJsonResultException e)
             {
@@ -34,7 +34,10 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs.MassApi
 
                 //没有发生AppId未注册的错误
             }
-
+            catch (Exception e)
+            {
+                Assert.Fail();//其他错误
+            }
         }
     }
 }

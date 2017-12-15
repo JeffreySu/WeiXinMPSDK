@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：小程序代码模版库管理
     
     
-    创建标识：Senparc - 20170726
+    创建标识：Senparc - 20171215
 
 
 ----------------------------------------------------------------*/

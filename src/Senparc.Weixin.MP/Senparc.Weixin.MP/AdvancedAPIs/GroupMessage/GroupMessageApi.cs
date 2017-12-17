@@ -32,6 +32,7 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
@@ -70,7 +71,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/sendall?access_token={0}";
 
-                BaseGroupMessageDataByGroupId baseData = null;
+                BaseGroupMessageDataByFilter baseData = null;
+
+                if (groupId.IsNullOrEmpty())
+                {
+                    
+                }
+
                 var filter = new GroupMessageByGroupId_GroupId()
                 {
                     group_id = groupId,
@@ -79,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 switch (type)
                 {
                     case GroupMessageType.image:
-                        baseData = new GroupMessageByGroupId_ImageData()
+                        baseData = new GroupMessageByFilter_ImageData()
                         {
                             filter = filter,
                             image = new GroupMessageByGroupId_MediaId()
@@ -90,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.voice:
-                        baseData = new GroupMessageByGroupId_VoiceData()
+                        baseData = new GroupMessageByFilter_VoiceData()
                         {
                             filter = filter,
                             voice = new GroupMessageByGroupId_MediaId()
@@ -101,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.mpnews:
-                        baseData = new GroupMessageByGroupId_MpNewsData()
+                        baseData = new GroupMessageByFilter_MpNewsData()
                         {
                             filter = filter,
                             mpnews = new GroupMessageByGroupId_MediaId()
@@ -112,7 +119,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.video:
-                        baseData = new GroupMessageByGroupId_MpVideoData()
+                        baseData = new GroupMessageByFilter_MpVideoData()
                         {
                             filter = filter,
                             mpvideo = new GroupMessageByGroupId_MediaId()
@@ -123,7 +130,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.wxcard:
-                        baseData = new GroupMessageByGroupId_WxCardData()
+                        baseData = new GroupMessageByFilter_WxCardData()
                         {
                             filter = filter,
                             wxcard = new GroupMessageByGroupId_WxCard()
@@ -134,7 +141,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.text:
-                        baseData = new GroupMessageByGroupId_TextData()
+                        baseData = new GroupMessageByFilter_TextData()
                         {
                             filter = filter,
                             text = new GroupMessageByGroupId_Content()
@@ -512,7 +519,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 switch (type)
                 {
                     case GroupMessageType.image:
-                        baseData = new GroupMessageByGroupId_ImageData()
+                        baseData = new GroupMessageByFilter_ImageData()
                         {
                             filter = filter,
                             image = new GroupMessageByGroupId_MediaId()
@@ -523,7 +530,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.voice:
-                        baseData = new GroupMessageByGroupId_VoiceData()
+                        baseData = new GroupMessageByFilter_VoiceData()
                         {
                             filter = filter,
                             voice = new GroupMessageByGroupId_MediaId()
@@ -534,7 +541,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.mpnews:
-                        baseData = new GroupMessageByGroupId_MpNewsData()
+                        baseData = new GroupMessageByFilter_MpNewsData()
                         {
                             filter = filter,
                             mpnews = new GroupMessageByGroupId_MediaId()
@@ -545,7 +552,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.video:
-                        baseData = new GroupMessageByGroupId_MpVideoData()
+                        baseData = new GroupMessageByFilter_MpVideoData()
                         {
                             filter = filter,
                             mpvideo = new GroupMessageByGroupId_MediaId()
@@ -556,7 +563,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.wxcard:
-                        baseData = new GroupMessageByGroupId_WxCardData()
+                        baseData = new GroupMessageByFilter_WxCardData()
                         {
                             filter = filter,
                             wxcard = new GroupMessageByGroupId_WxCard()
@@ -567,7 +574,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     case GroupMessageType.text:
-                        baseData = new GroupMessageByGroupId_TextData()
+                        baseData = new GroupMessageByFilter_TextData()
                         {
                             filter = filter,
                             text = new GroupMessageByGroupId_Content()

@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
+    public abstract class BaseGroupMessageByFilter
+    {
+        public bool is_to_all { get; set; }
+    }
+
+
     public class BaseGroupMessageDataByFilter
     {
+        public BaseGroupMessageByFilter filter { get; set; }
+
         public string msgtype { get; set; }
 
         /// <summary>
@@ -17,5 +25,51 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// send_ignore_reprint 默认为0。
         /// </summary>
         public int send_ignore_reprint { get; set; }
+    }
+
+
+    public class GroupMessageByFilter_MediaId
+    {
+        public string media_id { get; set; }
+    }
+
+    public class GroupMessageByFilter_Content
+    {
+        public string content { get; set; }
+    }
+
+    public class GroupMessageByFilter_WxCard
+    {
+        public string card_id { get; set; }
+    }
+
+    public class GroupMessageByFilter_VoiceData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_MediaId voice { get; set; }
+    }
+
+    public class GroupMessageByFilter_ImageData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_MediaId image { get; set; }
+    }
+
+    public class GroupMessageByFilter_TextData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_Content text { get; set; }
+    }
+
+    public class GroupMessageByFilter_MpNewsData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_MediaId mpnews { get; set; }
+    }
+
+    public class GroupMessageByFilter_MpVideoData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_MediaId mpvideo { get; set; }
+    }
+
+    public class GroupMessageByFilter_WxCardData : BaseGroupMessageDataByFilter
+    {
+        public GroupMessageByGroupId_WxCard wxcard { get; set; }
     }
 }

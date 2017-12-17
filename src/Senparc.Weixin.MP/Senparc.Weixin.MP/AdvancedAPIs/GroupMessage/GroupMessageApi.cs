@@ -59,6 +59,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id；如果groupId和tagId同时填写，优先使用groupId；groupId和tagId最多只能使用一个</param>
+        /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
+        /// <param name="type"></param>
+        /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId,string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false,
+            int timeOut = Config.TIME_OUT)
+        {
+
+        }
+
+        /// <summary>
+        /// 根据分组或标签进行群发【订阅号与服务号认证后均可用】
+        /// 
+        /// 请注意：
+        /// 1、该接口暂时仅提供给已微信认证的服务号
+        /// 2、虽然开发者使用高级群发接口的每日调用限制为100次，但是用户每月只能接收4条，请小心测试
+        /// 3、无论在公众平台网站上，还是使用接口群发，用户每月只能接收4条群发消息，多于4条的群发将对该用户发送失败。
+        /// 4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
+        /// 
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id；如果groupId和tagId同时填写，优先使用groupId；groupId和tagId最多只能使用一个</param>
         /// <param name="tagId">群发到的标签的tag_id，若is_to_all值为true，可不填写tag_id；如果groupId和tagId同时填写，优先使用groupId；groupId和tagId最多只能使用一个</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
@@ -66,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId,string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
+        private static SendResult SendGroupMessageByTagId(string accessTokenOrAppId, string groupId,string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -90,7 +114,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         is_to_all = isToAll,
                     };
                 }
-
 
                 switch (type)
                 {

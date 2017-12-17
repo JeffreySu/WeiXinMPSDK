@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 同步方法
 
         /// <summary>
-        /// 根据分组进行群发【订阅号与服务号认证后均可用】
+        /// 根据分组或标签进行群发【订阅号与服务号认证后均可用】
         /// 
         /// 请注意：
         /// 1、该接口暂时仅提供给已微信认证的服务号
@@ -58,31 +58,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
+        /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id；如果groupId和tagId同时填写，优先使用groupId；groupId和tagId最多只能使用一个</param>
+        /// <param name="tagId">群发到的标签的tag_id，若is_to_all值为true，可不填写tag_id；如果groupId和tagId同时填写，优先使用groupId；groupId和tagId最多只能使用一个</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
         /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
+        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId,string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByFilter baseData = null;
-
+                BaseGroupMessageByFilter filter = null;
                 if (groupId.IsNullOrEmpty())
                 {
-                    
+                    filter = new GroupMessageByGroupId()
+                    {
+                        group_id = groupId,
+                        is_to_all = isToAll,
+                    };
+                }
+                else
+                {
+                    filter = new GroupMessageByTagId()
+                    {
+                        tag_id = tagId,
+                        is_to_all = isToAll,
+                    };
                 }
 
-                var filter = new GroupMessageByGroupId_GroupId()
-                {
-                    group_id = groupId,
-                    is_to_all = isToAll,
-                };
+
                 switch (type)
                 {
                     case GroupMessageType.image:

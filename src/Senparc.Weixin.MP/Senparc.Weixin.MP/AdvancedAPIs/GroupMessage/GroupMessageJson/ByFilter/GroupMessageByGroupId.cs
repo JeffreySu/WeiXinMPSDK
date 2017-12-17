@@ -19,6 +19,17 @@ using System;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
+    /// <summary>
+    /// 根据GroupId群发筛选
+    /// </summary>
+    public class GroupMessageByGroupId : BaseGroupMessageByFilter
+    {
+        public string group_id { get; set; }
+    }
+
+    #region 已废弃
+
+    [Obsolete("请使用GroupMessageByGroupId")]
     public class GroupMessageByGroupId_GroupId : BaseGroupMessageByFilter
     {
         public string group_id { get; set; }
@@ -86,4 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
     {
         public GroupMessageByGroupId_WxCard wxcard { get; set; }
     }
+
+    #endregion
+
 }

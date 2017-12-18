@@ -15,70 +15,89 @@
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
-    public class BaseGroupMessageDataByGroupId
-    {
-        public GroupMessageByGroupId_GroupId filter { get; set; }
-        public string msgtype { get; set; }
-
-        /// <summary>
-        /// 群发接口新增 send_ignore_reprint 参数，开发者可以对群发接口的 send_ignore_reprint 参数进行设置，指定待群发的文章被判定为转载时，是否继续群发。
-        /// 当 send_ignore_reprint 参数设置为1时，文章被判定为转载时，且原创文允许转载时，将继续进行群发操作。
-        /// 当 send_ignore_reprint 参数设置为0时，文章被判定为转载时，将停止群发操作。
-        /// send_ignore_reprint 默认为0。
-        /// </summary>
-        public int send_ignore_reprint { get; set; }
-    }
-
-    public class GroupMessageByGroupId_GroupId
+    /// <summary>
+    /// 根据GroupId群发筛选
+    /// </summary>
+    public class GroupMessageByGroupId : BaseGroupMessageByFilter
     {
         public string group_id { get; set; }
-        public bool is_to_all { get; set; }
     }
 
+    #region 已废弃
+
+    [Obsolete("请使用GroupMessageByGroupId")]
+    public class GroupMessageByGroupId_GroupId : BaseGroupMessageByFilter
+    {
+        public string group_id { get; set; }
+    }
+
+    /// <summary>
+    /// 根据GroupId群发消息筛选
+    /// </summary>
+    [Obsolete("请使用BaseGroupMessageDataByFilter")]
+    public class BaseGroupMessageDataByGroupId : BaseGroupMessageDataByFilter
+    {
+
+    }
+
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_MediaId
     {
         public string media_id { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_Content
     {
         public string content { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_WxCard
     {
         public string card_id { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_VoiceData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_MediaId voice { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_ImageData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_MediaId image { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_TextData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_Content text { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_MpNewsData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_MediaId mpnews { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_MpVideoData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_MediaId mpvideo { get; set; }
     }
 
+    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_WxCardData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_WxCard wxcard { get; set; }
     }
+
+    #endregion
+
 }

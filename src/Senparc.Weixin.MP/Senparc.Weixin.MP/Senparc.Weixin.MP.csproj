@@ -112,9 +112,11 @@
     <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\VideoMediaIdResult.cs" />
@@ -504,6 +506,7 @@
     <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo_Type.cs">
       <SubType>Code</SubType>
     </Compile>
+    <None Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\readme.md" />
     <None Include="ClassDiagrams\MessageHandler.cd" />
     <None Include="ClassDiagrams\Menu.cd" />
     <None Include="Entities\Request\Event\Verify\readme.md" />

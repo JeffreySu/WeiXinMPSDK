@@ -43,6 +43,9 @@
     修改标识：Senparc - 20161203
     修改描述：v2.3.4 优化TryGetAuthorizerAccessToken方法，避免authorization_info.authorizer_access_token值为空
 
+    修改标识：Senparc - 2071218
+    修改描述：v2.8.3 修复 AuthorizerBag 使用外部缓存不会自动更新的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -298,7 +301,7 @@ namespace Senparc.Weixin.Open.Containers
                     TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
 
-                    authorizerBag = TryGetItem(authorizerAppid);
+                    authorizerBag = TryGetItem(authorizerAppid);//外部缓存需要重新获取新数据
                 }
             }
             return authorizerBag.AuthorizationInfo;
@@ -558,7 +561,7 @@ namespace Senparc.Weixin.Open.Containers
                     TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
 
-                    authorizerBag = TryGetItem(authorizerAppid);
+                    authorizerBag = TryGetItem(authorizerAppid);//外部缓存需要重新获取新数据
                 }
             }
             return authorizerBag.AuthorizationInfo;

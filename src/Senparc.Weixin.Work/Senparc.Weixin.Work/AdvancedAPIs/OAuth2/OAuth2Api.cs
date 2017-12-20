@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static string GetCode(string corpId, string redirectUrl, string state, string agentId, string responseType = "code", string scope = "snsapi_base")
         {
-            var agendIdValue = agentId.IsNullOrEmpty() ? null : "?agentId={0}".FormatWith(agentId.AsUrlData());
+            var agendIdValue = agentId.IsNullOrEmpty() ? null : "&agentId={0}".FormatWith(agentId.AsUrlData());
 
             var url = string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}{4}&state={5}#wechat_redirect", corpId.AsUrlData(), redirectUrl.AsUrlData(), responseType.AsUrlData(), scope.AsUrlData(), agendIdValue, state.AsUrlData());
 

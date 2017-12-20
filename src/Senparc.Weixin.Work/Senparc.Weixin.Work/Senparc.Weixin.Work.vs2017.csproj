@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.2.8</Version>
+    <Version>1.2.9</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -57,6 +57,7 @@
       v1.2.6 修复 AccessTokenResult 请求地址路径不完整的问题
       v1.2.7 修正GetMenu()方法返回菜单内容为始终为NULL的问题
       v1.2.8 还原“修复 AccessTokenResult 请求地址路径不完整的问题”
+      v1.2.9 为OAuth Url添加agendId参数（可选）
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

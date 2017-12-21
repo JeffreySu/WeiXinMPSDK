@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.2.10</Version>
+    <Version>1.2.11</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -59,6 +59,7 @@
       v1.2.8 还原“修复 AccessTokenResult 请求地址路径不完整的问题”
       v1.2.9 为OAuth Url添加agendId参数（可选）
       v1.2.10 修改 AddTagMemberResult.invalidparty 为 long 类型
+      v1.2.11 更改OAuth Url添加agendId参数为小写：agentid
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

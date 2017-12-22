@@ -83,6 +83,7 @@
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />

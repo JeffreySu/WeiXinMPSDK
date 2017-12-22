@@ -329,7 +329,7 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// API请求日志
+        /// API请求日志（接收结果）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="returnText"></param>
@@ -344,6 +344,24 @@ namespace Senparc.Weixin
             //TODO:从源头加入AppId
             Log("URL：{0}", url);
             Log("Result：\r\n{0}", returnText);
+            LogEnd();
+        }
+
+        /// <summary>
+        /// API请求日志（Post发送消息）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        public static void SendApiPostDataLog(string url, string data)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin("[[接口调用]]");
+            Log("URL：{0}", url);
+            Log("Post Data：\r\n{0}", data);
             LogEnd();
         }
 

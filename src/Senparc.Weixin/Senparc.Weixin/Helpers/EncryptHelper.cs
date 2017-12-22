@@ -32,7 +32,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
       
     修改标识：Senparc - 20170313
     修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
+
+    修改标识：Senparc - 20170313
+    修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
   
+
 ----------------------------------------------------------------*/
 
 
@@ -122,6 +126,7 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string GetMD5(string encypStr, string charset = "utf-8")
         {
+            charset = charset ?? "utf-8";
             try
             {
                 //使用指定编码

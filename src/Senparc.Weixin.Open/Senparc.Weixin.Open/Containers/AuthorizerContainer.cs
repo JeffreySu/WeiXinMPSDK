@@ -43,6 +43,9 @@
     修改标识：Senparc - 20161203
     修改描述：v2.3.4 优化TryGetAuthorizerAccessToken方法，避免authorization_info.authorizer_access_token值为空
 
+    修改标识：Senparc - 2071218
+    修改描述：v2.8.3 修复 AuthorizerBag 使用外部缓存不会自动更新的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -297,6 +300,8 @@ namespace Senparc.Weixin.Open.Containers
                     //更新数据
                     TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
+
+                    authorizerBag = TryGetItem(authorizerAppid);//外部缓存需要重新获取新数据
                 }
             }
             return authorizerBag.AuthorizationInfo;
@@ -396,7 +401,8 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         /// <summary>
-        /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+        /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）。
+        /// 如果AuthorizerBag更新则返回最新的对象，否则返回null
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="authorizerAppid"></param>
@@ -409,23 +415,26 @@ namespace Senparc.Weixin.Open.Containers
 
             if (expiresIn > 0 && authorizerAccessToken != null)
             {
-                var authorizerBag = TryGetItem(authorizerAppid);
-
-                var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
-                                          authorizerAccessToken
-                                            || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
-                                               authorizerRefreshToken;
-
-                authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
-                authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
-                authorizerBag.AuthorizationInfo.expires_in = expiresIn;
-                authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
-
-                //通知变更
-                if (refreshTokenChanged)
+                using (FlushCache.CreateInstance())
                 {
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
-                        new RefreshAuthorizerTokenResult(authorizerAccessToken, authorizerRefreshToken, expiresIn));
+                    var authorizerBag = TryGetItem(authorizerAppid);
+
+                    var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
+                                              authorizerAccessToken
+                                              || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
+                                              authorizerRefreshToken;
+
+                    authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
+                    authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
+                    authorizerBag.AuthorizationInfo.expires_in = expiresIn;
+                    authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
+
+                    //通知变更
+                    if (refreshTokenChanged)
+                    {
+                        ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
+                            new RefreshAuthorizerTokenResult(authorizerAccessToken, authorizerRefreshToken, expiresIn));
+                    }
                 }
             }
         }
@@ -551,6 +560,8 @@ namespace Senparc.Weixin.Open.Containers
                     //更新数据
                     TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
+
+                    authorizerBag = TryGetItem(authorizerAppid);//外部缓存需要重新获取新数据
                 }
             }
             return authorizerBag.AuthorizationInfo;

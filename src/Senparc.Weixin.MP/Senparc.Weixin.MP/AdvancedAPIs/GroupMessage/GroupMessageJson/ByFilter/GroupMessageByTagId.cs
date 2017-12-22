@@ -21,30 +21,23 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：VideoMediaIdResult.cs
-    文件功能描述：群发视频文件调用接口获取视频群发用的MediaId
+    文件名：GroupMessageByTagId.cs
+    文件功能描述：根据 TagId 群发所需的数据
     
     
-    创建标识：Senparc - 20150623
+    创建标识：Senparc - 20171217
+
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
-    public class VideoMediaIdResult : WxJsonResult
+    /// <summary>
+    /// 根据 TagId 群发筛选
+    /// </summary>
+    public class GroupMessageByTagId : BaseGroupMessageByFilter
     {
-        /// <summary>
-        /// mediaId
-        /// </summary>
-        public string media_id { get; set; }
-        /// <summary>
-        /// 类型（通常为video）
-        /// </summary>
-        public string type { get; set; }
-        /// <summary>
-        /// 创建时间戳
-        /// </summary>
-        public long created_at { get; set; }
+        public string tag_id { get; set; }
     }
 }

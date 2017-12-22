@@ -21,30 +21,55 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：VideoMediaIdResult.cs
-    文件功能描述：群发视频文件调用接口获取视频群发用的MediaId
+    文件名：CodeResultJson.cs
+    文件功能描述：代码模板列表返回结果
     
     
-    创建标识：Senparc - 20150623
+    创建标识：Senparc - 20171215
+
+
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
+using Senparc.Weixin.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Senparc.Weixin.Open.WxaAPIs
 {
-    public class VideoMediaIdResult : WxJsonResult
+    [Serializable]
+    public class GetTemplateListResultJson : WxJsonResult
     {
         /// <summary>
-        /// mediaId
+        /// 草稿列表
         /// </summary>
-        public string media_id { get; set; }
+        public List<TemplateInfo> template_list { get; set; }
+    }
+
+    [Serializable]
+    public class TemplateInfo
+    {
         /// <summary>
-        /// 类型（通常为video）
+        /// 开发者上传草稿的时间
         /// </summary>
-        public string type { get; set; }
+        public string create_time { get; set; }
+
         /// <summary>
-        /// 创建时间戳
+        /// 模板版本号，开发者自定义字段
         /// </summary>
-        public long created_at { get; set; }
+        public string user_version { get; set; }
+
+        /// <summary>
+        /// 模板描述，开发者自定义字段
+        /// </summary>
+        public string user_desc { get; set; }
+
+        /// <summary>
+        /// 草稿ID
+        /// </summary>
+        public int template_id { get; set; }
     }
 }

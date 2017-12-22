@@ -8,3 +8,5 @@
 
 > 其中《盛派网络微信公众号信息管理表V1.0》和《盛派网络微信公众号需求统计表V1.0》的使用场景和举例已经在 
 [《微信开发深度解析》](https://book.weixin.senparc.com/book/link?code=github-authorityfile) 第 2 章中详细介绍。
+
+> 如遇pdf文件无法打开的情况，请稍后再试。

@@ -27,7 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20171217
-    
+
+    修改标识：Senparc - 2011224
+    修改描述：v14.8.12 完成群发接口添加clientmsgid属性
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 2011224
+    修改描述：v14.8.12 完成群发接口添加clientmsgid属性
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
@@ -37,6 +41,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
     {
         public string[] touser { get; set; }
         public string msgtype { get; set; }
+        /// <summary>
+        /// （非必填）开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid
+        /// </summary>
+        public string clientmsgid { get; set; }
     }
 
     public class GroupMessageByOpenId_MediaId

@@ -43,6 +43,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
+    修改标识：Senparc - 2011224
+    修改描述：v14.8.12 完成群发接口添加clientmsgid属性
+   
 ----------------------------------------------------------------*/
 
 /* 
@@ -259,9 +262,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
+        /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByOpenId(string accessTokenOrAppId, GroupMessageType type, string value, int timeOut = Config.TIME_OUT, params string[] openIds)
+        public static SendResult SendGroupMessageByOpenId(string accessTokenOrAppId, GroupMessageType type, string value, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -332,6 +336,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new Exception("参数错误。");
                         break;
                 }
+
+                baseData.clientmsgid = clientmsgid;
+
                 return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -344,11 +351,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
+        /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="openIds">openId字符串数组</param>
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendVideoGroupMessageByOpenId(string accessTokenOrAppId, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
+        public static SendResult SendVideoGroupMessageByOpenId(string accessTokenOrAppId, string title, string description, string mediaId, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -365,6 +373,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     },
                     msgtype = "mpvideo"
                 };
+
+                baseData.clientmsgid = clientmsgid;
 
                 return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
@@ -767,9 +777,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
+        /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, int timeOut = Config.TIME_OUT, params string[] openIds)
+        public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -840,6 +851,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new Exception("参数错误。");
                         //break;
                 }
+
+                baseData.clientmsgid = clientmsgid;
+
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -852,11 +866,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
+        /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="openIds">openId字符串数组</param>
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
+        public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -873,6 +888,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     },
                     msgtype = "mpvideo"
                 };
+
+                baseData.clientmsgid = clientmsgid;
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 

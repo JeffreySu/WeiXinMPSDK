@@ -60,6 +60,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// send_ignore_reprint 默认为0。
         /// </summary>
         public int send_ignore_reprint { get; set; }
+
+        /// <summary>
+        /// （非必填）开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid
+        /// </summary>
+        public string clientmsgid { get; set; }
     }
 
 

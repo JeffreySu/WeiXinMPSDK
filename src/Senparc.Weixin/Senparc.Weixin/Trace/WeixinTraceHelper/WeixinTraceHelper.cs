@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Senparc.Weixin.Trace
 {
-    class WeixinTraceHelper
+    public class WeixinTraceHelper
     {
+         
     }
 }

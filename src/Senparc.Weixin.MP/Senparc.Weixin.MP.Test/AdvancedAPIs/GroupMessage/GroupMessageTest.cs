@@ -57,7 +57,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
-            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, Config.TIME_OUT, openIds);
+            var clientMsgId = DateTime.Now.Ticks.ToString();
+            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, clientMsgId, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);
 

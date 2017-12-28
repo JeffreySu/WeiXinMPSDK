@@ -70,7 +70,7 @@ namespace Senparc.Weixin.WxOpen
         public static IRequestMessageBase GetRequestEntity(XDocument doc, PostModel postModel = null)
         {
             RequestMessageBase requestMessage = null;
-            RequestMsgType msgType;
+            RequestMsgType msgType = RequestMsgType.Text;
 
             try
             {

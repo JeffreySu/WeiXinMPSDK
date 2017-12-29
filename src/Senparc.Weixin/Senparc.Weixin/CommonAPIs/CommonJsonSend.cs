@@ -107,7 +107,7 @@ namespace Senparc.Weixin.CommonAPIs
 
                     //TODO:对于特定的错误类型自动进行一次重试，如40001（目前的问题是同样40001会出现在不同的情况下面）
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(sendType));
+                        throw new ArgumentOutOfRangeException("sendType");
                 }
             }
             catch (ErrorJsonResultException ex)
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.CommonAPIs
                             return await Post.PostGetJsonAsync<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
                         }
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(sendType));
+                        throw new ArgumentOutOfRangeException("sendType");
                 }
             }
             catch (ErrorJsonResultException ex)

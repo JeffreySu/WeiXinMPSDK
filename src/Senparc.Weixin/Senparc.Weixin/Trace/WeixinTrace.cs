@@ -63,7 +63,7 @@ namespace Senparc.Weixin
         /// </summary>
 #if NET35 || NET40 || NET45 || NET461
         private static TraceListener _traceListener = null;
-#elif NETSTANDARD2_0 || NETCOREAPP2_0 
+#elif NETSTANDARD2_0 || NETCOREAPP2_0
         private static TextWriterTraceListener _traceListener = null;
 #endif
 
@@ -140,8 +140,8 @@ namespace Senparc.Weixin
                 //ILoggerFactory loggerFactory = new LoggerFactory();
 
                 _traceListener = new TextWriterTraceListener(logWriter);
-                Trace.Listeners.Add(_traceListener);
-                Trace.AutoFlush = true;
+                System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                System.Diagnostics.Trace.AutoFlush = true;
 #endif
 
             }
@@ -162,10 +162,10 @@ namespace Senparc.Weixin
                     System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                if (_traceListener != null && Trace.Listeners.Contains(_traceListener))
+                if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
                     _traceListener.Close();
-                    Trace.Listeners.Remove(_traceListener);
+                    System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
 #endif
             }
@@ -200,7 +200,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Unindent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Unindent();
+                System.Diagnostics.Trace.Unindent();
 #endif
             }
         }
@@ -215,7 +215,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Indent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Indent();
+                System.Diagnostics.Trace.Indent();
 #endif
             }
         }
@@ -230,7 +230,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Flush();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Flush();
+                System.Diagnostics.Trace.Flush();
 #endif
             }
         }
@@ -264,7 +264,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.WriteLine(string.Format(messageFormat, args));
+                System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #endif
             }
         }
@@ -305,7 +305,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(message);
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.WriteLine(message);
+                System.Diagnostics.Trace.WriteLine(message);
 #endif
             }
         }

@@ -46,10 +46,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 企业应用可见范围（部门）
         /// </summary>
         public GetAppInfo_AllowPartys allow_partys { get; set; }
-        ///// <summary>
-        ///// 企业应用可见范围（标签）
-        ///// </summary>
-        //public GetAppInfo_AllowTags allow_tags { get; set; }
+        /// <summary>
+        /// 企业应用可见范围（标签）
+        /// </summary>
+        public GetAppInfo_AllowTags allow_tags { get; set; }
         /// <summary>
         /// 企业应用是否被禁用
         /// </summary>
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
 
     public class GetAppInfo_AllowPartys
     {
-        public int[] partyid { get; set; }
+        public long[] partyid { get; set; }
     }
 
     public class GetAppInfo_AllowTags

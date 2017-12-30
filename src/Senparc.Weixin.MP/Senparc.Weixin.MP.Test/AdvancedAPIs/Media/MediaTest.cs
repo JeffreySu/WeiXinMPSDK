@@ -366,7 +366,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.IsNotNull(result1.media_id);
 
-            GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
+            var clientMsgId = DateTime.Now.Ticks.ToString();
+            GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, clientMsgId, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
             //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
 
             MediaApi.DeleteForeverMedia(accessToken, result1.media_id);

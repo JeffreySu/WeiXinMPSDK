@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：PostModel.cs
     文件功能描述：微信企业号服务器Post过来的参数集合（不包括PostData）

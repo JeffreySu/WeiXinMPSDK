@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：IMessageHandlerDocument.cs
     文件功能描述：为IMessageHandler单独提供XDocument类型的属性接口（主要是ResponseDocument）。

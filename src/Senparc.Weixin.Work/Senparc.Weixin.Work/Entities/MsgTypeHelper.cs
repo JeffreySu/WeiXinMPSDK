@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MsgTypeHelper.cs
     文件功能描述：根据xml信息返回MsgType、ThirdPartyInfo、RequestInfoType

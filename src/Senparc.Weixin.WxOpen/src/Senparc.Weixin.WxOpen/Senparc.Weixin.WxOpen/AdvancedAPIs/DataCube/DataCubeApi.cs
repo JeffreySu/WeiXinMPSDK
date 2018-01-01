@@ -469,6 +469,32 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #endregion
 
+        #region 用户画像
+
+        /// <summary>
+        /// 【异步方法】访问分析：用户画像。
+        /// 注：
+        /// 1、部分用户属性数据缺失，属性值可能出现 “未知”。
+        /// 2、机型数据无 id 字段，暂只提供用户数最多的 top20。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：2017-06-11</param>
+        /// <param name="beginDate">结束日期，开始日期与结束日期相差的天数限定为0/6/29，分别表示查询最近1/7/30天数据，end_date允许设置的最大值为昨日，如：2017-06-17</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidUserPortraitResultJson> GetWeAnalysisAppidUserPortraitAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidUserPortraitResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
+
         #endregion
 #endif
     }

@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #region 异步方法
 
         /// <summary>
-        /// 【异步接口】修改服务器地址 接口
+        /// 【异步方法】修改服务器地址 接口
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="action">操作类型</param>

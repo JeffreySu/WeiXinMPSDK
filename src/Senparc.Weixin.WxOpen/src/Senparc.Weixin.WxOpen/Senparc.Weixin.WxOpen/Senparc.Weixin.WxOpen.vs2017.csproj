@@ -71,7 +71,7 @@
 
       v1.8.0 支持小程序
       1、添加 WxAppApi.CheckSession() 接口，检验SessionKey
-      
+      2、添加 DataCubeApi，包含所有“数据”接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -128,7 +128,13 @@
   </PropertyGroup>-->
 
   <ItemGroup>
+    <Compile Remove="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailyRetainInfonResultJson.cs" />
+    <Compile Remove="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyRetainInfonResultJson.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\CommonGetWeAnalysisAppidRetainInfoResultJson.cs" />
   </ItemGroup>
 
   <ItemGroup>

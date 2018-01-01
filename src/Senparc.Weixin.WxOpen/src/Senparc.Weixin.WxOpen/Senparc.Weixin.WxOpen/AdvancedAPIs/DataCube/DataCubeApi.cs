@@ -160,7 +160,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #endregion
 
-
         #region 访问留存
 
         /// <summary>
@@ -247,11 +246,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #endregion
 
-
         #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
+
+        #region 概况趋势
 
         /// <summary>
         /// 【异步方法】概况趋势
@@ -271,6 +271,177 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
             }, accessTokenOrAppId);
         }
+        #endregion
+
+        #region 访问趋势
+
+        /// <summary>
+        /// 【异步方法】访问分析：日趋势
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidDailyVisitTrendResultJson> GetWeAnalysisAppidDailyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyvisittrend?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】访问分析：周趋势
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为周一日期，如：20170306</param>
+        /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidWeeklyVisitTrendResultJson> GetWeAnalysisAppidWeeklyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyvisittrend?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidWeeklyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】访问分析：月趋势
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为自然月第一天，如：20170201/param>
+        /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidMonthlyVisitTrendResultJson> GetWeAnalysisAppidMonthlyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyvisittrend?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidMonthlyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
+        #endregion
+
+        #region 访问分布
+
+        /// <summary>
+        /// 【异步方法】访问分析：访问分布
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidVisitDistributionResultJson> GetWeAnalysisAppidVisitDistributionAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitdistribution?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitDistributionResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
+
+        #region 访问留存
+
+        /// <summary>
+        /// 【异步方法】访问分析：访问留存-日留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidDailyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】访问分析：访问留存-周留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为周一日期，如：20170306</param>
+        /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidWeeklyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】访问分析：访问留存-月留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为自然月第一天，如：20170201</param>
+        /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidMonthlyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #region 访问页面
+
+        /// <summary>
+        /// 【异步方法】访问分析：访问页面。
+        /// 注意：目前只提供按 page_visit_pv 排序的 top200
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170313</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidVisitPageResultJson> GetWeAnalysisAppidVisitPageAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitpage?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitPageResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
 #endif

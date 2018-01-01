@@ -253,7 +253,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         #region 异步方法
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 获取小程序页面的小程序码 不受限制
+        /// 【异步方法】获取小程序页面的小程序码 不受限制
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -310,7 +310,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -338,7 +338,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>

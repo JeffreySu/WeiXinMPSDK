@@ -76,7 +76,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         #region 异步方法
 
         /// <summary>
-        /// 概况趋势
+        /// 【异步方法】概况趋势
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="endDate">开始日期，如：20170313</param>

@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
@@ -63,7 +64,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailysummarytrend?access_token={0}";
-                var url = string.Format(urlFormat, accessToken);
                 var data = new { begin_date = beginDate, end_date = endDate };
                 return CommonJsonSend.Send<GetWeAnalysisAppidDailySummaryTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
@@ -75,7 +75,24 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 #if !NET35 && !NET40
         #region 异步方法
 
+        /// <summary>
+        /// 概况趋势
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetWeAnalysisAppidDailySummaryTrendResultJson> GetWeAnalysisAppidDailySummaryTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailysummarytrend?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailySummaryTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 #endif

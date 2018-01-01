@@ -28,7 +28,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
     * [如何处理微信公众号请求？](#如何处理微信公众号请求)
-    * [如何处理微信小程序请求？](#如何处理微信小程序请求)
+    * [如何处理微信小程序（小游戏）请求？](#如何处理微信小程序请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)
     * [如何处理企业微信请求？](#如何处理企业微信请求)
@@ -61,7 +61,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 | 6| 微信开放平台                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 | 8| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 9| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 9| [微信小程序<br>（支持小游戏）<br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 |10| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
 
 ![.NET 3.5][net35Y] .NET 3.5   ![.NET 4.0][net40Y] .NET 4.0   ![.NET 4.5][net45Y] .NET 4.5  ![.NET Core][coreY] .NET Core 1.1  ![.NET Core 2.0][core20Y] .NET Core 2.0
@@ -203,7 +203,7 @@ Senparc 官方教程
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
 |Senparc.Weixin.Work|Senparc.Weixin.Work.dll 企业微信SDK源代码|
-|Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll 微信小程序SDK源代码|
+|Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll 微信小程序SDK源代码，包括小游戏|
 |Senparc.Weixin|所有Senparc.Weixin.[x].dll 基础类库源代码|
 
 Senparc.Weixin.MP.Sample中的关键代码说明
@@ -355,9 +355,9 @@ PM> Install-Package Senparc.Weixin.MP
 ```
 
 
-### 如何处理微信小程序请求？
+### 如何处理微信小程序（小游戏）请求？
 
-Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持了公众号处理请求一致的开发过程。
+Senparc.Weixin.WxOpen 对微信小程序的消息、API 进行了封装，保持了公众号处理请求一致的开发过程。小程序模块同时支持小游戏。
 
 * Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 

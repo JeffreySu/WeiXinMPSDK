@@ -32,10 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
       
     修改标识：Senparc - 20170313
     修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
-
-    修改标识：Senparc - 20170313
-    修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
-  
+    
+    修改标识：Senparc - 20180101
+    修改描述：v4.18.10 添加 EncryptHelper.GetHmacSha256() 方法，为“小游戏”签名提供支持
 
 ----------------------------------------------------------------*/
 
@@ -49,11 +48,13 @@ using System.Text;
 
 namespace Senparc.Weixin.Helpers
 {
-    ///
+    /// <summary>
     /// 安全帮助类，提供SHA-1算法等
-    ///
+    /// </summary>
     public class EncryptHelper
     {
+        #region SHA相关
+
         /// <summary>
         /// 采用SHA-1算法加密字符串（小写）
         /// </summary>
@@ -80,6 +81,35 @@ namespace Senparc.Weixin.Helpers
             //    enText.AppendFormat("{0:x2}", iByte);
             //}
         }
+
+        /// <summary>
+        /// HMAC SHA256 加密
+        /// </summary>
+        /// <param name="message">加密消息原文。当为小程序SessionKey签名提供服务时，其中message为本次POST请求的数据包（通常为JSON）。特别地，对于GET请求，message等于长度为0的字符串。</param>
+        /// <param name="secret">秘钥（如小程序的SessionKey）</param>
+        /// <returns></returns>
+        public static string GetHmacSha256(string message, string secret)
+        {
+            message = message ?? "";
+            secret = secret ?? "";
+            byte[] keyByte = Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                StringBuilder enText = new StringBuilder();
+                foreach (var b in hashmessage)
+                {
+                    enText.AppendFormat("{0:x2}", b);
+                }
+                return enText.ToString();
+            }
+        }
+
+
+        #endregion
+
+        #region MD5
 
         /// <summary>
         /// 获取大写的MD5签名结果
@@ -155,6 +185,8 @@ namespace Senparc.Weixin.Helpers
         {
             return GetMD5(encypStr, encoding).ToLower();
         }
+
+        #endregion
 
         #region AES
 

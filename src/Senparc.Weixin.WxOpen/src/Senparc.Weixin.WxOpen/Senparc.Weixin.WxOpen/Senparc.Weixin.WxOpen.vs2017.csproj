@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.7.4</Version>
+    <Version>1.8.0</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -68,6 +68,10 @@
       v1.7.2 支持Senparc.Weixin v4.18.5 可自定义API域名
       v1.7.3 修复ModifyDomainApi.ModifyDomain()方法判断问题
       v1.7.4 完善模板消息发送参数
+
+      v1.8.0 支持小程序
+      1、添加 WxAppApi.CheckSession() 接口，检验SessionKey
+      
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

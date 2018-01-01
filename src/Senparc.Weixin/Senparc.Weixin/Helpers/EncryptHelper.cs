@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Helpers
         /// <summary>
         /// HMAC SHA256 加密
         /// </summary>
-        /// <param name="message">加密消息原文</param>
+        /// <param name="message">加密消息原文。当为小程序SessionKey签名提供服务时，其中message为本次POST请求的数据包（通常为JSON）。特别地，对于GET请求，message等于长度为0的字符串。</param>
         /// <param name="secret">秘钥（如小程序的SessionKey）</param>
         /// <returns></returns>
         public static string GetHmacSha256(string message, string secret)

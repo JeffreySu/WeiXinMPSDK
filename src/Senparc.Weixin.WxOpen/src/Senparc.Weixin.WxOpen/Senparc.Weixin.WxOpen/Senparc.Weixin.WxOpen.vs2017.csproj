@@ -128,7 +128,13 @@
   </PropertyGroup>-->
 
   <ItemGroup>
+    <Compile Remove="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailyRetainInfonResultJson.cs" />
+    <Compile Remove="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyRetainInfonResultJson.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\CommonGetWeAnalysisAppidRetainInfoResultJson.cs" />
   </ItemGroup>
 
   <ItemGroup>

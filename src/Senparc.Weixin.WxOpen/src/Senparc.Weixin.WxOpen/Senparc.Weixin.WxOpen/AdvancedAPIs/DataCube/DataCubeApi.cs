@@ -51,6 +51,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #region 同步方法
 
+        #region 概况趋势
+
         /// <summary>
         /// 概况趋势
         /// </summary>
@@ -69,6 +71,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
             }, accessTokenOrAppId);
         }
+
+
+        #endregion
+
+        #region 访问趋势
 
         /// <summary>
         /// 访问分析：日趋势
@@ -93,8 +100,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// 访问分析：周趋势
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="endDate">开始日期，如：20170313</param>
-        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="endDate">开始日期，为周一日期，如：20170306</param>
+        /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static GetWeAnalysisAppidWeeklyVisitTrendResultJson GetWeAnalysisAppidWeeklyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
@@ -112,8 +119,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// 访问分析：月趋势
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="endDate">开始日期，如：20170313</param>
-        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="endDate">开始日期，为自然月第一天，如：20170201/param>
+        /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static GetWeAnalysisAppidMonthlyVisitTrendResultJson GetWeAnalysisAppidMonthlyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
@@ -126,6 +133,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
             }, accessTokenOrAppId);
         }
+
+
+        #endregion
+
+        #region 访问分布
 
         /// <summary>
         /// 访问分析：访问分布
@@ -146,7 +158,70 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             }, accessTokenOrAppId);
         }
 
+        #endregion
 
+
+        #region 访问留存
+
+        /// <summary>
+        /// 访问分析：访问留存-日留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidDailyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 访问分析：访问留存-周留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为周一日期，如：20170306</param>
+        /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidWeeklyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 访问分析：访问留存-月留存
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，为自然月第一天，如：20170201</param>
+        /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidMonthlyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyretaininfo?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
 
 
         #endregion

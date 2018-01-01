@@ -28,7 +28,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
     * [如何处理微信公众号请求？](#如何处理微信公众号请求)
-    * [如何处理微信小程序（小游戏）请求？](#如何处理微信小程序请求)
+    * [如何处理微信小程序和小游戏请求？](#如何处理微信小程序和小游戏请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)
     * [如何处理企业微信请求？](#如何处理企业微信请求)
@@ -355,7 +355,7 @@ PM> Install-Package Senparc.Weixin.MP
 ```
 
 
-### 如何处理微信小程序（小游戏）请求？
+### 如何处理微信小程序和小游戏请求？
 
 Senparc.Weixin.WxOpen 对微信小程序的消息、API 进行了封装，保持了公众号处理请求一致的开发过程。小程序模块同时支持小游戏。
 

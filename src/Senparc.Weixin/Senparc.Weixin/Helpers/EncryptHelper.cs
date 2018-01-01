@@ -32,10 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
       
     修改标识：Senparc - 20170313
     修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
-
-    修改标识：Senparc - 20170313
-    修改描述：v4.14.3 重构MD5生成方法，并提供小写MD5方法
-  
+    
+    修改标识：Senparc - 20180101
+    修改描述：v4.18.10 添加 EncryptHelper.GetHmacSha256() 方法，为“小游戏”签名提供支持
 
 ----------------------------------------------------------------*/
 
@@ -86,25 +85,29 @@ namespace Senparc.Weixin.Helpers
         /// <summary>
         /// HMAC SHA256 加密
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="secret"></param>
+        /// <param name="message">加密消息原文</param>
+        /// <param name="secret">秘钥（如小程序的SessionKey）</param>
         /// <returns></returns>
-        public string GetHmacSha256(string message, string secret)
+        public static string GetHmacSha256(string message, string secret)
         {
+            message = message ?? "";
             secret = secret ?? "";
-            var encoding = new System.Text.ASCIIEncoding();
-            byte[] keyByte = encoding.GetBytes(secret);
-            byte[] messageBytes = encoding.GetBytes(message);
+            byte[] keyByte = Encoding.UTF8.GetBytes(secret);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
             using (var hmacsha256 = new HMACSHA256(keyByte))
             {
                 byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
-                return Convert.ToBase64String(hashmessage);
+                StringBuilder enText = new StringBuilder();
+                foreach (var b in hashmessage)
+                {
+                    enText.AppendFormat("{0:x2}", b);
+                }
+                return enText.ToString();
             }
         }
 
 
         #endregion
-
 
         #region MD5
 

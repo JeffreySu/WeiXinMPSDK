@@ -89,7 +89,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             }, accessTokenOrAppId);
         }
 
-
         /// <summary>
         /// 访问分析：周趋势
         /// </summary>
@@ -105,6 +104,44 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
                 return CommonJsonSend.Send<GetWeAnalysisAppidWeeklyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 访问分析：月趋势
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetWeAnalysisAppidMonthlyVisitTrendResultJson GetWeAnalysisAppidMonthlyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyvisittrend?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<GetWeAnalysisAppidMonthlyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 访问分析：访问分布
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：20170313</param>
+        /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetWeAnalysisAppidVisitDistributionResultJson GetWeAnalysisAppidVisitDistribution(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitdistribution?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<GetWeAnalysisAppidVisitDistributionResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

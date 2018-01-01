@@ -141,7 +141,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         /// <summary>
-        /// 【异步接口】绑定小程序的体验者 接口
+        /// 【异步方法】绑定小程序的体验者 接口
         /// </summary>
         /// <param name="accessToken">authorizer_access_token</param>
         /// <param name="wechatid">微信号</param>
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         /// <summary>
-        /// 【异步接口】解除绑定小程序的体验者 接口
+        /// 【异步方法】解除绑定小程序的体验者 接口
         /// </summary>
         /// <param name="accessToken">authorizer_access_token</param>
         /// <param name="wechatid">微信号</param>

@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         #region 异步方法
 
         /// <summary>
-        /// 【异步接口】获取打卡规则
+        /// 【异步方法】获取打卡规则
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="datetime">需要获取规则的日期当天0点的Unix时间戳</param>
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         /// <summary>
-        /// 【异步接口】获取打卡数据【QY移植新增】
+        /// 【异步方法】获取打卡数据【QY移植新增】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
 
         /// <summary>
-        /// 【异步接口】获取审批数据【QY移植新增】
+        /// 【异步方法】获取审批数据【QY移植新增】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>

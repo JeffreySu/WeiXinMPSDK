@@ -49,11 +49,13 @@ using System.Text;
 
 namespace Senparc.Weixin.Helpers
 {
-    ///
+    /// <summary>
     /// 安全帮助类，提供SHA-1算法等
-    ///
+    /// </summary>
     public class EncryptHelper
     {
+        #region SHA相关
+
         /// <summary>
         /// 采用SHA-1算法加密字符串（小写）
         /// </summary>
@@ -80,6 +82,31 @@ namespace Senparc.Weixin.Helpers
             //    enText.AppendFormat("{0:x2}", iByte);
             //}
         }
+
+        /// <summary>
+        /// HMAC SHA256 加密
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
+        public string GetHmacSha256(string message, string secret)
+        {
+            secret = secret ?? "";
+            var encoding = new System.Text.ASCIIEncoding();
+            byte[] keyByte = encoding.GetBytes(secret);
+            byte[] messageBytes = encoding.GetBytes(message);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                byte[] hashmessage = hmacsha256.ComputeHash(messageBytes);
+                return Convert.ToBase64String(hashmessage);
+            }
+        }
+
+
+        #endregion
+
+
+        #region MD5
 
         /// <summary>
         /// 获取大写的MD5签名结果
@@ -155,6 +182,8 @@ namespace Senparc.Weixin.Helpers
         {
             return GetMD5(encypStr, encoding).ToLower();
         }
+
+        #endregion
 
         #region AES
 

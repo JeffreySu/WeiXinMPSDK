@@ -170,7 +170,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidDailyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidDailyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidWeeklyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidWeeklyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidMonthlyRetainInfon(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidMonthlyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -243,6 +243,32 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         }
 
         #endregion
+
+        #endregion
+
+        #region 用户画像
+
+        /// <summary>
+        /// 访问分析：用户画像。
+        /// 注：
+        /// 1、部分用户属性数据缺失，属性值可能出现 “未知”。
+        /// 2、机型数据无 id 字段，暂只提供用户数最多的 top20。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="endDate">开始日期，如：2017-06-11</param>
+        /// <param name="beginDate">结束日期，开始日期与结束日期相差的天数限定为0/6/29，分别表示查询最近1/7/30天数据，end_date允许设置的最大值为昨日，如：2017-06-17</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetWeAnalysisAppidUserPortraitResultJson GetWeAnalysisAppidUserPortrait(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
+                var data = new { begin_date = beginDate, end_date = endDate };
+                return CommonJsonSend.Send<GetWeAnalysisAppidUserPortraitResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -367,7 +393,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidDailyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidDailyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -387,7 +413,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidWeeklyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidWeeklyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -406,7 +432,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidMonthlyRetainInfonAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
+        public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidMonthlyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

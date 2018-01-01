@@ -32,7 +32,7 @@ Index
     * [How to handle WeChat Official Account request?](#how-to-handle-wechat-official-account)
 * [Use Nuget to install the project](#use-nuget-to-install-the-project)
     * [How to handle WeChat Official Account?](#how-to-handle-wechat-official-account)
-    * [How to handle WeChat Mini Program (include Mini Game)?](#how-to-handle-wechat-mini-program)
+    * [How to handle WeChat Mini Program (include Mini Game)?](#how-to-handle-wechat-mini-program-include-mini-game)
     * [How to enhance the functionality of ASP.NET MVC project?](#how-to-enhance-the-functionality-of-aspnet-mvc-project)
     * [How to handle WeChat Corporate Account?](#how-to-handle-wechat-corporate-account)
     * [How to handle Corporate Wechat?](#how-to-handle-corporate-wechat)

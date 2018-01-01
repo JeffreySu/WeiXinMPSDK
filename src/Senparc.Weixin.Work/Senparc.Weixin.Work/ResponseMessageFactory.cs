@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：ResponseMessageFactory.cs
     文件功能描述：获取XDocument转换后的IResponseMessageBase实例

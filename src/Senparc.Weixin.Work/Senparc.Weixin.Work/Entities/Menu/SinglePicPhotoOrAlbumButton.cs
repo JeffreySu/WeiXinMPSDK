@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：SinglePicPhotoOrAlbumButton.cs
     文件功能描述：微信客户端将弹出选择器供用户选择“拍照”或者“从手机相册选择”按钮

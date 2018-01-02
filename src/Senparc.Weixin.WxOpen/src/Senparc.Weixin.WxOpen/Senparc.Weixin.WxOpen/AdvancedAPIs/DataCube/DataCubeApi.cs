@@ -484,7 +484,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidUserPortraitResultJson> GetWeAnalysisAppidUserPortraitAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };

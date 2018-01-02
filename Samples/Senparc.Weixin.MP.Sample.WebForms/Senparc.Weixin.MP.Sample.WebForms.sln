@@ -5,27 +5,27 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.WebForms", "Senparc.Weixin.MP.Sample.WebForms\Senparc.Weixin.MP.Sample.WebForms.csproj", "{F4913863-687B-44EF-B1A4-655C49A5BCB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\..\src\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP", "..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj", "{1D815FBF-451C-4E23-939C-CB80172F445C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj", "{1D815FBF-451C-4E23-939C-CB80172F445C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Cache.Redis", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj", "{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Cache.Redis", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj", "{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Cache.Memcached", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj", "{5B729497-5323-41D7-A104-0632119BEDDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Cache.Memcached", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj", "{5B729497-5323-41D7-A104-0632119BEDDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Open", "..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj", "{54732C3D-B673-4BBF-B0C3-6432E3D6F522}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Open", "..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj", "{54732C3D-B673-4BBF-B0C3-6432E3D6F522}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{4C3781FC-ED99-404A-BE86-158618E3A8B1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CacheExtension", "CacheExtension", "{6CB868C1-37DD-4453-BE1E-E1B778E9376E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Work", "..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj", "{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Work", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj", "{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen", "..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj", "{379D8C97-4F96-45AF-9F91-6BD160514495}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen", "..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj", "{379D8C97-4F96-45AF-9F91-6BD160514495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.WebSocket", "..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj", "{B745F5F5-9120-4D56-A86D-ED34EADB703C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.WebSocket", "..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj", "{B745F5F5-9120-4D56-A86D-ED34EADB703C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +81,10 @@ Global
 		{1D815FBF-451C-4E23-939C-CB80172F445C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D815FBF-451C-4E23-939C-CB80172F445C}.Release|x86.ActiveCfg = Release|x86
 		{1D815FBF-451C-4E23-939C-CB80172F445C}.Release|x86.Build.0 = Release|x86
-		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|Any CPU.Build.0 = Test|Any CPU
-		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|x86.ActiveCfg = Test|x86
-		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|x86.Build.0 = Test|x86
+		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|Any CPU.Build.0 = Release|Any CPU
+		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|x86.ActiveCfg = Release|x86
+		{1D815FBF-451C-4E23-939C-CB80172F445C}.Test|x86.Build.0 = Release|x86
 		{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}.Debug|x86.ActiveCfg = Debug|x86
@@ -129,10 +129,10 @@ Global
 		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Release|x86.ActiveCfg = Release|x86
 		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Release|x86.Build.0 = Release|x86
-		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|Any CPU.Build.0 = Test|Any CPU
-		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|x86.ActiveCfg = Test|x86
-		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|x86.Build.0 = Test|x86
+		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|Any CPU.Build.0 = Release|Any CPU
+		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|x86.ActiveCfg = Release|x86
+		{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}.Test|x86.Build.0 = Release|x86
 		{379D8C97-4F96-45AF-9F91-6BD160514495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{379D8C97-4F96-45AF-9F91-6BD160514495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{379D8C97-4F96-45AF-9F91-6BD160514495}.Debug|x86.ActiveCfg = Debug|Any CPU

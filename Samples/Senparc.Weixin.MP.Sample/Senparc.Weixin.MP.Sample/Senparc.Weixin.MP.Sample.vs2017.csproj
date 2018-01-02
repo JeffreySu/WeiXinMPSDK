@@ -341,39 +341,39 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
       <Project>{8520ead3-0005-4040-addd-032dd0de6a0f}</Project>
       <Name>Senparc.WebSocket</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">
       <Project>{bd32b7fa-0160-4fea-a049-838256b2db53}</Project>
       <Name>Senparc.Weixin.Cache.Memcached</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
       <Project>{ba711b04-cdf9-4bbd-b375-d43a01320541}</Project>
       <Name>Senparc.Weixin.Cache.Redis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.csproj">
       <Project>{3d747ae4-9646-4d79-8731-2f59473ec5c7}</Project>
       <Name>Senparc.Weixin.MP.MvcExtension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
       <Project>{caf49811-b93b-4d61-9a85-2fb9a33e4544}</Project>
       <Name>Senparc.Weixin.MP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
       <Project>{3646ac47-aba9-4fb9-9421-1d3cf53bc4c8}</Project>
       <Name>Senparc.Weixin.Open</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
       <Project>{240b5fbd-4a8a-4aa5-a8c0-f3fb10627158}</Project>
       <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
       <Project>{9fc5b77b-7a8b-4cea-9eb9-4d421b02b1ce}</Project>
       <Name>Senparc.Weixin.WxOpen</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{eec9eb50-1211-42fe-8597-bd237137755e}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>

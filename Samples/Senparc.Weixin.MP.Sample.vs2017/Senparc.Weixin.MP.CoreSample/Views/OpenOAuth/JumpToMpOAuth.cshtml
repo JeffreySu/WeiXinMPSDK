@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "跳转到公众号授权页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent{
+    <style>
+        h1 {
+            margin: 30px;
+        }
+
+        .enter {
+            font-size: 200%;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+}
+<div class="wrapper">
+    <h1>跳转到公众号授权页</h1>
+    <div>
+        <p class="enter">
+            【@Html.ActionLink("点击这里进入公众号授权页", "OAuth", "Open")】
+        </p>
+        <p>&nbsp;</p>
+    </div>
+    <div>
+        <p>
+            注意：授权页必须由合法（已经审核通过）的域名进入。
+            直接打开，或者在外部网站链接过来都可能被拒绝。
+            因此测试的时候必须有这样一个Referer页面存在。
+        </p>
+    </div>
+</div>

@@ -47,6 +47,12 @@ namespace Senparc.Weixin.WebProxy
         public readonly Uri Uri;
         private readonly bool bypass;
 
+        /// <summary>
+        /// WebProxy for .net core
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="credentials"></param>
+        /// <param name="bypass"></param>
         public CoreWebProxy(Uri uri, ICredentials credentials = null, bool bypass = false)
         {
             Uri = uri;

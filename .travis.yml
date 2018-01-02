@@ -1,7 +1,12 @@
 ﻿language: csharp
 solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
-mono: none
-dotnet: 2.0.0
+
+matrix:
+  include:
+    - dotnet: 2.0.0
+      mono: none
+      env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
+
 # script:
 #  - dotnet restore
 

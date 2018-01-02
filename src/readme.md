@@ -1,4 +1,4 @@
-.NET Core 1.1 / 2.0 + .NET Framework 3.5 / 4.0 / 4.5 版本源代码
+Senparc.Weixin SDK 全部源代码
 ================
 
 本文件件用于存放 .NET Core 1.1 / 2.0 + .NET Framework 3.5 / 4.0 / 4.5 版本源代码。

@@ -192,7 +192,7 @@ Senparc 官方教程
 
 | 文件夹 | 说明 |
 |--------|--------|
-|Senparc.WebSocket|WebSocket 模块|
+|[Senparc.WebSocket](src/Senparc.WebSocket/)|WebSocket 模块|
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
 |Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为 MVC 项目提供的扩展包 |

@@ -2,8 +2,8 @@
 solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 mono: none
 dotnet: 2.0.0
-script:
- - dotnet restore
+# script:
+#  - dotnet restore
 
 #language: csharp
 # #solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln

@@ -1,3 +1,5 @@
+> _公告：为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_
+
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
 

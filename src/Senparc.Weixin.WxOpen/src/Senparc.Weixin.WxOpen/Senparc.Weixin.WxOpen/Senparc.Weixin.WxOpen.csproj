@@ -43,6 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeApi.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\CommonGetWeAnalysisAppidRetainInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailySummaryTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidMonthlyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidUserPortraitResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />

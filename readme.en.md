@@ -27,6 +27,7 @@ Index
 * [Develop with .net Core](#develop-with-net-core)
 * [Follow Demo Official Account(SenparcRobot)](#follow-demo-official-accountsenparcrobot)
 * [Project folder description (under src folder)](#project-folder-description-under-src-folder)
+* [Demo folder description (under Samples folder)](#demo-folder-description-under-samples-folder)
 * [Senparc.Weixin.MP.Sample Key Code](#senparcweixinmpsample-key-code)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
     * [How to handle WeChat Official Account request?](#how-to-handle-wechat-official-account)
@@ -196,24 +197,30 @@ Senparc official tutorials
 (Please refer to `Developer` branch, not directly submitted to the `master` branch)
 
 
-Project folder description (under src folder)
---------------
+## Project folder description (under src folder)
 
 | Folder | Description |
 |--------|--------|
-|Senparc.WebSocket|WebSocket Module|
-|Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll Distributed Cache extension solutions|
-|Senparc.Weixin.MP.BuildOutPut| DLLs output folder|
-|Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll source code, extension for ASP.NET MVC |
-|Senparc.Weixin.MP.Sample| Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
-|Senparc.Weixin.MP.Sample.WebForms|Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
-|Senparc.Weixin.MP.Sample.vs2017|Demo, can be released directly(.NET Core 2.0 + MVC)|
-|Senparc.Weixin.MP|Senparc.Weixin.MP, Official Account SDK source code|
-|Senparc.Weixin.Open|Senparc.Weixin.Open.dll, 3rd Open Platform SDK source code|
-|Senparc.Weixin.QY|Senparc.Weixin.QY.dll, Corporate Account SDK source code|
-|Senparc.Weixin.Work|Senparc.Weixin.Work.dll Corporate Wechat SDk  source code|
-|Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll Mini Program SDK source code. Include Mini Game.|
-|Senparc.Weixin|all Senparc.Weixin.[x].dll base library  source code|
+|[Senparc.WebSocket](src/Senparc.WebSocket)									|WebSocket Module|
+|[Senparc.Weixin.Cache](src/Senparc.Weixin.Cache)							|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll Distributed Cache extension solutions|
+|[Senparc.Weixin.MP.BuildOutPut](src/Senparc.Weixin.MP.BuildOutPut	)		|DLLs output folder|
+|[Senparc.Weixin.MP.MvcExtension](src/Senparc.Weixin.MP.MvcExtension)		|Senparc.Weixin.MP.MvcExtension.dll source code, extension for ASP.NET MVC |
+|[Senparc.Weixin.MP](src/Senparc.Weixin.MP)									|Senparc.Weixin.MP, Official Account SDK source code|
+|[Senparc.Weixin.Open](src/Senparc.Weixin.Open)								|Senparc.Weixin.Open.dll, 3rd Open Platform SDK source code|
+|[Senparc.Weixin.QY](src/Senparc.Weixin.QY)									|Senparc.Weixin.QY.dll, Corporate Account SDK source code|
+|[Senparc.Weixin.Work](src/Senparc.Weixin.Work)								|Senparc.Weixin.Work.dll Corporate Wechat SDk  source code|
+|[Senparc.Weixin.WxOpen](src/Senparc.Weixin.WxOpen)							|Senparc.Weixin.WxOpen.dll Mini Program SDK source code. Include Mini Game.|
+|[Senparc.Weixin](src/Senparc.Weixin)										|all Senparc.Weixin.[x].dll base library  source code|
+
+
+## Demo folder description (under Samples folder)
+
+| Folder | Description |
+|--------|--------|
+|[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
+|[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		  |Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
+|[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			  |Demo, can be released directly(.NET Core 2.0 + MVC)|
+
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

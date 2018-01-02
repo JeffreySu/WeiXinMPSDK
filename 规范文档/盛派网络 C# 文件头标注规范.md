@@ -39,6 +39,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20170601
 
+
     修改标识：Senparc - 20171201
     修改描述：v1.7.3 修复ModifyDomainApi.ModifyDomain()方法判断问题
         

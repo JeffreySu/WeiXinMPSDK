@@ -1,4 +1,8 @@
 ﻿language: csharp
+
+script:
+ - dotnet restore
+
 solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 
 matrix:

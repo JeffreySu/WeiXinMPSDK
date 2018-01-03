@@ -32,8 +32,19 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Senparc.Weixin\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin, Version=4.18.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Senparc.Weixin\packages\Senparc.Weixin.4.18.9\lib\net45\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=14.8.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Senparc.Weixin\packages\Senparc.Weixin.MP.14.8.11\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,16 +96,8 @@
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
-      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
-      <Name>Senparc.Weixin.MP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

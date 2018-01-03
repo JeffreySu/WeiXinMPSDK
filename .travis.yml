@@ -14,15 +14,15 @@
 #  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
 
 scripts:
-  - xbuild /p:Configuration=Release ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
+  - xbuild /p:Configuration=Release ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 #此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
 
 
 install:
- - nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
+ - nuget restore ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 
 
-solution: ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
+solution:  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 #solution: ./Samples/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
 
 #script:

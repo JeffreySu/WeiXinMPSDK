@@ -196,7 +196,7 @@ Senparc 官方教程
 |--------|--------|
 |[Senparc.WebSocket](src/Senparc.WebSocket/)|WebSocket 模块|
 |[Senparc.Weixin.Cache](src/Senparc.Weixin.Cache)							|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
-|[Senparc.Weixin.MP.BuildOutPut](src/Senparc.Weixin.MP.BuildOutPut)		|所有最新版本DLL发布文件夹|
+|[Senparc.Weixin.MP.BuildOutPut](src/Senparc.Weixin.MP.BuildOutPut)		    |所有最新版本DLL发布文件夹|
 |[Senparc.Weixin.MP.MvcExtension](src/Senparc.Weixin.MP.MvcExtension)		|Senparc.Weixin.MP.MvcExtension.dll源码，为 MVC 项目提供的扩展包 |
 |[Senparc.Weixin.MP](src/Senparc.Weixin.MP)									|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
 |[Senparc.Weixin.Open](src/Senparc.Weixin.Open)								|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|

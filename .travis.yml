@@ -19,7 +19,7 @@ scripts:
 
 
 install:
- - nuget restore Newtonsoft.Json -Version 10.0.3 #./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+ - nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
 
 
 solution: ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln

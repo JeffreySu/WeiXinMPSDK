@@ -49,6 +49,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case Event.user_enter_tempsession:
                     responseMessage = OnEvent_UserEnterTempSessionRequest(RequestMessage as RequestMessageEvent_UserEnterTempSession);
                     break;
+                case Event.add_nearby_poi_audit_info:
+                    responseMessage = OnEvent_AddNearbyPoiAuditInfoRequest(RequestMessage as RequestMessageEvent_AddNearbyPoiAuditInfo);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -62,6 +65,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// 进入客服会话事件
         /// </summary>
         public virtual IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 地点审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_AddNearbyPoiAuditInfoRequest(RequestMessageEvent_AddNearbyPoiAuditInfo requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

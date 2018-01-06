@@ -20,55 +20,52 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
-  
-    文件名：Enums.cs
-    文件功能描述：枚举类型
+    
+    文件名：RequestMessageEvent_UserEnterTempSession.cs
+    文件功能描述：事件之地点审核
     
     
-    创建标识：Senparc - 20170106
-
+    创建标识：Senparc - 20170107
+    
 ----------------------------------------------------------------*/
 
-using System.ComponentModel;
+using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.WxOpen.Entities;
 
-namespace Senparc.Weixin.WxOpen
+namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// 接收消息类型
+    /// 事件之地点审核
     /// </summary>
-    public enum RequestMsgType
-    {
-        Text, //文本
-        Image, //图片
-        Event, //事件推送
-    }
-
-    /// <summary>
-    /// 当RequestMsgType类型为Event时，Event属性的类型
-    /// </summary>
-    public enum Event
+    public class RequestMessageEvent_AddNearbyPoiAuditInfo : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 进入会话事件
+        /// 事件类型
         /// </summary>
-        user_enter_tempsession,
-        add_nearby_poi_audit_info
-    }
+        public override Event Event
+        {
+            get { return Event.add_nearby_poi_audit_info; }
+        }
 
-    /// <summary>
-    /// 发送消息类型
-    /// </summary>
-    public enum ResponseMsgType
-    {
-        [Description("文本")]
-        Text = 0,
-        [Description("图片")]
-        Image = 3,
+        /// <summary>
+        /// 审核单id
+        /// </summary>
+        public string audit_id { get; set; }
 
-        //以下为延伸类型，微信官方并未提供具体的回复类型
-        [Description("无回复")]
-        NoResponse = 110,
-        [Description("success")]
-        SuccessResponse = 200
+        /// <summary>
+        /// 审核状态（3：审核通过，2：审核失败）
+        /// </summary>
+        public int status { get; set; }
+
+        /// <summary>
+        /// 如果status为3或者4，会返回审核失败的原因
+        /// </summary>
+        public string reason { get; set; }
+
+        /// <summary>
+        /// poi_id
+        /// </summary>
+        public string poi_id { get; set; }
+
     }
 }

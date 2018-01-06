@@ -35,7 +35,7 @@ using Senparc.Weixin.WxOpen.Entities;
 namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// 事件之二维码扫描（关注微信）
+    /// 事件之用户进入客服
     /// </summary>
     public class RequestMessageEvent_UserEnterTempSession : RequestMessageEventBase, IRequestMessageEventBase
     {

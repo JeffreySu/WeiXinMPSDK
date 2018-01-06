@@ -47,7 +47,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
 {
     /// <summary>
     /// 添加地点返回结果

@@ -62,8 +62,8 @@
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearbyPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
-    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />

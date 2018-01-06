@@ -10,7 +10,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
     /// <summary>
     /// 添加地点返回结果
     /// </summary>
-    public class AddNearByPoiJsonResult: WxJsonResult
+    public class AddNearbyPoiJsonResult : WxJsonResult
     {
         /// <summary>
         /// 审核单ID

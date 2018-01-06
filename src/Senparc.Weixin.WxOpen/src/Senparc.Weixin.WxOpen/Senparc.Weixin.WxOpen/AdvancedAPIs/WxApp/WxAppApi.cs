@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170726
     修改描述：完成接口开放平台-代码管理及小程序码获取
 
+    修改标识：Senparc - 20180106
+    修改描述：完成接口-附近的小程序API
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -533,7 +536,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 添加地点
+        /// 【异步方法】添加地点
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
@@ -557,7 +560,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 查看地点列表
+        /// 【异步方法】查看地点列表
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="page">起始页id（从1开始计数）</param>
@@ -579,7 +582,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 删除地点
+        /// 【异步方法】删除地点
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="poi_id">附近地点ID</param>
@@ -600,7 +603,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 展示/取消展示附近小程序
+        /// 【异步方法】展示/取消展示附近小程序
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="poi_id">附近地点ID</param>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -57,7 +57,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
-            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, Config.TIME_OUT, openIds);
+            var clientMsgId = DateTime.Now.Ticks.ToString();
+            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, clientMsgId, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -38,8 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
@@ -224,13 +226,34 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
+        /// <summary>
+        /// session_key 合法性校验
+        /// https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/http-signature.html
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId">用户唯一标识符</param>
+        /// <param name="sessionKey">用户登录态签名</param>
+        /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
+        /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        public static WxJsonResult CheckSession(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
+                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -258,7 +281,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 获取小程序页面的小程序码 不受限制
+        /// 【异步方法】获取小程序页面的小程序码 不受限制
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -287,7 +310,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -315,7 +338,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -395,6 +418,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
+
+        /// <summary>
+        /// 【异步方法】session_key 合法性校验
+        /// https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/http-signature.html
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId">用户唯一标识符</param>
+        /// <param name="sessionKey">用户登录态签名</param>
+        /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
+        /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        public static async Task<WxJsonResult> CheckSessionAsync(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
+                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 #endif

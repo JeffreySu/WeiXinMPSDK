@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：标签接口返回结果
@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20171017
     修改描述：v1.2.0 部门id改为long类型
+
+    修改标识：Senparc - 20171220
+    修改描述：v1.2.10 修改 AddTagMemberResult.invalidparty 为 long 类型
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -73,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     public class AddTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
-        public int[] invalidparty { get; set; }
+        public long[] invalidparty { get; set; }
     }
 
     /// <summary>

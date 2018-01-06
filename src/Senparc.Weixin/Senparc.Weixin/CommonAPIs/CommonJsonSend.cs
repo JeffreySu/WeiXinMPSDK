@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
@@ -58,11 +58,12 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="sendType"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="checkValidationResult"></param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
+            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="sendType"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <param name="checkValidationResult"></param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
@@ -83,6 +84,8 @@ namespace Senparc.Weixin.CommonAPIs
             try
             {
                 var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
+
+
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
@@ -96,6 +99,9 @@ namespace Senparc.Weixin.CommonAPIs
                             ms.Write(bytes, 0, bytes.Length);
                             ms.Seek(0, SeekOrigin.Begin);
 
+                            WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
+
+                            //PostGetJson方法中将使用WeixinTrace记录结果
                             return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
                         }
 
@@ -122,11 +128,14 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
+        /// <param name="sendType"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+        /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, JsonSetting jsonSetting = null)
+        public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, jsonSetting: jsonSetting);
+            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
 
         /// <summary>
@@ -140,9 +149,9 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting">JSON字符串生成设置</param>
         /// <returns></returns>
-        public static async Task<T> SendAsync<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false,
-            JsonSetting jsonSetting = null
-            )
+        public static async Task<T> SendAsync<T>(string accessToken, string urlFormat, object data,
+            CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT,
+            bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
             try
             {
@@ -161,10 +170,10 @@ namespace Senparc.Weixin.CommonAPIs
                             await ms.WriteAsync(bytes, 0, bytes.Length);
                             ms.Seek(0, SeekOrigin.Begin);
 
-                            return
-                                await
-                                    Post.PostGetJsonAsync<T>(url, null, ms, timeOut: timeOut,
-                                        checkValidationResult: checkValidationResult);
+                            WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
+
+                            //PostGetJson方法中将使用WeixinTrace记录结果
+                            return await Post.PostGetJsonAsync<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
                         }
                     default:
                         throw new ArgumentOutOfRangeException("sendType");

@@ -1,5 +1,5 @@
-language: csharp
-#solution: ./src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+﻿language: csharp
+#solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 
 #matrix:
 #  include:
@@ -8,22 +8,22 @@ language: csharp
 #      dist: trusty
 #      env: DOTNETCORE=1  # optional, can be used to take different code paths in your script
       
-
+  
 # - dotnet restore
 
 #  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
 
 scripts:
-  - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
+  - xbuild /p:Configuration=Release ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 #此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
 
 
-#install:
-# - nuget install StackExchange.Redis -version 1.0.488
+install:
+ - nuget restore ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 
 
-solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
-#solution: ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
+solution:  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
+#solution: ./Samples/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
 
 #script:
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
@@ -34,3 +34,22 @@ solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.WxOpen.csproj
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis/Senparc.Weixin.Cache.Redis.csproj
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Memcached/Senparc.Weixin.Cache.Memcached.csproj 
+ 
+# script:
+#  - dotnet restore
+
+
+
+# language: csharp
+
+# script:
+#  - dotnet restore
+
+# solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+
+# matrix:
+#   include:
+#     - dotnet: 2.0.0
+#       mono: none
+#       env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
+

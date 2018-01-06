@@ -29,5 +29,14 @@ namespace Senparc.Weixin.Helpers.Tests
             result = EncryptHelper.GetLowerMD5(encypStr, Encoding.UTF8);
             Assert.AreEqual(exceptMD5Result.ToLower(), result);
         }
+
+        [TestMethod]
+        public void GetHmacSha256Test()
+        {
+            var msg = "{\"foo\":\"bar\"}";
+            var sessionKey = "o0q0otL8aEzpcZL/FT9WsQ==";
+            var result = EncryptHelper.GetHmacSha256(msg, sessionKey);
+            Assert.AreEqual("654571f79995b2ce1e149e53c0a33dc39c0a74090db514261454e8dbe432aa0b",result);
+        }
     }
 }

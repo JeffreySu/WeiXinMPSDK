@@ -132,6 +132,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 10. 微信开发资源集合：https://github.com/JeffreySu/WeixinResource
 11. 《微信开发深度解析》阅读辅助系统：https://book.weixin.senparc.com
 12. 购买《微信开发深度解析》：[https://item.jd.com/12220004.html](https://book.weixin.senparc.com/book/link?code=github-homepage-resource)
+13. 《微信公众号 + 小程序快速开发》视频教程：[https://github.com/JeffreySu/WechatVideoCourse](https://github.com/JeffreySu/WechatVideoCourse)
 
 * 技术交流QQ群：
 

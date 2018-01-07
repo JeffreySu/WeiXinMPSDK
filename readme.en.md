@@ -136,6 +136,8 @@ resources
 10. WeChat development resources: https://github.com/JeffreySu/WeixinResource
 11. *Depth Analysis of WeChat Development* reading system：https://book.weixin.senparc.com
 12. Buy *Depth Analysis of WeChat Development*：[https://item.jd.com/12220004.html](https://book.weixin.senparc.com/book/link?code=github-homepage-resource-en)
+13. Video Course：[https://github.com/JeffreySu/WechatVideoCourse](https://github.com/JeffreySu/WechatVideoCourse)
+
 
 * Technical communication QQ group:
 

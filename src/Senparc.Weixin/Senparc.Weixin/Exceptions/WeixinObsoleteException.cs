@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2018 Senparc
     
     文件名：WeixinObsoleteException.cs
-    文件功能描述：接口或方法过期异常
+    文件功能描述：v4.18.11 接口或方法过期异常
     
     
     创建标识：Senparc - 20180107

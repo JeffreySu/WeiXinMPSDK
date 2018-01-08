@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：ListJsonResult.cs
-    文件功能描述：“获取帐号下已存在的模板列表”接口：List 结果
+    文件名：LibraryListJsonResult.cs
+    文件功能描述：“获取模板库某个模板标题下关键词库”接口：LibraryGet 结果
     
     
     创建标识：Senparc - 20170827
@@ -36,35 +36,30 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 {
     /// <summary>
-    /// “获取帐号下已存在的模板列表”接口：List 结果
+    /// “获取模板库某个模板标题下关键词库”接口：LibraryGet 结果
     /// </summary>
-    public class ListJsonResult : WxJsonResult
+    public class LibraryGetJsonResult : WxJsonResult
     {
-        /// <summary>
-        /// 帐号下的模板列表
-        /// </summary>
-        public List<ListJsonResult_List> list { get; set; }
+        public string id { get; set; }
+        public string title { get; set; }
+        public List<LibraryGetJsonResult_KeywordList> keyword_list { get; set; }
     }
 
-    public class ListJsonResult_List
+    public class LibraryGetJsonResult_KeywordList
     {
         /// <summary>
-        /// 模板id，发送小程序模板消息时所需
+        /// 关键词id，添加模板时需要
         /// </summary>
-        public string template_id { get; set; }
+        public int keyword_id { get; set; }
         /// <summary>
-        /// 模板标题
+        /// 关键词内容
         /// </summary>
-        public string title { get; set; }
+        public string name { get; set; }
         /// <summary>
-        /// 模板内容
-        /// </summary>
-        public string content { get; set; }
-        /// <summary>
-        /// 模板内容示例
+        /// 关键词内容对应的示例
         /// </summary>
         public string example { get; set; }
     }

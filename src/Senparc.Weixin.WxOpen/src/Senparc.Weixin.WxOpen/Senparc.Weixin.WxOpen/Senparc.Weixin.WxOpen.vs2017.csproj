@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.8.0</Version>
+    <Version>1.8.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -72,6 +72,9 @@
       v1.8.0 支持小程序
       1、添加 WxAppApi.CheckSession() 接口，检验SessionKey
       2、添加 DataCubeApi，包含所有“数据”接口
+      v1.8.1 新增附近的小程序API
+      v1.8.2 从 Open 中迁移模板消息过来，在 Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

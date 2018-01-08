@@ -21,44 +21,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：LibraryListJsonResult.cs
-    文件功能描述：“获取小程序模板库标题列表”接口：LibraryList 结果
+    文件名：WeixinObsoleteException.cs
+    文件功能描述：v4.18.11 接口或方法过期异常
     
     
-    创建标识：Senparc - 20170827
-
+    创建标识：Senparc - 20180107
+    
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.Template.TemplateJson
+namespace Senparc.Weixin.Exceptions
 {
     /// <summary>
-    /// “获取小程序模板库标题列表”接口：LibraryList 结果
+    /// 接口或方法过期异常
     /// </summary>
-    public class LibraryListJsonResult : WxJsonResult
+    public class WeixinObsoleteException : WeixinException
     {
-        public List<LibraryListJsonResult_List> list { get; set; }
-        /// <summary>
-        /// 模板库标题总数
-        /// </summary>
-        public int total_count { get; set; }
-    }
+        public WeixinObsoleteException(string message, bool logged = false) : base(message, logged)
+        {
+        }
 
-    public class LibraryListJsonResult_List
-    {
-        /// <summary>
-        /// 模板标题id（获取模板标题下的关键词库时需要）
-        /// </summary>
-        public string id { get; set; }
-        /// <summary>
-        /// 模板标题内容
-        /// </summary>
-        public string title { get; set; }
+        public WeixinObsoleteException(string message, Exception inner, bool logged = false) : base(message, inner, logged)
+        {
+        }
     }
 }

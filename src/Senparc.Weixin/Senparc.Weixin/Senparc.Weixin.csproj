@@ -134,6 +134,7 @@
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
     <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Exceptions\WeixinObsoleteException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />

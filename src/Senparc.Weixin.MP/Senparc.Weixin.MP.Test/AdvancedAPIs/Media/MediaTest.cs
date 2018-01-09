@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -366,7 +366,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.IsNotNull(result1.media_id);
 
-            GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
+            var clientMsgId = DateTime.Now.Ticks.ToString();
+            GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, clientMsgId, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
             //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
 
             MediaApi.DeleteForeverMedia(accessToken, result1.media_id);

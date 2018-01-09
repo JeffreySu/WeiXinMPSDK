@@ -74,7 +74,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -134,6 +134,7 @@
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
     <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Exceptions\WeixinObsoleteException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
@@ -153,6 +154,8 @@
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Threads\ThreadUtility.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceHelper.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceItem.cs" />
     <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />

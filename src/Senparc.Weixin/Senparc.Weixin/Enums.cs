@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -274,7 +274,25 @@ namespace Senparc.Weixin
         状态不可变 = 85021,
         action非法 = 85022,
         审核列表填写的项目数不在1到5以内 = 85023,
-        小程序还未设置昵称_头像_简介_请先设置完后再重新提交 = 86002
+        小程序还未设置昵称_头像_简介_请先设置完后再重新提交 = 86002,
+        签名错误 = 87009,
+
+        //小程序地点管理返回码
+        POST参数非法 =20002,
+        该经营资质已添加_请勿重复添加 = 92000,
+        附近地点添加数量达到上线_无法继续添加 = 92002,
+        地点已被其它小程序占用 = 92003,
+        附近功能被封禁 = 92004,
+        地点正在审核中 = 92005,
+        地点正在展示小程序 = 92006,
+        地点审核失败 = 92007,
+        程序未展示在该地点 = 92008,
+        小程序未上架或不可见 = 92009,
+        地点不存在 = 93010,
+        个人类型小程序不可用 = 93011
+
+
+
 
 
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释

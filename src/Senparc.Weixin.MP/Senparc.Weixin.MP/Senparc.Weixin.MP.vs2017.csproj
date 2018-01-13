@@ -353,7 +353,9 @@
       v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题
       v14.8.11 添加根据标签群发接口，重构原根据分组群发接口
       v14.8.12 完成群发接口添加clientmsgid属性
-      v14.8.13 使用 Config.ApiMpFileHost，修改 MediaApi.Get() 方法，可以自动识别文件类型储存
+      v14.8.13 
+      1、使用 Config.ApiMpFileHost，修改 MediaApi.Get() 方法，可以自动识别文件类型储存
+      2、设置 TenPayV3xxRequestData 的 NonceStr 属性为只读
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

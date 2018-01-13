@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.8.12</Version>
+    <Version>14.8.13</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -353,6 +353,7 @@
       v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题
       v14.8.11 添加根据标签群发接口，重构原根据分组群发接口
       v14.8.12 完成群发接口添加clientmsgid属性
+      v14.8.13 使用 Config.ApiMpFileHost，修改 MediaApi.Get() 方法，可以自动识别文件类型
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

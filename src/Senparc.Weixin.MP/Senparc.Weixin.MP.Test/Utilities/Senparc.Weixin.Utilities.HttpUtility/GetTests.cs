@@ -26,7 +26,11 @@ namespace Senparc.Weixin.MP.Test.Utilities
             //    fs.Flush();//直接保存，无需处理指针
             //}
 
-            var fileName = @"E:\Senparc项目\WeiXinMPSDK\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\qr.jpg";
+#if NETCOREAPP2_0
+            var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
+#else
+            var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
+#endif
 
             //上传素材
             var result = MediaApi.UploadTemporaryMedia(base._appId, UploadMediaFileType.image, fileName);
@@ -34,9 +38,25 @@ namespace Senparc.Weixin.MP.Test.Utilities
 
             //下载
             var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
-            var filePath = @"E:\Senparc项目\WeiXinMPSDK\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\qr_" + DateTime.Now.ToString("HHmmss") + ".jpg";
+
+
+#if NETCOREAPP2_0
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
+#else
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
+#endif
+
             var downloadResult = Senparc.Weixin.HttpUtility.Get.Download(url, filePath);
             Console.WriteLine(downloadResult);
+
+            Assert.IsTrue(File.Exists(downloadResult));
+
+            //完成之后通常需要强制修改文件名
+#if NETCOREAPP2_0
+            File.Move(downloadResult, downloadResult + "core20.renamed.jpg");
+#else
+            File.Move(downloadResult, downloadResult + ".net45.renamed.jpg");
+#endif
         }
 
 

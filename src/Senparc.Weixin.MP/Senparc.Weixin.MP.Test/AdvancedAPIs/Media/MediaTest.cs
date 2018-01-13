@@ -30,7 +30,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-
+using Senparc.Weixin.Helpers.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -46,12 +46,19 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var type = UploadMediaFileType.image;
-            var file = @"E:\1.jpg";
+
+#if NETCOREAPP2_0
+            var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
+#else
+            var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
+#endif
+
             var result = MediaApi.UploadTemporaryMedia(accessToken, type, file);
 
             Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
+
         }
 
         [TestMethod]
@@ -92,7 +99,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public void GetTest()
+        public void GetStreamTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
@@ -104,7 +111,13 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件
-                var fileName = string.Format(@"E:\testpic_{0}.jpg", DateTime.Now.Ticks);
+
+#if NETCOREAPP2_0
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
+#else
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
+#endif
+
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     ms.Position = 0;
@@ -119,6 +132,29 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 Assert.IsTrue(File.Exists(fileName));
             }
+        }
+
+
+
+        [TestMethod]
+        public void GetDirTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+
+            UploadTemporaryMediaTest();//上传
+
+
+#if NETCOREAPP2_0
+            var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
+#else
+            var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
+#endif
+
+            var fileName = MediaApi.Get(accessToken, mediaId, dir);
+
+            Assert.IsTrue(File.Exists(fileName));
+
+            Console.WriteLine("原始文件："+ fileName);
         }
 
 

@@ -129,6 +129,18 @@ namespace Senparc.Weixin
             set { _apiMpHost = value; }
         }
 
+        /// <summary>
+        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
+        /// </summary>
+        private static string _apiMpFileHost = "http://file.api.weixin.qq.com";
+        /// <summary>
+        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：http://file.api.weixin.qq.com）
+        /// </summary>
+        public static string ApiMpFileHost
+        {
+            get { return _apiMpFileHost; }
+            set { _apiMpFileHost = value; }
+        }
         #endregion
 
         #region 企业微信API的服务器地址（默认为：https://qyapi.weixin.qq.com）

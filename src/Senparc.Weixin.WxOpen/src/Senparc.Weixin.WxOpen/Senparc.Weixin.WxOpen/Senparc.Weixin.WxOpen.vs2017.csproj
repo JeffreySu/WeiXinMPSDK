@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.7.4</Version>
+    <Version>1.8.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -13,7 +13,7 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <Copyright>Senparc Copyright © 2004~2018</Copyright>
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
 
 
@@ -68,6 +68,13 @@
       v1.7.2 支持Senparc.Weixin v4.18.5 可自定义API域名
       v1.7.3 修复ModifyDomainApi.ModifyDomain()方法判断问题
       v1.7.4 完善模板消息发送参数
+
+      v1.8.0 支持小程序
+      1、添加 WxAppApi.CheckSession() 接口，检验SessionKey
+      2、添加 DataCubeApi，包含所有“数据”接口
+      v1.8.1 新增附近的小程序API
+      v1.8.2 从 Open 中迁移模板消息过来，在 Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -125,11 +132,6 @@
 
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
-    <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
 
@@ -195,6 +197,13 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
+    <ProjectReference Include="..\..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
 </Project>

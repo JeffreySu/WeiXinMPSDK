@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：SsoApi.cs
     文件功能描述：OA数据开放接口（Work中新增）
@@ -15,6 +15,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
             }, accessTokenOrAppKey);
         }
 
+        /// <summary>
+        /// 获取打卡规则
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="datetime">需要获取规则的日期当天0点的Unix时间戳</param>
+        /// <param name="userIdList">需要获取打卡规则的用户列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetCheckinOptionJsonResult GetCheckinOption(string accessTokenOrAppKey, DateTime datetime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckinoption?access_token={0}";
+
+                var data = new
+                {
+                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    useridlist = userIdList
+                };
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinOptionJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
 
         /// <summary>
         /// 获取审批数据【QY移植新增】
@@ -104,7 +128,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         #region 异步方法
 
         /// <summary>
-        /// 【异步接口】获取打卡数据【QY移植新增】
+        /// 【异步方法】获取打卡规则
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="datetime">需要获取规则的日期当天0点的Unix时间戳</param>
+        /// <param name="userIdList">需要获取打卡规则的用户列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetCheckinOptionJsonResult> GetCheckinOptionAsync(string accessTokenOrAppKey, DateTime datetime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/checkin/getcheckinoption?access_token={0}";
+
+                var data = new
+                {
+                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    useridlist = userIdList
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinOptionJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取打卡数据【QY移植新增】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>
@@ -129,13 +177,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
 
         /// <summary>
-        /// 【异步接口】获取审批数据【QY移植新增】
+        /// 【异步方法】获取审批数据【QY移植新增】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="openCheckinDataType">打卡类型</param>

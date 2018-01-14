@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -33,16 +33,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170726
     修改描述：完成接口开放平台-代码管理及小程序码获取
 
+    修改标识：Senparc - 20180106
+    修改描述：完成接口-附近的小程序API
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
-using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
@@ -224,13 +229,125 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }
         }
 
+        /// <summary>
+        /// session_key 合法性校验
+        /// https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/http-signature.html
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId">用户唯一标识符</param>
+        /// <param name="sessionKey">用户登录态签名</param>
+        /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
+        /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        public static WxJsonResult CheckSession(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
+                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 添加地点
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="relatedCredential">经营资质证件号</param>
+        /// <param name="relatedAddress">经营资质地址</param>
+        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+
+                return CommonJsonSend.Send<AddNearbyPoiJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查看地点列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="page">起始页id（从1开始计数）</param>
+        /// <param name="page_rows">每页展示个数（最多1000个）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetNearbyPoiListJsonResult GetNearbyPoiList(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { page = page, page_rows = page_rows };
+
+                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除地点
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="poi_id">附近地点ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult DelNearbyPoi(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { poi_id = poi_id };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 展示/取消展示附近小程序
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="poi_id">附近地点ID</param>
+        /// <param name="status">0：取消展示；1：展示</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SetNearbyPoiShowStatus(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { poi_id = poi_id, status= status };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -258,7 +375,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 获取小程序页面的小程序码 不受限制
+        /// 【异步方法】获取小程序页面的小程序码 不受限制
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -287,7 +404,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -315,7 +432,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 【异步方法】获取小程序页面的小程序码
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -396,6 +513,116 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
 
+        /// <summary>
+        /// 【异步方法】session_key 合法性校验
+        /// https://mp.weixin.qq.com/debug/wxagame/dev/tutorial/http-signature.html
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId">用户唯一标识符</param>
+        /// <param name="sessionKey">用户登录态签名</param>
+        /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
+        /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        public static async Task<WxJsonResult> CheckSessionAsync(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
+                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】添加地点
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="relatedCredential">经营资质证件号</param>
+        /// <param name="relatedAddress">经营资质地址</param>
+        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+
+                return await CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查看地点列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="page">起始页id（从1开始计数）</param>
+        /// <param name="page_rows">每页展示个数（最多1000个）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetNearbyPoiListJsonResult> GetNearbyPoiListAsync(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { page = page, page_rows = page_rows };
+
+                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除地点
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="poi_id">附近地点ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DelNearbyPoiAsync(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { poi_id = poi_id };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】展示/取消展示附近小程序
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="poi_id">附近地点ID</param>
+        /// <param name="status">0：取消展示；1：展示</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SetNearbyPoiListAsync(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+
+                var data = new { poi_id = poi_id, status = status };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 #endif
     }

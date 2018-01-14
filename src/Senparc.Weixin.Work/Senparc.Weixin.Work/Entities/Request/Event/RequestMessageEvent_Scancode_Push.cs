@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：RequestMessageEvent_ScancodePush.cs
     文件功能描述：事件之扫码推事件(scancode_push)

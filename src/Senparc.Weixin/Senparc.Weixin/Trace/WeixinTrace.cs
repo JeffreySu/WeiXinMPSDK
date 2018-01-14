@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WeixinTrace.cs
     文件功能描述：跟踪日志相关
@@ -63,7 +63,7 @@ namespace Senparc.Weixin
         /// </summary>
 #if NET35 || NET40 || NET45 || NET461
         private static TraceListener _traceListener = null;
-#elif NETSTANDARD2_0 || NETCOREAPP2_0 
+#elif NETSTANDARD2_0 || NETCOREAPP2_0
         private static TextWriterTraceListener _traceListener = null;
 #endif
 
@@ -140,8 +140,8 @@ namespace Senparc.Weixin
                 //ILoggerFactory loggerFactory = new LoggerFactory();
 
                 _traceListener = new TextWriterTraceListener(logWriter);
-                Trace.Listeners.Add(_traceListener);
-                Trace.AutoFlush = true;
+                System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                System.Diagnostics.Trace.AutoFlush = true;
 #endif
 
             }
@@ -162,10 +162,10 @@ namespace Senparc.Weixin
                     System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                if (_traceListener != null && Trace.Listeners.Contains(_traceListener))
+                if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
                     _traceListener.Close();
-                    Trace.Listeners.Remove(_traceListener);
+                    System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
 #endif
             }
@@ -200,7 +200,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Unindent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Unindent();
+                System.Diagnostics.Trace.Unindent();
 #endif
             }
         }
@@ -215,7 +215,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Indent();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Indent();
+                System.Diagnostics.Trace.Indent();
 #endif
             }
         }
@@ -230,7 +230,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.Flush();
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.Flush();
+                System.Diagnostics.Trace.Flush();
 #endif
             }
         }
@@ -264,7 +264,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.WriteLine(string.Format(messageFormat, args));
+                System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
 #endif
             }
         }
@@ -305,7 +305,7 @@ namespace Senparc.Weixin
 #if NET35 || NET40 || NET45 || NET461
                 System.Diagnostics.Trace.WriteLine(message);
 #elif NETSTANDARD2_0 || NETCOREAPP2_0
-                Trace.WriteLine(message);
+                System.Diagnostics.Trace.WriteLine(message);
 #endif
             }
         }
@@ -329,7 +329,7 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// API请求日志
+        /// API请求日志（接收结果）
         /// </summary>
         /// <param name="url"></param>
         /// <param name="returnText"></param>
@@ -344,6 +344,24 @@ namespace Senparc.Weixin
             //TODO:从源头加入AppId
             Log("URL：{0}", url);
             Log("Result：\r\n{0}", returnText);
+            LogEnd();
+        }
+
+        /// <summary>
+        /// API请求日志（Post发送消息）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        public static void SendApiPostDataLog(string url, string data)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin("[[接口调用]]");
+            Log("URL：{0}", url);
+            Log("Post Data：\r\n{0}", data);
             LogEnd();
         }
 

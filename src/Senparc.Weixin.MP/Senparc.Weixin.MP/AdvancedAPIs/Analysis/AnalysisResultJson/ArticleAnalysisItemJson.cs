@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20150310
     修改描述：修改类
+
+    修改标识：Senparc - 20180116
+    修改描述：GetUserReadItem 和 GetUserReadHourItem 添加 user_source 属性（用户渠道来源）
 ----------------------------------------------------------------*/
 
 
@@ -166,6 +169,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// </summary>
         public string ref_date { get; set; }
         /// <summary>
+        /// 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他
+        /// </summary>
+        public int user_source { get; set; }
+        /// <summary>
         /// 图文页（点击群发图文卡片进入的页面）的阅读人数
         /// </summary>
         public int int_page_read_user { get; set; }
@@ -212,6 +219,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
         /// </summary>
         public int ref_hour { get; set; }
+        /// <summary>
+        /// 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他
+        /// </summary>
+        public int user_source { get; set; }
         /// <summary>
         /// 图文页（点击群发图文卡片进入的页面）的阅读人数
         /// </summary>

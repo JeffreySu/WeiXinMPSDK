@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
@@ -200,6 +200,7 @@ namespace Senparc.Weixin.QY.Containers
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -257,5 +258,6 @@ namespace Senparc.Weixin.QY.Containers
             return jsApiTicketBag.JsApiTicketResult;
         }
         #endregion
+#endif
     }
 }

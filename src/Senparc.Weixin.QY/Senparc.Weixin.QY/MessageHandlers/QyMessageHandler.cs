@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：QyMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
@@ -29,7 +29,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
-using Tencent;
+using Senparc.Weixin.QY.Tencent;
 
 namespace Senparc.Weixin.QY.MessageHandlers
 {

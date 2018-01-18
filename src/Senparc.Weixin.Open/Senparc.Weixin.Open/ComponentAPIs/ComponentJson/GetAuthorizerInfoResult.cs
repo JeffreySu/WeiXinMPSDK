@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：GetAuthorizerInfoResult.cs
     文件功能描述：获取授权方的账户信息返回结果
@@ -9,7 +9,12 @@
 
     修改标识：Senparc - 20150402
     修改描述：添加序列化特性[Serializable]
+    
+    修改标识：Senparc - 20170523
+    修改描述：v2.4.1 BusinessInfo添加open_scan属性（是否开通微信扫商品功能）
 
+    修改标识：Senparc - 20180101
+    修改描述：v2.8.4 GetAuthorizerInfoResult 添加 principal_name 属性（公众号的主体名称）
 ----------------------------------------------------------------*/
 
 using System;
@@ -58,6 +63,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         public string user_name { get; set; }
         /// <summary>
+        /// 公众号的主体名称
+        /// </summary>
+        public string principal_name { get; set; }
+        /// <summary>
         /// 授权方公众号所设置的微信号，可能为空
         /// </summary>
         public string alias { get; set; }
@@ -90,6 +99,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public int open_shake { get; set; }
         public int open_card { get; set; }
         public int open_store { get; set; }
+
+        /// <summary>
+        /// 是否开通微信扫商品功能
+        /// </summary>
+        public int open_scan { get; set; }
     }
 
     //[Obsolete("此类已过期，请使用AuthorizationInfo")]

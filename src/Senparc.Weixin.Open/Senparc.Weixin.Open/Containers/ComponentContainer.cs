@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：ComponentContainer.cs
     文件功能描述：通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
@@ -40,6 +40,13 @@
 
     修改标识：Senparc - 20160813
     修改描述：v2.2.2 完善getNewToken参数传递
+
+    修改标识：Senparc - 20161203
+    修改描述：v2.3.3 解决同步锁死锁的问题
+
+    修改标识：Senparc - 20170318
+    修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -68,7 +75,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
+#else
+            set { this.SetContainerProperty(ref _componentAppId, value); }
+#endif
         }
 
         /// <summary>
@@ -77,7 +88,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppSecret
         {
             get { return _componentAppSecret; }
-            set { base.SetContainerProperty(ref _componentAppSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _componentAppSecret, value); }
+#endif
         }
 
         /// <summary>
@@ -86,7 +101,11 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentVerifyTicket
         {
             get { return _componentVerifyTicket; }
-            set { base.SetContainerProperty(ref _componentVerifyTicket, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
+#else
+            set { this.SetContainerProperty(ref _componentVerifyTicket, value); }
+#endif
         }
 
         /// <summary>
@@ -95,7 +114,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentVerifyTicketExpireTime
         {
             get { return _componentVerifyTicketExpireTime; }
-            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+#endif
 
         }
 
@@ -105,7 +128,11 @@ namespace Senparc.Weixin.Open.Containers
         public ComponentAccessTokenResult ComponentAccessTokenResult
         {
             get { return _componentAccessTokenResult; }
-            set { base.SetContainerProperty(ref _componentAccessTokenResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
+#else
+            set { this.SetContainerProperty(ref _componentAccessTokenResult, value); }
+#endif
         }
 
         /// <summary>
@@ -114,7 +141,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentAccessTokenExpireTime
         {
             get { return _componentAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+#endif
         }
 
 
@@ -124,7 +155,11 @@ namespace Senparc.Weixin.Open.Containers
         public PreAuthCodeResult PreAuthCodeResult
         {
             get { return _preAuthCodeResult; }
-            set { base.SetContainerProperty(ref _preAuthCodeResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
+#else
+            set { this.SetContainerProperty(ref _preAuthCodeResult, value); }
+#endif
         }
 
         /// <summary>
@@ -133,7 +168,11 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime PreAuthCodeExpireTime
         {
             get { return _preAuthCodeExpireTime; }
-            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -142,7 +181,11 @@ namespace Senparc.Weixin.Open.Containers
         public string AuthorizerAccessToken
         {
             get { return _authorizerAccessToken; }
-            set { base.SetContainerProperty(ref _authorizerAccessToken, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
+#else
+            set { this.SetContainerProperty(ref _authorizerAccessToken, value); }
+#endif
         }
 
         /// <summary>
@@ -207,17 +250,17 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 获取ComponentVerifyTicket的方法
         /// </summary>
-        public static Func<string, string> GetComponentVerifyTicketFunc = null;
+        public static Func<string, string> GetComponentVerifyTicketFunc { get; set; }
 
         /// <summary>
         /// 从数据库中获取已存的AuthorizerAccessToken的方法
         /// </summary>
-        public static Func<string, string> GetAuthorizerRefreshTokenFunc = null;
+        public static Func<string, string, string> GetAuthorizerRefreshTokenFunc { get; set; }
 
         /// <summary>
         /// AuthorizerAccessToken更新后的回调
         /// </summary>
-        public static Action<string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
+        public static Action<string, string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
 
 
         /// <summary>
@@ -229,9 +272,9 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
         /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
         /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string, string> getAuthorizerRefreshTokenFunc, Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
         {
-            //激活消息列队线程
+            //激活消息队列线程
 
             if (GetComponentVerifyTicketFunc == null)
             {
@@ -345,7 +388,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetComponentAccessTokenResult", componentAppId))//同步锁
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -402,7 +445,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetPreAuthCodeResult", componentAppId))//同步锁
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
                 {
@@ -447,9 +490,9 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetQueryAuthResult", componentAppId))//同步锁
             {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret,null, getNewToken);
+                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, null, getNewToken);
                 var queryAuthResult = ComponentApi.QueryAuth(accessToken, componentAppId, authorizationCode);
 
                 if (updateToAuthorizerContanier)
@@ -464,6 +507,7 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         #region component_access_token
 
@@ -510,7 +554,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetComponentAccessTokenResult", componentAppId))//同步锁
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -568,7 +612,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetPreAuthCodeResult", componentAppId))//同步锁
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
                 {
@@ -613,9 +657,9 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName + ".GetQueryAuthResult", componentAppId))//同步锁
             {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret,null, getNewToken);
+                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, null, getNewToken);
                 var queryAuthResult = await ComponentApi.QueryAuthAsync(accessToken, componentAppId, authorizationCode);
 
                 if (updateToAuthorizerContanier)
@@ -629,5 +673,6 @@ namespace Senparc.Weixin.Open.Containers
         }
         #endregion
         #endregion
+#endif
     }
 }

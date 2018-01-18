@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Message相关
@@ -9,13 +29,18 @@
     
 ----------------------------------------------------------------*/
 
+using System;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
     public abstract partial class MessageHandler<TC>
     {
-        #region 接收消息方法
+        #region 默认方法及未知类型方法
+
 
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
@@ -27,6 +52,22 @@ namespace Senparc.Weixin.MP.MessageHandlers
         //    responseMessage.Content = "您发送的消息类型暂未被识别。";
         //    return responseMessage;
         //}
+
+        /// <summary>
+        /// 未知类型消息触发的事件，默认将抛出异常，建议进行重写
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
+        {
+            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
+            throw new UnknownRequestMsgTypeException("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！".FormatWith(msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
+        }
+
+        #endregion
+
+        #region 接收消息方法
+
 
         /// <summary>
         /// 预处理文字或事件类型请求。

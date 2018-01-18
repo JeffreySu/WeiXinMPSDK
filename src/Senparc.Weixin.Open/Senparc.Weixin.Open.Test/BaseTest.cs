@@ -75,7 +75,7 @@ namespace Senparc.Weixin.Open.Test
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
             }
 
             ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc,null,null,"Open缓存测试");

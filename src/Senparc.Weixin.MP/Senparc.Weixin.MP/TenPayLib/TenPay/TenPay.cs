@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
  
     文件名：TenPay.cs
     文件功能描述：微信支付接口
@@ -30,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class TenPay
     {
-        #region 同步处理
+        #region 同步方法
         
        /*此接口不提供异步方法*/
         /// <summary>
@@ -65,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/delivernotify?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -96,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/orderquery?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -112,7 +132,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步处理
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】发货通知
         /// </summary>
@@ -129,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/delivernotify?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -160,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
 
-            var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/pay/orderquery?access_token={0}";
 
             //组装发送消息
             var data = new
@@ -175,5 +196,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OrderqueryResult>(accessToken, urlFormat, data);
         }
         #endregion
+#endif
     }
 }

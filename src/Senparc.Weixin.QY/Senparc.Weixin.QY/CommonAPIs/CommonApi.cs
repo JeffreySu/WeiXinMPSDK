@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -172,6 +172,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// 【异步方法】<summary>
         /// 获取AccessToken
@@ -300,5 +301,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
+#endif
     }
 }

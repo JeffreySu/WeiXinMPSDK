@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ResponseMessageNews.cs
     文件功能描述：响应回复图文消息
@@ -17,7 +17,7 @@ namespace Senparc.Weixin.QY.Entities
 {
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.News; }
         }

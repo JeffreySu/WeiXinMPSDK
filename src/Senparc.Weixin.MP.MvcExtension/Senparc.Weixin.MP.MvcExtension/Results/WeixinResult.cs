@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Mvc;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
+#if NET35 || NET40 || NET45 || NET461
+using System.Web.Mvc;
+using System.Web;
+#else
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -40,7 +47,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// 获取ContentResult中的Content或IMessageHandler中的ResponseDocument文本结果。
         /// 一般在测试的时候使用。
         /// </summary>
-        new public string Content
+        public new string Content
         {
             get
             {
@@ -60,7 +67,11 @@ namespace Senparc.Weixin.MP.MvcExtension
             set { base.Content = value; }
         }
 
+#if NET35 || NET40 || NET45 || NET461
         public override void ExecuteResult(ControllerContext context)
+#else
+        public override void ExecuteResult(ActionContext context)
+#endif
         {
             if (base.Content == null)
             {
@@ -76,9 +87,16 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
+#if NET35 || NET40 || NET45 || NET461
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
                     _messageHandlerDocument.FinalResponseDocument.Save(context.HttpContext.Response.OutputStream);
+#else
+                    //context.HttpContext.Response.ClearContent();
+                    context.HttpContext.Response.ContentType = "text/xml";
+                    _messageHandlerDocument.FinalResponseDocument.Save(context.HttpContext.Response.Body);
+
+#endif
                 }
             }
 

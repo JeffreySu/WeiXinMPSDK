@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
 
     文件名：AnalysisAPI.cs
     文件功能描述：分析数据接口
@@ -15,6 +35,10 @@
  
     修改标识：Senparc - 20160718
     修改描述：将其接口增加了异步方法
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -23,6 +47,8 @@
     消息分析数据接口详见：http://mp.weixin.qq.com/wiki/12/32d42ad542f2e4fc8a8aa60e1bce9838.html
     用户分析数据接口详见：http://mp.weixin.qq.com/wiki/3/ecfed6e1a0a03b5f35e5efac98e864b7.html
  */
+
+
 
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
@@ -37,7 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class AnalysisApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 获取图文群发每日数据（getarticlesummary）
@@ -52,7 +78,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticlesummary?access_token={0}";
 
                 var data = new
                 {
@@ -70,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -79,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticletotal?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticletotal?access_token={0}";
 
                 var data = new
                 {
@@ -96,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取图文统计数据（getuserread）
         /// 最大时间跨度 3
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -105,7 +131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserread?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserread?access_token={0}";
 
                 var data = new
                 {
@@ -122,7 +148,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取图文统计分时数据（getuserreadhour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -131,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserreadhour?access_token={0}";
 
                 var data = new
                 {
@@ -148,7 +174,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取图文分享转发数据（getusershare）
         /// 最大时间跨度 7
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -157,7 +183,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusershare?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusershare?access_token={0}";
 
                 var data = new
                 {
@@ -174,7 +200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取图文分享转发分时数据（getusersharehour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -183,7 +209,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersharehour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersharehour?access_token={0}";
 
                 var data = new
                 {
@@ -209,7 +235,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummary?access_token={0}";
 
                 var data = new
                 {
@@ -226,7 +252,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取接口分析分时数据（getinterfacesummaryhour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -235,7 +261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummaryhour?access_token={0}";
 
                 var data = new
                 {
@@ -260,7 +286,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsg?access_token={0}";
 
                 var data = new
                 {
@@ -277,7 +303,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息分送分时数据（getupstreammsghour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -286,7 +312,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsghour?access_token={0}";
 
                 var data = new
                 {
@@ -303,7 +329,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息发送周数据（getupstreammsgweek）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -312,7 +338,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgweek?access_token={0}";
 
                 var data = new
                 {
@@ -329,7 +355,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息发送月数据（getupstreammsgmonth）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -338,7 +364,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgmonth?access_token={0}";
 
                 var data = new
                 {
@@ -355,7 +381,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息发送分布数据（getupstreammsgdist）
         /// 最大时间跨度 15
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -364,7 +390,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdist?access_token={0}";
 
                 var data = new
                 {
@@ -381,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息发送分布周数据（getupstreammsgdistweek）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -390,7 +416,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistweek?access_token={0}";
 
                 var data = new
                 {
@@ -407,7 +433,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取消息发送分布月数据（getupstreammsgdistmonth）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -416,7 +442,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistmonth?access_token={0}";
 
                 var data = new
                 {
@@ -442,7 +468,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersummary?access_token={0}";
 
                 var data = new
                 {
@@ -459,7 +485,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取累计用户数据
         /// 最大时间跨度 7
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -468,7 +494,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusercumulate?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusercumulate?access_token={0}";
 
                 var data = new
                 {
@@ -483,7 +509,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】获取图文群发每日数据（getarticlesummary）
@@ -496,9 +523,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AnalysisResultJson<ArticleSummaryItem>> GetArticleSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticlesummary?access_token={0}";
 
                 var data = new
                 {
@@ -506,7 +533,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return
+                return await
                     Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleSummaryItem>>(
                         accessToken, urlFormat, data,
                         timeOut: timeOut);
@@ -519,16 +546,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<ArticleTotalItem>>GetArticleTotalAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getarticletotal?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getarticletotal?access_token={0}";
 
                 var data = new
                 {
@@ -536,7 +563,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleTotalItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleTotalItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -545,16 +572,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取图文统计数据（getuserread）
         /// 最大时间跨度 3
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UserReadItem>> GetUserReadAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserread?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserread?access_token={0}";
 
                 var data = new
                 {
@@ -562,7 +589,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -571,16 +598,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///【异步方法】 获取图文统计分时数据（getuserreadhour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UserReadHourItem>> GetUserReadHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getuserreadhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getuserreadhour?access_token={0}";
 
                 var data = new
                 {
@@ -588,7 +615,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -597,16 +624,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取图文分享转发数据（getusershare）
         /// 最大时间跨度 7
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UserShareItem>> GetUserShareAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusershare?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusershare?access_token={0}";
 
                 var data = new
                 {
@@ -614,7 +641,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -623,16 +650,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取图文分享转发分时数据（getusersharehour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task <AnalysisResultJson<UserShareHourItem>> GetUserShareHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersharehour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersharehour?access_token={0}";
 
                 var data = new
                 {
@@ -640,7 +667,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -656,9 +683,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task <AnalysisResultJson<InterfaceSummaryItem>> GetInterfaceSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummary?access_token={0}";
 
                 var data = new
                 {
@@ -666,7 +693,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -675,16 +702,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取接口分析分时数据（getinterfacesummaryhour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<InterfaceSummaryHourItem>> GetInterfaceSummaryHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getinterfacesummaryhour?access_token={0}";
 
                 var data = new
                 {
@@ -692,7 +719,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -707,9 +734,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UpStreamMsgItem>> GetUpStreamMsgAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsg?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsg?access_token={0}";
 
                 var data = new
                 {
@@ -717,7 +744,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -726,16 +753,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息分送分时数据（getupstreammsghour）
         /// 最大时间跨度 1
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UpStreamMsgHourItem>> GetUpStreamMsgHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsghour?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsghour?access_token={0}";
 
                 var data = new
                 {
@@ -743,7 +770,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -752,16 +779,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息发送周数据（getupstreammsgweek）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UpStreamMsgWeekItem>> GetUpStreamMsgWeekAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgweek?access_token={0}";
 
                 var data = new
                 {
@@ -769,7 +796,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -778,16 +805,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息发送月数据（getupstreammsgmonth）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UpStreamMsgMonthItem>> GetUpStreamMsgMonthAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgmonth?access_token={0}";
 
                 var data = new
                 {
@@ -795,7 +822,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -804,16 +831,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息发送分布数据（getupstreammsgdist）
         /// 最大时间跨度 15
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task <AnalysisResultJson<UpStreamMsgDistItem>> GetUpStreamMsgDistAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdist?access_token={0}";
 
                 var data = new
                 {
@@ -821,7 +848,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -830,16 +857,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息发送分布周数据（getupstreammsgdistweek）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UpStreamMsgDistWeekItem>> GetUpStreamMsgDistWeekAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistweek?access_token={0}";
 
                 var data = new
                 {
@@ -847,7 +874,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -856,16 +883,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取消息发送分布月数据（getupstreammsgdistmonth）
         /// 最大时间跨度 30
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task <AnalysisResultJson<UpStreamMsgDistMonthItem>> GetUpStreamMsgDistMonthAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getupstreammsgdistmonth?access_token={0}";
 
                 var data = new
                 {
@@ -873,7 +900,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -889,9 +916,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UserSummaryItem>> GetUserSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusersummary?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusersummary?access_token={0}";
 
                 var data = new
                 {
@@ -899,7 +926,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -908,16 +935,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】获取累计用户数据
         /// 最大时间跨度 7
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<AnalysisResultJson<UserCumulateItem>> GetUserCumulateAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = "https://api.weixin.qq.com/datacube/getusercumulate?access_token={0}";
+                string urlFormat = Config.ApiMpHost + "/datacube/getusercumulate?access_token={0}";
 
                 var data = new
                 {
@@ -925,11 +952,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserCumulateItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserCumulateItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
 
         #endregion
+#endif
     }
 }

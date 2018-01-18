@@ -35,6 +35,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180116
     修改描述：GetUserReadItem 和 GetUserReadHourItem 添加 user_source 属性（用户渠道来源）
+              文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141084 关键字：user_source
+
 ----------------------------------------------------------------*/
 
 

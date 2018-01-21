@@ -16,8 +16,13 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
+#if NET45
 using System.Web.Routing;
 using System.Web.WebSockets;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.WebSocket
 {
@@ -26,7 +31,7 @@ namespace Senparc.WebSocket
     /// </summary>
     public class WebSocketHelper
     {
-        private readonly AspNetWebSocketContext _webSocketContext;
+        //private readonly AspNetWebSocketContext _webSocketContext;
         private readonly System.Net.WebSockets.WebSocket _webSocket;
         private readonly CancellationToken _cancellationToken;
 
@@ -34,12 +39,17 @@ namespace Senparc.WebSocket
         /// <summary>
         /// WebSocketHelper
         /// </summary>
-        /// <param name="webSocketContext"></param>
+        ///// <param name="webSocketContext"></param>
         /// <param name="cancellationToken"></param>
-        public WebSocketHelper(AspNetWebSocketContext webSocketContext, CancellationToken cancellationToken)
+#if NET45
+        public WebSocketHelper(System.Net.WebSockets.WebSocket socket,/*AspNetWebSocketContext webSocketContext,*/ CancellationToken cancellationToken)
+#else
+         public WebSocketHelper(System.Net.WebSockets.WebSocket socket,/*AspNetWebSocketContext webSocketContext,*/ CancellationToken cancellationToken)
+#endif
         {
-            _webSocketContext = webSocketContext;
-            _webSocket = webSocketContext.WebSocket;
+            //_webSocketContext = webSocketContext;
+            //_webSocket = webSocketContext.WebSocket;
+            _webSocket = socket;
             _cancellationToken = cancellationToken;
         }
 

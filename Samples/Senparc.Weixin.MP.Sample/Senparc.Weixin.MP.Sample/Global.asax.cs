@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Sample
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
              */
 
-       RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
+            RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
             ConfigWeixinTraceLog();     //配置微信跟踪日志（按需）
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）

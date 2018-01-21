@@ -62,6 +62,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170810
     修改描述：v14.5.11 更新CardApi.CardBatchGet()方法的statusList参数传值
+
+    修改标识：Senparc - 20170810
+    修改描述：v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
 ----------------------------------------------------------------*/
 
 /*
@@ -1211,10 +1214,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     code = code,
                     card_id = cardId,
                     background_pic_url = backgroundPicUrl,
-                    // add_bonus = addBonus,
+                    add_bonus = addBonus,//之前注释掉，现还原    ——Jeffrey Su 2018.1.21
                     bonus = bonus,
                     record_bonus = recordBonus,
-                    // add_balance = addBalance,
+                    add_balance = addBalance,//之前注释掉，现还原    ——Jeffrey Su 2018.1.21
                     balance = balance,
                     record_balance = recordBalance,
                     custom_field_value1 = customFieldValue1,

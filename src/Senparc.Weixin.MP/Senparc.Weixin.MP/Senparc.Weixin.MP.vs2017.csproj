@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.8.13</Version>
+    <Version>14.8.14</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -353,10 +353,11 @@
       v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题
       v14.8.11 添加根据标签群发接口，重构原根据分组群发接口
       v14.8.12 完成群发接口添加clientmsgid属性
-      v14.8.13 
+      v14.8.13
       1、使用 Config.ApiMpFileHost，修改 MediaApi.Get() 方法，可以自动识别文件类型储存
       2、设置 TenPayV3xxRequestData 的 NonceStr 属性为只读
       3、AnalysisApi 接口中的 GetUserReadItem 和 GetUserReadHourItem 添加 user_source 属性（用户渠道来源）
+      v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

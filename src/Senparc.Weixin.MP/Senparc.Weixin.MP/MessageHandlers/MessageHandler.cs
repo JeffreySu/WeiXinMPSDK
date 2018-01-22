@@ -38,6 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20160722
     修改描述：记录上下文，此处修改
+
+    修改标识：Senparc - 20180122
+    修改描述：OnExecuting() 和 OnExecuted() 方法改为 override
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -400,7 +404,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        public virtual void OnExecuting()
+        public override void OnExecuting()
         {
             #region 消息去重
 
@@ -436,7 +440,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        public virtual void OnExecuted()
+        public override void OnExecuted()
         {
             base.OnExecuted();
         }

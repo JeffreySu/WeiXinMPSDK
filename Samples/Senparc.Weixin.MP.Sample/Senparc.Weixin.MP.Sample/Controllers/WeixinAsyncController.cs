@@ -61,26 +61,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public Task<ActionResult> MiniPost(PostModel postModel)
+        public async Task<ActionResult> MiniPost(PostModel postModel)
         {
-            return Task.Factory.StartNew<ActionResult>(() =>
+            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
-                if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
-                {
-                    return new WeixinResult("参数错误！");
-                }
+                return new WeixinResult("参数错误！");
+            }
 
-                postModel.Token = Token;
-                postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
-                postModel.AppId = AppId; //根据自己后台的设置保持一致
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
+            postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-                var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
 
-                messageHandler.Execute(); //执行微信处理过程
+            await messageHandler.ExecuteAsync(); //执行微信处理过程
 
-                return new FixWeixinBugWeixinResult(messageHandler);
-
-            }).ContinueWith<ActionResult>(task => task.Result);
+            return new FixWeixinBugWeixinResult(messageHandler);
+            //.ContinueWith<ActionResult>(task => task.Result);
         }
 
         /// <summary>

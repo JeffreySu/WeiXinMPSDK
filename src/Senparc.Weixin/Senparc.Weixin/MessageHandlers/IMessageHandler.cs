@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MessageHandlers
 {
@@ -78,6 +79,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
 
+        #region 同步方法
 
         /// <summary>
         /// 执行微信请求前触发
@@ -93,5 +95,31 @@ namespace Senparc.Weixin.MessageHandlers
         /// 执行微信请求后触发
         /// </summary>
         void OnExecuted();
+
+        #endregion
+
+
+
+
+#if !NET35 && !NET40
+        #region 异步方法
+
+        /// <summary>
+        /// 执行微信请求前触发
+        /// </summary>
+        Task OnExecutingAsync();
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        Task ExecuteAsync();
+
+        /// <summary>
+        /// 执行微信请求后触发
+        /// </summary>
+        Task OnExecutedAsync();
+
+        #endregion
+#endif
     }
 }

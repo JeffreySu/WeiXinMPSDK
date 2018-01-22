@@ -43,9 +43,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-
 /*
  * V3.2
+ * V4.0 添加异步方法
  */
 
 using System;

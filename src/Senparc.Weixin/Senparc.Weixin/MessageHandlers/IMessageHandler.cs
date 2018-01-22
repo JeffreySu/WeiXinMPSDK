@@ -31,6 +31,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+/*
+ * V4.0 添加异步方法
+ */
+
 using Senparc.Weixin.Entities;
 using System.Threading.Tasks;
 

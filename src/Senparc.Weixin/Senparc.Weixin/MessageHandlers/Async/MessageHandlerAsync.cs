@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MessageHandlers
             await Task.Run(() => this.Execute());
         }
 
-        public async Task OnExecutedAsync()
+        public virtual async Task OnExecutedAsync()
         {
             await Task.Run(() => this.OnExecuted());
         }

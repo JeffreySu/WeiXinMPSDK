@@ -72,6 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
   <MsgType><![CDATA[event]]></MsgType>
   <Event><![CDATA[CLICK]]></Event>
   <EventKey><![CDATA[{0}]]></EventKey>
+  <MsgId>{{1}}</MsgId>
 </xml>
 ";
 

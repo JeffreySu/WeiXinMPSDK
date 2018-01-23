@@ -96,7 +96,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await (OnTextOrEventRequestAsync(requestMessage) ?? OnTextRequestAsync(requestMessage));
+                            ResponseMessage = (await (OnTextOrEventRequestAsync(requestMessage))
+                                ?? (await OnTextRequestAsync(requestMessage)));
                         }
                         break;
                     case RequestMsgType.Location:
@@ -123,8 +124,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = await (OnTextOrEventRequestAsync(requestMessageText)
-                                                ?? OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                            ResponseMessage = (await (OnTextOrEventRequestAsync(requestMessageText)))
+                                ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
                         }
                         break;
 

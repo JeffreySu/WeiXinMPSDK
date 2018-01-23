@@ -83,6 +83,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             RequestUrl("http://localhost:65395/WeixinAsync/ForTest");
         }
 
+        #region 异步 MessageHandler 事件方法测试
 
         protected void InitAsync(Controller targetAsync, Stream inputStreamAsync, string xmlFormat)
         {
@@ -97,7 +98,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 1000;
+        int threadsCount = 1000;//同时并发的线程数
         int finishedThreadsCount = 0;
         object AsyncMessageHandlerTestLock = new object();
 
@@ -111,8 +112,8 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 Thread thread = new Thread(async p =>
                 {
                     //按钮测试
-                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"), DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(i)));
-
+                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"), DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(i)),DateTime.Now.AddDays(i).Ticks);
+                    
                     var timestamp = "itsafaketimestamp";
                     var nonce = "whateveryouwant";
                     var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinAsyncController.Token);
@@ -122,7 +123,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                         Timestamp = timestamp,
                         Nonce = nonce
                     };
-
 
                     WeixinAsyncController targetAsync = new WeixinAsyncController();
                     Stream streamAsync = new MemoryStream();
@@ -140,13 +140,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     var dtt2 = DateTime.Now;
 
                     Assert.IsNotNull(actual);
-                    sb.AppendLine("线程：" + p);
-                    sb.AppendLine("开始时间：{0}，总时间：{1}ms".FormatWith(dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds));
-
-                    sb.AppendLine(actual.Content);
 
                     lock (AsyncMessageHandlerTestLock)
                     {
+                        sb.AppendLine("线程：" + p);
+                        sb.AppendFormat("开始时间：{0}，总时间：{1}ms\r\n",dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds);
+                        sb.AppendLine(actual.Content);
                         finishedThreadsCount++;
                     }
                 })
@@ -168,5 +167,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             Console.WriteLine(sb.ToString());
         }
+
+        #endregion
     }
 }

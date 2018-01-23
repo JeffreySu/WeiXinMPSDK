@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 var syncResponseMessage = OnEvent_ClickRequest(requestMessage);
                 if (syncResponseMessage is ResponseMessageText)
                 {
-                    responseMessage.Content += "\r\n\r\n以下是同步方法的返回结果：" + (syncResponseMessage as ResponseMessageText).Content;
+                    responseMessage.Content += "\r\n\r\n以下是同步方法的返回结果：\r\n" + (syncResponseMessage as ResponseMessageText).Content;
                 }
                 return responseMessage;
             });

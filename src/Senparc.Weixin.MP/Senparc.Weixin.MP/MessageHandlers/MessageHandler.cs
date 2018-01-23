@@ -382,7 +382,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
-                   
+
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
@@ -404,27 +404,34 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        public static object OmitRepeatedMessageLock = new object();//TODO:分布式可以使用分布式锁
+
         public override void OnExecuting()
         {
             #region 消息去重
 
+            //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
+
             if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-                && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-                //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-                )
+     && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
+     //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
+     )
             {
-                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if (
-                    //使用MsgId去重
-                    (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
-                    //使用CreateTime去重（OpenId对象已经是同一个）
-                    || (lastMessage.MsgId == RequestMessage.MsgId
-                        && lastMessage.CreateTime == RequestMessage.CreateTime
-                        && lastMessage.MsgType == RequestMessage.MsgType)
-                    )
+                lock (OmitRepeatedMessageLock)
                 {
-                    CancelExcute = true;//重复消息，取消执行
-                    return;
+                    var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
+                    if (
+                        //使用MsgId去重
+                        (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
+                        //使用CreateTime去重（OpenId对象已经是同一个）
+                        || (lastMessage.MsgId == RequestMessage.MsgId
+                            && lastMessage.CreateTime == RequestMessage.CreateTime
+                            && lastMessage.MsgType == RequestMessage.MsgType)
+                        )
+                    {
+                        CancelExcute = true;//重复消息，取消执行
+                        return;
+                    }
                 }
             }
 

@@ -77,9 +77,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            MessageHandler = new CustomMessageHandler(Request.InputStream, postModel,99999);
+            MessageHandler = new CustomMessageHandler(Request.InputStream, postModel,2);
             var messageHandler = MessageHandler;
-            messageHandler.OmitRepeatedMessage = false;
+            //messageHandler.OmitRepeatedMessage = false;
 
             messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 

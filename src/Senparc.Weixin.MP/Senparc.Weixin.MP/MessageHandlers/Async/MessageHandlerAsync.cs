@@ -152,33 +152,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public override async Task OnExecutingAsync()
         {
-            #region 消息去重
+            //已放入Init()方法中
+            //#region 消息去重
 
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-            && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-            //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-            )
-            {
-                lock (OmitRepeatedMessageLock)
-                {
-                    var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                    if (
-                        //使用MsgId去重
-                        (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
-                        //使用CreateTime去重（OpenId对象已经是同一个）
-                        || (lastMessage.MsgId == RequestMessage.MsgId
-                            && lastMessage.CreateTime == RequestMessage.CreateTime
-                            && lastMessage.MsgType == RequestMessage.MsgType)
-                        )
-                    {
-                        CancelExcute = true;//重复消息，取消执行
-                        MessageIsRepeated = true;
-                        return;
-                    }
-                }
-            }
+            //if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
+            //&& OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
+            ////&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
+            //)
+            //{
+            //    var currentIndex = CurrentMessageContext.RequestMessages.FindLastIndex(z=>z.)
 
-            #endregion
+
+            //    var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
+
+            //    if (
+            //        //使用MsgId去重
+            //        (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
+            //        //使用CreateTime去重（OpenId对象已经是同一个）
+            //        || (lastMessage.MsgId == RequestMessage.MsgId
+            //            && lastMessage.CreateTime == RequestMessage.CreateTime
+            //            && lastMessage.MsgType == RequestMessage.MsgType)
+            //        )
+            //    {
+            //        CancelExcute = true;//重复消息，取消执行
+            //        MessageIsRepeated = true;
+            //        return;
+            //    }
+            //}
+
+            //#endregion
 
             await base.OnExecutingAsync();
 

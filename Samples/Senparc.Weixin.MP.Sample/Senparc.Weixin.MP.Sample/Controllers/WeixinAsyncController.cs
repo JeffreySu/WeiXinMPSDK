@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                  }).ContinueWith<ActionResult>(task => Content(task.Result));
         }
 
-        public CustomMessageHandler MessageHandler = null;//开放出MessageHandler是为了做单元测试，实际使用过程中使用局部变量即可
+        public CustomMessageHandler MessageHandler = null;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
 
         /// <summary>
         /// 最简化的处理流程
@@ -77,13 +77,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            MessageHandler = new CustomMessageHandler(Request.InputStream, postModel,99999);
-            var messageHandler = MessageHandler;
+            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel,10);
             //messageHandler.OmitRepeatedMessage = false;//是否使用消息去重，默认为true
 
             messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
             await messageHandler.ExecuteAsync(); //执行微信处理过程
+
+            MessageHandler = messageHandler; ;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
 
             return new FixWeixinBugWeixinResult(messageHandler);
             //.ContinueWith<ActionResult>(task => task.Result);

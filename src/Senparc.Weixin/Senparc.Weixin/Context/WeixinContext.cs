@@ -45,9 +45,15 @@ namespace Senparc.Weixin.Context
     public static class WeixinContextGlobal
     {
         /// <summary>
-        /// 上下文使用的同步锁
+        /// 上下文操作使用的同步锁
         /// </summary>
         public static object Lock = new object();//TODO:转为同步锁
+
+        /// <summary>
+        /// 去重专用锁
+        /// </summary>
+        public static object OmitRepeatLock = new object();//TODO:转为同步锁
+
 
         /// <summary>
         /// 是否开启上下文记录

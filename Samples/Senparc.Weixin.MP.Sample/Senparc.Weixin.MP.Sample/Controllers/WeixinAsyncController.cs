@@ -59,6 +59,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                  }).ContinueWith<ActionResult>(task => Content(task.Result));
         }
 
+        public CustomMessageHandler MessageHandler = null;//开放出MessageHandler是为了做单元测试，实际使用过程中使用局部变量即可
 
         /// <summary>
         /// 最简化的处理流程
@@ -76,7 +77,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+            MessageHandler = new CustomMessageHandler(Request.InputStream, postModel,99999);
+            var messageHandler = MessageHandler;
+            messageHandler.OmitRepeatedMessage = false;
 
             messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 

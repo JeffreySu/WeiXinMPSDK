@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 1000;//同时并发的线程数
+        int threadsCount = 5;//同时并发的线程数
         int finishedThreadsCount = 0;
         object AsyncMessageHandlerTestLock = new object();
 
@@ -107,6 +107,8 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         {
             List<Thread> threadsCollection = new List<Thread>();
             StringBuilder sb = new StringBuilder();
+
+            var dt1 = DateTime.Now;
             for (int i = 0; i < threadsCount; i++)
             {
                 Thread thread = new Thread(async p =>
@@ -146,6 +148,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                         sb.AppendLine("线程：" + p);
                         sb.AppendFormat("开始时间：{0}，总时间：{1}ms\r\n",dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds);
                         sb.AppendLine(actual.Content);
+
+                        if (string.IsNullOrEmpty(actual.Content))
+                        {
+                            sb.AppendLine("actual.Content为空！");
+                            Assert.Fail();
+                        }
+
                         finishedThreadsCount++;
                     }
                 })
@@ -156,7 +165,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 thread.Start(thread.Name);
             }
 
-            var dt1 = DateTime.Now;
             while (finishedThreadsCount < threadsCount)
             {
 

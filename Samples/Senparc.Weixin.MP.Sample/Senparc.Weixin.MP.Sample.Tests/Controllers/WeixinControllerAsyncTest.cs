@@ -26,11 +26,18 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.Controllers;
+using System.Web.Mvc;
+using Senparc.Weixin.MP.Sample.Tests.Mock;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
     [TestClass]
-    public class WeixinControllerAsyncTest
+    public class WeixinControllerAsyncTest : WeixinControllerTest
     {
         int requestNum = 100;
         ManualResetEvent allDone = new ManualResetEvent(false);
@@ -54,7 +61,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
                     finished++;
                 });
-
             }
 
             while (finished < requestNum)
@@ -67,13 +73,92 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         [TestMethod]
         public void SyncTest()
         {
-            RequestUrl("http://localhost:18666/Weixin/ForTest");
+            RequestUrl("http://localhost:65395/Weixin/ForTest");
         }
 
         [TestMethod]
         public void AsyncTest()
         {
-            RequestUrl("http://localhost:18666/WeixinAsync/ForTest");
+            RequestUrl("http://localhost:65395/WeixinAsync/ForTest");
+        }
+
+
+        protected void InitAsync(Controller targetAsync, Stream inputStreamAsync, string xmlFormat)
+        {
+            //target = StructureMap.ObjectFactory.GetInstance<WeixinController>();//使用IoC的在这里必须注入，不要直接实例化
+            var xml = string.Format(xmlFormat, DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var bytes = System.Text.Encoding.UTF8.GetBytes(xml);
+
+            inputStreamAsync.Write(bytes, 0, bytes.Length);
+            inputStreamAsync.Flush();
+            inputStreamAsync.Seek(0, SeekOrigin.Begin);
+
+            targetAsync.SetFakeControllerContext(inputStreamAsync);
+        }
+
+        int threadsCount = 1;
+        int finishedThreadsCount = 0;
+
+        private void AsyncMessageHandlerRun()
+        {
+
+        }
+
+        [TestMethod]
+        public void AsyncMessageHandlerTest()
+        {
+            List<Thread> threadsCollection = new List<Thread>();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < threadsCount; i++)
+            {
+                Thread thread = new Thread(async () =>
+                {
+                    WeixinAsyncController targetAsync = new WeixinAsyncController();
+                    Stream streamAsync = new MemoryStream();
+
+                    //按钮测试
+                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "OneClick"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+                    InitAsync(targetAsync, streamAsync, xml);//初始化
+
+                    var timestamp = "itsafaketimestamp";
+                    var nonce = "whateveryouwant";
+                    var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinAsyncController.Token);
+                    var postModel = new PostModel()
+                    {
+                        Signature = signature,
+                        Timestamp = timestamp,
+                        Nonce = nonce
+                    };
+
+                    var actual = await targetAsync.MiniPost(postModel)
+                    //.ContinueWith(z =>
+                    //{
+                    //    var e = z.Exception;
+                    //    return z.Result;
+                    //})
+                    as FixWeixinBugWeixinResult;
+                    Assert.IsNotNull(actual);
+                    sb.AppendLine("线程：" + Thread.CurrentThread.Name);
+                    sb.AppendLine(actual.Content);
+                    finishedThreadsCount++;
+                })
+                {
+                    Name = "序列：" + i
+                };
+                threadsCollection.Add(thread);
+                thread.Start();
+            }
+
+            var dt1 = DateTime.Now;
+            while (finishedThreadsCount < threadsCount)
+            {
+
+            }
+            var dt2 = DateTime.Now;
+
+            Console.WriteLine("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
+
+            Console.WriteLine(sb.ToString());
         }
     }
 }

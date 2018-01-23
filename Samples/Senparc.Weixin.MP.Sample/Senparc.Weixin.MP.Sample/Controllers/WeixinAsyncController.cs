@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class WeixinAsyncController : AsyncController
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"] ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
@@ -77,6 +77,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+
+            messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
             await messageHandler.ExecuteAsync(); //执行微信处理过程
 

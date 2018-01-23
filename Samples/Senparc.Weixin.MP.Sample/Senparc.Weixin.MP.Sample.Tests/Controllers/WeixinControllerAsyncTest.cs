@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 5;//同时并发的线程数
+        int threadsCount = 1000;//同时并发的线程数
         int finishedThreadsCount = 0;
         object AsyncMessageHandlerTestLock = new object();
 
@@ -108,8 +108,10 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         {
             List<Thread> threadsCollection = new List<Thread>();
             StringBuilder sb = new StringBuilder();
-            var emptyContentCount = 0;
-            var repeatedMessageCount = 0;
+            var emptyContentCount = 0;//空消息数量（一般是因为去重了）
+            var repeatedMessageCount = 0;//确定去重的消息数量
+            var repeatedRequestMessage = new List<IRequestMessageBase>();//被去重的请求消息记录
+
             var dt1 = DateTime.Now;
 
             //每个线程的测试过程
@@ -122,9 +124,9 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
                 //按钮测试
                 var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"),
-                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(index)),
-                    DateTime.Now.AddDays(index).Ticks,
-                    index//i%10
+                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(index).AddMilliseconds((index ^ 2) * 1.1)),//确保每次时间戳不同
+                    DateTime.Today.Ticks,//MsgId，保证每次时间不一样
+                    0//OpenId后缀，可以模拟不同人发送，也可以模拟对人多发：i%10
                     );
 
                 var timestamp = "itsafaketimestamp";
@@ -156,7 +158,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
                 lock (AsyncMessageHandlerTestLock)
                 {
-                    sb.AppendLine("线程：" + p);
+                    sb.AppendLine("线程：" + threadName);
                     sb.AppendFormat("开始时间：{0}，总时间：{1}ms\r\n", dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds);
 
                     if (string.IsNullOrEmpty(actual.Content))
@@ -172,7 +174,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     if (targetAsync.MessageHandler.MessageIsRepeated)
                     {
                         sb.AppendLine("消息已去重！！！！！！！！！！！！！！！！！！");
-
+                        repeatedRequestMessage.Add(targetAsync.MessageHandler.RequestMessage);
                         repeatedMessageCount++;
                     }
 
@@ -192,7 +194,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     Name = "序列：" + i,
                 };
                 threadsCollection.Add(thread);
-                thread.Start(new object[]{ thread.Name, i});
+                thread.Start(new object[] { thread.Name, i });
             }
 
             while (finishedThreadsCount < threadsCount)
@@ -206,6 +208,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             Console.WriteLine("Repeated Request Count：" + repeatedMessageCount);
 
             Console.WriteLine(sb.ToString());
+
+            Console.WriteLine("============去重消息关键信息===========");
+            foreach (var item in repeatedRequestMessage)
+            {
+                Console.WriteLine(item.CreateTime + "\t" + item.MsgId + "\t" + item.FromUserName);
+            }
         }
 
         #endregion

@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
    
 ----------------------------------------------------------------*/
 
+#if !NET35 && !NET40
 using System;
 using System.IO;
 using System.Xml.Linq;
@@ -198,3 +199,4 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
     }
 }
+#endif

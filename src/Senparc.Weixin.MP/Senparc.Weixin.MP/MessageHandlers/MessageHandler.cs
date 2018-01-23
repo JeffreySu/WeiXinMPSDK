@@ -430,6 +430,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         )
                     {
                         CancelExcute = true;//重复消息，取消执行
+                        MessageIsRepeated = true;
                         return;
                     }
                 }

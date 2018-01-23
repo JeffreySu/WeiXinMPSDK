@@ -68,6 +68,7 @@
     <Compile Include="Download\CodeRecord.cs" />
     <Compile Include="Download\Config.cs" />
     <Compile Include="Download\ConfigHelper.cs" />
+    <Compile Include="MessageHandlers\CustomMessageHandler\Async\CustomMessageHandlerAsync_Events.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageContext.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />

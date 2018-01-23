@@ -33,6 +33,7 @@ using Senparc.Weixin.MP.Sample.Controllers;
 using System.Web.Mvc;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers.Extensions;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -96,13 +97,9 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 1;
+        int threadsCount = 1000;
         int finishedThreadsCount = 0;
-
-        private void AsyncMessageHandlerRun()
-        {
-
-        }
+        object AsyncMessageHandlerTestLock = new object();
 
         [TestMethod]
         public void AsyncMessageHandlerTest()
@@ -111,14 +108,10 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < threadsCount; i++)
             {
-                Thread thread = new Thread(async () =>
+                Thread thread = new Thread(async p =>
                 {
-                    WeixinAsyncController targetAsync = new WeixinAsyncController();
-                    Stream streamAsync = new MemoryStream();
-
                     //按钮测试
-                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "OneClick"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
-                    InitAsync(targetAsync, streamAsync, xml);//初始化
+                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"), DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(i)));
 
                     var timestamp = "itsafaketimestamp";
                     var nonce = "whateveryouwant";
@@ -130,6 +123,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                         Nonce = nonce
                     };
 
+
+                    WeixinAsyncController targetAsync = new WeixinAsyncController();
+                    Stream streamAsync = new MemoryStream();
+                    InitAsync(targetAsync, streamAsync, xml);//初始化
+
+                    var dtt1 = DateTime.Now;
                     var actual = await targetAsync.MiniPost(postModel)
                     //.ContinueWith(z =>
                     //{
@@ -137,16 +136,25 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     //    return z.Result;
                     //})
                     as FixWeixinBugWeixinResult;
+
+                    var dtt2 = DateTime.Now;
+
                     Assert.IsNotNull(actual);
-                    sb.AppendLine("线程：" + Thread.CurrentThread.Name);
+                    sb.AppendLine("线程：" + p);
+                    sb.AppendLine("开始时间：{0}，总时间：{1}ms".FormatWith(dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds));
+
                     sb.AppendLine(actual.Content);
-                    finishedThreadsCount++;
+
+                    lock (AsyncMessageHandlerTestLock)
+                    {
+                        finishedThreadsCount++;
+                    }
                 })
                 {
-                    Name = "序列：" + i
+                    Name = "序列：" + i,
                 };
                 threadsCollection.Add(thread);
-                thread.Start();
+                thread.Start(thread.Name);
             }
 
             var dt1 = DateTime.Now;

@@ -54,18 +54,21 @@ namespace Senparc.Weixin.MessageHandlers
 #if !NET35 && !NET40
         #region 异步方法
 
+        /// <summary>
+        /// 默认参数设置为 DefaultResponseMessageAsync
+        /// </summary>
         private DefaultMessageHandlerAsyncEvent _defaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync;
 
         /// <summary>
-        /// MessageHandler事件异步方法的默认调用方法（在没有override的情况下）。默认值：DefaultDefaultResponseMessageAsync。
+        /// <para>MessageHandler事件异步方法的默认调用方法（在没有override的情况下）。默认值：DefaultDefaultResponseMessageAsync。</para>
+        /// <para>默认参数设置为 DefaultResponseMessageAsync，目的是为了确保默认状态下不会执行意料以外的代码，
+        /// 因此，如果需要在异步方法中调用同名的同步方法，请手动将此参数设置为SelfSynicMethod。</para>
         /// </summary>
         public DefaultMessageHandlerAsyncEvent DefaultMessageHandlerAsyncEvent
         {
             get { return _defaultMessageHandlerAsyncEvent; }
             set { _defaultMessageHandlerAsyncEvent = value; }
         }
-
-
 
         public virtual async Task OnExecutingAsync()
         {

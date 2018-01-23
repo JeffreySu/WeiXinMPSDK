@@ -6,7 +6,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    var isDebug = false;
+    var isDebug = false;//调试状态使用本地服务器，非调试状态使用远程服务器
     if(!isDebug){
     //远程域名
       wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")
@@ -18,6 +18,11 @@ App({
       wx.setStorageSync('domainName', "http://localhost:8080")
       wx.setStorageSync('wssDomainName', "ws://localhost:8080")
     }
+
+    // 打开调试
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
   },
   getUserInfo:function(cb){
     var that = this

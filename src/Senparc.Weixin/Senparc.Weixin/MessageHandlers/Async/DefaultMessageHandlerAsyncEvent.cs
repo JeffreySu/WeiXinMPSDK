@@ -45,10 +45,10 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 调用DefaultResponseMessageAsync()方法
         /// </summary>
-        DefaultDefaultResponseMessageAsync,
+        DefaultResponseMessageAsync,
         /// <summary>
         /// 调用同名的同步方法（可能会导致执行会阻塞的过程）
         /// </summary>
-        SelfSynicEvent
+        SelfSynicMethod
     }
 }

@@ -32,7 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MessageHandlers;
 using System.Threading.Tasks;
+using System;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -197,15 +199,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_EnterRequestAsync(RequestMessageEvent_Enter requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_EnterRequest(requestMessage));
         }
 
+   
         /// <summary>
         /// Event事件类型请求之LOCATION
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_LocationRequestAsync(RequestMessageEvent_Location requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_LocationRequest(requestMessage));
         }
 
         /// <summary>
@@ -213,7 +216,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_SubscribeRequestAsync(RequestMessageEvent_Subscribe requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_SubscribeRequest(requestMessage));
         }
 
         /// <summary>
@@ -221,7 +224,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_UnsubscribeRequestAsync(RequestMessageEvent_Unsubscribe requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UnsubscribeRequest(requestMessage));
         }
 
         /// <summary>
@@ -229,7 +232,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ClickRequestAsync(RequestMessageEvent_Click requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ClickRequest(requestMessage));
         }
 
         /// <summary>
@@ -237,7 +240,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ScanRequestAsync(RequestMessageEvent_Scan requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ScanRequest(requestMessage));
         }
 
         /// <summary>
@@ -246,7 +249,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ViewRequestAsync(RequestMessageEvent_View requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ViewRequest(requestMessage));
         }
 
         /// <summary>
@@ -255,7 +258,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_MassSendJobFinishRequestAsync(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_MassSendJobFinishRequest(requestMessage));
         }
 
 
@@ -265,7 +268,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_TemplateSendJobFinishRequestAsync(RequestMessageEvent_TemplateSendJobFinish requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_TemplateSendJobFinishRequest(requestMessage));
         }
 
         /// <summary>
@@ -274,7 +277,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicPhotoOrAlbumRequestAsync(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PicPhotoOrAlbumRequest(requestMessage));
         }
 
         /// <summary>
@@ -283,7 +286,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ScancodePushRequestAsync(RequestMessageEvent_Scancode_Push requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ScancodePushRequest(requestMessage));
         }
 
         /// <summary>
@@ -292,7 +295,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ScancodeWaitmsgRequestAsync(RequestMessageEvent_Scancode_Waitmsg requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_ScancodeWaitmsgRequest(requestMessage));
         }
 
         /// <summary>
@@ -301,7 +304,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_LocationSelectRequestAsync(RequestMessageEvent_Location_Select requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_LocationSelectRequest(requestMessage));
         }
 
         /// <summary>
@@ -310,7 +313,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicWeixinRequestAsync(RequestMessageEvent_Pic_Weixin requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PicWeixinRequest(requestMessage));
         }
 
         /// <summary>
@@ -319,7 +322,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicSysphotoRequestAsync(RequestMessageEvent_Pic_Sysphoto requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_PicSysphotoRequest(requestMessage));
         }
 
         /// <summary>
@@ -328,7 +331,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Pass_CheckRequestAsync(RequestMessageEvent_Card_Pass_Check requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Pass_CheckRequest(requestMessage));
         }
 
         /// <summary>
@@ -337,7 +340,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Not_Pass_CheckRequestAsync(RequestMessageEvent_Card_Not_Pass_Check requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Not_Pass_CheckRequest(requestMessage));
         }
 
         /// <summary>
@@ -346,7 +349,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Get_CardRequestAsync(RequestMessageEvent_User_Get_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Get_CardRequest(requestMessage));
         }
 
         /// <summary>
@@ -355,7 +358,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Del_CardRequestAsync(RequestMessageEvent_User_Del_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Del_CardRequest(requestMessage));
         }
 
         /// <summary>
@@ -364,7 +367,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Create_SessionRequestAsync(RequestMessageEvent_Kf_Create_Session requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Kf_Create_SessionRequest(requestMessage));
         }
 
         /// <summary>
@@ -373,7 +376,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Close_SessionRequestAsync(RequestMessageEvent_Kf_Close_Session requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Kf_Close_SessionRequest(requestMessage));
         }
 
         /// <summary>
@@ -382,7 +385,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Switch_SessionRequestAsync(RequestMessageEvent_Kf_Switch_Session requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Kf_Switch_SessionRequest(requestMessage));
         }
 
         /// <summary>
@@ -390,7 +393,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Poi_Check_NotifyRequestAsync(RequestMessageEvent_Poi_Check_Notify requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Poi_Check_NotifyRequest(requestMessage));
         }
 
         /// <summary>
@@ -398,7 +401,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_WifiConnectedRequestAsync(RequestMessageEvent_WifiConnected requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WifiConnectedRequest(requestMessage));
         }
 
         /// <summary>
@@ -406,7 +409,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Consume_CardRequestAsync(RequestMessageEvent_User_Consume_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Consume_CardRequest(requestMessage));
         }
 
         /// <summary>
@@ -414,7 +417,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Enter_Session_From_CardRequestAsync(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Enter_Session_From_CardRequest(requestMessage));
         }
 
         /// <summary>
@@ -422,7 +425,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_View_CardRequestAsync(RequestMessageEvent_User_View_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_View_CardRequest(requestMessage));
         }
 
         /// <summary>
@@ -430,7 +433,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Merchant_OrderRequestAsync(RequestMessageEvent_Merchant_Order requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Merchant_OrderRequest(requestMessage));
         }
 
         /// <summary>
@@ -438,7 +441,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Submit_Membercard_User_InfoRequestAsync(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Submit_Membercard_User_InfoRequest(requestMessage));
         }
 
         /// <summary>
@@ -446,8 +449,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ShakearoundUserShakeRequestAsync(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
-            return requestMessage.CreateResponseMessage<ResponseMessageNoResponse>();
-            //return await DefaultResponseMessageAsync(requestMessage);
+            return OnEvent_ShakearoundUserShakeRequest(requestMessage);
+            //return requestMessage.CreateResponseMessage<ResponseMessageNoResponse>();
+            //return await DefaultAsyncMethod(requestMessage, () => OnEvent_XX(requestMessage));
         }
 
         /// <summary>
@@ -457,7 +461,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Gifting_CardRequestAsync(RequestMessageEvent_User_Gifting_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Gifting_CardRequest(requestMessage));
         }
         /// <summary>
         /// 微信买单完成
@@ -466,7 +470,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Pay_From_Pay_CellRequestAsync(RequestMessageEvent_User_Pay_From_Pay_Cell requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Pay_From_Pay_CellRequest(requestMessage));
         }
         /// <summary>
         /// 会员卡内容更新事件：会员卡积分余额发生变动时
@@ -475,7 +479,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Update_Member_CardRequestAsync(RequestMessageEvent_Update_Member_Card requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Update_Member_CardRequest(requestMessage));
         }
         /// <summary>
         /// 卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
@@ -484,7 +488,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Sku_RemindRequestAsync(RequestMessageEvent_Card_Sku_Remind requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Sku_RemindRequest(requestMessage));
         }
         /// <summary>
         /// 券点流水详情事件：当商户朋友的券券点发生变动时
@@ -493,7 +497,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Pay_OrderRequestAsync(RequestMessageEvent_Card_Pay_Order requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Pay_OrderRequest(requestMessage));
         }
 
         #region 微信认证事件推送
@@ -505,7 +509,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_QualificationVerifySuccessRequestAsync(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_QualificationVerifySuccessRequest(requestMessage));
         }
 
         /// <summary>
@@ -515,7 +519,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_QualificationVerifyFailRequestAsync(RequestMessageEvent_QualificationVerifyFail requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_QualificationVerifyFailRequest(requestMessage));
         }
 
 
@@ -526,7 +530,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_NamingVerifySuccessRequestAsync(RequestMessageEvent_NamingVerifySuccess requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NamingVerifySuccessRequest(requestMessage));
         }
 
         /// <summary>
@@ -536,7 +540,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_NamingVerifyFailRequestAsync(RequestMessageEvent_NamingVerifyFail requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NamingVerifyFailRequest(requestMessage));
         }
 
         /// <summary>
@@ -546,7 +550,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_AnnualRenewRequestAsync(RequestMessageEvent_AnnualRenew requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AnnualRenewRequest(requestMessage));
         }
 
         /// <summary>
@@ -556,7 +560,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_VerifyExpiredRequestAsync(RequestMessageEvent_VerifyExpired requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_VerifyExpiredRequest(requestMessage));
         }
 
         #endregion
@@ -570,7 +574,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditFailRequestAsync(RequestMessageEvent_WeAppAuditFail requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage));
         }
         /// <summary>
         /// 小程序审核成功通知
@@ -579,7 +583,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditSuccessRequestAsync(RequestMessageEvent_WeAppAuditSuccess requestMessage)
         {
-            return await DefaultResponseMessageAsync(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage));
         }
 
         #endregion

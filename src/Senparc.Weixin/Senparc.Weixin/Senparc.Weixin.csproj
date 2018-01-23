@@ -148,6 +148,7 @@
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
     <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
+    <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />

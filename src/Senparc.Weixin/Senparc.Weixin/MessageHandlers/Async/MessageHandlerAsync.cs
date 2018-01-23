@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MessageHandlers
 #if !NET35 && !NET40
         #region 异步方法
 
-        private DefaultMessageHandlerAsyncEvent _defaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.DefaultDefaultResponseMessageAsync;
+        private DefaultMessageHandlerAsyncEvent _defaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync;
 
         /// <summary>
         /// MessageHandler事件异步方法的默认调用方法（在没有override的情况下）。默认值：DefaultDefaultResponseMessageAsync。
@@ -64,6 +64,7 @@ namespace Senparc.Weixin.MessageHandlers
             get { return _defaultMessageHandlerAsyncEvent; }
             set { _defaultMessageHandlerAsyncEvent = value; }
         }
+
 
 
         public virtual async Task OnExecutingAsync()

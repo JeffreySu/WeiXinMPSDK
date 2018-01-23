@@ -44,6 +44,8 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
+
+
     /// <summary>
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
@@ -52,6 +54,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
         MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
+        /// <summary>
+        /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
+        /// </summary>
+        /// <param name="requestMessage">requestMessage</param>
+        /// <param name="syncMethod">同名的同步方法(DefaultMessageHandlerAsyncEvent值为SelfSynicMethod时调用)</param>
+        /// <returns></returns>
+        private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
+        {
+            return (base.DefaultMessageHandlerAsyncEvent == DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
+                            ? await DefaultResponseMessageAsync(requestMessage)
+                            : await Task.Run(syncMethod));
+        }
+
         /// <summary>
         /// 执行微信请求
         /// </summary>

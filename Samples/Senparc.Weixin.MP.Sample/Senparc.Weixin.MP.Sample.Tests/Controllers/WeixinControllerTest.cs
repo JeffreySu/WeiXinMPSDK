@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         protected string xmlEvent_ClickFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E_{{2}}]]></FromUserName>
   <CreateTime>{{0}}</CreateTime>
   <MsgType><![CDATA[event]]></MsgType>
   <Event><![CDATA[CLICK]]></Event>

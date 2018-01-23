@@ -241,7 +241,8 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
-        /// 使用requestMessageBase的构造函数
+        /// <para>使用requestMessageBase的构造函数</para>
+        /// <para>次构造函数提供给具体的类库进行测试使用，例如Senparc.Weixin.Work</para>
         /// </summary>
         /// <param name="requestMessageBase"></param>
         /// <param name="maxRecordCount"></param>
@@ -254,7 +255,7 @@ namespace Senparc.Weixin.MessageHandlers
 
             //CommonInitialize(postDataDocument, maxRecordCount, postData);
 
-            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.QY
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.Work
         }
 
 

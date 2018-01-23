@@ -44,6 +44,9 @@ namespace Senparc.Weixin.Context
 {
     public static class WeixinContextGlobal
     {
+        /// <summary>
+        /// 上下文使用的同步锁
+        /// </summary>
         public static object Lock = new object();//TODO:转为同步锁
 
         /// <summary>
@@ -146,6 +149,8 @@ namespace Senparc.Weixin.Context
                 var expireMinutes = firstMessageContext.ExpireMinutes.HasValue
                     ? firstMessageContext.ExpireMinutes.Value //队列自定义事件
                     : this.ExpireMinutes;//全局统一默认时间
+
+                //TODO:这里假设按照队列顺序过期，实际再加入了自定义过期时间之后，可能不遵循这个规律   —— Jeffrey Su 2018.1.23
                 if (timeSpan.TotalMinutes >= expireMinutes)
                 {
                     MessageQueue.RemoveAt(0);//从队列中移除过期对象

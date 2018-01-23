@@ -34,6 +34,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers.Extensions;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -98,7 +99,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 10;//同时并发的线程数
+        int threadsCount = 5;//同时并发的线程数
         int finishedThreadsCount = 0;
         object AsyncMessageHandlerTestLock = new object();
 
@@ -108,62 +109,90 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             List<Thread> threadsCollection = new List<Thread>();
             StringBuilder sb = new StringBuilder();
             var emptyContentCount = 0;
+            var repeatedMessageCount = 0;
             var dt1 = DateTime.Now;
+
+            //每个线程的测试过程
+            ParameterizedThreadStart task = async p =>
+            {
+                //注意：执行到这里的时候，i可能已经不再是创建对象时的i了。
+                var param = p as object[];
+                var threadName = param[0];
+                var index = Convert.ToInt32(param[1]);
+
+                //按钮测试
+                var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"),
+                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(index)),
+                    DateTime.Now.AddDays(index).Ticks,
+                    index//i%10
+                    );
+
+                var timestamp = "itsafaketimestamp";
+                var nonce = "whateveryouwant";
+                var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinAsyncController.Token);
+                var postModel = new PostModel()
+                {
+                    Signature = signature,
+                    Timestamp = timestamp,
+                    Nonce = nonce
+                };
+
+                WeixinAsyncController targetAsync = new WeixinAsyncController();
+                Stream streamAsync = new MemoryStream();
+                InitAsync(targetAsync, streamAsync, xml);//初始化
+
+                var dtt1 = DateTime.Now;
+                var actual = await targetAsync.MiniPost(postModel)
+                //.ContinueWith(z =>
+                //{
+                //    var e = z.Exception;
+                //    return z.Result;
+                //})
+                as FixWeixinBugWeixinResult;
+
+                var dtt2 = DateTime.Now;
+
+                Assert.IsNotNull(actual);
+
+                lock (AsyncMessageHandlerTestLock)
+                {
+                    sb.AppendLine("线程：" + p);
+                    sb.AppendFormat("开始时间：{0}，总时间：{1}ms\r\n", dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds);
+
+                    if (string.IsNullOrEmpty(actual.Content))
+                    {
+                        sb.AppendLine("actual.Content为空！！！！！！！！！！！！！！");
+                        emptyContentCount++;
+                    }
+                    else if (targetAsync.MessageHandler.ResponseMessage is ResponseMessageText)
+                    {
+                        sb.AppendLine((targetAsync.MessageHandler.ResponseMessage as ResponseMessageText).Content);
+                    }
+
+                    if (targetAsync.MessageHandler.MessageIsRepeated)
+                    {
+                        sb.AppendLine("消息已去重！！！！！！！！！！！！！！！！！！");
+
+                        repeatedMessageCount++;
+                    }
+
+                    sb.AppendLine("RequestMessage数量：" + targetAsync.MessageHandler.CurrentMessageContext.RequestMessages.Count);
+                    sb.AppendLine("OpenId：" + targetAsync.MessageHandler.RequestMessage.FromUserName);
+
+                    sb.AppendLine();
+                    finishedThreadsCount++;
+                }
+            };
+
+
             for (int i = 0; i < threadsCount; i++)
             {
-                Thread thread = new Thread(async p =>
-                {
-                    //按钮测试
-                    var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"), DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(i)),DateTime.Now.AddDays(i).Ticks);
-                    
-                    var timestamp = "itsafaketimestamp";
-                    var nonce = "whateveryouwant";
-                    var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinAsyncController.Token);
-                    var postModel = new PostModel()
-                    {
-                        Signature = signature,
-                        Timestamp = timestamp,
-                        Nonce = nonce
-                    };
-
-                    WeixinAsyncController targetAsync = new WeixinAsyncController();
-                    Stream streamAsync = new MemoryStream();
-                    InitAsync(targetAsync, streamAsync, xml);//初始化
-
-                    var dtt1 = DateTime.Now;
-                    var actual = await targetAsync.MiniPost(postModel)
-                    //.ContinueWith(z =>
-                    //{
-                    //    var e = z.Exception;
-                    //    return z.Result;
-                    //})
-                    as FixWeixinBugWeixinResult;
-
-                    var dtt2 = DateTime.Now;
-
-                    Assert.IsNotNull(actual);
-
-                    lock (AsyncMessageHandlerTestLock)
-                    {
-                        sb.AppendLine("线程：" + p);
-                        sb.AppendFormat("开始时间：{0}，总时间：{1}ms\r\n",dtt1.ToString("HH:mm:ss.ffff"), (dtt2 - dtt1).TotalMilliseconds);
-                        sb.AppendLine(actual.Content);
-
-                        if (string.IsNullOrEmpty(actual.Content))
-                        {
-                            sb.AppendLine("actual.Content为空！");
-                            emptyContentCount++;
-                            //Assert.Fail();
-                        }
-
-                        finishedThreadsCount++;
-                    }
-                })
+                Thread thread = new Thread(task)
                 {
                     Name = "序列：" + i,
                 };
                 threadsCollection.Add(thread);
-                thread.Start(thread.Name);
+                thread.Start(new object[]{ thread.Name, i});
             }
 
             while (finishedThreadsCount < threadsCount)
@@ -173,7 +202,8 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var dt2 = DateTime.Now;
 
             Console.WriteLine("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
-            Console.WriteLine("Empty Content COunt："+emptyContentCount);
+            Console.WriteLine("Empty Content Count：" + emptyContentCount);
+            Console.WriteLine("Repeated Request Count：" + repeatedMessageCount);
 
             Console.WriteLine(sb.ToString());
         }

@@ -99,13 +99,26 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             targetAsync.SetFakeControllerContext(inputStreamAsync);
         }
 
-        int threadsCount = 1000;//同时并发的线程数
+        int threadsCount = 500;//同时并发的线程数，超过500可能会导致StringBuilder溢出
         int finishedThreadsCount = 0;
         object AsyncMessageHandlerTestLock = new object();
 
         [TestMethod]
-        public void AsyncMessageHandlerTest()
+        public void AsyncMessageHandlerTestForRepeatOmit()
         {
+            AsyncMessageHandlerTest(true);
+            AsyncMessageHandlerTest(false);
+        }
+
+        /// <summary>
+        /// 是否测试去重（这里只是提供方便测试的条件，需要Controller内配合打开去重功能）
+        /// </summary>
+        /// <param name="testRepeatOmit"></param>
+        [TestMethod]
+        public void AsyncMessageHandlerTest(bool testRepeatOmit = true)
+        {
+            Console.WriteLine("设置去重：" + testRepeatOmit);
+
             List<Thread> threadsCollection = new List<Thread>();
             StringBuilder sb = new StringBuilder();
             var emptyContentCount = 0;//空消息数量（一般是因为去重了）
@@ -122,12 +135,27 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 var threadName = param[0];
                 var index = Convert.ToInt32(param[1]);
 
+                string msgId = null;
+                string openId = dt1.Ticks.ToString();//对每一轮测试进行分组，防止串数据
+                if (testRepeatOmit)
+                {
+                    msgId = DateTime.Today.Ticks.ToString();
+                    openId += "0";
+                }
+                else
+                {
+                    //MsgId，保证每次时间不一样
+                    msgId = (DateTime.Today.Ticks + index).ToString();
+                    //OpenId后缀，可以模拟不同人发送，也可以模拟对人多发：i%10
+                    //如果需要测试去重功能，可以将index改为固定值，并且将MsgId设为固定值
+                    openId += index.ToString();
+                }
+
                 //按钮测试
                 var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"),
-                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(index).AddMilliseconds((index ^ 2) * 1.1)),//确保每次时间戳不同
-                    DateTime.Today.Ticks,//MsgId，保证每次时间不一样
-                    0//OpenId后缀，可以模拟不同人发送，也可以模拟对人多发：i%10
-                    );
+                    ////确保每次时间戳不同
+                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddHours(index)),
+                    msgId, openId);
 
                 var timestamp = "itsafaketimestamp";
                 var nonce = "whateveryouwant";
@@ -144,13 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 InitAsync(targetAsync, streamAsync, xml);//初始化
 
                 var dtt1 = DateTime.Now;
-                var actual = await targetAsync.MiniPost(postModel)
-                //.ContinueWith(z =>
-                //{
-                //    var e = z.Exception;
-                //    return z.Result;
-                //})
-                as FixWeixinBugWeixinResult;
+                var actual = await targetAsync.MiniPost(postModel) as FixWeixinBugWeixinResult;
 
                 var dtt2 = DateTime.Now;
 
@@ -191,7 +213,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             {
                 Thread thread = new Thread(task)
                 {
-                    Name = "序列：" + i,
+                    Name = "线程序列：" + i,
                 };
                 threadsCollection.Add(thread);
                 thread.Start(new object[] { thread.Name, i });
@@ -206,6 +228,16 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             Console.WriteLine("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("Empty Content Count：" + emptyContentCount);
             Console.WriteLine("Repeated Request Count：" + repeatedMessageCount);
+
+            //如果测试去重，则重复数量应该为[总数-1]，否则应该为0
+            if (testRepeatOmit)
+            {
+                Assert.AreEqual(threadsCount - 1, repeatedMessageCount);
+            }
+            else
+            {
+                Assert.AreEqual(0, repeatedMessageCount);
+            }
 
             Console.WriteLine(sb.ToString());
 

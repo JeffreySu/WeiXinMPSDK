@@ -159,6 +159,11 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool OmitRepeatedMessage { get; set; }
 
+        /// <summary>
+        /// 消息是否已经被去重
+        /// </summary>
+        public bool MessageIsRepeated { get; set; }
+
         private string _textResponseMessage = null;
 
         /// <summary>

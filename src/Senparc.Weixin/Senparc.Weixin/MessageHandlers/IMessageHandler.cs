@@ -83,6 +83,12 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
 
+        /// <summary>
+        /// 消息是否已经被去重
+        /// </summary>
+        bool MessageIsRepeated { get; set; }
+
+
         #region 同步方法
 
         /// <summary>

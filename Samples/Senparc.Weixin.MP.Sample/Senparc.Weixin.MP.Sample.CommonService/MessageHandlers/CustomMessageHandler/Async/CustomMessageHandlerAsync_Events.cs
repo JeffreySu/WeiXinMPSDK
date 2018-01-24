@@ -43,16 +43,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             return Task.Factory.StartNew<IResponseMessageBase>(() =>
             {
-                var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
-                responseMessage.Content = "这是一条来自【异步MessageHandler】方法的回复";
-
+                var syncResponseMessage = OnEvent_ClickRequest(requestMessage);//这里为了保持Demo的连贯性，结果先从同步方法获取，实际使用过程中可以全部直接定义异步方法
                 //常识获取Click事件的同步方法
-                var syncResponseMessage = OnEvent_ClickRequest(requestMessage);
                 if (syncResponseMessage is ResponseMessageText)
                 {
-                    responseMessage.Content += "\r\n\r\n以下是同步方法的返回结果：\r\n" + (syncResponseMessage as ResponseMessageText).Content;
+                    var textResponseMessage = syncResponseMessage as ResponseMessageText;
+                    textResponseMessage.Content += "";// "\r\n\r\n  -- 这是一条来自【异步MessageHandler】方法的回复";
                 }
-                return responseMessage;
+
+                return syncResponseMessage;
             });
         }
     }

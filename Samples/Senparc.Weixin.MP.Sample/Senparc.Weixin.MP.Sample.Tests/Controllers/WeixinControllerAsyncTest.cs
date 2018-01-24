@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 InitAsync(targetAsync, streamAsync, xml);//初始化
 
                 var dtt1 = DateTime.Now;
-                var actual = await targetAsync.MiniPost(postModel) as FixWeixinBugWeixinResult;
+                var actual = await targetAsync.Post(postModel) as FixWeixinBugWeixinResult;
 
                 var dtt2 = DateTime.Now;
 

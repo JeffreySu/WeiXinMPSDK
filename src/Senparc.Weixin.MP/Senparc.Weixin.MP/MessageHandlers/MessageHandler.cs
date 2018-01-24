@@ -38,6 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20160722
     修改描述：记录上下文，此处修改
+
+    修改标识：Senparc - 20180122
+    修改描述：OnExecuting() 和 OnExecuted() 方法改为 override
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -51,6 +55,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Tencent;
+using System.Linq;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -273,11 +278,49 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
 
 
-            //记录上下文
+            //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
             if (WeixinContextGlobal.UseWeixinContext)
             {
-                WeixinContext.InsertMessage(RequestMessage);
+
+                var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
+
+                lock (WeixinContextGlobal.OmitRepeatLock)//TODO:使用分布式锁
+                {
+                    #region 消息去重
+
+                    if (omit &&
+                        OmitRepeatedMessage &&
+                        CurrentMessageContext.RequestMessages.Count > 0
+                         //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
+                         )
+                    {
+                        //lastMessage必定有值（除非极端小的过期时间条件下，几乎不可能发生）
+                        var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 1];
+
+                        if (
+                            //使用MsgId去重
+                            (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
+                            //使用CreateTime去重（OpenId对象已经是同一个）
+                            || (lastMessage.MsgId == RequestMessage.MsgId
+                                && lastMessage.CreateTime == RequestMessage.CreateTime
+                                && lastMessage.MsgType == RequestMessage.MsgType)
+                            )
+                        {
+                            CancelExcute = true;//重复消息，取消执行
+                            MessageIsRepeated = true;
+                        }
+                    }
+
+                    #endregion
+
+                    //在消息没有被去重的情况下记录上下文
+                    if (!MessageIsRepeated)
+                    {
+                        WeixinContext.InsertMessage(RequestMessage);
+                    }
+                }
             }
+
 
             return decryptDoc;
         }
@@ -378,7 +421,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
-                   
+
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
@@ -400,31 +443,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        public virtual void OnExecuting()
+        public override void OnExecuting()
         {
-            #region 消息去重
+            /* 
+             * 此处原消息去重逻辑已经转移到 Init() 方法中。
+             * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
+             * 如果有新消息加入，将导致去重算法失效。
+             * （当然这样情况发生的概率极低，一般只在测试中会发生，
+             * 为了确保各种测试环境下的可靠性，作此修改。  —— Jeffrey Su 2018.1.23
+             */
 
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-                && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-                //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-                )
+            if (CancelExcute)
             {
-                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if (
-                    //使用MsgId去重
-                    (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
-                    //使用CreateTime去重（OpenId对象已经是同一个）
-                    || (lastMessage.MsgId == RequestMessage.MsgId
-                        && lastMessage.CreateTime == RequestMessage.CreateTime
-                        && lastMessage.MsgType == RequestMessage.MsgType)
-                    )
-                {
-                    CancelExcute = true;//重复消息，取消执行
-                    return;
-                }
+                return;
             }
-
-            #endregion
 
             base.OnExecuting();
 
@@ -436,7 +468,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        public virtual void OnExecuted()
+        public override void OnExecuted()
         {
             base.OnExecuted();
         }

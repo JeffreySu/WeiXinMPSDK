@@ -43,14 +43,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
 #if NET45
-             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(Server.GetMapPath("~/bin/Senparc.Weixin.MP.dll"));
 #else
             var filePath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 #endif
 
+            string version = fileVersionInfo == null
+                ? "-"
+                : string.Format("{0}.{1}.{2}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart, fileVersionInfo.FileBuildPart);
 
-            var version = string.Format("{0}.{1}.{2}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart, fileVersionInfo.FileBuildPart);
             return string.Format(
 @"欢迎关注【Senparc.Weixin 微信公众平台SDK】，当前运行版本：v{0}。
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
@@ -188,7 +190,7 @@ QQ群：588231256
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
                                                                      Server.GetMapPath("~/Images/Logo.thumb.jpg"));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
-                        
+
                         //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
@@ -551,7 +553,7 @@ QQ群：588231256
             {
                 case "success":
                     //发送成功
-                   
+
                     break;
                 case "failed:user block":
                     //送达由于用户拒收（用户设置拒绝接收公众号消息）而失败

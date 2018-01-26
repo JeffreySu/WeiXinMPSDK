@@ -145,7 +145,8 @@ resources
 
 * Technical communication QQ group:
 
-> `14th Group(Official Account): 588231256`<br>
+> `14th Group(Video Course Student Group)：588231256`<br>
+> `15th Group(Official Account): 289181996`<br>
 > `10th Group(Distributed Cache): 246860933`<br>
 > `12th Group(Mini Program): 108830388`<br>
 > `13th Group(Open Platform): 183424136`<br>

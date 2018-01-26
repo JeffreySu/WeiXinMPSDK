@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 if (syncResponseMessage is ResponseMessageText)
                 {
                     var textResponseMessage = syncResponseMessage as ResponseMessageText;
-                    textResponseMessage.Content += "";// "\r\n\r\n  -- 这是一条来自【异步MessageHandler】方法的回复";
+                    textResponseMessage.Content += "\r\n\r\n  -- 来自【异步MessageHandler】的回复";
                 }
 
                 return syncResponseMessage;

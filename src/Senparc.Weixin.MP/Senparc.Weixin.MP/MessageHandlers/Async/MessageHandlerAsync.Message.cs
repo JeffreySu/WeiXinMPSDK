@@ -21,19 +21,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：MessageHandler.Message.cs
-    文件功能描述：微信请求的集中处理方法：Message相关
+    文件名：MessageHandlerAsync.Message.cs
+    文件功能描述：微信请求【异步方法】的集中处理方法：Message相关
     
     
-    创建标识：Senparc - 20150924
+    创建标识：Senparc - 20180122
     
 ----------------------------------------------------------------*/
 
+#if !NET35 && !NET40
 using System;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -45,7 +47,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
-        public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
+        public virtual async Task<IResponseMessageBase> DefaultResponseMessageAsync(IRequestMessageBase requestMessage)
+        {
+            return await Task.Run(() => DefaultResponseMessage(requestMessage));
+        }
         //{
         //    例如可以这样实现：
         //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
@@ -58,7 +63,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
+        public virtual async Task<IResponseMessageBase> OnUnknownTypeRequestAsync(RequestMessageUnknownType requestMessage)
         {
             var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
             throw new UnknownRequestMsgTypeException("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！".FormatWith(msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
@@ -77,70 +82,74 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
         /// 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
         /// </summary>
-        public virtual IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
+        public virtual async Task<IResponseMessageBase> OnTextOrEventRequestAsync(RequestMessageText requestMessage)
         {
-            return null;
+            var result = base.DefaultMessageHandlerAsyncEvent == Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
+                   ? null
+                   : await Task.Run(()=> OnTextOrEventRequest(requestMessage));
+            return result;
         }
 
         /// <summary>
         /// 文字类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public virtual async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage));
         }
 
         /// <summary>
         /// 位置类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        public virtual async Task<IResponseMessageBase> OnLocationRequestAsync(RequestMessageLocation requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnLocationRequest(requestMessage));
         }
 
         /// <summary>
         /// 图片类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        public virtual async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnImageRequest(requestMessage));
         }
 
         /// <summary>
         /// 语音类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        public virtual async Task<IResponseMessageBase> OnVoiceRequestAsync(RequestMessageVoice requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnVoiceRequest(requestMessage));
         }
 
 
         /// <summary>
         /// 视频类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
+        public virtual async Task<IResponseMessageBase> OnVideoRequestAsync(RequestMessageVideo requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnVideoRequest(requestMessage));
         }
 
 
         /// <summary>
         /// 链接消息类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        public virtual async Task<IResponseMessageBase> OnLinkRequestAsync(RequestMessageLink requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnLinkRequest(requestMessage));
         }
 
         /// <summary>
         /// 小视频类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        public virtual async Task<IResponseMessageBase> OnShortVideoRequestAsync(RequestMessageShortVideo requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnShortVideoRequest(requestMessage));
         }
 
         #endregion
 
     }
 }
+#endif

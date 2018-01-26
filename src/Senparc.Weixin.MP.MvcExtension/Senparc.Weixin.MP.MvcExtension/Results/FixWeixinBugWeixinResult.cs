@@ -113,6 +113,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             var bytes = Encoding.UTF8.GetBytes(content);
             context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);
         }
+
 #else
         public override Task ExecuteResultAsync(ActionContext context)
         {

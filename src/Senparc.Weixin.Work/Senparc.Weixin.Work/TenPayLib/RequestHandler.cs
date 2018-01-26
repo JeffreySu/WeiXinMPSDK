@@ -24,7 +24,6 @@ using Microsoft.AspNetCore.Http;
 #endif
 
 using Senparc.Weixin.Helpers.StringHelper;
-using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work.TenPayLib
 {

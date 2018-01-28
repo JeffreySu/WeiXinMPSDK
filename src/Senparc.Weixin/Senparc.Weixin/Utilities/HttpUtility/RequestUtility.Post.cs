@@ -409,11 +409,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             #region 输入二进制流
-            if (postStream != null)
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 
@@ -495,11 +497,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-        #region 输入二进制流
-            if (postStream != null)
+            #region 输入二进制流
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 
@@ -521,7 +525,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-        #endregion
+            #endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 

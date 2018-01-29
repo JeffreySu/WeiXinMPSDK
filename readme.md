@@ -160,7 +160,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
 
 
-Senparc 官方教程
+Senparc 官方图书教程
 ----------------
 
 <img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" align="right">
@@ -168,6 +168,13 @@ Senparc 官方教程
 > 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
 > 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
+
+Senparc 官方视频教程
+----------------
+
+> 为了帮助大家更直观地了解微信开发细节，同时结合《微信开发深度解析》图书进行学习，我们成立“盛派课堂”小组，开设了微信开发视频课程，帮助大家从多个维度学习微信开发以及 .NET 开发过程中的诸多技巧。<br>
+> 目前视频已经在网易云课堂上线，[【点击查看】](http://study.163.com/course/courseMain.htm?courseId=1004873017)。
 
 
 ### 关注测试账号（SenparcRobot）：

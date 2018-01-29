@@ -174,7 +174,7 @@ Senparc 官方视频教程
 ----------------
 
 > 为了帮助大家更直观地了解微信开发细节，同时结合《微信开发深度解析》图书进行学习，我们成立“盛派课堂”小组，开设了微信开发视频课程，帮助大家从多个维度学习微信开发以及 .NET 开发过程中的诸多技巧。<br>
-> 目前视频已经在网易云课堂上线，[【点击查看】](http://study.163.com/course/courseMain.htm?courseId=1004873017)。
+> 目前视频已经在网易云课堂上线，[【点击查看】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)。
 
 
 ### 关注测试账号（SenparcRobot）：

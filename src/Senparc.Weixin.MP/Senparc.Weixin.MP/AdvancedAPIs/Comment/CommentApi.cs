@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,12 +54,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 同步方法
 
         /// <summary>
-        /// 创建分组
+        /// 打开已群发文章评论（新增接口）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult Open(string accessTokenOrAppId, UInt32 msg_data_id, UInt32? index  , int timeOut = Config.TIME_OUT)
+        public static WxJsonResult Open(string accessTokenOrAppId, UInt32 msg_data_id, UInt32? index, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -68,9 +69,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_data_id = msg_data_id,
                     index = index
                 };
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppId);
         }
+
+
 
         #endregion
 

@@ -286,7 +286,7 @@ namespace Senparc.Weixin
         小程序还未设置昵称_头像_简介_请先设置完后再重新提交 = 86002,
 
         /// <summary>
-        /// 对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
+        /// 小程序为“签名错误”。对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
         /// </summary>
         签名错误 = 87009,
 
@@ -303,10 +303,6 @@ namespace Senparc.Weixin
         小程序未上架或不可见 = 92009,
         地点不存在 = 93010,
         个人类型小程序不可用 = 93011
-
-
-
-
 
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }

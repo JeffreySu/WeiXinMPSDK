@@ -254,6 +254,8 @@ namespace Senparc.Weixin
         发送消息失败_对方关闭了接收消息 = 10703,
         对方不是粉丝 = 10700,
         没有留言权限 = 88000,//without comment privilege
+        该图文不存在 = 88001,//msg_data is not exists
+        该评论不存在 = 88008,//comment is not exists
 
         //开放平台
 

@@ -103,7 +103,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
 
         /// <summary>
-        /// 查看指定文章的评论数据（新增接口）
+        /// <para>查看指定文章的评论数据（新增接口）</para>
+        /// <para>TODO：官方返回格式不明确</para>
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msg_data_id">群发返回的msg_data_id</param>
@@ -113,7 +114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin,uint count,uint type, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
         {
             //TODO:官方返回格式不明确 https://github.com/JeffreySu/WeiXinMPSDK/issues/1052#issuecomment-361946193
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -130,13 +131,355 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 将评论标记精选（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult MarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/markelect?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 将评论取消精选（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult UnmarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/unmarkelect?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult Delete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/delete?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 回复评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="content">回复内容</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ReplyAdd(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id,string content, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/reply/add?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除回复（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="content">回复内容</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/reply/delete?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
 
         #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
 
+        /// <summary>
+        /// 打开已群发文章评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult Open(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/open?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index
+                };
 
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 关闭已群发文章评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult Close(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/close?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// <para>查看指定文章的评论数据（新增接口）</para>
+        /// <para>TODO：官方返回格式不明确</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="begin">起始位置</param>
+        /// <param name="count">获取数目（>=50会被拒绝）</param>
+        /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
+        {
+            //TODO:官方返回格式不明确 https://github.com/JeffreySu/WeiXinMPSDK/issues/1052#issuecomment-361946193
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/list?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 将评论标记精选（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult MarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/markelect?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+
+        /// <summary>
+        /// 将评论取消精选（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult UnmarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/unmarkelect?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult Delete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/delete?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 回复评论（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="content">回复内容</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ReplyAdd(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/reply/add?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除回复（新增接口）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="msg_data_id">群发返回的msg_data_id</param>
+        /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
+        /// <param name="user_comment_id">用户评论id</param>
+        /// <param name="content">回复内容</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/reply/delete?access_token={0}";
+                var data = new
+                {
+                    msg_data_id = msg_data_id,
+                    index = index,
+                    user_comment_id = user_comment_id,
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 #endif

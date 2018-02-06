@@ -232,7 +232,7 @@ Senparc 官方视频教程
 |[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			|可以直接发布使用的Demo（.NET Core 2.0 + MVC）|
 
 
-## enparc.Weixin.MP.Sample中的关键代码说明
+## Senparc.Weixin.MP.Sample中的关键代码说明
 
 >注：这是MVC项目，WebForms项目见对应Demo中的Weixin.aspx。
 

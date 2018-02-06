@@ -9,6 +9,7 @@
 > 2. 命名空间前缀统一为 `Senparc.Weixin.Plugins`，方便索引；<br>
 > 3. 插件需要继承本项目开源协议（Apache License Version 2.0）；<br>
 > 4. 插件中必须提供可以直接运行的 Demo，并包含必要的测试数据。<br>
+> <br>
 > 更多标准制定中，将会给出参考 Demo。
 
 

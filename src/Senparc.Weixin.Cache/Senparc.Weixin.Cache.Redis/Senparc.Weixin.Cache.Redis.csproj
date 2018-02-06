@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Senparc.Weixin.Cache.Redis.RedLock, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Senparc.Weixin.Cache.Redis.RedLock.1.0.1-beta1\lib\net45\Senparc.Weixin.Cache.Redis.RedLock.dll</HintPath>
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.Cache.Redis.RedLock.1.0.1-beta1\lib\net45\Senparc.Weixin.Cache.Redis.RedLock.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

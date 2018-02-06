@@ -676,7 +676,11 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 48px;
+        padding-left: 30px;
+    }
+
+    .nav-catalog li a:hover {
+        color:#b8b8b8;
     }
 
     .container-left {
@@ -866,7 +870,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 33px;
+        padding-left: 30px;
     }
 
     .wrapper {

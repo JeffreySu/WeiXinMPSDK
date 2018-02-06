@@ -591,7 +591,11 @@ MsgId：{1}
 
         public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
-            return new SuccessResponseMessage();
+            //以下方法可以强制定义返回的字符串值
+            //TextResponseMessage = "your content";
+            //return null;
+
+            return new SuccessResponseMessage();//返回"success"字符串
         }
 
         #endregion

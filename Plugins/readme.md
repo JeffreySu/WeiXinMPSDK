@@ -14,9 +14,9 @@
 
 ## 插件项目
 
-| 项目名称 | 说明 | 地址  |
+| 项目名称 | 说明 | 源代码项目  |
 |---------|------|------|
-|  WeixinTraceManager     | 日志管理   | https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager
-|  TemplateMessageManager | 板消息管理 | https://github.com/JeffreySu/Senparc.Weixin.Plugins.TemplateMessageManager
+|  WeixinTraceManager     | 日志管理   | [Senparc.Weixin.Plugins.WeixinTraceManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager)
+|  TemplateMessageManager | 板消息管理 | [TemplateMessageManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.TemplateMessageManager)
 
 > 欢迎大家一起来贡献和维护插件！

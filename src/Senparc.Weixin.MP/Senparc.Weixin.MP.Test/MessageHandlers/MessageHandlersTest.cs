@@ -70,32 +70,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         #region 微信认证事件推送
 
-        public override IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        public override IResponseMessageBase OnEvent_QualificationVerifyFailRequest(RequestMessageEvent_QualificationVerifyFail requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        public override IResponseMessageBase OnEvent_NamingVerifySuccessRequest(RequestMessageEvent_NamingVerifySuccess requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        public override IResponseMessageBase OnEvent_NamingVerifyFailRequest(RequestMessageEvent_NamingVerifyFail requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        public override IResponseMessageBase OnEvent_AnnualRenewRequest(RequestMessageEvent_AnnualRenew requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        public override IResponseMessageBase OnEvent_VerifyExpiredRequest(RequestMessageEvent_VerifyExpired requestMessage)
         {
             return new SuccessResponseMessage();
         }
@@ -173,6 +173,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             return responseMessage;
             //return base.OnUnknownTypeRequest(requestMessage);
+        }
+
+        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "欢迎关注";
+            return responseMessage;
         }
     }
 
@@ -257,6 +264,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
             Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("OnEvent_LocationSelectRequest", ((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+        }
+
+        [TestMethod]
+        public void OnSubscribeTest()
+        {
+            var requestXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+<ToUserName><![CDATA[gh_0fe614101343]]></ToUserName>
+<FromUserName><![CDATA[oxRg0uLsnpHjb8o93uVnwMK_WAVw]]></FromUserName>
+<CreateTime>1516545128</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(requestXML));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            Assert.IsInstanceOfType(messageHandlers.RequestMessage, typeof(RequestMessageEvent_Subscribe));
+            Assert.AreEqual("", ((RequestMessageEvent_Subscribe)messageHandlers.RequestMessage).EventKey);//EventKey为空
+
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("欢迎关注",((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+            Console.WriteLine(messageHandlers.FinalResponseDocument);
         }
 
         [TestMethod]

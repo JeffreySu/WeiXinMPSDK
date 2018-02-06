@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>2.8.5</Version>
+    <Version>2.8.6</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -105,6 +105,7 @@
       v2.8.3 修复 AuthorizerBag 使用外部缓存不会自动更新的问题
       v2.8.4 GetAuthorizerInfoResult 添加 principal_name 属性（公众号的主体名称）
       v2.8.5 原小程序模板消息接口迁移至小程序（Senparc.Weixin.WxOpen）模块，Open中的方法已标记为过期。
+      v2.8.6 完善 FuncscopeCategory 枚举
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

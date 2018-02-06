@@ -31,7 +31,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+/*
+ * V4.0 添加异步方法
+ */
+
 using Senparc.Weixin.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MessageHandlers
 {
@@ -78,6 +83,13 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
 
+        /// <summary>
+        /// 消息是否已经被去重
+        /// </summary>
+        bool MessageIsRepeated { get; set; }
+
+
+        #region 同步方法
 
         /// <summary>
         /// 执行微信请求前触发
@@ -93,5 +105,31 @@ namespace Senparc.Weixin.MessageHandlers
         /// 执行微信请求后触发
         /// </summary>
         void OnExecuted();
+
+        #endregion
+
+
+
+
+#if !NET35 && !NET40
+        #region 异步方法
+
+        /// <summary>
+        /// 执行微信请求前触发
+        /// </summary>
+        Task OnExecutingAsync();
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        Task ExecuteAsync();
+
+        /// <summary>
+        /// 执行微信请求后触发
+        /// </summary>
+        Task OnExecutedAsync();
+
+        #endregion
+#endif
     }
 }

@@ -10,8 +10,8 @@
 
 ## 插件项目
 
-| 项目名称 | 说明 | 地址
--------------------------
+| 项目名称 | 说明 | 地址  |
+|---------|------|------|
 |  Senparc.Weixin.Plugins.WeixinTraceManager     | 日志管理   | https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager
 |  Senparc.Weixin.Plugins.TemplateMessageManager | 板消息管理 | https://github.com/JeffreySu/Senparc.Weixin.Plugins.TemplateMessageManager
 

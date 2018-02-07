@@ -6,7 +6,7 @@
 {
     <style>
         .description {
-            padding: 30px;
+            padding: 30px 30px 100px 30px;
         }
 
             .description h1 {
@@ -17,6 +17,23 @@
             .description p {
                 line-height: 150%;
                 margin: 20px 0px;
+            }
+
+        table#tbPlugins a:hover {
+            text-decoration: underline;
+        }
+
+        table#tbPlugins th{
+            font-weight:bold;
+        }
+
+            table#tbPlugins tr {
+                 border-bottom:1px solid #808080;
+            }
+
+            table#tbPlugins th, table#tbPlugins td {
+                padding:20px;
+                font-size:120%;
             }
     </style>
     <script>
@@ -29,7 +46,26 @@
         <p>
             插件集合：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins</a>
         </p>
-    </div>
 
+        <table id="tbPlugins">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>源码地址</th>
+                    <td>线上Demo</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TraceManager</td>
+                    <td>微信日志管理</td>
+                    <td><a href="https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager" target="_blank">打开</a></td>
+                    <td><a href="http://TraceManager.Plugins.Weixin.Senparc.com" target="_blank">http://TraceManager.Plugins.Weixin.Senparc.com</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </div>
 <div class="clear"></div>

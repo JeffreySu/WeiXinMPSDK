@@ -19,8 +19,8 @@ scripts:
 
 
 install:
- - nuget restore ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
-
+# - nuget restore ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
+ - nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
 
 solution:  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
 #solution: ./Samples/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj

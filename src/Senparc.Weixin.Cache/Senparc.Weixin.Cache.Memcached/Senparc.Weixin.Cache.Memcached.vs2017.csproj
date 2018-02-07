@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -48,6 +48,8 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v1.0.0 支持 .NET Core
     
       v1.1.0 支持 .NET Core 2.0
+      
+      v1.2.0 注释掉无效代码
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->

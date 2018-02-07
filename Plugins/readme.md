@@ -7,7 +7,7 @@
 > 1. 发送 [issue](https://github.com/JeffreySu/WeiXinMPSDK/issues/new) 
 > 2.  `Pull Request` 说明文件到本文件夹下<br>
 > <br>
-> 功入选后将获得一份盛派的特制精美小礼包。
+> 插件入选后将获得一份盛派的特制小礼包！
 
 ## Senparc.Weixin.Plugin 标准
 > 1. 所有插件使用独立项目管理，此处只做汇总；<br>

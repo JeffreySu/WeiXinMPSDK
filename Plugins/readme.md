@@ -1,16 +1,21 @@
 # 基于 Senparc.Weixin SDK 的插件
 
-> 这是一个正在筹划中的计划，用于向所有开发者征集基于 Senparc.Weixin SDK 的插件，<br>
-> 为方便管理和分离，所有文件夹使用 submodule 引用外部项目。<br>
-> 您可以发送 issue 推荐您自己的项目。
+> `Senparc.Weixin.Plugins` 是为 Senparc.Weixin SDK 进行通用性功能扩展插件的计划。<br>
+> 我们向所有开发者征集基于 Senparc.Weixin SDK 的通用插件。<br>
+> 为方便管理和分离，所有文件夹使用 submodule 等方式引用外部项目。<br>
+> 您可以通过以下两种方式推荐自己的项目：<br>
+> 1. 发送 [issue](https://github.com/JeffreySu/WeiXinMPSDK/issues/new) 
+> 2.  `Pull Request` 说明文件到本文件夹下<br>
+> <br>
+> 功入选后将获得一份盛派的特制精美小礼包。
 
 ## Senparc.Weixin.Plugin 标准
 > 1. 所有插件使用独立项目管理，此处只做汇总；<br>
 > 2. 命名空间前缀统一为 `Senparc.Weixin.Plugins`，方便索引；<br>
-> 3. 插件需要继承本项目开源协议（Apache License Version 2.0）；<br>
+> 3. 插件需要继承本项目开源协议（Apache License Version 2.0），原作者信息将完全保留并醒目提示；<br>
 > 4. 插件中必须提供可以直接运行的 Demo，并包含必要的测试数据。<br>
 > <br>
-> 更多标准制定中，将会给出参考 Demo。
+> 更多标准制定中，将会给出参考 Demo，目前可以参考 [WeixinTraceManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager) 项目。
 
 
 ## 插件项目

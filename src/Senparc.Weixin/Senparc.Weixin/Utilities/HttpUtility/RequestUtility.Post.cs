@@ -97,7 +97,7 @@ namespace Senparc.Weixin.HttpUtility
                   new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
-            #region 处理Form表单文件上传
+        #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+        #endregion
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
 
@@ -202,8 +202,13 @@ namespace Senparc.Weixin.HttpUtility
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.CookieContainer = cookieContainer;
+            var handler = new HttpClientHandler()
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+                UseCookies = true,
+                CookieContainer = cookieContainer,
+            };
 
             if (checkValidationResult)
             {

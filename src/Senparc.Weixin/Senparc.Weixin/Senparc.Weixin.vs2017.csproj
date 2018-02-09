@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.18.14</Version>
+    <Version>4.19.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -217,6 +217,7 @@
       1、添加 Config.ApiMpFileHost 公众号文件下载域名
       2、修改 HttpUtility.Get.Download() 方法，根据 Content-Disposition 中的文件名储存文件
       v4.18.14 优化 HttpUtility.RequestUtility.HttpPost() 方法，优化文件流上传
+      v19.0 支持异步 MessageHandler
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

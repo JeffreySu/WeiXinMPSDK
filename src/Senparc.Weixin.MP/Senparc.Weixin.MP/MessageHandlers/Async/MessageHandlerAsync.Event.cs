@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     public abstract partial class MessageHandler<TC>
     {
         /// <summary>
-        /// Event事件类型请求
+        /// 【异步方法】Event事件类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEventRequestAsync(IRequestMessageEventBase requestMessage)
         {
@@ -196,7 +196,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         #region Event下属分类，接收事件方法
 
         /// <summary>
-        /// Event事件类型请求之ENTER
+        /// 【异步方法】Event事件类型请求之ENTER
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_EnterRequestAsync(RequestMessageEvent_Enter requestMessage)
         {
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
    
         /// <summary>
-        /// Event事件类型请求之LOCATION
+        /// 【异步方法】Event事件类型请求之LOCATION
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_LocationRequestAsync(RequestMessageEvent_Location requestMessage)
         {
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之subscribe
+        /// 【异步方法】Event事件类型请求之subscribe
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_SubscribeRequestAsync(RequestMessageEvent_Subscribe requestMessage)
         {
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之unsubscribe
+        /// 【异步方法】Event事件类型请求之unsubscribe
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_UnsubscribeRequestAsync(RequestMessageEvent_Unsubscribe requestMessage)
         {
@@ -229,7 +229,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之CLICK
+        /// 【异步方法】Event事件类型请求之CLICK
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ClickRequestAsync(RequestMessageEvent_Click requestMessage)
         {
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之scan
+        /// 【异步方法】Event事件类型请求之scan
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ScanRequestAsync(RequestMessageEvent_Scan requestMessage)
         {
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 事件之URL跳转视图（View）
+        /// 【异步方法】事件之URL跳转视图（View）
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ViewRequestAsync(RequestMessageEvent_View requestMessage)
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 事件推送群发结果
+        /// 【异步方法】事件推送群发结果
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_MassSendJobFinishRequestAsync(RequestMessageEvent_MassSendJobFinish requestMessage)
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 发送模板消息返回结果
+        /// 【异步方法】发送模板消息返回结果
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_TemplateSendJobFinishRequestAsync(RequestMessageEvent_TemplateSendJobFinish requestMessage)
@@ -273,7 +273,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 弹出拍照或者相册发图
+        /// 【异步方法】弹出拍照或者相册发图
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicPhotoOrAlbumRequestAsync(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
@@ -282,7 +282,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 扫码推事件
+        /// 【异步方法】扫码推事件
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ScancodePushRequestAsync(RequestMessageEvent_Scancode_Push requestMessage)
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
+        /// 【异步方法】扫码推事件且弹出“消息接收中”提示框
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_ScancodeWaitmsgRequestAsync(RequestMessageEvent_Scancode_Waitmsg requestMessage)
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 弹出地理位置选择器
+        /// 【异步方法】弹出地理位置选择器
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_LocationSelectRequestAsync(RequestMessageEvent_Location_Select requestMessage)
@@ -309,7 +309,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 弹出微信相册发图器
+        /// 【异步方法】弹出微信相册发图器
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicWeixinRequestAsync(RequestMessageEvent_Pic_Weixin requestMessage)
@@ -318,7 +318,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 弹出系统拍照发图
+        /// 【异步方法】弹出系统拍照发图
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_PicSysphotoRequestAsync(RequestMessageEvent_Pic_Sysphoto requestMessage)
@@ -327,7 +327,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 卡券通过审核
+        /// 【异步方法】卡券通过审核
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Pass_CheckRequestAsync(RequestMessageEvent_Card_Pass_Check requestMessage)
@@ -336,7 +336,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 卡券未通过审核
+        /// 【异步方法】券未通过审核
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Card_Not_Pass_CheckRequestAsync(RequestMessageEvent_Card_Not_Pass_Check requestMessage)
@@ -345,7 +345,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 领取卡券
+        /// 【异步方法】领取卡券
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Get_CardRequestAsync(RequestMessageEvent_User_Get_Card requestMessage)
@@ -354,7 +354,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 删除卡券
+        /// 【异步方法】删除卡券
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Del_CardRequestAsync(RequestMessageEvent_User_Del_Card requestMessage)
@@ -363,7 +363,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 多客服接入会话
+        /// 【异步方法】多客服接入会话
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Create_SessionRequestAsync(RequestMessageEvent_Kf_Create_Session requestMessage)
@@ -372,7 +372,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 多客服关闭会话
+        /// 【异步方法】多客服关闭会话
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Close_SessionRequestAsync(RequestMessageEvent_Kf_Close_Session requestMessage)
@@ -381,7 +381,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 多客服转接会话
+        /// 【异步方法】多客服转接会话
         /// </summary>
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_Kf_Switch_SessionRequestAsync(RequestMessageEvent_Kf_Switch_Session requestMessage)
@@ -390,7 +390,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之审核结果事件推送
+        /// 【异步方法】Event事件类型请求之审核结果事件推送
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Poi_Check_NotifyRequestAsync(RequestMessageEvent_Poi_Check_Notify requestMessage)
         {
@@ -398,7 +398,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之Wi-Fi连网成功
+        /// 【异步方法】Event事件类型请求之Wi-Fi连网成功
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_WifiConnectedRequestAsync(RequestMessageEvent_WifiConnected requestMessage)
         {
@@ -406,7 +406,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之卡券核销
+        /// 【异步方法】Event事件类型请求之卡券核销
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Consume_CardRequestAsync(RequestMessageEvent_User_Consume_Card requestMessage)
         {
@@ -414,7 +414,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之从卡券进入公众号会话
+        /// 【异步方法】Event事件类型请求之从卡券进入公众号会话
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_Enter_Session_From_CardRequestAsync(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
         {
@@ -422,7 +422,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之进入会员卡
+        /// 【异步方法】Event事件类型请求之进入会员卡
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_User_View_CardRequestAsync(RequestMessageEvent_User_View_Card requestMessage)
         {
@@ -430,7 +430,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之微小店订单付款通知
+        /// 【异步方法】Event事件类型请求之微小店订单付款通知
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Merchant_OrderRequestAsync(RequestMessageEvent_Merchant_Order requestMessage)
         {
@@ -438,7 +438,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之接收会员信息事件通知
+        /// 【异步方法】Event事件类型请求之接收会员信息事件通知
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_Submit_Membercard_User_InfoRequestAsync(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
         {
@@ -446,7 +446,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// Event事件类型请求之摇一摇事件通知
+        /// 【异步方法】Event事件类型请求之摇一摇事件通知
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_ShakearoundUserShakeRequestAsync(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
@@ -456,7 +456,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 卡券转赠事件推送
+        /// 【异步方法】卡券转赠事件推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -465,7 +465,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Gifting_CardRequest(requestMessage));
         }
         /// <summary>
-        /// 微信买单完成
+        /// 【异步方法】微信买单完成
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -474,7 +474,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Pay_From_Pay_CellRequest(requestMessage));
         }
         /// <summary>
-        /// 会员卡内容更新事件：会员卡积分余额发生变动时
+        /// 【异步方法】会员卡内容更新事件：会员卡积分余额发生变动时
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -483,7 +483,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Update_Member_CardRequest(requestMessage));
         }
         /// <summary>
-        /// 卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+        /// 【异步方法】卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -492,7 +492,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Sku_RemindRequest(requestMessage));
         }
         /// <summary>
-        /// 券点流水详情事件：当商户朋友的券券点发生变动时
+        /// 【异步方法】券点流水详情事件：当商户朋友的券券点发生变动时
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -504,7 +504,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         #region 微信认证事件推送
 
         /// <summary>
-        /// 资质认证成功（此时立即获得接口权限）
+        /// 【异步方法】资质认证成功（此时立即获得接口权限）
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -514,7 +514,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 资质认证失败
+        /// 【异步方法】资质认证失败
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -525,7 +525,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 名称认证成功（即命名成功）
+        /// 【异步方法】名称认证成功（即命名成功）
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -535,7 +535,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+        /// 【异步方法】名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -545,7 +545,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 年审通知
+        /// 【异步方法】年审通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -555,7 +555,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 认证过期失效通知
+        /// 【异步方法】认证过期失效通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -569,7 +569,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         #region 小程序审核事件推送
 
         /// <summary>
-        /// 小程序审核失败通知
+        /// 【异步方法】小程序审核失败通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -578,7 +578,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage));
         }
         /// <summary>
-        /// 小程序审核成功通知
+        /// 【异步方法】小程序审核成功通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>

@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 执行微信请求
+        /// 【异步方法】执行微信请求
         /// </summary>
         public override async Task ExecuteAsync()
         {
@@ -151,6 +151,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        /// <summary>
+        /// 【异步方法】OnExecutingAsync()
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnExecutingAsync()
         {
             //已放入Init()方法中
@@ -192,6 +196,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        /// <summary>
+        /// 【异步方法】OnExecutedAsync()
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnExecutedAsync()
         {
             await base.OnExecutedAsync();

@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+        /// 【异步方法】认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
         public virtual async Task<IResponseMessageBase> DefaultResponseMessageAsync(IRequestMessageBase requestMessage)
         {
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         //}
 
         /// <summary>
-        /// 未知类型消息触发的事件，默认将抛出异常，建议进行重写
+        /// 【异步方法】未知类型消息触发的事件，默认将抛出异常，建议进行重写
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 预处理文字或事件类型请求。
+        /// 【异步方法】预处理文字或事件类型请求。
         /// 这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
         /// 会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
         /// 1、如果返回null，则继续执行OnTextRequest或OnEventRequest
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 文字类型请求
+        /// 【异步方法】文字类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 位置类型请求
+        /// 【异步方法】位置类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnLocationRequestAsync(RequestMessageLocation requestMessage)
         {
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 图片类型请求
+        /// 【异步方法】图片类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 语音类型请求
+        /// 【异步方法】语音类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnVoiceRequestAsync(RequestMessageVoice requestMessage)
         {
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 视频类型请求
+        /// 【异步方法】视频类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnVideoRequestAsync(RequestMessageVideo requestMessage)
         {
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
-        /// 链接消息类型请求
+        /// 【异步方法】链接消息类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnLinkRequestAsync(RequestMessageLink requestMessage)
         {
@@ -141,7 +141,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 小视频类型请求
+        /// 【异步方法】小视频类型请求
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnShortVideoRequestAsync(RequestMessageShortVideo requestMessage)
         {

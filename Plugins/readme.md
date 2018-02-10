@@ -22,7 +22,7 @@
 
 | 项目名称 | 说明 | 源代码项目  |  作者
 |---------|------|------|-------|
-|  WeixinTraceManager     | 日志管理   | [Senparc.Weixin.Plugins.WeixinTraceManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager)  |  [Jeffrey Su](https://github.com/JeffreySu)
-|  TemplateMessageManager | 模板消息管理 | [Senparc.Weixin.Plugins.TemplateMessageManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.TemplateMessageManager) |  [Jeffrey Su](https://github.com/JeffreySu)
+|  WeixinTraceManager     | 日志管理   | [Senparc.Weixin.Plugins.WeixinTraceManager](https://github.com/OpenSenparc/Senparc.Weixin.Plugins.WeixinTraceManager)  |  [Jeffrey Su](https://github.com/JeffreySu)
+|  TemplateMessageManager | 模板消息管理 | [Senparc.Weixin.Plugins.TemplateMessageManager](https://github.com/OpenSenparc/Senparc.Weixin.Plugins.TemplateMessageManager) |  [Jeffrey Su](https://github.com/JeffreySu)
 
 > 欢迎大家一起来贡献和维护插件！

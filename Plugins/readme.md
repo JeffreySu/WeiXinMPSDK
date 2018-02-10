@@ -13,7 +13,8 @@
 > 1. 所有插件使用独立项目管理，此处只做汇总；<br>
 > 2. 命名空间前缀统一为 `Senparc.Weixin.Plugins`，方便索引；<br>
 > 3. 插件需要继承本项目开源协议（Apache License Version 2.0），原作者信息将完全保留并醒目提示；<br>
-> 4. 插件中必须提供可以直接运行的 Demo，并包含必要的测试数据。<br>
+> 4. 插件中必须提供可以直接运行的 Demo，并包含必要的测试数据；<br>
+> 5. 建议插件统一在 [OpenSenparc](https://github.com/OpenSenparc) 下创建，贡献者可申请加入组织。<br>
 > <br>
 > 更多标准制定中，将会给出参考 Demo，目前可以参考 [WeixinTraceManager](https://github.com/JeffreySu/Senparc.Weixin.Plugins.WeixinTraceManager) 项目。
 

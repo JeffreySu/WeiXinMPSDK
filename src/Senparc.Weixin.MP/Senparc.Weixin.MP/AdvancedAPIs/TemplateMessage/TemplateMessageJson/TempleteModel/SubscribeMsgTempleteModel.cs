@@ -37,6 +37,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     public class SubscribeMsgTempleteModel: TempleteModel
     {
         /// <summary>
+        /// 消息标题，15字以内
+        /// </summary>
+        public string title { get; set; }
+
+        /// <summary>
         /// （必填）订阅场景值
         /// </summary>
         public string scene { get; set; }

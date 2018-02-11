@@ -95,11 +95,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="templateId">订阅消息模板ID</param>
         /// <param name="url">（非必须）点击消息跳转的链接，需要有ICP备案</param>
         /// <param name="data">消息正文，value为消息内容文本（200字以内），没有固定格式，可用\n换行，color为整段消息内容的字体颜色（目前仅支持整段消息为一种颜色）</param>
-        /// <param name="scene">订阅场景值</param>
         /// <param name="miniProgram">（非必须）跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, string scene, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1500374289_66bvB
 
@@ -113,7 +112,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     // topcolor = topcolor,
                     url = url,
                     miniprogram = miniProgram,
-                    data = data
+                    data = data,
                 };
                 return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 
@@ -244,13 +243,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url">点击消息跳转的链接，需要有ICP备案</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult Subscribe(string accessTokenOrAppId, string toUserOpenId, string templateId, int scene, string title, object data, string url = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult Subscribe(string accessTokenOrAppId, string toUserOpenId, string templateId, string scene, string title, object data, string url = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
-                var msgData = new
+                var msgData = new SubscribeMsgTempleteModel()
                 {
                     touser = toUserOpenId,
                     template_id = templateId,
@@ -278,16 +277,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="templateId">订阅消息模板ID</param>
         /// <param name="url">（非必须）点击消息跳转的链接，需要有ICP备案</param>
         /// <param name="data">消息正文，value为消息内容文本（200字以内），没有固定格式，可用\n换行，color为整段消息内容的字体颜色（目前仅支持整段消息为一种颜色）</param>
-        /// <param name="scene">订阅场景值</param>
         /// <param name="miniProgram">（非必须）跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>        /// <returns></returns>
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, string scene, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
-                var msgData = new SubscribeMsgTempleteModel()
+                var msgData = new TempleteModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -295,7 +293,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     url = url,
                     miniprogram = miniProgram,
                     data = data,
-                    
                 };
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 
@@ -429,13 +426,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url">点击消息跳转的链接，需要有ICP备案</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SubscribeAsync(string accessTokenOrAppId, string toUserOpenId, string templateId, int scene, string title, object data, string url = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SubscribeAsync(string accessTokenOrAppId, string toUserOpenId, string templateId, string scene, string title, object data, string url = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
-                var msgData = new
+                var msgData = new SubscribeMsgTempleteModel()
                 {
                     touser = toUserOpenId,
                     template_id = templateId,

@@ -32,10 +32,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170328
     修改描述：添加对小程序的支持
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
 {
+    /// <summary>
+    /// 普通模板消息参数
+    /// </summary>
     public class TempleteModel
     {
         /// <summary>

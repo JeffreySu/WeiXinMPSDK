@@ -14,7 +14,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index()
         {
             var reserved = DateTime.Now.Ticks.ToString();
+
+            //（非必须）reserved用于保持请求和回调的状态，授权请后原样带回给第三方。
+            // 该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，
+            // 可设置为简单的随机数加session进行校验，开发者可以填写a-zA-Z0-9的参数值，
+            // 最多128字节，要求做urlencode
             Session["WeixinSubscribeMsgReserved"] = reserved;
+
             string templateId = "63l8YSI2uYqlZwb8dkMSy2Lp8caHcaWc2Id0b_XYvtM";//订阅消息模板ID，登录公众平台后台，在接口权限列表处可查看订阅模板ID
             var returnUrl = "https://sdk.weixin.senparc.com/SubscribeMsg/Result";
             var url = TemplateApi.GetSubscribeMsgUrl(base.AppId, 1, templateId, returnUrl.UrlEncode(), reserved);

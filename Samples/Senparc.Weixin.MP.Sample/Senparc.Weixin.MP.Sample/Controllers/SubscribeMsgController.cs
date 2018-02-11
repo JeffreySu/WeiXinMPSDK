@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Redirect(url);
         }
 
-        public ActionResult Result(string openId, string template_id, int scene, string reserved)
+        public ActionResult Result(string openId, string template_id, string scene, string reserved)
         {
             //template_id就是微信后台可以看到的template_id
 

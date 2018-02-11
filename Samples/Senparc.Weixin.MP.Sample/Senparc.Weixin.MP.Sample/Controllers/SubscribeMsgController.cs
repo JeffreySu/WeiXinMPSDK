@@ -46,7 +46,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 感谢您对盛派网络的支持！
 
-Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点【详情】购买正版！",
+1、Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，请购买正版！
+
+2、Senparc 官方视频教程《微信公众号+小程序快速开发》已经上线，点击【详情】观看或购买！",
                         color = "#008000"
                     }
                 };
@@ -69,7 +71,7 @@ Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点�
 
                 try
                 {
-                    var url = "https://book.weixin.senparc.com/book/link?code=SenparcRobot";
+                    var url = "https://book.weixin.senparc.com/book/videolinknetease?code=SenparcRobot-SubscribeMsg";
                     TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data, url);
                     return Content("发送成功！");
                 }

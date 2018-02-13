@@ -83,8 +83,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 新增临时素材（原上传媒体文件）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="type"></param>
-        /// <param name="file"></param>
+        /// <param name="type">媒体文件类型</param>
+        /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static UploadTemporaryMediaResult UploadTemporaryMedia(string accessTokenOrAppId, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="file">文件路径</param>
+        /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static UploadForeverMediaResult UploadForeverMedia(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 新增永久视频素材
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="file">文件路径</param>
+        /// <param name="file">上传文件的绝对路径</param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -371,7 +371,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static MediaList_OthersResult GetOthersMediaList(string accessTokenOrAppId, UploadMediaFileType type, int offset,
                                                            int count, int timeOut = Config.TIME_OUT)
@@ -396,8 +396,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 上传图文消息内的图片获取URL
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="file"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="file">上传文件的绝对路径</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static UploadImgResult UploadImg(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
@@ -425,7 +425,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type"></param>
-        /// <param name="file"></param>
+        /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<UploadTemporaryMediaResult> UploadTemporaryMediaAsync(string accessTokenOrAppId, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)

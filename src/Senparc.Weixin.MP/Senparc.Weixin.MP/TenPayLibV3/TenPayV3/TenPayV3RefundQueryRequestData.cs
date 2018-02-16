@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="offset">（非必填）偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录，如：15</param>
         /// <param name="signType"></param>
         public TenPayV3RefundQueryRequestData(string appId, string mchId, string key, string nonceStr, string deviceInfo,
-            string transactionId, string outTradeNo, string outRefundNo, string refundId, string subAppid = null, string subMchId = null, int? offset, string signType = "MD5")
+            string transactionId, string outTradeNo, string outRefundNo, string refundId, string subAppid = null, string subMchId = null, int? offset = null, string signType = "MD5")
         {
             AppId = appId;
             MchId = mchId;

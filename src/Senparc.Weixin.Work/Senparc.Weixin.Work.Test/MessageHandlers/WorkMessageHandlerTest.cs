@@ -34,7 +34,7 @@ using Senparc.Weixin.Work.MessageHandlers;
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
-    public class QyMessageHandlersTest
+    public class WorkMessageHandlersTest
     {
         public class CustomerMessageHandlers : WorkMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
         {

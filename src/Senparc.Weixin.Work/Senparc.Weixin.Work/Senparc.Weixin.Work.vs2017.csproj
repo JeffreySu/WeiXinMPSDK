@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.2.13</Version>
+    <Version>1.2.14</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -62,6 +62,7 @@
       v1.2.11 更改OAuth Url添加agendId参数为小写：agentid
       v1.2.12 添加【获取打卡规则】接口
       v1.2.13 调整“获取应用”接口，重新释放allow_tags属性。
+      v1.2.14 MessageHandler添加对文件类型消息的处理
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

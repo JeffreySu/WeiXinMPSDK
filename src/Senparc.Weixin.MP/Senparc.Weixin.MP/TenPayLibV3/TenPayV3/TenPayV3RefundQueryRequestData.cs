@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string AppId { get; set; }
 
         /// <summary>
-        /// 商户号
+        /// 商户号，如：1900000109
         /// </summary>
         public string MchId { get; set; }
 
@@ -79,9 +79,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string SignType { get; set; }
 
+        /// <summary>
+        /// （非必填）微信分配的子商户公众账号ID，如：wx8888888888888888
+        /// </summary>
+        public string SubAppId { get; set; }
 
         /// <summary>
-        /// 
+        /// 微信支付分配的子商户号，如：1900000109
+        /// </summary>
+        public string SubMchId { get; set; }
+
+        /// <summary>
+        /// （非必填）偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录，如：15
+        /// </summary>
+        public int? Offset { get; set; }
+
+        /// <summary>
+        /// （非必填）偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录
         /// </summary>
         public string Key { get; set; }
 
@@ -100,9 +114,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="outTradeNo"></param>
         /// <param name="outRefundNo"></param>
         /// <param name="refundId"></param>
+        /// <param name="subAppid">（非必填）微信分配的子商户公众账号ID，如：1900000109</param>
+        /// <param name="subMchId">微信支付分配的子商户号，如：wx8888888888888888</param>
+        /// <param name="offset">（非必填）偏移量，当部分退款次数超过10次时可使用，表示返回的查询结果从这个偏移量开始取记录，如：15</param>
         /// <param name="signType"></param>
         public TenPayV3RefundQueryRequestData(string appId, string mchId, string key, string nonceStr, string deviceInfo,
-            string transactionId, string outTradeNo, string outRefundNo, string refundId, string signType = "MD5")
+            string transactionId, string outTradeNo, string outRefundNo, string refundId, string subAppid = null, string subMchId = null, int? offset = null, string signType = "MD5")
         {
             AppId = appId;
             MchId = mchId;
@@ -112,6 +129,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             OutTradeNo = outTradeNo;
             OutRefundNo = outRefundNo;
             RefundId = refundId;
+            SubAppId = subAppid;
+            SubMchId = subAppid;
+            Offset = offset;
             SignType = signType;
             Key = key;
 
@@ -131,6 +151,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);
             PackageRequestHandler.SetParameter("out_refund_no", this.OutRefundNo);
             PackageRequestHandler.SetParameter("refund_id", this.RefundId);
+            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId);
+            PackageRequestHandler.SetParameterWhenNotNull("offset", this.Offset != null ? this.Offset.ToString() : null);
+
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 

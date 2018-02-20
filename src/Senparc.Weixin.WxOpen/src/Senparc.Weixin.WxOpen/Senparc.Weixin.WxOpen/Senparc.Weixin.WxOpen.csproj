@@ -62,6 +62,7 @@
     <Compile Include="AdvancedAPIs\Template\TemplateJson\AddJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\ListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\LineColor.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />

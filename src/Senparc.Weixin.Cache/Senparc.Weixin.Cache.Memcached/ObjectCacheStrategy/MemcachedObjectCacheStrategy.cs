@@ -50,33 +50,21 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
 
-#if NET45 || NET461
-        /// <summary>
-        /// LocalCacheStrategy的构造函数
-        /// </summary>
-        MemcachedObjectCacheStrategy()
-        {
-            _config = GetMemcachedClientConfiguration();
-            _cache = new MemcachedClient(_config);
-        }
-#else
-        /// <summary>
-        /// LocalCacheStrategy的构造函数
-        /// </summary>
-        public MemcachedObjectCacheStrategy(ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor)
-        {
-            _config = GetMemcachedClientConfiguration(loggerFactory, optionsAccessor);
-            _cache = new MemcachedClient(null, _config);
-        }
-#endif
-
-
-
-        //单例只给.net framework使用，.net core使用依赖注入
-
         #region 单例
 
+        /// <summary>
+        /// LocalCacheStrategy的构造函数
+        /// </summary>
+        public MemcachedObjectCacheStrategy(/*ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor*/)
+        {
+            _config = GetMemcachedClientConfiguration();
 #if NET45 || NET461
+            _cache = new MemcachedClient(_config);
+#else
+            _cache = new MemcachedClient(null, _config);
+#endif
+        }
+
 
         //静态LocalCacheStrategy
         public static IObjectCacheStrategy Instance
@@ -95,7 +83,6 @@ namespace Senparc.Weixin.Cache.Memcached
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedObjectCacheStrategy instance = new MemcachedObjectCacheStrategy();
         }
-#endif
 
         #endregion
 
@@ -104,7 +91,7 @@ namespace Senparc.Weixin.Cache.Memcached
 #if NET45 || NET461
         private static MemcachedClientConfiguration GetMemcachedClientConfiguration()
 #else
-        private static MemcachedClientConfiguration GetMemcachedClientConfiguration(ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor)
+        private static MemcachedClientConfiguration GetMemcachedClientConfiguration(/*ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor*/)
 #endif
         {
             //每次都要新建
@@ -118,8 +105,10 @@ namespace Senparc.Weixin.Cache.Memcached
             config.Protocol = MemcachedProtocol.Binary;
 
 #else
-            var service = new ServiceCollection();
-            loggerFactory = service.
+            var services = new ServiceCollection();
+            var provider = services.BuildServiceProvider();
+            ILoggerFactory loggerFactory = provider.GetService<ILoggerFactory>();
+            IOptions<MemcachedClientOptions> optionsAccessor = provider.GetService<IOptions<MemcachedClientOptions>>();
 
             var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
 #endif
@@ -214,7 +203,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        public void RemoveFromCache(string key, bool isFullKey = false)
+        public virtual void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -224,7 +213,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Remove(cacheKey);
         }
 
-        public object Get(string key, bool isFullKey = false)
+        public virtual object Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -235,12 +224,12 @@ namespace Senparc.Weixin.Cache.Memcached
             return _cache.Get<object>(cacheKey);
         }
 
-        public IDictionary<string, object> GetAll()
+        public virtual IDictionary<string, object> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public bool CheckExisted(string key, bool isFullKey = false)
+        public virtual bool CheckExisted(string key, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             object value;
@@ -251,12 +240,12 @@ namespace Senparc.Weixin.Cache.Memcached
             return false;
         }
 
-        public long GetCount()
+        public virtual long GetCount()
         {
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, object value, bool isFullKey = false)
+        public virtual void Update(string key, object value, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));

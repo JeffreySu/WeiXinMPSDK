@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>14.9.1</Version>
+    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
+    <Version>14.10.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -359,10 +359,10 @@
       3、AnalysisApi 接口中的 GetUserReadItem 和 GetUserReadHourItem 添加 user_source 属性（用户渠道来源）
       v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
       v14.8.15 添加“评论数据管理”接口（共8个）
-      
+
       v14.9.0 支持异步 MessageHandler
       v14.9.1 完善AnalysisApi.GetArticleTotal()返回数据字段
-
+      v14.10.0 停止对 .net core 1.1 生成的独立版本
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

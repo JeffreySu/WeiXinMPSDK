@@ -1,4 +1,15 @@
-﻿#if NET45 || NET461
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
+
+    文件名：MemcachedApplicationBuilderExtensions.cs
+    文件功能描述：Memcached 依赖注入设置。
+
+
+    创建标识：Senparc - 20180222
+
+----------------------------------------------------------------*/
+
+#if NET45 || NET461
 
 #else
 using Enyim.Caching;

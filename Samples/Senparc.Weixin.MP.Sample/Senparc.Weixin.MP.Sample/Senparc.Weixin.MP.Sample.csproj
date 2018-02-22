@@ -187,6 +187,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.old.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\VD\AnalysisVD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,6 +22,13 @@ using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 
+#if NET45 || NET461
+
+#else
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+#endif
+
 namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
@@ -39,7 +46,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _serverlist = serverlist;
         }
 
-        #region 单例
+#region 单例
 
         /// <summary>
         /// LocalCacheStrategy的构造函数
@@ -73,18 +80,22 @@ namespace Senparc.Weixin.Cache.Memcached
             internal static readonly MemcachedObjectCacheStrategy instance = new MemcachedObjectCacheStrategy();
         }
 
-        #endregion
+#endregion
 
-        #region 配置
+#region 配置
 
+#if NET45 || NET461
         private static MemcachedClientConfiguration GetMemcachedClientConfiguration()
+#else
+        private static MemcachedClientConfiguration GetMemcachedClientConfiguration(ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor)
+#endif
         {
             //每次都要新建
 
 #if NET45 || NET461
             var config = new MemcachedClientConfiguration();
 #else
-            var config = new MemcachedClientConfiguration(null, null);
+            var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
 #endif
 
             foreach (var server in _serverlist)
@@ -120,51 +131,51 @@ namespace Senparc.Weixin.Cache.Memcached
             //cache = new MemcachedClient();
             //cache.EnableCompression = false;
 
-            #region 内部为测试代码，因为调用RegisterServerList()静态方法前会先执行此静态构造函数，此时_serverlist还没有被初始化，故会出错
+#region 内部为测试代码，因为调用RegisterServerList()静态方法前会先执行此静态构造函数，此时_serverlist还没有被初始化，故会出错
 
-//            try
-//            {
-//                //config.Authentication.Type = typeof(PlainTextAuthenticator);
-//                //config.Authentication.Parameters["userName"] = "username";
-//                //config.Authentication.Parameters["password"] = "password";
-//                //config.Authentication.Parameters["zone"] = "zone";//domain?   ——Jeffrey 2015.10.20
-//                DateTime dt1 = DateTime.Now;
-//                var config = GetMemcachedClientConfiguration();
-//                //var cache = new MemcachedClient(config);'
+            //            try
+            //            {
+            //                //config.Authentication.Type = typeof(PlainTextAuthenticator);
+            //                //config.Authentication.Parameters["userName"] = "username";
+            //                //config.Authentication.Parameters["password"] = "password";
+            //                //config.Authentication.Parameters["zone"] = "zone";//domain?   ——Jeffrey 2015.10.20
+            //                DateTime dt1 = DateTime.Now;
+            //                var config = GetMemcachedClientConfiguration();
+            //                //var cache = new MemcachedClient(config);'
 
 
-//#if NET45 || NET461
-//                var cache = new MemcachedClient(config);
-//#else
-//                var cache = new MemcachedClient(null, config);
-//#endif
+            //#if NET45 || NET461
+            //                var cache = new MemcachedClient(config);
+            //#else
+            //                var cache = new MemcachedClient(null, config);
+            //#endif
 
-//                var testKey = Guid.NewGuid().ToString();
-//                var testValue = Guid.NewGuid().ToString();
-//                cache.Store(StoreMode.Set, testKey, testValue);
-//                var storeValue = cache.Get(testKey);
-//                if (storeValue as string != testValue)
-//                {
-//                    throw new Exception("MemcachedStrategy失效，没有计入缓存！");
-//                }
-//                cache.Remove(testKey);
-//                DateTime dt2 = DateTime.Now;
+            //                var testKey = Guid.NewGuid().ToString();
+            //                var testValue = Guid.NewGuid().ToString();
+            //                cache.Store(StoreMode.Set, testKey, testValue);
+            //                var storeValue = cache.Get(testKey);
+            //                if (storeValue as string != testValue)
+            //                {
+            //                    throw new Exception("MemcachedStrategy失效，没有计入缓存！");
+            //                }
+            //                cache.Remove(testKey);
+            //                DateTime dt2 = DateTime.Now;
 
-//                WeixinTrace.Log(string.Format("MemcachedStrategy正常启用，启动及测试耗时：{0}ms", (dt2 - dt1).TotalMilliseconds));
-//            }
-//            catch (Exception ex)
-//            {
-//                //TODO:记录是同日志
-//                WeixinTrace.Log(string.Format("MemcachedStrategy静态构造函数异常：{0}", ex.Message));
-//            }
+            //                WeixinTrace.Log(string.Format("MemcachedStrategy正常启用，启动及测试耗时：{0}ms", (dt2 - dt1).TotalMilliseconds));
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                //TODO:记录是同日志
+            //                WeixinTrace.Log(string.Format("MemcachedStrategy静态构造函数异常：{0}", ex.Message));
+            //            }
 
-            #endregion
+#endregion
         }
 
-        #endregion
+#endregion
 
 
-        #region IContainerCacheStrategy 成员
+#region IContainerCacheStrategy 成员
 
         public IContainerCacheStrategy ContainerCacheStrategy
         {
@@ -232,7 +243,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        #endregion
+#endregion
 
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())

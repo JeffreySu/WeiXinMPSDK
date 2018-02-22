@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net45;netstandard2.0</TargetFrameworks>
-    <Version>0.3.3.1</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>0.4.0</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     
@@ -40,7 +40,7 @@
       2、升级Newtonsoft.Json版本至10.0.1
       v0.3.2 注册WebSocketMessageHandler，自定义对象的实例化方法，用以支持Spring等框架的注入
       v0.3.3 常规优化
-
+      v0.4.0 停止对 .net core 1.1 生成的独立版本
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.4.0-beta1</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>1.5.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -59,6 +59,7 @@
       v1.3.0 支持 .NET Core
 
       v1.4.0-beta1 支持.NET Core 2.0
+      v1.5.0 停止对 .net core 1.1 生成的独立版本
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

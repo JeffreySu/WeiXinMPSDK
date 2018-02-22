@@ -38,11 +38,13 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
+            new ServiceCollection();
+
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
 
             //添加Memcached配置（按需）
-            services.AddEnyimMemcached(options =>
+            services.AddSenparcMemcached(options =>
             {
                 options.AddServer("memcached", 11211);
                 //options.AddPlainTextAuthenticator("", "usename", "password");

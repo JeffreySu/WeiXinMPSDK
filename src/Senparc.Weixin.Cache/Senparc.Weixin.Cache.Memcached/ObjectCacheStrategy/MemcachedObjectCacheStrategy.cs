@@ -29,6 +29,7 @@ using Enyim.Caching.Memcached;
 #else
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 #endif
 
 namespace Senparc.Weixin.Cache.Memcached
@@ -48,21 +49,34 @@ namespace Senparc.Weixin.Cache.Memcached
             _serverlist = serverlist;
         }
 
-#region 单例
 
+#if NET45 || NET461
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        public MemcachedObjectCacheStrategy()
+        MemcachedObjectCacheStrategy()
         {
             _config = GetMemcachedClientConfiguration();
+            _cache = new MemcachedClient(_config);
+        }
+#else
+        /// <summary>
+        /// LocalCacheStrategy的构造函数
+        /// </summary>
+        public MemcachedObjectCacheStrategy(ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor)
+        {
+            _config = GetMemcachedClientConfiguration(loggerFactory, optionsAccessor);
+            _cache = new MemcachedClient(null, _config);
+        }
+#endif
+
+
+
+        //单例只给.net framework使用，.net core使用依赖注入
+
+        #region 单例
 
 #if NET45 || NET461
-            _cache = new MemcachedClient(_config);
-#else
-            _cache = new MemcachedClient(null, _config);
-#endif
-        }
 
         //静态LocalCacheStrategy
         public static IObjectCacheStrategy Instance
@@ -81,10 +95,11 @@ namespace Senparc.Weixin.Cache.Memcached
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedObjectCacheStrategy instance = new MemcachedObjectCacheStrategy();
         }
+#endif
 
-#endregion
+        #endregion
 
-#region 配置
+        #region 配置
 
 #if NET45 || NET461
         private static MemcachedClientConfiguration GetMemcachedClientConfiguration()
@@ -96,16 +111,18 @@ namespace Senparc.Weixin.Cache.Memcached
 
 #if NET45 || NET461
             var config = new MemcachedClientConfiguration();
-#else
-            var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
-#endif
-
             foreach (var server in _serverlist)
             {
                 config.Servers.Add(new IPEndPoint(IPAddress.Parse(server.Key), server.Value));
             }
             config.Protocol = MemcachedProtocol.Binary;
 
+#else
+            var service = new ServiceCollection();
+            loggerFactory = service.
+
+            var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
+#endif
             return config;
         }
 
@@ -133,7 +150,7 @@ namespace Senparc.Weixin.Cache.Memcached
             //cache = new MemcachedClient();
             //cache.EnableCompression = false;
 
-#region 内部为测试代码，因为调用RegisterServerList()静态方法前会先执行此静态构造函数，此时_serverlist还没有被初始化，故会出错
+            #region 内部为测试代码，因为调用RegisterServerList()静态方法前会先执行此静态构造函数，此时_serverlist还没有被初始化，故会出错
 
             //            try
             //            {
@@ -171,13 +188,13 @@ namespace Senparc.Weixin.Cache.Memcached
             //                WeixinTrace.Log(string.Format("MemcachedStrategy静态构造函数异常：{0}", ex.Message));
             //            }
 
-#endregion
+            #endregion
         }
 
-#endregion
+        #endregion
 
 
-#region IContainerCacheStrategy 成员
+        #region IContainerCacheStrategy 成员
 
         public IContainerCacheStrategy ContainerCacheStrategy
         {
@@ -245,7 +262,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-#endregion
+        #endregion
 
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())

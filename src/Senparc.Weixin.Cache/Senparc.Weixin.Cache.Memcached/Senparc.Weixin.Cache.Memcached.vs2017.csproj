@@ -184,4 +184,10 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>

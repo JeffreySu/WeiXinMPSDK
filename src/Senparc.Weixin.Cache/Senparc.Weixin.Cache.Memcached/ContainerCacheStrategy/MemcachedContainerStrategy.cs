@@ -31,20 +31,47 @@ using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+
 using Senparc.Weixin.Containers;
+#if NET45 || NET461
+
+#else
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+#endif
 
 namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedContainerStrategy : MemcachedObjectCacheStrategy, IContainerCacheStrategy
     {
-        #region 单例
 
+#if NET45 || NET461
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
         MemcachedContainerStrategy()
         {
         }
+#else
+        /// <summary>
+        /// LocalCacheStrategy的构造函数
+        /// </summary>
+        /// <param name="loggerFactory"></param>
+        /// <param name="optionsAccessor"></param>
+        public MemcachedContainerStrategy(ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor)
+            : base(loggerFactory, optionsAccessor)
+        {
+
+        }
+#endif
+
+
+
+#region 单例
+
+
+
+#if NET45 || NET461
 
         //静态LocalCacheStrategy
         public static IContainerCacheStrategy Instance
@@ -63,11 +90,11 @@ namespace Senparc.Weixin.Cache.Memcached
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedContainerStrategy instance = new MemcachedContainerStrategy();
         }
+#endif
+#endregion
 
-        #endregion
 
-
-        #region IContainerCacheStrategy 成员
+#region IContainerCacheStrategy 成员
 
         public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {
@@ -133,8 +160,8 @@ namespace Senparc.Weixin.Cache.Memcached
                 Update(cacheKey, containerBag, true);
             }
         }
-        
-        #endregion
+
+#endregion
 
     }
 }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.10.0</Version>
+    <Version>14.10.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -363,6 +363,8 @@
       v14.9.0 支持异步 MessageHandler
       v14.9.1 完善AnalysisApi.GetArticleTotal()返回数据字段
       v14.10.0 停止对 .net core 1.1 生成的独立版本
+      v14.10.1 添加RegisterService提供快捷注册方式
+      
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

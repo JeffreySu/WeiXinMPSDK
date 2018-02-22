@@ -43,7 +43,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170319
     修改描述：v14.3.135 trade_type=NATIVE时，OpenId允许为null
-
+    
+    修改标识：Senparc - 20180223
+    修改描述：14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
 ----------------------------------------------------------------*/
 
 using System;
@@ -227,7 +229,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
              ) : this(appId, mchId, null, null, body, outTradeNo, totalFee, spbillCreateIp,
                  notifyUrl, tradeType, openid, null, key, nonceStr,
                  deviceInfo, timeStart, timeExpire, detail, attach, feeType, goodsTag,
-                 productId, limitPay, 
+                 productId, limitPay,
                  sceneInfo)
         {
 
@@ -330,7 +332,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
             PackageRequestHandler.SetParameterWhenNotNull("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             PackageRequestHandler.SetParameterWhenNotNull("sub_openid", this.SubOpenid);              //用户子标识
-            if (SceneInfo!=null)
+            if (SceneInfo != null)
             {
                 PackageRequestHandler.SetParameter("scene_info", SceneInfo.ToString());   //场景信息
             }

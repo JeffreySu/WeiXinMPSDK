@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Register
+namespace Senparc.Weixin.RegisterServices
 {
     /// <summary>
     /// 快捷注册接口
@@ -30,9 +30,18 @@ namespace Senparc.Weixin.Register
     /// </summary>
     public class RegisterService : IRegisterService
     {
+        /// <summary>
+        /// 开始流程
+        /// </summary>
+        /// <returns></returns>
         public static RegisterService Start()
         {
-            return new RegisterService();
+            var register = new RegisterService();
+
+            //如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
+            register.RegisterThreads();//默认把线程注册好
+
+            return register;
         }
     }
 }

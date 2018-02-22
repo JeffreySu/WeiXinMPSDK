@@ -54,7 +54,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v1.3.0 .net core下，MemcachedObjectCacheStrategy.GetMemcachedClientConfiguration()方法添加注入参数
 
       v1.4.0 停止对 .net core 1.1 生成的独立版本
-      v1.4.1 
+      v1.4.1 提供 RegisterServices 进行快捷注册
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.20.0</Version>
+    <Version>4.20.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -219,7 +219,10 @@
       v4.18.14 优化 HttpUtility.RequestUtility.HttpPost() 方法，优化文件流上传
 
       v4.19.0 支持异步 MessageHandler
+
       v4.20.0 停止对 .net core 1.1 生成的独立版本
+      v4.20.1 提供 RegisterServices 进行快捷注册
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

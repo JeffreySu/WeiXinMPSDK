@@ -10,6 +10,8 @@
     修改标识：Senparc - 20170205
     修改描述：v0.2.0 重构分布式锁
 
+    修改标识：Senparc - 20170205
+    修改描述：v1.3.0 core下，MemcachedObjectCacheStrategy.GetMemcachedClientConfiguration()方法添加注入参数
 ----------------------------------------------------------------*/
 
 using System;

@@ -362,9 +362,11 @@
 
       v14.9.0 支持异步 MessageHandler
       v14.9.1 完善AnalysisApi.GetArticleTotal()返回数据字段
+
       v14.10.0 停止对 .net core 1.1 生成的独立版本
       v14.10.1 添加RegisterService提供快捷注册方式
-      
+      v14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -97,7 +97,8 @@ namespace Senparc.Weixin.MP
         Link, //连接信息
         ShortVideo,//小视频
         Event, //事件推送
-        Unknown,//未知类型
+        File,//文件类型
+        Unknown = -1,//未知类型
     }
 
 

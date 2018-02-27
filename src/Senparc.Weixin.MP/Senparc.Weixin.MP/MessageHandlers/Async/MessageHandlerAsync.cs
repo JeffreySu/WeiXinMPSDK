@@ -119,6 +119,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
                         break;
+                    case RequestMsgType.File:
+                        ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
+                        break;
                     case RequestMsgType.Unknown:
                         ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
                         break;

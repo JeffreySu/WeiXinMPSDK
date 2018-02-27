@@ -411,6 +411,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
                         break;
+                    case RequestMsgType.File:
+                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                        break;
                     case RequestMsgType.Unknown:
                         ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
                         break;

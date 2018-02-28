@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.Sample
                 .RegisterCacheMemcached(
                     new Dictionary<string, int>() {/* { "localhost", 9101 }*/ },
                     memcachedConfig => (memcachedConfig != null && memcachedConfig.Count > 0)
-                                        ? RedisObjectCacheStrategy.Instance
+                                        ? MemcachedObjectCacheStrategy.Instance
                                         : null)
 
             #endregion

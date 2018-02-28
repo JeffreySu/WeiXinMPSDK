@@ -366,7 +366,7 @@
       v14.10.0 停止对 .net core 1.1 生成的独立版本
       v14.10.1 添加RegisterService提供快捷注册方式
       v14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
-
+      v14.10.3 增加MessageHandler的file类型处理
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

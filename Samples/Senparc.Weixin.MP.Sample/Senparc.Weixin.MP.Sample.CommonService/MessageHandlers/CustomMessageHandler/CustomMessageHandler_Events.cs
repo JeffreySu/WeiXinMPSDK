@@ -141,6 +141,7 @@ QQ群：289181996
         {
             IResponseMessageBase reponseMessage = null;
             //菜单点击，需要跟创建菜单时的Key匹配
+
             switch (requestMessage.EventKey)
             {
                 case "OneClick":
@@ -384,8 +385,6 @@ QQ群：289181996
             }
 
             responseMessage.Content = responseMessage.Content ?? string.Format("通过扫描二维码进入，场景值：{0}", requestMessage.EventKey);
-
-
 
             return responseMessage;
         }

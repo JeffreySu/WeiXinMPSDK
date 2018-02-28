@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             return string.Format(
 @"欢迎关注【Senparc.Weixin 微信公众平台SDK】，当前运行版本：v{0}。
-您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
+您可以发送【文字】【位置】【图片】【语音】【文件】等不同类型的信息，查看不同格式的回复。
 
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
@@ -64,7 +64,7 @@ SDK官方地址：https://weixin.senparc.com
 SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
-QQ群：588231256
+QQ群：289181996
 
 ===============
 更多：

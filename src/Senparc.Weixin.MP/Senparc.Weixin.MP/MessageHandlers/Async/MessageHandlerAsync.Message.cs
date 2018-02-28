@@ -148,6 +148,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnShortVideoRequest(requestMessage));
         }
 
+        /// <summary>
+        /// 【异步方法】文件类型请求
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnFileRequestAsync(RequestMessageFile requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnFileRequest(requestMessage));
+        }
+
         #endregion
 
     }

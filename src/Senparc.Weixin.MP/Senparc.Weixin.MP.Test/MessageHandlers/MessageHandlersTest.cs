@@ -68,6 +68,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responeMessage;
         }
 
+        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
+        {
+            var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responeMessage.Content = requestMessage.FileMd5;
+            return responeMessage;
+        }
+
         #region 微信认证事件推送
 
         public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
@@ -288,7 +295,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
             Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
-            Assert.AreEqual("欢迎关注",((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+            Assert.AreEqual("欢迎关注", ((ResponseMessageText)messageHandlers.ResponseMessage).Content);
             Console.WriteLine(messageHandlers.FinalResponseDocument);
         }
 
@@ -496,7 +503,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         [TestMethod]
         public void UnknowTypeMessageTest()
         {
-          var   requestXmlFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
+            var requestXmlFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[{0}]]></FromUserName>
@@ -506,7 +513,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
-            var types = new[] {"unknown1", "unknown2", "unknown3"};
+            var types = new[] { "unknown1", "unknown2", "unknown3" };
             foreach (var type in types)
             {
                 var fileXml = requestXmlFormat.FormatWith("JeffreySu", type);
@@ -569,7 +576,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             //数据不全，未开始正式测试
             var postModel = new PostModel()
             {
-                Msg_Signature = "1f68ff2f7cffa0e6086f108a96111459e905f365",
+                AppId = "wx43899fc5fd7ab4dc",
+                Msg_Signature = "a61aaa287b63782f8e5d801075e20e75bfe37af4",
                 Timestamp = "1519483978",
                 Nonce = "1122185331",
 
@@ -578,7 +586,17 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
+         
+            messageHandler.Execute();
 
+            Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageFile));
+            Console.WriteLine(messageHandler.RequestDocument);
+
+            Console.WriteLine(messageHandler.ResponseDocument);
+
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+               
         }
 
         #endregion

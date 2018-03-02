@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard1.6;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.18.14</Version>
+    <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+    <Version>4.20.2</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -217,6 +217,14 @@
       1、添加 Config.ApiMpFileHost 公众号文件下载域名
       2、修改 HttpUtility.Get.Download() 方法，根据 Content-Disposition 中的文件名储存文件
       v4.18.14 优化 HttpUtility.RequestUtility.HttpPost() 方法，优化文件流上传
+
+      v4.19.0 支持异步 MessageHandler
+
+      v4.20.0 停止对 .net core 1.1 生成的独立版本
+      v4.20.1 提供 RegisterServices 进行快捷注册
+      v4.20.2
+      1、添加IRequestMessageTextOrEvent，作为所有文本（RequestMessageText）或事件（RequestMessageEvent）接口
+      2、添加IRequestMessageEvent作为所有事件（RequestMessageEvent接口）
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

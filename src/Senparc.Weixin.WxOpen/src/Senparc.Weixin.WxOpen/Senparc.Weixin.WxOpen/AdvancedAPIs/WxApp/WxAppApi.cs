@@ -71,19 +71,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="stream">储存小程序码的流</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, Stream stream, string path,
+            int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
-                var data = new { path = path, width = width };
+                if (auto_color && lineColor == null)
+                {
+                    lineColor = new LineColor();//提供默认值
+                }
+
+                var data = new { path = path, width = width, line_color = lineColor };
+                JsonSetting jsonSetting = new JsonSetting(true);
                 SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -99,14 +107,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="filePath">储存图片的物理路径</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, string filePath, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetWxaCode(string accessTokenOrAppId, string filePath, string path, int width = 430,
+            bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.GetWxaCode(accessTokenOrAppId, ms, path, width);
+                var result = WxAppApi.GetWxaCode(accessTokenOrAppId, ms, path, width, auto_color, lineColor, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -127,19 +137,28 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
         /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, Stream stream, string scene, string page, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, Stream stream, string scene,
+            string page, int width = 430, bool auto_color = false, LineColor lineColor = null, 
+            int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
-                var data = new { scene = scene, page = page, width = width };
+                if (auto_color && lineColor == null)
+                {
+                    lineColor = new LineColor();//提供默认值
+                }
+
+                var data = new { scene = scene, page = page, width = width, line_color = lineColor };
                 SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+                JsonSetting jsonSetting = new JsonSetting(true);
+                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -333,7 +352,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new { poi_id = poi_id, status= status };
+                var data = new { poi_id = poi_id, status = status };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
@@ -382,19 +401,28 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
         /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, Stream stream, string scene, string page, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, Stream stream,
+            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
+            int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
-                var data = new { scene = scene, page = page, width = width };
+                if (auto_color && lineColor == null)
+                {
+                    lineColor = new LineColor();//提供默认值
+                }
+
+                var data = new { scene = scene, page = page, width = width, line_color = lineColor };
+                JsonSetting jsonSetting = new JsonSetting(true);
                 SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -411,14 +439,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
         /// <param name="width">二维码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, string filePath,
+            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
+            int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width);
+                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -438,19 +469,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="stream">储存小程序码的流</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">小程序码的宽度</param>
-        /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path,
+            int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
-                var data = new { path = path, width = width };
+                if (auto_color && lineColor == null)
+                {
+                    lineColor = new LineColor();//提供默认值
+                }
+
+                var data = new { path = path, width = width, line_color = lineColor };
+                JsonSetting jsonSetting = new JsonSetting(true);
                 SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data,jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -468,7 +507,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream, 
+            string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

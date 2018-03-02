@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取AccessToken
+        /// 获取AccessToken（OAuth专用）
         /// </summary>
         /// <param name="appId">公众号的唯一标识</param>
         /// <param name="secret">公众号的appsecret</param>
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 刷新access_token（如果需要）
+        /// 刷新（OAuth专用）access_token（如果需要）
         /// </summary>
         /// <param name="appId">公众号的唯一标识</param>
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
@@ -110,33 +110,34 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取用户基本信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
+        public static OAuthUserInfo GetUserInfo(string oauthAccessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
             return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
-        /// 检验授权凭证（access_token）是否有效
+        /// 检验授权凭证（access_token）是否有效（OAuth专用）
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
-        public static WxJsonResult Auth(string accessToken, string openId)
+        public static WxJsonResult Auth(string oauthAccessToken, string openId)
         {
-            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", oauthAccessToken.AsUrlData(), openId.AsUrlData());
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
+
         #endregion
 
 #if !NET35 && !NET40
         #region 异步方法
         /// <summary>
-        /// 【异步方法】获取AccessToken
+        /// 【异步方法】获取AccessToken（OAuth专用）
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="secret"></param>
@@ -153,7 +154,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        ///【异步方法】刷新access_token（如果需要）
+        ///【异步方法】刷新（OAuth专用）access_token（如果需要）
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
@@ -171,25 +172,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】 获取用户基本信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        public static async Task<OAuthUserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang = Language.zh_CN)
+        public static async Task<OAuthUserInfo> GetUserInfoAsync(string oauthAccessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
-        /// 【异步方法】检验授权凭证（access_token）是否有效
+        /// 【异步方法】检验授权凭证（access_token）是否有效（OAuth专用）
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> AuthAsync(string accessToken, string openId)
+        public static async Task<WxJsonResult> AuthAsync(string oauthAccessToken, string openId)
         {
-            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+            var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", oauthAccessToken.AsUrlData(), openId.AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion

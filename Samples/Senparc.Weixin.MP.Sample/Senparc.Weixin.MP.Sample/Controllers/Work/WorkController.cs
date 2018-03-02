@@ -70,6 +70,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = EncodingAESKey;
             postModel.CorpId = CorpId;
 
+
+            #region 用于生产环境测试原始数据
+            //var ms = new MemoryStream();
+            //Request.InputStream.CopyTo(ms);
+            //ms.Seek(0, SeekOrigin.Begin);
+
+            //var sr = new StreamReader(ms);
+            //var xml = sr.ReadToEnd();
+            //var doc = XDocument.Parse(xml);
+            //doc.Save(Server.MapPath("~/App_Data/TestWork.log"));
+            //return null;
+            #endregion
+
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new WorkCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 

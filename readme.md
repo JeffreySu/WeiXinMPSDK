@@ -180,8 +180,8 @@ Senparc 官方视频教程
 > 1. 微信开发基础技能<br>
 > 2. 公众号及小程序案例实战<br>
 > 
-> 共计 60 课时，配有番外篇。
-> 目前视频已经在网易云课堂上线，[【点击查看】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)。
+> 共计 60 课时，配有番外篇。<br>
+> 目前视频已经在网易云课堂上线，课程制作精良、内容充实，被选为“A”级课程，[【观看视频】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)，[【查看课程代码及课件】](https://github.com/JeffreySu/WechatVideoCourse)。
 
 
 ### 关注测试账号（SenparcRobot）：

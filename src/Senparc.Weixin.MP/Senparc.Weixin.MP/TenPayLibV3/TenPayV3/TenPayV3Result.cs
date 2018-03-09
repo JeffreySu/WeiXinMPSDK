@@ -54,8 +54,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170322
     修改描述：v14.3.132 完善OrderQueryResult 服务商查询订单接口
     
-    修改标识：jiehanlin - 20180309
-    修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性 & 优化代码
 
 ----------------------------------------------------------------*/
 
@@ -81,12 +81,17 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected XDocument _resultXml;
 
+        /// <summary>
+        /// XML内容
+        /// </summary>
         public string ResultXml {
             get {
-                StringWriter sw = new StringWriter();
-                XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
-                _resultXml.WriteTo(xmlTextWriter);
-                return sw.ToString();
+                return _resultXml.ToString();
+
+                //StringWriter sw = new StringWriter();
+                //XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
+                //_resultXml.WriteTo(xmlTextWriter);
+                //return sw.ToString();
             }
         }
 

@@ -57,7 +57,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 
@@ -75,6 +77,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string return_msg { get; set; }
 
         protected XDocument _resultXml;
+
+        public string ResultXml {
+            get {
+                StringWriter sw = new StringWriter();
+                XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
+                _resultXml.WriteTo(xmlTextWriter);
+                return sw.ToString();
+            }
+        }
 
         public TenPayV3Result(string resultXml)
         {

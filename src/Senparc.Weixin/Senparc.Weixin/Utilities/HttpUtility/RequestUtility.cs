@@ -58,7 +58,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.WebProxy;
 #endif
@@ -71,6 +71,13 @@ namespace Senparc.Weixin.HttpUtility
     /// </summary>
     public static partial class RequestUtility
     {
+#if NETCOREAPP2_1
+        private static HttpClient httpClient;
+        public static void Configure(SenparcHttpClient senparcHttpClient)
+        {
+            httpClient = senparcHttpClient.HttpClient;
+        }
+#endif
         #region 代理
 
 #if NET35 || NET40 || NET45

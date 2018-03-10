@@ -47,7 +47,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.WebProxy;
 #endif
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.HttpUtility
 
 #endif
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         /// <summary>
         /// 给.NET Core使用的HttpPost请求公共设置方法
         /// </summary>
@@ -220,11 +220,17 @@ namespace Senparc.Weixin.HttpUtility
                 handler.ClientCertificates.Add(cer);
             }
 
-            HttpClient client = new HttpClient(handler);
+            HttpClient client;
+#if NETCOREAPP2_1
+            if (httpClient != null)
+                client = httpClient;
+            else
+#endif
+                client = new HttpClient(handler);
             HttpClientHeader(client, refererUrl, useAjax, timeOut);
 
 
-        #region 处理Form表单文件上传
+            #region 处理Form表单文件上传
 
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -274,7 +280,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             //HttpContentHeader(hc, timeOut);
-        #endregion
+            #endregion
 
             if (!string.IsNullOrEmpty(refererUrl))
             {
@@ -446,8 +452,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             return new SenparcHttpResponse(response);
 #else
-            HttpContent hc;
-            var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+            var client = HttpPost_Common_NetCore(url, out HttpContent hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
             return new SenparcHttpResponse(response);

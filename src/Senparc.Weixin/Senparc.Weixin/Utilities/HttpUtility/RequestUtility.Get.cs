@@ -88,7 +88,7 @@ namespace Senparc.Weixin.HttpUtility
         }
 #endif
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         /// <summary>
         /// .NET Core 版本的HttpWebRequest参数设置
         /// </summary>
@@ -135,13 +135,18 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
+
             var handler = new HttpClientHandler
             {
                 UseProxy = _webproxy != null,
                 Proxy = _webproxy,
             };
-
+#if NETCOREAPP2_1
+            if (httpClient == null)
+                httpClient = new HttpClient(handler);
+#else
             HttpClient httpClient = new HttpClient(handler);
+#endif
             return httpClient.GetStringAsync(url).Result;
 #endif
         }
@@ -179,8 +184,12 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-
+#if NETCOREAPP2_1
+            if (httpClient == null)
+                httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#else
             var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#endif
             return httpClient.GetStringAsync(url).Result;
 #endif
         }
@@ -227,7 +236,12 @@ namespace Senparc.Weixin.HttpUtility
         public static HttpResponseMessage HttpResponseGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null,
    string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
+#if NETCOREAPP2_1
+            if (httpClient == null)
+                httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#else
             var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#endif
             var task = httpClient.GetAsync(url);
             HttpResponseMessage response = task.Result;
             return response;
@@ -260,7 +274,12 @@ namespace Senparc.Weixin.HttpUtility
                 Proxy = _webproxy,
             };
 
+#if NETCOREAPP2_1
+            if (httpClient == null)
+                httpClient = new HttpClient(handler);
+#else
             HttpClient httpClient = new HttpClient(handler);
+#endif
             return await httpClient.GetStringAsync(url);
 #endif
 
@@ -298,7 +317,12 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
+#if NETCOREAPP2_1
+            if (httpClient == null)
+                httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#else
             var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+#endif
             return await httpClient.GetStringAsync(url);
 #endif
         }

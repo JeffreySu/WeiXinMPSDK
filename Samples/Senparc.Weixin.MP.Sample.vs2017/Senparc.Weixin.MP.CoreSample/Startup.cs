@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -49,6 +51,22 @@ namespace Senparc.Weixin.MP.CoreSample
                 options.AddServer("memcached", 11211);
                 //options.AddPlainTextAuthenticator("", "usename", "password");
             });
+
+            #region SenparcHttpClient的DI注入
+            services.AddHttpClient("Senparc", client =>
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xhtml+xml"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml", 0.9));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("image/webp"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*", 0.8));
+
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+                client.DefaultRequestHeaders.Add("Timeout", Config.TIME_OUT.ToString());
+                client.DefaultRequestHeaders.Add("KeepAlive", "true");
+            })
+            .AddTypedClient<SenparcHttpClient>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +125,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             /* 微信配置结束 */
 
+            //配置SenparcHttpClient到RequestUtility
+            app.UseStaticSenparcHttpClient();
             #endregion
         }
 

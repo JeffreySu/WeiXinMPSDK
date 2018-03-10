@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
 #if NET45
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
-#elif NETCOREAPP2_0 || NETSTANDARD2_0
+#elif NETCOREAPP2_0 || NETSTANDARD2_0 || NETCOREAPP2_1
             {
                 var dllPath =
                     Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(

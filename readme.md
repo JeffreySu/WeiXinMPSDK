@@ -1,8 +1,13 @@
-> _公告：为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_
+> _【公告】_<br>
+> _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br>
+> _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_
 
-Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+Senparc.Weixin —— 微信 .NET SDK 
 =================
-
+[![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+[![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
+[![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
+[![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [[English Version](readme.en.md)]
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
@@ -136,7 +141,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 * 技术交流QQ群：
 
-> `14群（公众号）：588231256`<br>
+> `14群（视频课程学员群）：588231256`<br>
+> `15群（公众号）：289181996`<br>
 > `10群（分布式缓存群）：246860933`<br>
 > `12群（微信小程序）：108830388`<br>
 > `13群（开放平台）：183424136`<br>
@@ -156,7 +162,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
 
 
-Senparc 官方教程
+Senparc 官方图书教程
 ----------------
 
 <img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" align="right">
@@ -164,6 +170,18 @@ Senparc 官方教程
 > 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
 > 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
+
+Senparc 官方视频教程
+----------------
+
+> 为了帮助大家更直观地了解微信开发细节，同时结合《微信开发深度解析》图书进行学习，我们成立“盛派课堂”小组，开设了微信开发视频课程，帮助大家从多个维度学习微信开发以及 .NET 开发过程中的诸多技巧。<br>
+> 视频包含两大部分：<br>
+> 1. 微信开发基础技能<br>
+> 2. 公众号及小程序案例实战<br>
+> 
+> 共计 60 课时，配有番外篇。<br>
+> 目前视频已经在网易云课堂上线，课程制作精良、内容充实，被选为“A”级课程，[【观看视频】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)，[【查看课程代码及课件】](https://github.com/JeffreySu/WechatVideoCourse)。
 
 
 ### 关注测试账号（SenparcRobot）：
@@ -216,7 +234,7 @@ Senparc 官方教程
 |[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			|可以直接发布使用的Demo（.NET Core 2.0 + MVC）|
 
 
-## enparc.Weixin.MP.Sample中的关键代码说明
+## Senparc.Weixin.MP.Sample中的关键代码说明
 
 >注：这是MVC项目，WebForms项目见对应Demo中的Weixin.aspx。
 

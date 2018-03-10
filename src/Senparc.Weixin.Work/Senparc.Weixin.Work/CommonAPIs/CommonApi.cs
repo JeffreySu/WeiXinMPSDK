@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 agentid = agentId
             };
 
-            return CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 openid = openId
             };
 
-            return CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 

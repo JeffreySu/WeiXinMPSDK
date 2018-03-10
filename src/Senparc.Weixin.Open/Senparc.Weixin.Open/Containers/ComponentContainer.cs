@@ -271,8 +271,12 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
         /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
         /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
-        /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string, string> getAuthorizerRefreshTokenFunc, Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
+        /// <param name="name">标记名称（如开放平台名称），帮助管理员识别</param>
+        public static void Register(string componentAppId, string componentAppSecret,
+            Func<string, string> getComponentVerifyTicketFunc, 
+            Func<string, string, string> getAuthorizerRefreshTokenFunc, 
+            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
+            string name = null)
         {
             //激活消息队列线程
 

@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var nonceStr = TenPayV3Util.GetNoncestr();
 
                 var body = product == null ? "test" : product.Name;
-                var price = product == null ? 100 : (int)product.Price * 100;//单位：分
+                var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
@@ -420,13 +420,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     string openId = resHandler.GetParameter("openid");
                     var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId+" , "+openId);
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
 
                     var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息",ex.ToString());
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
                 }
 
                 #region 记录日志

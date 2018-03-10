@@ -68,34 +68,41 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responeMessage;
         }
 
+        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
+        {
+            var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responeMessage.Content = requestMessage.FileMd5;
+            return responeMessage;
+        }
+
         #region 微信认证事件推送
 
-        public override IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        public override IResponseMessageBase OnEvent_QualificationVerifyFailRequest(RequestMessageEvent_QualificationVerifyFail requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        public override IResponseMessageBase OnEvent_NamingVerifySuccessRequest(RequestMessageEvent_NamingVerifySuccess requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        public override IResponseMessageBase OnEvent_NamingVerifyFailRequest(RequestMessageEvent_NamingVerifyFail requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        public override IResponseMessageBase OnEvent_AnnualRenewRequest(RequestMessageEvent_AnnualRenew requestMessage)
         {
             return new SuccessResponseMessage();
         }
 
-        public override IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        public override IResponseMessageBase OnEvent_VerifyExpiredRequest(RequestMessageEvent_VerifyExpired requestMessage)
         {
             return new SuccessResponseMessage();
         }
@@ -173,6 +180,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             return responseMessage;
             //return base.OnUnknownTypeRequest(requestMessage);
+        }
+
+        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "欢迎关注";
+            return responseMessage;
         }
     }
 
@@ -257,6 +271,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
             Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("OnEvent_LocationSelectRequest", ((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+        }
+
+        [TestMethod]
+        public void OnSubscribeTest()
+        {
+            var requestXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+<ToUserName><![CDATA[gh_0fe614101343]]></ToUserName>
+<FromUserName><![CDATA[oxRg0uLsnpHjb8o93uVnwMK_WAVw]]></FromUserName>
+<CreateTime>1516545128</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(requestXML));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            Assert.IsInstanceOfType(messageHandlers.RequestMessage, typeof(RequestMessageEvent_Subscribe));
+            Assert.AreEqual("", ((RequestMessageEvent_Subscribe)messageHandlers.RequestMessage).EventKey);//EventKey为空
+
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("欢迎关注", ((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+            Console.WriteLine(messageHandlers.FinalResponseDocument);
         }
 
         [TestMethod]
@@ -463,7 +503,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         [TestMethod]
         public void UnknowTypeMessageTest()
         {
-          var   requestXmlFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
+            var requestXmlFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[{0}]]></FromUserName>
@@ -473,7 +513,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
-            var types = new[] {"unknown1", "unknown2", "unknown3"};
+            var types = new[] { "unknown1", "unknown2", "unknown3" };
             foreach (var type in types)
             {
                 var fileXml = requestXmlFormat.FormatWith("JeffreySu", type);
@@ -509,5 +549,56 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
+
+        #region 文件类型测试
+
+
+        private string testFileXml = @"<xml>
+    <ToUserName><![CDATA[gh_8a50de30e55a]]></ToUserName>
+    <FromUserName><![CDATA[o5lE40xwHOqG8riO_EOZQV3JYCV8]]></FromUserName>
+    <CreateTime>1519483978</CreateTime>
+    <MsgType><![CDATA[file]]></MsgType>
+    <Title><![CDATA[test.zip]]></Title>
+    <Description><![CDATA[]]></Description>
+    <FileKey><![CDATA[BAAAAAAAAACJHA0y]]></FileKey>
+    <FileMd5><![CDATA[95d98d3bf1b251a9e4a40f3bd88eef29]]></FileMd5>
+    <FileTotalLen>222</FileTotalLen>
+    <MsgId>6526133992738756795</MsgId>
+    <Encrypt><![CDATA[yy1I8GZ58CkgRqS/D+F0QHhKpO8pVYNzAlo+25FkP/LTwf6gCM3ry3ZWBbOXsWDira3+Y2Arr0cvmC+KhS2tz7eerxQaKTkuBhj61tOoRCO9okYT9JtmHCR4STpi0sp3LXgm7LFSSdgWWD46Yt8BDh/LhySZKiXoPoxL9krJlKtM5jBteT1Mcc78d9kSqqurzm04Ux8X4Sgw6ubBsjZs3c5jH95f3ifG8hVPHGruIZqr3kX2eIMOwhtTZbqZb/YlEtPuC7UakN0jOlmn8sDGxLFf14TPC4okJ6l1/DFVKx6sGBslStRvNtLlwbNxyUBHkyFINbOo2Yx2BIaDnXmu/34N04vm2hNxjfH6Ej3P7lZ4YaX0+WCTXqwIZVQtTpYx9GXWjPVU+8eY4VtdDYKlbgzBpzxU5EiCcLieqBhLYq5ltGGPPapebaLV4PlJ4N2LwybR2v41rCUb9HiU9pptsBUDGsbUsJnblc5DkTJbqZdLP6hHuNRTDegApRdVUOfKysHVWfaaYZC+RwFPrriJsWZNS0c/iY2EF+obXZm+heuqGO6Zozb5v/h2JxmWGgzvGr06aMPxVO1KRLVxGuEnHXF2XH1g76CVLy3+ACb3gFhm3FmYe9ZR1Mad7fwBnzhGZRTQxXaIb+6en4DoR4zcN47K7CvPS5NR49h6MGOhqVY=]]></Encrypt>
+</xml>
+";
+        //<Encrypt>
+        //     <![CDATA[LDlJIR3WMDZ3b3zg7UqmLMJ1fTH/rj7Hr55nfmzfamX4BgSOTScY/5ZoDYzb2esTHFuHNVpqyyFwGjlxVmIAPrh+bTK80APcklA9dCiV4TWAppittpITkktJ1e5KPjJ6GEEPdmq2Fqipd0tfzgLH7Q0F68+PSc3XSbbEvV1fSeccJ2FIZxoikIRO/UZX101BK7cHY/Zn+H3DeDcCDA/0SFg5JrIlWONOY72SEiUkl9Edo4GwrQqN5y6u0zh/apKbi3B6S4xk3Z/66rnFjPS+zN7bT/URCpEDZShUHJqVPa//7BnTm51IvTchTlm01MdM5UCh6pHTuoNrTGmwAy/4ekCGjmD6bcbJbQ7c3D2uH8ej9cKc+xMfEuZkxbHC5I9t6xhPBoZ0L4cvSZGTTu+1Pd/sF4I3lkdBOn2U4dcO7NzacJM3vmSY7hVMOw3eRJhI0nlaiM1mrfO3A8EJouS9nkYAnQyYbV14rscdARVO5f4ipS8336soC00ZbRgmVgKfIpE4phxJMDmiux7ym7s40dwD9WNtxXK4Zk4ePQGrvjLvrx2PbZIUpV//Aing1oS9Lh6OdVhJgFlBd7bs0HlccbhADiYR07k+eG8TdaUNoDKdkXNgYgxGwUpB07e0vfuD2EtIpI0P/b7QrJU1nAw2R/s3imfLmStVlq3CRpTo5ahnhNrSZ8db/hEM3XJsIotVRUQKT4ONFvnI7RLLGWjkNQ==]]>
+        // </Encrypt>
+        [TestMethod]
+        public void FileTest()
+        {
+            //数据不全，未开始正式测试
+            var postModel = new PostModel()
+            {
+                AppId = "wx43899fc5fd7ab4dc",
+                Msg_Signature = "a61aaa287b63782f8e5d801075e20e75bfe37af4",
+                Timestamp = "1519483978",
+                Nonce = "1122185331",
+
+                Token = "moZ05vVoeueufLTuCqv",
+                EncodingAESKey = "68JptSBfCdTa12VRKa3Ztv4cDRbqlor8Kgy6c9l6bKK",
+            };
+
+            var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
+         
+            messageHandler.Execute();
+
+            Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageFile));
+            Console.WriteLine(messageHandler.RequestDocument);
+
+            Console.WriteLine(messageHandler.ResponseDocument);
+
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+               
+        }
+
+        #endregion
     }
 }

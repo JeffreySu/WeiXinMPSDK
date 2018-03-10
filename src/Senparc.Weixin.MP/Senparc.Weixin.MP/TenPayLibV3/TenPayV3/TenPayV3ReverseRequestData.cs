@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 随机字符串
         /// </summary>
-        public string NonceStr { get; set; }
+        public string NonceStr { get; }
 
         /// <summary>
         /// 微信的订单号，建议优先使用
@@ -94,7 +94,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             Key = key;
 
             #region 设置RequestHandler
-
+            //创建支付应答对象
+            PackageRequestHandler = new RequestHandler(null);
+            //初始化
+            PackageRequestHandler.Init();
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号

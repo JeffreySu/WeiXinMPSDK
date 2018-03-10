@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：MessageHandler.Event.cs
+    文件名：MessageHandler.Message.cs
     文件功能描述：微信请求的集中处理方法：Message相关
     
     
@@ -136,6 +136,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 小视频类型请求
         /// </summary>
         public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 文件请求
+        /// </summary>
+        public virtual IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

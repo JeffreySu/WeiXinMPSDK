@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.csproj", "{EE8630BC-6191-4C40-9061-12C76342562D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.src.csproj", "{EE8630BC-6191-4C40-9061-12C76342562D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{2E87002F-2664-4D69-9834-2C6E720556BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "Senparc.Weixin\Senparc.Weixin.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "Senparc.Weixin\Senparc.Weixin.src.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP", "..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj", "{1D815FBF-451C-4E23-939C-CB80172F445C}"
 EndProject
@@ -118,3 +118,4 @@ Global
 		SolutionGuid = {9FF94A40-A42C-450D-8A98-60F641A64CE5}
 	EndGlobalSection
 EndGlobal
+

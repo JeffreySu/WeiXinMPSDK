@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 随机字符串
         /// </summary>
-        public string NonceStr { get; set; }
+        public string NonceStr { get; }
 
         /// <summary>
         /// 商家订单号

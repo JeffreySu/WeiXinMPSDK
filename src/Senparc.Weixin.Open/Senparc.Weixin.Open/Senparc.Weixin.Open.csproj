@@ -94,6 +94,7 @@
     <Compile Include="OAuthAPIs\OAuthAPI.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -102,6 +103,9 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateApi.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateJson\GetTemplateListResultJson.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateJson\GetTemplateDraftListResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeApi.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
@@ -114,10 +118,6 @@
     <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
     <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
-    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
-    <Compile Include="WxaAPIs\Template\TemplateJson\AddJsonResult.cs" />
-    <Compile Include="WxaAPIs\Template\TemplateJson\ListJsonResult.cs" />
-    <Compile Include="WxaAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />

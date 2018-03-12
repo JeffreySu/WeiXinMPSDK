@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -234,7 +234,7 @@ namespace Senparc.Weixin.Work.Helpers
                                             }
                                         case RequestMsgType.File:
                                             {
-                                                reqItem = new RequestMessageFile();
+                                                reqItem = new Entities.Request.KF.RequestMessageFile();
                                                 break;
                                             }
                                         case RequestMsgType.Image:

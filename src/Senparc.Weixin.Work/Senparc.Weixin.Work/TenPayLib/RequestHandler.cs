@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付 请求处理
@@ -24,7 +24,6 @@ using Microsoft.AspNetCore.Http;
 #endif
 
 using Senparc.Weixin.Helpers.StringHelper;
-using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work.TenPayLib
 {

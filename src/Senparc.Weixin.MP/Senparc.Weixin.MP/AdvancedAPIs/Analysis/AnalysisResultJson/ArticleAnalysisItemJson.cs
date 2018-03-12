@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ArticleAnalysisItemJson.cs
     文件功能描述：获取图文群发每日数据返回结果 单条数据类
@@ -32,6 +32,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20150310
     修改描述：修改类
+
+    修改标识：Senparc - 20180116
+    修改描述：GetUserReadItem 和 GetUserReadHourItem 添加 user_source 属性（用户渠道来源）
+              文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141084 关键字：user_source
+
 ----------------------------------------------------------------*/
 
 
@@ -154,8 +159,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 收藏的次数
         /// </summary>
         public int add_to_fav_count { get; set; }
+
+        #region 官方暂无说明文字
+
+        public int int_page_from_session_read_user { get; set; }
+        public int int_page_from_session_read_count { get; set; }
+        public int int_page_from_hist_msg_read_user { get; set; }
+        public int int_page_from_hist_msg_read_count { get; set; }
+        public int int_page_from_feed_read_user { get; set; }
+        public int int_page_from_feed_read_count { get; set; }
+        public int int_page_from_friends_read_user { get; set; }
+        public int int_page_from_friends_read_count { get; set; }
+        public int int_page_from_other_read_user { get; set; }
+        public int int_page_from_other_read_count { get; set; }
+        public int feed_share_from_session_user { get; set; }
+        public int feed_share_from_session_cnt { get; set; }
+        public int feed_share_from_feed_user { get; set; }
+        public int feed_share_from_feed_cnt { get; set; }
+        public int feed_share_from_other_user { get; set; }
+        public int feed_share_from_other_cnt { get; set; }
+
+        #endregion
+
     }
-    
+
     /// <summary>
     /// 图文统计数据 单条数据
     /// </summary>
@@ -165,6 +192,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 数据的日期
         /// </summary>
         public string ref_date { get; set; }
+        /// <summary>
+        /// 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他
+        /// </summary>
+        public int user_source { get; set; }
         /// <summary>
         /// 图文页（点击群发图文卡片进入的页面）的阅读人数
         /// </summary>
@@ -212,6 +243,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
         /// </summary>
         public int ref_hour { get; set; }
+        /// <summary>
+        /// 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他
+        /// </summary>
+        public int user_source { get; set; }
         /// <summary>
         /// 图文页（点击群发图文卡片进入的页面）的阅读人数
         /// </summary>

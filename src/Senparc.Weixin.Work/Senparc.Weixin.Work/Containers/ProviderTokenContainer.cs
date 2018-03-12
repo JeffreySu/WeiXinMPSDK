@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：ProviderTokenContainer.cs
     文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
@@ -128,15 +128,21 @@ namespace Senparc.Weixin.Work.Containers
 
 
         /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// 获取全局唯一Key
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
-        /// <param name="name">标记Provider名称（如微信公众号名称），帮助管理员识别</param>
         private static string BuildingKey(string corpId, string corpSecret)
         {
             return corpId + corpSecret;
         }
+
+        /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string corpId, string corpSecret, string name = null)
         {
             RegisterFunc = () =>

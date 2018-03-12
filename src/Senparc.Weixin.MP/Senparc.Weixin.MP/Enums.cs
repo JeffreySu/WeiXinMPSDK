@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -78,6 +78,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171108
     修改描述：v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
 
+    修改标识：Senparc - 20170225
+    修改描述：v14.10.3 增加MessageHandler的file类型处理
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -97,7 +100,8 @@ namespace Senparc.Weixin.MP
         Link, //连接信息
         ShortVideo,//小视频
         Event, //事件推送
-        Unknown,//未知类型
+        File,//文件类型
+        Unknown = -1,//未知类型
     }
 
 

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
     /// </summary>
     public partial class CommonApi
     {
-        public static string _apiUrl = Config.ApiWorkHost + "/cgi-bin";
+        //public static string _apiUrl = Config.ApiWorkHost + "/cgi-bin";
 
         #region 同步方法
 
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 */
             #endregion
 
-            var url = string.Format(_apiUrl + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = Get.GetJson<AccessTokenResult>(url);
             return result;
         }
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 agentid = agentId
             };
 
-            return CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 openid = openId
             };
 
-            return CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 */
             #endregion
 
-            var url = string.Format(_apiUrl + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = await Get.GetJsonAsync<AccessTokenResult>(url);
             return result;
         }

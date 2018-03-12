@@ -68,6 +68,8 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
             Console.WriteLine("清理开始……");
 
             CleanDir("../src/");
+            CleanDir("../Samples/");
+
 
             Console.WriteLine("清理完毕，点击回车键再清理一次，其他任意键退出（电源键除外）...");
             if (Console.ReadKey().KeyChar == (int)ConsoleKey.Enter)

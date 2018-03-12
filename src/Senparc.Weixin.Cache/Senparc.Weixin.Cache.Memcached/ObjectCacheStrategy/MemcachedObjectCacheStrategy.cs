@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：MemcachedObjectCacheStrategy.cs
     文件功能描述：本地锁
@@ -10,6 +10,8 @@
     修改标识：Senparc - 20170205
     修改描述：v0.2.0 重构分布式锁
 
+    修改标识：Senparc - 20170205
+    修改描述：v1.3.0 core下，MemcachedObjectCacheStrategy.GetMemcachedClientConfiguration()方法添加注入参数
 ----------------------------------------------------------------*/
 
 using System;
@@ -21,6 +23,14 @@ using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+
+#if NET45 || NET461
+
+#else
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+#endif
 
 namespace Senparc.Weixin.Cache.Memcached
 {
@@ -39,21 +49,22 @@ namespace Senparc.Weixin.Cache.Memcached
             _serverlist = serverlist;
         }
 
+
         #region 单例
 
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        public MemcachedObjectCacheStrategy()
+        public MemcachedObjectCacheStrategy(/*ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor*/)
         {
             _config = GetMemcachedClientConfiguration();
-
 #if NET45 || NET461
             _cache = new MemcachedClient(_config);
 #else
             _cache = new MemcachedClient(null, _config);
 #endif
         }
+
 
         //静态LocalCacheStrategy
         public static IObjectCacheStrategy Instance
@@ -77,22 +88,30 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #region 配置
 
+#if NET45 || NET461
         private static MemcachedClientConfiguration GetMemcachedClientConfiguration()
+#else
+        private static MemcachedClientConfiguration GetMemcachedClientConfiguration(/*ILoggerFactory loggerFactory, IOptions<MemcachedClientOptions> optionsAccessor*/)
+#endif
         {
             //每次都要新建
 
 #if NET45 || NET461
             var config = new MemcachedClientConfiguration();
-#else
-            var config = new MemcachedClientConfiguration(null, null);
-#endif
-
             foreach (var server in _serverlist)
             {
                 config.Servers.Add(new IPEndPoint(IPAddress.Parse(server.Key), server.Value));
             }
             config.Protocol = MemcachedProtocol.Binary;
 
+#else
+            var services = new ServiceCollection();
+            var provider = services.BuildServiceProvider();
+            ILoggerFactory loggerFactory = provider.GetService<ILoggerFactory>();
+            IOptions<MemcachedClientOptions> optionsAccessor = provider.GetService<IOptions<MemcachedClientOptions>>();
+
+            var config = new MemcachedClientConfiguration(loggerFactory, optionsAccessor);
+#endif
             return config;
         }
 
@@ -119,41 +138,46 @@ namespace Senparc.Weixin.Cache.Memcached
 
             //cache = new MemcachedClient();
             //cache.EnableCompression = false;
-            try
-            {
-                //config.Authentication.Type = typeof(PlainTextAuthenticator);
-                //config.Authentication.Parameters["userName"] = "username";
-                //config.Authentication.Parameters["password"] = "password";
-                //config.Authentication.Parameters["zone"] = "zone";//domain?   ——Jeffrey 2015.10.20
-                DateTime dt1 = DateTime.Now;
-                var config = GetMemcachedClientConfiguration();
-                //var cache = new MemcachedClient(config);'
+
+            #region 内部为测试代码，因为调用RegisterServerList()静态方法前会先执行此静态构造函数，此时_serverlist还没有被初始化，故会出错
+
+            //            try
+            //            {
+            //                //config.Authentication.Type = typeof(PlainTextAuthenticator);
+            //                //config.Authentication.Parameters["userName"] = "username";
+            //                //config.Authentication.Parameters["password"] = "password";
+            //                //config.Authentication.Parameters["zone"] = "zone";//domain?   ——Jeffrey 2015.10.20
+            //                DateTime dt1 = DateTime.Now;
+            //                var config = GetMemcachedClientConfiguration();
+            //                //var cache = new MemcachedClient(config);'
 
 
-#if NET45 || NET461
-                var cache = new MemcachedClient(config);
-#else
-                var cache = new MemcachedClient(null, config);
-#endif
+            //#if NET45 || NET461
+            //                var cache = new MemcachedClient(config);
+            //#else
+            //                var cache = new MemcachedClient(null, config);
+            //#endif
 
-                var testKey = Guid.NewGuid().ToString();
-                var testValue = Guid.NewGuid().ToString();
-                cache.Store(StoreMode.Set, testKey, testValue);
-                var storeValue = cache.Get(testKey);
-                if (storeValue as string != testValue)
-                {
-                    throw new Exception("MemcachedStrategy失效，没有计入缓存！");
-                }
-                cache.Remove(testKey);
-                DateTime dt2 = DateTime.Now;
+            //                var testKey = Guid.NewGuid().ToString();
+            //                var testValue = Guid.NewGuid().ToString();
+            //                cache.Store(StoreMode.Set, testKey, testValue);
+            //                var storeValue = cache.Get(testKey);
+            //                if (storeValue as string != testValue)
+            //                {
+            //                    throw new Exception("MemcachedStrategy失效，没有计入缓存！");
+            //                }
+            //                cache.Remove(testKey);
+            //                DateTime dt2 = DateTime.Now;
 
-                WeixinTrace.Log(string.Format("MemcachedStrategy正常启用，启动及测试耗时：{0}ms", (dt2 - dt1).TotalMilliseconds));
-            }
-            catch (Exception ex)
-            {
-                //TODO:记录是同日志
-                WeixinTrace.Log(string.Format("MemcachedStrategy静态构造函数异常：{0}", ex.Message));
-            }
+            //                WeixinTrace.Log(string.Format("MemcachedStrategy正常启用，启动及测试耗时：{0}ms", (dt2 - dt1).TotalMilliseconds));
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                //TODO:记录是同日志
+            //                WeixinTrace.Log(string.Format("MemcachedStrategy静态构造函数异常：{0}", ex.Message));
+            //            }
+
+            #endregion
         }
 
         #endregion
@@ -179,7 +203,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        public void RemoveFromCache(string key, bool isFullKey = false)
+        public virtual void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -189,7 +213,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Remove(cacheKey);
         }
 
-        public object Get(string key, bool isFullKey = false)
+        public virtual object Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -200,12 +224,12 @@ namespace Senparc.Weixin.Cache.Memcached
             return _cache.Get<object>(cacheKey);
         }
 
-        public IDictionary<string, object> GetAll()
+        public virtual IDictionary<string, object> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public bool CheckExisted(string key, bool isFullKey = false)
+        public virtual bool CheckExisted(string key, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             object value;
@@ -216,12 +240,12 @@ namespace Senparc.Weixin.Cache.Memcached
             return false;
         }
 
-        public long GetCount()
+        public virtual long GetCount()
         {
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, object value, bool isFullKey = false)
+        public virtual void Update(string key, object value, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));

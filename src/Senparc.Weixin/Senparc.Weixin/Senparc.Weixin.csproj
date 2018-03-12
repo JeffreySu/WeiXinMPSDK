@@ -73,8 +73,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -91,7 +92,7 @@
     <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
     <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
-    <Compile Include="Cache.Local\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache.Local\ContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Cache\Lock\BaseCacheLock.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
     <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Exceptions\WeixinObsoleteException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
@@ -147,12 +149,18 @@
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
     <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
+    <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
+    <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
     <Compile Include="NET35\System.Threading.Tasks.cs" />
+    <Compile Include="RegisterServices\RegisterService.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Threads\ThreadUtility.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceHelper.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceItem.cs" />
     <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />

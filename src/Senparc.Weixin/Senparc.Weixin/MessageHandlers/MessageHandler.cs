@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
@@ -43,13 +43,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-
 /*
  * V3.2
+ * V4.0 添加异步方法
  */
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Entities;
@@ -60,7 +61,7 @@ namespace Senparc.Weixin.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC, TRequest, TResponse> : IMessageHandler<TRequest, TResponse>
+    public abstract partial class MessageHandler<TC, TRequest, TResponse> : IMessageHandler<TRequest, TResponse>
         where TC : class, IMessageContext<TRequest, TResponse>, new()
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
@@ -158,6 +159,11 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool OmitRepeatedMessage { get; set; }
 
+        /// <summary>
+        /// 消息是否已经被去重
+        /// </summary>
+        public bool MessageIsRepeated { get; set; }
+
         private string _textResponseMessage = null;
 
         /// <summary>
@@ -235,7 +241,8 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
-        /// 使用requestMessageBase的构造函数
+        /// <para>使用requestMessageBase的构造函数</para>
+        /// <para>次构造函数提供给具体的类库进行测试使用，例如Senparc.Weixin.Work</para>
         /// </summary>
         /// <param name="requestMessageBase"></param>
         /// <param name="maxRecordCount"></param>
@@ -248,7 +255,7 @@ namespace Senparc.Weixin.MessageHandlers
 
             //CommonInitialize(postDataDocument, maxRecordCount, postData);
 
-            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.QY
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.Work
         }
 
 
@@ -274,6 +281,7 @@ namespace Senparc.Weixin.MessageHandlers
         public virtual void OnExecuted()
         {
         }
+
 
         ///// <summary>
         ///// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）

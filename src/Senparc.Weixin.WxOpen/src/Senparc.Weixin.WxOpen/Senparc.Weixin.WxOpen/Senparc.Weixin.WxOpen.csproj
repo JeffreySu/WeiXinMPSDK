@@ -34,6 +34,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,14 +45,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeApi.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\CommonGetWeAnalysisAppidRetainInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailySummaryTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidMonthlyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidUserPortraitResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\LineColor.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
@@ -71,6 +90,7 @@
     <Compile Include="MessageHandlers\WxOpenMessageHandler.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -85,7 +105,9 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

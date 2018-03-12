@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 #else
                 var jsonResult = JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
 #endif
-                if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                if (jsonResult.button == null || jsonResult.button.Count == 0)
                 {
                     throw new WeixinException(jsonResult.errmsg);
                 }
@@ -210,7 +210,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //重新整理按钮信息
                 ButtonGroup bg = new ButtonGroup();
-                foreach (var rootButton in resultFull.menu.button)
+                foreach (var rootButton in resultFull.button)
                 {
                     if (rootButton.name == null)
                     {

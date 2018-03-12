@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -35,6 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170726
     修改描述：完成接口开放平台-代码管理及小程序码获取
+
+    修改标识：Senparc - 20180121
+    修改描述：v2.8.6 完善 FuncscopeCategory 枚举
 
 ----------------------------------------------------------------*/
 
@@ -138,7 +141,8 @@ namespace Senparc.Weixin.Open
     }
 
     /// <summary>
-    /// 公众号/小程序授权给开发者的权限集列表(1-15为公众号权限,17-19为小程序权限)
+    /// <para>公众号/小程序授权给开发者的权限集列表(1-15为公众号权限,17-19为小程序权限)。</para>
+    /// <para>请注意：1）该字段的返回不会考虑公众号是否具备该权限集的权限（因为可能部分具备），请根据公众号的帐号类型和认证情况，来判断公众号的接口权限。</para>
     /// </summary>
     public enum FuncscopeCategory
     {
@@ -158,9 +162,17 @@ namespace Senparc.Weixin.Open
         微信门店权限 = 13,
         微信支付权限 = 14,
         自定义菜单权限 = 15,
-        帐号管理权限 = 17,
-        开发管理权限 = 18,
-        客服消息管理权限 = 19
+        获取认证状态及信息 = 16,
+        帐号管理权限_小程序 = 17,
+        开发管理权限_小程序 = 18,
+        客服消息管理权限_小程序 = 19,
+        微信登录权限_小程序 = 20,
+        数据分析权限_小程序 = 21,
+        城市服务接口权限 = 22,
+        广告管理权限 = 23,
+        开放平台帐号管理权限 = 24,
+        开放平台帐号管理权限_小程序 = 25,
+        微信电子发票权限 = 26
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 

@@ -83,6 +83,7 @@
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Entities\Request\KF\RequestMessagePack.cs" />
     <Compile Include="Entities\Request\KF\RequestMessageText.cs" />
     <Compile Include="Entities\Request\KF\RequestMessageVoice.cs" />
+    <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Signature.cs" />

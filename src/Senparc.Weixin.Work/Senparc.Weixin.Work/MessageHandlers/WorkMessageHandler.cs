@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
@@ -278,6 +278,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
                         break;
+                    case RequestMsgType.File:
+                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                        break;
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
@@ -394,6 +397,15 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// 小视频类型请求
         /// </summary>
         public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 文件类型请求
+        /// </summary>
+        public virtual IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

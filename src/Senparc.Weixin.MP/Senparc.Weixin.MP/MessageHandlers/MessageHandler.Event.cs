@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -119,71 +119,71 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_Poi_Check_NotifyRequest(RequestMessage as RequestMessageEvent_Poi_Check_Notify);
                     break;
                 case Event.WifiConnected://Wi-Fi连网成功
-                    responseMessage = OnEvent_WifiConnected(RequestMessage as RequestMessageEvent_WifiConnected);
+                    responseMessage = OnEvent_WifiConnectedRequest(RequestMessage as RequestMessageEvent_WifiConnected);
                     break;
                 case Event.user_consume_card://卡券核销
-                    responseMessage = OnEvent_User_Consume_Card(RequestMessage as RequestMessageEvent_User_Consume_Card);
+                    responseMessage = OnEvent_User_Consume_CardRequest(RequestMessage as RequestMessageEvent_User_Consume_Card);
                     break;
                 case Event.user_enter_session_from_card://从卡券进入公众号会话
-                    responseMessage = OnEvent_User_Enter_Session_From_Card(RequestMessage as RequestMessageEvent_User_Enter_Session_From_Card);
+                    responseMessage = OnEvent_User_Enter_Session_From_CardRequest(RequestMessage as RequestMessageEvent_User_Enter_Session_From_Card);
                     break;
                 case Event.user_view_card://进入会员卡
-                    responseMessage = OnEvent_User_View_Card(RequestMessage as RequestMessageEvent_User_View_Card);
+                    responseMessage = OnEvent_User_View_CardRequest(RequestMessage as RequestMessageEvent_User_View_Card);
                     break;
                 case Event.merchant_order://微小店订单付款通知
-                    responseMessage = OnEvent_Merchant_Order(RequestMessage as RequestMessageEvent_Merchant_Order);
+                    responseMessage = OnEvent_Merchant_OrderRequest(RequestMessage as RequestMessageEvent_Merchant_Order);
                     break;
                 case Event.submit_membercard_user_info://接收会员信息事件通知
-                    responseMessage = OnEvent_Submit_Membercard_User_Info(RequestMessage as RequestMessageEvent_Submit_Membercard_User_Info);
+                    responseMessage = OnEvent_Submit_Membercard_User_InfoRequest(RequestMessage as RequestMessageEvent_Submit_Membercard_User_Info);
                     break;
                 case Event.ShakearoundUserShake://摇一摇事件通知
-                    responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
+                    responseMessage = OnEvent_ShakearoundUserShakeRequest(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
                     break;
                 case Event.user_gifting_card://卡券转赠事件推送
-                    responseMessage = OnEvent_User_Gifting_Card(RequestMessage as RequestMessageEvent_User_Gifting_Card);
+                    responseMessage = OnEvent_User_Gifting_CardRequest(RequestMessage as RequestMessageEvent_User_Gifting_Card);
                     break;
                 case Event.user_pay_from_pay_cell://微信买单完成
-                    responseMessage = OnEvent_User_Pay_From_Pay_Cell(RequestMessage as RequestMessageEvent_User_Pay_From_Pay_Cell);
+                    responseMessage = OnEvent_User_Pay_From_Pay_CellRequest(RequestMessage as RequestMessageEvent_User_Pay_From_Pay_Cell);
                     break;
                 case Event.update_member_card://会员卡内容更新事件：会员卡积分余额发生变动时
-                    responseMessage = OnEvent_Update_Member_Card(RequestMessage as RequestMessageEvent_Update_Member_Card);
+                    responseMessage = OnEvent_Update_Member_CardRequest(RequestMessage as RequestMessageEvent_Update_Member_Card);
                     break;
                 case Event.card_sku_remind://卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
-                    responseMessage = OnEvent_Card_Sku_Remind(RequestMessage as RequestMessageEvent_Card_Sku_Remind);
+                    responseMessage = OnEvent_Card_Sku_RemindRequest(RequestMessage as RequestMessageEvent_Card_Sku_Remind);
                     break;
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
-                    responseMessage = OnEvent_Card_Pay_Order(RequestMessage as RequestMessageEvent_Card_Pay_Order);
+                    responseMessage = OnEvent_Card_Pay_OrderRequest(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
 
                 #region 微信认证事件推送
 
                 case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
-                    responseMessage = OnEvent_QualificationVerifySuccess(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
+                    responseMessage = OnEvent_QualificationVerifySuccessRequest(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
                     break;
                 case Event.qualification_verify_fail://资质认证失败
-                    responseMessage = OnEvent_QualificationVerifyFail(RequestMessage as RequestMessageEvent_QualificationVerifyFail);
+                    responseMessage = OnEvent_QualificationVerifyFailRequest(RequestMessage as RequestMessageEvent_QualificationVerifyFail);
                     break;
                 case Event.naming_verify_success://名称认证成功（即命名成功）
-                    responseMessage = OnEvent_NamingVerifySuccess(RequestMessage as RequestMessageEvent_NamingVerifySuccess);
+                    responseMessage = OnEvent_NamingVerifySuccessRequest(RequestMessage as RequestMessageEvent_NamingVerifySuccess);
                     break;
                 case Event.naming_verify_fail://名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
-                    responseMessage = OnEvent_NamingVerifyFail(RequestMessage as RequestMessageEvent_NamingVerifyFail);
+                    responseMessage = OnEvent_NamingVerifyFailRequest(RequestMessage as RequestMessageEvent_NamingVerifyFail);
                     break;
                 case Event.annual_renew://年审通知
-                    responseMessage = OnEvent_AnnualRenew(RequestMessage as RequestMessageEvent_AnnualRenew);
+                    responseMessage = OnEvent_AnnualRenewRequest(RequestMessage as RequestMessageEvent_AnnualRenew);
                     break;
                 case Event.verify_expired://认证过期失效通知
-                    responseMessage = OnEvent_VerifyExpired(RequestMessage as RequestMessageEvent_VerifyExpired);
+                    responseMessage = OnEvent_VerifyExpiredRequest(RequestMessage as RequestMessageEvent_VerifyExpired);
                     break;
                 #endregion
 
                 #region 小程序审核事件推送
 
                 case Event.weapp_audit_success://
-                    responseMessage = OnEvent_WeAppAuditSuccess(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
+                    responseMessage = OnEvent_WeAppAuditSuccessRequest(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
                     break;
                 case Event.weapp_audit_fail://
-                    responseMessage = OnEvent_WeAppAuditFail(RequestMessage as RequestMessageEvent_WeAppAuditFail);
+                    responseMessage = OnEvent_WeAppAuditFailRequest(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                     break;
                 #endregion
                 default:
@@ -398,7 +398,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之Wi-Fi连网成功
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
+        public virtual IResponseMessageBase OnEvent_WifiConnectedRequest(RequestMessageEvent_WifiConnected requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -406,7 +406,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之卡券核销
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_Consume_Card(RequestMessageEvent_User_Consume_Card requestMessage)
+        public virtual IResponseMessageBase OnEvent_User_Consume_CardRequest(RequestMessageEvent_User_Consume_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -414,7 +414,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之从卡券进入公众号会话
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_Enter_Session_From_Card(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
+        public virtual IResponseMessageBase OnEvent_User_Enter_Session_From_CardRequest(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -422,7 +422,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之进入会员卡
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_View_Card(RequestMessageEvent_User_View_Card requestMessage)
+        public virtual IResponseMessageBase OnEvent_User_View_CardRequest(RequestMessageEvent_User_View_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -430,7 +430,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之微小店订单付款通知
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_Merchant_Order(RequestMessageEvent_Merchant_Order requestMessage)
+        public virtual IResponseMessageBase OnEvent_Merchant_OrderRequest(RequestMessageEvent_Merchant_Order requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -438,7 +438,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之接收会员信息事件通知
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_Submit_Membercard_User_Info(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
+        public virtual IResponseMessageBase OnEvent_Submit_Membercard_User_InfoRequest(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -446,7 +446,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之摇一摇事件通知
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_ShakearoundUserShake(RequestMessageEvent_ShakearoundUserShake requestMessage)
+        public virtual IResponseMessageBase OnEvent_ShakearoundUserShakeRequest(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
             return requestMessage.CreateResponseMessage<ResponseMessageNoResponse>();
             //return DefaultResponseMessage(requestMessage);
@@ -457,7 +457,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_User_Gifting_Card(RequestMessageEvent_User_Gifting_Card requestMessage)
+        public virtual IResponseMessageBase OnEvent_User_Gifting_CardRequest(RequestMessageEvent_User_Gifting_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_User_Pay_From_Pay_Cell(RequestMessageEvent_User_Pay_From_Pay_Cell requestMessage)
+        public virtual IResponseMessageBase OnEvent_User_Pay_From_Pay_CellRequest(RequestMessageEvent_User_Pay_From_Pay_Cell requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -475,7 +475,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Update_Member_Card(RequestMessageEvent_Update_Member_Card requestMessage)
+        public virtual IResponseMessageBase OnEvent_Update_Member_CardRequest(RequestMessageEvent_Update_Member_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -484,7 +484,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Card_Sku_Remind(RequestMessageEvent_Card_Sku_Remind requestMessage)
+        public virtual IResponseMessageBase OnEvent_Card_Sku_RemindRequest(RequestMessageEvent_Card_Sku_Remind requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -493,7 +493,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Card_Pay_Order(RequestMessageEvent_Card_Pay_Order requestMessage)
+        public virtual IResponseMessageBase OnEvent_Card_Pay_OrderRequest(RequestMessageEvent_Card_Pay_Order requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -505,7 +505,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_QualificationVerifySuccess(RequestMessageEvent_QualificationVerifySuccess requestMessage)
+        public virtual IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -515,7 +515,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_QualificationVerifyFail(RequestMessageEvent_QualificationVerifyFail requestMessage)
+        public virtual IResponseMessageBase OnEvent_QualificationVerifyFailRequest(RequestMessageEvent_QualificationVerifyFail requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -526,7 +526,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_NamingVerifySuccess(RequestMessageEvent_NamingVerifySuccess requestMessage)
+        public virtual IResponseMessageBase OnEvent_NamingVerifySuccessRequest(RequestMessageEvent_NamingVerifySuccess requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -536,7 +536,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_NamingVerifyFail(RequestMessageEvent_NamingVerifyFail requestMessage)
+        public virtual IResponseMessageBase OnEvent_NamingVerifyFailRequest(RequestMessageEvent_NamingVerifyFail requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -546,7 +546,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_AnnualRenew(RequestMessageEvent_AnnualRenew requestMessage)
+        public virtual IResponseMessageBase OnEvent_AnnualRenewRequest(RequestMessageEvent_AnnualRenew requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -556,7 +556,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_VerifyExpired(RequestMessageEvent_VerifyExpired requestMessage)
+        public virtual IResponseMessageBase OnEvent_VerifyExpiredRequest(RequestMessageEvent_VerifyExpired requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -570,7 +570,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_WeAppAuditFail(RequestMessageEvent_WeAppAuditFail requestMessage)
+        public virtual IResponseMessageBase OnEvent_WeAppAuditFailRequest(RequestMessageEvent_WeAppAuditFail requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -579,7 +579,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_WeAppAuditSuccess(RequestMessageEvent_WeAppAuditSuccess requestMessage)
+        public virtual IResponseMessageBase OnEvent_WeAppAuditSuccessRequest(RequestMessageEvent_WeAppAuditSuccess requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

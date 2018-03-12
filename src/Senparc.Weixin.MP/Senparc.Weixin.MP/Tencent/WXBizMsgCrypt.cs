@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -210,7 +210,7 @@ namespace Senparc.Weixin.MP.Tencent
                 return 0;
             else
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;//-40001
             }
         }
 
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.MP.Tencent
             }
             catch (Exception)
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;//-40003
             }
             sMsgSignature = hash;
             return 0;

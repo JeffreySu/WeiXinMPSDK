@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：RequestUtility.Post.cs
     文件功能描述：获取请求结果（Post）
@@ -203,8 +203,13 @@ namespace Senparc.Weixin.HttpUtility
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.CookieContainer = cookieContainer;
+            var handler = new HttpClientHandler()
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+                UseCookies = true,
+                CookieContainer = cookieContainer,
+            };
 
             if (checkValidationResult)
             {
@@ -407,11 +412,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             #region 输入二进制流
-            if (postStream != null)
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 
@@ -496,11 +503,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             #region 输入二进制流
-            if (postStream != null)
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：RequestUtility.Get.cs
     文件功能描述：获取请求结果（Get）
@@ -119,8 +119,10 @@ namespace Senparc.Weixin.HttpUtility
 
             var handler = new HttpClientHandler
             {
-                CookieContainer = cookieContainer ?? new CookieContainer(),
                 UseCookies = true,
+                CookieContainer = cookieContainer ?? new CookieContainer(),
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
             };
 
             if (cer != null)
@@ -154,23 +156,33 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
-            //TODO:请求的encoding未设置
-            using (var request = new HttpRequestMessage())
+            var handler = new HttpClientHandler
             {
-                var httpClient = HttpGet_Common_NetCore(url, request);
-                using (var response = httpClient.SendAsync(request).Result)
-                {
-                    if (encoding != null)
-                    {
-                        response.Content.Headers.ContentType.CharSet = encoding.EncodingName;//TODO:需要测试
-                    }
-                    return response.Content.ReadAsStringAsync().Result;
-                }
-            }
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+            };
 
-            //var t = httpClient.GetStringAsync(url);
-            //t.Wait();
-            //return t.Result;
+            HttpClient httpClient = new HttpClient(handler);
+            return httpClient.GetStringAsync(url).Result;
+
+            //TODO：以下为Developer_HttpClient版本提供的代码，需要再次确认    —— Jeffrey 2018.3.12
+            ////TODO:请求的encoding未设置
+            //using (var request = new HttpRequestMessage())
+            //{
+            //    var httpClient = HttpGet_Common_NetCore(url, request);
+            //    using (var response = httpClient.SendAsync(request).Result)
+            //    {
+            //        if (encoding != null)
+            //        {
+            //            response.Content.Headers.ContentType.CharSet = encoding.EncodingName;//TODO:需要测试
+            //        }
+            //        return response.Content.ReadAsStringAsync().Result;
+            //    }
+            //}
+
+            ////var t = httpClient.GetStringAsync(url);
+            ////t.Wait();
+            ////return t.Result;
 #endif
         }
 
@@ -207,6 +219,12 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
+
+
+            //var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
+            //return httpClient.GetStringAsync(url).Result;
+
+            //TODO：以下为Developer_HttpClient版本提供的代码，需要再次确认    —— Jeffrey 2018.3.12
             using (var request = new HttpRequestMessage())
             {
                 var httpClient = HttpGet_Common_NetCore(url, request, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
@@ -282,15 +300,23 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
         {
-
-
 #if NET35 || NET40 || NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             return await wc.DownloadStringTaskAsync(url);
 #else
-            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+            };
+
+            HttpClient httpClient = new HttpClient(handler);
+
+            //TODO：以下为Developer_HttpClient版本提供的代码，需要再次确认    —— Jeffrey 2018.3.12
+            //HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
+
             return await httpClient.GetStringAsync(url);
 #endif
 

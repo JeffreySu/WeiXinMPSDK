@@ -17,15 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.vs2017.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.vs2017.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.vs2017.csproj" />
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
   </ItemGroup>
 
 </Project>

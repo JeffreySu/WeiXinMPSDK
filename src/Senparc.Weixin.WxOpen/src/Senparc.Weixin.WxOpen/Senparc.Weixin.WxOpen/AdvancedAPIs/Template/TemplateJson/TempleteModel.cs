@@ -35,7 +35,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 {
     /// <summary>
     /// 模板消息Post数据

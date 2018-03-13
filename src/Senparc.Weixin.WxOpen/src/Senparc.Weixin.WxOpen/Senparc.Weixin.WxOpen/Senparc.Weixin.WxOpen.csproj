@@ -32,9 +32,6 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Senparc.Weixin\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -61,8 +58,13 @@
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\AddJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\ListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\LineColor.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
-    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearbyPoiJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
@@ -88,14 +90,10 @@
     <Compile Include="MessageHandlers\WxOpenMessageHandler.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
@@ -106,6 +104,9 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -234,7 +234,7 @@ namespace Senparc.Weixin.Work.Helpers
                                             }
                                         case RequestMsgType.File:
                                             {
-                                                reqItem = new RequestMessageFile();
+                                                reqItem = new Entities.Request.KF.RequestMessageFile();
                                                 break;
                                             }
                                         case RequestMsgType.Image:

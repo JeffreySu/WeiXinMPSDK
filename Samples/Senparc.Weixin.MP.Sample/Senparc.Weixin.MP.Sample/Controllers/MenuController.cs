@@ -96,10 +96,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+            catch (ErrorJsonResultException ex)
+            {
+                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) }, JsonRequestBehavior.AllowGet);
+            }
             catch (Exception ex)
             {
-                //TODO:为简化代码，这里不处理异常（如Token过期）
-                return Json(new { error = "执行过程发生错误！" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) }, JsonRequestBehavior.AllowGet);
             }
         }
 

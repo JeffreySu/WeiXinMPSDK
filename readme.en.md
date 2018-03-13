@@ -1,5 +1,9 @@
-Senparc.Weixin —— Wechat .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+Senparc.Weixin —— Wechat .NET SDK
 =================
+[![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+[![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
+[![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
+[![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
  [[Chinese Version](readme.md)]
 
 > Wechat is the most famous IM APP in China which has more than 8.89 billion active user and more than ten million Official Accounts.
@@ -136,10 +140,13 @@ resources
 10. WeChat development resources: https://github.com/JeffreySu/WeixinResource
 11. *Depth Analysis of WeChat Development* reading system：https://book.weixin.senparc.com
 12. Buy *Depth Analysis of WeChat Development*：[https://item.jd.com/12220004.html](https://book.weixin.senparc.com/book/link?code=github-homepage-resource-en)
+13. Video Course：[https://github.com/JeffreySu/WechatVideoCourse](https://github.com/JeffreySu/WechatVideoCourse)
+
 
 * Technical communication QQ group:
 
-> `14th Group(Official Account): 588231256`<br>
+> `14th Group(Video Course Student Group)：588231256`<br>
+> `15th Group(Official Account): 289181996`<br>
 > `10th Group(Distributed Cache): 246860933`<br>
 > `12th Group(Mini Program): 108830388`<br>
 > `13th Group(Open Platform): 183424136`<br>

@@ -100,8 +100,10 @@ namespace Senparc.Weixin.HttpUtility
 
             var handler = new HttpClientHandler
             {
-                CookieContainer = cookieContainer ?? new CookieContainer(),
                 UseCookies = true,
+                CookieContainer = cookieContainer ?? new CookieContainer(),
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
             };
 
             if (cer != null)
@@ -133,10 +135,14 @@ namespace Senparc.Weixin.HttpUtility
             wc.Encoding = encoding ?? Encoding.UTF8;
             return wc.DownloadString(url);
 #else
-            HttpClient httpClient = new HttpClient();
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
+            var handler = new HttpClientHandler
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+            };
+
+            HttpClient httpClient = new HttpClient(handler);
+            return httpClient.GetStringAsync(url).Result;
 #endif
         }
 
@@ -175,9 +181,7 @@ namespace Senparc.Weixin.HttpUtility
 #else
 
             var httpClient = HttpGet_Common_NetCore(url, cookieContainer, encoding, cer, refererUrl, useAjax, timeOut);
-            var t = httpClient.GetStringAsync(url);
-            t.Wait();
-            return t.Result;
+            return httpClient.GetStringAsync(url).Result;
 #endif
         }
 
@@ -244,15 +248,19 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
         {
-
-
 #if NET35 || NET40 || NET45
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             return await wc.DownloadStringTaskAsync(url);
 #else
-            HttpClient httpClient = new HttpClient();
+            var handler = new HttpClientHandler
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+            };
+
+            HttpClient httpClient = new HttpClient(handler);
             return await httpClient.GetStringAsync(url);
 #endif
 

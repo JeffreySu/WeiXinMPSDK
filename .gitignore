@@ -40,3 +40,5 @@ packages/
 /src/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.WxOpen.1.6.0.nupkg
 /src/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.Work.1.0.0.nupkg
 /src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/App_Data/Document/Files
+/Samples/Senparc.Weixin.MP.Sample/UpgradeLog2.htm
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.AppDemo/project.config.json

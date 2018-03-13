@@ -78,6 +78,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171108
     修改描述：v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
 
+    修改标识：Senparc - 20170225
+    修改描述：v14.10.3 增加MessageHandler的file类型处理
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -97,7 +100,8 @@ namespace Senparc.Weixin.MP
         Link, //连接信息
         ShortVideo,//小视频
         Event, //事件推送
-        Unknown,//未知类型
+        File,//文件类型
+        Unknown = -1,//未知类型
     }
 
 

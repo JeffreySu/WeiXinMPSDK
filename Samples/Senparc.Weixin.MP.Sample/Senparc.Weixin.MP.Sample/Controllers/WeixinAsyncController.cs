@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150312
+
+    修改标识：Senparc - 20170123
+    修改描述：使用异步MessageHandler方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -18,6 +22,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -28,9 +33,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class WeixinAsyncController : AsyncController
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"] ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+
+        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
+
 
         public WeixinAsyncController()
         {
@@ -39,7 +47,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         [HttpGet]
         [ActionName("Index")]
-        public Task<ActionResult> Index(string signature, string timestamp, string nonce, string echostr)
+        public Task<ActionResult> Get(string signature, string timestamp, string nonce, string echostr)
         {
             return Task.Factory.StartNew(() =>
                  {
@@ -55,32 +63,87 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                  }).ContinueWith<ActionResult>(task => Content(task.Result));
         }
 
+        public CustomMessageHandler MessageHandler = null;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
 
         /// <summary>
         /// 最简化的处理流程
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public Task<ActionResult> MiniPost(PostModel postModel)
+        public async Task<ActionResult> Post(PostModel postModel)
         {
-            return Task.Factory.StartNew<ActionResult>(() =>
+            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
-                if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
-                {
-                    return new WeixinResult("参数错误！");
-                }
+                return new WeixinResult("参数错误！");
+            }
 
-                postModel.Token = Token;
-                postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
-                postModel.AppId = AppId; //根据自己后台的设置保持一致
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
+            postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-                var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
 
-                messageHandler.Execute(); //执行微信处理过程
+            messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
-                return new FixWeixinBugWeixinResult(messageHandler);
+            #region 设置消息去重
 
-            }).ContinueWith<ActionResult>(task => task.Result);
+            /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
+             * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
+            messageHandler.OmitRepeatedMessage = true;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
+
+            #endregion
+
+            #region 记录 Request 日志
+
+            var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            if (!Directory.Exists(logPath))
+            {
+                Directory.CreateDirectory(logPath);
+            }
+
+            //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
+            messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(),
+                messageHandler.RequestMessage.FromUserName,
+                messageHandler.RequestMessage.MsgType)));
+            if (messageHandler.UsingEcryptMessage)
+            {
+                messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
+                    messageHandler.RequestMessage.FromUserName,
+                    messageHandler.RequestMessage.MsgType)));
+            }
+
+            #endregion
+
+            await messageHandler.ExecuteAsync(); //执行微信处理过程
+
+            #region 记录 Response 日志
+
+            //测试时可开启，帮助跟踪数据
+
+            //if (messageHandler.ResponseDocument == null)
+            //{
+            //    throw new Exception(messageHandler.RequestDocument.ToString());
+            //}
+            if (messageHandler.ResponseDocument != null)
+            {
+                messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}_{2}.txt", _getRandomFileName(),
+                    messageHandler.ResponseMessage.ToUserName,
+                    messageHandler.ResponseMessage.MsgType)));
+            }
+
+            if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
+            {
+                //记录加密后的响应信息
+                messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(),
+                    messageHandler.ResponseMessage.ToUserName,
+                    messageHandler.ResponseMessage.MsgType)));
+            }
+
+            #endregion
+
+            MessageHandler = messageHandler;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
+
+            return new FixWeixinBugWeixinResult(messageHandler);
         }
 
         /// <summary>

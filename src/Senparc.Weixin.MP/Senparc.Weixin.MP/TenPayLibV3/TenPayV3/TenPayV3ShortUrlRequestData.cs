@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 随机字符串
         /// </summary>
-        public string NonceStr { get; set; }
+        public string NonceStr { get; }
 
         /// <summary>
         /// 需要转换的URL，签名用原串，传输需URLencode

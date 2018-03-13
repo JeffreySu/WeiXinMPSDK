@@ -261,9 +261,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc)
         {
             //修改MsgId，防止被去重
-            if (requestMessaageDoc.Root.Element("MagId") != null)
+            if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
-                requestMessaageDoc.Root.Element("MagId").Value =
+                requestMessaageDoc.Root.Element("MsgId").Value =
                     Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
             }
 

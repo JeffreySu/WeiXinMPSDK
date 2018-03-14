@@ -201,7 +201,7 @@ namespace Senparc.Weixin.HttpUtility
             //    stream.WriteByte(b);
             //}
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             HttpContent hc = new StringContent(data);
             var ht = httpClient.PostAsync(url, hc);
             ht.Wait();
@@ -320,7 +320,7 @@ namespace Senparc.Weixin.HttpUtility
             var fileBytes = await wc.UploadDataTaskAsync(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
             await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             HttpContent hc = new StringContent(data);
             var ht = await httpClient.PostAsync(url, hc);
             var fileBytes = await ht.Content.ReadAsByteArrayAsync();

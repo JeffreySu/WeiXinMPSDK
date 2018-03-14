@@ -93,10 +93,29 @@ namespace Senparc.Weixin.HttpUtility
         /// .NET Core 版本的HttpWebRequest参数设置
         /// </summary>
         /// <returns></returns>
-        private static HttpClient HttpGet_Common_NetCore(string url, CookieContainer cookieContainer = null,
+        private static HttpClient HttpGet_Common_NetCore(string url, HttpRequestMessage request, CookieContainer cookieContainer = null,
             Encoding encoding = null, X509Certificate2 cer = null,
             string refererUrl = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
         {
+
+            //using (var request = new HttpRequestMessage())
+            //{
+
+            //    request.Headers.Add(...);
+            //    ...
+            //    using (var response = await _httpClient.SendAsync(request))
+            //    {
+            //        ...
+            //    }
+            //}
+
+            request.RequestUri = new Uri(url);
+
+            if (encoding != null)
+            {
+                //TODO: set request encoding
+            }
+
 
             var handler = new HttpClientHandler
             {
@@ -111,10 +130,11 @@ namespace Senparc.Weixin.HttpUtility
                 handler.ClientCertificates.Add(cer);
             }
 
-            HttpClient httpClient = new HttpClient(handler);
-            HttpClientHeader(httpClient, refererUrl, useAjax, timeOut);
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient(handler);
 
-            return httpClient;
+            HttpClientHeader(request, refererUrl, useAjax, timeOut);
+
+            return httpClient;                  
         }
 #endif
 
@@ -126,6 +146,7 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Get方法获取字符串结果（没有加入Cookie）
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="encoding"></param>
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null)
         {
@@ -148,6 +169,25 @@ namespace Senparc.Weixin.HttpUtility
             HttpClient httpClient = new HttpClient(handler);
 #endif
             return httpClient.GetStringAsync(url).Result;
+
+            //TODO：以下为Developer_HttpClient版本提供的代码，需要再次确认    —— Jeffrey 2018.3.12
+            ////TODO:请求的encoding未设置
+            //using (var request = new HttpRequestMessage())
+            //{
+            //    var httpClient = HttpGet_Common_NetCore(url, request);
+            //    using (var response = httpClient.SendAsync(request).Result)
+            //    {
+            //        if (encoding != null)
+            //        {
+            //            response.Content.Headers.ContentType.CharSet = encoding.EncodingName;//TODO:需要测试
+            //        }
+            //        return response.Content.ReadAsStringAsync().Result;
+            //    }
+            //}
+
+            ////var t = httpClient.GetStringAsync(url);
+            ////t.Wait();
+            ////return t.Result;
 #endif
         }
 

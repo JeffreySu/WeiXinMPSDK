@@ -142,7 +142,8 @@ namespace Senparc.Weixin.HttpUtility
         public static void Download(string url, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             WebClient wc = new WebClient();
@@ -153,7 +154,7 @@ namespace Senparc.Weixin.HttpUtility
             //    stream.WriteByte(b);
             //}
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             var t = httpClient.GetByteArrayAsync(url);
             t.Wait();
             var data = t.Result;
@@ -205,6 +206,17 @@ namespace Senparc.Weixin.HttpUtility
                         size = responseStream.Read(bArr, 0, (int)bArr.Length);
                     }
 
+//以下为Developer_HttpClient版本提供的代码//#if NET35 || NET40 || NET45
+//            WebClient wc = new WebClient();
+//            var data = wc.DownloadData(url);
+//            using (var fs = File.Open(filePathName, FileMode.OpenOrCreate))
+//            {
+//                using (var sw = new BinaryWriter(fs))
+//                {
+//                    sw.Write(data);
+//                    sw.Flush();
+//                    fs.Flush();
+//                    return filePathName;
                 }
 
                 return fullName;
@@ -212,6 +224,10 @@ namespace Senparc.Weixin.HttpUtility
 
 #else
             System.Net.Http.HttpClient httpClient = new HttpClient();
+
+            //以下为Developer_HttpClient版本提供的代码
+            //System.Net.Http.HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
+
             using (var responseMessage = httpClient.GetAsync(url).Result)
             {
                 if (responseMessage.StatusCode == HttpStatusCode.OK)
@@ -307,7 +323,8 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task DownloadAsync(string url, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             WebClient wc = new WebClient();
@@ -318,7 +335,7 @@ namespace Senparc.Weixin.HttpUtility
             //    stream.WriteAsync(b);
             //}
 #else
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
             var data = await httpClient.GetByteArrayAsync(url);
             await stream.WriteAsync(data, 0, data.Length);
 #endif
@@ -336,7 +353,8 @@ namespace Senparc.Weixin.HttpUtility
             var dir = Path.GetDirectoryName(filePathName) ?? "/";
             Directory.CreateDirectory(dir);
 
-            System.Net.Http.HttpClient httpClient = new HttpClient();
+            System.Net.Http.HttpClient httpClient = SenparcHttpClient.Instance; //new HttpClient();
+
             using (var responseMessage = await httpClient.GetAsync(url))
             {
                 if (responseMessage.StatusCode == HttpStatusCode.OK)

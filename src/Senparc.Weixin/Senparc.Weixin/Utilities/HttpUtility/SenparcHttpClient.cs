@@ -1,25 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-#if NETCOREAPP2_1
-using System.Net.Http;
-#endif
-using System.Text;
-
-namespace Senparc.Weixin.HttpUtility
-{
-#if NETCOREAPP2_1
-    public class SenparcHttpClient
-    {
-        public SenparcHttpClient(HttpClient httpClient)
-        {
-            HttpClient = httpClient;
-        }
-        public HttpClient HttpClient { get; }
-    }
-#endif
-}
-#region Apache License Version 2.0
+﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -50,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NET45 || NET461 || NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NET45 || NET461 || NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +40,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 #endif
 
@@ -80,13 +59,25 @@ namespace Senparc.Weixin.HttpUtility
 
         #region 全局 HttpClient 单例
 
+
+#if NETCOREAPP2_1
+        /// <summary>
+        /// 基于DI的构造函数
+        /// </summary>
+        /// <param name="httpClient"></param>
+        public SenparcHttpClient(HttpClient httpClient)
+        {
+            HttpClient = httpClient;
+        }
+        public HttpClient HttpClient { get; }
+#else
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
         SenparcHttpClient()
         {
         }
-
+#endif
         //静态LocalCacheStrategy
         public static System.Net.Http.HttpClient Instance
         {
@@ -105,9 +96,9 @@ namespace Senparc.Weixin.HttpUtility
             internal static readonly System.Net.Http.HttpClient instance = DefaultHttpClientInstance();
         }
 
-        #endregion
+#endregion
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 
 
         /// <summary>
         /// 设置HTTP头

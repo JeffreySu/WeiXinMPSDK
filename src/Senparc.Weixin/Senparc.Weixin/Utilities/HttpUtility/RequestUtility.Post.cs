@@ -186,7 +186,6 @@ namespace Senparc.Weixin.HttpUtility
         /// 给.NET Core使用的HttpPost请求公共设置方法
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="request"></param>
         /// <param name="hc"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
@@ -198,7 +197,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
-        public static HttpClient HttpPost_Common_NetCore(string url, HttpRequestMessage request, out HttpContent hc, CookieContainer cookieContainer = null,
+        public static HttpClient HttpPost_Common_NetCore(string url, out HttpContent hc, CookieContainer cookieContainer = null,
             Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null,
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
@@ -216,7 +215,6 @@ namespace Senparc.Weixin.HttpUtility
                 handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
             }
 
-            //TODO:证书需要找专门的处理方案
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -454,17 +452,13 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             return new SenparcHttpResponse(response);
 #else
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
+            var client = HttpPost_Common_NetCore(url, out HttpContent hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-            HttpContent hc;
-            var client = HttpPost_Common_NetCore(url, request, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
-
-            request.Content = hc;
-
-            var response = client.SendAsync(request).GetAwaiter().GetResult();// client.PostAsync(url, hc).GetAwaiter().GetResult();
+            var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
             return new SenparcHttpResponse(response);
 #endif
+
+
         }
 
         #endregion
@@ -559,25 +553,18 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 #else
-            using (var request = new HttpRequestMessage())
+            HttpContent hc;
+            var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
+
+            var r = await client.PostAsync(url, hc);
+
+            if (r.Content.Headers.ContentType.CharSet != null &&
+                r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
             {
-                request.Method = HttpMethod.Post;
-
-                HttpContent hc;
-                var client = HttpPost_Common_NetCore(url, request, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
-
-                request.Content = hc;
-
-                var r = await client.SendAsync(request);
-
-                if (r.Content.Headers.ContentType.CharSet != null &&
-                    r.Content.Headers.ContentType.CharSet.ToLower().Contains("utf8"))
-                {
-                    r.Content.Headers.ContentType.CharSet = "utf-8";
-                }
-
-                return await r.Content.ReadAsStringAsync();
+                r.Content.Headers.ContentType.CharSet = "utf-8";
             }
+
+            return await r.Content.ReadAsStringAsync();
 #endif
         }
 

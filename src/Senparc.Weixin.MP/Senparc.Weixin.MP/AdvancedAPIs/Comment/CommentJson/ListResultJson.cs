@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Comment.CommentJson
         public ListResultJson_comment[] comment { get; set; }
 
         /// <summary>
-        /// 总数，非comment的size around
+        /// 总数，非comment的size
         /// </summary>
         public int total { get; set; }
 
@@ -69,10 +69,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Comment.CommentJson
             }
         */
 
+        /// <summary>
+        /// 用户评论id
+        /// </summary>
         public int user_comment_id { get; set; }
+        /// <summary>
+        /// 评论时间
+        /// </summary>
         public long create_time { get; set; }
+        /// <summary>
+        /// 评论内容
+        /// </summary>
         public string content { get; set; }
+        /// <summary>
+        /// 是否精选评论，0为即非精选，1为true，即精选
+        /// </summary>
         public int comment_type { get; set; }
+        /// <summary>
+        /// OpenId
+        /// </summary>
         public string openid { get; set; }
     }
 }

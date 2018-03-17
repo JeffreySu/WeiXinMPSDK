@@ -130,7 +130,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             "create_time": 1521255525,
             "content": "如果有什么大考验的话可能会发现自己啥都没改都白扯了吧",
             "comment_type": 0,
-            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA"
+            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA",
+            "reply" :
+                {
+                    "content" : "CONTENT",
+                    "create_time" : 1521265525
+                }
+
             }
             ],
             "total": 1

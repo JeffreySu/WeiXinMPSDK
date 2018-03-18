@@ -43,7 +43,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：OnExecuting() 和 OnExecuted() 方法改为 override
 
     修改标识：Senparc - 20180318
-    修改描述：v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断
+    修改描述：v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断 - https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
 
 ----------------------------------------------------------------*/
 

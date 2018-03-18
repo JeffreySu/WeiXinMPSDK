@@ -47,10 +47,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Comment.CommentJson
     /// </summary>
     public class ListResultJson : WxJsonResult
     {
+        /// <summary>
+        /// 评论列表
+        /// </summary>
         public ListResultJson_comment[] comment { get; set; }
 
         /// <summary>
-        /// 总数，非comment的size around
+        /// 总数，非comment的size
         /// </summary>
         public int total { get; set; }
 
@@ -65,14 +68,51 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Comment.CommentJson
             "create_time": 1521255525,
             "content": "如果有什么大考验的话可能会发现自己啥都没改都白扯了吧",
             "comment_type": 0,
-            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA"
+            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA",
+            "reply" :
+                {
+                    "content" : "CONTENT",
+                    "create_time" : 1521265525
+                }
             }
         */
 
+        /// <summary>
+        /// 用户评论id
+        /// </summary>
         public int user_comment_id { get; set; }
+        /// <summary>
+        /// 评论时间
+        /// </summary>
         public long create_time { get; set; }
+        /// <summary>
+        /// 评论内容
+        /// </summary>
         public string content { get; set; }
+        /// <summary>
+        /// 是否精选评论，0为即非精选，1为true，即精选
+        /// </summary>
         public int comment_type { get; set; }
+        /// <summary>
+        /// OpenId
+        /// </summary>
         public string openid { get; set; }
+
+        /// <summary>
+        /// 回复
+        /// </summary>
+        public ListResultJson_comment_reply reply { get; set; }
+    }
+
+    public class ListResultJson_comment_reply
+    {
+        /// <summary>
+        /// 作者回复内容
+        /// </summary>
+        public string content { get; set; }
+        /// <summary>
+        /// 作者回复时间
+        /// </summary>
+        public long create_time { get; set; }
     }
 }

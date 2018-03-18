@@ -2,7 +2,7 @@
 
 /* 
  * 调试方式：当前模式为“使用RegisterServices方式注册”（推荐），
- * 如需使用原始（底层）注册方式，修改下方 #if 后的条件文字，使之不成立即可。
+ * 如需使用原始（底层）注册方式，修改下方 #if 后的条件文字（如加上一个"0"），使之不成立即可。
  */
 
 #if 使用RegisterServices方式注册
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.Sample
              */
 
             //注册开始
-            RegisterService.Start()
+            RegisterService.Start() //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.Sample
 
             #region 注册微信支付（按需）
 
-                //注册旧版本（V2）
+                //注册旧微信支付版本（V2）
                 .RegisterTenpayOld(() =>
                 {
                     //提供微信支付信息
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.MP.Sample
                         weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
                     return weixinPayInfo;
                 })
-                //注册新版本（V3）
+                //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
                 {
                     //提供微信支付信息

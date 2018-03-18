@@ -336,7 +336,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             var currentEventMessage = RequestMessage as RequestMessageEventBase;
                             switch (lastEventMessage.Event)
                             {
+
                                 case Event.user_get_card://领取事件推送
+                                    //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274
+                                    //问题反馈：https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
                                     var lastGetUserCardMessage = lastMessage as RequestMessageEvent_User_Get_Card;
                                     var currentGetUserCardMessage = RequestMessage as RequestMessageEvent_User_Get_Card;
                                     if (lastGetUserCardMessage.UserCardCode == currentGetUserCardMessage.UserCardCode &&

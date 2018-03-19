@@ -149,7 +149,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     msg_data_id = msg_data_id,
-                    index = index
+                    index = index,
+                    begin = begin,
+                    count = count,
+                    type = type
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
@@ -382,7 +385,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     msg_data_id = msg_data_id,
-                    index = index
+                    index = index,
+                    begin = begin,
+                    count = count,
+                    type = type
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);

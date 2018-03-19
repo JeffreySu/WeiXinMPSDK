@@ -43,9 +43,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
-    修改标识：Senparc - 2011224
+    修改标识：Senparc - 2017224
     修改描述：v14.8.12 完成群发接口添加clientmsgid属性
    
+    修改标识：Senparc - 20180319
+    修改描述：v14.10.8 GroupMessageApi.SendGroupMessageByFilter() 方法修复判断错误
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -102,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 BaseGroupMessageDataByFilter baseData = null;
                 BaseGroupMessageByFilter filter = null;
-                if (groupId.IsNullOrEmpty())
+                if (!groupId.IsNullOrEmpty())
                 {
                     filter = new GroupMessageByGroupId()
                     {
@@ -615,7 +618,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 BaseGroupMessageDataByFilter baseData = null;
                 BaseGroupMessageByFilter filter = null;
-                if (groupId.IsNullOrEmpty())
+                if (!groupId.IsNullOrEmpty())
                 {
                     filter = new GroupMessageByGroupId()
                     {

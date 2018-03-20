@@ -33,6 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text;
 
@@ -45,7 +46,7 @@ namespace Senparc.Weixin.WebProxy
     public class CoreWebProxy : IWebProxy
     {
         public readonly Uri Uri;
-        private readonly bool bypass;
+        public readonly string[] BypassList;
 
         /// <summary>
         /// WebProxy for .net core
@@ -53,10 +54,10 @@ namespace Senparc.Weixin.WebProxy
         /// <param name="uri"></param>
         /// <param name="credentials"></param>
         /// <param name="bypass"></param>
-        public CoreWebProxy(Uri uri, ICredentials credentials = null, bool bypass = false)
+        public CoreWebProxy(Uri uri, ICredentials credentials = null, string[] bypassList = null)
         {
             Uri = uri;
-            this.bypass = bypass;
+            BypassList = bypassList;
             Credentials = credentials;
         }
 
@@ -64,7 +65,7 @@ namespace Senparc.Weixin.WebProxy
 
         public Uri GetProxy(Uri destination) => Uri;
 
-        public bool IsBypassed(Uri host) => bypass;
+        public bool IsBypassed(Uri host) => BypassList?.Select(bypass => new Uri(bypass)).Contains(host) ?? false;
 
         public override int GetHashCode()
         {

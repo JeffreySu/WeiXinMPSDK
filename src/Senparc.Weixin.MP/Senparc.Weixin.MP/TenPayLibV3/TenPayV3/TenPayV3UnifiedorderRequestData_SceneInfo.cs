@@ -29,6 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180223
     修改描述：v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
+                       - https://github.com/JeffreySu/WeiXinMPSDK/issues/1111
 
     ----------------------------------------------------------------*/
 

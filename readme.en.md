@@ -6,7 +6,7 @@ Senparc.Weixin —— Wechat .NET SDK
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
  [[Chinese Version](readme.md)]
 
-> Wechat is the most famous IM APP in China which has more than 8.89 billion active user and more than ten million Official Accounts.
+> Wechat is the most famous IM APP in China which has more than 1 billion active user and more than ten million Official Accounts.
 
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.

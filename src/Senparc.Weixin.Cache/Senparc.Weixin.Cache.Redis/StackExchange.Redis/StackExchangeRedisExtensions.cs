@@ -81,16 +81,19 @@ namespace Senparc.Weixin.Cache.Redis
                 return objectDataAsStream;
             }
 #else
-            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
-            //二进制序列化方案
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, o);
-                byte[] objectDataAsStream = memoryStream.ToArray();
-                return objectDataAsStream;
-            }
-            #endregion
+            //#region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
+            ////二进制序列化方案
+            //BinaryFormatter binaryFormatter = new BinaryFormatter();
+            //using (MemoryStream memoryStream = new MemoryStream())
+            //{
+            //    binaryFormatter.Serialize(memoryStream, o);
+            //    byte[] objectDataAsStream = memoryStream.ToArray();
+            //    return objectDataAsStream;
+            //}
+            //#endregion
+
+            BinaryFormatter.BinaryConverter binaryConverter = new BinaryFormatter.BinaryConverter();
+            return binaryConverter.Serialize(o);
 #endif
 
             //使用JSON序列化，会在Get()方法反序列化到IContainerBag的过程中出错
@@ -121,15 +124,18 @@ namespace Senparc.Weixin.Cache.Redis
                 return result;
             }
 #else
-            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
-            //二进制序列化方案
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream(stream))
-            {
-                T result = (T)binaryFormatter.Deserialize(memoryStream);
-                return result;
-            }
-            #endregion
+            //#region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
+            ////二进制序列化方案
+            //BinaryFormatter binaryFormatter = new BinaryFormatter();
+            //using (MemoryStream memoryStream = new MemoryStream(stream))
+            //{
+            //    T result = (T)binaryFormatter.Deserialize(memoryStream);
+            //    return result;
+            //}
+            //#endregion
+
+            BinaryFormatter.BinaryConverter binaryConverter = new BinaryFormatter.BinaryConverter();
+            return binaryConverter.Deserialize<T>(stream);
 #endif
 
 

@@ -30,20 +30,11 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -72,14 +63,16 @@
     <Compile Include="AdvancedAPIs\App\AppTest.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentTest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\MailListApiTests.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
+    <Compile Include="AdvancedAPIs\MassApi\MassApiTests.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="CommonApis\AccessTokenContainerTest.cs" />
     <Compile Include="CommonApis\CommonApiTest.cs" />
     <Compile Include="CommonApis\JsApiTicketContainerTest.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandlers_OmitRepeatMessageTest.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandlerTest.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandlers_OmitRepeatMessageTest.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandlerTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="SignatureTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

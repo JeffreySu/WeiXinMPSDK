@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WxOpenMessageHandler.cs
     文件功能描述：小程序MessageHandler
@@ -37,7 +37,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Tencent;
+using Senparc.Weixin.WxOpen.Tencent;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers

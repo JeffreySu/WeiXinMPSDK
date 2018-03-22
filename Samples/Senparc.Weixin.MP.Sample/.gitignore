@@ -1,0 +1,6 @@
+# git ignore file
+*.[user]
+*.[suo]
+.vdcode
+_ReSharper.Senparc.Weixin.MP.Sample
+TestResults/

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：CommonApi.Menu.Common.cs
     文件功能描述：通用自定义菜单接口（公共方法）
@@ -61,7 +61,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -190,6 +189,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
+                    else if (rootButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleMediaIdButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
+                    else if (rootButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //扫码推事件
+                        buttonGroup.button.Add(new SingleViewLimitedButton()
+                        {
+                            name = rootButton.name,
+                            media_id = rootButton.media_id,
+                            type = rootButton.type
+                        });
+                    }
                     else
                     {
                         throw new WeixinMenuException("菜单类型无法处理：" + rootButton.type);
@@ -298,6 +317,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             {
                                 name = subSubButton.name,
                                 key = subSubButton.key,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("MEDIA_ID", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleMediaIdButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (subSubButton.type.Equals("VIEW_LIMITED", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            subButton.sub_button.Add(new SingleViewLimitedButton()
+                            {
+                                name = subSubButton.name,
+                                media_id = subSubButton.media_id,
                                 type = subSubButton.type
                             });
                         }

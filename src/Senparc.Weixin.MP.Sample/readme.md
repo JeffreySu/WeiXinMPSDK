@@ -1,3 +1,3 @@
-说明：Senparc.Weixin.MP.Sample.CommonService 里面包含了CustomMessageHandler及原Senparc.Weixin.MP.Sample/Service目录的代码。
+## 迁移说明
 
-分离这些文件是为了在WebForms项目中重用。
+为将 Demo（Sample） 代码与 SDK 源文件（src）代码进行隔离，现已将当前目录迁移至 [/Samples/Senparc.Weixin.MP.Sample/](../../Samples/Senparc.Weixin.MP.Sample/)目录下，内容结构完全一致。

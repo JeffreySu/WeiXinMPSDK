@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
@@ -58,12 +58,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -76,24 +80,40 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+#else
+            set { this.SetContainerProperty(ref _appId, value); }
+#endif
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+#else
+            set { this.SetContainerProperty(ref _appSecret, value); }
+#endif
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+#else
+            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+#endif
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+#endif
         }
 
         /// <summary>
@@ -162,7 +182,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static string TryGetJsApiTicket(string appId, string appSecret, bool getNewTicket = false)
         {
-            return TryGetJsApiTicketAsync(appId, appSecret, getNewTicket).GetAwaiter().GetResult();
+            if (!CheckRegistered(appId) || getNewTicket)
+            {
+                Register(appId, appSecret);
+            }
+            return GetJsApiTicket(appId);
         }
 
         /// <summary>
@@ -184,13 +208,29 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static JsApiTicketResult GetJsApiTicketResult(string appId, bool getNewTicket = false)
         {
-            return GetJsApiTicketResultAsync(appId, getNewTicket).GetAwaiter().GetResult();
+            if (!CheckRegistered(appId))
+            {
+                throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+            }
+
+            var jsApiTicketBag = TryGetItem(appId);
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            {
+                if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
+                }
+            }
+            return jsApiTicketBag.JsApiTicketResult;
         }
 
         #endregion
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
         #region JsApiTicket
 
@@ -236,24 +276,22 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-
-            if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+                if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
-                    if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
-                    {
-                        //已过期，重新获取
-                        jsApiTicketBag.JsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
-                        jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    }
+                    //已过期，重新获取
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
+                    jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
                 }
             }
-
             return jsApiTicketBag.JsApiTicketResult;
         }
 
         #endregion
         #endregion
+#endif
     }
 }

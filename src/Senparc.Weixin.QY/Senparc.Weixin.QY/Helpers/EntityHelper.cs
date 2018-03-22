@@ -19,21 +19,22 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
+using System.Reflection;
 
 namespace Senparc.Weixin.QY.Helpers
 {
-    public static class EntityHelper
-    {
-        /// <summary>
-        /// 根据XML信息填充实实体
-        /// </summary>
-        /// <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
-        /// <param name="entity">实体</param>
-        /// <param name="doc">XML</param>
-        public static void FillEntityWithXml<T>(this T entity, XDocument doc) where T : /*MessageBase*/ class, new()
-        {
-            entity = entity ?? new T();
-            var root = doc.Root;
+	public static class EntityHelper
+	{
+		/// <summary>
+		/// 根据XML信息填充实实体
+		/// </summary>
+		/// <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
+		/// <param name="entity">实体</param>
+		/// <param name="doc">XML</param>
+		public static void FillEntityWithXml<T>(this T entity, XDocument doc) where T : /*MessageBase*/ class, new()
+		{
+			entity = entity ?? new T();
+			var root = doc.Root;
 
             var props = entity.GetType().GetProperties();
             foreach (var prop in props)
@@ -255,40 +256,40 @@ namespace Senparc.Weixin.QY.Helpers
             doc.Add(new XElement("xml"));
             var root = doc.Root;
 
-            /* 注意！
-             * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
-            */
-            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
-            //不同返回类型需要对应不同特殊格式的排序
-            if (entity is ResponseMessageNews)
-            {
-                propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
-            }
-            else if (entity is ResponseMessageMpNews)
-            {
-                propNameOrder.AddRange(new[] { "MpNewsArticleCount", "MpNewsArticles", "FuncFlag",/*以下是MpNewsAtricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
-            }
-            else if (entity is ResponseMessageImage)
-            {
-                propNameOrder.AddRange(new[] { "Image",/*以下是Image属性*/ "MediaId " });
-            }
-            else if (entity is ResponseMessageVoice)
-            {
-                propNameOrder.AddRange(new[] { "Voice",/*以下是Voice属性*/ "MediaId " });
-            }
-            else if (entity is ResponseMessageVideo)
-            {
-                propNameOrder.AddRange(new[] { "Video",/*以下是Video属性*/ "MediaId ", "Title", "Description" });
-            }
-            else
-            {
-                //如Text类型
-                propNameOrder.AddRange(new[] { "Content", "FuncFlag" });
-            }
+			/* 注意！
+			 * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
+			*/
+			var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
+			//不同返回类型需要对应不同特殊格式的排序
+			if (entity is ResponseMessageNews)
+			{
+				propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+			}
+			else if (entity is ResponseMessageMpNews)
+			{
+				propNameOrder.AddRange(new[] { "MpNewsArticleCount", "MpNewsArticles", "FuncFlag",/*以下是MpNewsAtricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+			}
+			else if (entity is ResponseMessageImage)
+			{
+				propNameOrder.AddRange(new[] { "Image",/*以下是Image属性*/ "MediaId " });
+			}
+			else if (entity is ResponseMessageVoice)
+			{
+				propNameOrder.AddRange(new[] { "Voice",/*以下是Voice属性*/ "MediaId " });
+			}
+			else if (entity is ResponseMessageVideo)
+			{
+				propNameOrder.AddRange(new[] { "Video",/*以下是Video属性*/ "MediaId ", "Title", "Description" });
+			}
+			else
+			{
+				//如Text类型
+				propNameOrder.AddRange(new[] { "Content", "FuncFlag" });
+			}
 
-            propNameOrder.AddRange(new[] { "AgentID" });
+			propNameOrder.AddRange(new[] { "AgentID" });
 
-            Func<string, int> orderByPropName = propNameOrder.IndexOf;
+			Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
             var props = entity.GetType().GetProperties().OrderBy(p => orderByPropName(p.Name)).ToList();
             foreach (var prop in props)
@@ -370,7 +371,7 @@ namespace Senparc.Weixin.QY.Helpers
             return doc;
         }
 
-        /// <summary>
+		/// <summary>
 		/// 将实体转为XML字符串
 		/// </summary>
 		/// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
@@ -383,23 +384,23 @@ namespace Senparc.Weixin.QY.Helpers
 
         /// <summary>
         /// ResponseMessageBase.CreateFromRequestMessage&lt;T&gt;(requestMessage)的扩展方法
-		/// </summary>
-		/// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
-		/// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
-		/// <returns></returns>
-		public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        /// </summary>
+        /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
+        /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
+        /// <returns></returns>
+        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
         {
             return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
         }
 
-        /// <summary>
-        /// ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
-        /// </summary>
-        /// <param name="xml">返回给服务器的Response Xml</param>
-        /// <returns></returns>
-        public static IResponseMessageBase CreateResponseMessage(this string xml)
-        {
-            return ResponseMessageBase.CreateFromResponseXml(xml);
-        }
-    }
+		/// <summary>
+		/// ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
+		/// </summary>
+		/// <param name="xml">返回给服务器的Response Xml</param>
+		/// <returns></returns>
+		public static IResponseMessageBase CreateResponseMessage(this string xml)
+		{
+			return ResponseMessageBase.CreateFromResponseXml(xml);
+		}
+	}
 }

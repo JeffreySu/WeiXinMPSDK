@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：BrowserUtility.cs
     文件功能描述：浏览器公共类
@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+#if NET35 || NET40 || NET45
 
 using System.Web;
 
@@ -46,12 +47,17 @@ namespace Senparc.Weixin.BrowserUtility
     /// </summary>
     public static class BrowserUtility
     {
+
         /// <summary>
         /// 判断是否在微信内置浏览器中
         /// </summary>
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
+#if NET35
+        public static bool SideInWeixinBrowser(this HttpContext httpContext)
+#else
         public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
+#endif
         {
             var userAgent = httpContext.Request.UserAgent;
             if (userAgent != null 
@@ -66,3 +72,4 @@ namespace Senparc.Weixin.BrowserUtility
         }
     }
 }
+#endif

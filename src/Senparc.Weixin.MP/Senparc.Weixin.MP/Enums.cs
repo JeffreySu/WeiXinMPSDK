@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -68,6 +68,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170328
     修改描述：v14.3.139 ButtonType添加小程序类型
+
+    修改标识：Senparc - 20170807
+    修改描述：v14.5.7 添加TenPayV3Type.MWEB枚举，支持H5支付
+
+    修改标识：Senparc - 20170826
+    修改描述：v14.6.8 添加Event下“微信认证事件推送”一系列事件类型
+
+    修改标识：Senparc - 20171108
+    修改描述：v14.8.5 卡券MemberCard_CustomField_NameType枚举添加FIELD_NAME_TYPE_UNKNOW类型
+
+    修改标识：Senparc - 20170225
+    修改描述：v14.10.3 增加MessageHandler的file类型处理
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -87,6 +100,8 @@ namespace Senparc.Weixin.MP
         Link, //连接信息
         ShortVideo,//小视频
         Event, //事件推送
+        File,//文件类型
+        Unknown = -1,//未知类型
     }
 
 
@@ -263,7 +278,50 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 券点流水详情事件：当商户朋友的券券点发生变动时
         /// </summary>
-        card_pay_order
+        card_pay_order,
+
+
+        #region 微信认证事件推送
+
+        /// <summary>
+        /// 资质认证成功（此时立即获得接口权限）
+        /// </summary>
+        qualification_verify_success,
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        qualification_verify_fail,
+        /// <summary>
+        /// 名称认证成功（即命名成功）
+        /// </summary>
+        naming_verify_success,
+        /// <summary>
+        /// 名称认证失败（这时虽然客户端不打勾，但仍有接口权限）
+        /// </summary>
+        naming_verify_fail,
+        /// <summary>
+        /// 年审通知
+        /// </summary>
+        annual_renew,
+        /// <summary>
+        /// 认证过期失效通知
+        /// </summary>
+        verify_expired,
+
+        #endregion
+
+        #region 小程序审核事件推送
+
+        /// <summary>
+        /// 小程序审核成功
+        /// </summary>
+        weapp_audit_success,
+        /// <summary>
+        /// 小程序审核失败
+        /// </summary>
+        weapp_audit_fail
+
+        #endregion
     }
 
 
@@ -339,7 +397,15 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
-        location_select
+        location_select,
+        /// <summary>
+        /// 下发消息（除文本消息）
+        /// </summary>
+        media_id,
+        /// <summary>
+        /// 跳转图文消息URL
+        /// </summary>
+        view_limited
     }
 
     /// <summary>
@@ -386,11 +452,16 @@ namespace Senparc.Weixin.MP
     //    涉嫌互推 = 22000,
     //    涉嫌其他 = 21000
     //}
+
+    /// <summary>
+    /// 支付类型
+    /// </summary>
     public enum TenPayV3Type
     {
         JSAPI,
         NATIVE,
-        APP
+        APP,
+        MWEB
     }
 
     public enum GroupMessageType
@@ -557,6 +628,11 @@ namespace Senparc.Weixin.MP
         /// 里程
         /// </summary>
         FIELD_NAME_TYPE_MILEAGE = 5,
+
+        /// <summary>
+        /// 未知类型（新加入，文档中没有：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272）
+        /// </summary>
+        FIELD_NAME_TYPE_UNKNOW = -1
     }
 
     /// <summary>

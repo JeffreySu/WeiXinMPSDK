@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.CreateMember(accessToken, userId, $"单元测试生成-{DateTime.Now.ToString("yyMMdd-HH:mm")}", "13900000000", "english name", new[] { 2 }, null, "1", null, null, null, extattr: extattr);
+            var result = MailListApi.CreateMember(accessToken, userId, string.Format("单元测试生成-{0}", DateTime.Now.ToString("yyMMdd-HH:mm")), "13900000000", "english name", new long[] { 2 }, null, "1", null, null, null, extattr: extattr);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.UpdateMember(accessToken, userId,null,null,"new english name", new[] { 2 }, null, "1", email: "xxx@qq.com");
+            var result = MailListApi.UpdateMember(accessToken, userId, null, null, "new english name", new long[] { 2 }, null, "1", email: "xxx@qq.com");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }

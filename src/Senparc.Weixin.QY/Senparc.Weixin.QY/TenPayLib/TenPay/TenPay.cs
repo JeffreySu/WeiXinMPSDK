@@ -72,6 +72,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         ///【异步方法】 用于企业向微信用户个人付款 
@@ -110,5 +111,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return await RequestUtility.HttpPostAsync( urlFormat, null, ms, timeOut: timeOut);
         }
         #endregion
+#endif
     }
 }

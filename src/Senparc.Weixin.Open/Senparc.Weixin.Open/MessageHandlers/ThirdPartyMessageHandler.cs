@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -18,7 +18,7 @@ using System.IO;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Tencent;
+using Senparc.Weixin.Open.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {

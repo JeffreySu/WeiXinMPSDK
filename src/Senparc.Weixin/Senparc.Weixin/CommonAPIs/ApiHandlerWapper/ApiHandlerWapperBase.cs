@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ApiHandlerWapperBase.cs
     文件功能描述：提供ApiHandlerWapper的公共基础方法
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
                     //尝试重新验证
-                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, false);//AccessTokenContainer.GetAccessTokenResult(appId, true);
+                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApiBase(platformType,
@@ -156,6 +156,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
         #endregion
 
+#if !NET35 && !NET40
         #region 异步方法
 
 
@@ -256,5 +257,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
 
         #endregion
+#endif
+
     }
 }

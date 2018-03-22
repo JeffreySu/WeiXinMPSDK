@@ -17,4 +17,8 @@ Microsoft.*
 zh-Hans/
 
 .net4.0/
+net45
+net461
+netstandard1.6
 chm
+*.nupkg

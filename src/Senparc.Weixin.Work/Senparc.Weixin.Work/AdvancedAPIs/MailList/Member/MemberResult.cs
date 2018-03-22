@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：成员接口返回结果
@@ -9,6 +9,12 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20180828
+    修改描述：v0.4.2 添加 GetMemberResult.order 属性
+
+    修改标识：Senparc - 20171017
+    修改描述：v1.2.0 部门id改为long类型
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -32,7 +38,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 成员所属部门id列表
         /// </summary>
-        public int[] department { get; set; }
+        public long[] department { get; set; }
+        /// <summary>
+        /// 部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。值范围是[0, 2^32)
+        /// </summary>
+        public int[] order { get; set; }
         /// <summary>
         /// 职位信息
         /// </summary>
@@ -110,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 成员所属部门
         /// </summary>
-        public int[] department { get; set; }
+        public long[] department { get; set; }
     }
 
     /// <summary>

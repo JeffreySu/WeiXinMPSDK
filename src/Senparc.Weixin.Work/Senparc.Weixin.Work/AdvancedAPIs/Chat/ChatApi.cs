@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ChatApi.cs
     文件功能描述：企业号消息接口
@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
     public static class ChatApi
     {
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -45,11 +45,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
 
                 return Get.GetJson<GetChatResult>(url);
             }, accessTokenOrAppKey);
@@ -99,7 +100,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -129,7 +130,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -156,7 +157,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -189,7 +190,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
 
                 BaseSendChatMessageData data;
 
@@ -278,7 +279,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/setmute?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/setmute?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -292,7 +293,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】创建会话
         /// </summary>
@@ -303,11 +305,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -333,7 +336,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
 
                 return await Get.GetJsonAsync<GetChatResult>(url);
             }, accessTokenOrAppKey);
@@ -357,7 +360,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -387,7 +390,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -414,7 +417,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -447,7 +450,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
 
                 BaseSendChatMessageData data;
 
@@ -536,7 +539,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/setmute?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/setmute?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -549,5 +552,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

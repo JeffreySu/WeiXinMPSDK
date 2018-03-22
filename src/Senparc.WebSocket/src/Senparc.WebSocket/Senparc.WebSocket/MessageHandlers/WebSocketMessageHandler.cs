@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：WebSocketMessageHandler.cs
     文件功能描述：WebSocketMessageHandler基类
@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
 {

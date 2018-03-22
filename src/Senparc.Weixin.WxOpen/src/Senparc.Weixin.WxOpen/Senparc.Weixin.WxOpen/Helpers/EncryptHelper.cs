@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：EncryptHelper.cs
     文件功能描述：加密、解密处理类
@@ -35,7 +35,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+#if NET45
 using System.Web.Script.Serialization;
+#endif
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Containers;
@@ -76,7 +78,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
         {
             var signature =
                 Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(rawData + sessionKey);
-                //Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + sessionKey);
+            //Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + sessionKey);
             return signature;
         }
 
@@ -113,7 +115,11 @@ namespace Senparc.Weixin.WxOpen.Helpers
 
         private static byte[] AES_Decrypt(String Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             RijndaelManaged aes = new RijndaelManaged();
+#else
+            SymmetricAlgorithm aes = Aes.Create();
+#endif
             aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
@@ -208,9 +214,33 @@ namespace Senparc.Weixin.WxOpen.Helpers
         public static DecodedUserInfo DecodeUserInfoBySessionId(string sessionId, string encryptedData, string iv)
         {
             var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+#if NET45
             JavaScriptSerializer js = new JavaScriptSerializer();
             var userInfo = js.Deserialize<DecodedUserInfo>(jsonStr);
+#else
+            var userInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedUserInfo>(jsonStr);
+#endif
             return userInfo;
+        }
+
+        /// <summary>
+        /// 解密手机号
+        /// </summary>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        {
+            var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+
+#if NET45
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var phoneNumber = js.Deserialize<DecodedPhoneNumber>(jsonStr);
+#else
+            var phoneNumber = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedPhoneNumber>(jsonStr);
+#endif
+            return phoneNumber;
+
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：EntityBase.cs
     文件功能描述：EntityBase
@@ -36,7 +36,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities.TemplateMessage
 {
@@ -62,7 +61,7 @@ namespace Senparc.Weixin.Entities.TemplateMessage
     /// <summary>
     /// 模板消息数据基础类
     /// </summary>
-    public class TemplateMessageBase : ITemplateMessageBase
+    public abstract class TemplateMessageBase : ITemplateMessageBase
     {
         /// <summary>
         /// 每个公众号都不同的templateId

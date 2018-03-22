@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -49,9 +49,20 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../Config/test.config"))
+#if NETCOREAPP2_0
+                    var filePath = "../../../Config/test.config";
+#else
+                    var filePath = "../../Config/test.config";
+#endif
+                    if (File.Exists(filePath))
                     {
-                        var doc = XDocument.Load("../../Config/test.config");
+#if NETCOREAPP2_0
+                        var stream = new FileStream(filePath, FileMode.Open);
+                        var doc = XDocument.Load(stream);
+                        stream.Dispose();
+#else
+                        var doc = XDocument.Load(filePath);
+#endif
                         _appConfig = new
                         {
                             AppId = doc.Root.Element("AppId").Value,
@@ -117,7 +128,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         //    get { return AppConfig.WxOpenSecret; }
         //}
 
-        protected readonly bool _useRedis = true;//是否使用Reids
+        protected readonly bool _useRedis = false;//是否使用Reids
 
         /* 由于获取accessToken有次数限制，为了节约请求，
         * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取应用套件令牌【QY移植修改】
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
+                var url = Config.ApiWorkHost + "/cgi-bin/service/get_suite_token";
 
                 var data = new
                 {
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///// <returns></returns>
         //public static GetPreAuthCodeResult GetPreAuthCode(string suiteAccessToken, string suiteId, int[] appId, int timeOut = Config.TIME_OUT)
         //{
-        //    var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+        //    var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
         //    var data = new
         //        {
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
                 var data = new
                 {
                     suite_id = suiteId,
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
                 var data = new
                 {
                     pre_auth_code = authCode,
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -218,7 +218,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -277,7 +277,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -293,7 +293,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         ///【异步方法】 获取应用套件令牌【QY移植修改】
@@ -307,7 +308,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
+                var url = Config.ApiWorkHost + "/cgi-bin/service/get_suite_token";
 
                 var data = new
                 {
@@ -332,7 +333,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///// <returns></returns>
         //public static GetPreAuthCodeResult GetPreAuthCode(string suiteAccessToken, string suiteId, int[] appId, int timeOut = Config.TIME_OUT)
         //{
-        //    var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+        //    var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
         //    var data = new
         //        {
@@ -354,7 +355,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
                 var data = new
                 {
                     suite_id = suiteId,
@@ -378,7 +379,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
                 var data = new
                 {
                     pre_auth_code = authCode,
@@ -409,7 +410,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -436,7 +437,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -465,7 +466,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -495,7 +496,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -524,7 +525,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
                 var data = new
                 {
@@ -539,5 +540,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

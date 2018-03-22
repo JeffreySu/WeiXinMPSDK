@@ -23,7 +23,7 @@ Page({
   doRequest:function(){
     var that = this;
     wx.request({
-      url: 'https://sdk.weixin.senparc.com/WxOpen/RequestData',
+      url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
       data: { nickName : that.data.userInfo.nickName},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
@@ -59,7 +59,7 @@ Page({
         });
 
         wx.request({
-          url: 'https://sdk.weixin.senparc.com/WxOpen/TemplateTest',
+          url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
           data: submitData,
           method: 'POST', 
           success: function(res){
@@ -75,6 +75,51 @@ Page({
           }
         })
   },
+  getPhoneNumber: function (e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData);
+
+    //传输到后台解密
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/DecryptPhoneNumber',
+      data: { 
+        sessionId: wx.getStorageSync('sessionId'), 
+        iv: e.detail.iv, 
+        encryptedData:e.detail.encryptedData 
+        },
+      method: 'POST',
+      success: function (res) {
+        // success
+        var json = res.data;
+        console.log(res.data);
+
+        if(!json.success){
+
+          wx.showModal({
+            title: '解密过程发生异常',
+            content: json.msg,
+            showCancel: false
+          });          
+          return;
+        }
+
+        //模组对话框
+        var phoneNumberData = json.phoneNumber;
+        var msg = '手机号：' + phoneNumberData.phoneNumber+
+          '\r\n手机号（不带区号）：' + phoneNumberData.purePhoneNumber+
+          '\r\n区号（国别号）' + phoneNumberData.countryCode+
+          '\r\n水印信息：' + JSON.stringify(phoneNumberData.watermark);
+
+        wx.showModal({
+          title: '收到解密后的手机号信息',
+          content: msg,
+          showCancel: false
+        });
+      }
+    })
+
+  } ,
 
   onLoad: function () {
     console.log('onLoad')

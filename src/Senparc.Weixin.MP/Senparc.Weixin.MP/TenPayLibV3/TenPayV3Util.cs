@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayV3Util.cs
     文件功能描述：微信支付V3配置文件
@@ -44,6 +44,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Text;
+using System.Net;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -78,7 +79,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 对字符串进行URL编码
         /// </summary>
         /// <param name="instr"></param>
-        /// <param name="charset"></param>
+        /// <param name="charset">在.netstandard1.6无效</param>
         /// <returns></returns>
         public static string UrlEncode(string instr, string charset)
         {
@@ -87,20 +88,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
             }
         }
 
@@ -116,20 +123,25 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
-
-
-                return res;
+                //return res;
 
             }
         }
@@ -141,7 +153,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if NET35 || NET40 || NET45 || NET461
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayV3Result.cs
     文件功能描述：微信支付V3返回结果
@@ -54,10 +54,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170322
     修改描述：v14.3.132 完善OrderQueryResult 服务商查询订单接口
     
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性 & 优化代码
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 
@@ -75,6 +80,20 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string return_msg { get; set; }
 
         protected XDocument _resultXml;
+
+        /// <summary>
+        /// XML内容
+        /// </summary>
+        public string ResultXml {
+            get {
+                return _resultXml.ToString();
+
+                //StringWriter sw = new StringWriter();
+                //XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
+                //_resultXml.WriteTo(xmlTextWriter);
+                //return sw.ToString();
+            }
+        }
 
         public TenPayV3Result(string resultXml)
         {
@@ -240,6 +259,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string code_url { get; set; }
 
+        /// <summary>
+        /// 在H5支付时返回
+        /// </summary>
+        public string mweb_url { get; set; }
+
         ///// <summary>
         ///// 子商户公众账号ID
         ///// </summary>
@@ -264,6 +288,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                     trade_type = GetXmlValue("trade_type") ?? "";
                     prepay_id = GetXmlValue("prepay_id") ?? "";
                     code_url = GetXmlValue("code_url") ?? "";
+                    mweb_url = GetXmlValue("mweb_url") ?? "";
                 }
             }
         }

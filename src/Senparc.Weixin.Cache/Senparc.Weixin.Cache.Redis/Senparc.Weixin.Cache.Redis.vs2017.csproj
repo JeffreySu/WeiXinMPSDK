@@ -142,6 +142,7 @@
 
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
+    <PackageReference Include="BinaryFormatter" Version="2.1.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 

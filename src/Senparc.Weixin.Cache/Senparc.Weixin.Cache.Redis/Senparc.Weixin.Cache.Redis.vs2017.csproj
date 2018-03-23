@@ -121,8 +121,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="packages\**" />
     <Compile Remove="ServiceStack.Redis\**" />
+    <EmbeddedResource Remove="packages\**" />
     <EmbeddedResource Remove="ServiceStack.Redis\**" />
+    <None Remove="packages\**" />
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
 

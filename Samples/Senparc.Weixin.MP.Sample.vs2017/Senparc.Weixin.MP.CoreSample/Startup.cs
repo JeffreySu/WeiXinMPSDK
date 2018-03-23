@@ -283,7 +283,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
                 using (Stream fs = new FileStream(file, FileMode.Open))
                 {
-                    BinaryFormatter binFormat = new BinaryFormatter();
+                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                     var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
                     return result.authorizer_refresh_token;
                 }
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 using (Stream fs = new FileStream(file, FileMode.Create))
                 {
                     //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                    BinaryFormatter binFormat = new BinaryFormatter();
+                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                     binFormat.Serialize(fs, refreshResult);
                     fs.Flush();
                 }

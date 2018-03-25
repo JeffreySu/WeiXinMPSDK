@@ -132,8 +132,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [nuget-url-mc]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
 [nuget-img-wxopen]: https://img.shields.io/nuget/dt/Senparc.Weixin.WxOpen.svg
 [nuget-url-wxopen]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
-[nuget-img-ws]: https://img.shields.io/nuget/dt/Senparc.Weixin.WebSocket.svg
-[nuget-url-ws]: https://www.nuget.org/packages/Senparc.Weixin.WebSocket
+[nuget-img-ws]: https://img.shields.io/nuget/dt/Senparc.WebSocket.svg
+[nuget-url-ws]: https://www.nuget.org/packages/Senparc.WebSocket
 
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。

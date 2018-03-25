@@ -59,9 +59,9 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 各模块类库
 ----------------
 
-| # | 模块功能                                            | DLL                                             | Nuget & 支持 .NET 版本 
-|---|----------------------------------------------------|-------------------------------------------------|--------------------------------------
-| 1| 基础库                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| # | 模块功能                                            | DLL                                             | 下载量        | Nuget & 支持 .NET 版本 
+|---|----------------------------------------------------|-------------------------------------------------|--------------|--------------------------------------
+| 1| 基础库                                               |Senparc.Weixin.dll                               |  [nuget-mp]  |[![Senparc.Weixin][1.1]][1.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
 | 3| ASP.NET MVC 扩展<br>.NET Framework +<br> Core               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]      ![.NET Core 2.0][core20Y]
 | 4| 微信企业号                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]   ![.NET 3.5][net35Y] ![.NET 4.0][net40Y] ![.NET 4.5][net45Y] ![.NET Core 2.0][core20Y]
@@ -113,6 +113,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [core20Y]: https://img.shields.io/badge/core2.0-Y-brightgreen.svg
 [core20N]: https://img.shields.io/badge/core2.0-N-lightgrey.svg
 [core20N-]: https://img.shields.io/badge/core2.0----lightgrey.svg
+
+[nuget-mp]: [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
 
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。

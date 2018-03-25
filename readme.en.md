@@ -65,18 +65,18 @@ SDK Modules
 
 | # | Module Libraries                                         | DLL                                             | Nuget & Support .NET Versions 
 |---|----------------------------------------------------|-------------------------------------------------|--------------------------------------
-| 1| Base Library                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 2| Official Account /<br> TenPay /<br> JSSDK <br> ect. |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 3| ASP.NET MVC Extension<br>.NET Framework +<br> Core               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]   ![.NET Core 2.0][core20Y]
-| 4| Corporate Account                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]   ![.NET 3.5][net35Y] ![.NET 4.0][net40Y] ![.NET 4.5][net45Y] ![.NET Core][coreY] ![.NET Core 2.0][core20Y]
-| 5| Corporate Wechat                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 6| Open Platform                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 7| Redis Distributed Cache                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 8| Memcached <br> Distributed Cache                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
-| 9| [Mini Program <br>(s.p. Mini Game)<br>(indep. proj.)](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]  ![.NET 4.5][net45Y] ![.NET Core][coreY] ![.NET Core 2.0][core20Y] 
-|10| [WebSocket <br>(indep. proj.)](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core][coreY]    ![.NET Core 2.0][core20Y]
+| 1| Base Library                                               |Senparc.Weixin.dll                               | [![Senparc.Weixin][1.1]][1.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 2| Official Account /<br> TenPay /<br> JSSDK <br> ect. |Senparc.Weixin.MP.dll                         | [![MP][2.1]][2.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 3| ASP.NET MVC Extension<br>.NET Framework +<br> Core               |Senparc.Weixin.MP.MVC.dll                        | [![MP.MVC][3.1]][3.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]      ![.NET Core 2.0][core20Y]
+| 4| Corporate Account                                           |Senparc.Weixin.QY.dll                            | [![QY][4.1]][4.2]   ![.NET 3.5][net35Y] ![.NET 4.0][net40Y] ![.NET 4.5][net45Y] ![.NET Core 2.0][core20Y]
+| 5| Corporate Wechat                                             |Senparc.Weixin.Work.dll                          | [![Work][5.1]][5.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 6| Open Platform                                         |Senparc.Weixin.Open.dll                          | [![Open][6.1]][6.2]  ![.NET 3.5][net35Y]    ![.NET 4.0][net40Y]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 7| Redis Distributed Cache                                     |Senparc.Weixin.Cache.<br>Redis.dll               | [![Cache.Redis][7.1]][7.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 8| Memcached <br> Distributed Cache                            |Senparc.Weixin.Cache.<br>Memcached.dll           | [![Cache.Memcached][8.1]][8.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
+| 9| [Mini Program <br>(s.p. Mini Game)<br>(indep. proj.)](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll       | [![WxOpen][9.1]][9.2]  ![.NET 3.5][net35N]    ![.NET 4.0][net40Y]  ![.NET 4.5][net45Y] ![.NET Core 2.0][core20Y] 
+|10| [WebSocket <br>(indep. proj.)](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core 2.0][core20Y]
 
-![.NET 3.5][net35Y] .NET 3.5   ![.NET 4.0][net40Y] .NET 4.0   ![.NET 4.5][net45Y] .NET 4.5  ![.NET Core][coreY] .NET Core 1.1  ![.NET Core 2.0][core20Y] .NET Core 2.0
+![.NET 3.5][net35Y] .NET 3.5   ![.NET 4.0][net40Y] .NET 4.0   ![.NET 4.5][net45Y] .NET 4.5  ![.NET Core 2.0][core20Y] .NET Core 2.0
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin

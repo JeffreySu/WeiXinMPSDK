@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.10.10</Version>
+    <Version>14.10.11-beta1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -374,7 +374,7 @@
       v14.10.8 GroupMessageApi.SendGroupMessageByFilter() 方法修复判断错误
       v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
       v14.10.10 修正 Net Core 版本错误的代理设置
-
+      v14.10.11-beta1 测试.net core下的文件上传方法
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

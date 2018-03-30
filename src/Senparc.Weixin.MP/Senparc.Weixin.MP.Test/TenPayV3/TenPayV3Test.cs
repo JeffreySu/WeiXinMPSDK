@@ -57,5 +57,13 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Console.Write(result);
             Assert.IsNotNull(result);
         }
+
+        [TestMethod()]
+        public void GetSignKeyTest()
+        {
+            var nonceStr = TenPayV3Util.GetNoncestr();
+            var sign = "";
+            var result = TenPayV3.GetSignKey(base._mchId, nonceStr, sign);//TODO
+        }
     }
 }

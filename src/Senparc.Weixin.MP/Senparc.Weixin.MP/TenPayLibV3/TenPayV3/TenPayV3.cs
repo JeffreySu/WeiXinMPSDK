@@ -96,6 +96,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -175,6 +176,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         #endregion
 
         #region 同步方法
+
+        /// <summary>
+        /// 获取验签秘钥API
+        /// </summary>
+        /// <param name="mchId">商户号</param>
+        /// <param name="nonceStr">随机字符串</param>
+        /// <param name="sign">签名</param>
+        /// <returns></returns>
+        public static TenpayV3GetSignKeyResult GetSignKey(string mchId, string nonceStr, string sign, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
+            var data = new
+            {
+                mch_id = mchId,
+                nonce_str = nonceStr,
+                sign = sign
+            };
+
+            return CommonJsonSend.Send<TenpayV3GetSignKeyResult>(null, url, data, timeOut: timeOut);
+        }
+
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。

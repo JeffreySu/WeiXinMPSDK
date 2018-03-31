@@ -216,7 +216,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="str"></param>
         /// <param name="mchKey"></param>
         /// <returns></returns>
-        public static string DecodeRefundString(string str, string mchKey)
+        public static string DecodeRefundReqInfo(string str, string mchKey)
         {
             //²Î¿¼ÎÄµµ£ºhttps://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
             /*

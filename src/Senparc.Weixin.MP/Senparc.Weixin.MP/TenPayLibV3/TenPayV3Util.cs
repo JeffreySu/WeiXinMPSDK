@@ -216,7 +216,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="str"></param>
         /// <param name="mchKey"></param>
         /// <returns></returns>
-        public static string DecodeRefundReqInfo(string str, string mchKey)
+        public static string DecodeRefundReqInfo(string reqInfo, string mchKey)
         {
             //参考文档：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
             /*
@@ -226,9 +226,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
                 （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
              */
-            var base64Encode = Convert.ToBase64String(Encoding.UTF8.GetBytes(str));//(1)
+            var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
             var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
-            var result = EncryptHelper.AESDecrypt(str, md5Str);//(3)
+            var result = EncryptHelper.AESDecrypt(reqInfo, md5Str);//(3)
             return result;
         }
     }

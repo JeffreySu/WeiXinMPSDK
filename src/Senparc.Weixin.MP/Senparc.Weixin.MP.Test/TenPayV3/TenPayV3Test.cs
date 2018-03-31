@@ -53,20 +53,70 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UnifiedorderTest()
         {
+            //这是已经过期的旧方法，新方法请参考相同方法名的重写方法
             var result = TenPayV3.Unifiedorder(data);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
 
+
         [TestMethod()]
         public void GetSignKeyTest()
         {
-            var nonceStr = TenPayV3Util.GetNoncestr();
-            var dataIndo = new TenPayV3GetSignKeyRequestData(base._mchId, nonceStr, base._tenPayKey);
-            var result = TenPayV3.GetSignKey(dataIndo);
+            //沙箱验证流程参考：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_1
 
-            Assert.IsTrue(result.IsReturnCodeSuccess());
+            Senparc.Weixin.Config.UseSandBoxPay = true;
+
+            var nonceStr = TenPayV3Util.GetNoncestr();
+            var dataInfo = new TenPayV3GetSignKeyRequestData(base._mchId, nonceStr, base._tenPayKey);
+            var result = TenPayV3.GetSignKey(dataInfo);
+
             Console.WriteLine(result.ResultXml);
+            Assert.IsTrue(result.IsReturnCodeSuccess());
+
+            //继续测试一个订单接口
+            MicroPayTest(result.sandbox_signkey, nonceStr);
+        }
+
+        private void MicroPayTest(string sandBoxKey, string nonceStr)
+        {
+            Senparc.Weixin.Config.UseSandBoxPay = true;
+
+            var deviceInfo = "设备信息";
+            var body = "Senparc.Weixin SDK";
+            var totalFee = 501;//沙箱测试必须是501
+            var outTradeNo = DateTime.Now.Ticks.ToString();
+
+            string detail =
+            @"{
+    ""cost_price"": 1137600, 
+    ""receipt_id"": ""wx123"", 
+    ""goods_detail"": [
+        {
+            ""goods_id"": ""商品编码"",
+            ""wxpay_goods_id"": ""1001"",
+            ""goods_name"": """",
+            ""quantity"": 1,
+            ""price"": 528800
+        }, 
+        {
+            ""goods_id"": ""商品编码"", 
+            ""wxpay_goods_id"": ""1002"", 
+            ""goods_name"": ""iPhone6s 32G"", 
+            ""quantity"": 1, 
+            ""price"": 608800
+        }
+    ]
+}".Replace("\r", "").Replace("\n", "");
+
+            var dataInfo = new TenPayV3MicroPayRequestData(base._appId, base._mchId, sandBoxKey,
+                nonceStr, deviceInfo, body, detail, null, outTradeNo, totalFee.ToString(), "CNY", "127.0.0.1",
+                null, null);
+
+            var result = TenPayV3.MicroPay(dataInfo);
+
+            Console.WriteLine(result.ResultXml);
+            Assert.IsTrue(result.IsReturnCodeSuccess());
         }
     }
 }

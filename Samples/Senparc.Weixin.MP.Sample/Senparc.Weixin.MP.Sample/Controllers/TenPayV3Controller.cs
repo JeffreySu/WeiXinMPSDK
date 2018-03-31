@@ -45,6 +45,12 @@ using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    /* 
+     * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
+     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     */
+
+
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
     /// </summary>

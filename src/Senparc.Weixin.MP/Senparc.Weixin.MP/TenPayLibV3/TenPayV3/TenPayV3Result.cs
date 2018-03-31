@@ -57,6 +57,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：jiehanlin & Senparc - 20180309
     修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性 & 优化代码
 
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.12 新增 TenpayV3GetSignKeyResult
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -84,8 +86,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// XML内容
         /// </summary>
-        public string ResultXml {
-            get {
+        public string ResultXml
+        {
+            get
+            {
                 return _resultXml.ToString();
 
                 //StringWriter sw = new StringWriter();
@@ -1114,6 +1118,44 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public bool IsResultCodeSuccess()
         {
             return result_code == "SUCCESS";
+        }
+    }
+
+
+
+    /// <summary>
+    /// 获取验签秘钥API 返回结果
+    /// </summary>
+    public class TenpayV3GetSignKeyResult : TenPayV3Result
+    {
+        ///// <summary>
+        ///// SUCCESS/FAIL 此字段是通信标识，非交易标识
+        ///// </summary>
+        //public string return_code { get; set; }
+
+        ///// <summary>
+        ///// 返回信息，如非空，为错误原因 ，签名失败 ，参数格式校验错误
+        ///// </summary>
+        //public string return_msg { get; set; }
+
+        /// <summary>
+        /// 微信支付分配的微信商户号
+        /// </summary>
+        public string mch_id { get; set; }
+
+        /// <summary>
+        /// 返回的沙箱密钥
+
+        /// </summary>
+        public string sandbox_signkey { get; set; }
+
+        public TenpayV3GetSignKeyResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                mch_id = GetXmlValue("mch_id") ?? "";
+                sandbox_signkey = GetXmlValue("sandbox_signkey") ?? "";
+            }
         }
     }
 }

@@ -64,6 +64,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetSignKeyTest()
         {
             //沙箱验证流程参考：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_1
+            //关注微信公众号：WXPayAssist
 
             Senparc.Weixin.Config.UseSandBoxPay = true;
 
@@ -80,11 +81,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         private void MicroPayTest(string sandBoxKey, string nonceStr)
         {
-            Senparc.Weixin.Config.UseSandBoxPay = true;
-
             var deviceInfo = "设备信息";
             var body = "Senparc.Weixin SDK";
-            var totalFee = 501;//沙箱测试必须是501
+            var totalFee = 1;//金额必须符合用例要求
             var outTradeNo = DateTime.Now.Ticks.ToString();
 
             string detail =
@@ -114,6 +113,19 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 null, null);
 
             var result = TenPayV3.MicroPay(dataInfo);
+
+            Console.WriteLine(result.ResultXml);
+            Assert.IsTrue(result.IsReturnCodeSuccess());
+
+            //订单查询
+            OrderQueryTest(sandBoxKey, nonceStr, result.transaction_id, result.out_trade_no);
+        }
+
+        private void OrderQueryTest(string sandBoxKey, string nonceStr,string transactionId,string outTradeNo)
+        {
+            var dataInfo = new TenPayV3OrderQueryRequestData(base._appId, base._mchId, transactionId, nonceStr, outTradeNo, sandBoxKey);
+            var result = TenPayV3.OrderQuery(dataInfo);
+
 
             Console.WriteLine(result.ResultXml);
             Assert.IsTrue(result.IsReturnCodeSuccess());

@@ -131,7 +131,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsTrue(result.IsReturnCodeSuccess());
 
             //下载对账单
-
             DownloadBillTest(sandBoxKey, nonceStr);
         }
 

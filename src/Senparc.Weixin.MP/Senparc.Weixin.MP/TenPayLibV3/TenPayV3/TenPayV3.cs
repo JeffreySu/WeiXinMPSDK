@@ -82,6 +82,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170916
     修改描述：v14.7.0 TenPayV3的接口添加对 UseSandBoxPay 的判断，可以自动使用沙箱
 
+    修改标识：Senparc - 20180331
+    修改描述：v14.10.12 添加TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+
 ----------------------------------------------------------------*/
 
 /*
@@ -184,17 +187,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="nonceStr">随机字符串</param>
         /// <param name="sign">签名</param>
         /// <returns></returns>
-        public static TenpayV3GetSignKeyResult GetSignKey(string mchId, string nonceStr, string sign, int timeOut = Config.TIME_OUT)
+        public static TenpayV3GetSignKeyResult GetSignKey(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
-            var data = new
-            {
-                mch_id = mchId,
-                nonce_str = nonceStr,
-                sign = sign
-            };
 
-            return CommonJsonSend.Send<TenpayV3GetSignKeyResult>(null, url, data, timeOut: timeOut);
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //throw new Exception(data.HtmlEncode());
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var resultXml = RequestUtility.HttpPost(url, null, ms, timeOut: timeOut);
+            return new TenpayV3GetSignKeyResult(resultXml);
         }
 
         /// <summary>

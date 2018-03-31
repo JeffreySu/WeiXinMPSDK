@@ -62,8 +62,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetSignKeyTest()
         {
             var nonceStr = TenPayV3Util.GetNoncestr();
-            var sign = "";
-            var result = TenPayV3.GetSignKey(base._mchId, nonceStr, sign);//TODO
+            var dataIndo = new TenPayV3GetSignKeyRequestData(base._mchId, nonceStr, base._tenPayKey);
+            var result = TenPayV3.GetSignKey(dataIndo);
+
+            Assert.IsTrue(result.IsReturnCodeSuccess());
+            Console.WriteLine(result.ResultXml);
         }
     }
 }

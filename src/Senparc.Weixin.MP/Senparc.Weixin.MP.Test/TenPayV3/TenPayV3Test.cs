@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         private void MicroPayTest(string sandBoxKey, string nonceStr)
         {
-            var deviceInfo = "设备信息";
+            var deviceInfo = "Senparc POS 1";
             var body = "Senparc.Weixin SDK";
             var totalFee = 1;//金额必须符合用例要求
             var outTradeNo = DateTime.Now.Ticks.ToString();
@@ -129,6 +129,23 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Console.WriteLine(result.ResultXml);
             Assert.IsTrue(result.IsReturnCodeSuccess());
+
+            //下载对账单
+
+            DownloadBillTest(sandBoxKey, nonceStr);
+        }
+
+        private void DownloadBillTest(string sandBoxKey, string nonceStr)
+        {
+            var dataInfo = new TenPayV3DownloadBillRequestData(base._appId, base._mchId, nonceStr, "Senparc POS 1",
+                DateTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
+
+
+            var result = TenPayV3.DownloadBill(dataInfo);
+
+            Assert.IsTrue(!string.IsNullOrEmpty(result));
+
+            Console.WriteLine(result);
         }
     }
 }

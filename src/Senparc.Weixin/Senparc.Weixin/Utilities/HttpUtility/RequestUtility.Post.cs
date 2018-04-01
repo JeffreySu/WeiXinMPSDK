@@ -272,9 +272,11 @@ namespace Senparc.Weixin.HttpUtility
             {
                 hc = new StreamContent(postStream);
 
-                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
-                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //去掉注释以测试Request.Body为空的情况
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
             }
 
             //HttpContentHeader(hc, timeOut);

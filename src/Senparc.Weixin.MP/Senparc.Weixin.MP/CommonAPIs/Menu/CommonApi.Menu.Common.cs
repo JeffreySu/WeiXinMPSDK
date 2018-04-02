@@ -80,13 +80,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             foreach (var rootButton in rootButtonList)
             {
-                if (string.IsNullOrEmpty(rootButton.name))
+                if (rootButton == null || string.IsNullOrEmpty(rootButton.name))
                 {
                     continue; //没有设置一级菜单
                 }
                 var availableSubButton = rootButton.sub_button == null
                     ? 0
-                    : rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name)); //可用二级菜单按钮数量
+                    : rootButton.sub_button.Count(z => z != null && !string.IsNullOrEmpty(z.name)); //可用二级菜单按钮数量
                 if (availableSubButton == 0)
                 {
                     //底部单击按钮
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                     foreach (var subSubButton in rootButton.sub_button)
                     {
-                        if (string.IsNullOrEmpty(subSubButton.name))
+                        if (subSubButton == null || string.IsNullOrEmpty(subSubButton.name))
                         {
                             continue; //没有设置菜单
                         }
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 };
 
                 //设置个性化菜单列表
-                if (resultFull.conditionalmenu!=null)
+                if (resultFull.conditionalmenu != null)
                 {
                     var conditionalMenuList = new List<ConditionalButtonGroup>();
                     foreach (var conditionalMenu in resultFull.conditionalmenu)

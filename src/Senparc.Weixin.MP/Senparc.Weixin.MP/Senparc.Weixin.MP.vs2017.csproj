@@ -375,6 +375,11 @@
       v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
       v14.10.10 修正 Net Core 版本错误的代理设置
       v14.10.11-beta1 测试.net core下的文件上传方法
+      v14.10.12 
+	      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+	      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
+	      3、支持自定义菜单传入菜单对象为null（自动过滤）
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

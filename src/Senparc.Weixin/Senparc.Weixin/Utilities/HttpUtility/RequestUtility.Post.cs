@@ -97,7 +97,7 @@ namespace Senparc.Weixin.HttpUtility
                   new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
-            #region 处理Form表单文件上传
+        #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+        #endregion
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
 
@@ -202,8 +202,13 @@ namespace Senparc.Weixin.HttpUtility
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
             bool checkValidationResult = false)
         {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.CookieContainer = cookieContainer;
+            var handler = new HttpClientHandler()
+            {
+                UseProxy = _webproxy != null,
+                Proxy = _webproxy,
+                UseCookies = true,
+                CookieContainer = cookieContainer,
+            };
 
             if (checkValidationResult)
             {
@@ -227,7 +232,9 @@ namespace Senparc.Weixin.HttpUtility
 
                 //通过表单上传文件
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
-                hc = new MultipartFormDataContent(boundary);
+
+                var multipartFormDataContent = new MultipartFormDataContent(boundary);
+                hc = multipartFormDataContent;
 
                 foreach (var file in fileDictionary)
                 {
@@ -240,14 +247,16 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
-                                //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+
+
+                                //multipartFormDataContent.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                                multipartFormDataContent.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                                 fileStream.Dispose();
-                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                                multipartFormDataContent.Add(new StringContent(string.Empty), file.Key, file.Value);
                             }
                         }
                     }
@@ -263,9 +272,11 @@ namespace Senparc.Weixin.HttpUtility
             {
                 hc = new StreamContent(postStream);
 
-                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
-                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //去掉注释以测试Request.Body为空的情况
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
             }
 
             //HttpContentHeader(hc, timeOut);
@@ -409,11 +420,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             #region 输入二进制流
-            if (postStream != null)
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 
@@ -495,11 +508,13 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
+            postStream = postStream ?? new MemoryStream();
+
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
-        #region 输入二进制流
-            if (postStream != null)
+            #region 输入二进制流
+            if (postStream != null && postStream.Length > 0)
             {
                 postStream.Position = 0;
 
@@ -521,7 +536,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-        #endregion
+            #endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 

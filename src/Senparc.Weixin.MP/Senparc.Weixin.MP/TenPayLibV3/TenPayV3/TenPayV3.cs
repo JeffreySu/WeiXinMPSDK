@@ -82,6 +82,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170916
     修改描述：v14.7.0 TenPayV3的接口添加对 UseSandBoxPay 的判断，可以自动使用沙箱
 
+    修改标识：Senparc - 20180331
+    修改描述：v14.10.12 添加TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+
 ----------------------------------------------------------------*/
 
 /*
@@ -96,6 +99,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -175,6 +179,29 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         #endregion
 
         #region 同步方法
+
+        /// <summary>
+        /// 获取验签秘钥API
+        /// </summary>
+        /// <param name="mchId">商户号</param>
+        /// <param name="nonceStr">随机字符串</param>
+        /// <param name="sign">签名</param>
+        /// <returns></returns>
+        public static TenpayV3GetSignKeyResult GetSignKey(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //throw new Exception(data.HtmlEncode());
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var resultXml = RequestUtility.HttpPost(url, null, ms, timeOut: timeOut);
+            return new TenpayV3GetSignKeyResult(resultXml);
+        }
+
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -661,6 +688,29 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 #if !NET35 && !NET40
         #region 异步方法
+
+        /// <summary>
+        /// 获取验签秘钥API
+        /// </summary>
+        /// <param name="mchId">商户号</param>
+        /// <param name="nonceStr">随机字符串</param>
+        /// <param name="sign">签名</param>
+        /// <returns></returns>
+        public static async Task<TenpayV3GetSignKeyResult> GetSignKeyAsync(TenPayV3GetSignKeyRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //throw new Exception(data.HtmlEncode());
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var resultXml = await RequestUtility.HttpPostAsync(url, null, ms, timeOut: timeOut);
+            return new TenpayV3GetSignKeyResult(resultXml);
+        }
+
         /// <summary>
         /// 【异步方法】统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。

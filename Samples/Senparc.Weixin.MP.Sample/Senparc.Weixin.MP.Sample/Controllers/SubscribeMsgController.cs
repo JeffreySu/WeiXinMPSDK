@@ -14,14 +14,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index()
         {
             var reserved = DateTime.Now.Ticks.ToString();
+
+            //（非必须）reserved用于保持请求和回调的状态，授权请后原样带回给第三方。
+            // 该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，
+            // 可设置为简单的随机数加session进行校验，开发者可以填写a-zA-Z0-9的参数值，
+            // 最多128字节，要求做urlencode
             Session["WeixinSubscribeMsgReserved"] = reserved;
+
             string templateId = "63l8YSI2uYqlZwb8dkMSy2Lp8caHcaWc2Id0b_XYvtM";//订阅消息模板ID，登录公众平台后台，在接口权限列表处可查看订阅模板ID
             var returnUrl = "https://sdk.weixin.senparc.com/SubscribeMsg/Result";
             var url = TemplateApi.GetSubscribeMsgUrl(base.AppId, 1, templateId, returnUrl.UrlEncode(), reserved);
             return Redirect(url);
         }
 
-        public ActionResult Result(string openId, string template_id, int scene, string reserved)
+        public ActionResult Result(string openId, string template_id, string scene, string reserved)
         {
             //template_id就是微信后台可以看到的template_id
 
@@ -46,7 +52,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 感谢您对盛派网络的支持！
 
-Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点【详情】购买正版！",
+1、Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，请购买正版！
+
+2、Senparc 官方视频教程《微信公众号+小程序快速开发》已经上线，点击【详情】观看或购买！",
                         color = "#008000"
                     }
                 };
@@ -69,7 +77,7 @@ Senparc.Weixin SDK官方教程《微信开发深度解析》已经出版，点�
 
                 try
                 {
-                    var url = "https://book.weixin.senparc.com/book/link?code=SenparcRobot";
+                    var url = "https://book.weixin.senparc.com/book/videolinknetease?code=SenparcRobot-SubscribeMsg";
                     TemplateApi.Subscribe(base.AppId, openId, template_id, scene, "这是一条“一次性订阅消息”", data, url);
                     return Content("发送成功！");
                 }

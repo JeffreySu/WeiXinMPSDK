@@ -165,6 +165,7 @@
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\ForTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PluginsController.cs" />
     <Compile Include="Controllers\SubscribeMsgController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
@@ -260,6 +261,7 @@
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />
     <Content Include="Images\qrcode_for_souidea.jpg" />
+    <Content Include="Images\sdkCourse.jpg" />
     <Content Include="Images\T1nAXdXb0jXXXXXXXX.png" />
     <Content Include="Images\WeiWeiHiQrCode.jpg" />
     <Content Include="Images\weiweihi_menu.png" />
@@ -284,6 +286,7 @@
     <Content Include="Scripts\tongji.js" />
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Analysis\Index.cshtml" />
+    <Content Include="Views\Plugins\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

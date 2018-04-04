@@ -65,6 +65,9 @@ namespace Senparc.Weixin.Work
                         case RequestMsgType.ShortVideo:
                             requestMessage = new RequestMessageShortVideo();
                             break;
+                        case RequestMsgType.File:
+                            requestMessage = new RequestMessageFile();
+                            break;
                         case RequestMsgType.Event:
                             //判断Event类型
                             switch (doc.Root.Element("Event").Value.ToUpper())

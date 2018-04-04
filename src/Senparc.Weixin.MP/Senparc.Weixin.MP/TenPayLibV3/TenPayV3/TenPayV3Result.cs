@@ -54,13 +54,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170322
     修改描述：v14.3.132 完善OrderQueryResult 服务商查询订单接口
     
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性 & 优化代码
+
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.12 新增 TenpayV3GetSignKeyResult
+
     修改标识：Senparc - 20171129
     修改描述：添加PayBankResult（付款到银行卡）
     
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 
@@ -78,6 +86,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string return_msg { get; set; }
 
         protected XDocument _resultXml;
+
+        /// <summary>
+        /// XML内容
+        /// </summary>
+        public string ResultXml
+        {
+            get
+            {
+                return _resultXml.ToString();
+
+                //StringWriter sw = new StringWriter();
+                //XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
+                //_resultXml.WriteTo(xmlTextWriter);
+                //return sw.ToString();
+            }
+        }
 
         public TenPayV3Result(string resultXml)
         {
@@ -1101,6 +1125,45 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
+
+
+    /// <summary>
+    /// 获取验签秘钥API 返回结果
+    /// </summary>
+    public class TenpayV3GetSignKeyResult : TenPayV3Result
+    {
+        ///// <summary>
+        ///// SUCCESS/FAIL 此字段是通信标识，非交易标识
+        ///// </summary>
+        //public string return_code { get; set; }
+
+        ///// <summary>
+        ///// 返回信息，如非空，为错误原因 ，签名失败 ，参数格式校验错误
+        ///// </summary>
+        //public string return_msg { get; set; }
+
+        /// <summary>
+        /// 微信支付分配的微信商户号
+        /// </summary>
+        public string mch_id { get; set; }
+
+        /// <summary>
+        /// 返回的沙箱密钥
+
+        /// </summary>
+        public string sandbox_signkey { get; set; }
+
+        public TenpayV3GetSignKeyResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                mch_id = GetXmlValue("mch_id") ?? "";
+                sandbox_signkey = GetXmlValue("sandbox_signkey") ?? "";
+            }
+        }
+    }
+    
+  
     /// <summary>
     /// 付款到银行卡返回结果
     /// </summary>

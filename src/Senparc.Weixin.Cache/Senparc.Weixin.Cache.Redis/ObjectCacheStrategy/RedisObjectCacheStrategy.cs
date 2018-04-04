@@ -286,7 +286,8 @@ namespace Senparc.Weixin.Cache.Redis
             //}
 
             //_cache.StringSet(cacheKey, value.Serialize());
-            _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
+            //_cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
+            _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, StackExchangeRedisExtensions.Serialize(value));
 #if DEBUG
             var value1 = _cache.HashGet(hashKeyAndField.Key, hashKeyAndField.Field);//正常情况下可以得到 //_cache.GetValue(cacheKey);
 #endif
@@ -316,7 +317,8 @@ namespace Senparc.Weixin.Cache.Redis
 
             //_cache.StringSet(cacheKey, value.Serialize());
 
-            _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
+            //_cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
+            _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, StackExchangeRedisExtensions.Serialize(value));
         }
 
         #endregion

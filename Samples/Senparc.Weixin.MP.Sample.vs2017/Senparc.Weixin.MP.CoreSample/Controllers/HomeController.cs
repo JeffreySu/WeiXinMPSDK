@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public async Task<IActionResult> Index()
         {
             //测试Get方法
-            var html = await RequestUtility.HttpGetAsync("https://baidu.com", refererUrl: "https://sdk.weixin.senparc.com");
+            var html = await RequestUtility.HttpGetAsync("https://www.baidu.com", refererUrl: "https://sdk.weixin.senparc.com");
 
 
             #region 获取版本信息

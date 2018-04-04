@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -38,13 +39,25 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
+            new ServiceCollection();
+
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+
+            //添加Memcached配置（按需）
+            services.AddSenparcMemcached(options =>
+            {
+                options.AddServer("memcached", 11211);
+                //options.AddPlainTextAuthenticator("", "usename", "password");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //引入EnableRequestRewind中间件
+            app.UseEnableRequestRewind();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -88,13 +101,13 @@ namespace Senparc.Weixin.MP.CoreSample
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
              */
 
-            RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
-            ConfigWeixinTraceLog();     //配置微信跟踪日志（按需）
-            RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
-            RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
-            RegisterSenparcWorkWeixin();  //注册Demo所用企业微信的账号信息（按需）
-            RegisterWeixinPay();        //注册微信支付（按需）
-            RegisterWeixinThirdParty(); //注册微信第三方平台（按需）
+            RegisterWeixinCache(app);       //注册分布式缓存（按需，如果需要，必须放在第一个）
+            ConfigWeixinTraceLog();         //配置微信跟踪日志（按需）
+            RegisterWeixinThreads();        //激活微信缓存及队列线程（必须）
+            RegisterSenparcWeixin();        //注册Demo所用微信公众号的账号信息（按需）
+            RegisterSenparcWorkWeixin();    //注册Demo所用企业微信的账号信息（按需）
+            RegisterWeixinPay();            //注册微信支付（按需）
+            RegisterWeixinThirdParty();     //注册微信第三方平台（按需）
 
             /* 微信配置结束 */
 
@@ -104,7 +117,7 @@ namespace Senparc.Weixin.MP.CoreSample
         /// <summary>
         /// 自定义缓存策略
         /// </summary>
-        private void RegisterWeixinCache()
+        private void RegisterWeixinCache(IApplicationBuilder app)
         {
             var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
 
@@ -125,11 +138,13 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region Memcached 配置
 
-            var memcachedConfig = new Dictionary<string, int>()
-            {
-                { "localhost",9101 }
-            };
-            MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
+            app.UseEnyimMemcached();
+
+            //var memcachedConfig = new Dictionary<string, int>()
+            //{
+            //    { "localhost",9101 }
+            //};
+            //MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
             #endregion
 
@@ -211,7 +226,7 @@ namespace Senparc.Weixin.MP.CoreSample
         private void RegisterWeixinPay()
         {
             var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-         
+
             //提供微信支付信息
             var weixinPay_PartnerId = senparcWeixinSetting.WeixinPay_PartnerId;
             var weixinPay_Key = senparcWeixinSetting.WeixinPay_Key;
@@ -228,7 +243,7 @@ namespace Senparc.Weixin.MP.CoreSample
             var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
             TenPayInfoCollection.Register(weixinPayInfo);//微信V2（旧版）
 
-            var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key,tenPayV3_TenpayNotify);
+            var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
             TenPayV3InfoCollection.Register(tenPayV3Info);//微信V3（新版）
         }
 
@@ -272,7 +287,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
                 using (Stream fs = new FileStream(file, FileMode.Open))
                 {
-                    BinaryFormatter binFormat = new BinaryFormatter();
+                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                     var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
                     return result.authorizer_refresh_token;
                 }
@@ -290,7 +305,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 using (Stream fs = new FileStream(file, FileMode.Create))
                 {
                     //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                    BinaryFormatter binFormat = new BinaryFormatter();
+                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                     binFormat.Serialize(fs, refreshResult);
                     fs.Flush();
                 }

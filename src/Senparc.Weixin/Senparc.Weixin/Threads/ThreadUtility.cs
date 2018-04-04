@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20151226
 
+    修改标识：Senparc - 20180222
+    修改描述：添加锁 AsynThreadCollectionLock
+
 ----------------------------------------------------------------*/
 
 
@@ -49,25 +52,29 @@ namespace Senparc.Weixin.Threads
         /// </summary>
         public static Dictionary<string, Thread> AsynThreadCollection = new Dictionary<string, Thread>();//后台运行线程
 
+        private static object AsynThreadCollectionLock = new object();
+
         /// <summary>
         /// 注册线程
         /// </summary>
         public static void Register()
         {
-            if (AsynThreadCollection.Count==0)
+            lock (AsynThreadCollectionLock)
             {
+                if (AsynThreadCollection.Count == 0)
                 {
-                    SenparcMessageQueueThreadUtility senparcMessageQueue = new SenparcMessageQueueThreadUtility();
-                    Thread senparcMessageQueueThread = new Thread(senparcMessageQueue.Run) { Name = "SenparcMessageQueue" };
-                    AsynThreadCollection.Add(senparcMessageQueueThread.Name, senparcMessageQueueThread);
+                    {
+                        SenparcMessageQueueThreadUtility senparcMessageQueue = new SenparcMessageQueueThreadUtility();
+                        Thread senparcMessageQueueThread = new Thread(senparcMessageQueue.Run) { Name = "SenparcMessageQueue" };
+                        AsynThreadCollection.Add(senparcMessageQueueThread.Name, senparcMessageQueueThread);
+                    }
+
+                    AsynThreadCollection.Values.ToList().ForEach(z =>
+                    {
+                        z.IsBackground = true;
+                        z.Start();
+                    });//全部运行
                 }
-
-                AsynThreadCollection.Values.ToList().ForEach(z =>
-                {
-                    z.IsBackground = true;
-                    z.Start();
-                });//全部运行
-
             }
         }
     }

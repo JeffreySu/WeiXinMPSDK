@@ -59,6 +59,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：jiehanlin & Senparc - 20180309
     修改描述：v14.10.12 新增 TenpayV3GetSignKeyResult
+
+    修改标识：Senparc - 20171129
+    修改描述：添加PayBankResult（付款到银行卡）
+    
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -164,7 +168,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     public class Result : TenPayV3Result
     {
         /// <summary>
-        /// 微信分配的公众账号ID
+        /// 微信分配的公众账号ID（付款到银行卡接口，此字段不提供）
         /// </summary>
         public string appid { get; set; }
 
@@ -1023,7 +1027,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     }
 
     /// <summary>
-    /// 
+    /// 商户的企业付款操作进行结果查询，返回付款操作详细结果
     /// </summary>
     public class GetTransferInfoResult : TenPayV3Result
     {
@@ -1158,4 +1162,16 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
     }
+    
+  
+    /// <summary>
+    /// 付款到银行卡返回结果
+    /// </summary>
+    public class PayBankResult : TenPayV3Result
+    {
+        public PayBankResult(string resultXml) : base(resultXml)
+        {
+        }
+    }
+
 }

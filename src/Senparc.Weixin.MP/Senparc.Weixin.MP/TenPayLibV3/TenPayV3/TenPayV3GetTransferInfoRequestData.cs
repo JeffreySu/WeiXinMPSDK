@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string PartnerTradeNo { get; set; }
 
         /// <summary>
-        /// 
+        /// Key
         /// </summary>
         public string Key { get; set; }
 

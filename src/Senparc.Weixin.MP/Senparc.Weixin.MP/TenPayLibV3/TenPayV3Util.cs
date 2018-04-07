@@ -228,7 +228,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
              */
             var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
             var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
-            var result = EncryptHelper.AESDecrypt(reqInfo, md5Str);//(3)
+            var result = EncryptHelper.AESDecrypt(base64Encode, md5Str);//(3)
             return result;
         }
     }

@@ -38,12 +38,19 @@ namespace Senparc.Weixin.Cache
         //    return;
         //}
 
+        /// <summary>
+        /// 注册当前全局环境下的缓存策略
+        /// </summary>
+        /// <param name="func">如果为null，将使用默认的本地缓存策略（LocalObjectCacheStrategy.Instance）</param>
         public static void RegisterObjectCacheStrategy(Func<IObjectCacheStrategy> func)
         {
             ObjectCacheStrateFunc = func;
         }
 
-
+        /// <summary>
+        /// 如果
+        /// </summary>
+        /// <returns></returns>
         public static IObjectCacheStrategy GetObjectCacheStrategyInstance()
         {
             if (ObjectCacheStrateFunc == null)
@@ -54,11 +61,10 @@ namespace Senparc.Weixin.Cache
             else
             {
                 //自定义类型
-                var instance = ObjectCacheStrateFunc();
+                var instance = ObjectCacheStrateFunc();// ?? LocalObjectCacheStrategy.Instance;
                 return instance;
             }
         }
-
 
         //public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
         //{

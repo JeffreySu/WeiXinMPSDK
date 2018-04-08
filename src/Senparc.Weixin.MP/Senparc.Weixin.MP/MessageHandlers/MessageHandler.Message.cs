@@ -140,6 +140,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+
+        /// <summary>
+        /// 文件请求
+        /// </summary>
+        public virtual IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion
 
     }

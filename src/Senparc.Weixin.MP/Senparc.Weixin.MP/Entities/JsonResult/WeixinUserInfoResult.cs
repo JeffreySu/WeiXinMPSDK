@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180305
+    修改描述：
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -125,5 +128,10 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public int groupid { get; set; }
 
+
+        /// <summary>
+        /// 用户被打上的标签ID列表
+        /// </summary>
+        public int[] tagid_list { get; set; }
     }
 }

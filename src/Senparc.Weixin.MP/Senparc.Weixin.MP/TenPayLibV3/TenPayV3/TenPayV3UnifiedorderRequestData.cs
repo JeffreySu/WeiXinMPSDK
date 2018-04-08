@@ -43,6 +43,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170319
     修改描述：v14.3.135 trade_type=NATIVE时，OpenId允许为null
+    
+    修改标识：Senparc - 20180223
+    修改描述：14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
 
 ----------------------------------------------------------------*/
 
@@ -170,6 +173,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string OpenId { get; set; }
 
+        /// <summary>
+        /// 该字段用于上报场景信息，目前支持上报实际门店信息。该字段为JSON对象数据，对象格式为{"store_info":{"id": "门店ID","name": "名称","area_code": "编码","address": "地址" }
+        /// </summary>
+        public TenPayV3UnifiedorderRequestData_SceneInfo SceneInfo { get; set; }
+
         #region 服务商
 
         /// <summary>
@@ -211,13 +219,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
+        /// <param name="sceneInfo">场景信息。该字段用于上报场景信息，目前支持上报实际门店信息。</param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
-            string productId = null, bool limitPay = false
-             ) : this(appId, mchId, null, null, body, outTradeNo, totalFee, spbillCreateIp, notifyUrl, tradeType, openid, null, key, nonceStr, deviceInfo, timeStart, timeExpire, detail, attach, feeType, goodsTag, productId, limitPay)
+            string productId = null, bool limitPay = false,
+            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
+             ) : this(appId, mchId, null, null, body, outTradeNo, totalFee, spbillCreateIp,
+                 notifyUrl, tradeType, openid, null, key, nonceStr,
+                 deviceInfo, timeStart, timeExpire, detail, attach, feeType, goodsTag,
+                 productId, limitPay,
+                 sceneInfo)
         {
 
         }
@@ -250,12 +264,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
+        /// <param name="sceneInfo">场景信息。该字段用于上报场景信息，目前支持上报实际门店信息。</param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string subOpenid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
-            string productId = null, bool limitPay = false
+            string productId = null, bool limitPay = false,
+            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
              )
         {
             AppId = appId;
@@ -282,6 +298,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             SubAppId = subappid;
             SubMchId = submchid;
             SubOpenid = subOpenid;
+            SceneInfo = sceneInfo;
 
 
             #region 设置RequestHandler
@@ -316,7 +333,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
             PackageRequestHandler.SetParameterWhenNotNull("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             PackageRequestHandler.SetParameterWhenNotNull("sub_openid", this.SubOpenid);              //用户子标识
+            if (SceneInfo != null)
+            {
+                PackageRequestHandler.SetParameter("scene_info", SceneInfo.ToString());   //场景信息
+            }
+
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+
             PackageRequestHandler.SetParameter("sign", Sign);                              //签名
             #endregion
         }

@@ -103,7 +103,7 @@ namespace Senparc.Weixin
 
 
         /// <summary>
-        /// 微信支付使用沙箱模式
+        /// 微信支付使用沙箱模式（默认为false）
         /// </summary>
         public static bool UseSandBoxPay { get; set; }
 

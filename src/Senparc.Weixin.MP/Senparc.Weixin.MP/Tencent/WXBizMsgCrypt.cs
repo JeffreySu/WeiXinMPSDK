@@ -210,7 +210,7 @@ namespace Senparc.Weixin.MP.Tencent
                 return 0;
             else
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;//-40001
             }
         }
 
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.MP.Tencent
             }
             catch (Exception)
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;//-40003
             }
             sMsgSignature = hash;
             return 0;

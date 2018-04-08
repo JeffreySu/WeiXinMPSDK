@@ -20,9 +20,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 
-#if !NETSTANDARD1_6
-using System.Runtime.Serialization.Formatters.Binary;
-#endif
+//#if !NETSTANDARD1_6
+//using System.Runtime.Serialization.Formatters.Binary;
+//#endif
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -71,19 +71,22 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
 
-#if NETSTANDARD1_6// || NETSTANDARD2_0
-            //二进制序列化方案
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
+#if NETSTANDARD2_0
+            ////二进制序列化方案
+            //using (MemoryStream memoryStream = new MemoryStream())
+            //{
                 
-                ProtoBuf.Serializer.Serialize(memoryStream, o);
-                byte[] objectDataAsStream = memoryStream.ToArray();
-                return objectDataAsStream;
-            }
+            //    ProtoBuf.Serializer.Serialize(memoryStream, o);
+            //    byte[] objectDataAsStream = memoryStream.ToArray();
+            //    return objectDataAsStream;
+            //}
+
+            BinaryFormatter.BinaryConverter binaryConverter = new BinaryFormatter.BinaryConverter();
+            return binaryConverter.Serialize(o);
 #else
-            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
+            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持，但是 .net core 2.0 不支持委托的序列化
             //二进制序列化方案
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 binaryFormatter.Serialize(memoryStream, o);
@@ -113,17 +116,21 @@ namespace Senparc.Weixin.Cache.Redis
                 return default(T);
             }
 
-#if NETSTANDARD1_6
-            //二进制序列化方案
-            using (MemoryStream memoryStream = new MemoryStream(stream))
-            {
-                T result = ProtoBuf.Serializer.Deserialize<T>(memoryStream);
-                return result;
-            }
+#if NETSTANDARD2_0
+            ////二进制序列化方案
+            //using (MemoryStream memoryStream = new MemoryStream(stream))
+            //{
+            //    T result = ProtoBuf.Serializer.Deserialize<T>(memoryStream);
+            //    return result;
+            //}
+
+            BinaryFormatter.BinaryConverter binaryConverter = new BinaryFormatter.BinaryConverter();
+            return binaryConverter.Deserialize<T>(stream);
+
 #else
-            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持
+            #region .net 4.5 和 .net core 2.0 都提供对 BinaryFormatter 的支持，但是 .net core 2.0 不支持委托的序列化
             //二进制序列化方案
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
+            var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             using (MemoryStream memoryStream = new MemoryStream(stream))
             {
                 T result = (T)binaryFormatter.Deserialize(memoryStream);

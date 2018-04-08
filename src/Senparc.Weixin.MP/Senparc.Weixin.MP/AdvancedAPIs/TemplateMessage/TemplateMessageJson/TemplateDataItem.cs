@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         public string color { get; set; }
 
         /// <summary>
-        /// 
+        /// TemplateDataItem 构造函数
         /// </summary>
         /// <param name="v">value</param>
         /// <param name="c">color</param>

@@ -45,6 +45,12 @@ using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    /* 
+     * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
+     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     */
+
+
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
     /// </summary>
@@ -459,7 +465,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                new WeixinException(ex.Message, ex);
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
                 throw;
             }
         }
@@ -594,6 +600,70 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             #endregion
 
         }
+
+        /// <summary>
+        /// 退款通知地址
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult RefundNotifyUrl()
+        {
+            string responseCode = "FAIL";
+            string responseMsg = "FAIL";
+            try
+            {
+
+                ResponseHandler resHandler = new ResponseHandler(null);
+
+                string return_code = resHandler.GetParameter("return_code");
+                string return_msg = resHandler.GetParameter("return_msg");
+
+
+                if (return_code == "SUCCESS")
+                {
+                    responseCode = "SUCCESS";
+                    responseMsg = "OK";
+
+                    string appId = resHandler.GetParameter("appid");
+                    string mch_id = resHandler.GetParameter("mch_id");
+                    string nonce_str = resHandler.GetParameter("nonce_str");
+                    string req_info = resHandler.GetParameter("req_info");
+
+                    var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
+                    var decodeDoc = XDocument.Parse(decodeReqInfo);
+
+                    //获取接口中需要用到的信息
+                    string transaction_id = decodeDoc.Root.Element("transaction_id").Value;
+                    string out_trade_no = decodeDoc.Root.Element("out_trade_no").Value;
+                    string refund_id = decodeDoc.Root.Element("refund_id").Value;
+                    string out_refund_no = decodeDoc.Root.Element("out_refund_no").Value;
+                    int total_fee = int.Parse(decodeDoc.Root.Element("total_fee").Value);
+                    int? settlement_total_fee = decodeDoc.Root.Element("settlement_total_fee") != null
+                            ? int.Parse(decodeDoc.Root.Element("settlement_total_fee").Value)
+                            : null as int?;
+                    int refund_fee = int.Parse(decodeDoc.Root.Element("refund_fee").Value);
+                    int tosettlement_refund_feetal_fee = int.Parse(decodeDoc.Root.Element("settlement_refund_fee").Value);
+                    string refund_status = decodeDoc.Root.Element("refund_status").Value;
+                    string success_time = decodeDoc.Root.Element("success_time").Value;
+                    string refund_recv_accout = decodeDoc.Root.Element("refund_recv_accout").Value;
+                    string refund_account = decodeDoc.Root.Element("refund_account").Value;
+                    string refund_request_source = decodeDoc.Root.Element("refund_request_source").Value;
+
+                    //进行业务处理
+                }
+            }
+            catch (Exception ex)
+            {
+                responseMsg = ex.Message;
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message,ex));
+            }
+
+            string xml = string.Format(@"<xml>
+<return_code><![CDATA[{0}]]></return_code>
+<return_msg><![CDATA[{1}]]></return_msg>
+</xml>", responseCode, responseMsg);
+            return Content(xml, "text/xml");
+        }
+
         #endregion
 
         #region 对账单

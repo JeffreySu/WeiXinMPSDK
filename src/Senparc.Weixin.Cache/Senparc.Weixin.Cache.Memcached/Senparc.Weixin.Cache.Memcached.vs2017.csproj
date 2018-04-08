@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
-    <Version>1.1.0</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>1.4.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -46,8 +46,15 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v0.3.0 Memcached同步锁改为使用StoreMode.Add方法
 
       v1.0.0 支持 .NET Core
-    
+
       v1.1.0 支持 .NET Core 2.0
+
+      v1.2.0 注释掉无效代码
+
+      v1.3.0 .net core下，MemcachedObjectCacheStrategy.GetMemcachedClientConfiguration()方法添加注入参数
+
+      v1.4.0 停止对 .net core 1.1 生成的独立版本
+      v1.4.1 提供 RegisterServices 进行快捷注册
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
@@ -178,5 +185,11 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>2.0.0</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

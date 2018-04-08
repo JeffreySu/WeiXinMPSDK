@@ -94,6 +94,7 @@
     <Compile Include="OAuthAPIs\OAuthAPI.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -140,5 +141,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>

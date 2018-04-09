@@ -263,4 +263,68 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return result_code == "SUCCESS";
         }
     }
+
+    /// <summary>
+    /// 获取 RSA 加密公钥接口 返回结果
+    /// </summary>
+    public class GetPublicKeyResult : TenPayV3Result
+    {
+        #region 以下字段在return_code为SUCCESS的时候有返回
+        /// <summary>
+        /// <para>业务结果</para>
+        /// <para>SUCCESS/FAIL，注意：当状态为FAIL时，存在业务结果未明确的情况，所以如果状态y为FAIL，请务必通过查询接口确认此次付款的结果（关注错误码err_code字段）。如果要继续进行这笔付款，请务必用原商户订单号和原参数来重入此接口。</para>
+        /// </summary>
+        public string result_code { get; set; }
+        /// <summary>
+        /// <para>错误代码</para>
+        /// <para>错误码信息，注意：出现未明确的错误码时，如（SYSTEMERROR）等，请务必用原商户订单号重试，或通过查询接口确认此次付款的结果</para>
+        /// </summary>
+        public string err_code { get; set; }
+        /// <summary>
+        /// 错误代码描述
+        /// </summary>
+        public string err_code_des { get; set; }
+
+        #endregion
+
+        #region 以下字段在return_code 和result_code都为SUCCESS的时候有返回
+
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public string mch_id { get; set; }
+        /// <summary>
+        /// 密钥（RSA 公钥）
+        /// </summary>
+        public string pub_key { get; set; }
+
+        #endregion
+
+
+        /// <summary>
+        /// 获取 RSA 加密公钥接口 返回结果 构造函数
+        /// </summary>
+        /// <param name="resultXml"></param>
+        public GetPublicKeyResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+
+                result_code = GetXmlValue("result_code") ?? "";
+                err_code = GetXmlValue("err_code") ?? "";
+                err_code_des = GetXmlValue("err_code_des") ?? "";
+
+                if (this.IsResultCodeSuccess())
+                {
+                    mch_id = GetXmlValue("mch_id") ?? "";
+                    pub_key = GetXmlValue("pub_key") ?? "";
+                }
+            }
+        }
+
+        public bool IsResultCodeSuccess()
+        {
+            return result_code == "SUCCESS";
+        }
+    }
 }

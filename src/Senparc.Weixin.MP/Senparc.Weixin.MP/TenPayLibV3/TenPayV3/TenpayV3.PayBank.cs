@@ -49,6 +49,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// <para>企业付款到银行卡</para>
         /// <para>用于企业向微信用户银行卡付款,目前支持接口API的方式向指定微信用户的银行卡付款。</para>
+        /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
@@ -64,6 +65,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
             return new PayBankResult(resultXml);
         }
+
+
+        /// <summary>
+        /// <para>查询企业付款银行卡</para>
+        /// <para>注意：请求需要双向证书</para>
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static PayBankResult QueryBank(TenPayV3PayBankRequestData dataInfo)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new PayBankResult(resultXml);
+        }
+
 
         #endregion
     }

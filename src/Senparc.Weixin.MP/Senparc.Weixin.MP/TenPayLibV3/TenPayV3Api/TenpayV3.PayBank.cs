@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
-        public static PayBankResult QueryBank(TenPayV3PayBankRequestData dataInfo)
+        public static QueryBankResult QueryBank(TenPayV3QueryBankRequestData dataInfo)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
 
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
-            return new PayBankResult(resultXml);
+            return new QueryBankResult(resultXml);
         }
 
 

@@ -78,7 +78,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("partner_trade_no", this.PartnerTradeNumber); //商户订单号
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 

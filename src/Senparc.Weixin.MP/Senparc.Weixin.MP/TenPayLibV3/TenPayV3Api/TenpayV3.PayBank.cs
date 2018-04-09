@@ -86,6 +86,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new QueryBankResult(resultXml);
         }
 
+        /// <summary>
+        /// <para>获取 RSA 加密公钥接口</para>
+        /// <para>https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=24_7&index=4</para>
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static QueryBankResult GetPublicKey(TenPayV3QueryBankRequestData dataInfo)
+        {
+            //TODO：官方文档没有明确此接口是否支持沙箱
+            var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new QueryBankResult(resultXml);
+        }
+
 
         #endregion
     }

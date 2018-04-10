@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
-        public static QueryBankResult GetPublicKey(TenPayV3QueryBankRequestData dataInfo)
+        public static GetPublicKeyResult GetPublicKey(TenPayV3QueryBankRequestData dataInfo)
         {
             //TODO：官方文档没有明确此接口是否支持沙箱
             var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
@@ -103,10 +103,76 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
-            return new QueryBankResult(resultXml);
+            return new GetPublicKeyResult(resultXml);
+        }
+
+        #endregion
+
+
+#if !NET35 && !NET40
+        #region 异步方法
+
+        /// <summary>
+        /// <para>企业付款到银行卡</para>
+        /// <para>用于企业向微信用户银行卡付款,目前支持接口API的方式向指定微信用户的银行卡付款。</para>
+        /// <para>注意：请求需要双向证书</para>
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<PayBankResult> PayBankAsync(TenPayV3PayBankRequestData dataInfo)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new PayBankResult(resultXml);
         }
 
 
+        /// <summary>
+        /// <para>查询企业付款银行卡</para>
+        /// <para>注意：请求需要双向证书</para>
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<QueryBankResult> QueryBankAsync(TenPayV3QueryBankRequestData dataInfo)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new QueryBankResult(resultXml);
+        }
+
+        /// <summary>
+        /// <para>获取 RSA 加密公钥接口</para>
+        /// <para>https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=24_7&index=4</para>
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<GetPublicKeyResult> GetPublicKeyAsync(TenPayV3QueryBankRequestData dataInfo)
+        {
+            //TODO：官方文档没有明确此接口是否支持沙箱
+            var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new GetPublicKeyResult(resultXml);
+        }
+
         #endregion
+#endif
     }
 }

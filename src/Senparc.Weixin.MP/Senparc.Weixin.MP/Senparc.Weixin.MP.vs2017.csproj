@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.10.14</Version>
+    <Version>14.10.15</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -381,6 +381,7 @@
 	      3、支持自定义菜单传入菜单对象为null（自动过滤）
       v14.10.13 优化 TenPayV3Util.DecodeRefundReqInfo() 方法
       v14.10.14 优化 Get.Download() 方法，完善对 FileName 的判断
+      v14.10.15 Wifi连接页面支持跳转到小程序。微信返回的JSON有变化。
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

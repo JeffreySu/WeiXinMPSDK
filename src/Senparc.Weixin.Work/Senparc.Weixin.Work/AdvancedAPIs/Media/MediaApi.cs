@@ -276,7 +276,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取素材列表
+        /// 【Work中未定义】【疑似】获取素材列表
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
@@ -545,7 +545,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取素材列表
+        /// 【异步方法】【Work中未定义】【疑似】获取素材列表
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>

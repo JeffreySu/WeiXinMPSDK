@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>2.9.1</Version>
+    <Version>2.9.2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -109,6 +109,7 @@
 
       v2.9.0 停止对 .net core 1.1 生成的独立版本
       v2.9.1 提供 RegisterServices 进行快捷注册
+      v2.9.2 修复 TryUpdateAuthorizationInfo 中缓存跟新的问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

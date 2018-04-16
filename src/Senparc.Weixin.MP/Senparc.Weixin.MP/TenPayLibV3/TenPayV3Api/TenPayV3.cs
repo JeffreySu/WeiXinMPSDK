@@ -85,6 +85,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180331
     修改描述：v14.10.12 添加TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
 
+    修改标识：Senparc - 20180416
+    修改描述：v14.11.1 为 TenPayV3.GetTransferInfo() 及对应异步方法添加证书参数。
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -646,22 +649,18 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 
         /// <summary>
-        /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。【请求需要双向证书】
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetTransferInfoResult GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        public static GetTransferInfoResult GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var result = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
-            return new GetTransferInfoResult(result);
+            string responseContent = CertPost(cert, certPassword, data, urlFormat);
+            return new GetTransferInfoResult(responseContent);
         }
 
 
@@ -1119,16 +1118,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetTransferInfoResult> GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        public static async Task<GetTransferInfoResult> GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
             var data = dataInfo.PackageRequestHandler.ParseXML();
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var result = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
-            return new GetTransferInfoResult(result);
+            string responseContent = await CertPostAsync(cert, certPassword, data, urlFormat);
+            return new GetTransferInfoResult(responseContent);
         }
 
 

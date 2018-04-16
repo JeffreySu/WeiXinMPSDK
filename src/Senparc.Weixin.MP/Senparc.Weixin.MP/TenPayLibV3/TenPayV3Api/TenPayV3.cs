@@ -85,6 +85,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180331
     修改描述：v14.10.12 添加TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
 
+    修改标识：Senparc - 20180416
+    修改描述：v14.11.1 为 TenPayV3.GetTransferInfo() 及对应异步方法添加证书参数。
+    
 ----------------------------------------------------------------*/
 
 /*

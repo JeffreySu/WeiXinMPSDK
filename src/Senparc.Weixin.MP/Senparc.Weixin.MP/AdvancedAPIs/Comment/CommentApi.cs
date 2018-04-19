@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20180131
-    
+
+    修改标识：Senparc - 20180318
+    修改描述：v14.10.6 完善“查看指定文章的评论数据”接口（CommentApi.List()）的返回结果数据
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -37,6 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.AdvancedAPIs.Comment.CommentJson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,8 +107,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
 
         /// <summary>
-        /// <para>查看指定文章的评论数据（新增接口）</para>
-        /// <para>TODO：官方返回格式不明确</para>
+        /// 查看指定文章的评论数据（新增接口）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msg_data_id">群发返回的msg_data_id</param>
@@ -114,20 +117,46 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
+        public static ListResultJson List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
         {
-            //TODO:官方返回格式不明确 https://github.com/JeffreySu/WeiXinMPSDK/issues/1052#issuecomment-361946193
+            //返回JSON：
+            /*
+            {
+            "errcode": 0,
+            "errmsg": "ok",
+            "comment": [
+            {
+            "user_comment_id": 9,
+            "create_time": 1521255525,
+            "content": "如果有什么大考验的话可能会发现自己啥都没改都白扯了吧",
+            "comment_type": 0,
+            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA",
+            "reply" :
+                {
+                    "content" : "CONTENT",
+                    "create_time" : 1521265525
+                }
+
+            }
+            ],
+            "total": 1
+            }
+            */
+
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/list?access_token={0}";
                 var data = new
                 {
                     msg_data_id = msg_data_id,
-                    index = index
+                    index = index,
+                    begin = begin,
+                    count = count,
+                    type = type
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppId);
         }
 
@@ -314,14 +343,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting:jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppId);
         }
 
 
         /// <summary>
-        /// <para>【异步方法】查看指定文章的评论数据（新增接口）</para>
-        /// <para>TODO：官方返回格式不明确</para>
+        /// 【异步方法】查看指定文章的评论数据（新增接口）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msg_data_id">群发返回的msg_data_id</param>
@@ -331,20 +359,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static Task<WxJsonResult> ListAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
+        public static Task<ListResultJson> ListAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
         {
-            //TODO:官方返回格式不明确 https://github.com/JeffreySu/WeiXinMPSDK/issues/1052#issuecomment-361946193
+            //返回JSON：
+            /*
+            {
+            "errcode": 0,
+            "errmsg": "ok",
+            "comment": [
+            {
+            "user_comment_id": 9,
+            "create_time": 1521255525,
+            "content": "如果有什么大考验的话可能会发现自己啥都没改都白扯了吧",
+            "comment_type": 0,
+            "openid": "oufSm0Xw0nhuha_nWD6AfiZ3rgvA"
+            }
+            ],
+            "total": 1
+            }
+            */
+
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/comment/list?access_token={0}";
                 var data = new
                 {
                     msg_data_id = msg_data_id,
-                    index = index
+                    index = index,
+                    begin = begin,
+                    count = count,
+                    type = type
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppId);
         }
 

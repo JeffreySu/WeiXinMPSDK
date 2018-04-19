@@ -114,7 +114,7 @@ namespace Senparc.Weixin.HttpUtility
             cred = new NetworkCredential(username, password);
             if (!string.IsNullOrEmpty(host))
             {
-                _webproxy = new CoreWebProxy(new Uri(host + ":" + port ?? "80"), cred, true);
+                _webproxy = new CoreWebProxy(new Uri(host + ":" + port ?? "80"), cred);
             }
         }
 

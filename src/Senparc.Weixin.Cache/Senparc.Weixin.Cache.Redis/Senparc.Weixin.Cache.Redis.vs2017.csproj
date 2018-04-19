@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.5.1</Version>
+    <Version>1.6.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -59,8 +59,12 @@
       v1.3.0 支持 .NET Core
 
       v1.4.0-beta1 支持.NET Core 2.0
+      
       v1.5.0 停止对 .net core 1.1 生成的独立版本
       v1.5.1 提供 RegisterServices 进行快捷注册
+
+      v1.6.0 提供 .NET Core 下的完整二进制序列化支持（支持委托参数）
+      v1.6.1 优化二进制序列化支持
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -117,8 +121,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="packages\**" />
     <Compile Remove="ServiceStack.Redis\**" />
+    <EmbeddedResource Remove="packages\**" />
     <EmbeddedResource Remove="ServiceStack.Redis\**" />
+    <None Remove="packages\**" />
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
 
@@ -142,6 +149,7 @@
 
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
+    <PackageReference Include="BinaryFormatter" Version="2.1.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 

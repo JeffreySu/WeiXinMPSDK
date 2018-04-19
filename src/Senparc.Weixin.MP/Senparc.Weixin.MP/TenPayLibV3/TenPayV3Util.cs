@@ -40,6 +40,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170522
     修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
+    修改标识：Senparc - 20180331
+    修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -206,5 +209,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return stringFormat;
         }
 
+
+        /// <summary>
+        /// 对退款通知消息进行解密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="mchKey"></param>
+        /// <returns></returns>
+        public static string DecodeRefundReqInfo(string reqInfo, string mchKey)
+        {
+            //参考文档：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
+            /*
+               解密步骤如下： 
+                （1）对加密串A做base64解码，得到加密串B
+                （2）对商户key做md5，得到32位小写key* ( key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置 )
+
+                （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
+             */
+            var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
+            var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
+            var result = EncryptHelper.AESDecrypt(base64Encode, md5Str);//(3)
+            return result;
+        }
     }
 }

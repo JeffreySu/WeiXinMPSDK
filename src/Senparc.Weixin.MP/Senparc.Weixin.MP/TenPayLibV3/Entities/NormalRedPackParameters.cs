@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.TenPayLibV3.Entities
 {
+    //暂时未用起来
+
     public class NormalRedPackParameters
     {
         /// <summary>

@@ -46,6 +46,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.18.13  修改 HttpUtility.Get.Download() 方法，
                         根据 Content-Disposition 中的文件名储存文件
 
+    修改标识：Senparc - 20180407
+    修改描述：v14.10.13 优化 Get.Download() 方法，完善对 FileName 的判断
+
 ----------------------------------------------------------------*/
 
 
@@ -219,7 +222,8 @@ namespace Senparc.Weixin.HttpUtility
                     string responseFileName = null;
                     //ContentDisposition可能会为Null
                     if (responseMessage.Content.Headers.ContentDisposition != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != null)
+                        responseMessage.Content.Headers.ContentDisposition.FileName != null &&
+                        responseMessage.Content.Headers.ContentDisposition.FileName != "\"\"")
                     {
                         responseFileName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
                     }
@@ -344,7 +348,8 @@ namespace Senparc.Weixin.HttpUtility
                     string responseFileName = null;
                     //ContentDisposition可能会为Null
                     if (responseMessage.Content.Headers.ContentDisposition != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != null)
+                        responseMessage.Content.Headers.ContentDisposition.FileName != null &&
+                        responseMessage.Content.Headers.ContentDisposition.FileName != "\"\"")
                     {
                         responseFileName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
                     }

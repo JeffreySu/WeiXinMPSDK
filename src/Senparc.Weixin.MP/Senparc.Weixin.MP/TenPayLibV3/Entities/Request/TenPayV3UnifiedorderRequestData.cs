@@ -46,6 +46,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20180223
     修改描述：14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -232,7 +232,9 @@ namespace Senparc.Weixin.HttpUtility
 
                 //通过表单上传文件
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
-                hc = new MultipartFormDataContent(boundary);
+
+                var multipartFormDataContent = new MultipartFormDataContent(boundary);
+                hc = multipartFormDataContent;
 
                 foreach (var file in fileDictionary)
                 {
@@ -245,14 +247,16 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
-                                //hc.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+
+
+                                //multipartFormDataContent.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                                multipartFormDataContent.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                                 fileStream.Dispose();
-                                (hc as MultipartFormDataContent).Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                             }
                             else
                             {
                                 //不存在文件或只是注释
-                                (hc as MultipartFormDataContent).Add(new StringContent(string.Empty), file.Key, file.Value);
+                                multipartFormDataContent.Add(new StringContent(string.Empty), file.Key, file.Value);
                             }
                         }
                     }
@@ -268,9 +272,11 @@ namespace Senparc.Weixin.HttpUtility
             {
                 hc = new StreamContent(postStream);
 
-                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
-                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 hc.Headers.ContentType = new MediaTypeHeaderValue("text/xml");
+
+                //使用Url格式Form表单Post提交的时候才使用application/x-www-form-urlencoded
+                //去掉注释以测试Request.Body为空的情况
+                //hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
             }
 
             //HttpContentHeader(hc, timeOut);

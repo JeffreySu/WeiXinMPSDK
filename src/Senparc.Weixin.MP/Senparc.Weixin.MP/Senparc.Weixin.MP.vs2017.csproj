@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.10.3</Version>
+    <Version>14.10.15</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -367,6 +367,22 @@
       v14.10.1 添加RegisterService提供快捷注册方式
       v14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
       v14.10.3 增加MessageHandler的file类型处理
+      v14.10.4 WeixinUserInfoResult添加tagid_list属性（用户被打上的标签ID列表）
+      v14.10.5 TenPayV3Result 增加 ResultXML 只读属性
+      v14.10.6 完善“查看指定文章的评论数据”接口（CommentApi.List()）的返回结果数据
+      v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断
+      v14.10.8 GroupMessageApi.SendGroupMessageByFilter() 方法修复判断错误
+      v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
+      v14.10.10 修正 Net Core 版本错误的代理设置
+      v14.10.11-beta1 测试.net core下的文件上传方法
+      v14.10.12 
+	      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+	      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
+	      3、支持自定义菜单传入菜单对象为null（自动过滤）
+      v14.10.13 优化 TenPayV3Util.DecodeRefundReqInfo() 方法
+      v14.10.14 优化 Get.Download() 方法，完善对 FileName 的判断
+      v14.10.15 Wifi连接页面支持跳转到小程序。微信返回的JSON有变化。
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

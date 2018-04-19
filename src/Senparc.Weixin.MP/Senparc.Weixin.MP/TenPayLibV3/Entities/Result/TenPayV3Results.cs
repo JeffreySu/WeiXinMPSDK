@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
  
-    文件名：TenPayV3Result.cs
+    文件名：TenPayV3Results.cs
     文件功能描述：微信支付V3返回结果
     
     
@@ -54,6 +54,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170322
     修改描述：v14.3.132 完善OrderQueryResult 服务商查询订单接口
     
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.5 TenPayV3Result 增加 ResultXML 只读属性 & 优化代码
+
+    修改标识：jiehanlin & Senparc - 20180309
+    修改描述：v14.10.12 新增 TenpayV3GetSignKeyResult
+
+    修改标识：Senparc - 20171129
+    修改描述：添加PayBankResult（付款到银行卡）
+    
+    修改标识：Senparc - 20180409
+    修改描述：将 TenPayV3Result.cs 改名为 TenPayV3Results.cs
+    
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -78,12 +90,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected XDocument _resultXml;
 
-        public string ResultXml {
-            get {
-                StringWriter sw = new StringWriter();
-                XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
-                _resultXml.WriteTo(xmlTextWriter);
-                return sw.ToString();
+        /// <summary>
+        /// XML内容
+        /// </summary>
+        public string ResultXml
+        {
+            get
+            {
+                return _resultXml.ToString();
+
+                //StringWriter sw = new StringWriter();
+                //XmlTextWriter xmlTextWriter = new XmlTextWriter(sw);
+                //_resultXml.WriteTo(xmlTextWriter);
+                //return sw.ToString();
             }
         }
 
@@ -152,7 +171,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     public class Result : TenPayV3Result
     {
         /// <summary>
-        /// 微信分配的公众账号ID
+        /// 微信分配的公众账号ID（付款到银行卡接口，此字段不提供）
         /// </summary>
         public string appid { get; set; }
 
@@ -1011,7 +1030,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     }
 
     /// <summary>
-    /// 
+    /// 商户的企业付款操作进行结果查询，返回付款操作详细结果
     /// </summary>
     public class GetTransferInfoResult : TenPayV3Result
     {
@@ -1106,6 +1125,47 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public bool IsResultCodeSuccess()
         {
             return result_code == "SUCCESS";
+        }
+    }
+
+
+
+    /// <summary>
+    /// 获取验签秘钥API 返回结果
+    /// </summary>
+    public class TenpayV3GetSignKeyResult : TenPayV3Result
+    {
+        ///// <summary>
+        ///// SUCCESS/FAIL 此字段是通信标识，非交易标识
+        ///// </summary>
+        //public string return_code { get; set; }
+
+        ///// <summary>
+        ///// 返回信息，如非空，为错误原因 ，签名失败 ，参数格式校验错误
+        ///// </summary>
+        //public string return_msg { get; set; }
+
+        /// <summary>
+        /// 微信支付分配的微信商户号
+        /// </summary>
+        public string mch_id { get; set; }
+
+        /// <summary>
+        /// 返回的沙箱密钥
+        /// </summary>
+        public string sandbox_signkey { get; set; }
+
+        /// <summary>
+        /// 获取验签秘钥API 返回结果 构造函数
+        /// </summary>
+        /// <param name="resultXml"></param>
+        public TenpayV3GetSignKeyResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                mch_id = GetXmlValue("mch_id") ?? "";
+                sandbox_signkey = GetXmlValue("sandbox_signkey") ?? "";
+            }
         }
     }
 }

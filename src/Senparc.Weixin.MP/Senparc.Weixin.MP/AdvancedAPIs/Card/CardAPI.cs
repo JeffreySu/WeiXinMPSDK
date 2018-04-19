@@ -483,12 +483,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                                                 string expireSeconds = null,
                                                                 bool isUniqueCode = false,
                                                                 string outer_id = null,
-                                                                int timeOut = 10000
+                                                                int timeOut = Config.TIME_OUT
             )
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = string.Format("https://api.weixin.qq.com/card/qrcode/create?access_token={0}",
+                string urlFormat = string.Format(Config.ApiMpHost+"/card/qrcode/create?access_token={0}",
                                                     accessToken.AsUrlData());
 
                 List<QR_CARD_INFO> cardlist = new List<QR_CARD_INFO>();
@@ -529,7 +529,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<CreateQRResultJson>(null,
                                                                 urlFormat,
                                                                 data,
-                                                                timeOut: 10000,
+                                                                timeOut:timeOut,
                                                                 jsonSetting: jsonSetting);
             },
                                                     accessTokenOrAppId);

@@ -43,6 +43,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.Exceptions;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -147,11 +148,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #else
             Parameters = new Hashtable();
 
-            if(httpContext == null)
-            {
-                throw new Exception(".net core环境必须传入HttpContext的实例");
-            }
-            HttpContext = httpContext;
+            HttpContext = httpContext ?? throw new WeixinException(".net core环境必须传入HttpContext的实例");
+           
             //post data
             if (HttpContext.Request.Method.ToUpper() == "POST" && HttpContext.Request.HasFormContentType)
             {

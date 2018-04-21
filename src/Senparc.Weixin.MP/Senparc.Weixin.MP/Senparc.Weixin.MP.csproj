@@ -80,6 +80,7 @@
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardQRInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\NorFilter.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\ActivateUserFormSetData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
+    <Compile Include="Containers\WxCardApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />

@@ -399,13 +399,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 ResponseHandler resHandler = new ResponseHandler(null);
-
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
-
                 string res = null;
-
-                resHandler.SetKey(TenPayV3Info.Key);
                 //验证请求是否从微信发过来（安全）
                 if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
                 {

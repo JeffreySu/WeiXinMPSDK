@@ -811,9 +811,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
-    /// <summary>
-    /// 对账单接口
-    /// </summary>
+    ///// <summary>
+    ///// 对账单接口
+    ///// </summary>
     //public class DownloadBillResult : TenPayV3Result
     //{
     //    public DownloadBillResult(string resultXml) : base(resultXml)
@@ -821,6 +821,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
     //    }
     //}
+
     /// <summary>
     /// 撤销订单接口
     /// </summary>

@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.Containers
                 return _WxCardApiTicketExpireTime;
             }
 #if NET35 || NET40
-            set { this.SetContainerProperty(ref _WxCardApiExpireTime, value, "WxCardApiExpireTime"); }
+            set { this.SetContainerProperty(ref _WxCardApiTicketExpireTime, value, "WxCardApiExpireTime"); }
 #else
             set
             {

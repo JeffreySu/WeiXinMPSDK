@@ -53,6 +53,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
+
+    修改标识：Senparc - 20180424
+    修改描述：v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
+
 ----------------------------------------------------------------*/
 
 /*
@@ -257,19 +261,28 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取永久素材(除了图文)
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="mediaId"></param>
-        /// <param name="stream"></param>
-        public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId">要获取的素材的media_id</param>
+        /// <param name="stream">自动下载文件到流中，如果不需要下载请传入null</param>
+        public static GetForeverMediaVideoResultJson GetForeverMedia(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                media_id = mediaId
-            };
-            SerializerHelper serializerHelper = new SerializerHelper();
-            var jsonString = serializerHelper.GetJsonString(data);
-            Post.Download(url, jsonString, stream);
+                string url = Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}";
+                var data = new
+                {
+                    media_id = mediaId
+                };
+                var result = CommonJsonSend.Send<GetForeverMediaVideoResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+
+                if (stream != null)
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    Post.Download(result.down_url, null, stream);
+                }
+
+                return result;
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -599,19 +612,29 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取永久素材(除了图文)
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="mediaId"></param>
-        /// <param name="stream"></param>
-        public static async Task GetForeverMediaAsync(string accessToken, string mediaId, Stream stream)
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId">要获取的素材的media_id</param>
+        /// <param name="stream">自动下载文件到流中，如果不需要下载请传入null</param>
+        public static async Task<GetForeverMediaVideoResultJson> GetForeverMediaAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", accessToken.AsUrlData());
-            var data = new
+
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                media_id = mediaId
-            };
-            SerializerHelper serializerHelper = new SerializerHelper();
-            var jsonString = serializerHelper.GetJsonString(data);
-            await Post.DownloadAsync(url, jsonString, stream);
+                string url = Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}";
+                var data = new
+                {
+                    media_id = mediaId
+                };
+                var result = CommonJsonSend.Send<GetForeverMediaVideoResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+
+                if (stream != null)
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    await Post.DownloadAsync(result.down_url, null, stream);
+                }
+
+                return result;
+            }, accessTokenOrAppId);
         }
 
         /// <summary>

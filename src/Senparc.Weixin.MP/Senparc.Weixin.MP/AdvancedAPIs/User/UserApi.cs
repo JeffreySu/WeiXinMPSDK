@@ -1,4 +1,4 @@
-﻿#region Apache License Version 2.0
+#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -147,6 +147,66 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 获取黑名单
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="beginOpenId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static OpenIdResultJson GetBlackList(string accessTokenOrAppId, string beginOpenId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/getblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    begin_openid = beginOpenId
+                };
+                return CommonJsonSend.Send<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
+        }
+
+        /// <summary>
+        /// 取消拉黑用户
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openidList"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult BatchUnBlackList(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
+            {
+                string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/batchunblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    openid_list = openidList
+                };
+                return CommonJsonSend.Send<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
+        }
+
+        /// <summary>
+        /// 拉黑用户
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openidList"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult BatchBlackList(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
+            {
+                string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/batchblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    openid_list = openidList
+                };
+                return CommonJsonSend.Send<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
+        }
         #endregion
 
 #if !NET35 && !NET40
@@ -233,6 +293,66 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
             }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取黑名单
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="beginOpenId">当 begin_openid 为空时，默认从开头拉取。</param>
+        /// <param name="timeOut"></param>
+        /// <returns>每次调用最多可拉取 10000 个OpenID</returns>
+        public static async Task<OpenIdResultJson> GetBlackListAsync(string accessTokenOrAppId, string beginOpenId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>
+            {
+                string url = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/getblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    begin_openid = beginOpenId
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
+        }
+
+        /// <summary>
+        /// 取消拉黑用户
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openidList">需要移除黑名单的用户的openid，一次移除最多允许20个</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> BatchUnBlackListAsync(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>
+            {
+                string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/batchunblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    openid_list = openidList
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
+        }
+
+        /// <summary>
+        /// 拉黑用户
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openidList">需要拉入黑名单的用户的openid，一次拉黑最多允许20个</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> BatchBlackListAsync(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>
+            {
+                string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/tags/members/batchblacklist?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    openid_list = openidList
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+            }, accessTokenOrAppId, true);
         }
         #endregion
 #endif

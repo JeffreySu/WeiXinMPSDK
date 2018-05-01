@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.12.2</Version>
+    <Version>14.12.3</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -391,7 +391,8 @@
 	      4、统一cardmanageResultjson的类命名规则
       v14.12.1 修改.NET Core环境下，ResponseHandler 中构造函数传入 HttpContext 的异常提示
       v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
-
+      v14.12.3 1、添加黑名单管理
+               2、分离永久视频素材获取接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

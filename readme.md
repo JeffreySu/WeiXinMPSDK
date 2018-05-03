@@ -1,4 +1,6 @@
-<!-- _【公告】_<br> -->
+_【公告】_<br> 
+_为更好地带动和帮助广大开发者向 .net core 转型，本项目的 .net core Sample 正在完善中（演示功能将和 .net 4.5 的 Sample 同步），尽请关注，欢迎交流！_
+
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->
 

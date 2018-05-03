@@ -405,7 +405,12 @@ namespace Senparc.Weixin.Work
     {
         text = 0,
         image = 1,
-        file = 2
+        voice = 2,
+        video = 3,
+        file = 4,
+        textcard = 5,
+        news = 6,
+        mpnews = 7
     }
 
     /// <summary>

@@ -19,6 +19,9 @@
     修改标识：Senparc - 20150507
     修改描述：v4.2.1 ResponseMsgType添加SuccessResponse枚举
 
+    修改标识：pekrr1e  - 20180503
+    修改描述：v1.4.0 新增企业微信群聊会话功能支持
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work

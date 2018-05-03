@@ -132,6 +132,10 @@ namespace Senparc.Weixin.Work
         /// 异步任务完成事件推送
         /// </summary>
         BATCH_JOB_RESULT,
+        /// <summary>
+        /// 通讯录变更事件
+        /// </summary>
+        change_contact,
     }
 
     public enum ThirdPartyInfo

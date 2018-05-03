@@ -3,13 +3,13 @@
     
     文件名：RequestMessageEvent_Change_Contact.cs
     文件功能描述：事件之上报通讯录变更事件
-    
-    
+
+
     创建标识：pekrr1e - 20180503
     
     修改标识：pekrr1e - 20180503
     修改描述：整理接口 v1.4.1 增加“接收通讯录变更事件”
-
+    
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

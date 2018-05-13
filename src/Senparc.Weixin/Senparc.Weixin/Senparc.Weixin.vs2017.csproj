@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0</TargetFrameworks>
-    <Version>4.20.3</Version>
+    <Version>4.20.4</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -226,6 +226,7 @@
       1、添加IRequestMessageTextOrEvent，作为所有文本（RequestMessageText）或事件（RequestMessageEvent）接口
       2、添加IRequestMessageEvent作为所有事件（RequestMessageEvent接口）
       v4.20.3 为 .NET Core 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法中的端口获取过程
+      v4.20.4 增加对小程序 web-view 内打开页面的判断方法 BrowserUtility.SideInWeixinMiniProgram()
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

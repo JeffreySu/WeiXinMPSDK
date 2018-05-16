@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.10.0</Version>
+    <Version>2.10.0-rc1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -112,7 +112,7 @@
       v2.9.2 修复 TryUpdateAuthorizationInfo 中缓存跟新的问题
       v2.9.2.1 修改 ComponentApi.ApiAuthorizerToken() 方法注释
 
-      v2.10.0 支持 .NET Core 2.1.0-rc1-final
+      v2.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

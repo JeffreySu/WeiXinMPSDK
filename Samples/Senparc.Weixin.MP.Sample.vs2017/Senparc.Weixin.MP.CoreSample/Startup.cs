@@ -38,8 +38,6 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
-            new ServiceCollection();
-
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
 

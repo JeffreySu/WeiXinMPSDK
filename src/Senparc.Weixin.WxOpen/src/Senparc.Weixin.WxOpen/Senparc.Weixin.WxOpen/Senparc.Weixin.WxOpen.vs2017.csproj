@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>1.9.1</Version>
+    <Version>1.9.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -74,11 +74,12 @@
       2、添加 DataCubeApi，包含所有“数据”接口
       v1.8.1 新增附近的小程序API
       v1.8.2 从 Open 中迁移模板消息过来，在 Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下
-      
+
       v1.9.0
-        1、停止对 .net core 1.1 生成的独立版本
-        2、待分配 WxAppApi.GetWxaCode()、GetWxaCodeUnlimit() 接口，添加获取小程序二维码时的颜色参数。
+      1、停止对 .net core 1.1 生成的独立版本
+      2、待分配 WxAppApi.GetWxaCode()、GetWxaCodeUnlimit() 接口，添加获取小程序二维码时的颜色参数。
       v1.9.1 提供 RegisterServices 进行快捷注册
+      v1.9.2 更新 WxAppApi.GetWxaCodeUnlimit() 参数引用
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

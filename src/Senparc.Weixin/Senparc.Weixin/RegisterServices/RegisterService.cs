@@ -15,6 +15,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.Extensions.DependencyInjection;
+#endif
+
 namespace Senparc.Weixin.RegisterServices
 {
     /// <summary>
@@ -30,6 +34,18 @@ namespace Senparc.Weixin.RegisterServices
     /// </summary>
     public class RegisterService : IRegisterService
     {
+
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+        /// <summary>
+        /// 全局 ServiceCollection
+        /// </summary>
+        public static IServiceCollection GlobalServiceCollection { get; set; }
+
+        /// <summary>
+        /// 单个实例引用全局的 ServiceCollection
+        /// </summary>
+        public IServiceCollection ServiceCollection => GlobalServiceCollection;
+#endif
         /// <summary>
         /// 开始流程
         /// </summary>

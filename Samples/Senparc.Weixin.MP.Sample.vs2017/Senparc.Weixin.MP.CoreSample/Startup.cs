@@ -20,6 +20,7 @@ using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
+using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.CoreSample
@@ -40,6 +41,9 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+
+
+            services.StartRegisterService();//Senparc.Weixin全局注册
 
             //添加Memcached配置（按需）
             services.AddSenparcMemcached(options =>
@@ -97,6 +101,12 @@ namespace Senparc.Weixin.MP.CoreSample
              * 
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
              */
+
+
+            //注册开始
+
+            RegisterService.Start() //这里没有 ; 下面接着写
+                ;
 
             RegisterWeixinCache(app);       //注册分布式缓存（按需，如果需要，必须放在第一个）
             ConfigWeixinTraceLog();         //配置微信跟踪日志（按需）

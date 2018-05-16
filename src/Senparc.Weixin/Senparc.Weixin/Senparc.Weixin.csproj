@@ -184,6 +184,7 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
     <Compile Include="Trace\WeixinTrace.cs" />
+    <Compile Include="WebProxy\CoreWebProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />

@@ -48,13 +48,16 @@ using System.Web.Script.Serialization;
 #endif
 
 using Senparc.Weixin.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Senparc.Weixin.Helpers
 {
     /// <summary>
     /// JSON输出设置
     /// </summary>
-    public class JsonSetting
+    public class JsonSetting : JsonSerializerSettings
     {
         /// <summary>
         /// 是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
@@ -63,22 +66,25 @@ namespace Senparc.Weixin.Helpers
         /// <summary>
         /// 需要特殊忽略null值的属性名称
         /// </summary>
-        public List<string> PropertiesToIgnore { get; set; }
+        public List<string> PropertiesToIgnoreNull { get; set; }
         /// <summary>
         /// 指定类型（Class，非Interface）下的为null属性不生成到Json中
         /// </summary>
-        public List<Type> TypesToIgnore { get; set; }
+        public List<Type> TypesToIgnoreNull { get; set; }
 
         #region Add
 
 
-        public class IgnoreValueAttribute : Attribute
+        public class IgnoreValueAttribute : System.ComponentModel.DefaultValueAttribute
         {
-            public IgnoreValueAttribute(object value)
+            public IgnoreValueAttribute(object value) : base(value)
             {
-                this.Value = value;
+                //Value = value;
             }
-            public object Value { get; set; }
+        }
+        public class IgnoreNullAttribute : Attribute
+        {
+
         }
         /// <summary>
         /// 例外属性，即不排除的属性值
@@ -101,13 +107,13 @@ namespace Senparc.Weixin.Helpers
         /// JSON 输出设置 构造函数
         /// </summary>
         /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
-        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
-        /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
-        public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null)
+        /// <param name="propertiesToIgnoreNull">需要特殊忽略null值的属性名称</param>
+        /// <param name="typesToIgnoreNull">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnoreNull = null, List<Type> typesToIgnoreNull = null)
         {
             IgnoreNulls = ignoreNulls;
-            PropertiesToIgnore = propertiesToIgnore ?? new List<string>();
-            TypesToIgnore = typesToIgnore ?? new List<Type>();
+            PropertiesToIgnoreNull = propertiesToIgnoreNull ?? new List<string>();
+            TypesToIgnoreNull = typesToIgnoreNull ?? new List<Type>();
         }
     }
 
@@ -133,9 +139,9 @@ namespace Senparc.Weixin.Helpers
             {
                 var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
-                if (_jsonSetting.TypesToIgnore.Count > 0)
+                if (_jsonSetting.TypesToIgnoreNull.Count > 0)
                 {
-                    typeList.AddRange(_jsonSetting.TypesToIgnore);
+                    typeList.AddRange(_jsonSetting.TypesToIgnoreNull);
                 }
 
                 if (_jsonSetting.IgnoreNulls)
@@ -167,7 +173,7 @@ namespace Senparc.Weixin.Helpers
                 }
                 else
                 {
-                    if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
+                    if (!this._jsonSetting.PropertiesToIgnoreNull.Contains(propertyInfo.Name))
                     {
                         bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
                         if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
@@ -224,6 +230,167 @@ namespace Senparc.Weixin.Helpers
             throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
+
+#if NET35||NET40||NET45
+    public class WeiXinJsonSetting : JsonSerializerSettings
+    {
+        public WeiXinJsonSetting() { }
+
+        public WeiXinJsonSetting(JsonSetting jsonSetting)
+        {
+            if (jsonSetting == null)
+            {
+                jsonSetting = new JsonSetting();
+            }
+            ContractResolver = new WeiXinJsonContractResolver(jsonSetting.IgnoreNulls, jsonSetting.PropertiesToIgnoreNull, jsonSetting.TypesToIgnoreNull);
+        }
+        /// <summary>
+        /// JSON 输出设置 构造函数  优先级： ignoreNulls < propertiesToIgnoreNull < typesToIgnoreNull
+        /// </summary>
+        /// <param name="ignoreNulls">是否忽略具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+        /// <param name="propertiesToIgnoreNull">需要特殊忽略null值的属性名称</param>
+        /// <param name="typesToIgnoreNull">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        public WeiXinJsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnoreNull = null, List<Type> typesToIgnoreNull = null)
+        {
+            ContractResolver = new WeiXinJsonContractResolver(ignoreNulls, propertiesToIgnoreNull, typesToIgnoreNull);
+        }
+
+    }
+    public class WeiXinJsonContractResolver : DefaultContractResolver
+    {
+        /// <summary>
+        /// 是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
+        /// </summary>
+        bool IgnoreNulls;
+        /// <summary>
+        /// 需要特殊忽略null值的属性名称
+        /// </summary>
+        public List<string> PropertiesToIgnoreNull { get; set; }
+        /// <summary>
+        /// 指定类型（Class，非Interface）下的为null属性不生成到Json中
+        /// </summary>
+        public List<Type> TypesToIgnoreNull { get; set; }
+        /// <summary>
+        /// JSON 输出设置 构造函数  优先级： ignoreNulls < propertiesToIgnoreNull < typesToIgnoreNull
+        /// </summary>
+        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+        /// <param name="propertiesToIgnoreNull">需要特殊忽略null值的属性名称</param>
+        /// <param name="typesToIgnoreNull">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        public WeiXinJsonContractResolver(bool ignoreNulls = false, List<string> propertiesToIgnoreNull = null, List<Type> typesToIgnoreNull = null)
+        {
+            IgnoreNulls = ignoreNulls;
+            PropertiesToIgnoreNull = propertiesToIgnoreNull;
+            TypesToIgnoreNull = typesToIgnoreNull;
+        }
+        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+        {
+            //TypesToIgnoreNull指定类型（Class，非Interface）下的为null属性不生成到Json中
+            if (TypesToIgnoreNull.Contains(type))
+            {
+                type.IsDefined(typeof(JsonSetting.IgnoreNullAttribute), false);
+            }
+            return base.CreateProperties(type, memberSerialization);
+        }
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        {
+            var property = base.CreateProperty(member, memberSerialization);
+
+#if NET45
+            //IgnoreNull标注的字段根据IgnoreNulls设定是否序列化
+            var ignoreNull = member.GetCustomAttribute<JsonSetting.IgnoreNullAttribute>();
+            if (ignoreNull != null || IgnoreNulls)
+            {
+                property.NullValueHandling = NullValueHandling.Ignore;
+            }
+            else
+            {
+                property.NullValueHandling = NullValueHandling.Include;
+            }
+
+            //propertiesToIgnoreNull指定字段为Null时不序列化
+            if (PropertiesToIgnoreNull.Contains(member.Name))
+            {
+                property.NullValueHandling = NullValueHandling.Ignore;
+            }
+
+            ////符合IgnoreValue标注值的字段不序列化
+            //var ignoreValue = member.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
+            //if (ignoreValue != null)
+            //{
+            //    property.DefaultValueHandling = DefaultValueHandling.Ignore;
+            //    var t = member.DeclaringType;
+            //    property.ShouldSerialize = instance =>
+            //    {
+            //        var obj = Convert.ChangeType(instance, t);
+            //        var value = (member as PropertyInfo).GetValue(obj, null);
+            //        return value != ignoreValue.Value;
+            //    };
+            //}
+
+            //枚举序列化
+            var enumString = member.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
+            if (enumString != null)
+            {
+                property.Converter = new StringEnumConverter();
+                //property = base.CreateProperty(member, memberSerialization);
+            }
+#else
+            var customAttributes = member.GetCustomAttributes(false);
+            var ignoreNullAttribute = typeof(JsonSetting.IgnoreNullAttribute);
+            //IgnoreNull标注的字段根据IgnoreNulls设定是否序列化
+            if (IgnoreNulls || customAttributes.Count(o => o.GetType() == ignoreNullAttribute) == 1)
+            {
+                property.NullValueHandling = NullValueHandling.Ignore;
+            }
+            else
+            {
+                property.NullValueHandling = NullValueHandling.Include;
+            }
+
+            //propertiesToIgnoreNull指定字段为Null时不序列化
+            if (PropertiesToIgnoreNull.Contains(member.Name))
+            {
+                property.NullValueHandling = NullValueHandling.Ignore;
+            }
+
+            ////符合IgnoreValue标注值的字段不序列化
+            //var ignoreValueAttribute = typeof(JsonSetting.IgnoreValueAttribute);
+            //var ignoreValue = customAttributes.FirstOrDefault(o => o.GetType() == ignoreValueAttribute);
+            //if (ignoreValue != null)
+            //{
+            //    property.DefaultValueHandling = DefaultValueHandling.Ignore;
+            //    var t = member.DeclaringType;
+            //    property.ShouldSerialize = instance =>
+            //    {
+            //        var obj = Convert.ChangeType(instance, t);
+            //        var value = (member as PropertyInfo).GetValue(obj, null);
+            //        return value != (ignoreValue as JsonSetting.IgnoreValueAttribute).Value;
+            //    };
+            //}
+
+            //枚举序列化
+            var enumStringAttribute = typeof(JsonSetting.EnumStringAttribute);
+            if (customAttributes.Count(o => o.GetType() == enumStringAttribute) == 1)
+            {
+                property.Converter = new StringEnumConverter();
+            }
+#endif
+
+            //var defaultIgnore = member.GetCustomAttribute<DefaultIgnoreAttribute>();
+            //if (defaultIgnore != null)
+            //{
+            //    //defaultIgnore.Value == member.
+            //}
+            return property;
+        }
+
+        protected override JsonContract CreateContract(Type objectType)
+        {
+            return base.CreateContract(objectType);
+        }
+    }
+#endif
+
 #endif
 
 }

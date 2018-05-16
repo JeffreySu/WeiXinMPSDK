@@ -34,7 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.11.2 修改SideInWeixinBrowser判断逻辑
 
     修改标识：Senparc - 20180513
-    修改描述：v4.11.2 1、增加对小程序 web-view 内打开页面的判断方法 SideInWeixinMiniProgram()
+    修改描述：v4.11.2 1、增加对小程序请求的判断方法 SideInWeixinMiniProgram()
                       2、添加 GetUserAgent() 方法
 
 ----------------------------------------------------------------*/
@@ -65,7 +65,13 @@ namespace Senparc.Weixin.BrowserUtility
 #endif
         {
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
-            string userAgent = httpRequest.Headers["User-Agent"].ToString().ToUpper();
+
+            string userAgent = null;
+            var userAgentHeader = httpRequest.Headers["User-Agent"];
+            if (userAgentHeader.Count > 0)
+            {
+                userAgent = userAgentHeader[0].ToUpper();
+            }
 #else
             string userAgent = httpRequest.UserAgent != null
                                 ? httpRequest.UserAgent.ToUpper()
@@ -94,7 +100,7 @@ namespace Senparc.Weixin.BrowserUtility
         }
 
         /// <summary>
-        /// 判断是否在微信小程序内的 web-view 组件中打开
+        /// 判断是否在微信小程序内发起请求（注意：此方法在Android下有效，在iOS下暂时无效！）
         /// </summary>
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>

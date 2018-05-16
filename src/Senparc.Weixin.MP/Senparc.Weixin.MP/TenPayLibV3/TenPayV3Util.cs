@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 对字符串进行URL编码
         /// </summary>
         /// <param name="instr"></param>
-        /// <param name="charset">在.netstandard1.6无效</param>
+        /// <param name="charset"></param>
         /// <returns></returns>
         public static string UrlEncode(string instr, string charset)
         {

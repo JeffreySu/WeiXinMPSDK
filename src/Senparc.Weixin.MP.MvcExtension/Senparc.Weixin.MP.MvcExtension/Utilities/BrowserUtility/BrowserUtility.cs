@@ -41,6 +41,7 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 #endif
 
 namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
@@ -56,7 +57,8 @@ namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
 #if NET35 || NET40 || NET45 || NET461
-   public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
+       [Obsolete("当前方法已经过时，请使用 Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()")]
+        public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;
             if (userAgent != null
@@ -70,6 +72,7 @@ namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
             }
         }
 #else
+        [Obsolete("当前方法已经过时，请使用 Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()")]
         public static bool SideInWeixinBrowser(this HttpContext httpContext)
         {
             string ustr = string.Empty;

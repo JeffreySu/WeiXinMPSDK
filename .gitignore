@@ -44,3 +44,5 @@ packages/
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.AppDemo/project.config.json
 /src/Senparc.WebSocket/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.0
 /src/Senparc.WebSocket/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.0
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1

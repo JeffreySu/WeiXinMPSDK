@@ -42,6 +42,8 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             #region Senparc.Weixin SDK 配置
 
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
@@ -260,6 +262,7 @@ namespace Senparc.Weixin.MP.CoreSample
             ;
 
             //配置Memcached缓存
+
             app.UseEnyimMemcached();
 
             /* 微信配置结束 */

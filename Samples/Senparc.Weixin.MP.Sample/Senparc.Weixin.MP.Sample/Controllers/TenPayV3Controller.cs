@@ -619,17 +619,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult RefundNotifyUrl()
         {
+            WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.Request.UserHostAddress);
+
             string responseCode = "FAIL";
             string responseMsg = "FAIL";
             try
             {
-
                 ResponseHandler resHandler = new ResponseHandler(null);
 
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
 
-                Senparc.Weixin.WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", resHandler.ParseXML());
+                WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", resHandler.ParseXML());
 
                 if (return_code == "SUCCESS")
                 {

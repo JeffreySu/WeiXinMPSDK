@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170623
     修改描述：v14.4.14 排序规则统一为字典排序（ASCII）
 
+    修改标识：Senparc - 20180517
+    修改描述：v4.21.5-rc1 优化 .net core 环境下 TenPayLibV3.ResponseHandler 的默认 HttpContext获取
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -143,9 +143,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="refundFee"></param>
         /// <param name="opUserId"></param>
         /// <param name="refundAccount"></param>
+        /// <param name="refundDescription"></param>
+        /// <param name="notifyUrl"></param>
         public TenPayV3RefundRequestData(string appId, string mchId, string key, string deviceInfo, string nonceStr,
             string transactionId, string outTradeNo, string outRefundNo, int totalFee, int refundFee,
-            string opUserId, string refundAccount,string refundDescription =null, string notifyUrl=null,
+            string opUserId, string refundAccount, string refundDescription = null, string notifyUrl = null,
             string refundFeeType = "CNY", string signType = "MD5")
         {
             AppId = appId;

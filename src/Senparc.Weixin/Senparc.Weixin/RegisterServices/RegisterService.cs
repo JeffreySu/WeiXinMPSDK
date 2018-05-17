@@ -20,8 +20,8 @@ using System.Threading.Tasks;
 
 #if NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Hosting;
 using Senparc.Weixin.Entities;
 #endif
 
@@ -65,19 +65,21 @@ namespace Senparc.Weixin.RegisterServices
             Senparc.Weixin.Config.IsDebug = true;
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
 
-
             //提供网站根目录
             if (env.ContentRootPath != null)
             {
                 Senparc.Weixin.Config.RootDictionaryPath = env.ContentRootPath;
-                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
             }
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
 
             var register = new RegisterService();
 
             //如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
             register.RegisterThreads();//默认把线程注册好
+
+            //自动注册默认账号
+
+
+
 
             return register;
         }

@@ -61,6 +61,7 @@ using System.Web;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Senparc.Weixin.Helpers.Extensions;
 #endif
 #if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
@@ -188,14 +189,18 @@ namespace Senparc.Weixin.HttpUtility
             return true;
         }
 
-        private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
+        private static StreamContent CreateFileContent(Stream stream, string formName, string fileName, string contentType = "application/octet-stream")
         {
             fileName = UrlEncode(fileName);
             var fileContent = new StreamContent(stream);
+            //上传格式参考：
+            //https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
+            //https://work.weixin.qq.com/api/doc#10112
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
-                Name = "\"media\"",
-                FileName = "\"" + fileName + "\""
+                Name = "\"{0}\"".FormatWith(formName),
+                FileName = "\"" + fileName + "\"",
+                Size = stream.Length
             }; // the extra quotes are key here
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             return fileContent;

@@ -19,6 +19,9 @@
     修改标识：heavenwing - 20160909
     修改描述：完善第三方回调事件处理
 
+    修改标识：pekrr1e - 20180503
+    修改描述：v1.4.1 增加“接收通讯录变更事件”
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -459,6 +462,35 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case Event.BATCH_JOB_RESULT://异步任务完成事件推送(batch_job_result)
                     responseMessage = OnEvent_BatchJobResultRequest(RequestMessage as RequestMessageEvent_Batch_Job_Result);
                     break;
+                case Event.change_contact:
+                    var ccRequestMessage = RequestMessage as IRequestMessageEvent_Change_Contact_Base;
+                    switch (ccRequestMessage.ChangeType)
+                    {
+                        case ContactChangeType.create_user:
+                            responseMessage = OnEvent_ChangeContactCreateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Create);
+                            break;
+                        case ContactChangeType.update_user:
+                            responseMessage = OnEvent_ChangeContactUpdateUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Update);
+                            break;
+                        case ContactChangeType.delete_user:
+                            responseMessage = OnEvent_ChangeContactDeleteUserRequest(RequestMessage as RequestMessageEvent_Change_Contact_User_Base);
+                            break;
+                        case ContactChangeType.create_party:
+                            responseMessage = OnEvent_ChangeContactCreatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Create);
+                            break;
+                        case ContactChangeType.update_party:
+                            responseMessage = OnEvent_ChangeContactUpdatePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Update);
+                            break;
+                        case ContactChangeType.delete_party:
+                            responseMessage = OnEvent_ChangeContactDeletePartyRequest(RequestMessage as RequestMessageEvent_Change_Contact_Party_Base);
+                            break;
+                        case ContactChangeType.update_tag:
+                            responseMessage = OnEvent_ChangeContactUpdateTagRequest(RequestMessage as RequestMessageEvent_Change_Contact_Tag_Update);
+                            break;
+                        default:
+                            throw new UnknownRequestMsgTypeException("未知的Event.change_contact下属请求信息", null);
+                    }
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -584,6 +616,70 @@ namespace Senparc.Weixin.Work.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+        /// <summary>
+        /// 新增成员事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactCreateUserRequest(RequestMessageEvent_Change_Contact_User_Create requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 更新成员事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactUpdateUserRequest(RequestMessageEvent_Change_Contact_User_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 删除成员事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactDeleteUserRequest(RequestMessageEvent_Change_Contact_User_Base requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 新增部门事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactCreatePartyRequest(RequestMessageEvent_Change_Contact_Party_Create requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 更新部门事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactUpdatePartyRequest(RequestMessageEvent_Change_Contact_Party_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 删除部门事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactDeletePartyRequest(RequestMessageEvent_Change_Contact_Party_Base requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 标签成员变更事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ChangeContactUpdateTagRequest(RequestMessageEvent_Change_Contact_Tag_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion
 
 

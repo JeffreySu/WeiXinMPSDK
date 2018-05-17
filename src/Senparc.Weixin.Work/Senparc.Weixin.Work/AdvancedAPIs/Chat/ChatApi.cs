@@ -13,25 +13,33 @@
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
  
+    修改标识：pekrr1e  - 20180503
+    修改描述：v1.4.0 新增企业微信群聊会话功能支持
+ 
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%BC%81%E4%B8%9A%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
+    官方文档：https://work.weixin.qq.com/api/doc#13308
  */
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Chat;
-using Senparc.Weixin.Work.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     public static class ChatApi
     {
+        private static string _urlFormatCreate = Config.ApiWorkHost + "/cgi-bin/appchat/create?access_token={0}";
+        private static string _urlFormatUpdate = Config.ApiWorkHost + "/cgi-bin/appchat/update?access_token={0}";
+        private static string _urlFormatGet = Config.ApiWorkHost + "/cgi-bin/appchat/get?access_token={0}&chatid={1}";
+        private static string _urlFormatSend = Config.ApiWorkHost + "/cgi-bin/appchat/send?access_token={0}";
+
         #region 同步方法
 
 
@@ -39,18 +47,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 创建会话
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="chatId">会话id。字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z, 如果值内容为64bit无符号整型：要求值范围在[1, 2^63)之间，[2^63, 2^64)为系统分配会话id区间</param>
-        /// <param name="name">会话标题</param>
-        /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
-        /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
+        /// <param name="chatId">群聊的唯一标志，不能与已有的群重复；字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z。如果不填，系统会随机生成群id</param>
+        /// <param name="name">群聊名</param>
+        /// <param name="owner">指定群主的id。如果不指定，系统会随机从userlist中选一人作为群主</param>
+        /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -60,10 +66,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -76,12 +80,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
+                var url = string.Format(_urlFormatGet, accessToken.AsUrlData(), chatId.AsUrlData());
 
                 return Get.GetJson<GetChatResult>(url);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -89,35 +91,139 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id</param>
-        /// <param name="opUser">操作人userid</param>
         /// <param name="name">会话标题</param>
         /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
         /// <param name="addUserList">会话新增成员列表，成员用userid来标识</param>
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult UpdateChat(string accessTokenOrAppKey, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateChat(string accessTokenOrAppKey, string chatId, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
-
                 var data = new
                 {
                     chatid = chatId,
-                    op_user = opUser,
                     name = name,
                     owner = owner,
                     add_user_list = addUserList,
                     del_user_list = delUserList
                 };
 
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatUpdate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
+        /// <summary>
+        /// 发送简单消息（文本、图片、文件或语音）
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="msgType">消息类型,text|image|file|voice</param>
+        /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WorkJsonResult SendChatSimpleMessage(string accessTokenOrAppKey, string chatId, ChatMsgType msgType, string contentOrMediaId, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                BaseSendChatMessageData data;
+
+                switch (msgType)
+                {
+                    case ChatMsgType.text:
+                        data = new SendTextMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.image:
+                        data = new SendImageMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.voice:
+                        data = new SendVoiceMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.file:
+                        data = new SendFileMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("msgType");
+                }
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 发送视频消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="media_id">视频媒体文件id</param>
+        /// <param name="title">视频消息的标题，不超过128个字节</param>
+        /// <param name="description">视频消息的描述，不超过512个字节</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WorkJsonResult SendChatVideoMessage(string accessTokenOrAppKey, string chatId, string media_id, string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new SendVideoMessageData(chatId, media_id, title, description, safe);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 发送文本卡片消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="media_id">视频媒体文件id</param>
+        /// <param name="title">标题，不超过128个字节</param>
+        /// <param name="description">描述，不超过512个字节</param>
+        /// <param name="url">点击后跳转的链接</param>
+        /// <param name="btntxt">按钮文字， 默认为“详情”， 不超过4个文字</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WorkJsonResult SendChatTextCardMessage(string accessTokenOrAppKey, string chatId, string title, string description, string url, string btntxt = null, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new SendTextCardMessageData(chatId, title, description, url, btntxt, safe);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 发送图文消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="news">图文消息</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WorkJsonResult SendChatNewsMessage(string accessTokenOrAppKey, string chatId, Chat_News news, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new SendNewsMessageData(chatId, news, safe);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 发送图文消息（mpnews）
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="news">图文消息</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WorkJsonResult SendChatMpNewsMessage(string accessTokenOrAppKey, string chatId, Chat_MpNews mpnews, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new SendMpNewsMessageData(chatId, mpnews, safe);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
         /// <summary>
         /// 退出会话
         /// </summary>
@@ -126,6 +232,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult QuitChat(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -138,7 +245,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     op_user = opUser,
                 };
 
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(accessTokenOrAppKey, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -153,6 +260,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static WorkJsonResult ClearNotify(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -171,103 +279,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
-
-        /// <summary>
-        /// 发消息
-        /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="sender">发送人的userId</param>
-        /// <param name="type">接收人类型：single|group，分别表示：群聊|单聊</param>
-        /// <param name="msgType">消息类型,text|image|file</param>
-        /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
-        /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WorkJsonResult SendChatMessage(string accessTokenOrAppKey, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
-
-                BaseSendChatMessageData data;
-
-                switch (msgType)
-                {
-                    case ChatMsgType.text:
-                        data = new SendTextMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            text = new Chat_Content()
-                            {
-                                content = contentOrMediaId
-                            }
-                        };
-                        break;
-                    case ChatMsgType.image:
-                        data = new SendImageMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            image = new Chat_Image()
-                            {
-                                media_id = contentOrMediaId
-                            }
-                        };
-                        break;
-                    case ChatMsgType.file:
-                        data = new SendFileMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            file = new Chat_File()
-                            {
-                                media_id = contentOrMediaId
-                            }
-                        };
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("msgType");
-                }
-
-                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
-
-
-        }
-
-        //{
-        //    "text":
-        //        {
-        //            "content":"111"
-        //        },
-        //    "receiver":
-        //        {
-        //            "type":"group",
-        //            "id":"1"
-        //        },
-        //    "sender":"005",
-        //    "msgtype":"text"
-        //}
-
         /// <summary>
         /// 设置成员新消息免打扰
         /// </summary>
@@ -275,6 +287,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static SetMuteResult SetMute(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -299,18 +312,16 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】创建会话
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="chatId">会话id。字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z, 如果值内容为64bit无符号整型：要求值范围在[1, 2^63)之间，[2^63, 2^64)为系统分配会话id区间</param>
-        /// <param name="name">会话标题</param>
-        /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
-        /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
+        /// <param name="chatId">群聊的唯一标志，不能与已有的群重复；字符串类型，最长32个字符。只允许字符0-9及字母a-zA-Z。如果不填，系统会随机生成群id</param>
+        /// <param name="name">群聊名</param>
+        /// <param name="owner">指定群主的id。如果不指定，系统会随机从userlist中选一人作为群主</param>
+        /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -320,10 +331,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -336,12 +345,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/get?access_token={0}&chatid={1}", accessToken.AsUrlData(), chatId.AsUrlData());
+                var url = string.Format(_urlFormatGet, accessToken.AsUrlData(), chatId.AsUrlData());
 
                 return await Get.GetJsonAsync<GetChatResult>(url);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -349,35 +356,139 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId">会话id</param>
-        /// <param name="opUser">操作人userid</param>
         /// <param name="name">会话标题</param>
         /// <param name="owner">管理员userid，必须是该会话userlist的成员之一</param>
         /// <param name="addUserList">会话新增成员列表，成员用userid来标识</param>
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> UpdateChatAsync(string accessTokenOrAppKey, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateChatAsync(string accessTokenOrAppKey, string chatId, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
-
                 var data = new
                 {
                     chatid = chatId,
-                    op_user = opUser,
                     name = name,
                     owner = owner,
                     add_user_list = addUserList,
                     del_user_list = delUserList
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatUpdate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
+        /// <summary>
+        /// 【异步方法】发送简单消息（文本、图片、文件或语音）
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="msgType">消息类型,text|image|file|voice</param>
+        /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendChatSimpleMessageAsync(string accessTokenOrAppKey, string chatId, ChatMsgType msgType, string contentOrMediaId, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                BaseSendChatMessageData data;
+
+                switch (msgType)
+                {
+                    case ChatMsgType.text:
+                        data = new SendTextMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.image:
+                        data = new SendImageMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.voice:
+                        data = new SendVoiceMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    case ChatMsgType.file:
+                        data = new SendFileMessageData(chatId, contentOrMediaId, safe);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("msgType");
+                }
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 【异步方法】发送视频消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="media_id">视频媒体文件id</param>
+        /// <param name="title">视频消息的标题，不超过128个字节</param>
+        /// <param name="description">视频消息的描述，不超过512个字节</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendChatVideoMessageAsync(string accessTokenOrAppKey, string chatId, string media_id, string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new SendVideoMessageData(chatId, media_id, title, description, safe);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 【异步方法】发送文本卡片消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="media_id">视频媒体文件id</param>
+        /// <param name="title">标题，不超过128个字节</param>
+        /// <param name="description">描述，不超过512个字节</param>
+        /// <param name="url">点击后跳转的链接</param>
+        /// <param name="btntxt">按钮文字， 默认为“详情”， 不超过4个文字</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendChatTextCardMessageAsync(string accessTokenOrAppKey, string chatId, string title, string description, string url, string btntxt = null, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new SendTextCardMessageData(chatId, title, description, url, btntxt, safe);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 【异步方法】发送图文消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="news">图文消息</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendChatNewsMessageAsync(string accessTokenOrAppKey, string chatId, Chat_News news, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new SendNewsMessageData(chatId, news, safe);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 【异步方法】发送图文消息（mpnews）
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="chatId">会话id</param>
+        /// <param name="news">图文消息</param>
+        /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> SendChatMpNewsMessageAsync(string accessTokenOrAppKey, string chatId, Chat_MpNews mpnews, int safe = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new SendMpNewsMessageData(chatId, mpnews, safe);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
         /// <summary>
         /// 【异步方法】退出会话
         /// </summary>
@@ -386,6 +497,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> QuitChatAsync(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -400,8 +512,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -413,6 +523,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<WorkJsonResult> ClearNotifyAsync(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -431,87 +542,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
-        }
-
-        /// <summary>
-        /// 【异步方法】发消息
-        /// </summary>
-        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="sender">发送人的userId</param>
-        /// <param name="type">接收人类型：single|group，分别表示：群聊|单聊</param>
-        /// <param name="msgType">消息类型,text|image|file</param>
-        /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
-        /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static async Task<WorkJsonResult> SendChatMessageAsync(string accessTokenOrAppKey, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
-
-                BaseSendChatMessageData data;
-
-                switch (msgType)
-                {
-                    case ChatMsgType.text:
-                        data = new SendTextMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            text = new Chat_Content()
-                            {
-                                content = contentOrMediaId
-                            }
-                        };
-                        break;
-                    case ChatMsgType.image:
-                        data = new SendImageMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            image = new Chat_Image()
-                            {
-                                media_id = contentOrMediaId
-                            }
-                        };
-                        break;
-                    case ChatMsgType.file:
-                        data = new SendFileMessageData()
-                        {
-                            receiver = new Receiver()
-                            {
-                                type = type.ToString(),
-                                id = chatIdOrUserId
-                            },
-                            sender = sender,
-                            msgtype = msgType.ToString(),
-                            file = new Chat_File()
-                            {
-                                media_id = contentOrMediaId
-                            }
-                        };
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("msgType");
-                }
-
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
-
-
         }
 
         //{
@@ -535,6 +565,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userMuteList">成员新消息免打扰参数，数组，最大支持10000个成员</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此接口已被官方废除")]
         public static async Task<SetMuteResult> SetMuteAsync(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -548,8 +579,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
-
-
         }
         #endregion
 #endif

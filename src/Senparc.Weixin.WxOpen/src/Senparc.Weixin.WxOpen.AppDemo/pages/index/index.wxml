@@ -23,7 +23,9 @@
    <view class="btn-contact">
       <contact-button 
         size="20"
-        session-from="Senparc.Weixin">进入客服，查看消息接口</contact-button>
+        session-from="Senparc.Weixin" 
+        open-type='contact'
+        >进入客服，查看消息接口</contact-button>
   </view>
 
   <!-- 请求数据 -->

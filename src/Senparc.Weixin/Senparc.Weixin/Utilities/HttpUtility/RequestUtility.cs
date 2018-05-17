@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170730
     修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
 
+    修改标识：Senparc - 20180516
+    修改描述：v4.21.0 支持 .NET Core 2.1.0-rc1-final 添加编译条件
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -52,15 +55,15 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.WebProxy;
 #if NET35 || NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.WebProxy;
 #endif
 
 
@@ -170,7 +173,7 @@ namespace Senparc.Weixin.HttpUtility
                 request.Headers.Add("X-Requested-With", "XMLHttpRequest");
             }
         }
-#else //NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#else //NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 
         /// <summary>
         /// 验证服务器证书

@@ -43,6 +43,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.Exceptions;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -105,6 +106,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// 获取页面提交的get和post参数
+	/// 注意:.NetCore环境必须传入HttpContext实例，不能传Null，这个接口调试特别困难，千万别出错！
         /// </summary>
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
@@ -146,7 +148,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #else
             Parameters = new Hashtable();
 
-            HttpContext = httpContext ?? new DefaultHttpContext();
+            HttpContext = httpContext ?? throw new WeixinException(".net core环境必须传入HttpContext的实例");
+           
             //post data
             if (HttpContext.Request.Method.ToUpper() == "POST" && HttpContext.Request.HasFormContentType)
             {

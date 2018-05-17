@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class SimulateToolController : BaseController
     {
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         SenparcWeixinSetting _senparcWeixinSetting;
 
         public SimulateToolController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
@@ -297,7 +297,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
             ViewData["Token"] = _senparcWeixinSetting.Token;
 #endif
             return View();

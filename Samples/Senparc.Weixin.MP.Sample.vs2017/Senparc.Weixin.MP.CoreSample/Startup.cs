@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,7 @@ using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
+using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.CoreSample
@@ -28,7 +30,6 @@ namespace Senparc.Weixin.MP.CoreSample
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -38,10 +39,11 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
-            new ServiceCollection();
-
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+
+
+            services.StartRegisterService();//Senparc.Weixin全局注册
 
             //添加Memcached配置（按需）
             services.AddSenparcMemcached(options =>
@@ -54,6 +56,9 @@ namespace Senparc.Weixin.MP.CoreSample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //引入EnableRequestRewind中间件
+            app.UseEnableRequestRewind();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -96,6 +101,12 @@ namespace Senparc.Weixin.MP.CoreSample
              * 
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
              */
+
+
+            //注册开始
+
+            RegisterService.Start() //这里没有 ; 下面接着写
+                ;
 
             RegisterWeixinCache(app);       //注册分布式缓存（按需，如果需要，必须放在第一个）
             ConfigWeixinTraceLog();         //配置微信跟踪日志（按需）

@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170917
     修改描述：修改GenerateOAuthCallbackUrl()，更方便移植到.NET Core
 
+    修改标识：Senparc - 20180502
+    修改描述：v4.20.3  为 .NET Core 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法中的端口获取过程
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -91,11 +94,12 @@ namespace Senparc.Weixin.HttpUtility
             var urlData = httpContext.Request;
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host.Host;//主机名（不带端口）
-            var port = urlData.Host.Port;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
+            var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
 #endif
-            if ((schemeUpper == "HTTP" && port == 80) ||
+            if ( port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
+                (schemeUpper == "HTTP" && port == 80) ||
                 (schemeUpper == "HTTPS" && port == 443))
             {
                 portSetting = "";//使用默认值

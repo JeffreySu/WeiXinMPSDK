@@ -33,11 +33,10 @@ namespace Senparc.Weixin.RegisterServices
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <returns></returns>
-        public static RegisterService StartRegisterService(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddSernparcWeixinGlobalServices(this IServiceCollection serviceCollection)
         {
             RegisterService.GlobalServiceCollection = serviceCollection;
-            var register = RegisterService.Start();
-            return register;
+            return serviceCollection;
         }
 #endif
     }

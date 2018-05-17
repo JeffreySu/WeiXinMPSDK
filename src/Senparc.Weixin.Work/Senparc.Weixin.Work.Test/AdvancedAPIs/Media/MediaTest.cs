@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
-
+            ·
             Console.WriteLine("mediaId:" + result.media_id);
             return result.media_id;
         }

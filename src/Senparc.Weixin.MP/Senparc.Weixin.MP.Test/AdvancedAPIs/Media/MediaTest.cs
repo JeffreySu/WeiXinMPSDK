@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
 
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 //保存到文件
 
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
 #else
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             UploadTemporaryMediaTest();//上传
 
 
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");

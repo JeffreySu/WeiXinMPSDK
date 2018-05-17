@@ -57,6 +57,12 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public static class ApiHandlerWapper
     {
+        public static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc = null;
+        public static Func<string, bool> AccessTokenContainer_CheckRegisteredFunc = null;
+        public static Func<string, bool, IAccessTokenResult> AccessTokenContainer_GetAccessTokenResultFunc = null;
+#if !NET35 && !NET40
+        public static Func<string, bool, Task<IAccessTokenResult>> AccessTokenContainer_GetAccessTokenResultAsyncFunc = null;
+#endif
         #region 同步方法
 
         /// <summary>
@@ -71,14 +77,14 @@ namespace Senparc.Weixin.MP
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
 
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc = 
-                () => AccessTokenContainer.GetFirstOrDefaultAppId();
+            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
+                AccessTokenContainer_GetFirstOrDefaultAppIdFunc ?? (() => AccessTokenContainer.GetFirstOrDefaultAppId());
 
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc = 
-                appId => AccessTokenContainer.CheckRegistered(appId);
+            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
+                AccessTokenContainer_CheckRegisteredFunc ?? (appId => AccessTokenContainer.CheckRegistered(appId));
 
-            Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc = 
-                (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResult(appId, getNewToken);
+            Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc =
+                AccessTokenContainer_GetAccessTokenResultFunc ?? ((appId, getNewToken) => AccessTokenContainer.GetAccessTokenResult(appId, getNewToken));
 
             int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 
@@ -215,14 +221,14 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc = 
-                () => AccessTokenContainer.GetFirstOrDefaultAppId();
+            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
+                AccessTokenContainer_GetFirstOrDefaultAppIdFunc ?? (() => AccessTokenContainer.GetFirstOrDefaultAppId());
 
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc = 
-                appId => AccessTokenContainer.CheckRegistered(appId);
+            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
+                AccessTokenContainer_CheckRegisteredFunc ?? (appId => AccessTokenContainer.CheckRegistered(appId));
 
-            Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc = 
-                (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
+            Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
+                AccessTokenContainer_GetAccessTokenResultAsyncFunc ?? ((appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken));
 
             int invalidCredentialValue = (int)ReturnCode.获取access_token时AppSecret错误或者access_token无效;
 

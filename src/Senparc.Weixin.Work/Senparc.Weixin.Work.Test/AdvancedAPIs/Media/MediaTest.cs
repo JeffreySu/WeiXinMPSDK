@@ -51,7 +51,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public string UploadImageTest()
         {
-            string _media = "E:\\1.jpg";
+            string _media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\test.jpg";
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);

@@ -465,15 +465,17 @@ namespace Senparc.Weixin.HttpUtility
 
             var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
 
-            if (postStreamIsDefaultNull && postStream.Length > 0)
+            try
             {
-                try
+                if (postStreamIsDefaultNull && postStream.Length > 0)
                 {
                     postStream.Close();
                 }
-                catch (WeixinException ex)
-                {
-                }
+
+                hc.Dispose();//关闭HttpContent（StreamContent）
+            }
+            catch (WeixinException ex)
+            {
             }
 
             return new SenparcHttpResponse(response);
@@ -589,15 +591,17 @@ namespace Senparc.Weixin.HttpUtility
 
             var retString = await r.Content.ReadAsStringAsync();
 
-            if (postStreamIsDefaultNull && postStream.Length > 0)
+            try
             {
-                try
+                if (postStreamIsDefaultNull && postStream.Length > 0)
                 {
                     postStream.Close();
                 }
-                catch (WeixinException ex)
-                {
-                }
+
+                hc.Dispose();//关闭HttpContent（StreamContent）
+            }
+            catch (WeixinException ex)
+            {
             }
 
             return retString;

@@ -252,10 +252,11 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
+                                var memoryStream = new MemoryStream();
+                                fileStream.CopyTo(memoryStream);
 
-
-                                //multipartFormDataContent.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
-                                multipartFormDataContent.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                                multipartFormDataContent.Add(new StreamContent(memoryStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
+                               //multipartFormDataContent.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                                 fileStream.Dispose();
                             }
                             else

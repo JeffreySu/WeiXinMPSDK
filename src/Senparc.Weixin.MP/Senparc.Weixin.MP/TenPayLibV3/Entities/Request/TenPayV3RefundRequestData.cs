@@ -25,6 +25,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付统一请求参数
     
     创建标识：Senparc - 20170502
+
+    修改标识：Senparc - 20180516
+    修改描述：提供 RefundDescription、NotifyUrl 两个新参数
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3

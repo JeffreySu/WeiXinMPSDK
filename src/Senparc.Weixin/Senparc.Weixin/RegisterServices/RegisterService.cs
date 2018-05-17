@@ -76,11 +76,6 @@ namespace Senparc.Weixin.RegisterServices
             //如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
             register.RegisterThreads();//默认把线程注册好
 
-            //自动注册默认账号
-
-
-
-
             return register;
         }
 

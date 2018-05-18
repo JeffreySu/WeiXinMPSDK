@@ -101,9 +101,7 @@ Senparc.Weixin SDK 项目贡献者
 > 	85.	lhh.net	<br>
 > 	86.	LiJiangShan（mc7246）	<br>
 > 	87.	lisensoft	<br>
-> 	88.	"lishewen 
-
-"	<br>
+> 	88.	"lishewen "	<br>
 > 	89.	lishewen（算神）	<br>
 > 	90.	liu0621   	<br>
 > 	91.	liubiqu	<br>

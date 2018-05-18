@@ -44,22 +44,24 @@ namespace Senparc.Weixin.MP.CoreSample
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            #region Senparc.Weixin SDK Memcached 配置
 
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
 
                     //Senparc.Weixin全局注册
-                    .AddSernparcWeixinGlobalServices()
+                    .AddSernparcWeixinGlobalServices();
 
-                    //添加Memcached配置（按需）
-                    .AddSenparcMemcached(options =>
+            #region Senparc.Weixin SDK Memcached 配置
+
+            //添加Memcached配置（按需）
+            services.AddSenparcMemcached(options =>
                     {
                         options.AddServer("memcached", 11211);
                         //options.AddPlainTextAuthenticator("", "usename", "password");
                     });
 
             #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

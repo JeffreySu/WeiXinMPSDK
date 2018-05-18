@@ -16,27 +16,14 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-
-#if NET45
-using System.Web
-using System.Web.Mvc;
-using Senparc.Weixin.MP.MvcExtension;
-#else
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.MvcExtension;
-#endif
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public partial class WeixinController : Controller
     {
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
-
-        //public WeixinController()
-        //{
-
-        //}
 
         private string appId;
         private string appSecret;
@@ -47,18 +34,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public WeixinController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
-#if NET45
-       appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的Token设置保持一致，区分大小写。
-       appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-       EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-       string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
-#else
             _senparcWeixinSetting = senparcWeixinSetting.Value;
             appId = _senparcWeixinSetting.WeixinAppId;
             appSecret = _senparcWeixinSetting.WeixinAppSecret;
             token = _senparcWeixinSetting.Token;
             encodingAESKey = _senparcWeixinSetting.EncodingAESKey;
-#endif
         }
 
         /// <summary>

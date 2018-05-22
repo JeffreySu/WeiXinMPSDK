@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180516
     修改描述：v4.21.0 支持 .NET Core 2.1.0-rc1-final 添加编译条件
 
+    修改标识：Senparc - 20180518
+    修改描述：v4.21.0 支持 .NET Core 2.1.0-rc1-final 添加编译条件
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -128,6 +131,19 @@ namespace Senparc.Weixin.HttpUtility
         public static void RemoveHttpProxy()
         {
             _webproxy = null;
+        }
+
+        /// <summary>
+        /// 从 Request.Body 中读取流，并复制到一个独立的 MemoryStream 对象中
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static Stream GetRequestMemoryStream(this HttpRequest request)
+        {
+            string body = new StreamReader(request.Body).ReadToEnd();
+            byte[] requestData = Encoding.UTF8.GetBytes(body);
+            Stream inputStream = new MemoryStream(requestData);
+            return inputStream;
         }
 #endif
 

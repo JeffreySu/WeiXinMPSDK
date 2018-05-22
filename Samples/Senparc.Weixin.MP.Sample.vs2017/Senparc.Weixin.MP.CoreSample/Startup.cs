@@ -44,22 +44,24 @@ namespace Senparc.Weixin.MP.CoreSample
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            #region Senparc.Weixin SDK 配置
 
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
 
                     //Senparc.Weixin全局注册
-                    .AddSernparcWeixinGlobalServices()
+                    .AddSernparcWeixinGlobalServices();
 
-                    //添加Memcached配置（按需）
-                    .AddSenparcMemcached(options =>
+            #region Senparc.Weixin SDK Memcached 配置
+
+            //添加Memcached配置（按需）
+            services.AddSenparcMemcached(options =>
                     {
                         options.AddServer("memcached", 11211);
                         //options.AddPlainTextAuthenticator("", "usename", "password");
                     });
 
             #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,13 +91,13 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 微信相关配置
 
-            //提供网站根目录（当前 Sample 用到，和 SDK 无关）
+            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
             if (env.ContentRootPath != null)
             {
                 Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
             }
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-
+            #endregion
 
             /* 微信配置开始
              * 
@@ -104,7 +106,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //注册开始
 
-            RegisterService.Start(env, senparcWeixinSetting, isDebug: true) //这里没有 ; 下面接着写
+            var isDebug = true;//当前是否是Debug状态
+            RegisterService.Start(env, senparcWeixinSetting, isDebug) //这里没有 ; 下面接着写
 
             #region 缓存配置
 
@@ -262,8 +265,11 @@ namespace Senparc.Weixin.MP.CoreSample
             ;
 
             //配置Memcached缓存
+            #region Senparc.Weixin SDK Memcached 配置
 
             app.UseEnyimMemcached();
+
+            #endregion
 
             /* 微信配置结束 */
 

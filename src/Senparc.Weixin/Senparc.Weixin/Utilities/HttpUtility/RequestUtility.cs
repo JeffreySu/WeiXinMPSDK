@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170730
     修改描述：v4.13.3 为RequestUtility.HttpGet()方法添加Accept、UserAgent、KeepAlive设置
 
+    修改标识：Senparc - 20180516
+    修改描述：v4.21.0 支持 .NET Core 2.1.0-rc1-final 添加编译条件
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -52,15 +55,16 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.WebProxy;
 #if NET35 || NET40 || NET45
 using System.Web;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Senparc.Weixin.Helpers.Extensions;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.WebProxy;
 #endif
 
 
@@ -170,7 +174,7 @@ namespace Senparc.Weixin.HttpUtility
                 request.Headers.Add("X-Requested-With", "XMLHttpRequest");
             }
         }
-#else //NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#else //NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 
         /// <summary>
         /// 验证服务器证书
@@ -185,14 +189,18 @@ namespace Senparc.Weixin.HttpUtility
             return true;
         }
 
-        private static StreamContent CreateFileContent(Stream stream, string fileName, string contentType = "application/octet-stream")
+        private static StreamContent CreateFileContent(Stream stream, string formName, string fileName, string contentType = "application/octet-stream")
         {
             fileName = UrlEncode(fileName);
             var fileContent = new StreamContent(stream);
+            //上传格式参考：
+            //https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
+            //https://work.weixin.qq.com/api/doc#10112
             fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
-                Name = "\"media\"",
-                FileName = "\"" + fileName + "\""
+                Name = "\"{0}\"".FormatWith(formName),
+                FileName = "\"" + fileName + "\"",
+                Size = stream.Length
             }; // the extra quotes are key here
             fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
             return fileContent;

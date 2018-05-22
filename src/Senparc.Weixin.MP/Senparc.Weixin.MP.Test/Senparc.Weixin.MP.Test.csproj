@@ -112,6 +112,7 @@
     <Compile Include="TenPayLibV3\TenPayV3UtilTests.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayTest.cs" />
     <Compile Include="TenPayV3\RedPackApiTest.cs" />
+    <Compile Include="TenPayV3\TenPayV3UtilTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="TenPay\TenPayTest.cs" />

@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
  
-    文件名：TenPayV3Result.cs
+    文件名：TenPayV3Results.cs
     文件功能描述：微信支付V3返回结果
     
     
@@ -59,6 +59,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：jiehanlin & Senparc - 20180309
     修改描述：v14.10.12 新增 TenpayV3GetSignKeyResult
+
+    修改标识：Senparc - 20171129
+    修改描述：添加PayBankResult（付款到银行卡）
+    
+    修改标识：Senparc - 20180409
+    修改描述：将 TenPayV3Result.cs 改名为 TenPayV3Results.cs
+    
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -164,7 +171,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     public class Result : TenPayV3Result
     {
         /// <summary>
-        /// 微信分配的公众账号ID
+        /// 微信分配的公众账号ID（付款到银行卡接口，此字段不提供）
         /// </summary>
         public string appid { get; set; }
 
@@ -804,9 +811,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
-    /// <summary>
-    /// 对账单接口
-    /// </summary>
+    ///// <summary>
+    ///// 对账单接口
+    ///// </summary>
     //public class DownloadBillResult : TenPayV3Result
     //{
     //    public DownloadBillResult(string resultXml) : base(resultXml)
@@ -814,6 +821,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
     //    }
     //}
+
     /// <summary>
     /// 撤销订单接口
     /// </summary>
@@ -1023,7 +1031,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     }
 
     /// <summary>
-    /// 
+    /// 商户的企业付款操作进行结果查询，返回付款操作详细结果
     /// </summary>
     public class GetTransferInfoResult : TenPayV3Result
     {
@@ -1145,10 +1153,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// 返回的沙箱密钥
-
         /// </summary>
         public string sandbox_signkey { get; set; }
 
+        /// <summary>
+        /// 获取验签秘钥API 返回结果 构造函数
+        /// </summary>
+        /// <param name="resultXml"></param>
         public TenpayV3GetSignKeyResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())

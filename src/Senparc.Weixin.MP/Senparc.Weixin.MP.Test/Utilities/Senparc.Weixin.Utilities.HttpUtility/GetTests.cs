@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             //    fs.Flush();//直接保存，无需处理指针
             //}
 
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
 
 
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             Assert.IsTrue(File.Exists(downloadResult));
 
             //完成之后通常需要强制修改文件名
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             File.Move(downloadResult, downloadResult + "core20.renamed.jpg");
 #else
             File.Move(downloadResult, downloadResult + ".net45.renamed.jpg");

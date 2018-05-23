@@ -1,7 +1,4 @@
- [[Chinese Version]](readme.md)
-
-
-Senparc.Weixin —— Wechat .NET SDK
+<span style="float:left">Senparc.Weixin —— Wechat .NET SDK</span> <span style="float:right"> [[Chinese Version]](readme.md)</span>
 =================
 [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
@@ -10,15 +7,15 @@ Senparc.Weixin —— Wechat .NET SDK
 
 > Wechat is the most famous IM APP in China which has more than 1 billion active users and more than ten million Official Accounts.
 
+By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Enterprise Account, Wechat Pay, etc. 
+
+Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 2.0 / .NET Core 2.1](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-If you like and hope us to continue to optimize this project, please give us a Star:)
-
-Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 1.1 / .NET Core 2.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
-
 For more than five years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
+If you like and hope us to continue to optimize this project, please give us a Star:)
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 

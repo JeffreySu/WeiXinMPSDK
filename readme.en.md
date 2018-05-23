@@ -1,5 +1,7 @@
-<span style="float:left">Senparc.Weixin —— Wechat .NET SDK</span> <span style="float:right"> [[Chinese Version]](readme.md)</span>
+Senparc.Weixin —— Wechat .NET SDK
 =================
+[[Chinese Version]](readme.md)
+
 [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)

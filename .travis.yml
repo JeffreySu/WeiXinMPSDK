@@ -1,13 +1,23 @@
-dist: trusty
 language: csharp
-before_install:
-- curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-- sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-- sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod
-  trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
-- sudo apt-get update
-- sudo apt-get install dotnet-sdk-2.1.300-rc1-008673
-- dotnet build ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+mono: none
+dotnet: 2.1.0-rc1-final
+dist: trusty
+
+script:
+  - dotnet restore
+  - dotnet msbuild
+
+#dist: trusty
+#language: csharp
+#before_install:
+#- curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+#- sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+#- sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod
+#  trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+#- sudo apt-get update
+#- sudo apt-get install dotnet-sdk-2.1.300-rc1-008673
+#- dotnet build ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
 
 #language: csharp
 #mono: none

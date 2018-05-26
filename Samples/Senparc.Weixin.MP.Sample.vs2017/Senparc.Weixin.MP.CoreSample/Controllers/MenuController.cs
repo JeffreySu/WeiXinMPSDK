@@ -94,15 +94,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 //也可以直接一步到位：
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result);
             }
             catch (ErrorJsonResultException ex)
             {
-                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) });
             }
             catch (Exception ex)
             {
-                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) });
             }
         }
 
@@ -190,17 +190,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var result = CommonAPIs.CommonApi.GetMenu(token);
                 if (result == null)
                 {
-                    return Json(new { error = "菜单不存在或验证失败！" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { error = "菜单不存在或验证失败！" });
                 }
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(result);
             }
             catch (WeixinMenuException ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
             }
             catch (Exception ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
             }
         }
 
@@ -214,12 +214,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = result.errmsg
                 };
-                return Json(json, JsonRequestBehavior.AllowGet);
+                return Json(json);
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = ex.Message };
-                return Json(json, JsonRequestBehavior.AllowGet);
+                return Json(json);
             }
         }
     }

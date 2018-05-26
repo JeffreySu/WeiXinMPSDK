@@ -211,8 +211,9 @@ Senparc 官方视频教程
 
 
 ### 关注测试账号（SenparcRobot）：
-[![qrcode](http://sdk.weixin.senparc.com/Images/qrcode.jpg)](http://weixin.senparc.com/)
-
+|盛派网络小助手公众号|盛派网络小助手小程序|BookHelper|
+|--|--|--|
+| <img src="https://sdk.weixin.senparc.com/Images/qrcode.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/SenparcRobot_MiniProgram.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/qrcode-bookhelper.jpg" width="258" /> |
 
 ## 如何使用.NET Core开发
 

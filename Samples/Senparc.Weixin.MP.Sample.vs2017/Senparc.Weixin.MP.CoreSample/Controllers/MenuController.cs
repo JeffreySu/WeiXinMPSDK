@@ -16,6 +16,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers.Extensions;
@@ -94,15 +96,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 //也可以直接一步到位：
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-                return Json(result);
+                return Json(result, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (ErrorJsonResultException ex)
             {
-                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) });
+                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
-                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) });
+                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -143,12 +145,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = "菜单更新成功。" + apiName
                 };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -174,12 +176,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = "菜单更新成功。" + apiName
                 };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -190,17 +192,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var result = CommonAPIs.CommonApi.GetMenu(token);
                 if (result == null)
                 {
-                    return Json(new { error = "菜单不存在或验证失败！" });
+                    return Json(new { error = "菜单不存在或验证失败！" }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
                 }
-                return Json(result);
+                return Json(result, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (WeixinMenuException ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message });
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -214,12 +216,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Success = result.errmsg == "ok",
                     Message = result.errmsg
                 };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
                 var json = new { Success = false, Message = ex.Message };
-                return Json(json);
+                return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
     }

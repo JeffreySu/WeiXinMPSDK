@@ -17,8 +17,10 @@ using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.CoreSample.CommonService.WorkMessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -79,12 +81,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //var sr = new StreamReader(ms);
             //var xml = sr.ReadToEnd();
             //var doc = XDocument.Parse(xml);
-            //doc.Save(Server.MapPath("~/App_Data/TestWork.log"));
+            //doc.Save(Server.GetMapPath("~/App_Data/TestWork.log"));
             //return null;
             #endregion
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new WorkCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            var messageHandler = new WorkCustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
             if (messageHandler.RequestMessage == null)
             {
@@ -94,19 +96,19 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                messageHandler.RequestDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
                 //执行微信处理过程
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
-                messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
 
                 //自动返回加密后结果
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -139,7 +141,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.CorpId = CorpId;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new WorkCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            var messageHandler = new WorkCustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
             //执行微信处理过程
             messageHandler.Execute();
             //自动返回加密后结果

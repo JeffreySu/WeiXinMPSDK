@@ -6,7 +6,7 @@ using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;

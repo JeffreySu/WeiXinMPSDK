@@ -10,14 +10,16 @@ using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
-using Senparc.Weixin.MP.CoreSample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -26,10 +28,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
-        private string component_Token = WebConfigurationManager.AppSettings["Component_Token"];
-        private string component_EncodingAESKey = WebConfigurationManager.AppSettings["Component_EncodingAESKey"];
+        private string component_AppId = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Secret;
+        private string component_Token = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_EncodingAESKey;
 
         /// <summary>
         /// 发起授权页的体验URL
@@ -52,7 +54,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [HttpPost]
         public ActionResult Notice(PostModel postModel)
         {
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = Server.GetMapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -75,7 +77,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 postModel.EncodingAESKey = component_EncodingAESKey;//根据自己后台的设置保持一致
                 postModel.AppId = component_AppId;//根据自己后台的设置保持一致
 
-                var messageHandler = new CustomThirdPartyMessageHandler(Request.InputStream, postModel);//初始化
+
+
+                var messageHandler = new CustomThirdPartyMessageHandler(Request.GetRequestMemoryStream(), postModel);//初始化
                 //注意：再进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
                 //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
                 //    postModel, 10);
@@ -115,7 +119,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = Server.GetMapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -133,11 +137,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var checkPublish = false; //是否在“全网发布”阶段
                 if (checkPublish)
                 {
-                    messageHandler = new OpenCheckMessageHandler(Request.InputStream, postModel, 10);
+                    messageHandler = new OpenCheckMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
                 }
                 else
                 {
-                    messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+                    messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
                 }
 
                 messageHandler.RequestDocument.Save(Path.Combine(logPath,
@@ -166,7 +170,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 using (
                     TextWriter tw =
-                        new StreamWriter(Server.MapPath("~/App_Data/Open/Error_" + DateTime.Now.Ticks + ".txt")))
+                        new StreamWriter(Server.GetMapPath("~/App_Data/Open/Error_" + DateTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

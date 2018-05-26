@@ -46,13 +46,6 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
-    * [如何处理微信公众号请求？](#如何处理微信公众号请求)
-    * [如何处理微信小程序（小游戏）请求？](#如何处理微信小程序小游戏请求)
-    * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
-    * [如何处理微信企业号请求？](#如何处理微信企业号请求)
-    * [如何处理企业微信请求？](#如何处理企业微信请求)
-    * [如何处理微信开放平台请求？](#如何处理微信开放平台请求)
-    * [如何使用分布式缓存？](#如何使用分布式缓存)
 * [如何开发小程序](#如何开发小程序) <!-- * [已实现功能](#已实现功能) -->
 * [各分支说明](#各分支说明)
 * [感谢贡献者](#感谢贡献者)
@@ -404,90 +397,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 使用Nuget安装到项目中
 --------------
-### 如何处理微信公众号请求？
 
-* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.MP
-```
-
-
-### 如何处理微信小程序（小游戏）请求？
-
-Senparc.Weixin.WxOpen 对微信小程序的消息、API 进行了封装，保持了公众号处理请求一致的开发过程。小程序模块同时支持小游戏。
-
-* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.WxOpen
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.WxOpen
-```
-
-### 如何增强 ASP.NET MVC 项目的功能？
-
-Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便捷的浏览器环境判断、官方 bug 修复等。
-* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.MP.MVC
-```
-
-### 如何处理微信企业号请求？
-
-Senparc.Weixin.QY.dll对`企业号`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
-
-* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.QY
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.QY
-```
-
-> 说明：QY目前已经随官方微信企业号同步停止更新，目前已经无缝移植到Work（企业微信）中。
-
-### 如何处理企业微信请求？
-
-Senparc.Weixin.Work.dll对`企业微信`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）以及企业号库（Senparc.Weixin.QY）保持了一致。
-
-* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Work
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.Work
-```
-
-
-### 如何处理微信开放平台请求？
-
-Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
-
-* Nuget 地址为https://www.nuget.org/packages/Senparc.Weixin.Open
-
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.Open
-```
-
-
-### 如何使用分布式缓存？
-
-Senparc.Weixin SDK 提供了完善的缓存策略接口，默认使用本机缓存实现，同时也提供了 Redis 和 Memcached 两个扩展方案，您也可以根据相同的规则添加自己的缓存策略。
-
-* Redis 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
-```
-
-* Memcached 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
-* 命令：
-```
-PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
-```
-
+各个模块的 Nuget 安装方式：《[使用 Nuget 将 SDK 安装到项目中](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E4%BD%BF%E7%94%A8-Nuget-%E5%B0%86-SDK-%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%AD)》
 
 如何开发小程序
 --------------

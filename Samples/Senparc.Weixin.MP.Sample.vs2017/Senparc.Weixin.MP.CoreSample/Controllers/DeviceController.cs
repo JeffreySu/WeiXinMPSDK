@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.MP.Containers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -14,15 +15,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class DeviceController : BaseController
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;
 
 
         public ActionResult Index()
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(appId, secret);
             TempData["AccessToken"] = accessToken;
-            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, secret, Request.Url.AbsoluteUri);
+            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, secret, Request.AbsoluteUri());
             return View(jssdkUiPackage);
         }
     }

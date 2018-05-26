@@ -11,14 +11,14 @@ using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
-//using Senparc.Weixin.MP.CoreSample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
+//using Senparc.Weixin.MP.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class DocumentController : BaseController
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+        public static readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         private bool CheckCanDownload(string guid)
         {

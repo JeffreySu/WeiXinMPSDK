@@ -13,8 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.UI;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
@@ -23,7 +24,7 @@ using Senparc.Weixin.MP.TenPayLib;
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     /// <summary>
-    /// 根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
+    /// 根据官方的Webforms Demo改写，所以可以看到直接result +=)之类的用法，实际项目中不提倡这么做。
     /// 注意：此Controller中的Demo为早期的微信支付，最新的V3微信支付请见TenPayV3Controller
     /// </summary>
     public class TenPayController : Controller
@@ -36,8 +37,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 if (_tenPayInfo == null)
                 {
-                    _tenPayInfo =
-                        TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
+                    _tenPayInfo = 
+                        TenPayInfoCollection.Data[Config.DefaultSenparcWeixinSetting.WeixinPay_PartnerId];
                 }
                 return _tenPayInfo;
             }
@@ -55,20 +56,22 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             resHandler.Init();
             resHandler.SetKey(TenPayInfo.Key, TenPayInfo.AppKey);
 
+            string result = String.Empty;
+
             //判断签名
             if (resHandler.IsWXsignfeedback())
             {
                 //回复服务器处理成功
-                Response.Write("OK");
-                Response.Write("OK:" + resHandler.GetDebugInfo());
+                result+="OK";
+                result+= "OK:" + resHandler.GetDebugInfo();
             }
             else
             {
                 //sha1签名失败
-                Response.Write("fail");
-                Response.Write("fail:" + resHandler.GetDebugInfo());
+                result+= "fail";
+                result+= "fail:" + resHandler.GetDebugInfo();
             }
-            return null;
+            return Content(result);
         }
 
         public ActionResult JsApi()
@@ -79,7 +82,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string packageValue = "";
             string paySign = "";
 
-            string sp_billno = Request["order_no"];
+            string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");
 
@@ -90,7 +93,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             else
             {
-                sp_billno = Request["order_no"].ToString();
+                sp_billno = Request.Form["order_no"].ToString();
             }
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;
@@ -110,7 +113,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("notify_url", TenPayInfo.TenPayNotify);		    //接收财付通通知的URL
             packageReqHandler.SetParameter("body", "JSAPIdemo");	                    //商品描述
-            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
+            packageReqHandler.SetParameter("spbill_create_ip", HttpContext.UserHostAddress()?.ToString());   //用户的公网ip，不是商户服务器IP
 
             //获取package包
             packageValue = packageReqHandler.GetRequestURL();
@@ -133,9 +136,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //获取debug信息,建议把请求和debug信息写入日志，方便定位问题
             //string pakcageDebuginfo = packageReqHandler.getDebugInfo();
-            //Response.Write("<br/>pakcageDebuginfo:" + pakcageDebuginfo + "<br/>");
+            //result +="<br/>pakcageDebuginfo:" + pakcageDebuginfo + "<br/>");
             //string paySignDebuginfo = paySignReqHandler.getDebugInfo();
-            //Response.Write("<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
+            //result +="<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
 
             //TODO：和JSSDK一样整合信息包
             ViewData["appId"] = TenPayInfo.AppId;
@@ -150,7 +153,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult Native()
         {
-            string sp_billno = Request["order_no"];
+            string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");
 
@@ -161,7 +164,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             else
             {
-                sp_billno = Request["order_no"].ToString();
+                sp_billno = Request.Form["order_no"].ToString();
             }
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;
@@ -191,7 +194,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult NativeCall()
         {
-            string sp_billno = Request["order_no"];
+            string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");
             //订单号，此处用时间和随机数生成，商户根据自己调整，保证唯一
@@ -204,7 +207,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             else
             {
-                sp_billno = Request["order_no"].ToString();
+                sp_billno = Request.Form["order_no"].ToString();
             }
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;
@@ -331,7 +334,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             return Content("Success");
         }
 
-        protected void Refund()
+        protected ActionResult Refund()
         {
             //创建请求对象
             RefundRequestHandler reqHandler = new RefundRequestHandler(null);
@@ -368,6 +371,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             httpClient.SetTimeOut(10);
 
             string rescontent = "";
+
+            string result = String.Empty;
+
             //后台调用
             if (httpClient.Call())
             {
@@ -387,32 +393,33 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     string transaction_id = resHandler.GetParameter("transaction_id");
 
                     //业务处理
-                    Response.Write("OK,transaction_id=" + resHandler.GetParameter("transaction_id") + "<br>");
+                    result +="OK,transaction_id=" + resHandler.GetParameter("transaction_id") + "<br>";
                 }
                 else
                 {
                     //错误时，返回结果未签名。
                     //如包格式错误或未确认结果的，请使用原来订单号重新发起，确认结果，避免多次操作
-                    Response.Write("业务错误信息或签名错误:" + resHandler.GetParameter("retcode") + "," + resHandler.GetParameter("retmsg") + "<br>");
+                    result +="业务错误信息或签名错误:" + resHandler.GetParameter("retcode") + "," + resHandler.GetParameter("retmsg") + "<br>";
                 }
 
             }
             else
             {
                 //后台调用通信失败
-                Response.Write("call err:" + httpClient.GetErrInfo() + "<br>" + httpClient.GetResponseCode() + "<br>");
+                result +="call err:" + httpClient.GetErrInfo() + "<br>" + httpClient.GetResponseCode() + "<br>";
                 //有可能因为网络原因，请求已经处理，但未收到应答。
             }
 
 
             //获取debug信息,建议把请求、应答内容、debug信息，通信返回码写入日志，方便定位问题
 
-            Response.Write("http res:" + httpClient.GetResponseCode() + "," + httpClient.GetErrInfo() + "<br>");
-            Response.Write("req url:" + requestUrl + "<br/>");
-            Response.Write("req debug:" + reqHandler.GetDebugInfo() + "<br/>");
-            Response.Write("res content:" + Server.HtmlEncode(rescontent) + "<br/>");
-            Response.Write("res debug:" + Server.HtmlEncode(resHandler.GetDebugInfo()) + "<br/>");
+            result +="http res:" + httpClient.GetResponseCode() + "," + httpClient.GetErrInfo() + "<br>";
+            result +="req url:" + requestUrl + "<br/>";
+            result +="req debug:" + reqHandler.GetDebugInfo() + "<br/>";
+            result +="res content:" + rescontent.HtmlEncode() + "<br/>";
+            result +="res debug:" + resHandler.GetDebugInfo().HtmlEncode() + "<br/>";
 
+            return Content(result);
         }
 
         public ActionResult Delivernotify()
@@ -420,7 +427,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string timeStamp = "";
             string appSignature = "";
             //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
-            string sp_billno = Request["order_no"];
+            string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");
 
@@ -431,7 +438,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             else
             {
-                sp_billno = Request["order_no"].ToString();
+                sp_billno = Request.Form["order_no"].ToString();
             }
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;

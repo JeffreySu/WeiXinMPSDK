@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -14,8 +15,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class WeixinJSSDKController : Controller
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;
 
         //
         // GET: /JSSDK/
@@ -37,7 +38,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //ViewData["Signature"] = signature;
             #endregion
 
-            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, secret, Request.Url.AbsoluteUri);
+            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, appSecret, Request.AbsoluteUri());
             //ViewData["JsSdkUiPackage"] = jssdkUiPackage;
             //ViewData["AppId"] = appId;
             //ViewData["Timestamp"] = jssdkUiPackage.Timestamp;

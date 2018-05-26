@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 2.1.0-rc1-final
+script:
+  - dotnet restore
+  - dotnet build ./Samples/Senparc.Weixin.MP.Sample.vs2017/
+ # - dotnet build ./TheLog.Demos/
+ # - dotnet test ./TheLog.Tests/

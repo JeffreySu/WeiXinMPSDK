@@ -40,8 +40,9 @@ using ZXing;
 using ZXing.Common;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CoreSample.Filters;
-using System.Web.Security;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Microsoft.AspNetCore.Http;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -72,7 +73,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
+                        TenPayV3InfoCollection.Data[Config.DefaultSenparcWeixinSetting.TenPayV3_MchId];
                 }
                 return _tenPayV3Info;
             }
@@ -124,7 +125,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return Content("错误：" + openIdResult.errmsg);
             }
 
-            Session["OpenId"] = openIdResult.openid;//进行登录
+            HttpContext.Session.SetString("OpenId", openIdResult.openid);//进行登录
 
             //也可以使用FormsAuthentication等其他方法记录登录信息，如：
             //FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
@@ -147,9 +148,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 }
 
                 //var openId = User.Identity.Name;
-                var openId = (string)Session["OpenId"];
+                var openId = HttpContext.Session.GetString("OpenId");
 
-                string sp_billno = Request["order_no"];
+                string sp_billno = Request.Query["order_no"];
                 if (string.IsNullOrEmpty(sp_billno))
                 {
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
@@ -158,7 +159,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 }
                 else
                 {
-                    sp_billno = Request["order_no"];
+                    sp_billno = Request.Query["order_no"];
                 }
 
                 var timeStamp = TenPayV3Util.GetTimestamp();
@@ -166,7 +167,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                                                                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -181,8 +182,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
 
                 //临时记录订单信息，留给退款申请接口测试使用
-                Session["BillNo"] = sp_billno;
-                Session["BillFee"] = price;
+                HttpContext.Session.SetString("BillNo", sp_billno);
+                HttpContext.Session.SetString("BillFee", price.ToString());
 
                 return View();
             }
@@ -224,15 +225,28 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
-            BarcodeWriter bw = new BarcodeWriter();
+            var bw = new ZXing.BarcodeWriterPixelData();
 
-            var ms = new MemoryStream();
-            var bitmap = bw.Write(bitMatrix);
-            bitmap.Save(ms, ImageFormat.Png);
-            //return File(ms, "image/png");
-            ms.WriteTo(Response.OutputStream);
-            Response.ContentType = "image/png";
-            return null;
+            var pixelData = bw.Write(bitMatrix);
+            using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    try
+                    {
+                        // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                        System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bitmapData);
+                    }
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return File(ms, "image/png");
+                }
+            }
         }
 
         public ActionResult NativeNotifyUrl()
@@ -264,7 +278,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //packageReqHandler.SetParameter("body", "test");
             //packageReqHandler.SetParameter("out_trade_no", sp_billno);
             //packageReqHandler.SetParameter("total_fee", "1");
-            //packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            //packageReqHandler.SetParameter("spbill_create_ip", HttpContext.UserHostAddress()?.ToString());
             //packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
             //packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
             //packageReqHandler.SetParameter("openid", openId);
@@ -275,7 +289,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //string data = packageReqHandler.ParseXML();
 
-            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
 
             try
@@ -331,7 +345,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //packageReqHandler.SetParameter("body", "test");
             //packageReqHandler.SetParameter("out_trade_no", sp_billno);
             //packageReqHandler.SetParameter("total_fee", "1");
-            //packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            //packageReqHandler.SetParameter("spbill_create_ip", HttpContext.UserHostAddress()?.ToString());
             //packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
             //packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
             //packageReqHandler.SetParameter("product_id", productId);
@@ -345,7 +359,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             "test",
             sp_billno,
             1,
-            Request.UserHostAddress,
+            HttpContext.UserHostAddress()?.ToString(),
             TenPayV3Info.TenPayV3Notify,
             TenPayV3Type.NATIVE,
             null,
@@ -359,15 +373,28 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string codeUrl = result.code_url;
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(codeUrl, BarcodeFormat.QR_CODE, 600, 600);
-            BarcodeWriter bw = new BarcodeWriter();
+            var bw = new ZXing.BarcodeWriterPixelData();
 
-            var ms = new MemoryStream();
-            var bitmap = bw.Write(bitMatrix);
-            bitmap.Save(ms, ImageFormat.Png);
-            //return File(ms, "image/png");
-            ms.WriteTo(Response.OutputStream);
-            Response.ContentType = "image/png";
-            return null;
+            var pixelData = bw.Write(bitMatrix);
+            using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    try
+                    {
+                        // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                        System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bitmapData);
+                    }
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return File(ms, "image/png");
+                }
+            }
         }
 
         /// <summary>
@@ -386,7 +413,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             payHandler.SetParameter("body", "test");//商品描述
             payHandler.SetParameter("total_fee", "1");//总金额
             payHandler.SetParameter("out_trade_no", sp_billno);//产生随机的商户订单号
-            payHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);//终端ip
+            payHandler.SetParameter("spbill_create_ip", HttpContext.UserHostAddress()?.ToString());//终端ip
             payHandler.SetParameter("appid", TenPayV3Info.AppId);//公众账号ID
             payHandler.SetParameter("mch_id", TenPayV3Info.MchId);//商户号
             payHandler.SetParameter("nonce_str", nonceStr);//随机字符串
@@ -433,7 +460,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 //发送支付成功的模板消息
                 try
                 {
-                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string appId = Config.DefaultSenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     string openId = resHandler.GetParameter("openid");
                     var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
@@ -546,9 +573,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string nonceStr = TenPayV3Util.GetNoncestr();
 
-            string outTradeNo = (string)(Session["BillNo"]);
+            string outTradeNo = HttpContext.Session.GetString("BillNo");
             string outRefundNo = "OutRefunNo-" + DateTime.Now.Ticks;
-            int totalFee = (int)(Session["BillFee"]);
+            int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
             int refundFee = totalFee;
             string opUserId = TenPayV3Info.MchId;
             var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
@@ -619,7 +646,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult RefundNotifyUrl()
         {
-            WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.Request.UserHostAddress);
+            WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.UserHostAddress()?.ToString());
 
             string responseCode = "FAIL";
             string responseMsg = "FAIL";
@@ -689,7 +716,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult DownloadBill(string date)
         {
-            if (!Request.IsLocal)
+            if (!Request.IsLocal())
             {
                 return Content("出于安全考虑，此操作限定在本机上操作（实际项目可以添加登录权限限制后远程操作）！");
             }
@@ -720,7 +747,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 @"F:\apiclient_cert.p12",     //证书物理地址
                 "接受收红包的用户的openId",   //接受收红包的用户的openId
                 "红包发送者名称",             //红包发送者名称
-                Request.UserHostAddress,      //IP
+                HttpContext.UserHostAddress()?.ToString(),      //IP
                 100,                          //付款金额，单位分
                 "红包祝福语",                 //红包祝福语
                 "活动名称",                   //活动名称
@@ -902,15 +929,28 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
-            BarcodeWriter bw = new BarcodeWriter();
+            var bw = new ZXing.BarcodeWriterPixelData();
 
-            var ms = new MemoryStream();
-            var bitmap = bw.Write(bitMatrix);
-            bitmap.Save(ms, ImageFormat.Png);
-            //return File(ms, "image/png");
-            ms.WriteTo(Response.OutputStream);
-            Response.ContentType = "image/png";
-            return null;
+            var pixelData = bw.Write(bitMatrix);
+            using (var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                    try
+                    {
+                        // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                        System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                    }
+                    finally
+                    {
+                        bitmap.UnlockBits(bitmapData);
+                    }
+                    bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+
+                    return File(ms, "image/png");
+                }
+            }
         }
 
 
@@ -939,7 +979,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                     string openId = null;//此时在外部浏览器，无法或得到OpenId
 
-                    string sp_billno = Request["order_no"];
+                    string sp_billno = Request.Query["order_no"];
                     if (string.IsNullOrEmpty(sp_billno))
                     {
                         //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
@@ -948,7 +988,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     }
                     else
                     {
-                        sp_billno = Request["order_no"];
+                        sp_billno = Request.Query["order_no"];
                     }
 
                     var timeStamp = TenPayV3Util.GetTimestamp();
@@ -957,7 +997,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     var body = product == null ? "test" : product.Name;
                     var price = product == null ? 100 : (int)product.Price * 100;
                     //var ip = Request.Params["REMOTE_ADDR"];
-                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
+                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
                                                                   //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -991,8 +1031,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     ViewData["MWebUrl"] = mwebUrl;
 
                     //临时记录订单信息，留给退款申请接口测试使用
-                    Session["BillNo"] = sp_billno;
-                    Session["BillFee"] = price;
+                    HttpContext.Session.SetString("BillNo", sp_billno);
+                    HttpContext.Session.SetString("BillFee", price.ToString());
 
                     return View();
                 }

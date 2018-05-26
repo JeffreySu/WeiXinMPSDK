@@ -185,7 +185,9 @@ Senparc official tutorials
 
 
 ### Follow Demo Official Account(SenparcRobot)：
-[![qrcode](http://sdk.weixin.senparc.com/Images/qrcode.jpg)](http://weixin.senparc.com/)
+|Senparc Helper Official Account|Senparc Helper Mini-Program| BookHelper |
+|--|--|--|
+| <img src="https://sdk.weixin.senparc.com/Images/qrcode.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/SenparcRobot_MiniProgram.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/qrcode-bookhelper.jpg" width="258" /> |
 
 
 ## Develop with .net Core

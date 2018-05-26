@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 if (!string.IsNullOrEmpty(messageHandler.TextResponseMessage))
                 {
-                    //messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    //messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
                     var responseText = messageHandler.TextResponseMessage;
                     using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                     {
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                     if (messageHandler.FinalResponseDocument != null)
                     {
-                        //messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                        //messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
                         using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                         {
                             sw.Write(messageHandler.FinalResponseDocument.ToString());

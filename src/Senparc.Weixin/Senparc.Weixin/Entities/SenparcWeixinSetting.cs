@@ -130,6 +130,14 @@ namespace Senparc.Weixin.Entities
         /// Component_Secret
         /// </summary>
         public string Component_Secret { get; set; }
+        /// <summary>
+        /// 全局统一的 Component_Token（非必须）
+        /// </summary>
+        public string Component_Token { get; set; }
+        /// <summary>
+        /// 全局统一的 Component_EncodingAESKey（非必须）
+        /// </summary>
+        public string Component_EncodingAESKey { get; set; }
 
         #endregion
 

@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180526
+    修改描述：v4.22.0-rc1 使用 Newtonsoft.Json 进行序列化
+
 ----------------------------------------------------------------*/
 
 
@@ -87,7 +91,7 @@ namespace Senparc.Weixin.Helpers
                 NullValueHandling = NullValueHandling.Ignore,
             };
 
-            jsonString = JsonConvert.SerializeObject(data, settings);
+            jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data, settings);
 #endif
 
 

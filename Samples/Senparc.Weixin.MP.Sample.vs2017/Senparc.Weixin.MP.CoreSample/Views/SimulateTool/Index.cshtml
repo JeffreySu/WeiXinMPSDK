@@ -6,8 +6,6 @@
     var timestamp = DateTime.Now.Ticks.ToString();
     var echostr = DateTime.Now.Ticks.ToString();
     var token = ViewData["Token"] as string;
-
-    var host = this.Context.Request.Host.Value;
 }
 @section HeaderContent
 {
@@ -146,9 +144,9 @@
 
         function switchAsyncController() {
             if ($('#UseAsyncController:checked').length > 0) {
-                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", host)');
+                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host)');
             } else {
-                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", host)');
+                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Context.Request.Host.Host)');
             }
         }
 
@@ -170,7 +168,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", host), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
@@ -305,7 +303,7 @@
                 </div>
             </li>
             <li>
-                <label class="control-label">MagId:</label>
+                <label class="control-label">MsgId:</label>
                 <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
             </li>
             <li>
@@ -329,9 +327,8 @@
             </li>
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">
-                    模拟并发响应时间：<span id="loadTime"></span> ms<br />
-                    由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
+                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
                 </label>
             </li>
             <li></li>

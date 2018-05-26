@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.21.5-rc1</Version>
+    <Version>4.22.1-rc1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -234,6 +234,10 @@
       v4.21.5-rc1 修改 TenPayV3Util.DecodeRefundReqInfo() 方法，解决重复 base64 解码的问题
       v4.21.6-rc1 添加 RequestUtility.GetRequestMemoryStream() 方法
 
+      v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
+      v4.22.1-rc1 
+        1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+        2、添加 RequestExtension
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

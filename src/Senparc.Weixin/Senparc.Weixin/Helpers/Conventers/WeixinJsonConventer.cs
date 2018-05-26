@@ -34,6 +34,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160722
     修改描述：v4.11.5 修复WeixinJsonConventer.Serialize中的错误。感谢 @jiehanlin
     
+    修改标识：Senparc - 20180526
+    修改描述：v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
+    
 ----------------------------------------------------------------*/
 
 
@@ -271,7 +274,7 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public List<Type> TypesToIgnoreNull { get; set; }
         /// <summary>
-        /// JSON 输出设置 构造函数  优先级： ignoreNulls < propertiesToIgnoreNull < typesToIgnoreNull
+        /// JSON 输出设置 构造函数  优先级： ignoreNulls &lt; propertiesToIgnoreNull &lt; typesToIgnoreNull
         /// </summary>
         /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
         /// <param name="propertiesToIgnoreNull">需要特殊忽略null值的属性名称</param>

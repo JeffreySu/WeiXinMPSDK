@@ -18,13 +18,14 @@ using System.Linq;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class MediaController : Controller
     {
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+        public static readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        private string appSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         public FileResult GetVoice(string mediaId)
         {
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [HttpPost]
         public ActionResult TestUploadMediaFile(string token, UploadMediaFileType type, int contentLength /*, HttpPostedFileBase postedFile*/)
         {
-            var inputStream = Request.InputStream;
+            var inputStream = Request.Body;
             if (contentLength != inputStream.Length)
             {
                 return Content("ContentLength不正确，可能接收错误！");

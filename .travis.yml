@@ -1,12 +1,25 @@
 language: csharp
-solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
-mono: none
-dotnet: 2.1.0-rc1-final
-dist: trusty
+solution: 
+  - xbuild /p:Configuration=Release ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
+  
+install:
+ - nuget install Newtonsoft.Json -Version 11.0.2
+ - nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
 
-script:
-  - dotnet restore
-  - dotnet msbuild
+
+
+
+
+
+#language: csharp
+#solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
+#mono: none
+#dotnet: 2.1.0-rc1-final
+#dist: trusty
+
+#script:
+#  - dotnet restore
+#  - dotnet msbuild
 
 
 #dist: trusty

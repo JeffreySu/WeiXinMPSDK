@@ -23,6 +23,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
+    using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+
     //using Senparc.Weixin.MP.CoreSample.Service;
     //using Senparc.Weixin.MP.CoreSample.CustomerMessageHandler;
 
@@ -46,7 +48,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             XDocument requestDoc = null;
             try
             {
-                requestDoc = XDocument.Load(Request.InputStream);
+                requestDoc = XDocument.Load(Request.Body);
 
                 var requestMessage = RequestMessageFactory.GetRequestEntity(requestDoc);
                 //如果不需要记录requestDoc，只需要：
@@ -148,7 +150,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //消息安全验证代码结束
 
             string requestXmlString = null;//请求XML字符串
-            using (var sr = new StreamReader(HttpContext.Request.InputStream))
+            using (var sr = new StreamReader(HttpContext.Request.Body))
             {
                 requestXmlString = sr.ReadToEnd();
             }

@@ -23,6 +23,8 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.IO;
+using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -31,11 +33,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// 为了方便演示，此Controller中没有加入多余的日志记录等示例，保持了最简单的Controller写法。日志等其他操作可以参考WeixinController.cs。
     /// 提示：异步Controller并不是在任何情况下都能提升效率（响应时间），当请求量非常小的时候反而会增加一定的开销。
     /// </summary>
-    public class WeixinAsyncController : AsyncController
+    public class WeixinAsyncController : Controller
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"] ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.DefaultSenparcWeixinSetting.Token ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.DefaultSenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -164,7 +166,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var thread = System.Threading.Thread.CurrentThread;
                 var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,
-                    HttpContext.ApplicationInstance.GetHashCode(),
+                    HttpContext.GetHashCode(),
                     begin,
                     end,
                     t2 - t1

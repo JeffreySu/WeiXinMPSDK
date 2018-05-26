@@ -13,8 +13,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
@@ -25,8 +27,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        public readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        private readonly string appSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         /// <summary>
         /// 
@@ -36,7 +38,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public ActionResult Index(string returnUrl)
         {
             var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
-            Session["State"] = state;//储存随机数到Session
+            HttpContext.Session.SetString("State", state);//储存随机数到Session
 
             ViewData["returnUrl"] = returnUrl;
 
@@ -66,7 +68,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != Session["State"] as string)
+            if (state != HttpContext.Session.GetString("State"))
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
                 //建议用完之后就清空，将其一次性使用
@@ -79,7 +81,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //通过，用code换取access_token
             try
             {
-                result = OAuthApi.GetAccessToken(appId, secret, code);
+                result = OAuthApi.GetAccessToken(appId, appSecret, code);
             }
             catch (Exception ex)
             {
@@ -91,8 +93,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
-            Session["OAuthAccessToken"] = result;
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime",DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
@@ -125,7 +127,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != Session["State"] as string)
+            if (state != HttpContext.Session.GetString("State"))
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
                 //建议用完之后就清空，将其一次性使用
@@ -134,7 +136,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = OAuthApi.GetAccessToken(appId, secret, code);
+            var result = OAuthApi.GetAccessToken(appId, appSecret, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -142,8 +144,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
-            Session["OAuthAccessToken"] = result;
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下
             OAuthUserInfo userInfo = null;
@@ -175,7 +177,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult TestReturnUrl()
         {
-            string msg = "OAuthAccessTokenStartTime：" + Session["OAuthAccessTokenStartTime"];
+            string msg = "OAuthAccessTokenStartTime：" + HttpContext.Session.GetString("OAuthAccessTokenStartTime");
             //注意：OAuthAccessTokenStartTime这里只是为了方便识别和演示，
             //OAuthAccessToken千万千万不能传输到客户端！
 

@@ -235,7 +235,9 @@
       v4.21.6-rc1 添加 RequestUtility.GetRequestMemoryStream() 方法
 
       v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
-      v4.22.1-rc1 丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+      v4.22.1-rc1 
+        1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+        2、添加 RequestExtension
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -74,15 +74,13 @@ namespace Senparc.Weixin.Helpers
         {
             string jsonString;
 #if NET35 || NET40 || NET45
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new JavaScriptConverter[]
-            {
-                new WeixinJsonConventer(data.GetType(), jsonSetting),
-#if !NET35
-                new ExpandoJsonConverter()
-#endif
-            });
-            jsonString = jsSerializer.Serialize(data);
+            //JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            //{
+            //    new WeixinJsonConventer(data.GetType(), jsonSetting),
+            //});
+            //jsonString = jsSerializer.Serialize(data);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(data, new WeiXinJsonSetting(jsonSetting));
 #else
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {

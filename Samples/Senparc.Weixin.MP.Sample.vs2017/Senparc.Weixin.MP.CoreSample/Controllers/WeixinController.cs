@@ -16,20 +16,25 @@ using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
+    using Senparc.Weixin.Entities;
+    using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP.MvcExtension;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+    using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
     public partial class WeixinController : Controller
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.DefaultSenparcWeixinSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.DefaultSenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
-        public WeixinController()
-        {
+        SenparcWeixinSetting _senparcWeixinSetting;
 
+        public WeixinController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        {
+            _senparcWeixinSetting = senparcWeixinSetting.Value;
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var maxRecordCount = 10;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
             #region 设置消息去重
 
@@ -91,7 +96,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 #region 记录 Request 日志
 
-                var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+                var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
                 if (!Directory.Exists(logPath))
                 {
                     Directory.CreateDirectory(logPath);
@@ -147,7 +152,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 #region 异常处理
                 WeixinTrace.Log("MessageHandler错误：{0}", ex.Message);
 
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -192,7 +197,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
             postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
 
             messageHandler.Execute();//执行微信处理过程
 
@@ -208,6 +213,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
          * 因此如果需要深入了解Senparc.Weixin.MP内部处理消息的机制，可以查看WeixinController_OldPost.cs中的OldPost方法。
          * 目前为止OldPost依然有效，依然可用于生产。
          */
+
 
         /// <summary>
         /// 为测试并发性能而建
@@ -225,12 +231,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var thread = System.Threading.Thread.CurrentThread;
             var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,
-                    HttpContext.ApplicationInstance.GetHashCode(),
+                    HttpContext.GetHashCode(),
                     begin,
                     end,
                     t2 - t1
                     );
             return Content(result);
         }
+
     }
 }

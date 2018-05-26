@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -18,14 +20,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string data;
 
-            using (var sr = new StreamReader(Request.InputStream))
+            using (var sr = new StreamReader(Request.GetRequestMemoryStream()))
             {
                 data = sr.ReadToEnd();
             }
 
             var isAjax = Request.IsAjaxRequest();
 
-            Response.SetCookie(new HttpCookie("TestCookie", DateTime.Now.ToString()));
+            Response.Cookies.Append("TestCookie", DateTime.Now.ToString());
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }

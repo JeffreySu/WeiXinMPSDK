@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
+    using Microsoft.AspNetCore.Http;
     using Senparc.Weixin.MP.MvcExtension;
 
     /// <summary>
@@ -26,13 +27,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [WeixinInternalRequest("访问被拒绝，请通过微信客户端访问！","nofilter")]
         public ContentResult Index()
         {
-            return Content("访问正常。当前地址：" + Request.Url.PathAndQuery + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开 http://sdk.weixin.senparc.com/FilterTest/ 进行测试。");
+            return Content("访问正常。当前地址：" + Request.PathAndQuery() + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开 http://sdk.weixin.senparc.com/FilterTest/ 进行测试。");
         }
 
         [WeixinInternalRequest("Message参数将被忽略", "nofilter", RedirectUrl = "/FilterTest/Index?note=has-been-redirected-url")]
         public ContentResult Redirect()
         {
-            return Content("访问正常。当前地址：" + Request.Url.PathAndQuery + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开 http://sdk.weixin.senparc.com/FilterTest/Redirect 进行测试。");
+            return Content("访问正常。当前地址：" + Request.PathAndQuery() + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开 http://sdk.weixin.senparc.com/FilterTest/Redirect 进行测试。");
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ContentResult UserAgent()
         {
-            return Content(Request.UserAgent);
+            return Content(Request.UserAgent());
         }
     }
 }

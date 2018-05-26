@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
@@ -16,8 +17,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
     public class OpenOAuthController : BaseController
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string component_AppId = Config.DefaultSenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Config.DefaultSenparcWeixinSetting.Component_Secret;
         //private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
         #region 开放平台入口及回调
@@ -137,8 +138,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
-            Session["OAuthAccessToken"] = result;
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
@@ -184,8 +185,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
-            Session["OAuthAccessToken"] = result;
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
+
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下
             Open.OAuthAPIs.OAuthUserInfo userInfo = null;
@@ -211,7 +213,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public ActionResult GetAuthorizerInfoResult(string authorizerId)
         {
             var getAuthorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, authorizerId);
-            return Json(getAuthorizerInfoResult, JsonRequestBehavior.AllowGet);
+            return Json(getAuthorizerInfoResult);
         }
 
         public ActionResult RefreshAuthorizerAccessToken(string authorizerId)
@@ -226,7 +228,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var refreshToken = authorizationInfo.authorizer_refresh_token;
             var result = AuthorizerContainer.RefreshAuthorizerToken(componentAccessToken, component_AppId, authorizerId,
                 refreshToken);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result);
         }
 
         #endregion

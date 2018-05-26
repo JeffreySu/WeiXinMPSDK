@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
@@ -10,43 +10,42 @@
 
 using System;
 using System.IO;
-using System.Text;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.Entities;
-using Microsoft.Extensions.Options;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
+    using Senparc.Weixin.MP.MvcExtension;
+    using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+
     public partial class WeixinController : Controller
     {
+        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
-        SenparcWeixinSetting _senparcWeixinSetting;
-
-        public WeixinController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public WeixinController()
         {
-            _senparcWeixinSetting = senparcWeixinSetting.Value;
+
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：https://sdk.weixin.senparc.com/weixin
+        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
         public ActionResult Get(PostModel postModel, string echostr)
         {
-            if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.Token))
+            if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 return Content(echostr); //返回随机字符串则表示验证通过
             }
             else
             {
-                return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.Token) + "。" +
+                return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
                     "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }
@@ -58,18 +57,18 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(PostModel postModel/*,[FromBody]string requestXml*/)
+        public ActionResult Post(PostModel postModel)
         {
-            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.Token))
+            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 return Content("参数错误！");
             }
 
             #region 打包 PostModel 信息
 
-            postModel.Token = _senparcWeixinSetting.Token;//根据自己后台的设置保持一致
-            postModel.EncodingAESKey = _senparcWeixinSetting.EncodingAESKey;//根据自己后台的设置保持一致
-            postModel.AppId = _senparcWeixinSetting.WeixinAppId;//根据自己后台的设置保持一致
+            postModel.Token = Token;//根据自己后台的设置保持一致
+            postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
+            postModel.AppId = AppId;//根据自己后台的设置保持一致
 
             #endregion
 
@@ -77,49 +76,39 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var maxRecordCount = 10;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
+            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+
+            #region 设置消息去重
+
+            /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
+             * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
+            messageHandler.OmitRepeatedMessage = true;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
+
+            #endregion
 
             try
             {
 
                 #region 记录 Request 日志
 
-                var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+                var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
                 if (!Directory.Exists(logPath))
                 {
                     Directory.CreateDirectory(logPath);
                 }
 
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-
-                var requestDocumentFileName = Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName));
-                var ecryptRequestDocumentFileName = Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName));
-#if NET45
-                messageHandler.RequestDocument.Save(requestDocumentFileName);
+                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(), 
+                    messageHandler.RequestMessage.FromUserName, 
+                    messageHandler.RequestMessage.MsgType)));
                 if (messageHandler.UsingEcryptMessage)
                 {
-                    messageHandler.EcryptRequestDocument.Save(ecryptRequestDocumentFileName);
+                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(), 
+                        messageHandler.RequestMessage.FromUserName, 
+                        messageHandler.RequestMessage.MsgType)));
                 }
-#else
-                using (FileStream fs = new FileStream(requestDocumentFileName, FileMode.CreateNew, FileAccess.ReadWrite))
-                {
-                    messageHandler.RequestDocument.Save(fs);
-                }
-                if (messageHandler.UsingEcryptMessage)
-                {
-                    using (FileStream fs = new FileStream(ecryptRequestDocumentFileName, FileMode.CreateNew, FileAccess.ReadWrite))
-                    {
-                        messageHandler.EcryptRequestDocument.Save(fs);
-                    }
-                }
-#endif
-
 
                 #endregion
-
-                /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
-                 * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
-                messageHandler.OmitRepeatedMessage = true;
 
                 //执行微信处理过程
                 messageHandler.Execute();
@@ -132,28 +121,22 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 //{
                 //    throw new Exception(messageHandler.RequestDocument.ToString());
                 //}
-
-                var responseDocumentFileName = Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName));
-                var ecryptResponseDocumentFileName = Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName));
-
                 if (messageHandler.ResponseDocument != null)
                 {
-                    using (FileStream fs = new FileStream(responseDocumentFileName, FileMode.CreateNew, FileAccess.ReadWrite))
-                    {
-                        messageHandler.ResponseDocument.Save(fs);
-                    }
+                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}_{2}.txt", _getRandomFileName(), 
+                        messageHandler.ResponseMessage.ToUserName,
+                        messageHandler.ResponseMessage.MsgType)));
                 }
 
                 if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
                 {
-                    using (FileStream fs = new FileStream(ecryptResponseDocumentFileName, FileMode.CreateNew, FileAccess.ReadWrite))
-                    {
-                        //记录加密后的响应信息
-                        messageHandler.FinalResponseDocument.Save(fs);
-                    }
+                    //记录加密后的响应信息
+                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(), 
+                        messageHandler.ResponseMessage.ToUserName,
+                        messageHandler.ResponseMessage.MsgType)));
                 }
 
-                #endregion`
+                #endregion
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 //return new WeixinResult(messageHandler);//v0.8+
@@ -164,32 +147,28 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 #region 异常处理
                 WeixinTrace.Log("MessageHandler错误：{0}", ex.Message);
 
-
-                using (var fs = new FileStream(Server.GetMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt"), FileMode.CreateNew, FileAccess.ReadWrite))
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
-                    using (TextWriter tw = new StreamWriter(fs))
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace);
+                    //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
+
+                    if (messageHandler.ResponseDocument != null)
                     {
-                        tw.WriteLine("ExecptionMessage:" + ex.Message);
-                        tw.WriteLine(ex.Source);
-                        tw.WriteLine(ex.StackTrace);
-                        //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
-
-                        if (messageHandler.ResponseDocument != null)
-                        {
-                            tw.WriteLine(messageHandler.ResponseDocument.ToString());
-                        }
-
-                        if (ex.InnerException != null)
-                        {
-                            tw.WriteLine("========= InnerException =========");
-                            tw.WriteLine(ex.InnerException.Message);
-                            tw.WriteLine(ex.InnerException.Source);
-                            tw.WriteLine(ex.InnerException.StackTrace);
-                        }
-
-                        tw.Flush();
-                        //tw.Close();
+                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
                     }
+
+                    if (ex.InnerException != null)
+                    {
+                        tw.WriteLine("========= InnerException =========");
+                        tw.WriteLine(ex.InnerException.Message);
+                        tw.WriteLine(ex.InnerException.Source);
+                        tw.WriteLine(ex.InnerException.StackTrace);
+                    }
+
+                    tw.Flush();
+                    tw.Close();
                 }
                 return Content("");
                 #endregion
@@ -203,17 +182,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [ActionName("MiniPost")]
         public ActionResult MiniPost(PostModel postModel)
         {
-            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, _senparcWeixinSetting.Token))
+            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 //return Content("参数错误！");//v0.7-
                 return new WeixinResult("参数错误！");//v0.8+
             }
 
-            postModel.Token = _senparcWeixinSetting.Token;
-            postModel.EncodingAESKey = _senparcWeixinSetting.EncodingAESKey;//根据自己后台的设置保持一致
-            postModel.AppId = _senparcWeixinSetting.WeixinAppId;//根据自己后台的设置保持一致
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
+            postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
+            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
 
             messageHandler.Execute();//执行微信处理过程
 
@@ -230,8 +209,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
          * 目前为止OldPost依然有效，依然可用于生产。
          */
 
-
-#if NET45
         /// <summary>
         /// 为测试并发性能而建
         /// </summary>
@@ -255,6 +232,5 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     );
             return Content(result);
         }
-#endif
     }
 }

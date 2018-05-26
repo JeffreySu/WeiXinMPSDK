@@ -16,7 +16,7 @@ using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open;

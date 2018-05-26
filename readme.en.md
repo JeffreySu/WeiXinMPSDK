@@ -120,8 +120,8 @@ SDK Modules
 [coreY]: https://img.shields.io/badge/core-Y-brightgreen.svg
 [coreN]: https://img.shields.io/badge/core-N-lightgrey.svg
 [coreN-]: https://img.shields.io/badge/core----lightgrey.svg
-[core20Y]: https://img.shields.io/badge/core2.0-Y-brightgreen.svg
-[core20N]: https://img.shields.io/badge/core2.0-N-lightgrey.svg
+[core20Y]: https://img.shields.io/badge/core2.x-Y-brightgreen.svg
+[core20N]: https://img.shields.io/badge/core2.x-N-lightgrey.svg
 
 * Supported all Wechat 6 APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
 * Supported user dialogue context, to solve application service can not use Session to handle users' dialogues.

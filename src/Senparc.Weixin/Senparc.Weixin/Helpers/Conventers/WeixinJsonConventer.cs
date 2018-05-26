@@ -46,9 +46,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-#if NET35 || NET40 || NET45
-using System.Web.Script.Serialization;
-#endif
+//#if NET35 || NET40 || NET45
+//using System.Web.Script.Serialization;
+//#endif
 
 using Senparc.Weixin.Entities;
 using Newtonsoft.Json;
@@ -122,117 +122,117 @@ namespace Senparc.Weixin.Helpers
 
 #if NET35 || NET40 || NET45
 
-    /// <summary>
-    /// 微信 JSON 转换器
-    /// </summary>
-    public class WeixinJsonConventer : JavaScriptConverter
-    {
-        private readonly JsonSetting _jsonSetting;
-        private readonly Type _type;
+//    /// <summary>
+//    /// 微信 JSON 转换器
+//    /// </summary>
+//    public class WeixinJsonConventer : JavaScriptConverter
+//    {
+//        private readonly JsonSetting _jsonSetting;
+//        private readonly Type _type;
 
-        public WeixinJsonConventer(Type type, JsonSetting jsonSetting = null)
-        {
-            this._jsonSetting = jsonSetting ?? new JsonSetting();
-            this._type = type;
-        }
+//        public WeixinJsonConventer(Type type, JsonSetting jsonSetting = null)
+//        {
+//            this._jsonSetting = jsonSetting ?? new JsonSetting();
+//            this._type = type;
+//        }
 
-        public override IEnumerable<Type> SupportedTypes
-        {
-            get
-            {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
+//        public override IEnumerable<Type> SupportedTypes
+//        {
+//            get
+//            {
+//                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
-                if (_jsonSetting.TypesToIgnoreNull.Count > 0)
-                {
-                    typeList.AddRange(_jsonSetting.TypesToIgnoreNull);
-                }
+//                if (_jsonSetting.TypesToIgnoreNull.Count > 0)
+//                {
+//                    typeList.AddRange(_jsonSetting.TypesToIgnoreNull);
+//                }
 
-                if (_jsonSetting.IgnoreNulls)
-                {
-                    typeList.Add(_type);
-                }
+//                if (_jsonSetting.IgnoreNulls)
+//                {
+//                    typeList.Add(_type);
+//                }
 
-                return new ReadOnlyCollection<Type>(typeList);
-            }
-        }
+//                return new ReadOnlyCollection<Type>(typeList);
+//            }
+//        }
 
-        public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
-        {
-            var result = new Dictionary<string, object>();
-            if (obj == null)
-            {
-                return result;
-            }
+//        public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
+//        {
+//            var result = new Dictionary<string, object>();
+//            if (obj == null)
+//            {
+//                return result;
+//            }
 
-            var properties = obj.GetType().GetProperties();
-            foreach (var propertyInfo in properties)
-            {
-                //continue;
-                //排除的属性
-                bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
-                if (excludedProp)
-                {
-                    result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
-                }
-                else
-                {
-                    if (!this._jsonSetting.PropertiesToIgnoreNull.Contains(propertyInfo.Name))
-                    {
-                        bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
-                        if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
-                        {
-                            continue;
-                        }
+//            var properties = obj.GetType().GetProperties();
+//            foreach (var propertyInfo in properties)
+//            {
+//                //continue;
+//                //排除的属性
+//                bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
+//                if (excludedProp)
+//                {
+//                    result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+//                }
+//                else
+//                {
+//                    if (!this._jsonSetting.PropertiesToIgnoreNull.Contains(propertyInfo.Name))
+//                    {
+//                        bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
+//                        if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+//                        {
+//                            continue;
+//                        }
 
 
-                        //当值匹配时需要忽略的属性
+//                        //当值匹配时需要忽略的属性
 
-#if NET35 || NET40
-                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.IgnoreValueAttribute), false).FirstOrDefault() as JsonSetting.IgnoreValueAttribute;
-                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj, null)))
-                        {
-                            continue;
-                        }
+//#if NET35 || NET40
+//                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.IgnoreValueAttribute), false).FirstOrDefault() as JsonSetting.IgnoreValueAttribute;
+//                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj, null)))
+//                        {
+//                            continue;
+//                        }
 
-                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.EnumStringAttribute), false).FirstOrDefault() as JsonSetting.EnumStringAttribute;
-                        if (enumStringAttri != null)
-                        {
-                            //枚举类型显示字符串
-                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null).ToString());
-                        }
-                        else
-                        {
-                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
-                        }
-#else
-                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
-                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
-                        {
-                            continue;
-                        }
+//                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.EnumStringAttribute), false).FirstOrDefault() as JsonSetting.EnumStringAttribute;
+//                        if (enumStringAttri != null)
+//                        {
+//                            //枚举类型显示字符串
+//                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null).ToString());
+//                        }
+//                        else
+//                        {
+//                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+//                        }
+//#else
+//                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
+//                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
+//                        {
+//                            continue;
+//                        }
 
-                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
-                        if (enumStringAttri != null)
-                        {
-                            //枚举类型显示字符串
-                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
-                        }
-                        else
-                        {
-                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
-                        }
-#endif
-                    }
-                }
-            }
-            return result;
-        }
+//                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
+//                        if (enumStringAttri != null)
+//                        {
+//                            //枚举类型显示字符串
+//                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
+//                        }
+//                        else
+//                        {
+//                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+//                        }
+//#endif
+//                    }
+//                }
+//            }
+//            return result;
+//        }
 
-        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer)
-        {
-            throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
-        }
-    }
+//        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer)
+//        {
+//            throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
+//        }
+//    }
 
 #if NET35||NET40||NET45
     public class WeiXinJsonSetting : JsonSerializerSettings

@@ -176,7 +176,7 @@ senparc.menu = {
                 dataType: 'json',
                 success: function (json) {
                     if (json.Success) {
-                        menuState.html('上传成功');
+                        menuState.html('上传成功。' + json.Message);
                     } else {
                         menuState.html(json.Message);
                     }

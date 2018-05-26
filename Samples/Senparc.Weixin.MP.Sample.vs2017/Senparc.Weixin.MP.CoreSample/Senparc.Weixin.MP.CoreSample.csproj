@@ -59,6 +59,7 @@
     <None Include="Views\TenPay\PayNotifyUrl.cshtml" />
     <None Include="Views\TenPay\SharedAddress.cshtml" />
     <None Include="Views\WeixinJSSDK\Index.cshtml" />
+    <None Include="wwwroot\Content\danktooltip\js\jquery.darktooltip.min.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
   </ItemGroup>

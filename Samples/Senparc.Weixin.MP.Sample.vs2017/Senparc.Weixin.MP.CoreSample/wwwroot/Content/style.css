@@ -313,7 +313,7 @@ img.official-img {
 }
 
 #book-title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin: 10px 30px;
     clear: both;
@@ -626,8 +626,9 @@ img.official-img {
 }
 
 p.crowdfunding-note {
-    padding-top: 45px;
+    padding-top: 77px;
     text-align: left;
+    word-spacing: 2px;
 }
 
 .crowdfunding-note p {
@@ -635,7 +636,7 @@ p.crowdfunding-note {
 }
 
 .crowdfunding-note img {
-    padding: 25px;
+    padding: 40px;
     width: 420px;
     max-width: 90%;
 }
@@ -676,7 +677,11 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 48px;
+        padding-left: 30px;
+    }
+
+    .nav-catalog li a:hover {
+        color:#b8b8b8;
     }
 
     .container-left {
@@ -866,7 +871,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 33px;
+        padding-left: 30px;
     }
 
     .wrapper {
@@ -2003,4 +2008,15 @@ p.crowdfunding-note {
     .feedback {
         margin-top: 0;
     }
+}
+.textTop {
+    margin-top: 37px;
+}
+.contentTop {
+    padding-top: 35px;
+}
+.top {
+    padding-top: 35px;
+    text-align: left;
+    word-spacing: 2px;
 }

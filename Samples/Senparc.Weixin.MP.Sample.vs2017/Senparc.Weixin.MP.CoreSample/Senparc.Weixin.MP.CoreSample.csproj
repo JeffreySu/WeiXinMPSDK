@@ -22,6 +22,43 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Analysis\Index.cshtml" />
+    <None Include="Views\AsyncMethods\Index.cshtml" />
+    <None Include="Views\Cache\Test.cshtml" />
+    <None Include="Views\Device\Index.cshtml" />
+    <None Include="Views\Document\Index.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Menu\Index.cshtml" />
+    <None Include="Views\OAuth2\Index.cshtml" />
+    <None Include="Views\OAuth2\UserInfoCallback.cshtml" />
+    <None Include="Views\OpenOAuth\Index.cshtml" />
+    <None Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
+    <None Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
+    <None Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <None Include="Views\Plugins\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\SimulateTool\Index.cshtml" />
+    <None Include="Views\TenPayV3\BankCode.cshtml" />
+    <None Include="Views\TenPayV3\H5Pay.cshtml" />
+    <None Include="Views\TenPayV3\H5PaySuccess.cshtml" />
+    <None Include="Views\TenPayV3\Index.cshtml" />
+    <None Include="Views\TenPayV3\JsApi.cshtml" />
+    <None Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
+    <None Include="Views\TenPayV3\ProductItem.cshtml" />
+    <None Include="Views\TenPayV3\ProductList.cshtml" />
+    <None Include="Views\TenPay\Delivernotify.cshtml" />
+    <None Include="Views\TenPay\FeedBack.cshtml" />
+    <None Include="Views\TenPay\Index.cshtml" />
+    <None Include="Views\TenPay\JsApi.cshtml" />
+    <None Include="Views\TenPay\Native.cshtml" />
+    <None Include="Views\TenPay\NativeCall.cshtml" />
+    <None Include="Views\TenPay\PayNotifyUrl.cshtml" />
+    <None Include="Views\TenPay\SharedAddress.cshtml" />
+    <None Include="Views\WeixinJSSDK\Index.cshtml" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
   </ItemGroup>

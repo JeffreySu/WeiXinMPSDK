@@ -14,10 +14,10 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
-    public class AsyncMethodsController : AsyncController
+    public class AsyncMethodsController : Controller
     {
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;
 
         public ActionResult Index()
         {

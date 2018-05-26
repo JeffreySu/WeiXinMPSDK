@@ -46,9 +46,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-#if NET35 || NET40 || NET45
-using System.Web.Script.Serialization;
-#endif
+//#if NET35 || NET40 || NET45
+//using System.Web.Script.Serialization;
+//#endif
 
 using Senparc.Weixin.Entities;
 using Newtonsoft.Json;

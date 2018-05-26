@@ -41,7 +41,7 @@ using ZXing.Common;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CoreSample.Filters;
 using System.Web.Security;
-using Senparc.Weixin.MP.CoreSample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -448,7 +448,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 #region 记录日志
 
-                var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
+                var logDir = Server.GetMapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);

@@ -23,17 +23,32 @@ using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class HomeController : BaseController
     {
+        IHostingEnvironment _env;
+
+        public HomeController(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+
         public ActionResult Index()
         {
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
-                FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
+            {
+                var dllPath =
+                    Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(
+                        System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName)); //dll所在目录
+                return FileVersionInfo.GetVersionInfo(dllPath);
+            };
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
                  Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
@@ -59,7 +74,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
-            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
+            Weixin.WeixinTrace.SendCustomLog("首页被访问",
+                    string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
+            //or use Header: REMOTE_ADDR
 
             return View();
         }
@@ -105,12 +122,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult GetAccessTokenBags()
         {
-            if (!Request.IsLocal)
+            if (!Request.IsLocal())
             {
-                return new HttpUnauthorizedResult();//只允许本地访问
+                return new UnauthorizedResult();//只允许本地访问
             }
             var accessTokenBags = AccessTokenContainer.GetAllItems();
-            return Json(accessTokenBags, JsonRequestBehavior.AllowGet);
+            return Json(accessTokenBags);
         }
     }
 }

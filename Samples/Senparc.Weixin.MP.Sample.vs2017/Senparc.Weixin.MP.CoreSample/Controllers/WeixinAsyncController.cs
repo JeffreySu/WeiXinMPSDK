@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
 
             messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             #region 记录 Request 日志
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);

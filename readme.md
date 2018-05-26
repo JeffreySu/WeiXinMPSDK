@@ -45,6 +45,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [Demo 文件夹说明（Samples文件夹下）](#demo-文件夹说明samples文件夹下)
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
+    * [如何处理微信公众账号请求](#如何处理微信公众账号请求)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
 * [如何开发小程序](#如何开发小程序) <!-- * [已实现功能](#已实现功能) -->
 * [各分支说明](#各分支说明)

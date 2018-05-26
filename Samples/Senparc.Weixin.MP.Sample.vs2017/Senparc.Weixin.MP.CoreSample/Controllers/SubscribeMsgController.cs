@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -19,7 +20,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             // 该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，
             // 可设置为简单的随机数加session进行校验，开发者可以填写a-zA-Z0-9的参数值，
             // 最多128字节，要求做urlencode
-            Session["WeixinSubscribeMsgReserved"] = reserved;
+            HttpContext.Session.SetString("WeixinSubscribeMsgReserved", reserved);
 
             string templateId = "63l8YSI2uYqlZwb8dkMSy2Lp8caHcaWc2Id0b_XYvtM";//订阅消息模板ID，登录公众平台后台，在接口权限列表处可查看订阅模板ID
             var returnUrl = "https://sdk.weixin.senparc.com/SubscribeMsg/Result";
@@ -31,7 +32,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             //template_id就是微信后台可以看到的template_id
 
-            if (reserved != Session["WeixinSubscribeMsgReserved"] as string)
+            if (reserved != HttpContext.Session.GetString("WeixinSubscribeMsgReserved"))
             {
                 //reserved用于保持请求和回调的状态，授权请后原样带回给第三方。该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加session进行校验，开发者可以填写a-zA-Z0-9的参数值，最多128字节
                 return Content("请求错误！");
@@ -39,7 +40,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             WeixinTrace.SendCustomLog("一次性订阅消息-参数", string.Format("openId：{0}，templateId：{1}，scene：{2}", openId, template_id, scene));
 
-            var action = Request.QueryString["action"];//MVC直接通过Action获取到的action参数为ActionName
+            var action = Request.Query["action"].ToString();//MVC直接通过Action获取到的action参数为ActionName
 
             if (action == "confirm")
             {

@@ -192,12 +192,12 @@ Senparc official tutorials
 
 ## Develop with .net Core
 
-> Current branch including .NET Framework 4.5 / 4.6.1 及 .NET Core 1.1 / 2.0 full version codes.<br>
+> Current branch including .NET Framework 4.5 / 4.6.1 及 .NET Core 2.0 / 2.1 full version codes.<br>
 > .NET Framework 4.5 Demo under `/src/Senparc.Weixin.MP.Sample` directory, <br>
 > .NET Core 2.0 Demo under `/src/Senparc.Weixin.MP.Sample.vs2017` directory.<br>
 > Attention: the source code of the Senparc.Weixin SDK library referenced by the above two Demo is exactly the same, it will automatically select the output version according to the conditions when compiling and running.
 
-> All of the following introduction use the example of the .NET Framework.
+> All of the following introduction use the example of the .NET Framework 4.5.
 
 ## Contribute Code
 

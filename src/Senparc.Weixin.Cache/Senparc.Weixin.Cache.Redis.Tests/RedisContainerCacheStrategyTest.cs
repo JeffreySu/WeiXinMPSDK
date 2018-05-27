@@ -115,15 +115,22 @@ namespace Senparc.Weixin.Cache.Redis.Tests
 
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
+            Console.WriteLine("current count:" + count);
+            Console.WriteLine("new item:" + key);
             cache.InsertToCache(key, new TestContainerBag1()
             {
-
+                Key = key,
+                Name = "Name"
             });
 
             var item = cache.Get(key);
             Assert.IsNotNull(item);
+            Assert.IsNotNull(item.Key);
+
+            Console.WriteLine("read new item from redis:" + item.Key);
+
             var count2 = cache.GetCount();
-            Assert.AreEqual(count + 1, count2);
+            Assert.AreEqual(count + 1, count2);//如果这里报错，查看一下是否从其他的命名空间下面读取了
 
             cache.RemoveFromCache(key);
             item = cache.Get(key);

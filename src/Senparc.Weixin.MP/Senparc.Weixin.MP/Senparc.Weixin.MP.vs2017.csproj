@@ -396,7 +396,9 @@
 
       v14.13.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
-      v14.14.0-rc1 CardAPI 升级到新的 Newtonsoft.Json 的序列化参数
+      v14.14.0-rc1
+      1、支持 Senparc.Weixin v4.22.0-rc1
+      2、CardAPI 升级到新的 Newtonsoft.Json 的序列化参数
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

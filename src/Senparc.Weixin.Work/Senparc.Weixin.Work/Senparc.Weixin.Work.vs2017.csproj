@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.5.5-rc1</Version>
+    <Version>1.6.0-rc1</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -72,6 +72,10 @@
       v1.4.2 修改 AsynchronousReplaceUserResult 参数类型
 
       v1.5.0-rc1 支持 .NET Core 2.1.0-rc1-final
+      
+      v1.6.0-rc1 
+	      1、支持 Senparc.Weixin v4.22.0-rc1
+	      2、修复 MediaApi.UploadimgMedia() 方法文件上传问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

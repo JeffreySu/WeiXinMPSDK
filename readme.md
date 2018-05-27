@@ -2,6 +2,7 @@ Senparc.Weixin —— 微信 .NET SDK
 =================
 
 <!-- [![Build Status](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)-->
+[![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master)
 [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
@@ -22,7 +23,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 公告
 
-> _为更好地带动和帮助广大开发者向 .net core 转型，本项目的 .net core Sample 正在完善中（演示功能将和 .net 4.5 的 Sample 同步），尽请关注，欢迎交流！_
+> _为更好地带动和帮助广大开发者向 .net core 转型，本项目的 [.net core Sample](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples/Senparc.Weixin.MP.Sample.vs2017) 已经完成从 .net framework 4.5 的移植，演示功能已经完整，尽请关注，欢迎交流！_
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
 <!-- _2. `Senparc.Weixin.Plugins`计划已经启动，详情 [点击这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Plugins)。_ -->

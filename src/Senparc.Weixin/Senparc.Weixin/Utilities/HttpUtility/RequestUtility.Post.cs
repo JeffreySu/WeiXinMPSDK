@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改描述：移植Post方法过来
 
+    修改标识：Senparc - 20180516
+    修改描述：v4.21.1-rc1  解决 RequestUtility.HttpResponsePost() 和 HttpPostAsync() 方法
+                           在 .net core 下没有及时关闭 postStream 的问题
+    
 ----------------------------------------------------------------*/
 
 using System;
@@ -47,9 +51,10 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.WebProxy;
+using Senparc.Weixin.Exceptions;
 #endif
 
 namespace Senparc.Weixin.HttpUtility
@@ -181,7 +186,7 @@ namespace Senparc.Weixin.HttpUtility
 
 #endif
 
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         /// <summary>
         /// 给.NET Core使用的HttpPost请求公共设置方法
         /// </summary>
@@ -224,7 +229,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpClientHeader(client, refererUrl, useAjax, timeOut);
 
 
-        #region 处理Form表单文件上传
+            #region 处理Form表单文件上传
 
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -247,10 +252,13 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
+                                var memoryStream = new MemoryStream();
+                                fileStream.CopyTo(memoryStream);
+                                memoryStream.Seek(0, SeekOrigin.Begin);
 
+                                //multipartFormDataContent.Add(new StreamContent(memoryStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
 
-                                //multipartFormDataContent.Add(new StreamContent(fileStream), file.Key, Path.GetFileName(fileName)); //报流已关闭的异常
-                                multipartFormDataContent.Add(CreateFileContent(File.Open(fileName, FileMode.Open), Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
+                                multipartFormDataContent.Add(CreateFileContent(memoryStream, file.Key, Path.GetFileName(fileName)), file.Key, Path.GetFileName(fileName));
                                 fileStream.Dispose();
                             }
                             else
@@ -280,7 +288,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             //HttpContentHeader(hc, timeOut);
-        #endregion
+            #endregion
 
             if (!string.IsNullOrEmpty(refererUrl))
             {
@@ -409,7 +417,6 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="refererUrl"></param>
         /// <returns></returns>
-
         public static SenparcHttpResponse HttpResponsePost(string url, CookieContainer cookieContainer = null, Stream postStream = null,
             Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,
             X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT,
@@ -420,7 +427,11 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
-            postStream = postStream ?? new MemoryStream();
+            var postStreamIsDefaultNull = postStream == null;
+            if (postStreamIsDefaultNull)
+            {
+                postStream = new MemoryStream();
+            }
 
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
@@ -456,10 +467,22 @@ namespace Senparc.Weixin.HttpUtility
             var client = HttpPost_Common_NetCore(url, out hc, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
 
             var response = client.PostAsync(url, hc).GetAwaiter().GetResult();
+
+            try
+            {
+                if (postStreamIsDefaultNull && postStream.Length > 0)
+                {
+                    postStream.Close();
+                }
+
+                hc.Dispose();//关闭HttpContent（StreamContent）
+            }
+            catch (WeixinException ex)
+            {
+            }
+
             return new SenparcHttpResponse(response);
 #endif
-
-
         }
 
         #endregion
@@ -508,7 +531,11 @@ namespace Senparc.Weixin.HttpUtility
                 cookieContainer = new CookieContainer();
             }
 
-            postStream = postStream ?? new MemoryStream();
+            var postStreamIsDefaultNull = postStream == null;
+            if (postStreamIsDefaultNull)
+            {
+                postStream = new MemoryStream();
+            }
 
 #if NET35 || NET40 || NET45
             var request = HttpPost_Common_Net45(url, cookieContainer, postStream, fileDictionary, refererUrl, encoding, cer, useAjax, timeOut, checkValidationResult);
@@ -565,7 +592,22 @@ namespace Senparc.Weixin.HttpUtility
                 r.Content.Headers.ContentType.CharSet = "utf-8";
             }
 
-            return await r.Content.ReadAsStringAsync();
+            var retString = await r.Content.ReadAsStringAsync();
+
+            try
+            {
+                if (postStreamIsDefaultNull && postStream.Length > 0)
+                {
+                    postStream.Close();
+                }
+
+                hc.Dispose();//关闭HttpContent（StreamContent）
+            }
+            catch (WeixinException ex)
+            {
+            }
+
+            return retString;
 #endif
         }
 

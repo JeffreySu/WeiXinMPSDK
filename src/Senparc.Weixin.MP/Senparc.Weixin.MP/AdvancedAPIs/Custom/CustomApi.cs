@@ -478,7 +478,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                    TypesToIgnoreNull = new List<System.Type>() { typeof(CardExt) }
                 };
 
                 return CommonJsonSend.Send(accessToken, _urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
@@ -894,7 +894,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                    TypesToIgnoreNull = new List<System.Type>() { typeof(CardExt) }
                 };
 
                 return  await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, _urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);

@@ -1,2 +1,8 @@
 language: csharp
-solution: ./src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen.sln
+solution: ./src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen.net45.sln
+scripts:
+  - xbuild /p:Configuration=Release  ./src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen.net45.sln
+  
+install:
+ - nuget install Newtonsoft.Json -Version 11.0.2
+ - nuget restore  ./src/Senparc.Weixin.WxOpen/Senparc.Weixin.WxOpen.net45.sln

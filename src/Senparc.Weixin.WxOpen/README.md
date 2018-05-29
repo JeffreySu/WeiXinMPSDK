@@ -28,6 +28,6 @@ PM> Install-Package Senparc.Weixin.WxOpen
 ```
 
 
-##资料
+## 资料
 
 https://github.com/JeffreySu/WxOpen/tree/master/小程序资料

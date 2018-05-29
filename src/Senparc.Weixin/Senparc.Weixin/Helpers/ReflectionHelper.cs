@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Helpers
             {
                 string fullName = nameSpace + "." + className;//命名空间.类型名
                                                               //此为第一种写法
-#if NETSTANDARD1_6 || NETSTANDARD2_0
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
                 object ect = Assembly.Load(new AssemblyName(assemblyName)).CreateInstance(fullName);//加载程序集，创建程序集里面的 命名空间.类型名 实例s
 #else
                 object ect = Assembly.Load(assemblyName).CreateInstance(fullName);//加载程序集，创建程序集里面的 命名空间.类型名 实例

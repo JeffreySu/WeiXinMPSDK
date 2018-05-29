@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - 微信公众平台 小程序 企业号 开放平台 微信支付 JSSDK Senparc.Weixin SDK</title>
     <meta name="keywords" content="微信SDK,微信公众账号,小程序,SDK,微信公众平台,企业号,服务号,订阅号,微信支付,开放平台,Senparc.Weixin,,Senparc.Weixin.MP,JSSDK,开发者,第三方工具,说明,文档,AppStore,微微嗨,盛派网络,Senparc,.net,c#,小程序开发" />
     <meta name="description" content="Senparc.Weixin SDK，是目前使用率最高的微信C# SDK，包含完整的公众账号、小程序、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。目前包含了Senparc.Weixin.MP（微信公众号SDK）、Senparc.Weixin.QY（微信企业号SDK）、Senparc.Weixin.Open（微信开放平台SDK），以及微信支付、微信JSSDK的完整SDK和案例。" />
@@ -60,6 +59,7 @@
                     <ul class="nav-catalog">
                         <li><a href="@Url.Action("Index", "Home")">首页</a></li>
                         <li><a href="@Url.Action("Index", "Menu")">菜单</a></li>
+                        <li><a href="@Url.Action("Index", "Plugins")">插件</a></li>
                         <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟</a></li>
                         <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台</a></li>
                         <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
@@ -78,7 +78,10 @@
             <div class="wrapper">
                 @*<span>重要公告（2017-2-22）：Nuget 上的 Senparc.Weixin.MP.dll v14.3.126 有一个统一订单的 bug，已经在 <a href="https://www.nuget.org/packages/Senparc.Weixin.MP/14.3.127" target="_blank">v14.3.127</a> 中修正。</span>*@
                 @*<span>2017年6月16日已发布新版本，改进诸多功能，并发布企业微信（Senparc.Weixin.Work）测试版，支持 .net core / .net 4.5。<a href="http://mp.weixin.qq.com/s/G77RaeYnVuk9zciNrop9aA" target="_blank">点击这里查看</a>。</span>*@
-                <span>Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版，<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">点击这里购买正版</a>。</span>
+                @*<span>Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版，<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">点击这里购买正版</a>。</span>*@
+                <span>
+                Senparc 官方微信开发视频教程《微信公众号+小程序快速开发》已经上线，陆续更新中，<a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-banner" target="_blank">【点击这开始学习】</a>。<br />
+                    Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版（第3次印刷），<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">【点击这里购买正版】</a>。<br /></span>
             </div>
         </div>
         @if (ViewData["HideBanner"] == null)
@@ -93,7 +96,9 @@
                             <li><a href="https://weixin.senparc.com/QA" target="_blank">微信技术交流社区</a></li>
                             @* <li><a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">更多使用说明</a></li>*@
                             <li><a href="https://book.weixin.senparc.com/book/link?code=sdk-common-banner" target="_blank">购买官方教程图书</a></li>
-                            <li><a href="/#nuget-versions">Nuget项目</a></li>
+                            <li><a href="http://study.163.com/course/introduction/1004873017.htm" target="_blank">观看官方视频教程</a></li>
+                            @*<li><a href="/#nuget-versions">Nuget项目</a></li>*@
+                            <li><a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-top-side" target="_blank">购买官方视频教程</a></li>
                             <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">下载帮助文档</a></li>
                             <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">简易入门教程</a></li>
                             <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">微信开发资源汇总</a></li>
@@ -131,11 +136,12 @@
         @if (!IsSectionDefined("catalog"))
         {
             <div class="catalog">
-                <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
+                <a href="@Url.Action("Index", "Menu")">@*自定义*@菜单设置工具</a>
                 <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
                 <a href="@Url.Action("Test", "Cache")">缓存测试</a>
                 <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
                 <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
+                <a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a>
             </div>
         }
         @RenderBody()
@@ -148,8 +154,8 @@
 
                         @*<p class="crowdfunding-note center">
 
-                            </p>*@
-
+                        </p>*@
+                        
                     </div>
                 </div>
                 @*<div class="feedback-action">
@@ -159,10 +165,10 @@
                     </div>*@
                 <div class="feedback-action">
                     <p class="crowdfunding-note">
-                        &nbsp; &nbsp; &nbsp; 为了将我们积累的经验更多、更系统地与开发者分享，由 Senparc.Weixin SDK 作者耗时 2 年，亲自整理编写的《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版。<br />
+                        &nbsp; &nbsp; &nbsp; 为了将我们积累的经验更多、更系统地与开发者分享，由 Senparc.Weixin SDK 作者耗时 2 年，亲自整理编写的《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版。<br/>
                         &nbsp; &nbsp; &nbsp;全书涵盖从微信的基础接口介绍、Senparc.Weixin SDK 的深入剖析，以及我们在研究过程中发现的许多微信开发“坑”，都一一向读者介绍，旨在将更多关于微信开发的精华以及架构思想分享给开发者。<br />
                         &nbsp; &nbsp; &nbsp; 感谢您对 Senparc 的支持！<br /><br />
-
+                       
                     </p>
                     <p class="center">
                         <a href="https://book.weixin.senparc.com/book/link?code=sdk-footer" class="application" target="_blank">购买正版 Senparc 官方教程</a><br /><br />
@@ -170,7 +176,33 @@
 
 
                     @*<img src="/images/crowdfunding-qrcode.png"/>
-                        <p>购买或查看公告（微信扫一扫）</p>*@
+                    <p>购买或查看公告（微信扫一扫）</p>*@
+                </div>
+            </div>
+            <div class="segregate"></div>
+            <div class="wrapper">
+                <div id="book-title">Senparc官方微信开发视频教程：《微信公众号+小程序快速开发》</div>
+                <div class="feedback-info">
+                    <div class="crowdfunding-note center">
+                        <img src="~/Images/sdkCourse.jpg" />
+                    </div>
+                </div>
+                <div class="feedback-action">
+                    <p class=" top">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了帮助大家更快速的掌握微信及更多开发技能，盛派网络成立了“盛派课堂”团队，制作首个线上视频课程《微信公众号+小程序快速开发》，由《微信开发深度解析》图书的作者苏震巍主讲。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课程采用“理论+实战”的教学形式，结合部分《微信开发深度解析》内容，独立于书本，包含了更多的操作演示和案例展示，帮助大家从多个维度学习微信开发以及.NET开发过程中的诸多技巧。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课程包含两大部分：<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 微信开发基础技能<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 公众号及小程序案例实战<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共计60课时，配有番外篇，目前视频已在网易云课堂上线。<br />
+                    </p>
+                    <p class="center textTop">
+                        <a href="http://study.163.com/course/introduction/1004873017.htm" class="application" target="_blank">点击观看</a><br /><br />
+                    </p>
+
+
+                    @*<img src="/images/crowdfunding-qrcode.png"/>
+                <p>购买或查看公告（微信扫一扫）</p>*@
                 </div>
             </div>
             <div class="segregate"></div>
@@ -181,7 +213,7 @@
                     <p>也包括参与到项目代码更新或意见反馈中来。</p>
                     <p>谢谢！</p>
                 </div>
-                <div class="feedback-action">
+                <div class="feedback-action contentTop">
                     <img src="/images/v2/ewm_03.png" />
                     <p>资金捐助（支付宝钱包扫一扫）</p>
                 </div>
@@ -194,6 +226,8 @@
                 @*新浪微博：
                     <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
                 @*QQ:<a href="javascript:;">498977166</a>*@
+
+                当前框架：.NET Core 2.1
             </p>
             <p class="footer-icon">&copy; 2006-@DateTime.Now.Year Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
         </div>

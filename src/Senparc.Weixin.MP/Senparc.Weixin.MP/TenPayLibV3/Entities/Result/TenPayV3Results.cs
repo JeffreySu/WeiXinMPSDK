@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
  
-    文件名：TenPayV3Result.cs
+    文件名：TenPayV3Results.cs
     文件功能描述：微信支付V3返回结果
     
     
@@ -62,6 +62,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20171129
     修改描述：添加PayBankResult（付款到银行卡）
+    
+    修改标识：Senparc - 20180409
+    修改描述：将 TenPayV3Result.cs 改名为 TenPayV3Results.cs
     
 ----------------------------------------------------------------*/
 
@@ -808,9 +811,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
-    /// <summary>
-    /// 对账单接口
-    /// </summary>
+    ///// <summary>
+    ///// 对账单接口
+    ///// </summary>
     //public class DownloadBillResult : TenPayV3Result
     //{
     //    public DownloadBillResult(string resultXml) : base(resultXml)
@@ -818,6 +821,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
     //    }
     //}
+
     /// <summary>
     /// 撤销订单接口
     /// </summary>
@@ -1149,10 +1153,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// 返回的沙箱密钥
-
         /// </summary>
         public string sandbox_signkey { get; set; }
 
+        /// <summary>
+        /// 获取验签秘钥API 返回结果 构造函数
+        /// </summary>
+        /// <param name="resultXml"></param>
         public TenpayV3GetSignKeyResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())
@@ -1162,16 +1169,4 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
     }
-    
-  
-    /// <summary>
-    /// 付款到银行卡返回结果
-    /// </summary>
-    public class PayBankResult : TenPayV3Result
-    {
-        public PayBankResult(string resultXml) : base(resultXml)
-        {
-        }
-    }
-
 }

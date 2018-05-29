@@ -16,11 +16,15 @@ using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
+using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Threads;
+using Senparc.Weixin.Work;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -29,7 +33,6 @@ namespace Senparc.Weixin.MP.CoreSample
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -39,17 +42,26 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
-            new ServiceCollection();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
-            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
+
+                    //Senparc.Weixin全局注册
+                    .AddSernparcWeixinGlobalServices();
+
+            #region Senparc.Weixin SDK Memcached 配置
 
             //添加Memcached配置（按需）
             services.AddSenparcMemcached(options =>
-            {
-                options.AddServer("memcached", 11211);
-                //options.AddPlainTextAuthenticator("", "usename", "password");
-            });
+                    {
+                        options.AddServer("memcached", 11211);
+                        //options.AddPlainTextAuthenticator("", "usename", "password");
+                    });
+
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,78 +89,191 @@ namespace Senparc.Weixin.MP.CoreSample
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            #region 微信相关
+            #region 微信相关配置
 
-            ////注册微信
-            //AccessTokenContainer.Register(senparcWeixinSetting.Value.WeixinAppId, senparcWeixinSetting.Value.WeixinAppSecret);
-
-            //Senparc.Weixin SDK 配置
-            Senparc.Weixin.Config.IsDebug = true;
-            Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
-
-            //提供网站根目录
+            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
             if (env.ContentRootPath != null)
             {
-                Senparc.Weixin.Config.RootDictionaryPath = env.ContentRootPath;
                 Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
             }
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-
-
+            #endregion
 
             /* 微信配置开始
              * 
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
              */
 
-            RegisterWeixinCache(app);       //注册分布式缓存（按需，如果需要，必须放在第一个）
-            ConfigWeixinTraceLog();         //配置微信跟踪日志（按需）
-            RegisterWeixinThreads();        //激活微信缓存及队列线程（必须）
-            RegisterSenparcWeixin();        //注册Demo所用微信公众号的账号信息（按需）
-            RegisterSenparcWorkWeixin();    //注册Demo所用企业微信的账号信息（按需）
-            RegisterWeixinPay();            //注册微信支付（按需）
-            RegisterWeixinThirdParty();     //注册微信第三方平台（按需）
+            //注册开始
+
+            var isDebug = true;//当前是否是Debug状态
+            RegisterService.Start(env, senparcWeixinSetting, isDebug) //这里没有 ; 下面接着写
+
+            #region 缓存配置
+
+                // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+                .ChangeDefaultCacheNamespace("DefaultWeixinCache")
+
+                //配置Redis缓存
+                .RegisterCacheRedis(
+                    senparcWeixinSetting.Value.Cache_Redis_Configuration,
+                    redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+                                         ? RedisObjectCacheStrategy.Instance
+                                         : null)
+
+            #endregion
+
+            #region 注册日志（按需）
+
+                .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
+
+            #endregion
+
+            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
+
+                 .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
+
+            #endregion
+
+            #region 注册公众号或小程序（按需）
+
+                //注册公众号
+                .RegisterMpAccount(
+                    senparcWeixinSetting.Value.WeixinAppId,
+                    senparcWeixinSetting.Value.WeixinAppSecret,
+                    "【盛派网络小助手】公众号")
+                //注册多个公众号或小程序
+                .RegisterMpAccount(
+                    senparcWeixinSetting.Value.WxOpenAppId,
+                    senparcWeixinSetting.Value.WxOpenAppSecret,
+                    "【盛派互动】小程序")
+
+            #endregion
+
+            #region 注册企业号（按需）
+
+                //注册企业号
+                .RegisterWorkAccount(
+                    senparcWeixinSetting.Value.WeixinCorpId,
+                    senparcWeixinSetting.Value.WeixinCorpSecret,
+                    "【盛派网络】企业微信")
+                //还可注册任意多个企业号
+
+            #endregion
+
+            #region 注册微信支付（按需）
+
+                //注册旧微信支付版本（V2）
+                .RegisterTenpayOld(() =>
+                {
+                    //提供微信支付信息
+                    var weixinPay_PartnerId = senparcWeixinSetting.Value.WeixinPay_PartnerId;
+                    var weixinPay_Key = senparcWeixinSetting.Value.WeixinPay_Key;
+                    var weixinPay_AppId = senparcWeixinSetting.Value.WeixinPay_AppId;
+                    var weixinPay_AppKey = senparcWeixinSetting.Value.WeixinPay_AppKey;
+                    var weixinPay_TenpayNotify = senparcWeixinSetting.Value.WeixinPay_TenpayNotify;
+                    var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key,
+                            weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
+                    return weixinPayInfo;
+                })
+                //注册最新微信支付版本（V3）
+                .RegisterTenpayV3(() =>
+                {
+                    //提供微信支付信息
+                    var tenPayV3_MchId = senparcWeixinSetting.Value.TenPayV3_MchId;
+                    var tenPayV3_Key = senparcWeixinSetting.Value.TenPayV3_Key;
+                    var tenPayV3_AppId = senparcWeixinSetting.Value.TenPayV3_AppId;
+                    var tenPayV3_AppSecret = senparcWeixinSetting.Value.TenPayV3_AppSecret;
+                    var tenPayV3_TenpayNotify = senparcWeixinSetting.Value.TenPayV3_TenpayNotify;
+                    var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret,
+                        tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
+                    return tenPayV3Info;
+                })
+
+            #endregion
+
+            #region 注册微信第三方平台（按需）
+
+                .RegisterOpenComponent(
+                    senparcWeixinSetting.Value.Component_Appid,
+                    senparcWeixinSetting.Value.Component_Secret,
+
+                    //getComponentVerifyTicketFunc
+                    componentAppId =>
+                    {
+                        var dir = Path.Combine(Server.GetMapPath("~/App_Data/OpenTicket"));
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
+                        using (var fs = new FileStream(file, FileMode.Open))
+                        {
+                            using (var sr = new StreamReader(fs))
+                            {
+                                var ticket = sr.ReadToEnd();
+                                return ticket;
+                            }
+                        }
+                    },
+
+                     //getAuthorizerRefreshTokenFunc
+                     (componentAppId, auhtorizerId) =>
+                     {
+                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         if (!Directory.Exists(dir))
+                         {
+                             Directory.CreateDirectory(dir);
+                         }
+
+                         var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                         if (!File.Exists(file))
+                         {
+                             return null;
+                         }
+
+                         using (Stream fs = new FileStream(file, FileMode.Open))
+                         {
+                             var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                             var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                             return result.authorizer_refresh_token;
+                         }
+                     },
+
+                     //authorizerTokenRefreshedFunc
+                     (componentAppId, auhtorizerId, refreshResult) =>
+                     {
+                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         if (!Directory.Exists(dir))
+                         {
+                             Directory.CreateDirectory(dir);
+                         }
+
+                         var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                         using (Stream fs = new FileStream(file, FileMode.Create))
+                         {
+                             //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                             var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                             binFormat.Serialize(fs, refreshResult);
+                             fs.Flush();
+                         }
+                     }, "【盛派网络】开放平台");
+
+            #endregion
+
+            ;
+
+            //配置Memcached缓存
+            #region Senparc.Weixin SDK Memcached 配置
+
+            app.UseEnyimMemcached();
+
+            #endregion
 
             /* 微信配置结束 */
 
             #endregion
-        }
-
-        /// <summary>
-        /// 自定义缓存策略
-        /// </summary>
-        private void RegisterWeixinCache(IApplicationBuilder app)
-        {
-            var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-
-            //如果留空，默认为localhost（默认端口）
-
-            #region  Redis配置
-            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
-            RedisManager.ConfigurationOption = redisConfiguration;
-
-            //如果不执行下面的注册过程，则默认使用本地缓存
-
-            if (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
-            }
-
-            #endregion
-
-            #region Memcached 配置
-
-            app.UseEnyimMemcached();
-
-            //var memcachedConfig = new Dictionary<string, int>()
-            //{
-            //    { "localhost",9101 }
-            //};
-            //MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
-
-            #endregion
-
-            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }
 
         /// 配置微信跟踪日志
@@ -174,153 +299,6 @@ namespace Senparc.Weixin.MP.CoreSample
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
                 eventService.ConfigOnWeixinExceptionFunc(ex);
             };
-        }
-
-        /// <summary>
-        /// 激活微信缓存
-        /// </summary>
-        private void RegisterWeixinThreads()
-        {
-            ThreadUtility.Register();//如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
-        }
-
-
-        /// <summary>
-        /// 注册Demo所用微信公众号的账号信息
-        /// </summary>
-        private void RegisterSenparcWeixin()
-        {
-            var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-
-            //注册公众号
-            AccessTokenContainer.Register(
-                senparcWeixinSetting.WeixinAppId,
-                senparcWeixinSetting.WeixinAppSecret,
-                "【盛派网络小助手】公众号");
-
-            //注册小程序（完美兼容）
-            AccessTokenContainer.Register(
-                senparcWeixinSetting.WxOpenAppId,
-                senparcWeixinSetting.WxOpenAppSecret,
-                "【盛派互动】小程序");
-        }
-
-        /// <summary>
-        /// 注册Demo所用企业微信的账号信息
-        /// </summary>
-        private void RegisterSenparcWorkWeixin()
-        {
-            var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-
-            Senparc.Weixin.Work.Containers.AccessTokenContainer.Register(
-                senparcWeixinSetting.WeixinCorpId,
-                senparcWeixinSetting.WeixinCorpSecret,
-                "【盛派网络】企业微信"
-                );
-        }
-
-
-        /// <summary>
-        /// 注册微信支付
-        /// </summary>
-        private void RegisterWeixinPay()
-        {
-            var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-
-            //提供微信支付信息
-            var weixinPay_PartnerId = senparcWeixinSetting.WeixinPay_PartnerId;
-            var weixinPay_Key = senparcWeixinSetting.WeixinPay_Key;
-            var weixinPay_AppId = senparcWeixinSetting.WeixinPay_AppId;
-            var weixinPay_AppKey = senparcWeixinSetting.WeixinPay_AppKey;
-            var weixinPay_TenpayNotify = senparcWeixinSetting.WeixinPay_TenpayNotify;
-
-            var tenPayV3_MchId = senparcWeixinSetting.TenPayV3_MchId;
-            var tenPayV3_Key = senparcWeixinSetting.TenPayV3_Key;
-            var tenPayV3_AppId = senparcWeixinSetting.TenPayV3_AppId;
-            var tenPayV3_AppSecret = senparcWeixinSetting.TenPayV3_AppSecret;
-            var tenPayV3_TenpayNotify = senparcWeixinSetting.TenPayV3_TenpayNotify;
-
-            var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
-            TenPayInfoCollection.Register(weixinPayInfo);//微信V2（旧版）
-
-            var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
-            TenPayV3InfoCollection.Register(tenPayV3Info);//微信V3（新版）
-        }
-
-        /// <summary>
-        /// 注册微信第三方平台
-        /// </summary>
-        private void RegisterWeixinThirdParty()
-        {
-            Func<string, string> getComponentVerifyTicketFunc = componentAppId =>
-            {
-                var dir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data\\OpenTicket");
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
-                using (var fs = new FileStream(file, FileMode.Open))
-                {
-                    using (var sr = new StreamReader(fs))
-                    {
-                        var ticket = sr.ReadToEnd();
-                        return ticket;
-                    }
-                }
-            };
-
-            Func<string, string, string> getAuthorizerRefreshTokenFunc = (componentAppId, auhtorizerId) =>
-            {
-                var dir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                if (!File.Exists(file))
-                {
-                    return null;
-                }
-
-                using (Stream fs = new FileStream(file, FileMode.Open))
-                {
-                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                    return result.authorizer_refresh_token;
-                }
-            };
-
-            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (componentAppId, auhtorizerId, refreshResult) =>
-            {
-                var dir = Path.Combine(Senparc.Weixin.Config.RootDictionaryPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                using (Stream fs = new FileStream(file, FileMode.Create))
-                {
-                    //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                    binFormat.Serialize(fs, refreshResult);
-                    fs.Flush();
-                }
-            };
-
-            var senparcWeixinSetting = Senparc.Weixin.Config.DefaultSenparcWeixinSetting;
-
-            //执行注册
-            ComponentContainer.Register(
-                senparcWeixinSetting.Component_Appid,
-                senparcWeixinSetting.Component_Secret,
-                getComponentVerifyTicketFunc,
-                getAuthorizerRefreshTokenFunc,
-                authorizerTokenRefreshedFunc,
-                "【盛派网络】开放平台");
         }
     }
 }

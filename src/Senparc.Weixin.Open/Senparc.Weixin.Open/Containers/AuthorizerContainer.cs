@@ -46,6 +46,9 @@
     修改标识：Senparc - 2071218
     修改描述：v2.8.3 修复 AuthorizerBag 使用外部缓存不会自动更新的问题
 
+    修改标识：Senparc - 20180414
+    修改描述：v2.9.2 修复 TryUpdateAuthorizationInfo 中缓存跟新的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -390,6 +393,8 @@ namespace Senparc.Weixin.Open.Containers
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
+                Update(authorizerAppid, authorizerBag);//立即更新
+
                 //通知变更
                 if (refreshTokenChanged)
                 {
@@ -428,6 +433,8 @@ namespace Senparc.Weixin.Open.Containers
                     authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
                     authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                     authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
+
+                    Update(authorizerAppid, authorizerBag);//立即更新
 
                     //通知变更
                     if (refreshTokenChanged)

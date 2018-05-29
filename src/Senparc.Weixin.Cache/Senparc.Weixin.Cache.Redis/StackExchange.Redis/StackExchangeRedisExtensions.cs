@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0  || NETCOREAPP2_0 || NETCOREAPP2_1
             ////二进制序列化方案
             //using (MemoryStream memoryStream = new MemoryStream())
             //{
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Cache.Redis
                 return default(T);
             }
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
             ////二进制序列化方案
             //using (MemoryStream memoryStream = new MemoryStream(stream))
             //{

@@ -36,7 +36,6 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 var scheme = uri.Scheme;
                 var path = uri.LocalPath;
 
-
                 var httpContext = new DefaultHttpContext();
                 httpContext.Request.Path = path;
                 httpContext.Request.Host = new HostString(uri.Host,uri.Port);

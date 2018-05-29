@@ -58,8 +58,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -112,6 +112,7 @@
     <Compile Include="TenPayLibV3\TenPayV3UtilTests.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayTest.cs" />
     <Compile Include="TenPayV3\RedPackApiTest.cs" />
+    <Compile Include="TenPayV3\TenPayV3UtilTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="TenPay\TenPayTest.cs" />

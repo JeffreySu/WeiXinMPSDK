@@ -134,6 +134,7 @@
     <Compile Include="Entities\Request\Event\Receiver.cs" />
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Change_Contact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />

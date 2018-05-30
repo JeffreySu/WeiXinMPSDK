@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WorkJsonResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
+        public static CreateChatResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return CommonJsonSend.Send<WorkJsonResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -318,7 +318,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
+        public static async Task<CreateChatResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -331,7 +331,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 

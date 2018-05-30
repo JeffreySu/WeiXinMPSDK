@@ -14,6 +14,16 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
 {
     /// <summary>
+    /// 创建会话返回结果
+    /// </summary>
+    public class CreateChatResult : WorkJsonResult
+    {
+        /// <summary>
+        /// 会话id
+        /// </summary>
+        public string chatid { get; set; }
+    }
+    /// <summary>
     /// 获取会话返回结果
     /// </summary>
     public class GetChatResult : WorkJsonResult

@@ -24,6 +24,10 @@
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 
+    修改标识：Senparc - 20180527
+    修改描述：v1.6.0-rc1 修复 MediaApi.UploadimgMedia() 方法文件上传问题
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -33,10 +37,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Media;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
@@ -307,24 +311,24 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         /// <summary>
         /// 上传图文消息内的图片
+        /// <para>上传的图片限制：大小不超过2MB，支持JPG,PNG格式，每天上传的图片不能超过100张</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="media"></param>
+        /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UploadimgMediaResult UploadimgMedia(string accessTokenOrAppKey, string media, int timeOut = Config.TIME_OUT)
+        public static UploadimgMediaResult UploadimgMedia(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/uploadimg?access_token={0}",
                 accessToken.AsUrlData());
 
-                var data = new
-                {
-                    media = media
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = imgFile;
+                return Post.PostFileGetJson<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
-                return CommonJsonSend.Send<UploadimgMediaResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -575,30 +579,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
-        /*上传的图片限制
-          大小不超过2MB，支持JPG,PNG格式
-          每天上传的图片不能超过100张*/
         /// <summary>
         /// 【异步方法】上传图文消息内的图片
+        /// <para>上传的图片限制：大小不超过2MB，支持JPG,PNG格式，每天上传的图片不能超过100张</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="media"></param>
+        /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-
-        public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessTokenOrAppKey, string media, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/uploadimg?access_token={0}",
-                accessToken.AsUrlData());
+             accessToken.AsUrlData());
 
-                var data = new
-                {
-                    media = media
-                };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadimgMediaResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = imgFile;
+                return await Post.PostFileGetJsonAsync<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
             }, accessTokenOrAppKey);
 
 

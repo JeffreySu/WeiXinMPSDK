@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.21.1-rc1</Version>
+    <Version>4.22.1-rc1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -15,7 +15,6 @@
     </Description>
     <Copyright>Senparc Copyright © 2004~2018</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
-
 
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
@@ -229,6 +228,16 @@
       v4.20.4 增加对小程序 web-view 内打开页面的判断方法 BrowserUtility.SideInWeixinMiniProgram()
 
       v4.21.0-rc1 支持 .NET Core 2.1.2
+      v4.21.2-rc1 完善 .net core 注册流程
+      v4.21.3-rc1 为 .net core 2.1 改进条件编译
+      v4.21.4-rc1 完善 .net core 环境下的文件上传机制，解决文件占用问题
+      v4.21.5-rc1 修改 TenPayV3Util.DecodeRefundReqInfo() 方法，解决重复 base64 解码的问题
+      v4.21.6-rc1 添加 RequestUtility.GetRequestMemoryStream() 方法
+
+      v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
+      v4.22.1-rc1 
+        1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+        2、添加 RequestExtension
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -376,6 +385,7 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <!--<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />-->
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
@@ -385,11 +395,18 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.0-rc1-final" />
     <!--<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />-->
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0-rc1-final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.hosting.abstractions\2.1.0-rc1-final\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -44,6 +44,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
+#if !NETCOREAPP2_1
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>
@@ -144,5 +145,6 @@ namespace Senparc.WeixinTests.Cache
 
             //结果：Newtonsoft.JSON 效率更高，三个结果时间基本上1:2:3
         }
+#endif
     }
 }

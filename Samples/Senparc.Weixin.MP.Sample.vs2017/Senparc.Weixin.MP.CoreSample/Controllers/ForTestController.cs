@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -13,17 +16,18 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     public class ForTestController : Controller
     {
         [HttpPost]
-        public IActionResult PostTest()
+        public ActionResult PostTest()
         {
             string data;
 
-            using (var sr = new StreamReader(Request.Body))
+            using (var sr = new StreamReader(Request.GetRequestMemoryStream()))
             {
                 data = sr.ReadToEnd();
             }
 
-            var isAjax = Request.Headers["X-Requested-With"];
+            var isAjax = Request.IsAjaxRequest();
 
+            Response.Cookies.Append("TestCookie", DateTime.Now.ToString());
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }

@@ -55,6 +55,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
+    修改标识：Senparc - 20180522
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -970,16 +973,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 创建红包活动
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="title">分组唯一标识，全局唯一</param>
-        /// <param name="desc">分组列表的起始索引值</param>
-        /// <param name="onoff">待查询的分组数量，不能超过1000个</param>
-        /// <param name="beginTime">待查询的分组数量，不能超过1000个</param>
-        /// <param name="expireTime">待查询的分组数量，不能超过1000个</param>
-        /// <param name="sponsorAppid">待查询的分组数量，不能超过1000个</param>
-        /// <param name="total">待查询的分组数量，不能超过1000个</param>
-        /// <param name="jumpUrl">待查询的分组数量，不能超过1000个</param>
-        /// <param name="key">待查询的分组数量，不能超过1000个</param>
-        /// <param name="timeOut"></param>
+        /// <param name="title">抽奖活动名称（选择使用模板时，也作为摇一摇消息主标题），最长6个汉字，12个英文字母。</param>
+        /// <param name="desc">抽奖活动描述（选择使用模板时，也作为摇一摇消息副标题），最长7个汉字，14个英文字母。</param>
+        /// <param name="onoff">抽奖开关。0关闭，1开启，默认为1</param>
+        /// <param name="beginTime">	抽奖活动开始时间，unix时间戳，单位秒</param>
+        /// <param name="expireTime">	抽奖活动结束时间，unix时间戳，单位秒,红包活动有效期最长为91天</param>
+        /// <param name="sponsorAppid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
+        /// <param name="total">红包总数，红包总数是录入红包ticket总数的上限，因此红包总数应该大于等于预下单时红包ticket总数。</param>
+        /// <param name="jumpUrl">红包关注界面后可以跳转到第三方自定义的页面</param>
+        /// <param name="key">开发者自定义的key，用来生成活动抽奖接口的签名参数，长度32位。使用方式见sign生成规则</param>
+        /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         public static AddLotteryInfoResultJson AddLotteryInfo(string accessTokenOrAppId, string title, string desc, int onoff, long beginTime, long expireTime, string sponsorAppid, long total, string jumpUrl, string key, int timeOut = Config.TIME_OUT)
         {
@@ -1976,16 +1979,16 @@ int timeOut = Config.TIME_OUT)
         /// 【异步方法】创建红包活动
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="title">分组唯一标识，全局唯一</param>
-        /// <param name="desc">分组列表的起始索引值</param>
-        /// <param name="onoff">待查询的分组数量，不能超过1000个</param>
-        /// <param name="beginTime">待查询的分组数量，不能超过1000个</param>
-        /// <param name="expireTime">待查询的分组数量，不能超过1000个</param>
-        /// <param name="sponsorAppid">待查询的分组数量，不能超过1000个</param>
-        /// <param name="total">待查询的分组数量，不能超过1000个</param>
-        /// <param name="jumpUrl">待查询的分组数量，不能超过1000个</param>
-        /// <param name="key">待查询的分组数量，不能超过1000个</param>
-        /// <param name="timeOut"></param>
+        /// <param name="title">抽奖活动名称（选择使用模板时，也作为摇一摇消息主标题），最长6个汉字，12个英文字母。</param>
+        /// <param name="desc">抽奖活动描述（选择使用模板时，也作为摇一摇消息副标题），最长7个汉字，14个英文字母。</param>
+        /// <param name="onoff">抽奖开关。0关闭，1开启，默认为1</param>
+        /// <param name="beginTime">	抽奖活动开始时间，unix时间戳，单位秒</param>
+        /// <param name="expireTime">	抽奖活动结束时间，unix时间戳，单位秒,红包活动有效期最长为91天</param>
+        /// <param name="sponsorAppid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
+        /// <param name="total">红包总数，红包总数是录入红包ticket总数的上限，因此红包总数应该大于等于预下单时红包ticket总数。</param>
+        /// <param name="jumpUrl">红包关注界面后可以跳转到第三方自定义的页面</param>
+        /// <param name="key">开发者自定义的key，用来生成活动抽奖接口的签名参数，长度32位。使用方式见sign生成规则</param>
+        /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         public static async Task<AddLotteryInfoResultJson> AddLotteryInfoAsync(string accessTokenOrAppId, string title, string desc, int onoff, long beginTime, long expireTime, string sponsorAppid, long total, string jumpUrl, string key, int timeOut = Config.TIME_OUT)
         {

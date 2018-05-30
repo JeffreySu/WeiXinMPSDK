@@ -1,39 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Microsoft.Extensions.Options;
-using Microsoft.Win32.SafeHandles;
-using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.CoreSample.Controllers;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-#if NET45
-using System.Web
-using System.Web.Mvc;
-#else
-using Microsoft.AspNetCore.Mvc;
-#endif
+//using Senparc.Weixin.MP.Sample.CommonService.Download;
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class DocumentController : BaseController
     {
-        //private string appId = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.WeixinAppId;
-
-        private IOptions<SenparcWeixinSetting> _senparcWeixinSetting;
-        private string appId;
-
-        public DocumentController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
-        {
-            _senparcWeixinSetting = senparcWeixinSetting;
-            appId = _senparcWeixinSetting.Value.WeixinAppId;//此处只是演示.NET Core的DI用法
-        }
+        public static readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         private bool CheckCanDownload(string guid)
         {
@@ -47,27 +32,40 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             var configHelper = new ConfigHelper(this.HttpContext);
 
-            //chm二维码
-            var qrCodeId = configHelper.GetQrCodeId();
-            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId,10000, qrCodeId, QrCode_ActionName.QR_SCENE);
-
-            var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
-            ViewData["QrCodeUrl"] = qrCodeUrl;
-
-            ConfigHelper.CodeCollection[guid] = new CodeRecord()
+            try
             {
-                Key = guid,
-                QrCodeId = qrCodeId,
-                QrCodeTicket = qrResult
-            };//添加对应关系
+                //chm二维码
+                var qrCodeId = configHelper.GetQrCodeId();
+                var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
-            //下载版本
-            var config = configHelper.GetConfig();
-            ViewData["Versions"] = config.Versions;
-            ViewData["WebVersions"] = config.WebVersions;
-            ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
+                var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
+                ViewData["QrCodeUrl"] = qrCodeUrl;
 
-            return View();
+                ConfigHelper.CodeCollection[guid] = new CodeRecord()
+                {
+                    Key = guid,
+                    QrCodeId = qrCodeId,
+                    QrCodeTicket = qrResult
+                };//添加对应关系
+
+                //下载版本
+                var config = configHelper.GetConfig();
+                ViewData["Versions"] = config.Versions;
+                ViewData["WebVersions"] = config.WebVersions;
+                ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
+
+                return View();
+            }
+            catch (Exception e)
+            {
+                WeixinTrace.SendCustomLog("Document发生appsecret错误！",e.ToString());
+                var accessTokenBags = AccessTokenContainer.GetAllItems();
+
+                WeixinTrace.SendCustomLog("当前AccessToken信息", accessTokenBags.ToJson());
+
+                throw;
+            }
+           
         }
 
         /// <summary>
@@ -139,13 +137,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     //codeRecord.AllowDownload = false;//这里如果只允许一次下载，有的浏览器插件或者防护软件会自动访问页面上的链接，导致用户真实的下载时效
                     var configHelper = new ConfigHelper(this.HttpContext);
                     var filePath = configHelper.Download(codeRecord.Version, codeRecord.IsWebVersion);
+                    var file = File(filePath, "application/octet-stream");
 
-                    //FileStream fs= new FileStream(filePath, FileAccess.Read);
-
-                    var file = new PhysicalFileResult(filePath, "application/octet-stream");
 
                     file.FileDownloadName = string.Format("Senparc.Weixin{0}-v{1}.rar",
-                        codeRecord.IsWebVersion?"-Web":"",
+                        codeRecord.IsWebVersion ? "-Web" : "",
                         codeRecord.Version);
                     return file;
                 }

@@ -226,6 +226,7 @@
 img.official-img {
     /*margin: 30px 0 0 0;*/
     clear: both;
+    width:256px;
 }
 
 .weixin-weiweihi {
@@ -251,10 +252,13 @@ img.official-img {
 
 .weixin-item-left {
     float: left;
+    margin-right:20px;
 }
 
 .readmore {
     margin-top: 40px;
+    margin-left:60px;
+    background-color:#e0f3fe;
     float: left;
 }
 
@@ -313,7 +317,7 @@ img.official-img {
 }
 
 #book-title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     margin: 10px 30px;
     clear: both;
@@ -626,8 +630,9 @@ img.official-img {
 }
 
 p.crowdfunding-note {
-    padding-top: 45px;
+    padding-top: 77px;
     text-align: left;
+    word-spacing: 2px;
 }
 
 .crowdfunding-note p {
@@ -635,7 +640,7 @@ p.crowdfunding-note {
 }
 
 .crowdfunding-note img {
-    padding: 25px;
+    padding: 40px;
     width: 420px;
     max-width: 90%;
 }
@@ -676,7 +681,11 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 48px;
+        padding-left: 30px;
+    }
+
+    .nav-catalog li a:hover {
+        color:#b8b8b8;
     }
 
     .container-left {
@@ -706,7 +715,7 @@ p.crowdfunding-note {
     }
 
     .content-weixin {
-        width: 600px;
+        width: 900px;
         margin: 0px auto;
         clear: both;
     }
@@ -792,7 +801,7 @@ p.crowdfunding-note {
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
         float: left;
-        width: 50% !important;
+        /*width: 50% !important;*/
         text-align: left;
         padding-left: 45px;
         margin-bottom: 0;
@@ -866,7 +875,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 33px;
+        padding-left: 30px;
     }
 
     .wrapper {
@@ -904,7 +913,7 @@ p.crowdfunding-note {
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
         float: left;
-        width: 50% !important;
+        /*width: 50% !important;*/
         text-align: left;
         padding-left: 45px;
         margin-bottom: 0;
@@ -1043,7 +1052,7 @@ p.crowdfunding-note {
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
         float: left;
-        width: 50% !important;
+        /*width: 50% !important;*/
         text-align: left;
         padding-left: 45px;
         margin-bottom: 0;
@@ -2003,4 +2012,15 @@ p.crowdfunding-note {
     .feedback {
         margin-top: 0;
     }
+}
+.textTop {
+    margin-top: 37px;
+}
+.contentTop {
+    padding-top: 35px;
+}
+.top {
+    padding-top: 35px;
+    text-align: left;
+    word-spacing: 2px;
 }

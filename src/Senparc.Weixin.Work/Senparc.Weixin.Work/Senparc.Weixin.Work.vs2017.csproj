@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>1.6.0-rc1</Version>
+		<Version>1.6.0</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -76,6 +76,8 @@
 			v1.6.0-rc1 
 				1、支持 Senparc.Weixin v4.22.0-rc1
 				2、修复 MediaApi.UploadimgMedia() 方法文件上传问题
+      
+      v1.6.0 发布支持 .net core 2.1 的正式版
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

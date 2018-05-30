@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WeixinContext.cs
     文件功能描述：微信消息上下文（全局）
@@ -44,7 +44,16 @@ namespace Senparc.Weixin.Context
 {
     public static class WeixinContextGlobal
     {
+        /// <summary>
+        /// 上下文操作使用的同步锁
+        /// </summary>
         public static object Lock = new object();//TODO:转为同步锁
+
+        /// <summary>
+        /// 去重专用锁
+        /// </summary>
+        public static object OmitRepeatLock = new object();//TODO:转为同步锁
+
 
         /// <summary>
         /// 是否开启上下文记录
@@ -146,6 +155,8 @@ namespace Senparc.Weixin.Context
                 var expireMinutes = firstMessageContext.ExpireMinutes.HasValue
                     ? firstMessageContext.ExpireMinutes.Value //队列自定义事件
                     : this.ExpireMinutes;//全局统一默认时间
+
+                //TODO:这里假设按照队列顺序过期，实际再加入了自定义过期时间之后，可能不遵循这个规律   —— Jeffrey Su 2018.1.23
                 if (timeSpan.TotalMinutes >= expireMinutes)
                 {
                     MessageQueue.RemoveAt(0);//从队列中移除过期对象

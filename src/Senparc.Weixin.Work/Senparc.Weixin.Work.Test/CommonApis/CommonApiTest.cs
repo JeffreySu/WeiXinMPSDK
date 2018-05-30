@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -45,9 +45,21 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../Config/test.config"))
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+                    var filePath = "../../../Config/test.config";
+#else
+                    var filePath = "../../Config/test.config";
+#endif
+                    if (File.Exists(filePath))
                     {
-                        var doc = XDocument.Load("../../Config/test.config");
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+                        var stream = new FileStream(filePath, FileMode.Open);
+                        var doc = XDocument.Load(stream);
+                        stream.Dispose();
+#else
+                        var doc = XDocument.Load(filePath);
+#endif
+
                         _appConfig = new
                         {
                             CorpId = doc.Root.Element("CorpId").Value,

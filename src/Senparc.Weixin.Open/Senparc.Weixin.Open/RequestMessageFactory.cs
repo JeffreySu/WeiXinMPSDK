@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -124,8 +124,6 @@ namespace Senparc.Weixin.Open
             using (XmlReader xr = XmlReader.Create(stream))
             {
                 var doc = XDocument.Load(xr);
-
-                //
 
                 return GetRequestEntity(doc);
             }

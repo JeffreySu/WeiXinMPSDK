@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class AppApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 获取企业号应用信息【QY移植修改】
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
                 return Get.GetJson<GetAppInfoResult>(url);
             }, accessTokenOrAppKey);
         }
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetAppListResult>(url);
             }, accessTokenOrAppKey);
@@ -105,7 +105,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】获取企业号应用信息【QY移植修改】
@@ -118,7 +119,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
 
                 return await Get.GetJsonAsync<GetAppInfoResult>(url);
             }, accessTokenOrAppKey);
@@ -137,7 +138,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 //TODO:需要对SetAppPostData中的null值过滤
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
@@ -158,7 +159,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
+                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
 
                 return await Get.GetJsonAsync<GetAppListResult>(url);
             }, accessTokenOrAppKey);
@@ -166,5 +167,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

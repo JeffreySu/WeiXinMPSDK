@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：RequestMessageEvent_PicPhotoOrAlbum.cs
     文件功能描述：事件之弹出拍照或者相册发图（pic_photo_or_album）

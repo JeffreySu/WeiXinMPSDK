@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：UserInfoJson.cs
     文件功能描述：获取用户信息返回结果
@@ -92,6 +92,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// 用户标签
         /// </summary>
         public int[] tagid_list { get; set; }
+        /// <summary>
+        /// 二维码扫码场景（开发者自定义）
+        /// </summary>
+        public int qr_scene { get; set; }
+        /// <summary>
+        /// 二维码扫码场景描述（开发者自定义）
+        /// </summary>
+        public string qr_scene_str { get; set; }
     }
 
     /// <summary>

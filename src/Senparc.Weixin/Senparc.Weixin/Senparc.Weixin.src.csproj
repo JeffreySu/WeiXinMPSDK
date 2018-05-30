@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senparc.Weixin</RootNamespace>
+    <AssemblyName>Senparc.Weixin</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache.Local\ContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
+    <Compile Include="Cache\CacheStrategyFactory.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
+    <Compile Include="Cache\Lock\ICacheLock.cs" />
+    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
+    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperBase.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperFactory.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Containers\BaseContainer.cs" />
+    <Compile Include="Containers\BaseContainerBag.cs" />
+    <Compile Include="Context\MessageContainer.cs" />
+    <Compile Include="Context\MessageContext.cs" />
+    <Compile Include="Context\MessageQueue.cs" />
+    <Compile Include="Context\WeixinContext.cs" />
+    <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
+    <Compile Include="Entities\BindableBase.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\IAccessTokenResult.cs" />
+    <Compile Include="Entities\IApiData.cs" />
+    <Compile Include="Entities\JsonResult\BaseJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResultCallback.cs" />
+    <Compile Include="Entities\JsonResult\QYJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\WorkJsonResult.cs" />
+    <Compile Include="Entities\MessageBase.cs">
+      <SubType>
+      </SubType>
+    </Compile>
+    <Compile Include="Entities\Request\EncryptPostModel.cs" />
+    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
+    <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
+    <Compile Include="Exceptions\MessageHandlerException.cs" />
+    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
+    <Compile Include="Exceptions\WeixinException.cs" />
+    <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
+    <Compile Include="Exceptions\WeixinNullReferenceException.cs" />
+    <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Exceptions\WeixinObsoleteException.cs" />
+    <Compile Include="Helpers\Containers\ContainerHelper.cs" />
+    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
+    <Compile Include="Helpers\Entity\EntityHelper.cs" />
+    <Compile Include="Helpers\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
+    <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
+    <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
+    <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
+    <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
+    <Compile Include="NET35\System.Threading.Tasks.cs" />
+    <Compile Include="Register.cs" />
+    <Compile Include="RegisterServices\RegisterService.cs" />
+    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Threads\ThreadUtility.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceHelper.cs" />
+    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceItem.cs" />
+    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
+    <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
+    <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\HttpExtensions.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.Get.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.Post.cs" />
+    <Compile Include="Utilities\HttpUtility\SenparcHttpResponse.cs" />
+    <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
+    <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
+    <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\Get.cs" />
+    <Compile Include="Utilities\HttpUtility\Post.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
+    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
+    <Compile Include="MessageHandlers\IMessageHandler.cs" />
+    <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entities\Request\RequestMessageBase.cs" />
+    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
+    <Compile Include="Trace\WeixinTrace.cs" />
+    <Compile Include="WebProxy\CoreWebProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagrams\MessageHandler.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

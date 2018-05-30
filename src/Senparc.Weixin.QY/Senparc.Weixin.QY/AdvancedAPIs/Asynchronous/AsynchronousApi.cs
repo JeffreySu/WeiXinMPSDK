@@ -220,6 +220,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         #endregion
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
 
         #region 通讯录更新
@@ -405,5 +406,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         #endregion
         #endregion
+#endif
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：发送消息接口
@@ -42,9 +42,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class MassApi
     {
-        private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
+        private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
 
-        #region 同步请求
+        #region 同步方法
 
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -245,7 +245,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -290,7 +290,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -340,14 +340,56 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
         }
+
+        /// <summary>
+        /// 发送textcard消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
+        /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+        /// <param name="title">标题，不超过128个字节，超过会自动截断</param>
+        /// <param name="description">描述，不超过512个字节，超过会自动截断</param>
+        /// <param name="url">点击后跳转的链接</param>
+        /// <param name="btntxt">按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static MassResult SendTextCard(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null,
+            string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = toUser,
+                    toparty = toParty,
+                    totag = toTag,
+                    msgtype = "textcard",
+                    agentid = agentId,
+                    textcard = new
+                    {
+                        title = title,
+                        description = description,
+                        url = url,
+                        btntxt = btntxt
+                    }
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】发送文本信息【QY移植修改】
         /// </summary>
@@ -380,7 +422,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -419,7 +461,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -459,7 +501,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -503,7 +545,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -543,7 +585,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -588,7 +630,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -633,11 +675,53 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     },
                     safe = safe
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
         }
+
+        /// <summary>
+        /// 【异步方法】发送textcard消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
+        /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+        /// <param name="title">标题，不超过128个字节，超过会自动截断</param>
+        /// <param name="description">描述，不超过512个字节，超过会自动截断</param>
+        /// <param name="url">点击后跳转的链接</param>
+        /// <param name="btntxt">按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<MassResult> SendTextCardAsync(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null,
+            string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new
+                {
+                    touser = toUser,
+                    toparty = toParty,
+                    totag = toTag,
+                    msgtype = "textcard",
+                    agentid = agentId,
+                    textcard = new
+                    {
+                        title = title,
+                        description = description,
+                        url = url,
+                        btntxt = btntxt
+                    }
+                };
+
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
         #endregion
+#endif
     }
 }

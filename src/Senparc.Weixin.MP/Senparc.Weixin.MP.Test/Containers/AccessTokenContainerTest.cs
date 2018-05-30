@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -30,7 +30,7 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.WeixinTests;
+//using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {

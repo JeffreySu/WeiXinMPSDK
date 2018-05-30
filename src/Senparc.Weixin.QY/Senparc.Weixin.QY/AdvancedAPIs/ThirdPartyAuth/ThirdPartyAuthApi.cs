@@ -245,6 +245,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         ///【异步方法】 获取应用套件令牌
@@ -454,5 +455,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
+#endif
     }
 }

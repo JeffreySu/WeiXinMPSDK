@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
-using Senparc.Weixin.Helpers;
+//using Senparc.Weixin.Helpers;
+using System.Reflection;
 
 namespace Senparc.Weixin.Open.Helpers
 {

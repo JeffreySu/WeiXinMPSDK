@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -126,7 +126,8 @@ namespace Senparc.Weixin.WxOpen.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
+            //RijndaelManaged aes = new RijndaelManaged();
+            SymmetricAlgorithm aes = Aes.Create();
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -154,7 +155,8 @@ namespace Senparc.Weixin.WxOpen.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
+            //RijndaelManaged aes = new RijndaelManaged();
+            SymmetricAlgorithm aes = Aes.Create();
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -225,7 +227,8 @@ namespace Senparc.Weixin.WxOpen.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
+            //RijndaelManaged aes = new RijndaelManaged();
+            SymmetricAlgorithm aes = Aes.Create();
             aes.KeySize = 256;
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;

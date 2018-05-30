@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：WeixinUserInfoResult.cs
     文件功能描述：获取用户信息返回结果
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180305
+    修改描述：
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -125,5 +128,10 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public int groupid { get; set; }
 
+
+        /// <summary>
+        /// 用户被打上的标签ID列表
+        /// </summary>
+        public int[] tagid_list { get; set; }
     }
 }

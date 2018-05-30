@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -44,6 +44,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
+#if !NETCOREAPP2_1
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>
@@ -144,5 +145,6 @@ namespace Senparc.WeixinTests.Cache
 
             //结果：Newtonsoft.JSON 效率更高，三个结果时间基本上1:2:3
         }
+#endif
     }
 }

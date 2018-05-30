@@ -218,6 +218,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
         /// <summary>
         /// 【异步方法】发送文本信息
@@ -398,5 +399,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         }
         #endregion
+#endif
     }
 }

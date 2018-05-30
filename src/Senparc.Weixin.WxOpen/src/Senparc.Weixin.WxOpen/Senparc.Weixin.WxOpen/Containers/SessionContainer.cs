@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -41,7 +41,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string Key
         {
             get { return _key; }
-            set { base.SetContainerProperty(ref _key, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _key, value, "Key"); }
+#else
+            set { this.SetContainerProperty(ref _key, value); }
+#endif
         }
 
         /// <summary>
@@ -50,7 +54,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string OpenId
         {
             get { return _openId; }
-            set { base.SetContainerProperty(ref _openId, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _openId, value, "OpenId"); }
+#else
+            set { this.SetContainerProperty(ref _openId, value); }
+#endif
         }
 
         /// <summary>
@@ -59,7 +67,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string SessionKey
         {
             get { return _sessionKey; }
-            set { base.SetContainerProperty(ref _sessionKey, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _sessionKey, value, "SessionKey"); }
+#else
+            set { this.SetContainerProperty(ref _sessionKey, value); }
+#endif
         }
 
         /// <summary>
@@ -68,7 +80,11 @@ namespace Senparc.Weixin.WxOpen.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+#if NET35 || NET40
+            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+#else
+            set { this.SetContainerProperty(ref _expireTime, value); }
+#endif
         }
 
         private string _key;

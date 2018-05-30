@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：CommonJsonSend.cs
     文件功能描述：向需要AccessToken的API发送消息的公共方法
@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public static class CommonJsonSend
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -114,7 +114,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -169,5 +170,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         #endregion
+#endif
     }
 }

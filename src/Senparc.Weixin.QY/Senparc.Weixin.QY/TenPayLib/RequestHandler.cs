@@ -1,193 +1,236 @@
-/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+ï»¿/*----------------------------------------------------------------
+	Copyright (C) 2017 Senparc
  
-    ÎÄ¼şÃû£ºRequestHandler.cs
-    ÎÄ¼ş¹¦ÄÜÃèÊö£ºÎ¢ĞÅÖ§¸¶ ÇëÇó´¦Àí
-    
-    
-    ´´½¨±êÊ¶£ºSenparc - 20150722
-    
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20170623
-    ĞŞ¸ÄÃèÊö£ºÊ¹ÓÃ ASCII ×ÖµäÅÅĞò
+	æ–‡ä»¶åï¼šRequestHandler.cs
+	æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜V3 è¯·æ±‚å¤„ç†
+	
+	
+	åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
+	
+	ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+	ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
+
+	ä¿®æ”¹æ ‡è¯†ï¼šYu XiaoChou - 20160107
+	ä¿®æ”¹æè¿°ï¼šå¢åŠ ä¸€ä¸ªä¸éœ€è¦HttpContextçš„åˆå§‹åŒ–æ–¹æ³•ï¼Œé¿å…ä½¿ç”¨è¿™ä¸ªç±»çš„æ—¶å€™ï¼Œè¿˜è¦å¿…é¡»ä»é¡µé¢åˆå§‹åŒ–ä¸€ä¸ªå¯¹è±¡è¿‡æ¥ï¼Œå¯ä»¥åœ¨åŸºç±»é‡Œç›´æ¥ä½¿ç”¨è¿™ä¸ªç±»ï¼Œç›¸åº”çš„ï¼Œå°†GetCharsetæ–¹æ³•ä¸­ï¼Œä¸å­˜åœ¨HttpContextæ—¶ï¼Œé»˜è®¤ä½¿ç”¨UTF-8
+
+	ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20161112
+	ä¿®æ”¹æè¿°ï¼šä¸ºParseXML()æ–¹æ³•æ·»åŠ v==nullçš„åˆ¤æ–­
+
+	ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20170115
+	ä¿®æ”¹æè¿°ï¼šv14.3.120 æ·»åŠ SetParameterWhenNotNull()æ–¹æ³•
+        
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20170623
+    ä¿®æ”¹æè¿°ï¼šä½¿ç”¨ ASCII å­—å…¸æ’åº
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.QY.Helpers;
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLibV3
 {
-    /**
-    'Ç©Ãû¹¤¾ßÀà
-     ============================================================================/// <summary>
-    'apiËµÃ÷£º
-    'Init();
-    '³õÊ¼»¯º¯Êı£¬Ä¬ÈÏ¸øÒ»Ğ©²ÎÊı¸³Öµ¡£
-    'SetKey(key_)'ÉèÖÃÉÌ»§ÃÜÔ¿
-    'CreateMd5Sign(signParams);×ÖµäÉú³ÉMd5Ç©Ãû
-    'GenPackage(packageParams);»ñÈ¡package°ü
-    'CreateSHA1Sign(signParams);´´½¨Ç©ÃûSHA1
-    'ParseXML();Êä³öxml
-    'GetDebugInfo(),»ñÈ¡debugĞÅÏ¢
-     * 
-     * ============================================================================
-     */
-    public class RequestHandler
-    {
+	/**
+	'ç­¾åå·¥å…·ç±»
+	 ============================================================================/// <summary>
+	'apiè¯´æ˜ï¼š
+	'Init();
+	'åˆå§‹åŒ–å‡½æ•°ï¼Œé»˜è®¤ç»™ä¸€äº›å‚æ•°èµ‹å€¼ã€‚
+	'SetKey(key_)'è®¾ç½®å•†æˆ·å¯†é’¥
+	'CreateMd5Sign(signParams);å­—å…¸ç”ŸæˆMd5ç­¾å
+	'GenPackage(packageParams);è·å–packageåŒ…
+	'CreateSHA1Sign(signParams);åˆ›å»ºç­¾åSHA1
+	'ParseXML();è¾“å‡ºxml
+	'GetDebugInfo(),è·å–debugä¿¡æ¯
+	 * 
+	 * ============================================================================
+	 */
+	public class RequestHandler
+	{
 
-        public RequestHandler(HttpContext httpContext)
-        {
-            Parameters = new Hashtable();
-
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
-        }
-        /// <summary>
-        /// ÃÜÔ¿
-        /// </summary>
-        private string Key;
-
-        protected HttpContext HttpContext;
-
-        /// <summary>
-        /// ÇëÇóµÄ²ÎÊı
-        /// </summary>
-        protected Hashtable Parameters;
-
-        /// <summary>
-        /// debugĞÅÏ¢
-        /// </summary>
-        private string DebugInfo;
-
-        /// <summary>
-        /// ³õÊ¼»¯º¯Êı
-        /// </summary>
-        public virtual void Init()
-        {
-        }
-        /// <summary>
-        /// »ñÈ¡debugĞÅÏ¢
-        /// </summary>
-        /// <returns></returns>
-        public String GetDebugInfo()
-        {
-            return DebugInfo;
-        }
-        /// <summary>
-        /// »ñÈ¡ÃÜÔ¿
-        /// </summary>
-        /// <returns></returns>
-        public string GetKey()
-        {
-            return Key;
-        }
-        /// <summary>
-        /// ÉèÖÃÃÜÔ¿
-        /// </summary>
-        /// <param name="key"></param>
-        public void SetKey(string key)
-        {
-            this.Key = key;
-        }
-
-        /// <summary>
-        /// ÉèÖÃ²ÎÊıÖµ
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <param name="parameterValue"></param>
-        public void SetParameter(string parameter, string parameterValue)
-        {
-            if (parameter != null && parameter != "")
-            {
-                if (Parameters.Contains(parameter))
-                {
-                    Parameters.Remove(parameter);
-                }
-
-                Parameters.Add(parameter, parameterValue);
-            }
-        }
+		public RequestHandler()
+		{
+			Parameters = new Hashtable();
+		}
 
 
-        /// <summary>
-        /// ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊıÃû³Æa-zÅÅĞò,Óöµ½¿ÕÖµµÄ²ÎÊı²»²Î¼ÓÇ©Ãû
-        /// </summary>
-        /// <param name="key">²ÎÊıÃû</param>
-        /// <param name="value">²ÎÊıÖµ</param>
-        /// keyºÍvalueÍ¨³£ÓÃÓÚÌî³ä×îºóÒ»×é²ÎÊı
-        /// <returns></returns>
-        public virtual string CreateMd5Sign(string key, string value)
-        {
-            StringBuilder sb = new StringBuilder();
+		public RequestHandler(HttpContext httpContext)
+		{
+			Parameters = new Hashtable();
+#if NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
+		}
+		/// <summary>
+		/// å¯†é’¥
+		/// </summary>
+		private string Key;
+
+		protected HttpContext HttpContext;
+
+		/// <summary>
+		/// è¯·æ±‚çš„å‚æ•°
+		/// </summary>
+		protected Hashtable Parameters;
+
+		/// <summary>
+		/// debugä¿¡æ¯
+		/// </summary>
+		private string DebugInfo;
+
+		/// <summary>
+		/// åˆå§‹åŒ–å‡½æ•°
+		/// </summary>
+		public virtual void Init()
+		{
+		}
+		/// <summary>
+		/// è·å–debugä¿¡æ¯
+		/// </summary>
+		/// <returns></returns>
+		public String GetDebugInfo()
+		{
+			return DebugInfo;
+		}
+		/// <summary>
+		/// è·å–å¯†é’¥
+		/// </summary>
+		/// <returns></returns>
+		public string GetKey()
+		{
+			return Key;
+		}
+		/// <summary>
+		/// è®¾ç½®å¯†é’¥
+		/// </summary>
+		/// <param name="key"></param>
+		public void SetKey(string key)
+		{
+			this.Key = key;
+		}
+
+		/// <summary>
+		/// è®¾ç½®å‚æ•°å€¼
+		/// </summary>
+		/// <param name="parameter"></param>
+		/// <param name="parameterValue"></param>
+		public void SetParameter(string parameter, string parameterValue)
+		{
+			if (parameter != null && parameter != "")
+			{
+				if (Parameters.Contains(parameter))
+				{
+					Parameters.Remove(parameter);
+				}
+
+				Parameters.Add(parameter, parameterValue);
+			}
+		}
+
+
+		/// <summary>
+		/// å½“å‚æ•°ä¸ä¸ºnullæˆ–ç©ºå­—ç¬¦ä¸²æ—¶ï¼Œè®¾ç½®å‚æ•°å€¼
+		/// </summary>
+		/// <param name="parameter"></param>
+		/// <param name="parameterValue"></param>
+		public void SetParameterWhenNotNull(string parameter, string parameterValue)
+		{
+			if (!string.IsNullOrEmpty(parameterValue))
+			{
+				SetParameter(parameter, parameterValue);
+			}
+		}
+
+		/// <summary>
+		/// åˆ›å»ºmd5æ‘˜è¦,è§„åˆ™æ˜¯:æŒ‰å‚æ•°åç§°a-zæ’åº,é‡åˆ°ç©ºå€¼çš„å‚æ•°ä¸å‚åŠ ç­¾å
+		/// </summary>
+		/// <param name="key">å‚æ•°å</param>
+		/// <param name="value">å‚æ•°å€¼</param>
+		/// keyå’Œvalueé€šå¸¸ç”¨äºå¡«å……æœ€åä¸€ç»„å‚æ•°
+		/// <returns></returns>
+		public virtual string CreateMd5Sign(string key, string value)
+		{
+			StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
             akeys.Sort(ASCIISort.Create());
 
-            foreach (string k in akeys)
-            {
-                string v = (string)Parameters[k];
-                if (null != v && "".CompareTo(v) != 0
-                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
-                {
-                    sb.Append(k + "=" + v + "&");
-                }
-            }
+			foreach (string k in akeys)
+			{
+				string v = (string)Parameters[k];
+				if (null != v && "".CompareTo(v) != 0
+					&& "sign".CompareTo(k) != 0 
+					//&& "sign_type".CompareTo(k) != 0
+					&& "key".CompareTo(k) != 0)
+				{
+					sb.Append(k + "=" + v + "&");
+				}
+			}
 
-            sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+			sb.Append(key + "=" + value);
+			string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
-            return sign;
-        }
+			return sign;
+		}
 
-        /// <summary>
-        /// Êä³öXML
-        /// </summary>
-        /// <returns></returns>
-        public string ParseXML()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<xml>");
-            foreach (string k in Parameters.Keys)
-            {
-                string v = (string)Parameters[k];
-                if (Regex.IsMatch(v, @"^[0-9.]$"))
-                {
+		/// <summary>
+		/// è¾“å‡ºXML
+		/// </summary>
+		/// <returns></returns>
+		public string ParseXML()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append("<xml>");
+			foreach (string k in Parameters.Keys)
+			{
+				string v = (string)Parameters[k];
+				if (v != null && Regex.IsMatch(v, @"^[0-9.]$"))
+				{
 
-                    sb.Append("<" + k + ">" + v + "</" + k + ">");
-                }
-                else
-                {
-                    sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
-                }
+					sb.Append("<" + k + ">" + v + "</" + k + ">");
+				}
+				else
+				{
+					sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
+				}
 
-            }
-            sb.Append("</xml>");
-            return sb.ToString();
-        }
+			}
+			sb.Append("</xml>");
+			return sb.ToString();
+		}
 
 
 
-        /// <summary>
-        /// ÉèÖÃdebugĞÅÏ¢
-        /// </summary>
-        /// <param name="debugInfo"></param>
-        public void SetDebugInfo(String debugInfo)
-        {
-            this.DebugInfo = debugInfo;
-        }
+		/// <summary>
+		/// è®¾ç½®debugä¿¡æ¯
+		/// </summary>
+		/// <param name="debugInfo"></param>
+		public void SetDebugInfo(String debugInfo)
+		{
+			this.DebugInfo = debugInfo;
+		}
 
-        public Hashtable GetAllParameters()
-        {
-            return this.Parameters;
-        }
+		public Hashtable GetAllParameters()
+		{
+			return this.Parameters;
+		}
 
-        protected virtual string GetCharset()
-        {
+		protected virtual string GetCharset()
+		{
+#if NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
-    }
+	}
 }

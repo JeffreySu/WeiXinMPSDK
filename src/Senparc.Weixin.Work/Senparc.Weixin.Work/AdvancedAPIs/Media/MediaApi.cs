@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MediaApi.cs
     文件功能描述：多媒体文件接口
@@ -24,6 +24,10 @@
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 
+    修改标识：Senparc - 20180527
+    修改描述：v1.6.0-rc1 修复 MediaApi.UploadimgMedia() 方法文件上传问题
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -33,10 +37,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Media;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
@@ -46,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class MediaApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 上传临时媒体文件【QY移植修改】
@@ -60,10 +64,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -80,7 +84,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
               accessToken.AsUrlData(), mediaId.AsUrlData());
 
                 HttpUtility.Get.Download(url, stream);//todo 异常处理
@@ -99,12 +103,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="dir">保存目录</param>
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
         {
-            var result =  ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                var fileName = HttpUtility.Get.Download(url, dir);
-                return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
-            }, accessTokenOrAppKey);
+            var result = ApiHandlerWapper.TryCommonApi(accessToken =>
+           {
+               var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+               var fileName = HttpUtility.Get.Download(url, dir);
+               return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
+           }, accessTokenOrAppKey);
             return result.errmsg;
         }
         /// <summary>
@@ -119,7 +123,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_mpnews?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_mpnews?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -150,10 +154,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -172,7 +176,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
                 return CommonJsonSend.Send<GetForeverMpNewsResult>(null, url, null, CommonJsonSendType.GET);
@@ -194,7 +198,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
                 HttpUtility.Get.Download(url, stream);//todo 异常处理
@@ -215,7 +219,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
                 return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -237,7 +241,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/update_mpnews?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/update_mpnews?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -266,7 +270,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/get_count?access_token={0}&agentid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/get_count?access_token={0}&agentid={1}",
                 accessToken.AsUrlData(), agentId);
 
                 return CommonJsonSend.Send<GetCountResult>(null, url, null, CommonJsonSendType.GET);
@@ -276,7 +280,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取素材列表
+        /// 【Work中未定义】【疑似】获取素材列表
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
@@ -289,7 +293,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/batchget?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/batchget?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -307,24 +311,24 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         /// <summary>
         /// 上传图文消息内的图片
+        /// <para>上传的图片限制：大小不超过2MB，支持JPG,PNG格式，每天上传的图片不能超过100张</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="media"></param>
+        /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UploadimgMediaResult UploadimgMedia(string accessTokenOrAppKey, string media, int timeOut = Config.TIME_OUT)
+        public static UploadimgMediaResult UploadimgMedia(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/uploadimg?access_token={0}",
                 accessToken.AsUrlData());
 
-                var data = new
-                {
-                    media = media
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = imgFile;
+                return Post.PostFileGetJson<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
-                return CommonJsonSend.Send<UploadimgMediaResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -332,7 +336,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】上传临时媒体文件【QY移植修改】
         /// </summary>
@@ -345,10 +350,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -364,7 +369,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken.AsUrlData(), mediaId.AsUrlData());
                 await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
@@ -385,7 +390,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_mpnews?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_mpnews?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -416,10 +421,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
+                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -438,12 +443,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetForeverMpNewsResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
-            
+
         }
 
         /// <summary>
@@ -459,7 +464,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
                 await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
@@ -483,7 +488,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
+                    Config.ApiWorkHost + "/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -505,7 +510,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/update_mpnews?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/update_mpnews?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -534,7 +539,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/get_count?access_token={0}&agentid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/get_count?access_token={0}&agentid={1}",
                 accessToken.AsUrlData(), agentId);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCountResult>(null, url, null, CommonJsonSendType.GET);
@@ -544,7 +549,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取素材列表
+        /// 【异步方法】【Work中未定义】【疑似】获取素材列表
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type"></param>
@@ -557,7 +562,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/batchget?access_token={0}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/batchget?access_token={0}",
                 accessToken.AsUrlData());
 
                 var data = new
@@ -574,34 +579,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
-        /*上传的图片限制
-          大小不超过2MB，支持JPG,PNG格式
-          每天上传的图片不能超过100张*/
         /// <summary>
         /// 【异步方法】上传图文消息内的图片
+        /// <para>上传的图片限制：大小不超过2MB，支持JPG,PNG格式，每天上传的图片不能超过100张</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="media"></param>
+        /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-
-        public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessTokenOrAppKey, string media, int timeOut = Config.TIME_OUT)
+        public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
-                accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/uploadimg?access_token={0}",
+             accessToken.AsUrlData());
 
-                var data = new
-                {
-                    media = media
-                };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadimgMediaResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = imgFile;
+                return await Post.PostFileGetJsonAsync<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
             }, accessTokenOrAppKey);
 
 
         }
         #endregion
+#endif
     }
 }

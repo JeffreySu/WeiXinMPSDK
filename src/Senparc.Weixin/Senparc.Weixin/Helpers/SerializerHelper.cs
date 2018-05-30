@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：SerializerHelper.cs
     文件功能描述：unicode解码
@@ -29,13 +29,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180526
+    修改描述：v4.22.0-rc1 使用 Newtonsoft.Json 进行序列化
+
 ----------------------------------------------------------------*/
 
 
 
 using System.Globalization;
 using System.Text.RegularExpressions;
+#if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace Senparc.Weixin.Helpers
 {
@@ -68,14 +76,24 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            string jsonString;
+#if NET35 || NET40 || NET45
+            //JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            //{
+            //    new WeixinJsonConventer(data.GetType(), jsonSetting),
+            //});
+            //jsonString = jsSerializer.Serialize(data);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(data, new WeiXinJsonSetting(jsonSetting));
+#else
+            JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                new WeixinJsonConventer(data.GetType(), jsonSetting),
-                new ExpandoJsonConverter()
-            });
+                NullValueHandling = NullValueHandling.Ignore,
+            };
 
-            var jsonString = jsSerializer.Serialize(data);
+            jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data, settings);
+#endif
+
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
@@ -91,8 +109,13 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public T GetObject<T>(string jsonString)
         {
+#if NET35 || NET40 || NET45
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             return jsSerializer.Deserialize<T>(jsonString);
+#else
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(T));
+#endif
+
         }
     }
 }

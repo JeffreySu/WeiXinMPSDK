@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ASCIISort.cs
     文件功能描述：ASCII排序
@@ -37,7 +37,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Helpers.StringHelper
 {
@@ -57,9 +56,14 @@ namespace Senparc.Weixin.Helpers.StringHelper
 
         public int Compare(object x, object y)
         {
+
+#if NET35 || NET40 || NET45
             byte[] xBytes = System.Text.Encoding.Default.GetBytes(x.ToString());
             byte[] yBytes = System.Text.Encoding.Default.GetBytes(y.ToString());
-
+#else
+            byte[] xBytes = System.Text.Encoding.ASCII.GetBytes(x.ToString());
+            byte[] yBytes = System.Text.Encoding.ASCII.GetBytes(y.ToString());
+#endif
             int xLength = xBytes.Length;
             int yLength = yBytes.Length;
             int minLength = Math.Min(xLength, yLength);

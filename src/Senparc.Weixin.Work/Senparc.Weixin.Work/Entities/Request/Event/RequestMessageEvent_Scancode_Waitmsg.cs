@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：RequestMessageEvent_ScancodeWaitmsg.cs
     文件功能描述：事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)

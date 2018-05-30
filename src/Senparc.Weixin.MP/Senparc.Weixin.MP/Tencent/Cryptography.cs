@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -76,11 +76,11 @@ namespace Senparc.Weixin.MP.Tencent
             byte[] bMsg = new byte[len];
             byte[] bAppid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bAppid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bAppid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             appid = Encoding.UTF8.GetString(bAppid);
 
-            
+
             return oriMsg;
         }
 
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bAppid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bAppid.Length);
-   
+
             return AES_encrypt(bMsg, Iv, Key);
 
         }
@@ -126,7 +126,11 @@ namespace Senparc.Weixin.MP.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
+#if NET35 || NET40 || NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -154,7 +158,12 @@ namespace Senparc.Weixin.MP.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
+#if NET35 || NET40 || NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
+
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -225,7 +234,11 @@ namespace Senparc.Weixin.MP.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
+#if NET35 || NET40 || NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;

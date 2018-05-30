@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：MemcachedContainerStrategy.cs
     文件功能描述：Memcached 容器缓存策略。
@@ -31,14 +31,21 @@ using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+
 using Senparc.Weixin.Containers;
+#if NET45 || NET461
+
+#else
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+#endif
 
 namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedContainerStrategy : MemcachedObjectCacheStrategy, IContainerCacheStrategy
     {
-        #region 单例
 
+        #region 单例
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
@@ -47,7 +54,7 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         //静态LocalCacheStrategy
-        public static IContainerCacheStrategy Instance
+        public static new IContainerCacheStrategy Instance
         {
             get
             {
@@ -63,7 +70,6 @@ namespace Senparc.Weixin.Cache.Memcached
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedContainerStrategy instance = new MemcachedContainerStrategy();
         }
-
         #endregion
 
 
@@ -83,12 +89,12 @@ namespace Senparc.Weixin.Cache.Memcached
 #endif
         }
 
-        public void RemoveFromCache(string key, bool isFullKey = false)
+        public override void RemoveFromCache(string key, bool isFullKey = false)
         {
             base.RemoveFromCache(key, isFullKey);
         }
 
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
+        public new IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -104,22 +110,22 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();
         }
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
+        public new IDictionary<string, IBaseContainerBag> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public bool CheckExisted(string key, bool isFullKey = false)
+        public override bool CheckExisted(string key, bool isFullKey = false)
         {
             return base.CheckExisted(key, isFullKey);
         }
 
-        public long GetCount()
+        public override long GetCount()
         {
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
+        public new void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
             base.Update(key, value, isFullKey);
         }
@@ -133,7 +139,7 @@ namespace Senparc.Weixin.Cache.Memcached
                 Update(cacheKey, containerBag, true);
             }
         }
-        
+
         #endregion
 
     }

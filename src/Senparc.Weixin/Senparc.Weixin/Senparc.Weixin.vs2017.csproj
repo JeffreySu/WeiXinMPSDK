@@ -406,6 +406,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET\Senparc.CO2NET.csproj" />
+  </ItemGroup>
+
   <!--<ItemGroup>
     <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.hosting.abstractions\2.1.0-rc1-final\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>

@@ -40,6 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using System;
 using System.Web;
 
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
@@ -58,26 +59,14 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpRequest"></param>
         /// <returns></returns>
+        [Obsolete("请使用 Senparc.CO2NET.Utilities.BrowserUtility.GetUserAgent(httpRequest) 方法")]
 #if NET40 || NET45
         public static string GetUserAgent(HttpRequestBase httpRequest)
 #else
         public static string GetUserAgent(HttpRequest httpRequest)
 #endif
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
-
-            string userAgent = null;
-            var userAgentHeader = httpRequest.Headers["User-Agent"];
-            if (userAgentHeader.Count > 0)
-            {
-                userAgent = userAgentHeader[0].ToUpper();
-            }
-#else
-            string userAgent = httpRequest.UserAgent != null
-                                ? httpRequest.UserAgent.ToUpper()
-                                : null;
-#endif
-            return userAgent;
+            return CO2NET.Utilities.BrowserUtility.GetUserAgent(httpRequest);
         }
 
         /// <summary>

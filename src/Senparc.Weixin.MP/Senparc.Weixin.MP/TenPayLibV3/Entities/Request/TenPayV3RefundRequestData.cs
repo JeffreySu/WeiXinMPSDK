@@ -25,6 +25,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：微信支付统一请求参数
     
     创建标识：Senparc - 20170502
+
+    修改标识：Senparc - 20180516
+    修改描述：提供 RefundDescription、NotifyUrl 两个新参数
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -98,6 +102,17 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string RefundAccount { get; set; }
 
         /// <summary>
+        /// 若商户传入，会在下发给用户的退款消息中体现退款原因
+        /// </summary>
+        public string RefundDescription { get; }
+
+        /// <summary>
+        /// 异步接收微信支付退款结果通知的回调地址，通知URL必须为外网可访问的url，不允许带参数。
+        /// 如果参数中传了notify_url，则商户平台上配置的回调地址将不会生效。
+        /// </summary>
+        public string NotifyUrl { get; }
+
+        /// <summary>
         /// 签名类型
         /// </summary>
         public string SignType { get; set; }
@@ -128,9 +143,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="refundFee"></param>
         /// <param name="opUserId"></param>
         /// <param name="refundAccount"></param>
+        /// <param name="refundDescription"></param>
+        /// <param name="notifyUrl"></param>
         public TenPayV3RefundRequestData(string appId, string mchId, string key, string deviceInfo, string nonceStr,
             string transactionId, string outTradeNo, string outRefundNo, int totalFee, int refundFee,
-            string opUserId, string refundAccount,
+            string opUserId, string refundAccount, string refundDescription = null, string notifyUrl = null,
             string refundFeeType = "CNY", string signType = "MD5")
         {
             AppId = appId;
@@ -144,8 +161,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             TotalFee = totalFee;
             RefundFee = refundFee;
             OpUserId = opUserId;
-            RefundAccount = refundAccount;
             RefundFeeType = refundFeeType;
+            RefundAccount = refundAccount;
+            RefundDescription = refundDescription;
+            NotifyUrl = notifyUrl;
 
             SignType = signType;
 
@@ -167,8 +186,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());
             PackageRequestHandler.SetParameter("refund_fee", this.RefundFee.ToString());
             PackageRequestHandler.SetParameter("op_user_id", this.OpUserId);
-            PackageRequestHandler.SetParameterWhenNotNull("refund_account", this.RefundAccount);
             PackageRequestHandler.SetParameterWhenNotNull("refund_fee_type", this.RefundFeeType);
+            PackageRequestHandler.SetParameterWhenNotNull("refund_desc", this.RefundDescription);
+            PackageRequestHandler.SetParameterWhenNotNull("notify_url", this.NotifyUrl);
+            PackageRequestHandler.SetParameterWhenNotNull("refund_account", this.RefundAccount);
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 

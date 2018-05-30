@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.CoreSample.Models.VD;
-using Senparc.Weixin.MP.Containers;
-
-#if NET45
-using System.Web
-using System.Web.Mvc;
-#else
 using Microsoft.AspNetCore.Mvc;
-#endif
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -42,10 +38,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public ActionResult Index()
         {
             Analysis_IndexVD vd = new Analysis_IndexVD()
-                {
-                    StartDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
-                    EndDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
-                };
+            {
+                StartDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+                EndDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+            };
+
+
 
             return View(vd);
         }
@@ -68,7 +66,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //    var Strong = result1 as AnalysisResultJson<ArticleSummaryItem>;
             //   // Strong.list.First().ori_page_read_count
             //}
-            
+
             IBaseAnalysisResult result = null;
 
             var accessToken = AccessTokenContainer.TryGetAccessToken(vd_Form.AppId, vd_Form.AppSecret);
@@ -78,8 +76,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 case AnalysisType.图文群发每日数据:
                     //var strongResult = new AnalysisResultJson<ArticleSummaryItem>();
                     //result = strongResult;
-                    result = MP.AdvancedAPIs.AnalysisApi.GetArticleSummary(accessToken, vd_Form.StartDate, vd_Form.EndDate);
-                    vd_Form.Result = (result as AnalysisResultJson<ArticleSummaryItem>).list.ToString();
+
+                    /*
+                     * 如果时间跨度不符合官方要求，会返回：微信Post请求发生错误！错误代码：61501，说明：date range error hint: [43R2TA0767e541]
+                    */
+                    result = AnalysisApi.GetArticleSummary(accessToken, vd_Form.StartDate, vd_Form.EndDate);
+                    vd_Form.Result = (result as AnalysisResultJson<ArticleSummaryItem>).list;
                     break;
                 //case AnalysisType.图文群发总数据:
                 //    result = new AnalysisResultJson<ArticleTotalItem>();

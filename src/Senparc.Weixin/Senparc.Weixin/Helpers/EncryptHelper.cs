@@ -258,14 +258,14 @@ namespace Senparc.Weixin.Helpers
         /// <summary>  
         /// AES解密(无向量)  
         /// </summary>  
-        /// <param name="encryptedBytes">被加密的明文</param>  
+        /// <param name="data">被加密的明文</param>  
         /// <param name="key">密钥</param>  
         /// <returns>明文</returns>  
-        public static string AESDecrypt(String Data, String Key)
+        public static string AESDecrypt(String data, String key)
         {
-            Byte[] encryptedBytes = Convert.FromBase64String(Data);
+            Byte[] encryptedBytes = Convert.FromBase64String(data);
             Byte[] bKey = new Byte[32];
-            Array.Copy(Encoding.UTF8.GetBytes(Key.PadRight(bKey.Length)), bKey, bKey.Length);
+            Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
 
             MemoryStream mStream = new MemoryStream(encryptedBytes);
             //mStream.Write( encryptedBytes, 0, encryptedBytes.Length );  

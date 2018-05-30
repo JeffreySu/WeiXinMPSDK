@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
-            #region 书中例子
+            #region 书中例子 
             //if (requestMessage.Content == "你好")
             //{
             //    var responseMessage = base.CreateResponseMessage<ResponseMessageNews>();

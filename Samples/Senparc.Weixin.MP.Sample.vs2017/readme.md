@@ -1,6 +1,6 @@
 # Senparc.Weixin.MP.Sample.vs2017 项目说明
 
-本项目为 同时支持 .NET 3.5/4.0/4.5/.NET Core 1.1/2.0 的 Demo，可以直接编译并发布运行。
+本项目为 同时支持 .NET 3.5/4.0/4.5/.NET Core 2.0/2.1 的 Demo，可以直接编译并发布运行。
 
 ## .NET Framwork 4.5 Demo
 

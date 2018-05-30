@@ -452,6 +452,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static RefundResult Refund(TenPayV3RefundRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
+            //退款结果通知：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
+
             //退款接口地址
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}secapi/pay/refund");
 

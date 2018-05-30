@@ -1,55 +1,9 @@
-﻿language: csharp
-#solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
-
-#matrix:
-#  include:
-#    - dotnet: 2.0.0
-#      mono: none
-#      dist: trusty
-#      env: DOTNETCORE=1  # optional, can be used to take different code paths in your script
-      
-  
-# - dotnet restore
-
-#  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
-
+language: csharp
+solution:  ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 scripts:
-  - xbuild /p:Configuration=Release ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
-#此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
-
-
+  - xbuild /p:Configuration=Release ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
+  
 install:
-# - nuget restore ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
- - nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln 
-
-solution:  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
-#solution: ./Samples/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
-
-#script:
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP.MvcExtension/Senparc.Weixin.MP.MvcExtension.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Open/Senparc.Weixin.Open.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.QY.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Work/Senparc.Weixin.Work.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.WxOpen.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis/Senparc.Weixin.Cache.Redis.csproj
-# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Memcached/Senparc.Weixin.Cache.Memcached.csproj 
- 
-# script:
-#  - dotnet restore
-
-
-
-# language: csharp
-
-# script:
-#  - dotnet restore
-
-# solution: ./Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.Sample.vs2017.sln
-
-# matrix:
-#   include:
-#     - dotnet: 2.0.0
-#       mono: none
-#       env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
-
+ - nuget install Newtonsoft.Json -Version 11.0.2
+# - nuget restore  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
+ -  nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln

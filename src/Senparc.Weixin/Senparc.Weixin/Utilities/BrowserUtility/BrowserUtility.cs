@@ -65,7 +65,13 @@ namespace Senparc.Weixin.BrowserUtility
 #endif
         {
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
-            string userAgent = httpRequest.Headers["User-Agent"].ToString().ToUpper();
+
+            string userAgent = null;
+            var userAgentHeader = httpRequest.Headers["User-Agent"];
+            if (userAgentHeader.Count > 0)
+            {
+                userAgent = userAgentHeader[0].ToUpper();
+            }
 #else
             string userAgent = httpRequest.UserAgent != null
                                 ? httpRequest.UserAgent.ToUpper()

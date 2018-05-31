@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 对字符串进行URL编码
         /// </summary>
         /// <param name="instr"></param>
-        /// <param name="charset">在.netstandard1.6无效</param>
+        /// <param name="charset"></param>
         /// <returns></returns>
         public static string UrlEncode(string instr, string charset)
         {
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 对退款通知消息进行解密
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="reqInfo"></param>
         /// <param name="mchKey"></param>
         /// <returns></returns>
         public static string DecodeRefundReqInfo(string reqInfo, string mchKey)
@@ -226,7 +226,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
                 （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
              */
-            var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
+            //var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
+            var base64Encode = reqInfo;//(1) EncryptHelper.AESDecrypt 方法内部会进行一次base64解码，因此这里不再需要解码
             var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
             var result = EncryptHelper.AESDecrypt(base64Encode, md5Str);//(3)
             return result;

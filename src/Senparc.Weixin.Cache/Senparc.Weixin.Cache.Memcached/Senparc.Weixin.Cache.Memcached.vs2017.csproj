@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.4.1</Version>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <Version>1.5.5</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -55,6 +55,10 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
 
       v1.4.0 停止对 .net core 1.1 生成的独立版本
       v1.4.1 提供 RegisterServices 进行快捷注册
+
+      v1.5.0-rc1 支持 .NET Core 2.1.0-rc1-final
+      
+      v1.5.5 发布支持 .net core 2.1 的正式版
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
@@ -88,10 +92,10 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
 
 
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
@@ -99,6 +103,17 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>
 
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Cache.Memcached.xml</DocumentationFile>
+  </PropertyGroup>
 
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
@@ -133,14 +148,14 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     </PackageReference>
   </ItemGroup>
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
     <PackageReference Include="EnyimMemcachedCore">
       <Version>1.1.1.12</Version>
     </PackageReference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
@@ -152,6 +167,25 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />-->
+    <!--<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="EnyimMemcachedCore">
+      <Version>2.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />-->
+    <!--<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+    <PackageReference Include="EnyimMemcachedCore">
+      <Version>2.1.0.7</Version>
+    </PackageReference>
+  </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />

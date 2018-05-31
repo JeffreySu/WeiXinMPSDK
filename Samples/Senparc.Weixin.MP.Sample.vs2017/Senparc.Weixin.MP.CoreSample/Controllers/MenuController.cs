@@ -10,30 +10,58 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
-
-#if NET45
-using System.Web
-using System.Web.Mvc;
-#else
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.MvcExtension;
-#endif
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class MenuController : BaseController
     {
-        //
-        // GET: /Menu/
+        #region 获取IP
+        private static string IP { get; set; }
+
+        /// <summary>
+        /// 获得当前服务器外网IP
+        /// </summary>
+        private string GetIP()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(IP))
+                {
+                    return IP;
+                }
+
+                var url =
+                    "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd=IP&rsv_pq=db4eb7d40002dd86&rsv_t=14d7uOUvNnTdrhnrUx0zdEVTPEN8XDq4aH7KkoHAEpTIXkRQkUD00KJ2p94&rqlang=cn&rsv_enter=1&rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=875&rsv_sug4=875";
+
+                var htmlContent = Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(url, cookieContainer: null);
+                var result = Regex.Match(htmlContent, @"(?<=本机IP:[^\d+]*)(\d+\.\d+\.\d+\.\d+)(?=</span>)");
+                if (result.Success)
+                {
+                    IP = result.Value;
+                }
+                return IP;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        #endregion
+
 
         public ActionResult Index()
         {
@@ -50,6 +78,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 }
             }
 
+            //获取服务器外网IP
+            ViewData["IP"] = GetIP() ?? "使用CMD命令ping sdk.weixin.senparc.com";
+
             return View(result);
         }
 
@@ -65,24 +96,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 //也可以直接一步到位：
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
-#if NET45
-                return Json(result, JsonRequestBehavior.AllowGet);
-#else
-                return Json(result);
-#endif
-
+                return Json(result, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                return Json(new { error = "API 调用发生错误：{0}".FormatWith(ex.JsonResult.ToJson()) }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (Exception ex)
             {
-#if NET45
-                //TODO:为简化代码，这里不处理异常（如Token过期）
-                return Json(new { error = "执行过程发生错误！" }, JsonRequestBehavior.AllowGet);
-#else
-                //TODO:为简化代码，这里不处理异常（如Token过期）
-                return Json(new { error = "执行过程发生错误！" });
-#endif
-
+                return Json(new { error = "执行过程发生错误：{0}".FormatWith(ex.Message) }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
         }
 
@@ -93,6 +115,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var apiName = string.Format("使用接口：{0}。", (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
             try
             {
+                if (token.IsNullOrEmpty())
+                {
+                    throw new WeixinException("Token不能为空！");
+                }
+
                 //重新整理按钮信息
                 WxJsonResult result = null;
                 IButtonGroupBase buttonGroup = null;
@@ -127,7 +154,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult CreateMenuFromJson(string token, string fullJson)
         {
@@ -161,33 +187,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult GetMenu(string token)
         {
-#if NET45
             try
             {
                 var result = CommonAPIs.CommonApi.GetMenu(token);
                 if (result == null)
                 {
-                    return Json(new {error = "菜单不存在或验证失败！"}, JsonRequestBehavior.AllowGet);
+                    return Json(new { error = "菜单不存在或验证失败！" }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
                 }
-                return Json(result, JsonRequestBehavior.AllowGet);
-            }
-            catch (WeixinMenuException ex)
-            {
-                return Json(new {error = "菜单不存在或验证失败：" + ex.Message}, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, JsonRequestBehavior.AllowGet);
-            }
-#else
-            try
-            {
-                var result = CommonAPIs.CommonApi.GetMenu(token);
-                if (result == null)
-                {
-                    return Json(new { error = "菜单不存在或验证失败！" });
-                }
-                return Json(result);
+                return Json(result, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
             catch (WeixinMenuException ex)
             {
@@ -197,29 +204,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
-#endif
         }
 
         public ActionResult DeleteMenu(string token)
         {
-#if NET45
-            try
-            {
-                var result = CommonAPIs.CommonApi.DeleteMenu(token);
-                var json = new
-                {
-                    Success = result.errmsg == "ok",
-                    Message = result.errmsg
-                };
-                return Json(json, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                var json = new { Success = false, Message = ex.Message };
-                return Json(json, JsonRequestBehavior.AllowGet);
-            }
-
-#else
             try
             {
                 var result = CommonAPIs.CommonApi.DeleteMenu(token);
@@ -235,8 +223,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var json = new { Success = false, Message = ex.Message };
                 return Json(json, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
             }
-#endif
-
         }
     }
 }

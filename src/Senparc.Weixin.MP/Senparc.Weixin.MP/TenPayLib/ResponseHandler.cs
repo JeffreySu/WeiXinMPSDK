@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170623
     修改描述：使用 ASCII 字典排序
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -432,6 +432,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static UploadImgResult UploadImg(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
@@ -632,7 +633,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要获取的素材的media_id</param>
-        public static async Task<WxJsonResult> GetForeverMediaAsync(string accessTokenOrAppId, string mediaId,Stream stream, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetForeverMediaAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
 
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -802,15 +803,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<UploadImgResult> UploadImgAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
+            //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-           {
-               var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
-
-               var fileDictionary = new Dictionary<string, string>();
-               fileDictionary["media"] = file;
-               return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
-           }, accessTokenOrAppId);
+            {
+                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+         
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = file;
+                return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
+         
+            }, accessTokenOrAppId);
         }
 
         #endregion

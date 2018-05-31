@@ -65,6 +65,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170810
     修改描述：v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
+
+    修改标识：Senparc - 20180526
+    修改描述：v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
+
 ----------------------------------------------------------------*/
 
 /*
@@ -1025,7 +1029,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                    TypesToIgnoreNull = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
                 };
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut, jsonSetting: jsonSetting);
 
@@ -1115,7 +1119,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activateuserform/set?access_token={0}", accessToken.AsUrlData());
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
+                    TypesToIgnoreNull = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
                 };
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
@@ -1297,7 +1301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<Type>() { data.GetType() }
+                    TypesToIgnoreNull = new List<Type>() { data.GetType() }
                 };
 
                 return CommonJsonSend.Send<UpdateUserResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
@@ -2657,7 +2661,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting()
                 {
-                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                    TypesToIgnoreNull = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut, jsonSetting: jsonSetting);

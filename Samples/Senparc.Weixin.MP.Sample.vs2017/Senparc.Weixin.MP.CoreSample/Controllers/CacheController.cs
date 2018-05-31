@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
-
-#if NET45
-using System.Web
-using System.Web.Mvc;
-#else
-using Microsoft.AspNetCore.Mvc;
-#endif
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -82,7 +77,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
-            var bagKey = "Redis." + DateTime.Now.ToString();
+            var bagKey = "Redis." + DateTime.Now.ToString("yyyy-MM-dd:HH-mm-ss-ffff");
             var bag = new TestContainerBag1()
             {
                 Key = bagKey,
@@ -124,7 +119,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     DateTime = DateTime.Now
                 };
                 TestContainer1.Update(shortBagKey, bag); //更新到缓存（队列）
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString(),
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
                     bag.DateTime.Ticks);
 
                 Thread.Sleep(1);
@@ -135,7 +130,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var mq = new SenparcMessageQueue();
                 var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", bag.GetType(), bag.Key, "UpdateContainerBag");
                 var mqItem = mq.GetItem(mqKey);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString(),
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
                     bag.DateTime.Ticks);
                 sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
@@ -156,7 +151,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",
-                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToString(),
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToLongTimeString(),
                     !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为当前加入到缓存的最新时间
 
             }

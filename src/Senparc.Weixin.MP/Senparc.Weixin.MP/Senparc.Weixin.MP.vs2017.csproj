@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>14.12.4</Version>
+    <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <Version>14.14.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -375,24 +375,35 @@
       v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
       v14.10.10 修正 Net Core 版本错误的代理设置
       v14.10.11-beta1 测试.net core下的文件上传方法
-      v14.10.12 
-	      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
-	      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
-	      3、支持自定义菜单传入菜单对象为null（自动过滤）
+      v14.10.12
+      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
+      3、支持自定义菜单传入菜单对象为null（自动过滤）
       v14.10.13 优化 TenPayV3Util.DecodeRefundReqInfo() 方法
       v14.10.14 优化 Get.Download() 方法，完善对 FileName 的判断
       v14.10.15 Wifi连接页面支持跳转到小程序。微信返回的JSON有变化。
       v14.11.0 添加“付款到银行卡”接口
       v14.11.1 为 TenPayV3.GetTransferInfo() 及对应异步方法添加证书参数。
-      v14.12.0 
-	      1、用户信息扫码场景信息
-	      2、cardapi增加多卡二维码API
-	      3、UpdateUser、MemberCardDeal增加参数
-	      4、统一cardmanageResultjson的类命名规则
+      v14.12.0
+      1、用户信息扫码场景信息
+      2、cardapi增加多卡二维码API
+      3、UpdateUser、MemberCardDeal增加参数
+      4、统一cardmanageResultjson的类命名规则
       v14.12.1 修改.NET Core环境下，ResponseHandler 中构造函数传入 HttpContext 的异常提示
       v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
       v14.12.3 1、添加黑名单管理
-               2、分离永久视频素材获取接口
+      2、分离永久视频素材获取接口
+
+      v14.13.0-rc1 支持 .NET Core 2.1.0-rc1-final
+
+      v14.14.0-rc1
+      1、支持 Senparc.Weixin v4.22.0-rc1
+      2、CardAPI 升级到新的 Newtonsoft.Json 的序列化参数
+
+      v14.14.0
+      1、发布支持 .net core 2.1 的正式版
+      2、获取用户基本信息（包括UnionID机制）API 的 ResultJson 模型增加 subscribe_scene（用户关注的渠道来源）字段。
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -436,20 +447,30 @@
   </PropertyGroup>-->
 
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.MP.xml</DocumentationFile>
   </PropertyGroup>
 
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Weixin.MP.xml</DocumentationFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Weixin.MP.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>-->
 
   <ItemGroup>
     <Compile Remove="AdvancedAPIs\Card\Store\**" />
@@ -508,6 +529,24 @@
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

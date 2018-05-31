@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.CoreSample
             services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
 
                     //Senparc.Weixin全局注册
-                    .AddSernparcWeixinGlobalServices();
+                    .AddSenparcWeixinGlobalServices();
 
             #region Senparc.Weixin SDK Memcached 配置
 

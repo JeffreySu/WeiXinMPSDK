@@ -27,6 +27,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20151226
     
+    
+    ----  CO2NET   ----
+
+    修改标识：Senparc - 20180601
+    修改描述：v5.0.0 引入 Senparc.CO2NET
+
 ----------------------------------------------------------------*/
 
 
@@ -41,37 +47,19 @@ namespace Senparc.Weixin.MessageQueue
     /// <summary>
     /// SenparcMessageQueue消息队列项
     /// </summary>
-    public class SenparcMessageQueueItem
+    public class SenparcMessageQueueItem : CO2NET.MessageQueue.SenparcMessageQueueItem
     {
-        /// <summary>
-        /// 队列项唯一标识
-        /// </summary>
-        public string Key { get; set; }
-        /// <summary>
-        /// 队列项目命中触发时执行的委托
-        /// </summary>
-        public Action Action { get; set; }
-        /// <summary>
-        /// 此实例对象的创建时间
-        /// </summary>
-        public DateTime AddTime { get; set; }
-        /// <summary>
-        /// 项目说明（主要用于调试）
-        /// </summary>
-        public string Description { get; set; }
-
         /// <summary>
         /// 初始化SenparcMessageQueue消息队列项
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
         /// <param name="description"></param>
+        [Obsolete("请使用 Senparc.CO2NET.MessageQueue.SenparcMessageQueueItem 类")]
         public SenparcMessageQueueItem(string key, Action action, string description = null)
+                : base(key, action, description)
         {
-            Key = key;
-            Action = action;
-            Description = description;
-            AddTime = DateTime.Now;
+
         }
     }
 }

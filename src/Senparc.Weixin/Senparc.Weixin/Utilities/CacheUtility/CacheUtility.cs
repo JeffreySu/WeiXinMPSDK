@@ -27,6 +27,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20160318
 
+    ----  CO2NET   ----
+
+    修改标识：Senparc - 20180601
+    修改描述：v5.0.0 引入 Senparc.CO2NET
+
 ----------------------------------------------------------------*/
 
 
@@ -42,7 +47,8 @@ namespace Senparc.Weixin.CacheUtility
     /// <summary>
     /// 缓存工具类
     /// </summary>
-    public class CacheUtility
+    [Obsolete("请使用 Senparc.CO2NET.Utilities.CacheUtility 类")]
+    public class CacheUtility : CO2NET.CacheUtility.CacheUtility
     {
     }
 }

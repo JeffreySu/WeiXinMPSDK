@@ -38,10 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
                       2、添加 GetUserAgent() 方法
 
     ----  CO2NET   ----
-    ----  split from Senparc.Weixin/Utilities/BrowserUtility.cs  ----
 
-    修改标识：Senparc - 20180531
-    修改描述：v0.1.0 移植 BrowserUtility
+    修改标识：Senparc - 20180601
+    修改描述：v5.0.0 引入 Senparc.CO2NET
 
 ----------------------------------------------------------------*/
 
@@ -58,6 +57,7 @@ namespace Senparc.Weixin.BrowserUtility
     /// <summary>
     /// 浏览器公共类
     /// </summary>
+    [Obsolete("请使用 Senparc.CO2NET.Utilities.BrowserUtility.BrowserUtility 类")]
     public static class BrowserUtility
     {
         /// <summary>

@@ -17,7 +17,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
-    
+
 /*----------------------------------------------------------------
     Copyright(C) 2017 Senparc
 
@@ -26,6 +26,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
     创建标识：Senparc - 20160318
+
+
+    ----  CO2NET   ----
+
+    修改标识：Senparc - 20180601
+    修改描述：v5.0.0 引入 Senparc.CO2NET
 
 ----------------------------------------------------------------*/
 
@@ -41,41 +47,14 @@ namespace Senparc.Weixin.CacheUtility
     /// <summary>
     /// 缓存立即生效方法
     /// </summary>
-    public class FlushCache : IDisposable
+    public class FlushCache : CO2NET.CacheUtility.FlushCache
     {
-        /// <summary>
-        /// 是否立即个更新到缓存
-        /// </summary>
-        public bool DoFlush { get; set; }
-
         /// <summary>
         ///
         /// </summary>
         /// <param name="doFlush">是否立即更新到缓存</param>
-        public FlushCache(bool doFlush = true)
+        public FlushCache(bool doFlush = true):base(doFlush)
         {
-            DoFlush = doFlush;
-        }
-
-        /// <summary>
-        /// 释放，开始立即更新所有缓存
-        /// </summary>
-        public void Dispose()
-        {
-            if (DoFlush)
-            {
-                SenparcMessageQueue.OperateQueue();
-            }
-        }
-
-        /// <summary>
-        /// 创建一个FlushCache实例
-        /// </summary>
-        /// <param name="doFlush">是否立即更新到缓存</param>
-        /// <returns></returns>
-        public static FlushCache CreateInstance(bool doFlush = true)
-        {
-            return new FlushCache(doFlush);
         }
     }
 }

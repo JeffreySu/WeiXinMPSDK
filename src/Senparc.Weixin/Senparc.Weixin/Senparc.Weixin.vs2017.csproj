@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.22.1</Version>
+    <Version>5.0.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -235,12 +235,13 @@
       v4.21.6-rc1 添加 RequestUtility.GetRequestMemoryStream() 方法
 
       v4.22.0-rc1 将 JsonSetting 继承 JsonSerializerSettings，使用 Newtonsoft.Json 进行序列化
-      v4.22.1-rc1 
-        1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
-        2、添加 RequestExtension
-        
+      v4.22.1-rc1
+      1、丰富 SenparcWeixinSetting 参数（Component_Token、Component_EncodingAESKey）
+      2、添加 RequestExtension
+
       v4.22.1 发布支持 .net core 2.1 的正式版
-        
+
+      v5.0.0 引入 Senparc.CO2NET
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

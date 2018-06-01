@@ -42,6 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180601
     修改描述：v5.0.0 引入 Senparc.CO2NET
+
 ----------------------------------------------------------------*/
 
 

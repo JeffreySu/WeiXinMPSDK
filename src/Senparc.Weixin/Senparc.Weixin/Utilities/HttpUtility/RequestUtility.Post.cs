@@ -264,7 +264,7 @@ namespace Senparc.Weixin.HttpUtility
                             else
                             {
                                 //不存在文件或只是注释
-                                multipartFormDataContent.Add(new StringContent(string.Empty), file.Key, file.Value);
+                                multipartFormDataContent.Add(new StringContent(file.Value), "\"" + file.Key + "\"");
                             }
                         }
                     }

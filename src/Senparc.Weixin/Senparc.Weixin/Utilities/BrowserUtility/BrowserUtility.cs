@@ -37,6 +37,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.11.2 1、增加对小程序请求的判断方法 SideInWeixinMiniProgram()
                       2、添加 GetUserAgent() 方法
 
+    ----  CO2NET   ----
+    ----  split from Senparc.Weixin/Utilities/BrowserUtility.cs  ----
+
+    修改标识：Senparc - 20180531
+    修改描述：v0.1.0 移植 BrowserUtility
+
 ----------------------------------------------------------------*/
 
 

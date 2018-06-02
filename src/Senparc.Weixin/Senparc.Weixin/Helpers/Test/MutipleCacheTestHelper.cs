@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.Helpers

@@ -41,6 +41,7 @@ using System.Linq;
 using System.Text;
 #if NET35 || NET40 || NET45
 using System.Web;
+using Senparc.CO2NET.Extensions;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;

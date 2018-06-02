@@ -34,7 +34,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
+    public class MemcachedObjectCacheStrategy : BaseCacheStrategy, IWeixinObjectCacheStrategy
     {
         internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
 
         //静态LocalCacheStrategy
-        public static IObjectCacheStrategy Instance
+        public static IWeixinObjectCacheStrategy Instance
         {
             get
             {

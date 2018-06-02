@@ -25,12 +25,12 @@ namespace Senparc.Weixin.Cache.Redis
         /// <returns></returns>
         public static IRegisterService RegisterCacheRedis(this IRegisterService registerService,
             string redisConfigurationString,
-            Func<string, IObjectCacheStrategy> redisObjectCacheStrategyInstance)
+            Func<string, IWeixinObjectCacheStrategy> redisObjectCacheStrategyInstance)
         {
             RedisManager.ConfigurationOption = redisConfigurationString;
 
             //此处先执行一次委托，直接在下方注册结果，提高每次调用的执行效率
-            IObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
+            IWeixinObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
             if (objectCacheStrategy != null)
             {
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Redis

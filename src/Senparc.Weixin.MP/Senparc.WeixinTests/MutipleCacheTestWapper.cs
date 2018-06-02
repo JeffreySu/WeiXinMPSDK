@@ -25,7 +25,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         public static void RunMutipleCache(Action action, params CacheType[] cacheTypes)
         {
-            List<IObjectCacheStrategy> cacheStrategies = new List<IObjectCacheStrategy>();
+            List<IWeixinObjectCacheStrategy> cacheStrategies = new List<IWeixinObjectCacheStrategy>();
 
             foreach (var cacheType in cacheTypes)
             {

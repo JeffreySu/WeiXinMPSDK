@@ -27,12 +27,12 @@ namespace Senparc.Weixin.Cache.Memcached
         /// <returns></returns>
         public static IRegisterService RegisterCacheMemcached(this IRegisterService registerService,
             Dictionary<string, int> memcachedConfig,
-            Func<Dictionary<string, int>, IObjectCacheStrategy> memcachedObjectCacheStrategyInstance)
+            Func<Dictionary<string, int>, IWeixinObjectCacheStrategy> memcachedObjectCacheStrategyInstance)
         {
             MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
             //此处先执行一次委托，直接在下方注册结果，提高每次调用的执行效率
-            IObjectCacheStrategy objectCacheStrategy = memcachedObjectCacheStrategyInstance(memcachedConfig);
+            IWeixinObjectCacheStrategy objectCacheStrategy = memcachedObjectCacheStrategyInstance(memcachedConfig);
             if (objectCacheStrategy != null)
             {
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Memcached

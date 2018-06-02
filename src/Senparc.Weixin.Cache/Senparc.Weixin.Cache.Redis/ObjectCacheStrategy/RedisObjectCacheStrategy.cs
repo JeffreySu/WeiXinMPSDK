@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis的Object类型容器缓存（Key为String类型）
     /// </summary>
-    public class RedisObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
+    public class RedisObjectCacheStrategy : BaseCacheStrategy, IWeixinObjectCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         /// <summary>

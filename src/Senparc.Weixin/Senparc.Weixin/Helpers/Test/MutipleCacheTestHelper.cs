@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public static void RunMutipleCache(Action action, params CacheType[] cacheTypes)
         {
-            List<IObjectCacheStrategy> cacheStrategies = new List<IObjectCacheStrategy>();
+            List<IWeixinObjectCacheStrategy> cacheStrategies = new List<IWeixinObjectCacheStrategy>();
 
             foreach (var cacheType in cacheTypes)
             {
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Helpers
 
                 var className = cacheType.ToString() + "ObjectCacheStrategy";
 
-                var cacheInstance = ReflectionHelper.CreateInstance<IObjectCacheStrategy>(assabmleName, nameSpace,
+                var cacheInstance = ReflectionHelper.CreateInstance<IWeixinObjectCacheStrategy>(assabmleName, nameSpace,
                     className);
 
                 cacheStrategies.Add(cacheInstance);

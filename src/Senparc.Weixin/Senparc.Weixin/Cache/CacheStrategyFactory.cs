@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Cache
     {
         internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
-        internal static Func<IWeixinObjectCacheStrategy> ObjectCacheStrateFunc;
+        internal static Func<IWeixinObjectCacheStrategy> ObjectCacheStrateFunc = ()=> new WeixinLocalObjectCacheStrategy();//默认为 WeixinLocalObjectCacheStrategy
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()
         //    where TKey : class
         //    where TValue : class

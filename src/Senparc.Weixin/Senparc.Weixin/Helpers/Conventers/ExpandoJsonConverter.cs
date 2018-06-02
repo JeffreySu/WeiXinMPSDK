@@ -27,6 +27,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20151002
     
+
+    ----  CO2NET   ----
+
+    修改标识：Senparc - 20180602
+    修改描述：v5.0.0 引入 Senparc.CO2NET
+
 ----------------------------------------------------------------*/
 
 #if NET40 || NET45

@@ -32,7 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180516
     修改描述：v4.21.1-rc1  解决 RequestUtility.HttpResponsePost() 和 HttpPostAsync() 方法
                            在 .net core 下没有及时关闭 postStream 的问题
-    
+
+    修改标识：Senparc - 20180602
+    修改描述：v4.22.2 完善 RequestUtility.HttpPost_Common_NetCore() 字符串信息提交过程
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -264,7 +267,7 @@ namespace Senparc.Weixin.HttpUtility
                             else
                             {
                                 //不存在文件或只是注释
-                                multipartFormDataContent.Add(new StringContent(string.Empty), file.Key, file.Value);
+                                multipartFormDataContent.Add(new StringContent(file.Value), "\"" + file.Key + "\"");
                             }
                         }
                     }

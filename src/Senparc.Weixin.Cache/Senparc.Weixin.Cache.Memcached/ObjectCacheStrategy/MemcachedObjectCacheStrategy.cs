@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+using Senparc.CO2NET.Cache;
 
 #if NET45 || NET461
 

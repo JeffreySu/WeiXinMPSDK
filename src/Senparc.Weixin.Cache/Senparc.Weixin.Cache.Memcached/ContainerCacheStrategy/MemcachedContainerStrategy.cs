@@ -140,6 +140,7 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
+
         #endregion
 
     }

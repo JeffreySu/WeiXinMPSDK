@@ -9,7 +9,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
+using Senparc.CO2NET.MessageQueue;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

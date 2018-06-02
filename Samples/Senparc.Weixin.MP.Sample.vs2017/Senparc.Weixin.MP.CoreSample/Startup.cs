@@ -23,7 +23,7 @@ using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.Threads;
+using Senparc.CO2NET.Threads;
 using Senparc.Weixin.Work;
 
 namespace Senparc.Weixin.MP.CoreSample

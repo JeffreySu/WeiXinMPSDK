@@ -25,6 +25,7 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.IO;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

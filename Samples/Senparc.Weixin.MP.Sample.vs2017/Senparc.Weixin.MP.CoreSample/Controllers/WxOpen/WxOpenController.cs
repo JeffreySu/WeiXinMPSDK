@@ -14,6 +14,7 @@ using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {

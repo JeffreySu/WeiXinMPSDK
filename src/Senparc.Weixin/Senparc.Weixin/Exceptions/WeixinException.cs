@@ -74,11 +74,12 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="inner">内部异常信息</param>
         /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
         public WeixinException(string message, Exception inner, bool logged = false)
-            : base(message, inner)
+            : base(message, inner, true/* 标记为日志已记录 */)
         {
             if (!logged)
             {
                 //WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+
                 WeixinTrace.WeixinExceptionLog(this);
             }
         }

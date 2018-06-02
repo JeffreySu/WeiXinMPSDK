@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.CO2NET.CacheUtility;
 
 namespace Senparc.Weixin.MP.Containers
 {

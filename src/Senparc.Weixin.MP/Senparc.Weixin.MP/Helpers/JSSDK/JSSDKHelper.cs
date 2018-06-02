@@ -63,6 +63,7 @@ using Senparc.Weixin.Helpers;
 
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Helpers
 {

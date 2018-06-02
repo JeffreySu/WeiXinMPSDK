@@ -54,7 +54,7 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;

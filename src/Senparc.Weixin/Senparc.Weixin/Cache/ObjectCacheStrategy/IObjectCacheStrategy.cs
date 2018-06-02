@@ -18,6 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+using Senparc.CO2NET.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 所有以String类型为Key的缓存策略接口
     /// </summary>
-    public interface IObjectCacheStrategy : IBaseCacheStrategy<string, object>
+    public interface IObjectCacheStrategy : IBaseObjectCacheStrategy
     {
         IContainerCacheStrategy ContainerCacheStrategy { get; }
     }

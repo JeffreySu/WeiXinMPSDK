@@ -21,43 +21,41 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
 
-    文件名：BaseCacheStrategy.cs
-    文件功能描述：泛型缓存策略基类。
+    文件名：IContainerCacheStrategy.cs
+    文件功能描述：容器缓存策略基类。
 
 
-    创建标识：Senparc - 20160813 v4.7.7 
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160812
+    修改描述：v4.7.4  解决Container无法注册的问题
 
  ----------------------------------------------------------------*/
 
-
-using System;
+using System.Collections.Generic;
+using Senparc.CO2NET.Cache;
+using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
     /// <summary>
-    /// 泛型缓存策略基类
+    /// 容器缓存策略接口
     /// </summary>
-    public abstract class BaseCacheStrategy : IBaseCacheStrategy
+    public interface IContainerCacheStrategy : IBaseCacheStrategy<string, IBaseContainerBag>
     {
         /// <summary>
-        /// 获取拼装后的FinalKey
+        /// 获取所有ContainerBag
         /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="isFullKey">是否已经是经过拼接的FullKey</param>
+        /// <typeparam name="TBag"></typeparam>
         /// <returns></returns>
-        public string GetFinalKey(string key, bool isFullKey = false)
-        {
-            return isFullKey ? key : String.Format("SenparcWeixin:{0}:{1}", Config.DefaultCacheNamespace, key);
-        }
+        IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag;
 
         /// <summary>
-        /// 获取一个同步锁
+        /// 更新ContainerBag
         /// </summary>
-        /// <param name="resourceName"></param>
         /// <param name="key"></param>
-        /// <param name="retryCount"></param>
-        /// <param name="retryDelay"></param>
-        /// <returns></returns>
-        public abstract ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
+        /// <param name="containerBag"></param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false);
     }
 }

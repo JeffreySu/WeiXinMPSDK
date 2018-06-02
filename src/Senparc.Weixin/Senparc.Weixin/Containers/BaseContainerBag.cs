@@ -37,11 +37,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Runtime.CompilerServices;
+using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin.Annotations;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {

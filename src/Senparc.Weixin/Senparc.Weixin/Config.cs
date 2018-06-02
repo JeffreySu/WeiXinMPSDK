@@ -83,6 +83,15 @@ namespace Senparc.Weixin
             set { CO2NET.Config.RootDictionaryPath = value; }
         }
 
+        /// <summary>
+        /// 默认缓存键的第一级命名空间，默认值：DefaultCache
+        /// </summary>
+        public static string DefaultCacheNamespace
+        {
+            get { return CO2NET.Config.DefaultCacheNamespace; }
+            set { CO2NET.Config.DefaultCacheNamespace = value; }
+        }
+
         #region API地址（前缀）设置
 
         #region  公众号（小程序）、开放平台 API 的服务器地址（默认为：https://api.weixin.qq.com）

@@ -13,8 +13,8 @@
 ----------------------------------------------------------------*/
 
 using System;
+using Senparc.CO2NET.Threads;
 using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin
 {

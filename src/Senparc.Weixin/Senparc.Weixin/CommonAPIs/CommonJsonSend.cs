@@ -36,6 +36,9 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
@@ -91,8 +94,7 @@ namespace Senparc.Weixin.CommonAPIs
                     case CommonJsonSendType.GET:
                         return Get.GetJson<T>(url);
                     case CommonJsonSendType.POST:
-                        SerializerHelper serializerHelper = new SerializerHelper();
-                        var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
+                        var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
                             var bytes = Encoding.UTF8.GetBytes(jsonString);
@@ -162,8 +164,7 @@ namespace Senparc.Weixin.CommonAPIs
                     case CommonJsonSendType.GET:
                         return await Get.GetJsonAsync<T>(url);
                     case CommonJsonSendType.POST:
-                        SerializerHelper serializerHelper = new SerializerHelper();
-                        var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
+                        var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
                             var bytes = Encoding.UTF8.GetBytes(jsonString);

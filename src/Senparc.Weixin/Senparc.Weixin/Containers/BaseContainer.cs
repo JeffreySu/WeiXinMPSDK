@@ -49,7 +49,6 @@ using System.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {

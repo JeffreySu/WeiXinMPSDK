@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Cache.Redis
             IWeixinObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
             if (objectCacheStrategy != null)
             {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Redis
+                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Redis
             }
 
             return registerService;

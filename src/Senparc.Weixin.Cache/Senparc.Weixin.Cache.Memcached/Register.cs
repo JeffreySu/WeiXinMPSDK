@@ -35,7 +35,7 @@ namespace Senparc.Weixin.Cache.Memcached
             IWeixinObjectCacheStrategy objectCacheStrategy = memcachedObjectCacheStrategyInstance(memcachedConfig);
             if (objectCacheStrategy != null)
             {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Memcached
+                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Memcached
             }
 
             return registerService;

@@ -52,41 +52,14 @@ namespace Senparc.Weixin
     /// </summary>
     public static class Config
     {
-        private static bool _isDebug = false;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
-
         /// <summary>
         /// 指定是否是Debug状态，如果是，系统会自动输出日志
         /// </summary>
         public static bool IsDebug
         {
-            get
-            {
-                return _isDebug;
-            }
-            set
-            {
-                _isDebug = value;
-
-                //if (_isDebug)
-                //{
-                //    WeixinTrace.Open();
-                //}
-                //else
-                //{
-                //    WeixinTrace.Close();
-                //}
-            }
+            get { return CO2NET.Config.IsDebug; }
+            set { CO2NET.Config.IsDebug = value; }
         }
-
-        /// <summary>
-        /// JavaScriptSerializer 类接受的 JSON 字符串的最大长度
-        /// </summary>
-        public static int MaxJsonLength = int.MaxValue;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
-
-        /// <summary>
-        /// 默认缓存键的第一级命名空间，默认值：DefaultCache
-        /// </summary>
-        public static string DefaultCacheNamespace = "DefaultCache";//TODO:需要考虑分布式的情况，后期需要储存在缓存中,或进行全局配置
 
 #if !NET45
         /// <summary>
@@ -104,7 +77,11 @@ namespace Senparc.Weixin
         /// <summary>
         /// 网站根目录绝对路径
         /// </summary>
-        public static string RootDictionaryPath { get; set; }
+        public static string RootDictionaryPath
+        {
+            get { return CO2NET.Config.RootDictionaryPath; }
+            set { CO2NET.Config.RootDictionaryPath = value; }
+        }
 
         #region API地址（前缀）设置
 

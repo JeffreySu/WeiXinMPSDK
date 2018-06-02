@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
 
 /**

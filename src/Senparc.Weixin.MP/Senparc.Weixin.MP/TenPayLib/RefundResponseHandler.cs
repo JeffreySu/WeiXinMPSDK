@@ -38,7 +38,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461

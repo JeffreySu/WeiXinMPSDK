@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -59,7 +59,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 #endif
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.StringHelper;
+
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {

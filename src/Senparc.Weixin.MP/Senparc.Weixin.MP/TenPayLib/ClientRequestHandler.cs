@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections;
 using System.Text;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461

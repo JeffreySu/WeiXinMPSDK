@@ -17,7 +17,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.Work.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461

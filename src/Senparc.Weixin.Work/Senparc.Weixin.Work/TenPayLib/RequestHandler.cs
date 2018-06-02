@@ -23,7 +23,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 #endif
 
-using Senparc.Weixin.Helpers.StringHelper;
+
 
 namespace Senparc.Weixin.Work.TenPayLib
 {

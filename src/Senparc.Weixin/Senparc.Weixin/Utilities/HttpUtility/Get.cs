@@ -87,7 +87,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <summary>
         /// 获得JSON文本结果之后、序列化之前进行的操作
         /// </summary>
-        private static Action<string, string> _afterReturnText = (_url, returnText) =>
+        internal static Action<string, string> AfterReturnText = (_url, returnText) =>
         {
             WeixinTrace.SendApiLog(_url, returnText);
 
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static T GetJson<T>(string url, Encoding encoding = null)
         {
-            var result = CO2NET.HttpUtility.Get.GetJson<T>(url, encoding, _afterReturnText);
+            var result = CO2NET.HttpUtility.Get.GetJson<T>(url, encoding, AfterReturnText);
             return result;
         }
 
@@ -249,7 +249,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <exception cref="ErrorJsonResultException"></exception>
         public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null)
         {
-            var result = await CO2NET.HttpUtility.Get.GetJsonAsync<T>(url, encoding, _afterReturnText);
+            var result = await CO2NET.HttpUtility.Get.GetJsonAsync<T>(url, encoding, AfterReturnText);
             return result;
         }
 

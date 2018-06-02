@@ -28,9 +28,10 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs

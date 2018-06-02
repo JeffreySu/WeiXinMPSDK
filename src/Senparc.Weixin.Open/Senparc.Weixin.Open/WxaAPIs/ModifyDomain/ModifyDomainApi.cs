@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
         
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.WxaAPIs.ModifyDomain;

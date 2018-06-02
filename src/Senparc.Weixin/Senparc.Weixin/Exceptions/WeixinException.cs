@@ -42,6 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using Senparc.CO2NET.Exceptions;
 using System;
 
 namespace Senparc.Weixin.Exceptions
@@ -49,12 +50,7 @@ namespace Senparc.Weixin.Exceptions
     /// <summary>
     /// 微信自定义异常基类
     /// </summary>
-#if NET35 || NET40 || NET45
-    public class WeixinException :  ApplicationException
-#else
-    public class WeixinException : Exception
-#endif
-
+    public class WeixinException : BaseException
     {
         /// <summary>
         /// 当前正在请求的公众号AccessToken或AppId

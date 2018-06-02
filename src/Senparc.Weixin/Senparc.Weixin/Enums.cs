@@ -108,25 +108,6 @@ namespace Senparc.Weixin
     }
 
     /// <summary>
-    /// 缓存类型
-    /// </summary>
-    public enum CacheType
-    {
-        /// <summary>
-        /// 本地运行时缓存（单机）
-        /// </summary>
-        Local,
-        /// <summary>
-        /// Redis缓存（支持分布式）
-        /// </summary>
-        Redis,
-        /// <summary>
-        /// Memcached（支持分布式）
-        /// </summary>
-        Memcached
-    }
-
-    /// <summary>
     /// 公众号返回码（JSON）
     /// 应该更名为ReturnCode_MP，但为减少项目中的修改，此处依旧用ReturnCode命名
     /// </summary>

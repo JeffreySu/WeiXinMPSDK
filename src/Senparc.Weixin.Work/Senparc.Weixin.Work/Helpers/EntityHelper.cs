@@ -24,6 +24,8 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
 using System.Reflection;
+using Senparc.CO2NET.EntityUtility;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -58,12 +60,12 @@ namespace Senparc.Weixin.Work.Helpers
                         case "Int64":
                         case "Double":
                         case "Nullable`1": //可为空对象
-                            EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
+                            EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
+                                EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
                             }
                             else
                             {

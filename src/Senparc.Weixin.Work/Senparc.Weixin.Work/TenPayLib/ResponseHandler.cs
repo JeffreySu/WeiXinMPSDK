@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 
 using Senparc.Weixin.Work.Helpers;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;

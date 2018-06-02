@@ -19,6 +19,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections;

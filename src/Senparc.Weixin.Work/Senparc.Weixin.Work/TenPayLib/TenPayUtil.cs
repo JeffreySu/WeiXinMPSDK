@@ -22,6 +22,7 @@ using System;
 using System.Text;
 using Senparc.Weixin.Helpers;
 using System.Net;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Work.TenPayLib
 {

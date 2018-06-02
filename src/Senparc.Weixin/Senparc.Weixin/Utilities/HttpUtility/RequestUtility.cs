@@ -64,7 +64,7 @@ using System.Web;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Helpers.Extensions;
 #endif
 #if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Http;

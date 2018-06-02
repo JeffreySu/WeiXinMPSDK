@@ -57,24 +57,9 @@ namespace Senparc.Weixin.BrowserUtility
     /// <summary>
     /// 浏览器公共类
     /// </summary>
-    [Obsolete("请使用 Senparc.CO2NET.Utilities.BrowserUtility.BrowserUtility 类")]
     public static class BrowserUtility
     {
-        /// <summary>
-        /// 获取 Headers 中的 User-Agent 字符串
-        /// </summary>
-        /// <param name="httpRequest"></param>
-        /// <returns></returns>
-        [Obsolete("请使用 Senparc.CO2NET.Utilities.BrowserUtility.GetUserAgent(httpRequest) 方法")]
-#if NET40 || NET45
-        public static string GetUserAgent(HttpRequestBase httpRequest)
-#else
-        public static string GetUserAgent(HttpRequest httpRequest)
-#endif
-        {
-            return CO2NET.Utilities.BrowserUtility.GetUserAgent(httpRequest);
-        }
-
+       
         /// <summary>
         /// 判断是否在微信内置浏览器中
         /// </summary>
@@ -86,7 +71,7 @@ namespace Senparc.Weixin.BrowserUtility
         public static bool SideInWeixinBrowser(this HttpContext httpContext)
 #endif
         {
-            string userAgent = GetUserAgent(httpContext.Request);
+            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request);
             //判断是否在微信浏览器内部
             var isInWeixinBrowser = userAgent != null &&
                         (userAgent.Contains("MICROMESSENGER")/*MicroMessenger*/ ||
@@ -105,7 +90,7 @@ namespace Senparc.Weixin.BrowserUtility
         public static bool SideInWeixinMiniProgram(this HttpContext httpContext)
 #endif
         {
-            string userAgent = GetUserAgent(httpContext.Request);
+            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request);
             //判断是否在微信小程序的 web-view 组件内部
             var isInWeixinMiniProgram = userAgent != null && userAgent.Contains("MINIPROGRAM")/*miniProgram*/;
             return isInWeixinMiniProgram;

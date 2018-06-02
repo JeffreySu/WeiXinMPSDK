@@ -36,7 +36,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Helpers.Extensions;
 #if NET35 || NET40 || NET45
 using System.Web;
 #else

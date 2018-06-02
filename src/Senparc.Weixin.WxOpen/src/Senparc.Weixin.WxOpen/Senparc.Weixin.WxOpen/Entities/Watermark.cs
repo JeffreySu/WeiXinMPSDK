@@ -33,6 +33,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Entities

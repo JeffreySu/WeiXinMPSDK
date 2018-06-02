@@ -34,6 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using Redlock.CSharp;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.Cache.Redis
 {

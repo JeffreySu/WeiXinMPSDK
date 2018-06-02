@@ -37,7 +37,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
+using Senparc.CO2NET.MessageQueue;
+using Senparc.CO2NET.Cache;
 using StackExchange.Redis;
 
 namespace Senparc.Weixin.Cache.Redis

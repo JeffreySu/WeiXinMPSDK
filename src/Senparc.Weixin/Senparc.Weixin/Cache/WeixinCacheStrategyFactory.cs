@@ -27,7 +27,7 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
-    public class CacheStrategyFactory
+    public class WeixinCacheStrategyFactory
     {
         internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 

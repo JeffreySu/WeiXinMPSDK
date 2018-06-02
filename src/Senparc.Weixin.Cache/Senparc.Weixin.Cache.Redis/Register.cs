@@ -9,6 +9,7 @@
 
 ----------------------------------------------------------------*/
 
+//using Senparc.CO2NET.Cache;
 using Senparc.Weixin.RegisterServices;
 using System;
 

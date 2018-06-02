@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Containers
             {
                 //使用工厂模式或者配置进行动态加载
                 //return CacheStrategyFactory.GetContainerCacheStrategyInstance();
-                return CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+                return WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
             }
         }
 

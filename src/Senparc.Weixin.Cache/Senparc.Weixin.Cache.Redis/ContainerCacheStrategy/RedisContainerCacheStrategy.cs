@@ -42,9 +42,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Redlock.CSharp;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
 
 

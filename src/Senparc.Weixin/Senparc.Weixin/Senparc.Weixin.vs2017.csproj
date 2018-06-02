@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.22.1</Version>
+    <Version>4.22.2</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -240,7 +240,7 @@
         2、添加 RequestExtension
         
       v4.22.1 发布支持 .net core 2.1 的正式版
-        
+      v4.22.2 完善 RequestUtility.HttpPost_Common_NetCore() 字符串信息提交过程
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

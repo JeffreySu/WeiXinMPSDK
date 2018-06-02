@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20180222
 
+    修改标识：Senparc - 20180531
+    修改描述：v4.22.2 修改 AddSenparcWeixinGlobalServices() 方法命名
+    
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,7 +36,7 @@ namespace Senparc.Weixin.RegisterServices
         /// </summary>
         /// <param name="serviceCollection"></param>
         /// <returns></returns>
-        public static IServiceCollection AddSernparcWeixinGlobalServices(this IServiceCollection serviceCollection)
+        public static IServiceCollection AddSenparcWeixinGlobalServices(this IServiceCollection serviceCollection)
         {
             RegisterService.GlobalServiceCollection = serviceCollection;
             return serviceCollection;

@@ -240,6 +240,7 @@
       2、添加 RequestExtension
 
       v4.22.1 发布支持 .net core 2.1 的正式版
+      v4.22.2 完善 RequestUtility.HttpPost_Common_NetCore() 字符串信息提交过程
 
       v5.0.0 引入 Senparc.CO2NET
     </PackageReleaseNotes>

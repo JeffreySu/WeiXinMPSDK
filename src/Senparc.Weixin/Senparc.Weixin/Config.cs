@@ -75,6 +75,12 @@ namespace Senparc.Weixin
         public static bool UseSandBoxPay { get; set; }
 
         /// <summary>
+        /// 请求超时设置（以毫秒为单位），默认为10秒。
+        /// 说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
+        /// </summary>
+        public const int TIME_OUT = CO2NET.Config.TIME_OUT;
+
+        /// <summary>
         /// 网站根目录绝对路径
         /// </summary>
         public static string RootDictionaryPath

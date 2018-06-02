@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
@@ -56,7 +57,7 @@ namespace Senparc.Weixin.Cache
             if (ObjectCacheStrateFunc == null)
             {
                 //默认状态
-                return LocalObjectCacheStrategy.Instance;
+                return LocalObjectCacheStrategy.Instance as IWeixinObjectCacheStrategy;
             }
             else
             {
@@ -65,25 +66,5 @@ namespace Senparc.Weixin.Cache
                 return instance;
             }
         }
-
-        //public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
-        //{
-        //    ContainerCacheStrateFunc = func;
-        //}
-
-        //public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
-        //{
-        //    if (ContainerCacheStrateFunc == null)
-        //    {
-        //        //默认状态
-        //        return LocalContainerCacheStrategy.Instance;
-        //    }
-        //    else
-        //    {
-        //        //自定义类型
-        //        var instance = ContainerCacheStrateFunc();
-        //        return instance;
-        //    }
-        //}
     }
 }

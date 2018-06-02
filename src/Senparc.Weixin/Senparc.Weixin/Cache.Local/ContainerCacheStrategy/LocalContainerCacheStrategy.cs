@@ -38,6 +38,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System.Collections.Generic;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Cache;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.Cache
 {
@@ -60,7 +61,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IContainerCacheStrategy
+    public sealed class LocalContainerCacheStrategy : WeixinLocalObjectCacheStrategy, IContainerCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -98,21 +99,16 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
-        #region ILocalCacheStrategy 成员
+        #region IContainerCacheStrategy 成员
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
             base.InsertToCache(key, value);
         }
 
-        public void RemoveFromCache(string key, bool isFullKey = false)
+        public new IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            base.RemoveFromCache(key, isFullKey);
-        }
-
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            return base.Get(key,isFullKey) as IBaseContainerBag;
+            return base.Get(key, isFullKey) as IBaseContainerBag;
         }
 
 
@@ -129,6 +125,14 @@ namespace Senparc.Weixin.Cache
             }
             return dic;
         }
+
+        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
+        {
+            Update(key, bag, isFullKey);
+        }
+
+        #endregion
+
 
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
@@ -159,11 +163,6 @@ namespace Senparc.Weixin.Cache
             base.Update(key, value, isFullKey);
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
-        {
-            Update(key, bag, isFullKey);
-        }
 
-        #endregion
     }
 }

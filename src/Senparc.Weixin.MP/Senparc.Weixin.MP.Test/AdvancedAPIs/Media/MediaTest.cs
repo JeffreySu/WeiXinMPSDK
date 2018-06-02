@@ -30,7 +30,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {

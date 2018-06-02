@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 

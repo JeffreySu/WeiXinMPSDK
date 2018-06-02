@@ -20,7 +20,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;

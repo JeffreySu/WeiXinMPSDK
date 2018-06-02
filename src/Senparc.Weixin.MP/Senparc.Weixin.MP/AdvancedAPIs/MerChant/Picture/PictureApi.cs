@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 
@@ -57,7 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             using (var fs = FileHelper.GetFileStream(fileName))
             {
                 var jsonText = RequestUtility.HttpPost(url, null, fs);
-                json = Post.GetResult<PictureResult>(jsonText);
+                json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
             }
             return json;
         }
@@ -74,8 +77,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             using (var fs = FileHelper.GetFileStream(fileName))
             {
-                var jsonText = await RequestUtility.HttpPostAsync( url, null, fs);
-                json = Post.GetResult<PictureResult>(jsonText);
+                var jsonText = await RequestUtility.HttpPostAsync(url, null, fs);
+                json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
             }
             return json;
         }

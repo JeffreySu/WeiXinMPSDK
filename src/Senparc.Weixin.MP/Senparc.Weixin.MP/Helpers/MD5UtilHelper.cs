@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -53,10 +54,10 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="encypStr"></param>
         /// <param name="charset"></param>
         /// <returns></returns>
-        [Obsolete("此方法已过期，请使用Senparc.Weixin.Helpers.EncryptHelper.GetMD5(encypStr,charset)")]
+        [Obsolete("此方法已过期，请使用 Senparc.CO2NET.Helpers.GetMD5(encypStr,charset)")]
         public static string GetMD5(string encypStr, string charset)
         {
-            return Senparc.Weixin.Helpers.EncryptHelper.GetMD5(encypStr, charset);
+            return EncryptHelper.GetMD5(encypStr, charset);
         }
 	}
 }

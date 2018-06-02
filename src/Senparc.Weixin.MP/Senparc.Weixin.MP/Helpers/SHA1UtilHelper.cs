@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -49,10 +50,10 @@ namespace Senparc.Weixin.MP.Helpers
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        [Obsolete("此方法已过期，请使用Senparc.Weixin.Helpers.EncryptHelper.GetSha1(str)")]
+        [Obsolete("此方法已过期，请使用 Senparc.CO2NET.Helpers.EncryptHelper.GetSha1(str)")]
         public static string GetSha1(string str)
         {
-            return Senparc.Weixin.Helpers.EncryptHelper.GetSha1(str);
+            return EncryptHelper.GetSha1(str);
 
             ////建立SHA1对象
             //SHA1 sha = new SHA1CryptoServiceProvider();

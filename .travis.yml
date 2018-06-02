@@ -1,3 +1,5 @@
+language: csharp
+solution:  ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 scripts:
   - xbuild /p:Configuration=Release ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
   

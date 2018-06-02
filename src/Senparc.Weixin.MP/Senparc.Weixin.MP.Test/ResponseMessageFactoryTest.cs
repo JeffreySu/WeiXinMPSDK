@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;

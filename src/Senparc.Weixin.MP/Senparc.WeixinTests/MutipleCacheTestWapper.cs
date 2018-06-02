@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
@@ -25,14 +27,14 @@ namespace Senparc.WeixinTests
         /// </summary>
         public static void RunMutipleCache(Action action, params CacheType[] cacheTypes)
         {
-            List<IWeixinObjectCacheStrategy> cacheStrategies = new List<IWeixinObjectCacheStrategy>();
+            var cacheStrategies = new List<IWeixinObjectCacheStrategy>();
 
             foreach (var cacheType in cacheTypes)
             {
                 switch (cacheType)
                 {
                     case CacheType.Local:
-                        cacheStrategies.Add(LocalObjectCacheStrategy.Instance);
+                        cacheStrategies.Add(WeixinLocalObjectCacheStrategy.Instance);
                         break;
                     case CacheType.Redis:
                         cacheStrategies.Add(RedisObjectCacheStrategy.Instance);

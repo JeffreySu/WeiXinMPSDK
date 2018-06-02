@@ -56,6 +56,35 @@ namespace Senparc.Weixin.Cache
     {
 
 
+        #region 单例
+
+        /// <summary>
+        /// LocalCacheStrategy的构造函数
+        /// </summary>
+        //LocalObjectCacheStrategy()
+        //{
+        //}
+
+        //静态LocalCacheStrategy
+        public new static  WeixinLocalObjectCacheStrategy Instance
+        {
+            get
+            {
+                return Nested.instance;//返回Nested类中的静态成员instance
+            }
+        }
+
+        class Nested
+        {
+            static Nested()
+            {
+            }
+            //将instance设为一个初始化的LocalCacheStrategy新实例
+            internal static readonly WeixinLocalObjectCacheStrategy instance = new WeixinLocalObjectCacheStrategy();
+        }
+
+
+        #endregion
 
         #region IWeixinObjectCacheStrategy 成员
 

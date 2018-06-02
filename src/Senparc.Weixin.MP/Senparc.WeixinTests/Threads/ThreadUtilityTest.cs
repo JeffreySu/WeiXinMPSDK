@@ -22,7 +22,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Containers.Tests;
-using Senparc.Weixin.MessageQueue;
+using Senparc.CO2NET.MessageQueue;
 
 namespace Senparc.WeixinTests.Threads
 {

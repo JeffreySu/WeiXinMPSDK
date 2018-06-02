@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin;
-using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.WeixinTests.MessageQueue
 {

@@ -27,6 +27,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Helpers.Tests
 {
@@ -79,15 +81,14 @@ namespace Senparc.Weixin.Helpers.Tests
             };
 
             DateTime dt1 = DateTime.Now;
-            SerializerHelper js = new SerializerHelper();
 
-            var json = js.GetJsonString(obj, new JsonSetting(true, new List<string>(new[] { "Z", "C" })));
+            var json = SerializerHelper.GetJsonString(obj, new JsonSetting(true, new List<string>(new[] { "Z", "C" })));
             Console.WriteLine(json);
 
-            var json2 = js.GetJsonString(obj2, new JsonSetting(true, new List<string>(new[] { "B" })));
+            var json2 = SerializerHelper.GetJsonString(obj2, new JsonSetting(true, new List<string>(new[] { "B" })));
             Console.WriteLine(json2);
 
-            var json3 = js.GetJsonString(obj3, new JsonSetting(true, null, new List<Type>(new[] { typeof(ElementClass2) })));
+            var json3 = SerializerHelper.GetJsonString(obj3, new JsonSetting(true, null, new List<Type>(new[] { typeof(ElementClass2) })));
             Console.WriteLine(json3);
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
@@ -135,9 +136,8 @@ namespace Senparc.Weixin.Helpers.Tests
             test.y = DateTime.Now;
 
             DateTime dt1 = DateTime.Now;
-            SerializerHelper js = new SerializerHelper();
 
-            var json = js.GetJsonString(test);
+            var json = SerializerHelper.GetJsonString(test);
             Console.WriteLine(json);
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
@@ -164,8 +164,7 @@ namespace Senparc.Weixin.Helpers.Tests
                 Id = 1,
                 Name = "Senparc"
             };
-            SerializerHelper js = new SerializerHelper();
-            string json = js.GetJsonString(data);
+            string json = SerializerHelper.GetJsonString(data);
             Assert.AreEqual("{\"Id\":1,\"Name\":\"Senparc\"}", json);
             Console.WriteLine(json);
         }
@@ -177,8 +176,7 @@ namespace Senparc.Weixin.Helpers.Tests
         public void GetObjectTest()
         {
             string json = "{\"Id\":1,\"Name\":\"Senparc\"}";
-            SerializerHelper js = new SerializerHelper();
-            Data data = js.GetObject<Data>(json);
+            Data data = SerializerHelper.GetObject<Data>(json);
 
             Assert.AreEqual(1, data.Id);
             Assert.AreEqual("Senparc", data.Name);
@@ -209,7 +207,6 @@ namespace Senparc.Weixin.Helpers.Tests
                 Sex = Sex.男
             };
 
-            SerializerHelper js = new SerializerHelper();
             //string json = js.GetJsonString(weixinData);
             //Console.WriteLine(json);
 
@@ -217,9 +214,9 @@ namespace Senparc.Weixin.Helpers.Tests
             //string json2 = js.GetJsonString(weixinData, jsonSetting);
             //Console.WriteLine(json2);
 
-JsonSetting jsonSetting3 = new JsonSetting(true, new List<string>() { "Note" });
-string json3 = js.GetJsonString(weixinData, jsonSetting3);
-Console.WriteLine(json3);
+            JsonSetting jsonSetting3 = new JsonSetting(true, new List<string>() { "Note" });
+            string json3 = SerializerHelper.GetJsonString(weixinData, jsonSetting3);
+            Console.WriteLine(json3);
         }
 
         #endregion

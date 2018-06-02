@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Senparc.CO2NET.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;

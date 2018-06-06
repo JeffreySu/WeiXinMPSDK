@@ -62,11 +62,11 @@ namespace Senparc.Weixin.Cache.Redis
         {
             if (retryCount != 0)
             {
-                _dlm = new Redlock.CSharp.Redlock(retryCount, retryDelay, _redisStrategy._client);
+                _dlm = new Redlock.CSharp.Redlock(retryCount, retryDelay, _redisStrategy.Client);
             }
             else if (_dlm == null)
             {
-                _dlm = new Redlock.CSharp.Redlock(_redisStrategy._client);
+                _dlm = new Redlock.CSharp.Redlock(_redisStrategy.Client);
             }
 
             var ttl = (retryDelay.TotalMilliseconds > 0 ? retryDelay.TotalMilliseconds : 10)

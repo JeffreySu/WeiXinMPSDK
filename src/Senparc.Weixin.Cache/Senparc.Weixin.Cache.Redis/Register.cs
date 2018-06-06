@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20180222
 
+    修改标识：Senparc - 20180606
+    修改描述：缓存工厂重命名为 ContainerCacheStrategyFactory
+
 ----------------------------------------------------------------*/
 
 //using Senparc.CO2NET.Cache;
@@ -34,7 +37,7 @@ namespace Senparc.Weixin.Cache.Redis
             IWeixinObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
             if (objectCacheStrategy != null)
             {
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);//Redis
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);//Redis
             }
 
             return registerService;

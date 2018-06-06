@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20180222
 
+    修改标识：Senparc - 20180606
+    修改描述：缓存工厂重命名为 ContainerCacheStrategyFactory
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,7 +38,7 @@ namespace Senparc.Weixin.Cache.Memcached
             IWeixinObjectCacheStrategy objectCacheStrategy = memcachedObjectCacheStrategyInstance(memcachedConfig);
             if (objectCacheStrategy != null)
             {
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);//Memcached
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);//Memcached
             }
 
             return registerService;

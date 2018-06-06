@@ -29,7 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160717
     修改描述：v4.5.21 添加BaseContainerBag.Name属性
-    
+
+    修改标识：Senparc - 20180606
+    修改描述：缓存工厂重命名为 ContainerCacheStrategyFactory
+
 ----------------------------------------------------------------*/
 
 
@@ -128,7 +131,7 @@ namespace Senparc.Weixin.Containers
             mq.Add(mqKey, () =>
             {
                 //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-                var containerCacheStrategy = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
                 var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
 

@@ -27,7 +27,7 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
-    public class WeixinCacheStrategyFactory
+    public class ContainerCacheStrategyFactory
     {
         internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Cache
         /// 注册当前全局环境下的缓存策略
         /// </summary>
         /// <param name="func">如果为null，将使用默认的本地缓存策略（LocalObjectCacheStrategy.Instance）</param>
-        public static void RegisterWeixinObjectCacheStrategy(Func<IContainerCacheStrategy> func)
+        public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
         {
             ObjectCacheStrateFunc = func;
         }
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Cache
         /// 如果
         /// </summary>
         /// <returns></returns>
-        public static IContainerCacheStrategy GetObjectCacheStrategyInstance()
+        public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
         {
             if (ObjectCacheStrateFunc == null)
             {

@@ -324,9 +324,7 @@
 
 
   <ItemGroup>
-    <Compile Remove="Cache.Local\ObjectCacheStrategy\WeixinLocalObjectCacheStrategy.cs" />
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
-    <Compile Remove="Cache\ObjectCacheStrategy\IWeixinObjectCacheStrategy.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
@@ -410,11 +408,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET\Senparc.CO2NET.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Cache.Local\ObjectCacheStrategy\" />
-    <Folder Include="Cache\ObjectCacheStrategy\" />
   </ItemGroup>
 
   <!--<ItemGroup>

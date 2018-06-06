@@ -53,7 +53,7 @@ namespace Senparc.WeixinTests
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 开始 == ");
 
                 //使用当前缓存策略
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);
 
                 try
                 {
@@ -67,7 +67,7 @@ namespace Senparc.WeixinTests
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 结束 == ");
 
                 //还原缓存策略
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => originalCache);
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => originalCache);
             }
         }
     }

@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
             
             //注册

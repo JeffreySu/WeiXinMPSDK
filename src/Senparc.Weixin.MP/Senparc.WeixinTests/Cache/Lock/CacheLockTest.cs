@@ -78,7 +78,7 @@ namespace Senparc.WeixinTests.Cache.Lock
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
             Random rnd = new Random();

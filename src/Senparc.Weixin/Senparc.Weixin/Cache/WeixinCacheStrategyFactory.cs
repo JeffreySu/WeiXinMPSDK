@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Cache
         /// 注册当前全局环境下的缓存策略
         /// </summary>
         /// <param name="func">如果为null，将使用默认的本地缓存策略（LocalObjectCacheStrategy.Instance）</param>
-        public static void RegisterObjectCacheStrategy(Func<IWeixinObjectCacheStrategy> func)
+        public static void RegisterWeixinObjectCacheStrategy(Func<IWeixinObjectCacheStrategy> func)
         {
             ObjectCacheStrateFunc = func;
         }

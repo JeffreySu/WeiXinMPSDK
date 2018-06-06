@@ -33,6 +33,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170205
     修改描述：v0.2.0 重构分布式锁
 
+    --CO2NET---
+
+    修改标识：Senparc - 20180606
+    修改描述：设置ChildNamespace
+
+
  ----------------------------------------------------------------*/
 
 
@@ -54,7 +60,6 @@ namespace Senparc.Weixin.Cache
     public class WeixinLocalObjectCacheStrategy : LocalObjectCacheStrategy, IWeixinObjectCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
-
 
         #region 单例
 
@@ -94,5 +99,11 @@ namespace Senparc.Weixin.Cache
         }
 
         #endregion
+
+
+        public WeixinLocalObjectCacheStrategy()
+        {
+            base.ChildNamespace = "Weixin";//设置下级命名空间
+        }
     }
 }

@@ -62,11 +62,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             if (id == 1)
             {
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }
             else
             {
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => null);
             }
 
             var sb = new StringBuilder();

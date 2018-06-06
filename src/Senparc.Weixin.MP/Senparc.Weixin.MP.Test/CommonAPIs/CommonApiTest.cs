@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                WeixinCacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
             //全局只需注册一次

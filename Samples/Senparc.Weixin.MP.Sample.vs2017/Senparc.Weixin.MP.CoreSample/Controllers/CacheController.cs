@@ -62,16 +62,16 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             if (id == 1)
             {
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }
             else
             {
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => null);
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => null);
             }
 
             var sb = new StringBuilder();
             //var cacheKey = TestContainer1.GetContainerCacheKey();
-            var containerCacheStrategy = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance().ContainerCacheStrategy;
             var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             var sb = new StringBuilder();
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-            var containerCacheStrategy = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance().ContainerCacheStrategy;
             sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
 
             var finalExisted = false;

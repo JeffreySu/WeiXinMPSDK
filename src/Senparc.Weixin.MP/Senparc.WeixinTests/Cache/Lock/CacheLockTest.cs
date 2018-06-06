@@ -78,7 +78,7 @@ namespace Senparc.WeixinTests.Cache.Lock
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
             Random rnd = new Random();
@@ -111,7 +111,7 @@ namespace Senparc.WeixinTests.Cache.Lock
                 {
                     var appId = (i1 % 2).ToString();
                     var resourceName = "Test-" + rnd.Next(0, 2);//调整这里的随机数，可以改变锁的个数
-                    var cache = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance();//每次重新获取实例（因为单例模式，所以其实是同一个）
+                    var cache = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();//每次重新获取实例（因为单例模式，所以其实是同一个）
 
                     Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId,cache.GetHashCode());
 

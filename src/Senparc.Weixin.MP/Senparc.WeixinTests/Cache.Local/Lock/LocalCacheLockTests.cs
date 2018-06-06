@@ -37,7 +37,7 @@ namespace Senparc.Weixin.Cache.Tests
         {
             //实际上stragety在LocalCacheLock内部暂时没有用到，
             //这里给一个实例是因为还有一个基类，需要微程序提供良好的弹性
-            var stragety = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance();
+            var stragety = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
 
             using (new LocalCacheLock(stragety, "Test", "LocalCache"))  //1、等待并抢得锁
             {                                               //2、已获得锁，开始享受独占

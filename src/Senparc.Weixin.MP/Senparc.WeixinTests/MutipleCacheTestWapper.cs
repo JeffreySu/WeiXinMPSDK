@@ -27,14 +27,14 @@ namespace Senparc.WeixinTests
         /// </summary>
         public static void RunMutipleCache(Action action, params CacheType[] cacheTypes)
         {
-            var cacheStrategies = new List<IWeixinObjectCacheStrategy>();
+            var cacheStrategies = new List<IContainerCacheStrategy>();
 
             foreach (var cacheType in cacheTypes)
             {
                 switch (cacheType)
                 {
                     case CacheType.Local:
-                        cacheStrategies.Add(WeixinLocalObjectCacheStrategy.Instance);
+                        cacheStrategies.Add(LocalContainerCacheStrategy.Instance);
                         break;
                     case CacheType.Redis:
                         cacheStrategies.Add(RedisObjectCacheStrategy.Instance);
@@ -48,12 +48,12 @@ namespace Senparc.WeixinTests
             foreach (var objectCacheStrategy in cacheStrategies)
             {
                 //原始缓存策越
-                var originalCache = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance();
+                var originalCache = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
 
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 开始 == ");
 
                 //使用当前缓存策略
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);
 
                 try
                 {
@@ -67,7 +67,7 @@ namespace Senparc.WeixinTests
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 结束 == ");
 
                 //还原缓存策略
-                WeixinCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => originalCache);
+                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => originalCache);
             }
         }
     }

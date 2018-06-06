@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
             }
 
 

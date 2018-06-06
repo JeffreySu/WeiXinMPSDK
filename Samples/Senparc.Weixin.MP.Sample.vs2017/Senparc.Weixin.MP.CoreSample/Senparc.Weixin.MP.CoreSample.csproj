@@ -67,7 +67,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.vs2017.csproj" />
-    <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />

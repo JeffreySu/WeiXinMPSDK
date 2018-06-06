@@ -37,7 +37,7 @@ namespace Senparc.WeixinTests
                         cacheStrategies.Add(LocalContainerCacheStrategy.Instance);
                         break;
                     case CacheType.Redis:
-                        cacheStrategies.Add(RedisObjectCacheStrategy.Instance);
+                        cacheStrategies.Add(RedisContainerCacheStrategy.Instance);
                         break;
                     case CacheType.Memcached:
                         cacheStrategies.Add(MemcachedObjectCacheStrategy.Instance);
@@ -53,7 +53,7 @@ namespace Senparc.WeixinTests
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 开始 == ");
 
                 //使用当前缓存策略
-                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);
+                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => objectCacheStrategy);
 
                 try
                 {
@@ -67,7 +67,7 @@ namespace Senparc.WeixinTests
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 结束 == ");
 
                 //还原缓存策略
-                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => originalCache);
+                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => originalCache);
             }
         }
     }

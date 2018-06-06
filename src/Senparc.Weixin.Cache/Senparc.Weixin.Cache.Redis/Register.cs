@@ -12,7 +12,7 @@
 
 ----------------------------------------------------------------*/
 
-//using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.RegisterServices;
 using System;
 
@@ -29,15 +29,15 @@ namespace Senparc.Weixin.Cache.Redis
         /// <returns></returns>
         public static IRegisterService RegisterCacheRedis(this IRegisterService registerService,
             string redisConfigurationString,
-            Func<string, IWeixinObjectCacheStrategy> redisObjectCacheStrategyInstance)
+            Func<string, IContainerCacheStrategy> redisObjectCacheStrategyInstance)
         {
             RedisManager.ConfigurationOption = redisConfigurationString;
 
             //此处先执行一次委托，直接在下方注册结果，提高每次调用的执行效率
-            IWeixinObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
+            IContainerCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
             if (objectCacheStrategy != null)
             {
-                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => objectCacheStrategy);//Redis
+                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => objectCacheStrategy);//Redis
             }
 
             return registerService;

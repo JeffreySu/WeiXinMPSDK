@@ -169,8 +169,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET.Cache.Redis.RedLock\redlock-cs\src\Senparc.CO2NET.Cache.Redis.RedLock.csproj" />
+    <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET.Cache.Redis\Senparc.CO2NET.Cache.Redis.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
   </ItemGroup>
 
 </Project>

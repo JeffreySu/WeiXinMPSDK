@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : WeixinLocalObjectCacheStrategy, IContainerCacheStrategy
+    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IBaseObjectCacheStrategy, IContainerCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        LocalContainerCacheStrategy():base()
+        public LocalContainerCacheStrategy() : base()
         {
         }
 
@@ -98,6 +98,15 @@ namespace Senparc.Weixin.Cache
         }
 
         #endregion
+
+        //#region IWeixinObjectCacheStrategy 成员
+
+        //public IContainerCacheStrategy ContainerCacheStrategy
+        //{
+        //    get { return LocalContainerCacheStrategy.Instance; }
+        //}
+
+        //#endregion
 
         #region IContainerCacheStrategy 成员
 

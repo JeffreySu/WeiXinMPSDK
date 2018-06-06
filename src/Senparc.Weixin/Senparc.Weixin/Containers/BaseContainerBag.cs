@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Containers
             mq.Add(mqKey, () =>
             {
                 //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-                var containerCacheStrategy = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+                var containerCacheStrategy = WeixinCacheStrategyFactory.GetObjectCacheStrategyInstance()/*.ContainerCacheStrategy*/;
                 var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
 

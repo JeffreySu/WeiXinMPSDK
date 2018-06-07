@@ -52,13 +52,16 @@ namespace Senparc.Weixin
     /// </summary>
     public static class Config
     {
+        private static bool _isDebug = false;
+
         /// <summary>
-        /// 指定是否是Debug状态，如果是，系统会自动输出日志
+        /// <para>指定是否是Debug状态，如果是，系统会自动输出日志。</para>
+        /// <para>如果 CO2NET.Config.IsDebug 为 true，则此参数也会为 true，否则以此参数为准。</para>
         /// </summary>
         public static bool IsDebug
         {
-            get { return CO2NET.Config.IsDebug; }
-            set { CO2NET.Config.IsDebug = value; }
+            get { return CO2NET.Config.IsDebug && _isDebug; }
+            set { _isDebug = value; }
         }
 
 #if !NET45

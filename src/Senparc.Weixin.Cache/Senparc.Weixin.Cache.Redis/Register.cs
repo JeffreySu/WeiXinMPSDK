@@ -28,8 +28,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <param name="redisObjectCacheStrategyInstance">缓存策略的委托，第一个参数为 redisConfigurationString</param>
         /// <returns></returns>
         public static IRegisterService RegisterCacheRedis(this IRegisterService registerService,
-            string redisConfigurationString,
-            Func<string, IContainerCacheStrategy> redisObjectCacheStrategyInstance)
+            string redisConfigurationString, Func<string, IContainerCacheStrategy> redisObjectCacheStrategyInstance)
         {
             RedisManager.ConfigurationOption = redisConfigurationString;
 

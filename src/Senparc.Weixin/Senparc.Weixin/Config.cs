@@ -64,12 +64,10 @@ namespace Senparc.Weixin
             set { _isDebug = value; }
         }
 
-#if !NET45
         /// <summary>
         /// 默认微信配置
         /// </summary>
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
-#endif
 
 
         /// <summary>

@@ -12,9 +12,9 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using Senparc.CO2NET.Threads;
-using Senparc.Weixin.RegisterServices;
+using Microsoft.Extensions.Options;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin
 {
@@ -24,39 +24,19 @@ namespace Senparc.Weixin
     public static class Register
     {
         /// <summary>
-        /// 修改默认缓存命名空间
+        /// 开始 Senparc.Weixin SDK 初始化参数流程（.NET Core）
         /// </summary>
-        /// <param name="registerService">RegisterService</param>
-        /// <param name="customNamespace">自定义命名空间名称</param>
+        /// <param name="env"></param>
+        /// <param name="senparcWeixinSetting"></param>
+        /// <param name="isDebug"></param>
         /// <returns></returns>
-        public static IRegisterService ChangeDefaultCacheNamespace(this IRegisterService registerService, string customNamespace)
+        public static RegisterService Start(this RegisterService registerService, IOptions<SenparcWeixinSetting> senparcWeixinSetting, bool isDebug)
         {
-            Weixin.Config.DefaultCacheNamespace = customNamespace;
+            //Senparc.Weixin SDK 配置
+            Senparc.Weixin.Config.IsDebug = true;
+            Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
             return registerService;
         }
 
-
-        /// <summary>
-        /// 注册 Threads 的方法（如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理）
-        /// </summary>
-        /// <param name="registerService">RegisterService</param>
-        /// <returns></returns>
-        public static IRegisterService RegisterThreads(this IRegisterService registerService)
-        {
-            ThreadUtility.Register();//如果不注册此线程，则AccessToken、JsTicket等都无法使用SDK自动储存和管理。
-            return registerService;
-        }
-
-        /// <summary>
-        /// 注册 TraceLog 的方法
-        /// </summary>
-        /// <param name="registerService">RegisterService</param>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public static IRegisterService RegisterTraceLog(this IRegisterService registerService, Action action)
-        {
-            action();
-            return registerService;
-        }
     }
 }

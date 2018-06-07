@@ -88,8 +88,9 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Redis 缓存策略
         /// </summary>
-        public RedisContainerCacheStrategy()
+        RedisContainerCacheStrategy()
         {
+            base.ChildNamespace = "Weixin";
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            var value =base.Get(key, isFullKey);
+            var value = base.Get(key, isFullKey);
             if (value == null)
             {
                 return null;

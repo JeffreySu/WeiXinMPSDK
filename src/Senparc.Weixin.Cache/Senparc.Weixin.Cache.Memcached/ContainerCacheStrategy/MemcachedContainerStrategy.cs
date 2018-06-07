@@ -52,6 +52,7 @@ namespace Senparc.Weixin.Cache.Memcached
         /// </summary>
         MemcachedContainerStrategy()
         {
+            base.ChildNamespace = "Weixin";
         }
 
         //静态LocalCacheStrategy

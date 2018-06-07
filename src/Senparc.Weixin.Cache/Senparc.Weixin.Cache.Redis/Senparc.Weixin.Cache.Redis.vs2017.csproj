@@ -131,6 +131,15 @@
     <PackageReference Include="System.Xml.XmlSerializer" />-->
   </ItemGroup>
 
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />-->
+    <!--<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.1.0" />
+  </ItemGroup>
+
+
   <ItemGroup>
     <Compile Remove="packages\**" />
     <Compile Remove="ServiceStack.Redis\**" />

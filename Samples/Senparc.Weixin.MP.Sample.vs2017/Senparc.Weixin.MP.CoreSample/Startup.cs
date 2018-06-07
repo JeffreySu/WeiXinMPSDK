@@ -118,7 +118,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 .RegisterCacheRedis(
                     senparcWeixinSetting.Value.Cache_Redis_Configuration,
                     redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                         ? RedisObjectCacheStrategy.Instance
+                                         ? RedisContainerCacheStrategy.Instance
                                          : null)
 
             #endregion

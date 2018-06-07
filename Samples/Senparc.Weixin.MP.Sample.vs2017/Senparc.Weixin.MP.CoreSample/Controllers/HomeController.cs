@@ -66,7 +66,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance().ContainerCacheStrategy;
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本

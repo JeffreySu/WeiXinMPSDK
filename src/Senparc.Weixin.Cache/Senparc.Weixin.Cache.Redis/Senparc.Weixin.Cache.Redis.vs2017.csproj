@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="RedisCacheLock.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -31,7 +31,8 @@ using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
-
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Memcached;
 using Senparc.Weixin.Containers;
 #if NET45 || NET461
 
@@ -85,7 +86,7 @@ namespace Senparc.Weixin.Cache.Memcached
             base.InsertToCache(key, value);
 #if DEBUG
             var cacheKey = GetFinalKey(key);
-            value = _cache.Get(cacheKey) as IBaseContainerBag;
+            value = Cache.Get(cacheKey) as IBaseContainerBag;
 #endif
         }
 
@@ -102,7 +103,7 @@ namespace Senparc.Weixin.Cache.Memcached
             }
 
             var cacheKey = GetFinalKey(key, isFullKey);
-            return _cache.Get<IBaseContainerBag>(cacheKey);
+            return Cache.Get<IBaseContainerBag>(cacheKey);
         }
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
@@ -134,7 +135,7 @@ namespace Senparc.Weixin.Cache.Memcached
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             object value;
-            if (_cache.TryGet(cacheKey, out value))
+            if (Cache.TryGet(cacheKey, out value))
             {
                 Update(cacheKey, containerBag, true);
             }

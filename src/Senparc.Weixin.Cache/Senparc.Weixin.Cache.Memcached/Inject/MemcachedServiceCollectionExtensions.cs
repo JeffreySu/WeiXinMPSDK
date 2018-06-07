@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddSenparcMemcached(this IServiceCollection services, Action<MemcachedClientOptions> setupAction)
         {
-            services.AddSingleton<MemcachedObjectCacheStrategy, MemcachedObjectCacheStrategy>();
+            //services.AddSingleton<MemcachedObjectCacheStrategy, MemcachedObjectCacheStrategy>();
             services.AddSingleton<MemcachedContainerStrategy, MemcachedContainerStrategy>();
             return services.AddEnyimMemcached(setupAction);
         }

@@ -212,6 +212,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
  
 
   <ItemGroup>
+    <Compile Remove="MamcachedCacheLock.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
@@ -220,6 +221,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET.Cache.Memcached\Senparc.CO2NET.Cache.Memcached.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 

@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.CoreSample
                     //Senparc.Weixin全局注册
                     .AddSenparcWeixinGlobalServices();
 
-            #region Senparc.Weixin SDK Memcached 配置
+            #region Senparc.CO2NET Memcached 配置
 
             //添加Memcached配置（按需）
             services.AddSenparcMemcached(options =>

@@ -12,9 +12,9 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Collections.Generic;
-using Senparc.Weixin.RegisterServices;
 
 namespace Senparc.Weixin.Cache.Memcached
 {

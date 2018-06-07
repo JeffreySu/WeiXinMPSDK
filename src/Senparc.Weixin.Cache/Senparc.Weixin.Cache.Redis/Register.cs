@@ -13,7 +13,7 @@
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Cache;
-using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET.RegisterServices;
 using System;
 
 namespace Senparc.Weixin.Cache.Redis

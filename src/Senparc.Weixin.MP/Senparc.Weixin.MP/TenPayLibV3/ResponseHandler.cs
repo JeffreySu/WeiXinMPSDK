@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #if NETSTANDARD2_0
             HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
 #else
-            HttpContext = httpContext ?? RegisterServices.RegisterService.GlobalServiceCollection
+            HttpContext = httpContext ?? CO2NET.RegisterServices.RegisterService.GlobalServiceCollection
                                             .BuildServiceProvider().GetService<IHttpContextAccessor>()?.HttpContext;
 #endif
 

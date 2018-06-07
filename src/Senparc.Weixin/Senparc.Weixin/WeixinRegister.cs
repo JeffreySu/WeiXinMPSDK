@@ -16,8 +16,9 @@
 
 ----------------------------------------------------------------*/
 
-
+#if NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.Extensions.Options;
+#endif
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 
@@ -28,6 +29,9 @@ namespace Senparc.Weixin
     /// </summary>
     public static class WeixinRegister
     {
+
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+
         /// <summary>
         /// 开始 Senparc.Weixin SDK 初始化参数流程（.NET Core）
         /// </summary>
@@ -42,5 +46,6 @@ namespace Senparc.Weixin
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
             return registerService;
         }
+#endif
     }
 }

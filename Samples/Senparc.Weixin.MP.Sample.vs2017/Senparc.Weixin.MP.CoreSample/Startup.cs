@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Memcached;
+using Senparc.CO2NET;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.Open.Containers;
-using Senparc.Weixin.RegisterServices;
-using Senparc.CO2NET.Threads;
 using Senparc.Weixin.Work;
+using System.IO;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -45,13 +35,12 @@ namespace Senparc.Weixin.MP.CoreSample
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
-            //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
-            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"))
+            services.AddSenparcGlobalServices()//Senparc.CO2NET 全局注册
+                                               //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
+                    .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
 
-                    //Senparc.Weixin全局注册
-                    .AddSenparcWeixinGlobalServices();
 
-            #region Senparc.CO2NET Memcached 配置
+            #region Senparc.CO2NET Memcached 配置（按需）
 
             //添加Memcached配置（按需）
             services.AddSenparcMemcached(options =>
@@ -89,7 +78,6 @@ namespace Senparc.Weixin.MP.CoreSample
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            #region 微信相关配置
 
             #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
             if (env.ContentRootPath != null)
@@ -99,6 +87,42 @@ namespace Senparc.Weixin.MP.CoreSample
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
             #endregion
 
+
+            var isDebug = true;//当前是否是Debug状态
+            IRegisterService register = RegisterService.Start(env, isDebug);
+
+            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
+
+            register.RegisterThreads();  //启动线程，RegisterThreads()也可以省略，在RegisterService.Start()中已经自动注册
+
+            #endregion
+
+            #region 缓存配置（按需）
+
+            // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+            register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
+
+            //配置Redis缓存（按需，独立）
+            register.RegisterCacheRedis(
+                        senparcWeixinSetting.Value.Cache_Redis_Configuration,
+                        redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+                                             ? RedisContainerCacheStrategy.Instance
+                                             : null);
+
+            //配置Memcached缓存（按需，独立）
+            app.UseEnyimMemcached();
+
+            #endregion
+
+            #region 注册日志（按需）
+
+            register.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
+
+            #endregion
+
+            #region 微信相关配置
+
+
             /* 微信配置开始
              * 
              * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
@@ -106,34 +130,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //注册开始
 
-            var isDebug = true;//当前是否是Debug状态
-            RegisterService.Start(env, senparcWeixinSetting, isDebug) //这里没有 ; 下面接着写
-
-            #region 缓存配置
-
-                // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-                .ChangeDefaultCacheNamespace("DefaultWeixinCache")
-
-                //配置Redis缓存
-                .RegisterCacheRedis(
-                    senparcWeixinSetting.Value.Cache_Redis_Configuration,
-                    redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                         ? RedisContainerCacheStrategy.Instance
-                                         : null)
-
-            #endregion
-
-            #region 注册日志（按需）
-
-                .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
-
-            #endregion
-
-            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
-
-                 .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
-
-            #endregion
+            //开始注册微信信息
+            register.UseSenparcWeixin(senparcWeixinSetting, isDebug/*此处为单独用于微信的调试状态*/) //注意：这里没有 ; 下面可接着写
 
             #region 注册公众号或小程序（按需）
 
@@ -258,18 +256,11 @@ namespace Senparc.Weixin.MP.CoreSample
                              binFormat.Serialize(fs, refreshResult);
                              fs.Flush();
                          }
-                     }, "【盛派网络】开放平台");
+                     }, "【盛派网络】开放平台")
 
             #endregion
 
             ;
-
-            //配置Memcached缓存
-            #region Senparc.Weixin SDK Memcached 配置
-
-            app.UseEnyimMemcached();
-
-            #endregion
 
             /* 微信配置结束 */
 
@@ -278,20 +269,22 @@ namespace Senparc.Weixin.MP.CoreSample
 
         /// 配置微信跟踪日志
         /// </summary>
-        private void ConfigWeixinTraceLog()
+        private void ConfigTraceLog()
         {
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
-            Senparc.Weixin.Config.IsDebug = true;
-            Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
 
-            //自定义日志记录回调
-            Senparc.Weixin.WeixinTrace.OnLogFunc = () =>
+            //如果全局的IsDebug（Senparc.CO2NET.Config.IsDebug）为false，此处可以单独设置true，否则自动为true
+            Config.IsDebug = true;
+            CO2NET.Trace.SenparcTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
+
+            //全局自定义日志记录回调
+            CO2NET.Trace.SenparcTrace.OnLogFunc = () =>
             {
                 //加入每次触发Log后需要执行的代码
             };
 
             //当发生基于WeixinException的异常时触发
-            Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc = ex =>
+            WeixinTrace.OnWeixinExceptionFunc = ex =>
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 

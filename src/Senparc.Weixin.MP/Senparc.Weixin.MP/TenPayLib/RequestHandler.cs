@@ -196,7 +196,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             this.SetParameter("sign", sign);
 
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     sb.Append(k + "=" + v + "&");
                 }
             }
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 
             this.SetParameter("sign", sign);
             return sign;
@@ -257,7 +257,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     }
                 }
             }
-            string paySign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            string paySign = EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
             //debugÐÅÏ¢
             this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);

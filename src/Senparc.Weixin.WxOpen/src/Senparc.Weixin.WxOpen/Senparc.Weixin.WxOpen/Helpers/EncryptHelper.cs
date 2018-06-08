@@ -77,7 +77,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
         public static string GetSignature(string rawData, string sessionKey)
         {
             var signature =
-                Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(rawData + sessionKey);
+                Senparc.Weixin.MP.Helpers.EncryptHelper.GetSha1(rawData + sessionKey);
             //Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + sessionKey);
             return signature;
         }

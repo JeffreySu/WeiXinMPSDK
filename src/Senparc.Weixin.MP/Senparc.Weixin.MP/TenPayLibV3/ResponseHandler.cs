@@ -255,7 +255,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
             this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
             //debug信息
             return GetParameter("sign").ToLower().Equals(sign);

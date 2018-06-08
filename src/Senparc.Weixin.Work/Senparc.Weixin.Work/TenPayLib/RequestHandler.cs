@@ -154,7 +154,7 @@ namespace Senparc.Weixin.Work.TenPayLib
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             return sign;
         }

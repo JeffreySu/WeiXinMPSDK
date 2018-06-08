@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CustomServiceTest : CommonApiTest
     {
-        protected string _custonPassWord = MD5UtilHelper.GetMD5("123123", null);
+        protected string _custonPassWord = EncryptHelper.GetMD5("123123", null);
 
         [TestMethod]
         public void GetRecordTest()

@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
@@ -210,7 +210,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);

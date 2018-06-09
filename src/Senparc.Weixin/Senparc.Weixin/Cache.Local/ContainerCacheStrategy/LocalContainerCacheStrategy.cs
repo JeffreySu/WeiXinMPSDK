@@ -195,10 +195,5 @@ namespace Senparc.Weixin.Cache
             BaseCacheStrategy().RemoveFromCache(key, isFullKey);
         }
 
-        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
-        {
-            return new LocalCacheLock(BaseCacheStrategy() as LocalObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
-            //return BaseCacheStrategy().BeginCacheLock(resourceName, key, retryCount, retryDelay);
-        }
     }
 }

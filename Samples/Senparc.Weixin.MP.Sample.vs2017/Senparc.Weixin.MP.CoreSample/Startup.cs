@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
+using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
@@ -106,7 +107,7 @@ namespace Senparc.Weixin.MP.CoreSample
             register.RegisterCacheRedis(
                         senparcWeixinSetting.Value.Cache_Redis_Configuration,
                         redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                             ? RedisContainerCacheStrategy.Instance
+                                             ? RedisObjectCacheStrategy.Instance
                                              : null);
 
             //配置Memcached缓存（按需，独立）

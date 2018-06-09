@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Cache
 
     //    static LocalContainerCacheHelper()
     //    {
-    //        LocalContainerCacheStragety() = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
+    //        LocalContainerBaseCacheStrategy() = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
     //    }
     //}
 
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// 数据源缓存策略
         /// </summary>
-        public Func<IBaseObjectCacheStrategy> CacheStragety { get; }
+        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
 
         #endregion
 
@@ -85,10 +85,10 @@ namespace Senparc.Weixin.Cache
         private LocalContainerCacheStrategy() /*: base()*/
         {
             //使用底层缓存策略
-            CacheStragety = ()=> LocalObjectCacheStrategy.Instance;
+            BaseCacheStrategy = ()=> LocalObjectCacheStrategy.Instance;
 
             //向底层缓存注册当前缓存策略
-            CacheStrategyDomainWarehouse.RegisterCacheStragetyDomain(this);
+            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
         }
 
         //静态LocalCacheStrategy
@@ -126,12 +126,12 @@ namespace Senparc.Weixin.Cache
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
-            CacheStragety().InsertToCache(key, value);
+            BaseCacheStrategy().InsertToCache(key, value);
         }
 
         public new IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            return CacheStragety().Get(key, isFullKey) as IBaseContainerBag;
+            return BaseCacheStrategy().Get(key, isFullKey) as IBaseContainerBag;
         }
 
 
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.Cache
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
             var dic = new Dictionary<string, IBaseContainerBag>();
-            foreach (var item in CacheStragety().GetAll())
+            foreach (var item in BaseCacheStrategy().GetAll())
             {
                 if (item.Value is IBaseContainerBag)
                 {
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.Cache
         public bool CheckExisted(string key, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
-            return CacheStragety().CheckExisted(cacheKey);
+            return BaseCacheStrategy().CheckExisted(cacheKey);
         }
 
         public long GetCount()
@@ -183,22 +183,22 @@ namespace Senparc.Weixin.Cache
 
         public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            CacheStragety().Update(key, value, isFullKey);
+            BaseCacheStrategy().Update(key, value, isFullKey);
         }
 
         public string GetFinalKey(string key, bool isFullKey = false)
         {
-            return CacheStragety().GetFinalKey(key, isFullKey);
+            return BaseCacheStrategy().GetFinalKey(key, isFullKey);
         }
 
         public void RemoveFromCache(string key, bool isFullKey = false)
         {
-            CacheStragety().RemoveFromCache(key, isFullKey);
+            BaseCacheStrategy().RemoveFromCache(key, isFullKey);
         }
 
         public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
         {
-            return CacheStragety().BeginCacheLock(resourceName, key, retryCount, retryDelay);
+            return BaseCacheStrategy().BeginCacheLock(resourceName, key, retryCount, retryDelay);
         }
     }
 }

@@ -39,6 +39,7 @@ using System.Collections.Generic;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
+using System;
 
 namespace Senparc.Weixin.Cache
 {
@@ -54,29 +55,40 @@ namespace Senparc.Weixin.Cache
 
     //    static LocalContainerCacheHelper()
     //    {
-    //        LocalContainerCache = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
+    //        LocalContainerCacheStragety() = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
     //    }
     //}
 
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IBaseObjectCacheStrategy, IContainerCacheStrategy
+    public sealed class LocalContainerCacheStrategy : /*LocalObjectCacheStrategy,*/
+                                                      IContainerCacheStrategy, IDomainExtensionCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
-        #region 数据源
+        #region IDomainExtensionCacheStrategy 成员
+        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
-        private IDictionary<string, object> _cache = LocalObjectCacheHelper.LocalObjectCache;//使用系统统一的缓存对象
+        /// <summary>
+        /// 数据源缓存策略
+        /// </summary>
+        public Func<IBaseObjectCacheStrategy> CacheStragety { get; }
 
         #endregion
+
 
         #region 单例
 
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        public LocalContainerCacheStrategy() : base()
+        private LocalContainerCacheStrategy() /*: base()*/
         {
+            //使用底层缓存策略
+            CacheStragety = ()=> LocalObjectCacheStrategy.Instance;
+
+            //向底层缓存注册当前缓存策略
+            CacheStrategyDomainWarehouse.RegisterCacheStragetyDomain(this);
         }
 
         //静态LocalCacheStrategy
@@ -99,6 +111,8 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
+
+
         //#region IWeixinObjectCacheStrategy 成员
 
         //public IContainerCacheStrategy ContainerCacheStrategy
@@ -112,12 +126,12 @@ namespace Senparc.Weixin.Cache
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
-            base.InsertToCache(key, value);
+            CacheStragety().InsertToCache(key, value);
         }
 
         public new IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            return base.Get(key, isFullKey) as IBaseContainerBag;
+            return CacheStragety().Get(key, isFullKey) as IBaseContainerBag;
         }
 
 
@@ -146,7 +160,7 @@ namespace Senparc.Weixin.Cache
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
             var dic = new Dictionary<string, IBaseContainerBag>();
-            foreach (var item in _cache)
+            foreach (var item in CacheStragety().GetAll())
             {
                 if (item.Value is IBaseContainerBag)
                 {
@@ -159,7 +173,7 @@ namespace Senparc.Weixin.Cache
         public bool CheckExisted(string key, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
-            return _cache.ContainsKey(cacheKey);
+            return CacheStragety().CheckExisted(cacheKey);
         }
 
         public long GetCount()
@@ -169,9 +183,22 @@ namespace Senparc.Weixin.Cache
 
         public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            base.Update(key, value, isFullKey);
+            CacheStragety().Update(key, value, isFullKey);
         }
 
+        public string GetFinalKey(string key, bool isFullKey = false)
+        {
+            return CacheStragety().GetFinalKey(key, isFullKey);
+        }
 
+        public void RemoveFromCache(string key, bool isFullKey = false)
+        {
+            CacheStragety().RemoveFromCache(key, isFullKey);
+        }
+
+        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
+        {
+            return CacheStragety().BeginCacheLock(resourceName, key, retryCount, retryDelay);
+        }
     }
 }

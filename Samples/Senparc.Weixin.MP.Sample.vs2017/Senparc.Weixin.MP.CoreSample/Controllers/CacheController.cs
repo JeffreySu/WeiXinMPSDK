@@ -114,7 +114,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var shortBagKey = DateTime.Now.Ticks.ToString();
-                var finalBagKey = (containerCacheStrategy as IBaseObjectCacheStrategy).GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var finalBagKey = (containerCacheStrategy as IContainerCacheStrategy).BaseCacheStrategy()
+                                    .GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,

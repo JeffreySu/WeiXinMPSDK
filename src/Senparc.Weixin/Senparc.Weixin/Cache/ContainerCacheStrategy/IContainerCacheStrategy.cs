@@ -39,9 +39,9 @@ using Senparc.Weixin.Containers;
 namespace Senparc.Weixin.Cache
 {
     /// <summary>
-    /// 容器缓存策略接口
+    /// 容器缓存策略接口（属于扩展领域缓存）
     /// </summary>
-    public interface IContainerCacheStrategy /*: IBaseCacheStrategy<string, IBaseContainerBag>*/
+    public interface IContainerCacheStrategy: IDomainExtensionCacheStrategy /*: IBaseCacheStrategy<string, IBaseContainerBag>*/
     {
         /// <summary>
         /// 获取所有ContainerBag

@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Cache
         /// 如果
         /// </summary>
         /// <returns></returns>
-        public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
+        public static IContainerCacheStrategy GetContainerCacheStrategyInstance(ICacheStrategyDomain cacheStrategyDomain)
         {
             //从底层进行判断
 

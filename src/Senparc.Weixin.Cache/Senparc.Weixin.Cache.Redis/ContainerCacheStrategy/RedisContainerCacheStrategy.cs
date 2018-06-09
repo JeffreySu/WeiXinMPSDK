@@ -55,8 +55,7 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : /*RedisObjectCacheStrategy, */
-                                                      IContainerCacheStrategy, IDomainExtensionCacheStrategy
+    public sealed class RedisContainerCacheStrategy : IContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
         public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }

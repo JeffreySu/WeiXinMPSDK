@@ -62,8 +62,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : /*LocalObjectCacheStrategy,*/
-                                                      IContainerCacheStrategy, IDomainExtensionCacheStrategy
+    public sealed class LocalContainerCacheStrategy : IContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
         public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
@@ -74,7 +73,6 @@ namespace Senparc.Weixin.Cache
         public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
 
         #endregion
-
 
         #region 单例
 
@@ -110,34 +108,14 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
-
-
-        //#region IWeixinObjectCacheStrategy 成员
-
-        //public IContainerCacheStrategy ContainerCacheStrategy
-        //{
-        //    get { return LocalContainerCacheStrategy.Instance; }
-        //}
-
-        //#endregion
-
         #region IContainerCacheStrategy 成员
-
-        public void InsertToCache(string key, IBaseContainerBag value)
-        {
-            BaseCacheStrategy().InsertToCache(key, value);
-        }
-
-        public new IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            return BaseCacheStrategy().Get(key, isFullKey) as IBaseContainerBag;
-        }
 
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
             var dic = new Dictionary<string, TBag>();
-            var cacheList = GetAll();
+            var baseCacheStrategy = BaseCacheStrategy();
+            var cacheList = baseCacheStrategy.GetAll();
             foreach (var baseContainerBag in cacheList)
             {
                 if (baseContainerBag.Value is TBag)
@@ -150,50 +128,26 @@ namespace Senparc.Weixin.Cache
 
         public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
         {
-            Update(key, bag, isFullKey);
+            var baseCacheStrategy = BaseCacheStrategy();
+            baseCacheStrategy.Update(key, bag, isFullKey);
         }
 
         #endregion
 
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
-        {
-            var dic = new Dictionary<string, IBaseContainerBag>();
-            foreach (var item in BaseCacheStrategy().GetAll())
-            {
-                if (item.Value is IBaseContainerBag)
-                {
-                    dic[item.Key] = (IBaseContainerBag)item.Value;
-                }
-            }
-            return dic;
-        }
+        //public IDictionary<string, IBaseContainerBag> GetAll()
+        //{
+        //    var dic = new Dictionary<string, IBaseContainerBag>();
+        //    foreach (var item in BaseCacheStrategy().GetAll())
+        //    {
+        //        if (item.Value is IBaseContainerBag)
+        //        {
+        //            dic[item.Key] = (IBaseContainerBag)item.Value;
+        //        }
+        //    }
+        //    return dic;
+        //}
 
-        public bool CheckExisted(string key, bool isFullKey = false)
-        {
-            var cacheKey = GetFinalKey(key, isFullKey);
-            return BaseCacheStrategy().CheckExisted(cacheKey);
-        }
-
-        public long GetCount()
-        {
-            return GetAll().Count;
-        }
-
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
-        {
-            BaseCacheStrategy().Update(key, value, isFullKey);
-        }
-
-        public string GetFinalKey(string key, bool isFullKey = false)
-        {
-            return BaseCacheStrategy().GetFinalKey(key, isFullKey);
-        }
-
-        public void RemoveFromCache(string key, bool isFullKey = false)
-        {
-            BaseCacheStrategy().RemoveFromCache(key, isFullKey);
-        }
 
         //public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
         //{

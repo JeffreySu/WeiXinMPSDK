@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
         public void LocalCacheDeadLockTest()
         {
             //测试本地缓存死锁问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/402
-            ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => WeixinLocalObjectCacheStrategy.Instance);//Local
+            ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => LocalContainerCacheStrategy.Instance);//Local
 
             List<Task> taskList = new List<Task>();
             var dt1 = DateTime.Now;
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
         public void LocalCacheDeadLockInGetTest()
         {
             //测试本地缓存死锁问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/403
-            ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => WeixinLocalObjectCacheStrategy.Instance);//Local
+            ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => LocalContainerCacheStrategy.Instance);//Local
 
             //测试死锁发生
             //Task.Factory.StartNew(() =>

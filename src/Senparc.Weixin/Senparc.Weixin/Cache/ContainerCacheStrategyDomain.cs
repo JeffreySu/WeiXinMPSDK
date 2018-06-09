@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Cache
         #endregion
 
         private const string IDENTITY_NAME= "6526BBC0-718A-4F47-9675-D6DF6E1CE125";//固定值，请勿修改
-        private const string DOMAIN_NAME = "WeixinContainer";//固定值，请勿修改
+        private const string DOMAIN_NAME = "WeixinContainer";//固定值，请勿修改。同时会作为缓存键命名空间的子级名称
 
         public string IdentityName { get { return IDENTITY_NAME; } }
 

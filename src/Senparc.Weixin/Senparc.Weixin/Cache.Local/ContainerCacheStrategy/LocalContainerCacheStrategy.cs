@@ -64,7 +64,6 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     public sealed class LocalContainerCacheStrategy : /*LocalObjectCacheStrategy,*/
                                                       IContainerCacheStrategy, IDomainExtensionCacheStrategy
-    //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region IDomainExtensionCacheStrategy 成员
         public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
@@ -85,7 +84,7 @@ namespace Senparc.Weixin.Cache
         private LocalContainerCacheStrategy() /*: base()*/
         {
             //使用底层缓存策略
-            BaseCacheStrategy = ()=> LocalObjectCacheStrategy.Instance;
+            BaseCacheStrategy = () => LocalObjectCacheStrategy.Instance;
 
             //向底层缓存注册当前缓存策略
             CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
@@ -198,7 +197,8 @@ namespace Senparc.Weixin.Cache
 
         public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
         {
-            return BaseCacheStrategy().BeginCacheLock(resourceName, key, retryCount, retryDelay);
+            return new LocalCacheLock(BaseCacheStrategy() as LocalObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
+            //return BaseCacheStrategy().BeginCacheLock(resourceName, key, retryCount, retryDelay);
         }
     }
 }

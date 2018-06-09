@@ -55,11 +55,37 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : RedisObjectCacheStrategy, IContainerCacheStrategy
+    public sealed class RedisContainerCacheStrategy : /*RedisObjectCacheStrategy, */
+                                                      IContainerCacheStrategy, IDomainExtensionCacheStrategy
     {
+        #region IDomainExtensionCacheStrategy 成员
+        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
+        /// <summary>
+        /// 数据源缓存策略
+        /// </summary>
+        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
+
+
+        #endregion
 
         #region 单例
+
+
+        /// <summary>
+        /// Redis 缓存策略
+        /// </summary>
+        RedisContainerCacheStrategy() /*: base()*/
+        {
+            //base.ChildNamespace = "WeixinContainer";
+
+            //使用底层缓存策略
+            BaseCacheStrategy = () => RedisObjectCacheStrategy.Instance;
+
+            //向底层缓存注册当前缓存策略
+            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
+        }
+
 
         //静态SearchCache
         public static RedisContainerCacheStrategy Instance
@@ -86,14 +112,6 @@ namespace Senparc.Weixin.Cache.Redis
         }
 
         /// <summary>
-        /// Redis 缓存策略
-        /// </summary>
-        RedisContainerCacheStrategy()
-        {
-            base.ChildNamespace = "Weixin";
-        }
-
-        /// <summary>
         /// Redis 缓存策略析构函数，用于 _client 资源回收
         /// </summary>
         ~RedisContainerCacheStrategy()
@@ -112,12 +130,12 @@ namespace Senparc.Weixin.Cache.Redis
         /// <returns></returns>
         public bool CheckExisted(string key, bool isFullKey = false)
         {
-            return base.CheckExisted(key, isFullKey);
+            return BaseCacheStrategy.CheckExisted(key, isFullKey);
         }
 
         public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            var value = base.Get(key, isFullKey);
+            var value = BaseCacheStrategy.Get(key, isFullKey);
             if (value == null)
             {
                 return null;
@@ -155,7 +173,7 @@ namespace Senparc.Weixin.Cache.Redis
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
             key = GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
-            var list = _cache.HashGetAll(key);
+            var list = BaseCacheStrategy().HashGetAll(key);
             var dic = new Dictionary<string, TBag>();
 
             foreach (var hashEntry in list)
@@ -176,22 +194,22 @@ namespace Senparc.Weixin.Cache.Redis
 
         public long GetCount()
         {
-            return base.GetCount();
+            return BaseCacheStrategy.GetCount();
         }
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
-            base.InsertToCache(key, value);
+            BaseCacheStrategy.InsertToCache(key, value);
         }
 
         public void RemoveFromCache(string key, bool isFullKey = false)
         {
-            base.RemoveFromCache(key, isFullKey);
+            BaseCacheStrategy.RemoveFromCache(key, isFullKey);
         }
 
         public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            base.Update(key, value, isFullKey);
+            BaseCacheStrategy.Update(key, value, isFullKey);
         }
 
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
@@ -206,7 +224,12 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay);
+            return new RedisCacheLock(BaseCacheStrategy() as RedisObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
+        }
+
+        public string GetFinalKey(string key, bool isFullKey = false)
+        {
+            return BaseCacheStrategy().GetFinalKey(key, isFullKey);
         }
     }
 }

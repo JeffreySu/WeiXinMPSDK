@@ -49,6 +49,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
@@ -77,16 +78,31 @@ namespace Senparc.Weixin.Containers
     [Serializable]
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
+        private static IBaseObjectCacheStrategy _cache = null;
+        private static IContainerCacheStrategy _containerCache = null;
+
         /// <summary>
         /// 获取符合当前缓存策略配置的缓存的操作对象实例
         /// </summary>
-        protected static IContainerCacheStrategy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
+        protected static IBaseObjectCacheStrategy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {
                 //使用工厂模式或者配置进行动态加载
                 //return CacheStrategyFactory.GetContainerCacheStrategyInstance();
-                return ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+
+                //以下代码可以实现缓存“热切换”，损失的效率有限。如果需要追求极致效率，可以禁用type的判断
+                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+                if (_containerCache == null || _containerCache.GetType() != containerCacheStrategy.GetType())
+                {
+                    _containerCache = containerCacheStrategy;
+                }
+
+                if (_cache == null)
+                {
+                    _cache = _cache ?? containerCacheStrategy.BaseCacheStrategy();
+                }
+                return _cache;
             }
         }
 
@@ -194,7 +210,8 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll<TBag>().Values
+            //return Cache.GetAll<TBag>().Values
+            return _containerCache.GetAll<TBag>().Values
                 //如果需要做进一步的筛选，则使用Select或Where，但需要注意效率问题
                 //.Select(z => z)
                 .ToList();

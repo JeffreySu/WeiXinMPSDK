@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Cache
     {
         internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
-        internal static Func<IContainerCacheStrategy> ObjectCacheStrateFunc = ()=> LocalContainerCacheStrategy.Instance;//默认为 WeixinLocalObjectCacheStrategy
+        internal static Func<IContainerCacheStrategy> ObjectCacheStrateFunc = () => LocalContainerCacheStrategy.Instance;//默认为 WeixinLocalObjectCacheStrategy
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()
         //    where TKey : class
         //    where TValue : class
@@ -52,24 +52,24 @@ namespace Senparc.Weixin.Cache
         /// 如果
         /// </summary>
         /// <returns></returns>
-        public static IContainerCacheStrategy GetContainerCacheStrategyInstance(ICacheStrategyDomain cacheStrategyDomain)
+        public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
         {
             //从底层进行判断
+            var containerCacheStrategy = CacheStrategyFactory.GetExtensionCacheStrategyInstance(ContainerCacheStrategyDomain.Instance) as IContainerCacheStrategy;
+            return containerCacheStrategy;
 
 
-
-
-            if (ObjectCacheStrateFunc == null)
-            {
-                //默认状态
-                return LocalContainerCacheStrategy.Instance /*as IContainerCacheStrategy*/;
-            }
-            else
-            {
-                //自定义类型
-                var instance = ObjectCacheStrateFunc();// ?? LocalObjectCacheStrategy.Instance;
-                return instance;
-            }
+            //if (ObjectCacheStrateFunc == null)
+            //{
+            //    //默认状态
+            //    return LocalContainerCacheStrategy.Instance /*as IContainerCacheStrategy*/;
+            //}
+            //else
+            //{
+            //    //自定义类型
+            //    var instance = ObjectCacheStrateFunc();// ?? LocalObjectCacheStrategy.Instance;
+            //    return instance;
+            //}
         }
     }
 }

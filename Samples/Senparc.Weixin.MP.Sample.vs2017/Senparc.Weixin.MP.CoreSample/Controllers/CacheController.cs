@@ -11,6 +11,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -63,11 +64,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             if (id == 1)
             {
-                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }
             else
             {
-                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => null);
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
             }
 
             var sb = new StringBuilder();

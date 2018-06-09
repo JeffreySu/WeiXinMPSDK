@@ -43,7 +43,7 @@ using Microsoft.Extensions.Options;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : IContainerCacheStrategy
+    public class MemcachedContainerCacheStrategy : IContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
         public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Cache.Memcached
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        MemcachedContainerStrategy()
+        MemcachedContainerCacheStrategy()
         {
             //使用底层缓存策略
             BaseCacheStrategy = () => MemcachedObjectCacheStrategy.Instance;
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Cache.Memcached
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly MemcachedContainerStrategy instance = new MemcachedContainerStrategy();
+            internal static readonly MemcachedContainerCacheStrategy instance = new MemcachedContainerCacheStrategy();
         }
         #endregion
 

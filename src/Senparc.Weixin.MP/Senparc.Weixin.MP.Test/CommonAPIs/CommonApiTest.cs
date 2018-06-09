@@ -35,6 +35,8 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Threads;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -186,7 +188,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
             //全局只需注册一次

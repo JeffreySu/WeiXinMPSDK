@@ -40,7 +40,7 @@ namespace Senparc.WeixinTests
                         cacheStrategies.Add(RedisContainerCacheStrategy.Instance);
                         break;
                     case CacheType.Memcached:
-                        cacheStrategies.Add(MemcachedContainerStrategy.Instance);
+                        cacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
                         break;
                 }
             }

@@ -5,8 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
@@ -103,6 +105,8 @@ namespace Senparc.Weixin.MP.CoreSample
             // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
             register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
 
+
+
             //配置Redis缓存（按需，独立）
             register.RegisterCacheRedis(
                         senparcWeixinSetting.Value.Cache_Redis_Configuration,
@@ -110,7 +114,11 @@ namespace Senparc.Weixin.MP.CoreSample
                                              ? RedisObjectCacheStrategy.Instance
                                              : null);
 
+            //说明：最终修改缓存策略的方法为：
+            //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+
             //配置Memcached缓存（按需，独立）
+            //这里配置的是 CO2NET 的 Memcached 缓存（如果执行了下面的 app.UseSenparcWeixinCacheMemcached()，这一句可以忽略）
             app.UseEnyimMemcached();
 
             #endregion
@@ -130,6 +138,14 @@ namespace Senparc.Weixin.MP.CoreSample
              */
 
             //注册开始
+
+
+            #region 微信缓存
+
+            app.UseSenparcWeixinCacheMemcached()// 微信的 Memcached 缓存
+               .UseSenparcWeixinCacheRedis();//微信的 Redis 缓存
+
+            #endregion
 
             //开始注册微信信息
             register.UseSenparcWeixin(senparcWeixinSetting, isDebug/*此处为单独用于微信的调试状态*/) //注意：这里没有 ; 下面可接着写

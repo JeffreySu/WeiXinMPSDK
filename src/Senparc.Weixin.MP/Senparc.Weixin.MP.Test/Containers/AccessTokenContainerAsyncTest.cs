@@ -28,6 +28,8 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
@@ -45,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                ContainerCacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
             
             //注册

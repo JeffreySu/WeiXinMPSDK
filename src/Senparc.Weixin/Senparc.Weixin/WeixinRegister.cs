@@ -20,6 +20,7 @@
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin
@@ -44,7 +45,13 @@ namespace Senparc.Weixin
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.IsDebug = true;
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
+
+            // 微信的 本地 缓存
+            var cache = LocalContainerCacheStrategy.Instance;
+
             return registerService;
+
+
         }
 #endif
     }

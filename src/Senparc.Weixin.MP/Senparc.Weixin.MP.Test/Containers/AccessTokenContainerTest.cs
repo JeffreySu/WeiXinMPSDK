@@ -32,6 +32,7 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Cache.Redis;
 //using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests

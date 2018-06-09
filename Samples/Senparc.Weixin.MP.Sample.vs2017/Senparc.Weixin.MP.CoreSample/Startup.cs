@@ -106,7 +106,6 @@ namespace Senparc.Weixin.MP.CoreSample
             register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
 
 
-
             //配置Redis缓存（按需，独立）
             register.RegisterCacheRedis(
                         senparcWeixinSetting.Value.Cache_Redis_Configuration,
@@ -114,7 +113,8 @@ namespace Senparc.Weixin.MP.CoreSample
                                              ? RedisObjectCacheStrategy.Instance
                                              : null);
 
-            //说明：最终修改缓存策略的方法为：
+            //说明：最终修改缓存策略的方法如下，
+            //RedisObjectCacheStrategy也可换成其他策略，默认为本地缓存（LocalObjectCacheStrategy）
             //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
 
             //配置Memcached缓存（按需，独立）
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.CoreSample
             //注册开始
 
 
-            #region 微信缓存
+            #region 微信缓存（按需，必须在 register.UseSenparcWeixin() 之前）
 
             app.UseSenparcWeixinCacheMemcached()// 微信的 Memcached 缓存
                .UseSenparcWeixinCacheRedis();//微信的 Redis 缓存

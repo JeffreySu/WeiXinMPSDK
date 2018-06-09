@@ -43,8 +43,19 @@ using Microsoft.Extensions.Options;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : MemcachedObjectCacheStrategy, IContainerCacheStrategy
+    public class MemcachedContainerStrategy : IContainerCacheStrategy
     {
+        #region IDomainExtensionCacheStrategy 成员
+        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
+
+        /// <summary>
+        /// 数据源缓存策略
+        /// </summary>
+        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
+
+
+        #endregion
+
 
         #region 单例
         /// <summary>
@@ -52,7 +63,11 @@ namespace Senparc.Weixin.Cache.Memcached
         /// </summary>
         MemcachedContainerStrategy()
         {
-            base.ChildNamespace = "Weixin";
+            //使用底层缓存策略
+            BaseCacheStrategy = () => MemcachedObjectCacheStrategy.Instance;
+
+            //向底层缓存注册当前缓存策略
+            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
         }
 
         //静态LocalCacheStrategy
@@ -77,68 +92,18 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #region IContainerCacheStrategy 成员
 
-        public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
-        {
-            if (string.IsNullOrEmpty(key) || value == null)
-            {
-                return;
-            }
-
-            base.InsertToCache(key, value);
-#if DEBUG
-            var cacheKey = GetFinalKey(key);
-            value = Cache.Get(cacheKey) as IBaseContainerBag;
-#endif
-        }
-
-        public override void RemoveFromCache(string key, bool isFullKey = false)
-        {
-            base.RemoveFromCache(key, isFullKey);
-        }
-
-        public new IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            if (string.IsNullOrEmpty(key))
-            {
-                return null;
-            }
-
-            var cacheKey = GetFinalKey(key, isFullKey);
-            return Cache.Get<IBaseContainerBag>(cacheKey);
-        }
-
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
             throw new NotImplementedException();
         }
 
-        public new IDictionary<string, IBaseContainerBag> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool CheckExisted(string key, bool isFullKey = false)
-        {
-            return base.CheckExisted(key, isFullKey);
-        }
-
-        public override long GetCount()
-        {
-            throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
-        }
-
-        public new void Update(string key, IBaseContainerBag value, bool isFullKey = false)
-        {
-            base.Update(key, value, isFullKey);
-        }
-
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key, isFullKey);
+            var baseCacheStrategy = BaseCacheStrategy();
             object value;
-            if (Cache.TryGet(cacheKey, out value))
+            if ((baseCacheStrategy as MemcachedObjectCacheStrategy).TryGet(key, out value))
             {
-                Update(cacheKey, containerBag, true);
+                baseCacheStrategy.Update(key, containerBag, true);
             }
         }
 

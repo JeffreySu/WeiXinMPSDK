@@ -222,10 +222,10 @@ namespace Senparc.Weixin.Cache.Redis
 
         #endregion
 
-        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
-        {
-            return new RedisCacheLock(BaseCacheStrategy() as RedisObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
-        }
+        //public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
+        //{
+        //    return new RedisCacheLock(BaseCacheStrategy() as RedisObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
+        //}
 
         public string GetFinalKey(string key, bool isFullKey = false)
         {

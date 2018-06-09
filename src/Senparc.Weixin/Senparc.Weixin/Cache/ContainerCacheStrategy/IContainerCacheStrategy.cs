@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 容器缓存策略接口
     /// </summary>
-    public interface IContainerCacheStrategy : IBaseCacheStrategy<string, IBaseContainerBag>
+    public interface IContainerCacheStrategy /*: IBaseCacheStrategy<string, IBaseContainerBag>*/
     {
         /// <summary>
         /// 获取所有ContainerBag

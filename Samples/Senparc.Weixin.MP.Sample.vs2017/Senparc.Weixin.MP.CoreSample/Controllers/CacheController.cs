@@ -62,16 +62,18 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             //测试Redis ItemCollection缓存更新功能
 
+            var sb = new StringBuilder();
             if (id == 1)
             {
+                sb.Append("使用Redis<br>");
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }
             else
             {
+                sb.Append("使用本地缓存<br>");
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
             }
 
-            var sb = new StringBuilder();
             //var cacheKey = TestContainer1.GetContainerCacheKey();
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
@@ -79,7 +81,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
-            var bagKey = "Redis." + DateTime.Now.ToString("yyyy-MM-dd:HH-mm-ss-ffff");
+            var bagKey = "Redis." + DateTime.Now.ToString("yyyy-MM-dd--HH-mm-ss-ffff");
             var bag = new TestContainerBag1()
             {
                 Key = bagKey,
@@ -98,7 +100,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
-            return Content(sb.ToString());
+            return Content(sb.ToString(), "text/html; charset=utf-8");
         }
 
         [HttpPost]
@@ -155,7 +157,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
-                Thread.Sleep(waitSeconds * 1000); //队列线程默认轮询等待时间为2秒，当等待时间超过2秒时，应该都已经处理完毕
+                Thread.Sleep(waitSeconds * 1000); //队列线程默认轮询等待时间为1秒，当等待时间超过1秒时，应该都已经处理完毕
 
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 

@@ -143,11 +143,11 @@ namespace Senparc.Weixin.MP.CoreSample
             #region 微信缓存（按需，必须在 register.UseSenparcWeixin() 之前）
 
 
-            // 微信的 Memcached 缓存，如果不使用则注释掉
+            // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
             //app.UseSenparcWeixinCacheMemcached();
 
-            //微信的 Redis 缓存，如果不使用则注释掉
-            app.UseSenparcWeixinCacheRedis();
+            //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
+            //app.UseSenparcWeixinCacheRedis();
 
             #endregion
 

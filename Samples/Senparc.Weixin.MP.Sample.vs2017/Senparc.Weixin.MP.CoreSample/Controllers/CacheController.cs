@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     DateTime = DateTime.Now
                 };
                 TestContainer1.Update(shortBagKey, bag); //更新到缓存（队列）
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString("o"),
                     bag.DateTime.Ticks);
 
                 Thread.Sleep(1);
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var mq = new SenparcMessageQueue();
                 var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", bag.GetType(), bag.Key, "UpdateContainerBag");
                 var mqItem = mq.GetItem(mqKey);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString("o"),
                     bag.DateTime.Ticks);
                 sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());

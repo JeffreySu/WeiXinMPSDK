@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
-                var shortBagKey = DateTime.Now.ToString("yyyyMMdd-HH:mm:ss");
+                var shortBagKey = DateTime.Now.ToString("yyyyMMdd-HHmmss");
                 var finalBagKey = (containerCacheStrategy as IContainerCacheStrategy).BaseCacheStrategy()
                                     .GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
-                if (mq.GetCount() > 3)
+                if (mq.GetCount() >= 3)
                 {
                     sb.AppendFormat("<br>=====MQ队列（{0}）start=======<br>", mq.GetCount());
                     foreach (var item in SenparcMessageQueue.MessageQueueDictionary)

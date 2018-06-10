@@ -122,8 +122,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     DateTime = DateTime.Now
                 };
                 TestContainer1.Update(shortBagKey, bag); //更新到缓存（队列）
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString("o"),
-                    bag.DateTime.Ticks);
+                sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
 
                 Thread.Sleep(1);
 

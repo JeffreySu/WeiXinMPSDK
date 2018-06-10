@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
-                Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
+                Thread.Sleep(waitSeconds * 1000); //队列线程默认轮询等待时间为2秒，当等待时间超过2秒时，应该都已经处理完毕
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
                 itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();

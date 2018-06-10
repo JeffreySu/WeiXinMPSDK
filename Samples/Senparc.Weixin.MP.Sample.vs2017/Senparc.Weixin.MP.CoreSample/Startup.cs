@@ -106,20 +106,20 @@ namespace Senparc.Weixin.MP.CoreSample
             register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
 
             //配置Redis缓存（按需，独立）
-            register.RegisterCacheRedis(
-                        senparcWeixinSetting.Value.Cache_Redis_Configuration,
-                        redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                             ? RedisObjectCacheStrategy.Instance
-                                             : null);
-
-            //说明：最终修改缓存策略的方法如下，
-            //RedisObjectCacheStrategy也可换成其他策略，默认为本地缓存（LocalObjectCacheStrategy）
-            //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+            var redisConfigurationStr = senparcWeixinSetting.Value.Cache_Redis_Configuration;
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
+            if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的
+            {
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+                //如果不进行任何设置，则默认使用内存缓存
+            }
 
 
             //配置Memcached缓存（按需，独立）
-            //这里配置的是 CO2NET 的 Memcached 缓存（如果执行了下面的 app.UseSenparcWeixinCacheMemcached()，这一句可以忽略）
-            //app.UseEnyimMemcached();
+            //这里配置的是 CO2NET 的 Memcached 缓存（如果执行了下面的 app.UseSenparcWeixinCacheMemcached()，
+            //会自动包含本步骤，这一步注册可以忽略）
+            var useMemcached = false;
+            app.UseWhen(h => useMemcached, a => a.UseEnyimMemcached());
 
             #endregion
 
@@ -144,10 +144,10 @@ namespace Senparc.Weixin.MP.CoreSample
 
 
             // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-            //app.UseSenparcWeixinCacheMemcached();
+            app.UseWhen(h => useMemcached, a => a.UseSenparcWeixinCacheMemcached());
 
             //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-            //app.UseSenparcWeixinCacheRedis();
+            app.UseWhen(h => useRedis, a => a.UseSenparcWeixinCacheRedis());
 
             #endregion
 

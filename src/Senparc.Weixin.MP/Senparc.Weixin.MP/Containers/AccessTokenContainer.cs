@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Containers
                         AccessTokenExpireTime = DateTime.MinValue,
                         AccessTokenResult = new AccessTokenResult()
                     };
-                    Update(appId, bag);
+                    Update(appId, bag);//第一次添加，此处已经立即更新
                     return bag;
                 }
             };

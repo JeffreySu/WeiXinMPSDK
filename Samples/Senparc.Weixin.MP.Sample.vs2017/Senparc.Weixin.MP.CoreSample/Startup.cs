@@ -144,10 +144,18 @@ namespace Senparc.Weixin.MP.CoreSample
 
 
             // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-            app.UseWhen(h => useMemcached, a => a.UseSenparcWeixinCacheMemcached());
+            if (useMemcached)
+            {
+                app.UseSenparcWeixinCacheMemcached();
+            }
+            //app.UseWhen(h => useMemcached, a => a.UseSenparcWeixinCacheMemcached());//如果连接而配置未生效，不能这么使用
 
             //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-            app.UseWhen(h => useRedis, a => a.UseSenparcWeixinCacheRedis());
+            if (useRedis)
+            {
+                app.UseSenparcWeixinCacheRedis();
+            }
+            //app.UseWhen(h => useRedis, a => a.UseSenparcWeixinCacheRedis());//如果连接而配置未生效，不能这么使用
 
             #endregion
 

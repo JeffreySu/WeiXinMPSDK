@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             else
             {
                 sb.Append("使用本地缓存<br>");
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
             }
 
             //var cacheKey = TestContainer1.GetContainerCacheKey();
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 Key = bagKey,
                 DateTime = DateTime.Now
             };
-            TestContainer1.Update(bagKey, bag);//更新到缓存（队列）
+            TestContainer1.Update(bagKey, bag);//更新到缓存（立即更新）
 
             itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Key = shortBagKey,
                     DateTime = DateTime.Now
                 };
-                TestContainer1.Update(shortBagKey, bag); //更新到缓存（队列）
+                TestContainer1.Update(shortBagKey, bag); //更新到缓存（立即更新）
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
 
                 Thread.Sleep(1);

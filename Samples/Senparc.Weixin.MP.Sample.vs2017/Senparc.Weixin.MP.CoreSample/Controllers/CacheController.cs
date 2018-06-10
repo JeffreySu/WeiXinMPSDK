@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
-                var shortBagKey = DateTime.Now.Ticks.ToString();
+                var shortBagKey = DateTime.Now.ToString("yyyyMMdd-HH:mm:ss");
                 var finalBagKey = (containerCacheStrategy as IContainerCacheStrategy).BaseCacheStrategy()
                                     .GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
@@ -136,6 +136,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
+                if (mq.GetCount() > 3)
+                {
+                    sb.AppendFormat("<br>=====MQ队列（{0}）start=======<br>", mq.GetCount());
+                    foreach (var item in SenparcMessageQueue.MessageQueueDictionary)
+                    {
+                        sb.AppendFormat("{0}：{1}<br />", item.Key, item.Value.Key);
+                    }
+
+                    sb.AppendFormat("=====MQ队列（{0}）=======<br><br>", mq.GetCount());
+                }
+
                 var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
@@ -149,7 +160,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);
-                finalExisted = existed;
+                finalExisted = existed && itemCollection[finalBagKey].CacheTime.Date == DateTime.Now.Date;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
                     !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToString("o")); //应为当前加入到缓存的最新时间

@@ -139,9 +139,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //注册开始
 
-
             #region 微信缓存（按需，必须在 register.UseSenparcWeixin() 之前）
-
 
             // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
             if (useMemcached)

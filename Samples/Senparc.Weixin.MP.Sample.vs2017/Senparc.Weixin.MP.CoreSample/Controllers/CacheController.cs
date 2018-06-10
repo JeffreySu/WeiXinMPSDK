@@ -133,8 +133,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var mq = new SenparcMessageQueue();
                 var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", bag.GetType(), bag.Key, "UpdateContainerBag");
                 var mqItem = mq.GetItem(mqKey);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToString("o"),
-                    bag.DateTime.Ticks);
+                sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
                 sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
@@ -142,7 +141,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
-                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为0
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToString("o")); //应为0
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
@@ -153,9 +152,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",
-                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToLongTimeString(),
-                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为当前加入到缓存的最新时间
+                sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToString("o")); //应为当前加入到缓存的最新时间
 
             }
 

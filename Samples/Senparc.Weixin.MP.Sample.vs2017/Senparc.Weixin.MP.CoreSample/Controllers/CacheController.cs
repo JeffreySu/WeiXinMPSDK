@@ -98,6 +98,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 itemCollection[DateTime.Now.Ticks.ToString()] = bag;
             }
 
+            itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();//如果是分布式缓存，这里的数字通常不会变
+
             sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
             return Content(sb.ToString(), "text/html; charset=utf-8");

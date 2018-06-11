@@ -12,6 +12,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -71,11 +72,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             else
             {
                 sb.Append("使用本地缓存<br>");
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
+                CacheStrategyFactory.RegisterObjectCacheStrategy(null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
             }
+
 
             //var cacheKey = TestContainer1.GetContainerCacheKey();
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+            sb.AppendFormat("ContainerCacheStrategy：{0}<br />", containerCacheStrategy.GetType());
+
             var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
@@ -87,6 +91,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 Key = bagKey,
                 DateTime = DateTime.Now
             };
+
             TestContainer1.Update(bagKey, bag);//更新到缓存（立即更新）
 
             itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
@@ -151,7 +156,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     sb.AppendFormat("=====MQ队列（{0}）=======<br><br>", mq.GetCount());
                 }
 
-                var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
+                var itemCollection = containerCacheStrategy.GetAll<TestContainerBag2>();
+
                 var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
@@ -163,7 +169,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
-                itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
+                itemCollection = containerCacheStrategy.GetAll<TestContainerBag2>();
                 existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed && itemCollection[finalBagKey].CacheTime.Date == DateTime.Now.Date;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);

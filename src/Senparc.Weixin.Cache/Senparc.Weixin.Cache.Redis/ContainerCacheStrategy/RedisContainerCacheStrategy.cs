@@ -157,7 +157,7 @@ namespace Senparc.Weixin.Cache.Redis
             {
                 var fullKey = key + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
                 //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
-                dic[fullKey] = SerializerHelper.GetObject<TBag>(hashEntry.Value);
+                dic[fullKey] = hashEntry.Value.ToString().DeserializeFromCache<TBag>();
             }
 
             return dic;

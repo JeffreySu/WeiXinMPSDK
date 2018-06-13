@@ -44,6 +44,7 @@ using System.Linq;
 using Redlock.CSharp;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
@@ -155,7 +156,8 @@ namespace Senparc.Weixin.Cache.Redis
             foreach (var hashEntry in list)
             {
                 var fullKey = key + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
-                dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                dic[fullKey] = SerializerHelper.GetObject<TBag>(hashEntry.Value);
             }
 
             return dic;

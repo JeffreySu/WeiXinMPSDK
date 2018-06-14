@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Containers
     [Serializable]
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
-        private static IBaseObjectCacheStrategy _cache = null;
+        private static IBaseObjectCacheStrategy _baseCache = null;
         private static IContainerCacheStrategy _containerCache = null;
 
         /// <summary>
@@ -98,11 +98,11 @@ namespace Senparc.Weixin.Containers
                     _containerCache = containerCacheStrategy;
                 }
 
-                if (_cache == null)
+                if (_baseCache == null)
                 {
-                    _cache = _cache ?? containerCacheStrategy.BaseCacheStrategy();
+                    _baseCache = _baseCache ?? containerCacheStrategy.BaseCacheStrategy();
                 }
-                return _cache;
+                return _baseCache;
             }
         }
 
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
-                return (TBag)Cache.Get(cacheKey);
+                return Cache.Get<TBag>(cacheKey);
             }
 
             return default(TBag);
@@ -244,7 +244,7 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
-                var item = Cache.Get(cacheKey) as TBag;
+                var item = Cache.Get<TBag>(cacheKey);
                 return property(item);
             }
             return default(TK);

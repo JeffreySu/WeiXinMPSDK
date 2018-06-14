@@ -42,6 +42,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180606
     修改描述：缓存工厂重命名为 ContainerCacheStrategyFactory
 
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 ----------------------------------------------------------------*/
 
 
@@ -253,7 +255,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="shortKey"></param>
+        /// <param name="shortKey">即bag.Key</param>
         /// <param name="bag">为null时删除该项</param>
         public static void Update(string shortKey, TBag bag)
         {
@@ -284,6 +286,21 @@ namespace Senparc.Weixin.Containers
             }
             //var containerCacheKey = GetContainerCacheKey();
             Cache.Update(cacheKey, bag);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+        }
+
+        /// <summary>
+        /// 更新已经添加过的数据项
+        /// </summary>
+        /// <param name="shortKey"></param>
+        /// <param name="bag">为null时删除该项</param>
+        public static void Update(TBag bag)
+        {
+            if (string.IsNullOrEmpty(bag.Key))
+            {
+                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
+            }
+
+            Update(bag.Key, bag);
         }
 
         /// <summary>

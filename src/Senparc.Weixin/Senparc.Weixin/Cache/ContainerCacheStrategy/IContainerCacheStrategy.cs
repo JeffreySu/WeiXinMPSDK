@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Cache
         /// <param name="key">缓存键</param>
         /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         /// <returns></returns>
-        BaseContainerBag GetContainerBag(string key, bool isFullKey = false);
+        TBag GetContainerBag<TBag>(string key, bool isFullKey = false) where TBag : IBaseContainerBag;
 
         /// <summary>
         /// 更新ContainerBag

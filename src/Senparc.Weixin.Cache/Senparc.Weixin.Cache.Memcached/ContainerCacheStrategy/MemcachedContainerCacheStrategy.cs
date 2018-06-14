@@ -43,16 +43,10 @@ using Microsoft.Extensions.Options;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerCacheStrategy : IContainerCacheStrategy
+    public class MemcachedContainerCacheStrategy : BaseContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
-        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
-
-        /// <summary>
-        /// 数据源缓存策略
-        /// </summary>
-        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
-
+        public override ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
         #endregion
 
@@ -92,12 +86,12 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #region IContainerCacheStrategy 成员
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        public override IDictionary<string, TBag> GetAll<TBag>()
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
+        public override void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();
             object value;

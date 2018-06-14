@@ -56,16 +56,10 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : IContainerCacheStrategy
+    public sealed class RedisContainerCacheStrategy : BaseContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
-        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
-
-        /// <summary>
-        /// 数据源缓存策略
-        /// </summary>
-        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
-
+        public override ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
         #endregion
 
@@ -120,7 +114,7 @@ namespace Senparc.Weixin.Cache.Redis
         #region 实现 IContainerCacheStrategy 接口
 
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        public override IDictionary<string, TBag> GetAll<TBag>()
         {
             #region 旧方法（没有使用Hash之前）
 
@@ -163,29 +157,7 @@ namespace Senparc.Weixin.Cache.Redis
             return dic;
         }
 
-        /// <summary>
-        /// 获取单个ContainerBag
-        /// </summary>
-        /// <param name="key">缓存键</param>
-        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
-        /// <returns></returns>
-        public BaseContainerBag GetContainerBag(string key, bool isFullKey = false)
-        {
-            var baseCacheStrategy = BaseCacheStrategy();
-            return baseCacheStrategy.Get<BaseContainerBag>(key, isFullKey);
-        }
-
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
-        {
-            var baseCacheStrategy = BaseCacheStrategy();
-            if (baseCacheStrategy.CheckExisted(key, isFullKey))
-            {
-                baseCacheStrategy.Update(key, containerBag, isFullKey);
-            }
-        }
-
         #endregion
-
 
     }
 }

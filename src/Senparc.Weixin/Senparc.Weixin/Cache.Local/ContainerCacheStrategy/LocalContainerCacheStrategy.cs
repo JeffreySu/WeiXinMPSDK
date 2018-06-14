@@ -62,15 +62,10 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : IContainerCacheStrategy
+    public sealed class LocalContainerCacheStrategy : BaseContainerCacheStrategy
     {
         #region IDomainExtensionCacheStrategy 成员
-        public ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
-
-        /// <summary>
-        /// 数据源缓存策略
-        /// </summary>
-        public Func<IBaseObjectCacheStrategy> BaseCacheStrategy { get; }
+        public override ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
         #endregion
 
@@ -108,10 +103,10 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
-        #region IContainerCacheStrategy 成员
+        #region BaseContainerCacheStrategy 成员
 
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        public override IDictionary<string, TBag> GetAll<TBag>()
         {
             var dic = new Dictionary<string, TBag>();
             var baseCacheStrategy = BaseCacheStrategy();
@@ -126,11 +121,6 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
-        {
-            var baseCacheStrategy = BaseCacheStrategy();
-            baseCacheStrategy.Update(key, bag, isFullKey);
-        }
 
         #endregion
 

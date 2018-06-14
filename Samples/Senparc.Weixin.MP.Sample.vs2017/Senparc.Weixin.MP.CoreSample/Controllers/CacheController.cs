@@ -28,25 +28,25 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         }
     }
 
-    [Serializable]
-    internal class TestContainerBag2 : BaseContainerBag
-    {
-        private DateTime _dateTime;
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+    //[Serializable]
+    //internal class TestContainerBag2 : BaseContainerBag
+    //{
+    //    private DateTime _dateTime;
+    //    public DateTime DateTime
+    //    {
+    //        get { return _dateTime; }
+    //        set { this.SetContainerProperty(ref _dateTime, value); }
 
-        }
-    }
+    //    }
+    //}
 
     internal class TestContainer1 : BaseContainer<TestContainerBag1>
     {
     }
 
-    internal class TestContainer2 : BaseContainer<TestContainerBag2>
-    {
-    }
+    //internal class TestContainer2 : BaseContainer<TestContainerBag2>
+    //{
+    //}
 
     /// <summary>
     /// 测试缓存
@@ -116,6 +116,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var sb = new StringBuilder();
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+            var baseCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
             sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
 
             var finalExisted = false;
@@ -123,8 +124,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var shortBagKey = DateTime.Now.ToString("yyyyMMdd-HHmmss");
-                var finalBagKey = (containerCacheStrategy as IContainerCacheStrategy).BaseCacheStrategy()
-                                    .GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var finalBagKey = baseCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,
@@ -147,6 +147,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 if (mq.GetCount() >= 3)
                 {
+                    //超过3是不正常的，或有其他外部干扰
                     sb.AppendFormat("<br>=====MQ队列（{0}）start=======<br>", mq.GetCount());
                     foreach (var item in SenparcMessageQueue.MessageQueueDictionary)
                     {
@@ -156,7 +157,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     sb.AppendFormat("=====MQ队列（{0}）=======<br><br>", mq.GetCount());
                 }
 
-                var itemCollection = containerCacheStrategy.GetAll<TestContainerBag2>();
+                var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
                 var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
@@ -169,7 +170,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
-                itemCollection = containerCacheStrategy.GetAll<TestContainerBag2>();
+                itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed && itemCollection[finalBagKey].CacheTime.Date == DateTime.Now.Date;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);

@@ -53,7 +53,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class CacheController : BaseController
     {
-
         public ActionResult Test()
         {
             return View();

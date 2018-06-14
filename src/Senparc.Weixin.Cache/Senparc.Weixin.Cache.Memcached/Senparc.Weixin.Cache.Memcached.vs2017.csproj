@@ -189,6 +189,12 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="packages\**" />
+    <EmbeddedResource Remove="packages\**" />
+    <None Remove="packages\**" />
+  </ItemGroup>
+
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />

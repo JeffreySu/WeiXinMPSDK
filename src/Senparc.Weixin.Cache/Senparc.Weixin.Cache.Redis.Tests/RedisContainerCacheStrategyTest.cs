@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
                 Name = "Jeffrey"
             });
 
-            var item = baseCache.Get<TestContainerBag1>(key);
+            var item = containerCache.GetContainerBag(key);
             Assert.IsNotNull(item);
 
             Console.WriteLine(item.GetHashCode());
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
                 Assert.AreEqual(count + 1, count2);
             }
 
-            var storedItem = baseCache.Get<TestContainerBag1>(key);
+            var storedItem = containerCache.GetContainerBag(key);
             Assert.IsNotNull(storedItem);
             Console.WriteLine(storedItem.GetHashCode());
             Console.WriteLine(storedItem.CacheTime);
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
                 Name = "Name"
             });
 
-            var item = baseCache.Get<TestContainerBag1>(key);
+            var item = containerCache.GetContainerBag(key);
             Assert.IsNotNull(item);
             Assert.IsNotNull(item.Key);
 
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             Assert.AreEqual(count + 1, count2);//如果这里报错，查看一下是否从其他的命名空间下面读取了
 
             baseCache.RemoveFromCache(key);
-            item = baseCache.Get<TestContainerBag1>(key);
+            item = containerCache.GetContainerBag(key);
             Assert.IsNull(item);
             var count3 = baseCache.GetCount();
             Assert.AreEqual(count, count3);

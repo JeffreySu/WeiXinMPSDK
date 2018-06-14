@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 容器缓存策略接口（属于扩展领域缓存）
     /// </summary>
-    public interface IContainerCacheStrategy: IDomainExtensionCacheStrategy /*: IBaseCacheStrategy<string, IBaseContainerBag>*/
+    public interface IContainerCacheStrategy : IDomainExtensionCacheStrategy /*: IBaseCacheStrategy<string, IBaseContainerBag>*/
     {
         /// <summary>
         /// 获取所有ContainerBag
@@ -49,6 +49,14 @@ namespace Senparc.Weixin.Cache
         /// <typeparam name="TBag"></typeparam>
         /// <returns></returns>
         IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag;
+
+        /// <summary>
+        /// 获取单个ContainerBag
+        /// </summary>
+        /// <param name="key">缓存键</param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        /// <returns></returns>
+        BaseContainerBag GetContainerBag(string key, bool isFullKey = false);
 
         /// <summary>
         /// 更新ContainerBag

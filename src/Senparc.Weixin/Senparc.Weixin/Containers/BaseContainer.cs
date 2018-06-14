@@ -307,7 +307,7 @@ namespace Senparc.Weixin.Containers
                         Key = cacheKey//确保这一项Key已经被记录
                     };
 
-                    Cache.InsertToCache(cacheKey, newBag);
+                    Cache.Set(cacheKey, newBag);
                 }
                 partialUpdate(TryGetItem(shortKey));//更新对象
             }

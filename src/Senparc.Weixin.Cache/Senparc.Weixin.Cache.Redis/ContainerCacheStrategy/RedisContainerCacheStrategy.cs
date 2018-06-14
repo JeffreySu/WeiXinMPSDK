@@ -163,6 +163,18 @@ namespace Senparc.Weixin.Cache.Redis
             return dic;
         }
 
+        /// <summary>
+        /// 获取单个ContainerBag
+        /// </summary>
+        /// <param name="key">缓存键</param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        /// <returns></returns>
+        public BaseContainerBag GetContainerBag(string key, bool isFullKey = false)
+        {
+            var baseCacheStrategy = BaseCacheStrategy();
+            return baseCacheStrategy.Get<BaseContainerBag>(key, isFullKey);
+        }
+
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();

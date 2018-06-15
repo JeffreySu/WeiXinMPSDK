@@ -41,7 +41,6 @@ using System.Reflection;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
-using System.Reflection;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.EntityUtility;
 

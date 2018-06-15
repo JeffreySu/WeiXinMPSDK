@@ -43,7 +43,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
+//using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;

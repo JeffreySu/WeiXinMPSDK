@@ -42,6 +42,8 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.Filters;
 using System.Web.Security;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -732,8 +734,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
                 );
 
-            SerializerHelper serializerHelper = new SerializerHelper();
-            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
+            return Content(SerializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 

@@ -32,23 +32,22 @@ namespace Senparc.Weixin.Containers.Tests
     {
         private DateTime _dateTime;
 
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set { this.SetContainerProperty(ref _dateTime, value); }
+        //}
     }
 
     internal class TestContainerBag2 : BaseContainerBag
     {
         private DateTime _dateTime;
 
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
-
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set { this.SetContainerProperty(ref _dateTime, value); }
+        //}
     }
 
     internal class TestContainer1 : BaseContainer<TestContainerBag1>

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 
@@ -78,7 +80,7 @@ namespace Senparc.WeixinTests.Cache.Lock
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-                ContainerCacheStrategyFactory.RegisterWeixinObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+               CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
             Random rnd = new Random();
@@ -116,7 +118,7 @@ namespace Senparc.WeixinTests.Cache.Lock
                     Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId,cache.GetHashCode());
 
                     DateTime dt1 = DateTime.Now;
-                    using (var cacheLock = cache.BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
+                    using (var cacheLock = cache.BaseCacheStrategy().BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
                     {
                         var result = cacheLock.LockSuccessful
                             ? "成功"

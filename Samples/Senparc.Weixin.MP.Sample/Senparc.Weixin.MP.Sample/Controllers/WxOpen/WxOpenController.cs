@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
             var data = new WxOpenTemplateMessage_PaySuccessNotice(
                 "在线购买（小程序Demo测试）", DateTime.Now, "图书众筹", "1234567890",
-                100, "400-9939-858", "http://sdk.senparc.weixin.com");
+                100, "400-031-8816", "https://sdk.senparc.weixin.com");
 
             try
             {

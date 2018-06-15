@@ -36,6 +36,7 @@ using System;
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
+using System;
 #endif
 
 namespace Senparc.Weixin.MP.TenPayLib

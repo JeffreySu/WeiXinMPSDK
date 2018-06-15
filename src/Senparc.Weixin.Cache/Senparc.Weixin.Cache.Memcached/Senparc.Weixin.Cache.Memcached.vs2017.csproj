@@ -231,8 +231,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Senparc.CO2NET\src\Senparc.CO2NET.Cache.Memcached\Senparc.CO2NET.Cache.Memcached.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

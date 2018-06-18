@@ -218,7 +218,7 @@ Senparc 官方视频教程
 > 目前视频已经在网易云课堂上线，课程制作精良、内容充实，被选为“A”级课程，[【观看视频】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)，[【查看课程代码及课件】](https://github.com/JeffreySu/WechatVideoCourse)。
 
 
-### 关注测试账号（SenparcRobot）：
+### 关注测试账号体验功能（SenparcRobot）：
 |盛派网络小助手公众号|盛派网络小助手小程序|BookHelper|
 |--|--|--|
 | <img src="https://sdk.weixin.senparc.com/Images/qrcode.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/SenparcRobot_MiniProgram.jpg" width="258" /> | <img src="https://sdk.weixin.senparc.com/Images/qrcode-bookhelper.jpg" width="258" /> |

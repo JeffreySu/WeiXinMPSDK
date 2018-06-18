@@ -36,9 +36,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170927
     修改描述：v4.16.5 添加Card_BaseInfoBase下的sub_merchant_info属性
 
+    修改标识：Senparc - 20180618
+    修改描述：Modify_Msg_Operation modify_msg_operationg 添加  [JsonSetting.IgnoreNull] 特性
+
 ----------------------------------------------------------------*/
 
 
+using Senparc.CO2NET.Helpers.Serializers;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -186,6 +190,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 积分余额变动消息类型
         /// </summary>
+        [JsonSetting.IgnoreNull]
         public Modify_Msg_Operation modify_msg_operation { get; set; }
 
         //public Card_BaseInfoBase()
@@ -197,7 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 设置本卡券支持全部门店
         /// </summary>
-        public bool use_all_locations { get; set;}
+        public bool use_all_locations { get; set; }
         /// <summary>
         ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
         /// </summary>
@@ -205,7 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 会员卡支持微信支付刷卡
         /// </summary>
-        public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set; }
     }
 
     public class Card_BaseInfoBase_SubMerchantInfo

@@ -1,3 +1,5 @@
+<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+
 Senparc.Weixin —— 微信 .NET SDK 
 =================
 <!-- [![Build Status](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)-->

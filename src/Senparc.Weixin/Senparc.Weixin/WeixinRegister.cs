@@ -31,28 +31,32 @@ namespace Senparc.Weixin
     public static class WeixinRegister
     {
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
-
         /// <summary>
-        /// 开始 Senparc.Weixin SDK 初始化参数流程（.NET Core）
+        /// 开始 Senparc.Weixin SDK 初始化参数流程
         /// </summary>
-        /// <param name="env"></param>
+        /// <param name="registerService"></param>
         /// <param name="senparcWeixinSetting"></param>
         /// <param name="isDebug"></param>
+        /// <param name="containerCacheStrategies">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册）</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, IOptions<SenparcWeixinSetting> senparcWeixinSetting, bool isDebug)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, params IContainerCacheStrategy[] containerCacheStrategies)
         {
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.IsDebug = true;
-            Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
+            Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting;
 
             // 微信的 本地 缓存
             var cache = LocalContainerCacheStrategy.Instance;
 
+            if (containerCacheStrategies != null)
+            {
+                foreach (var cacheStrategy in containerCacheStrategies)
+                {
+                    var exCache = cacheStrategy;//确保能运行到就行，会自动注册
+                }
+            }
+
             return registerService;
-
-
         }
-#endif
     }
 }

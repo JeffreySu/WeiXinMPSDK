@@ -46,5 +46,14 @@ namespace Senparc.Weixin.Cache
         }
 
         #endregion
+
+        /// <summary>
+        /// 向底层缓存注册当前缓存策略
+        /// </summary>
+        /// <param name="containerCacheStrategy"></param>
+        protected void RegisterCacheStrategyDomain(IContainerCacheStrategy containerCacheStrategy)
+        {
+            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(containerCacheStrategy);
+        }
     }
 }

@@ -49,13 +49,13 @@ namespace Senparc.Weixin.MP.Sample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            /* 微信配置开始
-             * 
-             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-             */
-
             //注册开始
+
+            //注册需要使用的领域缓存策略
+
             RegisterService.Start() //这里没有 ; 下面接着写
+
+
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -90,8 +90,16 @@ namespace Senparc.Weixin.MP.Sample
 
             #endregion
 
-            #region 注册公众号或小程序（按需）
+            /* 微信配置开始
+            * 
+            * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+            */
 
+                .UseSenparcWeixin(null, true,//必须
+                    new[] { RedisContainerCacheStrategy.Instance/*, MemcachedContainerCacheStrategy.Instance*/ }//按需，必须确保服务可用
+                    )
+
+            #region 注册公众号或小程序（按需）
                 //注册公众号
                 .RegisterMpAccount(
                     ConfigurationManager.AppSettings["WeixinAppId"],

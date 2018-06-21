@@ -458,6 +458,9 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public enum TenPayV3Type
     {
+        /// <summary>
+        /// 公众号JS-API支付和小程序支付
+        /// </summary>
         JSAPI,
         NATIVE,
         APP,

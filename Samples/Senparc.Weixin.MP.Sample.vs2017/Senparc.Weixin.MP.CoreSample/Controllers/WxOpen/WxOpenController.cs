@@ -63,19 +63,19 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
             postModel.Token = Token;//根据自己后台的设置保持一致
             postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
-            postModel.AppId = AppId;//根据自己后台的设置保持一致
+            postModel.AppId = WxOpenAppId;//根据自己后台的设置保持一致
 
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
 
-            var logPath = Server.GetMapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = Server.MapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
             }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
+            var messageHandler = new CustomWxOpenMessageHandler(Request.InputStream, postModel, maxRecordCount);
 
 
             try
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -164,7 +164,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         [HttpPost]
         public ActionResult OnLogin(string code)
         {
-            var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
+            var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
             if (jsonResult.errcode == ReturnCode.请求成功)
             {
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             var checkWartmark = false;
             if (decodedEntity != null)
             {
-                checkWartmark = decodedEntity.CheckWatermark(AppId);
+                checkWartmark = decodedEntity.CheckWatermark(WxOpenAppId);
             }
 
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
@@ -241,7 +241,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 Senparc.Weixin.WxOpen.AdvancedAPIs
                     .Template.TemplateApi
                     .SendTemplateMessage(
-                        AppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
+                        WxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
@@ -267,6 +267,52 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             {
                 return Json(new { success = false, msg = ex.Message });
 
+            }
+        }
+
+        public ActionResult GetPrepayid(string sessionId)
+        {
+            try
+            {
+                var sessionBag = SessionContainer.GetSession(sessionId);
+                var openId = sessionBag.OpenId;
+
+
+                //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                        TenPayV3Util.BuildRandomStr(6));
+
+                var timeStamp = TenPayV3Util.GetTimestamp();
+                var nonceStr = TenPayV3Util.GetNoncestr();
+
+                var body = "小程序微信支付Demo";
+                var price = 1;//单位：分
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify,
+                    TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+
+                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+
+                var packageStr = "prepay_id=" + result.prepay_id;
+
+                return Json(new
+                {
+                    success = true,
+                    prepay_id = result.prepay_id,
+                    appId = TenPayV3Info.AppId,
+                    timeStamp,
+                    nonceStr,
+                    package = packageStr,
+                    //signType = "MD5",
+                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    msg = ex.Message
+                });
             }
 
         }

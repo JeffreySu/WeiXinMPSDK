@@ -57,7 +57,8 @@ namespace Senparc.Weixin.Cache
         public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
         {
             //从底层进行判断
-            var containerCacheStrategy = CacheStrategyFactory.GetExtensionCacheStrategyInstance(ContainerCacheStrategyDomain.Instance) as IContainerCacheStrategy;
+            var containerCacheStrategy = CacheStrategyFactory.GetExtensionCacheStrategyInstance(ContainerCacheStrategyDomain.Instance)
+                                            as IContainerCacheStrategy;
             return containerCacheStrategy;
 
 

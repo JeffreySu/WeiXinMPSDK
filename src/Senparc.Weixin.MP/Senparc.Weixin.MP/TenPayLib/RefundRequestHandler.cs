@@ -41,6 +41,9 @@ using System;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    /// <summary>
+    /// RefundRequestHandler
+    /// </summary>
     public class RefundRequestHandler : ClientRequestHandler
     {
         /// <summary>

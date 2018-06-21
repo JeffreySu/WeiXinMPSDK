@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180601
     修改描述：v5.0.0 引入 Senparc.CO2NET
 
+    修改标识：Senparc - 20180618
+    修改描述：v5.0.1 引入 Senparc.CO2NET v0.1.1，BrowserUtility.GetUserAgent() 返回原始字符串，不再返回大写
+
 ----------------------------------------------------------------*/
 
 
@@ -71,7 +74,7 @@ namespace Senparc.Weixin.BrowserUtility
         public static bool SideInWeixinBrowser(this HttpContext httpContext)
 #endif
         {
-            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request);
+            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request).ToUpper();
             //判断是否在微信浏览器内部
             var isInWeixinBrowser = userAgent != null &&
                         (userAgent.Contains("MICROMESSENGER")/*MicroMessenger*/ ||
@@ -90,7 +93,7 @@ namespace Senparc.Weixin.BrowserUtility
         public static bool SideInWeixinMiniProgram(this HttpContext httpContext)
 #endif
         {
-            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request);
+            string userAgent = CO2NET.Utilities.BrowserUtility.GetUserAgent(httpContext.Request).ToUpper();
             //判断是否在微信小程序的 web-view 组件内部
             var isInWeixinMiniProgram = userAgent != null && userAgent.Contains("MINIPROGRAM")/*miniProgram*/;
             return isInWeixinMiniProgram;

@@ -63,6 +63,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using System;
+
 namespace Senparc.Weixin
 {
     /// <summary>
@@ -881,7 +883,16 @@ namespace Senparc.Weixin
     /// <summary>
     /// 用户信息中的性别（sex）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.Enums.WeixinSex 枚举。")]
     public enum Sex
+    {
+
+    }
+
+    /// <summary>
+    /// 用户信息中的性别（sex）
+    /// </summary>
+    public enum WeixinSex
     {
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释   
         未知 = 0,

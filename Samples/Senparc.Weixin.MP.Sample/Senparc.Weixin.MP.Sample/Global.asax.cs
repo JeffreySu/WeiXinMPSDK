@@ -95,8 +95,8 @@ namespace Senparc.Weixin.MP.Sample
             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
             */
 
-                .UseSenparcWeixin(null, true,//必须
-                    new[] { RedisContainerCacheStrategy.Instance/*, MemcachedContainerCacheStrategy.Instance*/ }//按需，必须确保服务可用
+                .UseSenparcWeixin(null, true//必须
+                    /*,new[] { RedisContainerCacheStrategy.Instance MemcachedContainerCacheStrategy.Instance }*/  //按需，必须确保服务可用
                     )
 
             #region 注册公众号或小程序（按需）

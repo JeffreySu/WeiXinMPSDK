@@ -81,8 +81,8 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.1.0\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.1.2\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.1.0.0\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>

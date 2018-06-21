@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Cache.Redis
             BaseCacheStrategy = () => RedisObjectCacheStrategy.Instance;
 
             //向底层缓存注册当前缓存策略
-            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
+            base.RegisterCacheStrategyDomain(this);
         }
 
 

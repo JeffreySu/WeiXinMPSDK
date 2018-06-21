@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 //using Senparc.Weixin.Helpers;
 using System.Reflection;
-using Senparc.CO2NET.EntityUtility;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.Open.Helpers
 {

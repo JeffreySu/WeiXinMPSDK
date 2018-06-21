@@ -29,6 +29,7 @@ using Senparc.Weixin.Open;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
+using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -95,9 +96,8 @@ namespace Senparc.Weixin.MP.Sample
             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
             */
 
-                .UseSenparcWeixin(null, true//必须
-                    /*,new[] { RedisContainerCacheStrategy.Instance MemcachedContainerCacheStrategy.Instance }*/  //按需，必须确保服务可用
-                    )
+
+                .UseSenparcWeixin(null, true, GetExContainerCacheStrategies)//必须
 
             #region 注册公众号或小程序（按需）
                 //注册公众号
@@ -261,6 +261,33 @@ namespace Senparc.Weixin.MP.Sample
                 var eventService = new EventService();
                 eventService.ConfigOnWeixinExceptionFunc(ex);
             };
+        }
+
+        /// <summary>
+        /// 获取Container扩展缓存策略
+        /// </summary>
+        /// <returns></returns>
+        private IList<IContainerCacheStrategy> GetExContainerCacheStrategies()
+        {
+            var exContainerCacheStrategies = new List<IContainerCacheStrategy>();
+
+            //判断Redis是否可用
+            var redisConfiguration = ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            {
+                exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
+            }
+
+            //判断Memcached是否可用
+            var memcachedConfiguration = ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && redisConfiguration != "Memcached配置"))
+            {
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
+            }
+
+            //也可扩展自定义的缓存策略
+
+            return exContainerCacheStrategies;
         }
     }
 }

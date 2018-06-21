@@ -91,7 +91,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache.Local\Register.cs" />
     <Compile Include="Cache\ContainerCacheStrategyDomain.cs" />
     <Compile Include="Cache\ContainerCacheStrategyFactory.cs" />
     <Compile Include="Cache.Local\ContainerCacheStrategy\LocalContainerCacheStrategy.cs" />

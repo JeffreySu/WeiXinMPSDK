@@ -42,7 +42,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Helpers;
-using Senparc.CO2NET.EntityUtility;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.Helpers
 {

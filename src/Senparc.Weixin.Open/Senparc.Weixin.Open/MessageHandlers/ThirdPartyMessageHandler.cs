@@ -16,7 +16,7 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.CO2NET.XmlUtility;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Open.Tencent;

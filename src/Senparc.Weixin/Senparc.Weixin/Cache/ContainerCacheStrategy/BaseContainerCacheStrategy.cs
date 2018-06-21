@@ -38,6 +38,14 @@ namespace Senparc.Weixin.Cache
             return baseCacheStrategy.Get<TBag>(key, isFullKey);
         }
 
+        /// <summary>
+        /// 向底层缓存注册当前缓存策略
+        /// </summary>
+        /// <param name="extensionCacheStrategy"></param>
+        public void RegisterCacheStrategyDomain(IDomainExtensionCacheStrategy extensionCacheStrategy)
+        {
+            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(extensionCacheStrategy);
+        }
 
         public virtual void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
         {
@@ -46,14 +54,5 @@ namespace Senparc.Weixin.Cache
         }
 
         #endregion
-
-        /// <summary>
-        /// 向底层缓存注册当前缓存策略
-        /// </summary>
-        /// <param name="containerCacheStrategy"></param>
-        protected void RegisterCacheStrategyDomain(IContainerCacheStrategy containerCacheStrategy)
-        {
-            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(containerCacheStrategy);
-        }
     }
 }

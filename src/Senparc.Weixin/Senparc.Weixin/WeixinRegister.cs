@@ -22,6 +22,8 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin
 {
@@ -39,7 +41,7 @@ namespace Senparc.Weixin
         /// <param name="isDebug"></param>
         /// <param name="containerCacheStrategies">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册）</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, params IContainerCacheStrategy[] containerCacheStrategies)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, Func<IList<IContainerCacheStrategy>> containerCacheStrategiesFunc)
         {
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.IsDebug = true;
@@ -48,11 +50,15 @@ namespace Senparc.Weixin
             // 微信的 本地 缓存
             var cache = LocalContainerCacheStrategy.Instance;
 
-            if (containerCacheStrategies != null)
+            if (containerCacheStrategiesFunc != null)
             {
-                foreach (var cacheStrategy in containerCacheStrategies)
+                var containerCacheStrategies = containerCacheStrategiesFunc();
+                if (containerCacheStrategies!=null)
                 {
-                    var exCache = cacheStrategy;//确保能运行到就行，会自动注册
+                    foreach (var cacheStrategy in containerCacheStrategies)
+                    {
+                        var exCache = cacheStrategy;//确保能运行到就行，会自动注册
+                    }
                 }
             }
 

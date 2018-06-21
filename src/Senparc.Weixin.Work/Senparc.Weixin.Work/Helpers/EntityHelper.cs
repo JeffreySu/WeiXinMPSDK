@@ -24,7 +24,7 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
 using System.Reflection;
-using Senparc.CO2NET.EntityUtility;
+using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Work.Helpers

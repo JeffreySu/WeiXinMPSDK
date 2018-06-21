@@ -52,7 +52,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Senparc.CO2NET.XmlUtility;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Entities;
 

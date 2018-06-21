@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Cache.Memcached
             BaseCacheStrategy = () => MemcachedObjectCacheStrategy.Instance;
 
             //向底层缓存注册当前缓存策略
-            CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(this);
+            base.RegisterCacheStrategyDomain(this);
         }
 
         //静态LocalCacheStrategy

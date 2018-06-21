@@ -54,7 +54,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <summary>
         /// Session的Key（3rd_session / sessionId）
         /// </summary>
-        public string Key { get; set; }
+        new public string Key { get; set; }
         //        {
         //            get { return _key; }
         //#if NET35 || NET40

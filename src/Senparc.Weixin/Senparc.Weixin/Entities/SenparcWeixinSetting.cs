@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20170302
+
+    修改标识：Senparc - 20180622
+    修改描述：v5.0.3.1 SenparcWeixinSetting 添加 Cache_Memcached_Configuration 属性
     
 ----------------------------------------------------------------*/
 
@@ -147,6 +150,12 @@ namespace Senparc.Weixin.Entities
         /// Redis连接字符串
         /// </summary>
         public string Cache_Redis_Configuration { get; set; }
+
+        /// <summary>
+        /// Memcached连接字符串
+        /// </summary>
+        public string Cache_Memcached_Configuration { get; set; }
+
 
         #endregion
     }

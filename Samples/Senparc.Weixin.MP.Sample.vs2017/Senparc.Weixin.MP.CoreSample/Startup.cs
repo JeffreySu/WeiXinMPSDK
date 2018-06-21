@@ -8,6 +8,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
@@ -17,6 +18,7 @@ using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Work;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Senparc.Weixin.MP.CoreSample
@@ -158,7 +160,7 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息
-            register.UseSenparcWeixin(senparcWeixinSetting, isDebug/*此处为单独用于微信的调试状态*/) //注意：这里没有 ; 下面可接着写
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, isDebug/*此处为单独用于微信的调试状态*/, () => GetExContainerCacheStrategies(senparcWeixinSetting.Value)) //注意：这里没有 ; 下面可接着写
 
             #region 注册公众号或小程序（按需）
 
@@ -320,5 +322,33 @@ namespace Senparc.Weixin.MP.CoreSample
                 eventService.ConfigOnWeixinExceptionFunc(ex);
             };
         }
+
+        /// <summary>
+        /// 获取Container扩展缓存策略
+        /// </summary>
+        /// <returns></returns>
+        private IList<IContainerCacheStrategy> GetExContainerCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
+        {
+            var exContainerCacheStrategies = new List<IContainerCacheStrategy>();
+
+            //判断Redis是否可用
+            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
+            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            {
+                exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
+            }
+
+            //判断Memcached是否可用
+            var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && redisConfiguration != "Memcached配置"))
+            {
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
+            }
+
+            //也可扩展自定义的缓存策略
+
+            return exContainerCacheStrategies;
+        }
+
     }
 }

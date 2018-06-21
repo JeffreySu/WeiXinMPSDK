@@ -53,13 +53,13 @@ namespace Senparc.Weixin.MP.AppStore
         操作用户信息失败_用户不存在 = -5001,
     }
 
-    /// <summary>
-    /// 性别
-    /// </summary>
-    public enum WeixinSex
-    {
-        未设置 = 0,
-        男 = 1,
-        女 = 2,
-    }
+    ///// <summary>
+    ///// 性别
+    ///// </summary>
+    //public enum WeixinSex
+    //{
+    //    未设置 = 0,
+    //    男 = 1,
+    //    女 = 2,
+    //}
 }

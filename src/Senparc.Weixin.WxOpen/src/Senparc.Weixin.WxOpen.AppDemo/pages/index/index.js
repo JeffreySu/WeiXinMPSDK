@@ -135,7 +135,7 @@ Page({
         if (json.success) {
           wx.showModal({
             title: '得到预支付id',
-            content: prepay_id,
+            content: 'package' + json.package,
             showCancel: false
           });
 
@@ -155,6 +155,7 @@ Page({
                 });
                },
               'fail': function (res) {
+                console.log(res);
                 wx.showModal({
                   title: '支付失败！',
                   content: '请检查日志！',
@@ -163,8 +164,8 @@ Page({
                },
               'complete': function (res) { 
                 wx.showModal({
-                  title: '支付完成！',
-                  content: '执行 complete()',
+                  title: '支付流程结束！',
+                  content: '执行 complete()，成功或失败都会执行！',
                   showCancel: false
                 });
               }

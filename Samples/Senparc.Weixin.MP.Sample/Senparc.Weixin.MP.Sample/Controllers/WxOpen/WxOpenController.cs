@@ -305,7 +305,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
                 var packageStr = "prepay_id=" + result.prepay_id;
-                TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key);
 
                 return Json(new
                 {
@@ -316,7 +315,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                     nonceStr,
                     package = packageStr,
                     //signType = "MD5",
-                    paySign = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key)
+                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key)
                 });
             }
             catch (Exception ex)

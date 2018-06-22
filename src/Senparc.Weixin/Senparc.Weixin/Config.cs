@@ -36,6 +36,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171127
     修改描述：v4.18.5 添加Config.ApiMpHost属性，可以设置API域名
 
+    修改标识：Senparc - 20180622
+    修改描述：v5.0.2.1 修复 IsDebug 逻辑判断错误
 ----------------------------------------------------------------*/
 
 using System;
@@ -60,7 +62,7 @@ namespace Senparc.Weixin
         /// </summary>
         public static bool IsDebug
         {
-            get { return CO2NET.Config.IsDebug && _isDebug; }
+            get { return CO2NET.Config.IsDebug || _isDebug; }
             set { _isDebug = value; }
         }
 

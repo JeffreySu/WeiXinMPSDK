@@ -19,6 +19,7 @@
 #if NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.Extensions.Options;
 #endif
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
@@ -41,7 +42,7 @@ namespace Senparc.Weixin
         /// <param name="isDebug"></param>
         /// <param name="containerCacheStrategies">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册）</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, Func<IList<IContainerCacheStrategy>> containerCacheStrategiesFunc)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, Func<IList<IDomainExtensionCacheStrategy>> containerCacheStrategiesFunc)
         {
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.IsDebug = true;

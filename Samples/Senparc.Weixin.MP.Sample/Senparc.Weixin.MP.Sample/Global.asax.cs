@@ -10,7 +10,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -30,6 +29,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.Weixin.Cache;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -50,13 +50,13 @@ namespace Senparc.Weixin.MP.Sample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            //注册开始
+            /* CO2NET 全局注册开始
+             * 建议按照以下顺序进行注册
+             */
 
             //注册需要使用的领域缓存策略
 
             RegisterService.Start() //这里没有 ; 下面接着写
-
-
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -91,13 +91,12 @@ namespace Senparc.Weixin.MP.Sample
 
             #endregion
 
+
             /* 微信配置开始
-            * 
-            * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-            */
+             * 建议按照以下顺序进行注册
+             */
 
-
-                .UseSenparcWeixin(null, true, GetExContainerCacheStrategies)//必须
+            .UseSenparcWeixin(null, true, GetExContainerCacheStrategies)//必须
 
             #region 注册公众号或小程序（按需）
                 //注册公众号
@@ -242,6 +241,8 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void ConfigWeixinTraceLog()
         {
+            //Senparc.CO2NET.Config.IsDebug = false;
+
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
             Senparc.Weixin.Config.IsDebug = true;
             Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
@@ -267,9 +268,9 @@ namespace Senparc.Weixin.MP.Sample
         /// 获取Container扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IContainerCacheStrategy> GetExContainerCacheStrategies()
+        private IList<IDomainExtensionCacheStrategy> GetExContainerCacheStrategies()
         {
-            var exContainerCacheStrategies = new List<IContainerCacheStrategy>();
+            var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
 
             //判断Redis是否可用
             var redisConfiguration = ConfigurationManager.AppSettings["Cache_Redis_Configuration"];

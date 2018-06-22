@@ -327,9 +327,9 @@ namespace Senparc.Weixin.MP.CoreSample
         /// 获取Container扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IContainerCacheStrategy> GetExContainerCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
+        private IList<IDomainExtensionCacheStrategy> GetExContainerCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
         {
-            var exContainerCacheStrategies = new List<IContainerCacheStrategy>();
+            var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
 
             //判断Redis是否可用
             var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;

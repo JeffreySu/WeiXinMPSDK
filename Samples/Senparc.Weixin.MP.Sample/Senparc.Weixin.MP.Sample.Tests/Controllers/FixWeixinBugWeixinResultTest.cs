@@ -31,6 +31,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -86,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         private string InitXml(string xmlFormat, string content)
         {
             return string.Format(xmlTextFormat,
-                                 Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Now), content);
+                                 DateTimeHelper.GetWeixinDateTime(DateTime.Now), content);
         }
 
         [TestMethod]

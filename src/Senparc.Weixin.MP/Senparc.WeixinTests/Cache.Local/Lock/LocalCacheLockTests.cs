@@ -19,6 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,9 @@ namespace Senparc.Weixin.Cache.Tests
         {
             //实际上stragety在LocalCacheLock内部暂时没有用到，
             //这里给一个实例是因为还有一个基类，需要微程序提供良好的弹性
-            var stragety = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+            var stragety = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance().BaseCacheStrategy();
 
-            using (new LocalCacheLock(stragety, "Test", "LocalCache"))  //1、等待并抢得锁
+            using (new LocalCacheLock(stragety as LocalObjectCacheStrategy, "Test", "LocalCache"))  //1、等待并抢得锁
             {                                               //2、已获得锁，开始享受独占
                 //操作公共资源                              //3、开始干活
             }                                               //4、打完收工，释放锁，下一个

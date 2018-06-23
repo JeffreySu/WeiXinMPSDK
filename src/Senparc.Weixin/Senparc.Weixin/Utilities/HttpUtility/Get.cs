@@ -84,6 +84,28 @@ namespace Senparc.Weixin.HttpUtility
             return DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
         }
 
+        /// <summary>
+        /// 获得JSON文本结果之后、序列化之前进行的操作
+        /// </summary>
+        internal static Action<string, string> AfterReturnText = (_url, returnText) =>
+        {
+            WeixinTrace.SendApiLog(_url, returnText);
+
+            if (returnText.Contains("errcode"))
+            {
+                //可能发生错误
+                WxJsonResult errorResult = CO2NET.Helpers.SerializerHelper.GetObject<WxJsonResult>(returnText);
+
+                if (errorResult.errcode != ReturnCode.请求成功)
+                {
+                    //发生错误
+                    throw new ErrorJsonResultException(
+                         string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                                         (int)errorResult.errcode, errorResult.errmsg), null, errorResult, _url);
+                }
+            }
+        };
+
 
         #region 同步方法
 
@@ -95,45 +117,9 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="encoding"></param>
         /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <returns></returns>
-        public static T GetJson<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+        public static T GetJson<T>(string url, Encoding encoding = null)
         {
-            string returnText = RequestUtility.HttpGet(url, encoding);
-
-            WeixinTrace.SendApiLog(url, returnText);
-
-#if NET35 || NET40 || NET45
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
-#endif
-
-            if (returnText.Contains("errcode"))
-            {
-                //可能发生错误
-
-#if NET35 || NET40 || NET45
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
-#else
-                WxJsonResult errorResult =
-                    Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
-#endif
-
-                if (errorResult.errcode != ReturnCode.请求成功)
-                {
-                    //发生错误
-                    throw new ErrorJsonResultException(
-                        string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
-                }
-            }
-#if NET35 || NET40 || NET45
-            T result = js.Deserialize<T>(returnText);
-#else
-            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
-#endif
-
+            var result = CO2NET.HttpUtility.Get.GetJson<T>(url, encoding, AfterReturnText);
             return result;
         }
 
@@ -258,47 +244,12 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
-        /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ErrorJsonResultException"></exception>
-        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null)
         {
-            string returnText = await RequestUtility.HttpGetAsync(url, encoding);
-
-#if NET35 || NET40 || NET45
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
-#endif
-
-            if (returnText.Contains("errcode"))
-            {
-                //可能发生错误
-
-#if NET35 || NET40 || NET45
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
-#else
-                WxJsonResult errorResult =
-                    Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
-#endif
-
-                if (errorResult.errcode != ReturnCode.请求成功)
-                {
-                    //发生错误
-                    throw new ErrorJsonResultException(
-                        string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
-                }
-            }
-#if NET35 || NET40 || NET45
-            T result = js.Deserialize<T>(returnText);
-#else
-            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
-#endif
-
+            var result = await CO2NET.HttpUtility.Get.GetJsonAsync<T>(url, encoding, AfterReturnText);
             return result;
         }
 

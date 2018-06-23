@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20172008
     修改描述：v1.2.0-beta1 为支持.NET 3.5/4.0进行重构
+   
+    修改标识：Senparc - 20180623
+    修改描述：v2.0.3 支持 Senparc.Weixin v5.0.3，EntityHelper.FillEntityWithXml() 支持 int[] 和 long[]
 
 ----------------------------------------------------------------*/
 
@@ -24,6 +27,8 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
 using System.Reflection;
+using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -55,34 +60,39 @@ namespace Senparc.Weixin.Work.Helpers
                         //    goto default;
                         case "DateTime":
                         case "Int32":
+                        case "Int32[]": //增加int[]
                         case "Int64":
+                        case "Int64[]": //增加long[]
                         case "Double":
                         case "Nullable`1": //可为空对象
-                            EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
+                            EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
+                                EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
                             }
                             else
                             {
                                 goto default;
                             }
                             break;
-
                         //以下为枚举类型
+                        case "ContactChangeType":
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
+                            break;
                         case "RequestMsgType":
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
                         case "ResponseMsgType": //Response适用
-                            //已设为只读
-                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                                                //已设为只读
+                                                //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "ThirdPartyInfo": //ThirdPartyInfo适用
-                            //已设为只读
-                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                                               //已设为只读
+                                               //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "Event":
                             //已设为只读

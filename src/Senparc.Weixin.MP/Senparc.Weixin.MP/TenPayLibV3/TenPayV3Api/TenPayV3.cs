@@ -102,6 +102,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
@@ -131,7 +132,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 //调用证书
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
-                string responseContent = HttpUtility.RequestUtility.HttpPost(
+                string responseContent = RequestUtility.HttpPost(
                     url,
                     postStream: ms,
                     cer: cer,
@@ -159,7 +160,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 //调用证书
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
-                string responseContent = await HttpUtility.RequestUtility.HttpPostAsync(
+                string responseContent = await RequestUtility.HttpPostAsync(
                     url,
                     postStream: ms,
                     cer: cer,

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>14.14.0</Version>
+    <Version>15.0.2-preview</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -404,6 +404,8 @@
       1、发布支持 .net core 2.1 的正式版
       2、获取用户基本信息（包括UnionID机制）API 的 ResultJson 模型增加 subscribe_scene（用户关注的渠道来源）字段。
 
+      v15.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      v15.0.2-preview1 支持 CO2NET v0.1.2
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

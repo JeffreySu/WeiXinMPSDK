@@ -72,6 +72,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170702
     修改描述：v14.6.2 回滚 v14.5.5中修改的方法（同步方法中调用异步方法）
 
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -83,7 +86,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
@@ -96,45 +99,45 @@ namespace Senparc.Weixin.MP.Containers
     [Serializable]
     public class AccessTokenBag : BaseContainerBag, IBaseContainerBag_AppId
     {
-        public string AppId
-        {
-            get { return _appId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-#else
-            set { this.SetContainerProperty(ref _appId, value); }
-#endif
-        }
+        public string AppId { get; set; }
+        //        {
+        //            get { return _appId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appId, value); }
+        //#endif
+        //        }
 
-        public string AppSecret
-        {
-            get { return _appSecret; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-#else
-            set { this.SetContainerProperty(ref _appSecret, value); }
-#endif
-        }
+        public string AppSecret { get; set; }
+        //        {
+        //            get { return _appSecret; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appSecret, value); }
+        //#endif
+        //        }
 
-        public DateTime AccessTokenExpireTime
-        {
-            get { return _accessTokenExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _accessTokenExpireTime, value); }
-#endif
-        }
+        public DateTime AccessTokenExpireTime { get; set; }
+        //        {
+        //            get { return _accessTokenExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _accessTokenExpireTime, value); }
+        //#endif
+        //        }
 
-        public AccessTokenResult AccessTokenResult
-        {
-            get { return _accessTokenResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
-#else
-            set { this.SetContainerProperty(ref _accessTokenResult, value); }
-#endif
-        }
+        public AccessTokenResult AccessTokenResult { get; set; }
+        //        {
+        //            get { return _accessTokenResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _accessTokenResult, value); }
+        //#endif
+        //        }
 
         private AccessTokenResult _accessTokenResult;
         private DateTime _accessTokenExpireTime;
@@ -160,20 +163,20 @@ namespace Senparc.Weixin.MP.Containers
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             RegisterFunc = () =>
             {
-                using (FlushCache.CreateInstance())
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new AccessTokenBag()
                 {
-                    var bag = new AccessTokenBag()
-                    {
-                        //Key = appId,
-                        Name = name,
-                        AppId = appId,
-                        AppSecret = appSecret,
-                        AccessTokenExpireTime = DateTime.MinValue,
-                        AccessTokenResult = new AccessTokenResult()
-                    };
-                    Update(appId, bag);
-                    return bag;
-                }
+                    //Key = appId,
+                    Name = name,
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    AccessTokenExpireTime = DateTime.MinValue,
+                    AccessTokenResult = new AccessTokenResult()
+                };
+                Update(appId, bag);//第一次添加，此处已经立即更新
+                return bag;
+                //}
             };
             RegisterFunc();
 
@@ -238,6 +241,7 @@ namespace Senparc.Weixin.MP.Containers
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                    Update(accessTokenBag);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -303,6 +307,7 @@ namespace Senparc.Weixin.MP.Containers
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                    Update(accessTokenBag);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;

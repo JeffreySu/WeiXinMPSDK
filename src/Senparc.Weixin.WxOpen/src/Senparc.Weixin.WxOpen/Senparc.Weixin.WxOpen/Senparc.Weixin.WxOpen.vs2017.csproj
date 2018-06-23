@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.10.5</Version>
+    <Version>2.0.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -83,6 +83,8 @@
       v1.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
       v1.10.5 发布支持 .net core 2.1 的正式版
+      
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

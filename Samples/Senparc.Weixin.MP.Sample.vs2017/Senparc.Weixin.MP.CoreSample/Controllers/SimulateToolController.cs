@@ -21,6 +21,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -266,7 +267,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
                 requestMessaageDoc.Root.Element("MsgId").Value =
-                    Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
+                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
             }
 
             var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);

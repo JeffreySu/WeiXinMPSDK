@@ -38,6 +38,9 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
@@ -64,7 +67,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         //[Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send()方法")]
-        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null/*, int retry40001ErrorTimes = 0*/)
+        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST,
+            int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null/*, int retry40001ErrorTimes = 0*/)
         {
             WxJsonResult result = null;
             try
@@ -154,8 +158,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 case CommonJsonSendType.GET:
                     return await Get.GetJsonAsync<T>(url);
                 case CommonJsonSendType.POST:
-                    SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
+                    var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         var bytes = Encoding.UTF8.GetBytes(jsonString);

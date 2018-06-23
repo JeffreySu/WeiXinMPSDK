@@ -49,6 +49,7 @@ using System;
 using System.Text;
 using System.Net;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {

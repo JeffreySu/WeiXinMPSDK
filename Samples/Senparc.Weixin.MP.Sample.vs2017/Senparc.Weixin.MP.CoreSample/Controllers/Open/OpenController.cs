@@ -20,6 +20,7 @@ using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

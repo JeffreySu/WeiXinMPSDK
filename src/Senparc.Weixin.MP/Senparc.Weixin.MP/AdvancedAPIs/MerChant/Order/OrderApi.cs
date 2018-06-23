@@ -38,6 +38,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;

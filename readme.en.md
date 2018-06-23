@@ -1,3 +1,5 @@
+<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+
 Senparc.Weixin —— Wechat .NET SDK
 =================
 [![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master)
@@ -10,7 +12,7 @@ Senparc.Weixin —— Wechat .NET SDK
 
 > Wechat is the most famous IM APP in China which has more than 1 billion active users and more than ten million Official Accounts.
 
-By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Enterprise Account, Wechat Pay, etc. 
+By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Mini Game,  Enterprise Account, Open Platform, Wechat Pay, JS-SDK, Wechat IoT/Bluetooth, etc. 
 
 Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 2.0 / .NET Core 2.1](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 

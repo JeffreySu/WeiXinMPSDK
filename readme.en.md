@@ -1,3 +1,5 @@
+<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+
 Senparc.Weixin —— Wechat .NET SDK
 =================
 [![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master)

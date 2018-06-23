@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Work.Helpers
             foreach (var prop in props)
             {
                 var propName = prop.Name;
-                if (root.Element(propName) != null && prop != null)
+                if (root.Element(propName) != null)
                 {
                     switch (prop.PropertyType.Name)
                     {

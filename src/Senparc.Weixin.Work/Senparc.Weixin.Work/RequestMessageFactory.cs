@@ -111,6 +111,35 @@ namespace Senparc.Weixin.Work
                                 case "BATCH_JOB_RESULT"://异步任务完成事件推送(batch_job_result)
                                     requestMessage = new RequestMessageEvent_Batch_Job_Result();
                                     break;
+                                case "CHANGE_CONTACT"://通讯录更改推送(change_contact)
+                                    switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                                    {
+                                        case "CREATE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Create();
+                                            break;
+                                        case "UPDATE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Update();
+                                            break;
+                                        case "DELETE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Base();
+                                            break;
+                                        case "CREATE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Create();
+                                            break;
+                                        case "UPDATE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Update();
+                                            break;
+                                        case "DELETE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Base();
+                                            break;
+                                        case "UPDATE_TAG":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Tag_Update();
+                                            break;
+                                        default://其他意外类型（也可以选择抛出异常）
+                                            requestMessage = new RequestMessageEventBase();
+                                            break;
+                                    }
+                                    break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();
                                     break;
@@ -163,7 +192,7 @@ namespace Senparc.Weixin.Work
             {
                 throw new WeixinException(string.Format("RequestMessage转换出错！可能是MsgType和InfoType都不存在！，XML：{0}", doc.ToString()));
             }
-            
+
             return requestMessage;
         }
 

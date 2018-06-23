@@ -57,7 +57,7 @@ namespace Senparc.Weixin.EntityUtility
             {
                 return default(T);
             }
-            
+
             var t = typeof(T);
 #if NET35 || NET40 || NET45
             if (t.IsGenericType)
@@ -115,6 +115,9 @@ namespace Senparc.Weixin.EntityUtility
                         break;
                     case "Int64":
                         setValue = value.ConvertTo<long>();
+                        break;
+                    case "Int64[]":
+                        setValue = Array.ConvertAll(value.ConvertTo<string>().Split(','), long.Parse);
                         break;
                     case "Double":
                         setValue = value.ConvertTo<double>();

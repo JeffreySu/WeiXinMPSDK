@@ -15,6 +15,8 @@ using Senparc.Weixin.WxOpen.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.MP.TenPayLibV3;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -25,8 +27,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
     {
         public static readonly string Token = Config.DefaultSenparcWeixinSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = Config.DefaultSenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-        public static readonly string AppSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string WxOpenAppId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string WxOpenAppSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -68,14 +70,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = Server.GetMapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
             }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomWxOpenMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            var messageHandler = new CustomWxOpenMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
 
             try
@@ -119,7 +121,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -279,7 +281,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
 
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                var sp_billno = string.Format("{0}{1}{2}", Config.DefaultSenparcWeixinSetting.TenPayV3_MchId /*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
 
                 var timeStamp = TenPayV3Util.GetTimestamp();
@@ -287,8 +289,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify,
-                    TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.DefaultSenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, price, 
+                    HttpContext.UserHostAddress().ToString(), Config.DefaultSenparcWeixinSetting.TenPayV3_TenpayNotify,
+                    TenPayV3Type.JSAPI, openId, Config.DefaultSenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
@@ -298,12 +301,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 {
                     success = true,
                     prepay_id = result.prepay_id,
-                    appId = TenPayV3Info.AppId,
+                    appId = WxOpenAppId,
                     timeStamp,
                     nonceStr,
                     package = packageStr,
                     //signType = "MD5",
-                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key)
+                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.DefaultSenparcWeixinSetting.TenPayV3_Key)
                 });
             }
             catch (Exception ex)

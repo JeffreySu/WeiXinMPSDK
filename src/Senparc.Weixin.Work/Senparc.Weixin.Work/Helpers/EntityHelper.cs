@@ -56,6 +56,7 @@ namespace Senparc.Weixin.Work.Helpers
                         case "DateTime":
                         case "Int32":
                         case "Int64":
+                        case "Int64[]": //增加long[]
                         case "Double":
                         case "Nullable`1": //可为空对象
                             EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
@@ -70,19 +71,22 @@ namespace Senparc.Weixin.Work.Helpers
                                 goto default;
                             }
                             break;
-
                         //以下为枚举类型
+                        case "ContactChangeType":
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
+                            break;
                         case "RequestMsgType":
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
                         case "ResponseMsgType": //Response适用
-                            //已设为只读
-                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                                                //已设为只读
+                                                //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "ThirdPartyInfo": //ThirdPartyInfo适用
-                            //已设为只读
-                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                                               //已设为只读
+                                               //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "Event":
                             //已设为只读

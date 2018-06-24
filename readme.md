@@ -422,7 +422,7 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 --------------
 ### 1) 部署到 Azure App Service
 
-[将微信站点部署到 Azure 中][App Service]( https://docs.microsoft.com/zh-cn/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview ) 是 Microsoft Azure 推出的 Web 服务，对 .NET 有很好的支持。部署步骤详见：[《将微信站点部署到 Azure 中》](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%B0%86%E5%BE%AE%E4%BF%A1%E7%AB%99%E7%82%B9%E9%83%A8%E7%BD%B2%E5%88%B0-Azure-%E4%B8%AD)。
+[App Service]( https://docs.microsoft.com/zh-cn/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview ) 是 Microsoft Azure 推出的 Web 服务，对 .NET 有很好的支持。部署步骤详见：[《将微信站点部署到 Azure 中》](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%B0%86%E5%BE%AE%E4%BF%A1%E7%AB%99%E7%82%B9%E9%83%A8%E7%BD%B2%E5%88%B0-Azure-%E4%B8%AD)。
 
 ### 2) 部署到任意服务器的 FTP
 

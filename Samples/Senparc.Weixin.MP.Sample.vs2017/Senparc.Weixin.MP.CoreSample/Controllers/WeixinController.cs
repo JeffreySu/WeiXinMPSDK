@@ -17,6 +17,7 @@ using Senparc.Weixin.MP.Entities.Request;
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     using Microsoft.Extensions.Options;
+    using Senparc.CO2NET.HttpUtility;
     using Senparc.Weixin.Entities;
     using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP.MvcExtension;

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;

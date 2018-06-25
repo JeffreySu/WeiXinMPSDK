@@ -44,9 +44,10 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.Exceptions;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -155,7 +156,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #if NETSTANDARD2_0
             HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
 #else
-            HttpContext = httpContext ?? RegisterServices.RegisterService.GlobalServiceCollection
+            HttpContext = httpContext ?? CO2NET.RegisterServices.RegisterService.GlobalServiceCollection
                                             .BuildServiceProvider().GetService<IHttpContextAccessor>()?.HttpContext;
 #endif
 
@@ -254,7 +255,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
             this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
             //debug信息
             return GetParameter("sign").ToLower().Equals(sign);

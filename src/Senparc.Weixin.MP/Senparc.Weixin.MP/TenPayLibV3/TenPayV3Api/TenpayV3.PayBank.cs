@@ -35,6 +35,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3

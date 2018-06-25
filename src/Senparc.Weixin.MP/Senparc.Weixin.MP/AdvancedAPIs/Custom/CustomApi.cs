@@ -62,9 +62,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.CO2NET.Helpers.Serializers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

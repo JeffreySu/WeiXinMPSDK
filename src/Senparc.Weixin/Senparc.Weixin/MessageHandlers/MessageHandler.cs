@@ -52,6 +52,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Entities;
 
@@ -224,7 +225,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(Stream inputStream, int maxRecordCount = 0, object postData = null)
         {
-            var postDataDocument = XmlUtility.XmlUtility.Convert(inputStream);
+            var postDataDocument = XmlUtility.Convert(inputStream);
 
             CommonInitialize(postDataDocument, maxRecordCount, postData);
         }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.5.5</Version>
+    <Version>2.0.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -57,8 +57,10 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v1.4.1 提供 RegisterServices 进行快捷注册
 
       v1.5.0-rc1 支持 .NET Core 2.1.0-rc1-final
-      
+
       v1.5.5 发布支持 .net core 2.1 的正式版
+
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
@@ -187,6 +189,12 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="packages\**" />
+    <EmbeddedResource Remove="packages\**" />
+    <None Remove="packages\**" />
+  </ItemGroup>
+
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
@@ -210,6 +218,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
  
 
   <ItemGroup>
+    <Compile Remove="MamcachedCacheLock.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
@@ -218,7 +227,11 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

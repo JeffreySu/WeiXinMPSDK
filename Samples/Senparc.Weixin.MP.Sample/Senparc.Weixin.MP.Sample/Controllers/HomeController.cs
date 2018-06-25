@@ -20,6 +20,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
@@ -51,7 +52,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-            var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本

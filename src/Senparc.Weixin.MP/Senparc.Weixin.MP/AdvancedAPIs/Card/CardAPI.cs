@@ -85,6 +85,8 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers.Serializers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

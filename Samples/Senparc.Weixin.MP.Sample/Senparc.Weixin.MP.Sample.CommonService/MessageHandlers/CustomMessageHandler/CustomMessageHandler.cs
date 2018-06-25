@@ -31,6 +31,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.Request;
+using Senparc.CO2NET.Helpers;
 
 #if NET45
 using System.Web;
@@ -331,7 +332,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     defaultResponseMessage.Content = string.Format(
                         "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
-                        requestMessage.FromUserName, userInfo.nickname, (Sex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
+                        requestMessage.FromUserName, userInfo.nickname, (WeixinSex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
                     return defaultResponseMessage;
                 })
                 .Keyword("EX", () =>

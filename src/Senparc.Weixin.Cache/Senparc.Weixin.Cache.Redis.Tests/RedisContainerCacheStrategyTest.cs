@@ -19,6 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Containers;
 using System;
 
@@ -29,20 +30,22 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     {
         private DateTime _dateTime;
 
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set { this.SetContainerProperty(ref _dateTime, value); }
+        //}
     }
 
     [TestClass]
     public class RedisContainerCacheStrategyTest
     {
-        private IContainerCacheStrategy cache;
+        private IContainerCacheStrategy containerCache;
+        private IBaseObjectCacheStrategy baseCache;
         public RedisContainerCacheStrategyTest()
         {
-            cache = RedisContainerCacheStrategy.Instance;
+            containerCache = RedisContainerCacheStrategy.Instance;
+            baseCache = containerCache.BaseCacheStrategy();
         }
 
         /// <summary>
@@ -52,7 +55,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         public void SingletonTest()
         {
             var cache2 = RedisContainerCacheStrategy.Instance;
-            Assert.AreEqual(cache.GetHashCode(), cache2.GetHashCode());
+            Assert.AreEqual(containerCache.GetHashCode(), cache2.GetHashCode());
         }
 
         /// <summary>
@@ -62,41 +65,41 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         public void InsertToCacheTest()
         {
             //调整测试的缓存策略
-            cache = LocalContainerCacheStrategy.Instance;
+            containerCache = LocalContainerCacheStrategy.Instance;
 
             var key = Guid.NewGuid().ToString();
-            var count = cache.GetCount();
+            var count = baseCache.GetCount();
             Console.WriteLine("count:" + count);
 
 
-            cache.InsertToCache(key, new TestContainerBag1()
+            baseCache.Set(key, new TestContainerBag1()
             {
                 DateTime = DateTime.Now,
                 Name = "Jeffrey"
             });
 
-            var item = cache.Get(key);
+            var item = containerCache.GetContainerBag<TestContainerBag1>(key);
             Assert.IsNotNull(item);
 
             Console.WriteLine(item.GetHashCode());
             Console.WriteLine(item.Key);
             Console.WriteLine(item.CacheTime);
 
-            var count2 = cache.GetCount();
+            var count2 = baseCache.GetCount();
             Console.WriteLine("count2:" + count2);
 
-            if (cache is RedisContainerCacheStrategy)
+            if (containerCache is RedisContainerCacheStrategy)
             {
                 Console.WriteLine("Redis Cache");
                 Assert.AreEqual(count, count2);//目前Redis缓存使用HashSet，反复测试不会发生变化，第一次会有变化
             }
             else
             {
-                Console.WriteLine(cache.GetType() + " Cache");
+                Console.WriteLine(containerCache.GetType() + " Cache");
                 Assert.AreEqual(count + 1, count2);
             }
 
-            var storedItem = cache.Get(key);
+            var storedItem = containerCache.GetContainerBag<TestContainerBag1>(key);
             Assert.IsNotNull(storedItem);
             Console.WriteLine(storedItem.GetHashCode());
             Console.WriteLine(storedItem.CacheTime);
@@ -114,28 +117,28 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
 
             var key = Guid.NewGuid().ToString();
-            var count = cache.GetCount();
+            var count = baseCache.GetCount();
             Console.WriteLine("current count:" + count);
             Console.WriteLine("new item:" + key);
-            cache.InsertToCache(key, new TestContainerBag1()
+            baseCache.Set(key, new TestContainerBag1()
             {
                 Key = key,
                 Name = "Name"
             });
 
-            var item = cache.Get(key);
+            var item = containerCache.GetContainerBag<TestContainerBag1>(key);
             Assert.IsNotNull(item);
             Assert.IsNotNull(item.Key);
 
             Console.WriteLine("read new item from redis:" + item.Key);
 
-            var count2 = cache.GetCount();
+            var count2 = baseCache.GetCount();
             Assert.AreEqual(count + 1, count2);//如果这里报错，查看一下是否从其他的命名空间下面读取了
 
-            cache.RemoveFromCache(key);
-            item = cache.Get(key);
+            baseCache.RemoveFromCache(key);
+            item = containerCache.GetContainerBag<TestContainerBag1>(key);
             Assert.IsNull(item);
-            var count3 = cache.GetCount();
+            var count3 = baseCache.GetCount();
             Assert.AreEqual(count, count3);
         }
     }

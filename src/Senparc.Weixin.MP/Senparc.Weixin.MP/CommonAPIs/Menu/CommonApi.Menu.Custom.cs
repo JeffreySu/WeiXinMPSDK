@@ -51,6 +51,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -272,7 +274,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
-                return Get.GetJson<WxJsonResult>(url);
+                return Senparc.Weixin.HttpUtility.Get.GetJson<WxJsonResult>(url);
 
             }, accessTokenOrAppId);
 

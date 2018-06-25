@@ -76,6 +76,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.3\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -88,16 +91,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
-    <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache\ContainerCacheStrategyDomain.cs" />
+    <Compile Include="Cache\ContainerCacheStrategyFactory.cs" />
     <Compile Include="Cache.Local\ContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
-    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
-    <Compile Include="Cache\CacheStrategyFactory.cs" />
-    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
-    <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
-    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStrategy\BaseContainerCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStrategy.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperBase.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperFactory.cs" />
     <Compile Include="Config.cs" />
@@ -125,6 +123,7 @@
     <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\SenparcWeixinSetting.cs" />
     <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
@@ -136,44 +135,15 @@
     <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Exceptions\WeixinObsoleteException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
-    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Helpers\EncryptHelper.cs" />
-    <Compile Include="Helpers\Entity\EntityHelper.cs" />
-    <Compile Include="Helpers\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
-    <Compile Include="Helpers\ReflectionHelper.cs" />
-    <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
-    <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
-    <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
     <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
-    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
-    <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
-    <Compile Include="NET35\System.Threading.Tasks.cs" />
-    <Compile Include="RegisterServices\RegisterService.cs" />
-    <Compile Include="Register.cs" />
-    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Threads\ThreadUtility.cs" />
-    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceHelper.cs" />
-    <Compile Include="Trace\WeixinTraceHelper\WeixinTraceItem.cs" />
     <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
-    <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
-    <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
-    <Compile Include="Utilities\HttpUtility\RequestUtility.Get.cs" />
-    <Compile Include="Utilities\HttpUtility\RequestUtility.Post.cs" />
-    <Compile Include="Utilities\HttpUtility\SenparcHttpResponse.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
-    <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
     <Compile Include="Utilities\HttpUtility\Get.cs" />
     <Compile Include="Utilities\HttpUtility\Post.cs" />
-    <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="MessageHandlers\IMessageHandler.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
@@ -181,12 +151,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
     <Compile Include="Trace\WeixinTrace.cs" />
-    <Compile Include="WebProxy\CoreWebProxy.cs" />
+    <Compile Include="WeixinRegister.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagrams\MessageHandler.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

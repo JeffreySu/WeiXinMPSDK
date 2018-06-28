@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：UploadResultJson.cs
-    文件功能描述：上传媒体文件返回结果
+    文件名：OAuth2Api.cs
+    文件功能描述：OAuth2接口
     
     
     创建标识：Senparc - 20150313
@@ -28,7 +28,7 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;
 

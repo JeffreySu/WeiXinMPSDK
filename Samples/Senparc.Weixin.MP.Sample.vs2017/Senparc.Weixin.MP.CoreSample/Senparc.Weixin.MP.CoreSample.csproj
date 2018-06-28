@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,14 +11,56 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.1.3" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+    <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+    <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />-->
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Analysis\Index.cshtml" />
+    <None Include="Views\AsyncMethods\Index.cshtml" />
+    <None Include="Views\Cache\Test.cshtml" />
+    <None Include="Views\Device\Index.cshtml" />
+    <None Include="Views\Document\Index.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Menu\Index.cshtml" />
+    <None Include="Views\OAuth2\Index.cshtml" />
+    <None Include="Views\OAuth2\UserInfoCallback.cshtml" />
+    <None Include="Views\OpenOAuth\Index.cshtml" />
+    <None Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
+    <None Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
+    <None Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <None Include="Views\Plugins\Index.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\SimulateTool\Index.cshtml" />
+    <None Include="Views\TenPayV3\BankCode.cshtml" />
+    <None Include="Views\TenPayV3\H5Pay.cshtml" />
+    <None Include="Views\TenPayV3\H5PaySuccess.cshtml" />
+    <None Include="Views\TenPayV3\Index.cshtml" />
+    <None Include="Views\TenPayV3\JsApi.cshtml" />
+    <None Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
+    <None Include="Views\TenPayV3\ProductItem.cshtml" />
+    <None Include="Views\TenPayV3\ProductList.cshtml" />
+    <None Include="Views\TenPay\Delivernotify.cshtml" />
+    <None Include="Views\TenPay\FeedBack.cshtml" />
+    <None Include="Views\TenPay\Index.cshtml" />
+    <None Include="Views\TenPay\JsApi.cshtml" />
+    <None Include="Views\TenPay\Native.cshtml" />
+    <None Include="Views\TenPay\NativeCall.cshtml" />
+    <None Include="Views\TenPay\PayNotifyUrl.cshtml" />
+    <None Include="Views\TenPay\SharedAddress.cshtml" />
+    <None Include="Views\WeixinJSSDK\Index.cshtml" />
+    <None Include="wwwroot\Content\danktooltip\js\jquery.darktooltip.min.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\site.min.js" />
   </ItemGroup>
@@ -26,7 +68,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.vs2017.csproj" />
-    <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
@@ -37,5 +78,8 @@
     <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.CoreSample.CommonService.csproj" />
   </ItemGroup>
 
-
+  <ItemGroup>
+    <Folder Include="Controllers\AppStore\" />
+    <Folder Include="Controllers\QY\" />
+  </ItemGroup>
 </Project>

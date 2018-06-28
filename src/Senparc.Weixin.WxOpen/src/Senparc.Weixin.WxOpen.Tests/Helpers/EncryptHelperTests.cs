@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Helpers.Tests
 {
@@ -123,8 +124,7 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             Assert.IsNotNull(userInfo);
             Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
-            SerializerHelper sh = new SerializerHelper();
-            Console.WriteLine(sh.GetJsonString(userInfo));
+            Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
         }
     }
 }

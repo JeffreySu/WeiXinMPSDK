@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
@@ -264,7 +265,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
                 requestMessaageDoc.Root.Element("MsgId").Value =
-                    Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
+                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
             }
 
             var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);

@@ -110,7 +110,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 #endregion
 
-
                 //执行微信处理过程
                 messageHandler.Execute();
 

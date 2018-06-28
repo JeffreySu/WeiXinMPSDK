@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Entities.TemplateMessage
     /// <summary>
     /// 模板消息数据基础类
     /// </summary>
-    public class TemplateMessageBase : ITemplateMessageBase
+    public abstract class TemplateMessageBase : ITemplateMessageBase
     {
         /// <summary>
         /// 每个公众号都不同的templateId

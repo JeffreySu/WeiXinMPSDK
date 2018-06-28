@@ -77,6 +77,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+        /// <summary>
+        /// TenPayV3InfoCollection 构造函数
+        /// </summary>
         public TenPayV3InfoCollection()
             : base(StringComparer.OrdinalIgnoreCase)
         {

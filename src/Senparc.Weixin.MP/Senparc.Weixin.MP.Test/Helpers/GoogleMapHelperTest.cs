@@ -24,8 +24,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
-    using Senparc.Weixin.MP.Entities.GoogleMap;
-    using Senparc.Weixin.MP.Helpers;
+    using Senparc.CO2NET.Helpers.GoogleMap;
+    using Senparc.CO2NET.Helpers;
 
     [TestClass]
     public class GoogleMapHelperTest

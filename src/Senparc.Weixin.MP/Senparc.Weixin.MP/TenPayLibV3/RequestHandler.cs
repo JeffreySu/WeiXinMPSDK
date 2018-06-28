@@ -42,13 +42,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170319
     修改描述：v14.3.134 修改RequestHandler构造函数
 
-    ----------------------------------------------------------------*/
+    修改标识：Senparc - 20180331
+    修改描述：v14.10.12 更新过期方法
+
+----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -56,7 +60,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 #endif
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.StringHelper;
+
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -202,10 +206,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             sb.Append(key + "=" + value);
 
-            //string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            //string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
 
             return sign;
         }

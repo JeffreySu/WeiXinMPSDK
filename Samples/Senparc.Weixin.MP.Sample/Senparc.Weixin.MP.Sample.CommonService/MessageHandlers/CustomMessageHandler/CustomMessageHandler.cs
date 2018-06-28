@@ -31,6 +31,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.Request;
+using Senparc.CO2NET.Helpers;
 
 #if NET45
 using System.Web;
@@ -57,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0
+#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -134,7 +135,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
-            #region 书中例子
+            #region 书中例子 
             //if (requestMessage.Content == "你好")
             //{
             //    var responseMessage = base.CreateResponseMessage<ResponseMessageNews>();
@@ -331,7 +332,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     defaultResponseMessage.Content = string.Format(
                         "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
-                        requestMessage.FromUserName, userInfo.nickname, (Sex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
+                        requestMessage.FromUserName, userInfo.nickname, (WeixinSex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
                     return defaultResponseMessage;
                 })
                 .Keyword("EX", () =>
@@ -394,8 +395,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //“一次订阅消息”接口测试
                 .Keyword("订阅", () =>
                 {
-                        defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
-                        return defaultResponseMessage;
+                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
+                    return defaultResponseMessage;
                 })
                 //正则表达式
                 .Regex(@"^\d+#\d+$", () =>
@@ -489,7 +490,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 CustomApi.SendText(appId, WeixinOpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
 
             }
-            catch {
+            catch
+            {
             }
 
             return responseMessage;
@@ -546,6 +548,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 Title：{0}
 Description:{1}
 Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
+        {
+            var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = string.Format(@"您发送了一个文件：
+文件名：{0}
+说明:{1}
+大小：{2}
+MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileTotalLen, requestMessage.FileMd5);
             return responseMessage;
         }
 

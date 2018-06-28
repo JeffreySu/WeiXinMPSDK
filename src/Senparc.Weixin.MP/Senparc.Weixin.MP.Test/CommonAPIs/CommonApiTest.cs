@@ -34,7 +34,9 @@ using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Threads;
+using Senparc.CO2NET.Threads;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -49,14 +51,14 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 if (_appConfig == null)
                 {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
                     var filePath = "../../../Config/test.config";
 #else
                     var filePath = "../../Config/test.config";
 #endif
                     if (File.Exists(filePath))
                     {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_0 || NETCOREAPP2_1
                         var stream = new FileStream(filePath, FileMode.Open);
                         var doc = XDocument.Load(stream);
                         stream.Dispose();

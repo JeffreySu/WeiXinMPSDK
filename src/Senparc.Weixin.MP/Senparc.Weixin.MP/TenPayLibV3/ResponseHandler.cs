@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170623
     修改描述：v14.4.14 排序规则统一为字典排序（ASCII）
 
+    修改标识：Senparc - 20180517
+    修改描述：v4.21.5-rc1 优化 .net core 环境下 TenPayLibV3.ResponseHandler 的默认 HttpContext获取
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -41,13 +44,16 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.Exceptions;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 #endif
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -105,6 +111,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// 获取页面提交的get和post参数
+        /// 注意:.NetCore环境必须传入HttpContext实例，不能传Null，这个接口调试特别困难，千万别出错！
         /// </summary>
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
@@ -146,7 +153,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #else
             Parameters = new Hashtable();
 
-            HttpContext = httpContext ?? new DefaultHttpContext();
+#if NETSTANDARD2_0
+            HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
+#else
+            HttpContext = httpContext ?? CO2NET.RegisterServices.RegisterService.GlobalServiceCollection
+                                            .BuildServiceProvider().GetService<IHttpContextAccessor>()?.HttpContext;
+#endif
+
             //post data
             if (HttpContext.Request.Method.ToUpper() == "POST" && HttpContext.Request.HasFormContentType)
             {
@@ -228,8 +241,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             StringBuilder sb = new StringBuilder();
 
-			ArrayList akeys=new ArrayList(Parameters.Keys); 
-			akeys.Sort(ASCIISort.Create());
+            ArrayList akeys = new ArrayList(Parameters.Keys);
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -242,7 +255,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
             this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
             //debug信息
             return GetParameter("sign").ToLower().Equals(sign);

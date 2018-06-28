@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Helpers;

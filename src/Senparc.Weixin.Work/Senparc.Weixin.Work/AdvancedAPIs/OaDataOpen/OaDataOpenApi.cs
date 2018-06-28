@@ -15,6 +15,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson;
 using System;
 using System.Collections.Generic;
@@ -60,8 +61,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 var data = new
                 {
                     opencheckindatatype = (int)openCheckinDataType,
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     useridlist = userIdList
                 };
 
@@ -85,7 +86,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    datetime = DateTimeHelper.GetWeixinDateTime(datetime),
                     useridlist = userIdList
                 };
 
@@ -109,8 +110,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     next_spnum = next_spnum
                 };
 
@@ -143,7 +144,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    datetime = DateTimeHelper.GetWeixinDateTime(datetime),
                     useridlist = userIdList
                 };
 
@@ -170,8 +171,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 var data = new
                 {
                     opencheckindatatype = (int)openCheckinDataType,
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     useridlist = userIdList
                 };
 
@@ -198,8 +199,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     next_spnum = next_spnum
                 };
 

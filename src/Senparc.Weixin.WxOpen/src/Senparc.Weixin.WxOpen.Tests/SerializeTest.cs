@@ -23,6 +23,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -44,6 +46,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
+#if !NETCOREAPP2_1
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>
@@ -95,9 +98,8 @@ namespace Senparc.WeixinTests.Cache
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
                 //序列化
-                SerializerHelper serializerHelper=new SerializerHelper();
-                var jsonString = serializerHelper.GetJsonString(sessionBag);
-                var obj = serializerHelper.GetObject<SessionBag>(jsonString);
+                var jsonString = SerializerHelper.GetJsonString(sessionBag);
+                var obj = SerializerHelper.GetObject<SessionBag>(jsonString);
 
                 if (i == 0)
                 {
@@ -116,7 +118,7 @@ namespace Senparc.WeixinTests.Cache
             {
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 MemoryStream memoryStream = new MemoryStream();
                 {
                     //序列化
@@ -144,5 +146,6 @@ namespace Senparc.WeixinTests.Cache
 
             //结果：Newtonsoft.JSON 效率更高，三个结果时间基本上1:2:3
         }
+#endif
     }
 }

@@ -48,12 +48,12 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public void SendChatMessageTest()
+        public void SendChatSimpleMessageTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
-            var result = ChatApi.SendChatMessage(accessToken, "005", Chat_Type.@single, ChatMsgType.image, "002", "1-GdQZtyp-8G8i-UwC0qh0yDQch5wqso5MTus37CLlu72PIyHEYUFvo9oHYRifvKo4hYgAc6GEA4qxP8tlJd2rA");
-            ChatApi.SendChatMessage(accessToken, "005", Chat_Type.@group, ChatMsgType.text, "1", "111");
+            var result = ChatApi.SendChatSimpleMessage(accessToken, "1", ChatMsgType.image, "1-GdQZtyp-8G8i-UwC0qh0yDQch5wqso5MTus37CLlu72PIyHEYUFvo9oHYRifvKo4hYgAc6GEA4qxP8tlJd2rA");
+            ChatApi.SendChatSimpleMessage(accessToken, "1", ChatMsgType.text, "111");
 
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }

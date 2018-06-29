@@ -176,7 +176,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             if (HttpContext.Request.ContentLength > 0)
             {
                 var xmlDoc = new XmlDocument();
-                xmlDoc.Load(HttpContext.Request.Body);
+                //xmlDoc.Load(HttpContext.Request.Body);
+                using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                {
+                    xmlDoc.Load(reader);
+                }
                 var root = xmlDoc.SelectSingleNode("xml");
 
                 foreach (XmlNode xnf in root.ChildNodes)

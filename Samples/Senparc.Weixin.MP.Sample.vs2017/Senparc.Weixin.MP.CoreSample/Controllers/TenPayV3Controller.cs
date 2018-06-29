@@ -438,7 +438,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             try
             {
-                ResponseHandler resHandler = new ResponseHandler(null);
+                ResponseHandler resHandler = new ResponseHandler(HttpContext);
 
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");

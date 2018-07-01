@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+  
+    修改标识：Senparc - 20180701
+    修改描述：V2.0.3 SessionBag 添加 UnionId 属性
 
 ----------------------------------------------------------------*/
 
@@ -77,6 +80,8 @@ namespace Senparc.Weixin.WxOpen.Containers
         //#endif
         //        }
 
+        public string UnionId { get; set; }
+
         /// <summary>
         /// SessionKey
         /// </summary>
@@ -103,10 +108,10 @@ namespace Senparc.Weixin.WxOpen.Containers
         //#endif
         //        }
 
-        private string _key;
-        private string _openId;
-        private string _sessionKey;
-        private DateTime _expireTime;
+        //private string _key;
+        //private string _openId;
+        //private string _sessionKey;
+        //private DateTime _expireTime;
 
         /// <summary>
         /// ComponentBag
@@ -167,8 +172,9 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <param name="key">如果留空，则新建一条记录</param>
         /// <param name="openId">OpenId</param>
         /// <param name="sessionKey">SessionKey</param>
+        /// <param name="uniondId">UnionId</param>
         /// <returns></returns>
-        public static SessionBag UpdateSession(string key, string openId, string sessionKey)
+        public static SessionBag UpdateSession(string key, string openId, string sessionKey,string uniondId)
         {
             key = key ?? SessionHelper.GetNewThirdSessionName();
 
@@ -178,6 +184,7 @@ namespace Senparc.Weixin.WxOpen.Containers
             {
                 Key = key,
                 OpenId = openId,
+                UnionId = uniondId,
                 SessionKey = sessionKey,
                 ExpireTime = GetExpireTime()
             };

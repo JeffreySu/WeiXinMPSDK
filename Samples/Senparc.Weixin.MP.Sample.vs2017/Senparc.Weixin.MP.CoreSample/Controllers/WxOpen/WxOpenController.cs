@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             {
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                 //使用SessionContainer管理登录信息（推荐）
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, jsonResult.unionid);
 
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
@@ -289,7 +289,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.DefaultSenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, price, 
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.DefaultSenparcWeixinSetting.TenPayV3_MchId, body, sp_billno, price,
                     HttpContext.UserHostAddress().ToString(), Config.DefaultSenparcWeixinSetting.TenPayV3_TenpayNotify,
                     TenPayV3Type.JSAPI, openId, Config.DefaultSenparcWeixinSetting.TenPayV3_Key, nonceStr);
 

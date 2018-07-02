@@ -111,10 +111,6 @@
       <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
       <Name>Senparc.Weixin.Cache.Redis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
-      <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
-      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
       <Name>Senparc.Weixin.MP</Name>
@@ -134,6 +130,10 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
+      <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
+      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

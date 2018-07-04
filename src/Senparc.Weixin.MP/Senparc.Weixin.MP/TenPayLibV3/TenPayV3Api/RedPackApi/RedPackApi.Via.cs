@@ -153,7 +153,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             XmlDocument doc = new XmlDocument();
-
+            doc.XmlResolver = null;
             #region 发起post请求，载入到doc中
 
 #if NET35 || NET40 || NET45 || NET461

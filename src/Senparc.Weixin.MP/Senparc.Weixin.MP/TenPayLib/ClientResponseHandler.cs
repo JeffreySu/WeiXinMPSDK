@@ -84,6 +84,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             this.Content = content;
             XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.XmlResolver = null;
             xmlDoc.LoadXml(content);
             XmlNode root = xmlDoc.SelectSingleNode("root");
             XmlNodeList xnl = root.ChildNodes;

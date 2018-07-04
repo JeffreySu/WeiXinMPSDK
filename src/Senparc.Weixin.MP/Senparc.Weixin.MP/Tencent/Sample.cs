@@ -68,6 +68,7 @@ namespace MsgCryptTest
              * 将sEncryptMsg解密看看是否是原文
              * */
             XmlDocument doc = new XmlDocument();
+            doc.XmlResolver = null;
             doc.LoadXml(sEncryptMsg);
             XmlNode root = doc.FirstChild;
             string sig = root["MsgSignature"].InnerText;

@@ -91,7 +91,10 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
 
-            IRegisterService register = RegisterService.Start(env, senparcSetting);
+            IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
+                                                       .UseSenparcGlobal(senparcSetting.Value);
+
+            #region CO2NET 全局配置
 
             #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
 
@@ -125,6 +128,8 @@ namespace Senparc.Weixin.MP.CoreSample
             #region 注册日志（按需）
 
             register.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
+
+            #endregion
 
             #endregion
 

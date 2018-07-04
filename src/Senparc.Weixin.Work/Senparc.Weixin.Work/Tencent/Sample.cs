@@ -91,8 +91,7 @@ namespace MsgCryptTest
             /*测试：
              * 将sEncryptMsg解密看看是否是原文
              * */
-            XmlDocument doc = new XmlDocument();
-            doc.XmlResolver = null;
+            XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             doc.LoadXml(sEncryptMsg);
             XmlNode root = doc.FirstChild;
             string sig = root["MsgSignature"].InnerText;

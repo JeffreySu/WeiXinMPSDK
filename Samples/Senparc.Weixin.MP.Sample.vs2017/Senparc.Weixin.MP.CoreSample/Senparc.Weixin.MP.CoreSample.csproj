@@ -82,4 +82,6 @@
     <Folder Include="Controllers\AppStore\" />
     <Folder Include="Controllers\QY\" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/commands" /></VisualStudio></ProjectExtensions>
 </Project>

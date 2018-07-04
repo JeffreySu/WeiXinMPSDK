@@ -17,6 +17,7 @@ using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Work;
 using System.Collections.Generic;
 using System.IO;
@@ -40,10 +41,8 @@ namespace Senparc.Weixin.MP.CoreSample
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
-            services.AddSenparcGlobalServices()//Senparc.CO2NET 全局注册
-                                               //添加Senparc.Weixin配置文件（内容可以根据需要对应修改）
-                    .Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
-
+            services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
+                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
 
             #region Senparc.CO2NET Memcached 配置（按需）
 
@@ -55,11 +54,10 @@ namespace Senparc.Weixin.MP.CoreSample
                     });
 
             #endregion
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             //引入EnableRequestRewind中间件
             app.UseEnableRequestRewind();
@@ -93,8 +91,7 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
 
-            var isDebug = true;//当前是否是Debug状态
-            IRegisterService register = RegisterService.Start(env, isDebug);
+            IRegisterService register = RegisterService.Start(env, senparcSetting);
 
             #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
 
@@ -160,6 +157,7 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息
+            var isDebug = true;//当前是否是Debug状态
             register.UseSenparcWeixin(senparcWeixinSetting.Value, isDebug/*此处为单独用于微信的调试状态*/, () => GetExContainerCacheStrategies(senparcWeixinSetting.Value)) //注意：这里没有 ; 下面可接着写
 
             #region 注册公众号或小程序（按需）

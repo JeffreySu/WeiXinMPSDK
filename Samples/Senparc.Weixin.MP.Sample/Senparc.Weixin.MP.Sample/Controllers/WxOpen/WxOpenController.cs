@@ -181,7 +181,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             {
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                 //使用SessionContainer管理登录信息（推荐）
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+                var unionId = "";
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key,unionId);
 
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });

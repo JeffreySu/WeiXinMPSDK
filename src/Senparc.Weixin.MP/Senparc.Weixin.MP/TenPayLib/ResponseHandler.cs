@@ -149,6 +149,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             if (this.HttpContext.Request.InputStream.Length > 0)
             {
                 XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.XmlResolver = null;
                 xmlDoc.Load(this.HttpContext.Request.InputStream);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;
@@ -182,6 +183,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             if (this.HttpContext.Request.Body.Length > 0)
             {
                 XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.XmlResolver = null;
                 xmlDoc.Load(this.HttpContext.Request.Body);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;

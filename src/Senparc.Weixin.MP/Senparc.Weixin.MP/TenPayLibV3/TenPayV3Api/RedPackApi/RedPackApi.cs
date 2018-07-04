@@ -197,6 +197,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             XmlDocument doc = new XmlDocument();
+            doc.XmlResolver = null;
 
 #if NET35 || NET40 || NET45 || NET461
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
@@ -425,6 +426,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             XmlDocument doc = new XmlDocument();
+            doc.XmlResolver = null;
 
             #region 发起post请求，载入到doc中
 
@@ -598,6 +600,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             XmlDocument doc = new XmlDocument();
+            doc.XmlResolver = null;
             #region 发起post请求，载入到doc中
 
 #if NET35 || NET40 || NET45 || NET461

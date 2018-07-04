@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.0.0-preview1</Version>
+    <Version>2.0.6.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -72,7 +72,7 @@
       v1.7.5 发布支持 .net core 2.1 的正式版
 
       v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
-
+      v2.0.6.1 支持 CO2NET v0.1.6.1
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -171,7 +171,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="1.0.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="2.0.6.1" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 

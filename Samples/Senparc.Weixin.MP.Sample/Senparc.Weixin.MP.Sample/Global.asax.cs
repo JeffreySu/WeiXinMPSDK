@@ -279,20 +279,13 @@ namespace Senparc.Weixin.MP.Sample
                 exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
             }
 
-            try
+            //判断Memcached是否可用
+            var memcachedConfiguration = ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
-                //判断Memcached是否可用
-                var memcachedConfiguration = ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
-                if ((!string.IsNullOrEmpty(memcachedConfiguration) && redisConfiguration != "Memcached配置"))
-                {
-                    exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
-                }
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
             }
-            catch (System.Exception ex)
-            {
-                CO2NET.Trace.SenparcTrace.BaseExceptionLog(new CO2NET.Exceptions.BaseException(ex.Message,ex));
-            }
-          
+
 
             //也可扩展自定义的缓存策略
 

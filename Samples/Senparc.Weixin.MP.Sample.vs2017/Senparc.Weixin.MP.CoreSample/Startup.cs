@@ -162,8 +162,10 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息
-            //var isDebug = true;//当前是否是Debug状态
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, null) //注意：这里没有 ; 下面可接着写
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, null) //必须
+                                                                        //注意：这里没有 ; 下面可接着写 .RegisterXX()
+                                                                        //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
+                                                                        //register.UseSenparcWeixin(senparcWeixinSetting.Value, GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
 
@@ -327,12 +329,17 @@ namespace Senparc.Weixin.MP.CoreSample
         }
 
         /// <summary>
-        /// 获取Container扩展缓存策略
+        /// 获取扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IDomainExtensionCacheStrategy> GetExContainerCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
+
+            //注意：以下两个 if 判断仅作为演示，
+            //      只要进行了 register.UseSenparcWeixin() 操作，Redis 和 Memcached 系统已经默认自动注册，无需操作！
+
+            #region 演示扩展缓存注册方法
 
             //判断Redis是否可用
             var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
@@ -348,7 +355,9 @@ namespace Senparc.Weixin.MP.CoreSample
                 exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常
             }
 
-            //也可扩展自定义的缓存策略
+            #endregion
+
+            //扩展自定义的缓存策略
 
             return exContainerCacheStrategies;
         }

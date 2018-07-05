@@ -16,6 +16,9 @@
 
     修改标识：Senparc - 201806029
     修改描述：v5.0.3.1 修复 WeixinRegister.UseSenparcWeixin() 方法的 IsDebug 设置问题
+ 
+    修改标识：Senparc - 20180705
+    修改描述：v5.0.7 支持 CO2NET v0.1.7，为 WeixinRegister.UseSenparcWeixin() 方法提供自动注册扩展缓存的能力
 
 ----------------------------------------------------------------*/
 
@@ -44,20 +47,22 @@ namespace Senparc.Weixin
         /// </summary>
         /// <param name="registerService"></param>
         /// <param name="senparcWeixinSetting"></param>
-        /// <param name="containerCacheStrategiesFunc">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册），如果设置为Null，则自动使用反射扫描所有可能存在的扩展缓存策略</param>
+        /// <param name="extensionCacheStrategiesFunc"><para>需要注册的扩展缓存策略</para>
+        /// <para>（LocalContainerCacheStrategy、RedisContainerCacheStrategy、MemcacheContainerCacheStrategy已经自动注册），</para>
+        /// <para>如果设置为 null（注意：不适委托返回 null，是整个委托参数为 null），则自动使用反射扫描所有可能存在的扩展缓存策略</para></param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Func<IList<IDomainExtensionCacheStrategy>> containerCacheStrategiesFunc = null)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null)
         {
             //Senparc.Weixin SDK 配置
             //Senparc.Weixin.Config.IsDebug = isDebug;
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting;
 
             // 微信的 本地 缓存
-            var cache = LocalContainerCacheStrategy.Instance;
+            var cache = LocalContainerCacheStrategy.Instance;//只要引用就可以被激活
 
-            if (containerCacheStrategiesFunc != null)
+            if (extensionCacheStrategiesFunc != null)
             {
-                var containerCacheStrategies = containerCacheStrategiesFunc();
+                var containerCacheStrategies = extensionCacheStrategiesFunc();
                 if (containerCacheStrategies != null)
                 {
                     foreach (var cacheStrategy in containerCacheStrategies)
@@ -75,16 +80,30 @@ namespace Senparc.Weixin
                 var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
                 if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
                 {
-                    var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Redis", "Senparc.Weixin.Cache.Redis", "RedisContainerCacheStrategy", "Instance");
-                    officialTypes.Add(redisInstance.GetType());
+                    try
+                    {
+                        var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Redis", "Senparc.Weixin.Cache.Redis", "RedisContainerCacheStrategy", "Instance");
+                        officialTypes.Add(redisInstance.GetType());
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.WeixinExceptionLog(new Exceptions.WeixinException(ex.Message, ex));
+                    }
                 }
 
                 //Memcached
                 var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
                 if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
                 {
-                    var memcachedInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Memcached", "Senparc.Weixin.Cache.Memcached", "MemcachedContainerCacheStrategy", "Instance");
+                    try
+                    {
+                        var memcachedInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Memcached", "Senparc.Weixin.Cache.Memcached", "MemcachedContainerCacheStrategy", "Instance");
                     officialTypes.Add(memcachedInstance.GetType());
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.WeixinExceptionLog(new Exceptions.WeixinException(ex.Message, ex));
+                    }
                 }
 
                 //查找所有扩产缓存
@@ -95,8 +114,14 @@ namespace Senparc.Weixin
 
                 foreach (var type in types)
                 {
-
-
+                    try
+                    {
+                       var exCache =  ReflectionHelper.GetStaticMember(type, "Instance");
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.WeixinExceptionLog(new Exceptions.WeixinException(ex.Message, ex));
+                    }
                 }
             }
 

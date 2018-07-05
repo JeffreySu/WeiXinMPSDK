@@ -343,10 +343,11 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //判断Memcached是否可用
             var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
-            if ((!string.IsNullOrEmpty(memcachedConfiguration) && redisConfiguration != "Memcached配置"))
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
-                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常
             }
+
 
             //也可扩展自定义的缓存策略
 

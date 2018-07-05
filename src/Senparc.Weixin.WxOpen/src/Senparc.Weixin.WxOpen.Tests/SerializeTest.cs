@@ -41,7 +41,8 @@ namespace Senparc.WeixinTests.Cache
         [TestMethod]
         public void SerializeDataTest()
         {
-            var sessionBag = SessionContainer.UpdateSession(null, "OpenId", "SessionKey");
+            var unionId = "";
+            var sessionBag = SessionContainer.UpdateSession(null, "OpenId", "SessionKey", unionId);
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(sessionBag);
             Console.WriteLine(jsonString);
         }

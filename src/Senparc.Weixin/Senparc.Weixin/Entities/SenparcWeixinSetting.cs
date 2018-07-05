@@ -10,6 +10,9 @@
     修改标识：Senparc - 20180622
     修改描述：v5.0.3.1 SenparcWeixinSetting 添加 Cache_Memcached_Configuration 属性
     
+    修改标识：Senparc - 20180622
+    修改描述：v5.0.6.2 WeixinRegister.UseSenparcWeixin() 方法去除 isDebug 参数，提供扩展缓存自动扫描添加功能
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,6 +26,15 @@ namespace Senparc.Weixin.Entities
     /// </summary>
     public class SenparcWeixinSetting
     {
+        #region 微信全局
+
+        /// <summary>
+        /// 是否处于 Debug 状态（仅限微信范围）
+        /// </summary>
+        public bool IsDebug { get; set; }
+
+        #endregion
+
         #region 公众号
 
         /// <summary>

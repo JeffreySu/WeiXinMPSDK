@@ -96,7 +96,9 @@ namespace Senparc.Weixin.MP.Sample
              * 建议按照以下顺序进行注册
              */
 
-            .UseSenparcWeixin(null, true, GetExContainerCacheStrategies)//必须
+            .UseSenparcWeixin(null, null)//必须
+                                         //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
+                                         //register.UseSenparcWeixin(null, GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号
@@ -265,12 +267,17 @@ namespace Senparc.Weixin.MP.Sample
         }
 
         /// <summary>
-        /// 获取Container扩展缓存策略
+        /// 获取扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IDomainExtensionCacheStrategy> GetExContainerCacheStrategies()
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies()
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
+
+            //注意：以下两个 if 判断仅作为演示，
+            //      只要进行了 register.UseSenparcWeixin() 操作，Redis 和 Memcached 系统已经默认自动注册，无需操作！
+
+            #region 演示扩展缓存注册方法
 
             //判断Redis是否可用
             var redisConfiguration = ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
@@ -283,11 +290,12 @@ namespace Senparc.Weixin.MP.Sample
             var memcachedConfiguration = ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
             if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
-                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常
             }
 
+            #endregion
 
-            //也可扩展自定义的缓存策略
+            //扩展自定义的缓存策略
 
             return exContainerCacheStrategies;
         }

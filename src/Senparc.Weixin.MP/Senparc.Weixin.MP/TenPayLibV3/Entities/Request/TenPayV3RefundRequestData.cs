@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180516
     修改描述：提供 RefundDescription、NotifyUrl 两个新参数
 
+    修改标识：Senparc - 20180705
+    修改描述：v15.0.6.2 TenPayV3RefundRequestData 添加 SubAppId、SubMchId 两个参数，以及支持这两个参数的构造函数
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3

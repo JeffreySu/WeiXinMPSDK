@@ -348,7 +348,6 @@ namespace Senparc.Weixin.MP.CoreSample
                 exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常
             }
 
-
             //也可扩展自定义的缓存策略
 
             return exContainerCacheStrategies;

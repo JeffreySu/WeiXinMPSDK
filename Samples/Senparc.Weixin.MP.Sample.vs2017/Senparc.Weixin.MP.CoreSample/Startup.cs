@@ -162,8 +162,8 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息
-            var isDebug = true;//当前是否是Debug状态
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, isDebug/*此处为单独用于微信的调试状态*/, () => GetExContainerCacheStrategies(senparcWeixinSetting.Value)) //注意：这里没有 ; 下面可接着写
+            //var isDebug = true;//当前是否是Debug状态
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, null) //注意：这里没有 ; 下面可接着写
 
             #region 注册公众号或小程序（按需）
 

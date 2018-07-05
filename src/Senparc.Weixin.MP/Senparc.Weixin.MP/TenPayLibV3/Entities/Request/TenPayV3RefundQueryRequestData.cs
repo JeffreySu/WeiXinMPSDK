@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             OutRefundNo = outRefundNo;
             RefundId = refundId;
             SubAppId = subAppid;
-            SubMchId = subAppid;
+            SubMchId = subMchId;
             Offset = offset;
             SignType = signType;
             Key = key;

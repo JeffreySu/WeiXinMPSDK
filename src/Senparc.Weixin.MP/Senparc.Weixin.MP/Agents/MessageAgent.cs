@@ -41,6 +41,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Xml.Linq;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;

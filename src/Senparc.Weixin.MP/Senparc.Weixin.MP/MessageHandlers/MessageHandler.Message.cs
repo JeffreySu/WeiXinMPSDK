@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 
@@ -136,6 +136,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 小视频类型请求
         /// </summary>
         public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 文件请求
+        /// </summary>
+        public virtual IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

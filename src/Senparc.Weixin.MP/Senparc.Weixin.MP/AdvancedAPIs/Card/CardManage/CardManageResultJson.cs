@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 获取用户已领取卡券返回结果
     /// </summary>
-    public class GetCardListResult : WxJsonResult
+    public class GetCardListResultJson : WxJsonResult
     {
         /// <summary>
         /// 卡券列表
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 更新会员信息返回结果
     /// </summary>
-    public class UpdateUserResult : WxJsonResult
+    public class UpdateUserResultJson : WxJsonResult
     {
         /// <summary>
         /// 当前用户积分总额。
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 图文消息群发卡券返回结果
     /// </summary>
-    public class GetHtmlResult : WxJsonResult
+    public class GetHtmlResultJson : WxJsonResult
     {
         /// <summary>
         /// 返回一段html代码，可以直接嵌入到图文消息的正文里。即可以把这段代码嵌入到上传图文消息素材接口中的content字段里。

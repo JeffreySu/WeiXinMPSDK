@@ -56,8 +56,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.1.6.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.6.1\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,6 +101,7 @@
     <Compile Include="OAuthAPIs\OAuthAPI.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -131,7 +139,9 @@
   <ItemGroup>
     <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -140,5 +150,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>

@@ -29,6 +29,8 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.Work.Test.CommonApis
 {
@@ -45,9 +47,21 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../Config/test.config"))
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+                    var filePath = "../../../Config/test.config";
+#else
+                    var filePath = "../../Config/test.config";
+#endif
+                    if (File.Exists(filePath))
                     {
-                        var doc = XDocument.Load("../../Config/test.config");
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+                        var stream = new FileStream(filePath, FileMode.Open);
+                        var doc = XDocument.Load(stream);
+                        stream.Dispose();
+#else
+                        var doc = XDocument.Load(filePath);
+#endif
+
                         _appConfig = new
                         {
                             CorpId = doc.Root.Element("CorpId").Value,

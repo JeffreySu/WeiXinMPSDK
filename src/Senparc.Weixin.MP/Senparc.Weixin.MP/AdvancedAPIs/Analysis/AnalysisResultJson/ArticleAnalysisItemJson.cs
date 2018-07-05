@@ -159,8 +159,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 收藏的次数
         /// </summary>
         public int add_to_fav_count { get; set; }
+
+        #region 官方暂无说明文字
+
+        public int int_page_from_session_read_user { get; set; }
+        public int int_page_from_session_read_count { get; set; }
+        public int int_page_from_hist_msg_read_user { get; set; }
+        public int int_page_from_hist_msg_read_count { get; set; }
+        public int int_page_from_feed_read_user { get; set; }
+        public int int_page_from_feed_read_count { get; set; }
+        public int int_page_from_friends_read_user { get; set; }
+        public int int_page_from_friends_read_count { get; set; }
+        public int int_page_from_other_read_user { get; set; }
+        public int int_page_from_other_read_count { get; set; }
+        public int feed_share_from_session_user { get; set; }
+        public int feed_share_from_session_cnt { get; set; }
+        public int feed_share_from_feed_user { get; set; }
+        public int feed_share_from_feed_cnt { get; set; }
+        public int feed_share_from_other_user { get; set; }
+        public int feed_share_from_other_cnt { get; set; }
+
+        #endregion
+
     }
-    
+
     /// <summary>
     /// 图文统计数据 单条数据
     /// </summary>

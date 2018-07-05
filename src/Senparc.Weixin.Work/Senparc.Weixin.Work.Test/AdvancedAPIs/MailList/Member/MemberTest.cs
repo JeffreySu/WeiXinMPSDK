@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void GetDepartmentMemberTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0/*, 0*/);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void GetDepartmentMemberInfoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0/*, 0*/);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }

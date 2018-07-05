@@ -34,7 +34,7 @@ using System;
 namespace Senparc.Weixin.Exceptions
 {
     /// <summary>
-    /// 菜单异常
+    /// Null异常
     /// </summary>
     public class WeixinNullReferenceException : WeixinException
     {

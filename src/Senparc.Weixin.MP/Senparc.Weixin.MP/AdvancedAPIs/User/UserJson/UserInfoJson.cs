@@ -24,6 +24,10 @@
 
     修改标识：Senparc - 20150727
     修改描述：添加批量获取用户基本信息返回结果
+
+    修改标识：Senparc - 20150727
+    修改描述：添加批量获取用户基本信息返回结果
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -92,6 +96,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// 用户标签
         /// </summary>
         public int[] tagid_list { get; set; }
+        /// <summary>
+        /// 返回用户关注的渠道来源，ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION 公众号迁移，ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE 扫描二维码，ADD_SCENEPROFILE LINK 图文页内名称点击，ADD_SCENE_PROFILE_ITEM 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_OTHERS 其他
+        /// </summary>
+        public string subscribe_scene { get; set; }
+        /// <summary>
+        /// 二维码扫码场景（开发者自定义）
+        /// </summary>
+        public int qr_scene { get; set; }
+        /// <summary>
+        /// 二维码扫码场景描述（开发者自定义）
+        /// </summary>
+        public string qr_scene_str { get; set; }
     }
 
     /// <summary>

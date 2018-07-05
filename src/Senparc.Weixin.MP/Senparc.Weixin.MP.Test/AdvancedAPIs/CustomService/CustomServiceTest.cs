@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.CustomService;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CustomServiceTest : CommonApiTest
     {
-        protected string _custonPassWord = MD5UtilHelper.GetMD5("123123", null);
+        protected string _custonPassWord = EncryptHelper.GetMD5("123123");
 
         [TestMethod]
         public void GetRecordTest()

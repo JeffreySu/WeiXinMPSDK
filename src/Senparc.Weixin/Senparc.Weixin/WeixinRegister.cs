@@ -23,11 +23,13 @@
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Senparc.Weixin
 {
@@ -42,13 +44,12 @@ namespace Senparc.Weixin
         /// </summary>
         /// <param name="registerService"></param>
         /// <param name="senparcWeixinSetting"></param>
-        /// <param name="isDebug"></param>
-        /// <param name="containerCacheStrategiesFunc">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册）</param>
+        /// <param name="containerCacheStrategiesFunc">需要注册的扩展Container缓存策略（LocalContainerCacheStrategy已经自动注册），如果设置为Null，则自动使用反射扫描所有可能存在的扩展缓存策略</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, bool isDebug, Func<IList<IDomainExtensionCacheStrategy>> containerCacheStrategiesFunc)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Func<IList<IDomainExtensionCacheStrategy>> containerCacheStrategiesFunc = null)
         {
             //Senparc.Weixin SDK 配置
-            Senparc.Weixin.Config.IsDebug = isDebug;
+            //Senparc.Weixin.Config.IsDebug = isDebug;
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting;
 
             // 微信的 本地 缓存
@@ -57,12 +58,45 @@ namespace Senparc.Weixin
             if (containerCacheStrategiesFunc != null)
             {
                 var containerCacheStrategies = containerCacheStrategiesFunc();
-                if (containerCacheStrategies!=null)
+                if (containerCacheStrategies != null)
                 {
                     foreach (var cacheStrategy in containerCacheStrategies)
                     {
                         var exCache = cacheStrategy;//确保能运行到就行，会自动注册
                     }
+                }
+            }
+            else
+            {
+                var officialTypes = new List<Type>() { typeof(LocalContainerCacheStrategy) };
+
+                //自动注册 Redis 和 Memcached
+                //Redis
+                var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
+                if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+                {
+                    var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Redis", "Senparc.Weixin.Cache.Redis", "RedisContainerCacheStrategy", "Instance");
+                    officialTypes.Add(redisInstance.GetType());
+                }
+
+                //Memcached
+                var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
+                if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+                {
+                    var memcachedInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Memcached", "Senparc.Weixin.Cache.Memcached", "MemcachedContainerCacheStrategy", "Instance");
+                    officialTypes.Add(memcachedInstance.GetType());
+                }
+
+                //查找所有扩产缓存
+                var types = AppDomain.CurrentDomain.GetAssemblies()
+                            .SelectMany(a => a.GetTypes()
+                            .Where(t => !t.IsAbstract && !officialTypes.Contains(t) && t.GetInterfaces().Contains(typeof(IDomainExtensionCacheStrategy))))
+                            .ToArray();
+
+                foreach (var type in types)
+                {
+
+
                 }
             }
 

@@ -38,7 +38,8 @@ namespace Senparc.Weixin.WxOpen.Containers.Tests
         {
             var openId = "openid";
             var sessionKey = "sessionKey";
-            var bag = SessionContainer.UpdateSession(null, openId, sessionKey);
+            var unionId = "unionId";
+            var bag = SessionContainer.UpdateSession(null, openId, sessionKey, unionId);
             Console.WriteLine("bag.Key:{0}",bag.Key);
             Console.WriteLine("bag.ExpireTime:{0}",bag.ExpireTime);
 

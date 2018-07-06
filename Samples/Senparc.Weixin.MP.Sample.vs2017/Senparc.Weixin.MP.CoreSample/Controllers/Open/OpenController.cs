@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
 
                 var messageHandler = new CustomThirdPartyMessageHandler(Request.GetRequestMemoryStream(), postModel);//初始化
-                //注意：再进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
+                //注意：在进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
                 //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.GetRequestMemoryStream(),
                 //    postModel, 10);
 

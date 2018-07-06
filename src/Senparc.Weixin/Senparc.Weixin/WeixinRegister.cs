@@ -53,8 +53,10 @@ namespace Senparc.Weixin
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null)
         {
+            senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
+
             //Senparc.Weixin SDK 配置
-            //Senparc.Weixin.Config.IsDebug = isDebug;
+            Senparc.Weixin.Config.IsDebug = senparcWeixinSetting.IsDebug;
             Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting;
 
             // 微信的 本地 缓存

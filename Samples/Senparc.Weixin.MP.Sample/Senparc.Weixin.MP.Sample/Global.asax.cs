@@ -51,11 +51,11 @@ namespace Senparc.Weixin.MP.Sample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
+            var isWeixinDebug = true;
+
             /* CO2NET 全局注册开始
              * 建议按照以下顺序进行注册
              */
-
-            var isWeixinDebug = true;
 
             //注册需要使用的领域缓存策略
             RegisterService.Start() //这里没有 ; 下面接着写

@@ -336,8 +336,8 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
 
-            //注意：以下两个 if 判断仅作为演示，
-            //      只要进行了 register.UseSenparcWeixin() 操作，Redis 和 Memcached 系统已经默认自动注册，无需操作！
+            //注意：以下两个 if 判断仅作为演示，方便大家添加自定义的扩展缓存策略，
+            //      只要进行了 register.UseSenparcWeixin() 操作，Container 的缓存策略下的 Local、Redis 和 Memcached 系统已经默认自动注册，无需操作！
 
             #region 演示扩展缓存注册方法
 

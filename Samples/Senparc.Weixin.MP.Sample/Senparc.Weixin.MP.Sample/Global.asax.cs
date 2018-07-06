@@ -55,7 +55,6 @@ namespace Senparc.Weixin.MP.Sample
              */
 
             //注册需要使用的领域缓存策略
-
             RegisterService.Start() //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）

@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         //静态LocalCacheStrategy
-        public static new IContainerCacheStrategy Instance
+        public static IContainerCacheStrategy Instance
         {
             get
             {

@@ -121,12 +121,12 @@ namespace Senparc.Weixin
                                 }
                                 catch (Exception ex)
                                 {
-                                    WeixinTrace.SendCustomLog("UseSenparcWeixin() 自动扫描程序集异常", ex.ToString());
+                                    WeixinTrace.SendCustomLog("UseSenparcWeixin() 自动扫描程序集异常：" + a.FullName, ex.ToString());
                                     return null;
                                 }
                             });
 
-                if (types!=null)
+                if (types != null)
                 {
                     foreach (var type in types)
                     {

@@ -51,58 +51,68 @@ namespace Senparc.Weixin.MP.Sample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
-            var isWeixinDebug = true;
 
             /* CO2NET 全局注册开始
              * 建议按照以下顺序进行注册
              */
 
-            //注册需要使用的领域缓存策略
-            RegisterService.Start() //这里没有 ; 下面接着写
+            var isGLobalDebug = true;
+            var senparcSetting = new SenparcSetting()
+            {
+                IsDebug = isGLobalDebug//设置全局的Debug状态
+            };
+            //Senparc.CO2NET.Config.IsDebug = isGLobalDebug;//也可以通过这种方法在程序任意位置设置全局 Debug 状态
+
+
+            //CO2NET 全局注册，必须！！
+            var register = RegisterService.Start()
+                                          .UseSenparcGlobal(senparcSetting) //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
-                // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-                .ChangeDefaultCacheNamespace("DefaultWeixinCache")
+                 // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+                 // 也可以在 senparcSetting.DefaultCacheNamespace 属性上进行设置
+                 .ChangeDefaultCacheNamespace("DefaultCO2NETCache")
 
-                //配置Redis缓存
-                .RegisterCacheRedis(
-                    ConfigurationManager.AppSettings["Cache_Redis_Configuration"],
-                    redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                         ? RedisObjectCacheStrategy.Instance
+                 //配置Redis缓存
+                 .RegisterCacheRedis(
+                     ConfigurationManager.AppSettings["Cache_Redis_Configuration"],
+                     redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+                                          ? RedisObjectCacheStrategy.Instance
+                                          : null)
+
+                 //配置Memcached缓存
+                 .RegisterCacheMemcached(
+                     new Dictionary<string, int>() {/* { "localhost", 9101 }*/ },
+                     memcachedConfig => (memcachedConfig != null && memcachedConfig.Count > 0)
+                                         ? MemcachedObjectCacheStrategy.Instance
                                          : null)
-
-                //配置Memcached缓存
-                .RegisterCacheMemcached(
-                    new Dictionary<string, int>() {/* { "localhost", 9101 }*/ },
-                    memcachedConfig => (memcachedConfig != null && memcachedConfig.Count > 0)
-                                        ? MemcachedObjectCacheStrategy.Instance
-                                        : null)
 
             #endregion
 
             #region 注册日志（按需）
 
-                .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
+                 .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
 
             #endregion
 
             #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略
 
-                 .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
+                  .RegisterThreads();  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
 
             #endregion
-
 
             /* 微信配置开始
              * 建议按照以下顺序进行注册
              */
 
             //如果需要开启微信 Debug 状态，可以按照下面的方法设置
+            var isWeixinDebug = true;
+            var senparcWeixinSetting = new SenparcWeixinSetting(isWeixinDebug);
+            //Senparc.Weixin.Config.IsDebug = isWeixinDebug;//也可以通过这种方法在程序任意位置设置微信的 Debug 状态
 
-            //必须！！
-            .UseSenparcWeixin(new SenparcWeixinSetting(isWeixinDebug),//可以通过这种方式设置微信 Debug 状态，也可以设置更多的参数，方便全局读取
-                              null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：register.UseSenparcWeixin([setting], GetExCacheStrategies)
+            //微信全局注册，必须！！
+            register.UseSenparcWeixin(senparcWeixinSetting, null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：register.UseSenparcWeixin([setting], GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号

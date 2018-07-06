@@ -55,6 +55,8 @@ namespace Senparc.Weixin.MP.Sample
              * 建议按照以下顺序进行注册
              */
 
+            var isWeixinDebug = true;
+
             //注册需要使用的领域缓存策略
             RegisterService.Start() //这里没有 ; 下面接着写
 
@@ -98,10 +100,9 @@ namespace Senparc.Weixin.MP.Sample
 
             //如果需要开启微信 Debug 状态，可以按照下面的方法设置
 
-            //必须
-            .UseSenparcWeixin(new SenparcWeixinSetting() { IsDebug = true },//可以通过这种方式设置微信 Debug 状态
-                              null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：
-                                   //register.UseSenparcWeixin(null, GetExCacheStrategies)
+            //必须！！
+            .UseSenparcWeixin(new SenparcWeixinSetting(isWeixinDebug),//可以通过这种方式设置微信 Debug 状态，也可以设置更多的参数，方便全局读取
+                              null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：register.UseSenparcWeixin([setting], GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号

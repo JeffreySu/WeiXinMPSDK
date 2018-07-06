@@ -13,6 +13,9 @@
     修改标识：Senparc - 20180622
     修改描述：v5.0.6.2 WeixinRegister.UseSenparcWeixin() 方法去除 isDebug 参数，提供扩展缓存自动扫描添加功能
 
+    修改标识：Senparc - 20180622
+    修改描述：v5.0.8 SenparcWeixinSetting 构造函数提供 isDebug 参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -170,5 +173,19 @@ namespace Senparc.Weixin.Entities
 
 
         #endregion
+
+        /// <summary>
+        /// SenparcWeixinSetting 构造函数
+        /// </summary>
+        public SenparcWeixinSetting() { }
+
+        /// <summary>
+        /// SenparcWeixinSetting 构造函数
+        /// </summary>
+        /// <param name="isDebug">是否开启 Debug 模式</param>
+        public SenparcWeixinSetting(bool isDebug)
+        {
+            IsDebug = isDebug;
+        }
     }
 }

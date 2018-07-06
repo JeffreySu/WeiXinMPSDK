@@ -19,7 +19,9 @@
  
     修改标识：Senparc - 20180705
     修改描述：v5.0.7 支持 CO2NET v0.1.7，为 WeixinRegister.UseSenparcWeixin() 方法提供自动注册扩展缓存的能力
-
+ 
+    修改标识：Senparc - 20180706
+    修改描述：v5.0.7.1 优化扩展缓存自动注册过程
 ----------------------------------------------------------------*/
 
 #if NETCOREAPP2_0 || NETCOREAPP2_1
@@ -75,7 +77,7 @@ namespace Senparc.Weixin
             }
             else
             {
-                var officialTypes = new List<Type>() { typeof(LocalContainerCacheStrategy) };
+                var officialTypes = new List<Type>() { typeof(LocalContainerCacheStrategy) };//官方提供的扩展缓存策略
 
                 //自动注册 Redis 和 Memcached
                 //Redis
@@ -100,7 +102,7 @@ namespace Senparc.Weixin
                     try
                     {
                         var memcachedInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Memcached", "Senparc.Weixin.Cache.Memcached", "MemcachedContainerCacheStrategy", "Instance");
-                    officialTypes.Add(memcachedInstance.GetType());
+                        officialTypes.Add(memcachedInstance.GetType());
                     }
                     catch (Exception ex)
                     {
@@ -108,21 +110,38 @@ namespace Senparc.Weixin
                     }
                 }
 
-                //查找所有扩产缓存
+                //查找所有扩展缓存
                 var types = AppDomain.CurrentDomain.GetAssemblies()
-                            .SelectMany(a => a.GetTypes()
-                            .Where(t => !t.IsAbstract && !officialTypes.Contains(t) && t.GetInterfaces().Contains(typeof(IDomainExtensionCacheStrategy))))
-                            .ToArray();
+                            .SelectMany(a =>
+                            {
+                                try
+                                {
+                                    var aTypes = a.GetTypes();
+                                    return aTypes.Where(t => !t.IsAbstract && !officialTypes.Contains(t) && t.GetInterfaces().Contains(typeof(IDomainExtensionCacheStrategy)));
+                                }
+                                catch (Exception ex)
+                                {
+                                    WeixinTrace.SendCustomLog("UseSenparcWeixin() 自动扫描程序集异常", ex.ToString());
+                                    return null;
+                                }
+                            });
 
-                foreach (var type in types)
+                if (types!=null)
                 {
-                    try
+                    foreach (var type in types)
                     {
-                       var exCache =  ReflectionHelper.GetStaticMember(type, "Instance");
-                    }
-                    catch (Exception ex)
-                    {
-                        WeixinTrace.WeixinExceptionLog(new Exceptions.WeixinException(ex.Message, ex));
+                        if (type == null)
+                        {
+                            continue;
+                        }
+                        try
+                        {
+                            var exCache = ReflectionHelper.GetStaticMember(type, "Instance");
+                        }
+                        catch (Exception ex)
+                        {
+                            WeixinTrace.WeixinExceptionLog(new Exceptions.WeixinException(ex.Message, ex));
+                        }
                     }
                 }
             }

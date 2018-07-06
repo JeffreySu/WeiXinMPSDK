@@ -30,6 +30,7 @@ using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -95,9 +96,12 @@ namespace Senparc.Weixin.MP.Sample
              * 建议按照以下顺序进行注册
              */
 
-            .UseSenparcWeixin(null, null)//必须
-                                         //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
-                                         //register.UseSenparcWeixin(null, GetExCacheStrategies)
+            //如果需要开启微信 Debug 状态，可以按照下面的方法设置
+
+            //必须
+            .UseSenparcWeixin(new SenparcWeixinSetting() { IsDebug = true },//可以通过这种方式设置微信 Debug 状态
+                              null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：
+                                   //register.UseSenparcWeixin(null, GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号

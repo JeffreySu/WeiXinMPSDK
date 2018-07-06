@@ -122,7 +122,7 @@ namespace Senparc.Weixin
                                 catch (Exception ex)
                                 {
                                     WeixinTrace.SendCustomLog("UseSenparcWeixin() 自动扫描程序集异常：" + a.FullName, ex.ToString());
-                                    return null;
+                                    return new List<Type>();//不能 return null
                                 }
                             });
 

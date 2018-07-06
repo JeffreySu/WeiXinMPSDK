@@ -8,7 +8,6 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
@@ -162,10 +161,10 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, null,true) //必须
-                                                                        //注意：这里没有 ; 下面可接着写 .RegisterXX()
-                                                                        //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
-                                                                        //register.UseSenparcWeixin(senparcWeixinSetting.Value, GetExCacheStrategies)
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, null, false) //必须
+                                                                               //注意：这里没有 ; 下面可接着写 .RegisterXX()
+                                                                               //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
+                                                                               //register.UseSenparcWeixin(senparcWeixinSetting.Value, GetExCacheStrategies)
 
             #region 注册公众号或小程序（按需）
 

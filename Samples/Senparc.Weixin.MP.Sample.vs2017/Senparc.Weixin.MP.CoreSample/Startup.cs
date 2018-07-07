@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
-                                                       .UseSenparcGlobal();
+                                                       .UseSenparcGlobal(senparcSetting.Value);//TODO:新版本参数已变
 
             //如果需要自动扫描自定义扩展缓存，可以这样使用：
             //register.UseSenparcWeixin(true);

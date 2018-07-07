@@ -37,6 +37,9 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Threads;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -205,6 +208,14 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次
             //JsApiTicketContainer.Register(_appId, _appSecret);
+        }
+
+        protected void RegisterStart()
+        {
+            var senparcSetting = new CO2NET.SenparcSetting() { IsDebug = true };
+            var senparcWeixinSetting = new SenparcWeixinSetting(true);
+            RegisterService.Start(null, senparcSetting)
+                .UseSenparcGlobal(senparcSetting).UseSenparcWeixin(senparcWeixinSetting);
         }
 
         [TestMethod]

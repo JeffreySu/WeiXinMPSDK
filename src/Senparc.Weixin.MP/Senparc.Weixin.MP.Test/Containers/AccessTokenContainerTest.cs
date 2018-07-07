@@ -176,5 +176,19 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.IsNotNull(accessTokenResult.access_token);
             Console.WriteLine(accessTokenResult.access_token);
         }
+
+        [TestMethod]
+        public void RegisterToWeixinSettingTest()
+        {
+            RegisterStart();//需要用到缓存，进行全局注册
+
+            var appId = Guid.NewGuid().ToString("n");
+            var appSecret = Guid.NewGuid().ToString("n");
+            var name = "公众号单元测试";
+            AccessTokenContainer.Register(appId, appSecret, name);
+
+            Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
+            Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.0.7</Version>
+    <Version>15.0.9</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -410,6 +410,7 @@
       v15.0.6.1  支持 CO3NET v0.1.6.1 解决 XXE 漏洞
       v15.0.6.2 TenPayV3RefundRequestData 添加 SubAppId、SubMchId 两个参数，以及支持这两个参数的构造函数
       v15.0.7 支持 Senparc.Weixin 5.0.7
+      v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

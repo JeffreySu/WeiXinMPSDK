@@ -75,9 +75,8 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.1.9.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.9.1\lib\net45\Senparc.CO2NET.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Senparc.CO2NET, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=2.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Memcached.2.0.9\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
@@ -87,6 +86,12 @@
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Redis.RedLock.1.0.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin, Version=5.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.5.0.10\lib\net45\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=15.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.15.0.10\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -152,14 +157,6 @@
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
       <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
       <Name>Senparc.Weixin.Cache.Redis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</Project>
-      <Name>Senparc.Weixin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
-      <Project>{1D815FBF-451C-4E23-939C-CB80172F445C}</Project>
-      <Name>Senparc.Weixin.MP</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

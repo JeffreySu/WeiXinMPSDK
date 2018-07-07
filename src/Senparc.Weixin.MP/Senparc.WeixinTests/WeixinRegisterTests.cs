@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.WeixinTests.vs2017
+namespace Senparc.WeixinTests
 {
     [TestClass]
     public class WeixinRegisterTests

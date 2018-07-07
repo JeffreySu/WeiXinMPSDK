@@ -31,6 +31,12 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache;
+using Microsoft.AspNetCore.Hosting;
+using Moq;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.Work.Test.CommonApis
 {
@@ -38,7 +44,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
     /// CommonApiTest 的摘要说明
     /// </summary>
     [TestClass]
-    public partial class CommonApiTest
+    public partial class CommonApiTest: BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -107,6 +113,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             //全局只需注册一次
             AccessTokenContainer.Register(_corpId, _corpSecret);
         }
+
 
         [TestMethod]
         public void GetTokenTest()

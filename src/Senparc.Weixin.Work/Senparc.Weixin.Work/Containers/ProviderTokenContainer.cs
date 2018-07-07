@@ -188,6 +188,8 @@ namespace Senparc.Weixin.Work.Containers
                 //}
             };
             RegisterFunc();
+
+
         }
 
 

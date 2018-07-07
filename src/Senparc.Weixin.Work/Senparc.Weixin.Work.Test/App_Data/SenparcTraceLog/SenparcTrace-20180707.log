@@ -1,0 +1,46 @@
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 18:55:22]
+[线程：3]
+    注册总用时：224.609ms
+自动扫描程序集：88个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 18:55:23]
+[线程：3]
+    微信扩展缓存注册总用时：630.3997ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 18:57:44]
+[线程：3]
+    注册总用时：336.414ms
+自动扫描程序集：87个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 18:57:45]
+[线程：3]
+    微信扩展缓存注册总用时：676.8683ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:03:34]
+[线程：3]
+    注册总用时：357.0337ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:03:34]
+[线程：3]
+    微信扩展缓存注册总用时：80.9656ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy

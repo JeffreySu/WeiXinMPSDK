@@ -42,13 +42,13 @@ using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Moq;
-using Senparc.WeixinTests.vs2017;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     //已通过测试
     //[TestClass]
-    public partial class CommonApiTest
+    public partial class CommonApiTest : BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -190,8 +190,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         public CommonApiTest()
         {
-            RegisterStart();
-
             if (_useRedis)
             {
                 var redisConfiguration = "localhost:6379";
@@ -213,25 +211,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次
             //JsApiTicketContainer.Register(_appId, _appSecret);
-        }
-
-        /// <summary>
-        /// 运行默认注册流程
-        /// </summary>
-        protected void RegisterStart()
-        {
-            //注册
-            var mockEnv = new Mock<IHostingEnvironment>();
-            mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
-            RegisterService.Start(mockEnv.Object, new SenparcSetting() { IsDebug = true });
-
-            var senparcSetting = new CO2NET.SenparcSetting() { IsDebug = true };
-            var senparcWeixinSetting = new SenparcWeixinSetting(true);
-            RegisterService.Start(null, senparcSetting)
-                .UseSenparcGlobal(true, null).UseSenparcWeixin(senparcWeixinSetting);
-
-            //设置本目录路径
-
         }
 
         [TestMethod]

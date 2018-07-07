@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Senparc.WeixinTests.vs2017
+namespace Senparc.WeixinTests
 {
     public static class UnitTestHelper
     {

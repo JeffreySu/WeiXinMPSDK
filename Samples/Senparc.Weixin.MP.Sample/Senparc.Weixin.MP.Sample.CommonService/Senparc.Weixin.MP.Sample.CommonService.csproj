@@ -60,7 +60,6 @@
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=0.1.11.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.0.1.11\lib\net45\Senparc.CO2NET.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.1.0.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>

@@ -120,7 +120,9 @@
     <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
-    <Compile Include="Entities\SenparcWeixinSetting.cs" />
+    <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSetting.cs" />
+    <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItemCollection.cs" />
+    <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItem.cs" />
     <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />

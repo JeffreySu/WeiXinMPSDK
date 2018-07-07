@@ -20,6 +20,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP
 {
+    /// <summary>
+    /// 公众号账号信息注册
+    /// </summary>
     public static class Register
     {
         /// <summary>
@@ -30,9 +33,9 @@ namespace Senparc.Weixin.MP
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         /// <returns></returns>
-        public static IRegisterService RegisterMpAccount(this IRegisterService registerService, string appId, string appSercet, string name = null)
+        public static IRegisterService RegisterMpAccount(this IRegisterService registerService, string appId, string appSecret, string name)
         {
-            AccessTokenContainer.Register(appId, appSercet, name);
+            AccessTokenContainer.Register(appId, appSecret, name);
             return registerService;
         }
 
@@ -44,9 +47,9 @@ namespace Senparc.Weixin.MP
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         /// <returns></returns>
-        public static IRegisterService RegisterMpJsApiTicket(this IRegisterService registerService, string appId, string appSercet, string name = null)
+        public static IRegisterService RegisterMpJsApiTicket(this IRegisterService registerService, string appId, string appSecret, string name)
         {
-            JsApiTicketContainer.Register(appId, appSercet, name);
+            JsApiTicketContainer.Register(appId, appSecret, name);
             return registerService;
         }
 

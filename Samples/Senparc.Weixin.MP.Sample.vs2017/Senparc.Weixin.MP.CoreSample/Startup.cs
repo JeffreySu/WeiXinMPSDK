@@ -89,9 +89,14 @@ namespace Senparc.Weixin.MP.CoreSample
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
             #endregion
 
-
+            // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
-                                                       .UseSenparcGlobal(senparcSetting.Value);
+                                                       .UseSenparcGlobal();
+
+            //如果需要自动扫描自定义扩展缓存，可以这样使用：
+            //register.UseSenparcWeixin(true);
+            //如果需要指定自定义扩展缓存，可以这样用：
+            //register.UseSenparcWeixin(false, GetExCacheStrategies);
 
             #region CO2NET 全局配置
 
@@ -160,11 +165,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #endregion
 
-            //开始注册微信信息
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, null, false) //必须
-                                                                               //注意：这里没有 ; 下面可接着写 .RegisterXX()
-                                                                               //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
-                                                                               //register.UseSenparcWeixin(senparcWeixinSetting.Value, GetExCacheStrategies)
+            //开始注册微信信息，必须！
+            register.UseSenparcWeixin(senparcWeixinSetting.Value)  //注意：这里没有 ; 下面可接着写 .RegisterXX()
 
             #region 注册公众号或小程序（按需）
 

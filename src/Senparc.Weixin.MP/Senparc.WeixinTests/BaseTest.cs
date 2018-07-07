@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿#if NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.AspNetCore.Hosting;
+#endif
 using Moq;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
@@ -31,11 +33,16 @@ namespace Senparc.WeixinTests
         protected void RegisterStart()
         {
             //注册
+            var senparcSetting = new SenparcSetting() { IsDebug = true };
+
+#if NETCOREAPP2_0 || NETCOREAPP2_1
             var mockEnv = new Mock<IHostingEnvironment>();
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
-            RegisterService.Start(mockEnv.Object, new SenparcSetting() { IsDebug = true });
+            RegisterService.Start(mockEnv.Object, senparcSetting);
+#else
+            RegisterService.Start(senparcSetting);
+#endif
 
-            var senparcSetting = new CO2NET.SenparcSetting() { IsDebug = true };
             var senparcWeixinSetting = new SenparcWeixinSetting(true);
 
             Func<IList<IDomainExtensionCacheStrategy>> func = () =>
@@ -47,10 +54,13 @@ namespace Senparc.WeixinTests
                 return list;
             };
 
-            RegisterService.Start(null, senparcSetting)
-                .UseSenparcGlobal(false, func).UseSenparcWeixin(senparcWeixinSetting);
 
-            //设置本目录路径
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+            RegisterService.Start(null, senparcSetting)
+#else
+            RegisterService.Start(senparcSetting)
+#endif
+                .UseSenparcGlobal(false, func).UseSenparcWeixin(senparcWeixinSetting);
 
         }
     }

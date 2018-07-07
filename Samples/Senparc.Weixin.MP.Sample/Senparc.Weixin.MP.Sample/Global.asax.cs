@@ -57,17 +57,14 @@ namespace Senparc.Weixin.MP.Sample
              */
 
             var isGLobalDebug = true;
-            var senparcSetting = new SenparcSetting()
-            {
-                IsDebug = isGLobalDebug//设置全局的Debug状态
-            };
+            var senparcSetting = new SenparcSetting(isGLobalDebug);
             //Senparc.CO2NET.Config.IsDebug = isGLobalDebug;//也可以通过这种方法在程序任意位置设置全局 Debug 状态
 
-
+          
             //CO2NET 全局注册，必须！！
-            var register = RegisterService.Start()
+            var register = RegisterService.Start(senparcSetting)
                                           //.UseSenparcGlobal(false, () => GetExCacheStrategies) //这里没有 ; 下面接着写
-                                          .UseSenparcGlobal(null) //这里没有 ; 下面接着写
+                                          .UseSenparcGlobal(false, GetExCacheStrategies) //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 

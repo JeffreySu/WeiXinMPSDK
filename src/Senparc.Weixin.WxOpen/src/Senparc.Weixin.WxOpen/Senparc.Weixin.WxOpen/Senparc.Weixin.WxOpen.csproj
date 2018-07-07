@@ -32,16 +32,29 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Enyim.Caching, Version=2.11.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Membase.2.14\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Enyim.Caching.Web.1.0.0.1\lib\net40\Enyim.Caching.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Membase, Version=2.14.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Membase.2.14\lib\net35\Membase.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.1.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.9.1\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=2.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Memcached.2.0.9\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+    </Reference>
     <Reference Include="Senparc.Weixin, Version=5.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.5.0.7\lib\net45\Senparc.Weixin.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=15.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.15.0.7\lib\net45\Senparc.Weixin.MP.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -107,6 +120,7 @@
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

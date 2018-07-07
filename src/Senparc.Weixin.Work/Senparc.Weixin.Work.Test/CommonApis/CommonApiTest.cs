@@ -31,12 +31,16 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache;
-using Microsoft.AspNetCore.Hosting;
 using Moq;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
 using Senparc.WeixinTests;
+
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.AspNetCore.Hosting;
+#endif
+
 
 namespace Senparc.Weixin.Work.Test.CommonApis
 {

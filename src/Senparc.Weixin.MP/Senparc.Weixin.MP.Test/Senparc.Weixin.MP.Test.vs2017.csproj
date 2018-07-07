@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>
+    <!--<AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>-->
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>

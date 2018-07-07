@@ -326,6 +326,7 @@ namespace Senparc.Weixin.MP.CoreSample
         private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcSetting senparcSetting)
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
+            senparcSetting = senparcSetting ?? new SenparcSetting();
 
             //注意：以下两个 if 判断仅作为演示，方便大家添加自定义的扩展缓存策略，
             //      只要进行了 register.UseSenparcWeixin() 操作，Container 的缓存策略下的 Local、Redis 和 Memcached 系统已经默认自动注册，无需操作！

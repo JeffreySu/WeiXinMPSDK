@@ -56,15 +56,23 @@ namespace Senparc.Weixin.MP.Sample
              * 建议按照以下顺序进行注册
              */
 
+            //设置全局 Debug 状态
             var isGLobalDebug = true;
+            //全局设置参数，将被储存到 Senparc.CO2NET.Config.SenparcSetting
             var senparcSetting = new SenparcSetting(isGLobalDebug);
-            //Senparc.CO2NET.Config.IsDebug = isGLobalDebug;//也可以通过这种方法在程序任意位置设置全局 Debug 状态
+            //也可以通过这种方法在程序任意位置设置全局 Debug 状态：
+            //Senparc.CO2NET.Config.IsDebug = isGLobalDebug;
 
-          
+            //设置微信 Debug 状态
+            var isWeixinDebug = true;
+            //全局设置参数，将被储存到 Senparc.Weixin.Config.SenparcWeixinSetting
+            var senparcWeixinSetting = SenparcWeixinSetting.BuildFromWebConfig(isWeixinDebug);
+            //也可以通过这种方法在程序任意位置设置微信的 Debug 状态：
+            //Senparc.Weixin.Config.IsDebug = isWeixinDebug;
+
             //CO2NET 全局注册，必须！！
             var register = RegisterService.Start(senparcSetting)
-                                          //.UseSenparcGlobal(false, () => GetExCacheStrategies) //这里没有 ; 下面接着写
-                                          .UseSenparcGlobal(false, GetExCacheStrategies) //这里没有 ; 下面接着写
+                                          .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcWeixinSetting)) //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -105,9 +113,6 @@ namespace Senparc.Weixin.MP.Sample
              */
 
             //如果需要开启微信 Debug 状态，可以按照下面的方法设置
-            var isWeixinDebug = true;
-            var senparcWeixinSetting = new SenparcWeixinSetting(isWeixinDebug);
-            //Senparc.Weixin.Config.IsDebug = isWeixinDebug;//也可以通过这种方法在程序任意位置设置微信的 Debug 状态
 
             //微信全局注册，必须！！
             register.UseSenparcWeixin(senparcWeixinSetting)
@@ -283,7 +288,7 @@ namespace Senparc.Weixin.MP.Sample
         /// 获取扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies()
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
 
@@ -293,14 +298,14 @@ namespace Senparc.Weixin.MP.Sample
             #region 演示扩展缓存注册方法
 
             //判断Redis是否可用
-            var redisConfiguration = ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;// ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
             if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
             {
                 exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
             }
 
             //判断Memcached是否可用
-            var memcachedConfiguration = ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
+            var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;// ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
             if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
                 exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常

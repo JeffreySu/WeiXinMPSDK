@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// SenparcWeixinSetting 构造函数
         /// </summary>
-        public SenparcWeixinSetting(): this(false)
+        public SenparcWeixinSetting() : this(false)
         { }
 
         /// <summary>
@@ -60,5 +60,60 @@ namespace Senparc.Weixin.Entities
             Items = new SenparcWeixinSettingItemCollection();
             Items["Default"] = this;//储存第一个默认参数
         }
+
+#if !NETCOREAPP2_0 && !NETCOREAPP2_1
+        public static SenparcWeixinSetting BuildFromWebConfig(bool isDebug)
+        {
+            var senparcWeixinSetting = new SenparcWeixinSetting(isDebug);
+
+            //微信公众号URL对接信息
+            senparcWeixinSetting.Token = System.Configuration.ConfigurationManager.AppSettings["WeixinToken"];
+            senparcWeixinSetting.EncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["WeixinEncodingAESKey"];
+            //高级接口信息
+            senparcWeixinSetting.WeixinAppId = System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"];
+            senparcWeixinSetting.WeixinAppSecret = System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"];
+            //SDK提供的代理功能设置
+            senparcWeixinSetting.AgentUrl = System.Configuration.ConfigurationManager.AppSettings["WeixinAgentUrl"];
+            senparcWeixinSetting.AgentToken = System.Configuration.ConfigurationManager.AppSettings["WeixinAgentToken"];
+            senparcWeixinSetting.SenparcWechatAgentKey = System.Configuration.ConfigurationManager.AppSettings["SenparcWechatAgentKey"];
+            //微信支付相关参数
+            //微信支付V2
+            //senparcWeixinSetting.WeixinPay_Tenpay = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Tenpay"];
+            senparcWeixinSetting.WeixinPay_PartnerId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"];
+            senparcWeixinSetting.WeixinPay_Key = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Key"];
+            senparcWeixinSetting.WeixinPay_AppId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppId"];
+            senparcWeixinSetting.WeixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
+            senparcWeixinSetting.WeixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
+            //微信支付V3
+            senparcWeixinSetting.TenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
+            senparcWeixinSetting.TenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
+            senparcWeixinSetting.TenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
+            senparcWeixinSetting.TenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+            senparcWeixinSetting.TenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
+            //开放平台
+            senparcWeixinSetting.Component_Appid = System.Configuration.ConfigurationManager.AppSettings["Component_Appid"];
+            senparcWeixinSetting.Component_Secret = System.Configuration.ConfigurationManager.AppSettings["Component_Secret"];
+            senparcWeixinSetting.Component_Token = System.Configuration.ConfigurationManager.AppSettings["Component_Token"];
+            senparcWeixinSetting.Component_EncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["Component_EncodingAESKey"];
+            //微信企业号
+            senparcWeixinSetting.WeixinCorpId = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"];
+            senparcWeixinSetting.WeixinCorpSecret = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"];
+
+            //小程序
+            //小程序消息URL对接信息
+            senparcWeixinSetting.WxOpenToken = System.Configuration.ConfigurationManager.AppSettings["WxOpenToken"];
+            senparcWeixinSetting.WxOpenEncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["WxOpenEncodingAESKey"];
+            //小程序秘钥信息
+            senparcWeixinSetting.WxOpenAppId = System.Configuration.ConfigurationManager.AppSettings["WxOpenAppId"];
+            senparcWeixinSetting.WxOpenAppSecret = System.Configuration.ConfigurationManager.AppSettings["WxOpenAppSecret"];
+
+            ////Cache.Redis连接配置
+            //senparcWeixinSetting.Cache_Redis_Configuration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            ////Cache.Redis连接配置
+            //senparcWeixinSetting.Cache_Memcached_Configuration = System.Configuration.ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
+
+            return senparcWeixinSetting;
+        }
+#endif
     }
 }

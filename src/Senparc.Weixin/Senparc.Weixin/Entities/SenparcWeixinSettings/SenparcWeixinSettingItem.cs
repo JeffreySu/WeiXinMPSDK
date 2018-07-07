@@ -58,6 +58,14 @@ namespace Senparc.Weixin.Entities
         /// 小程序AppSecret
         /// </summary>
         public virtual string WxOpenAppSecret { get; set; }
+        /// <summary>
+        /// 小程序 Token
+        /// </summary>
+        public virtual string WxOpenToken { get; set; }
+        /// <summary>
+        /// 小程序EncodingAESKey 
+        /// </summary>
+        public virtual string WxOpenEncodingAESKey { get; set; }
 
         #endregion
 
@@ -148,18 +156,12 @@ namespace Senparc.Weixin.Entities
 
         #endregion
 
-        #region 分布式缓存
 
-        /// <summary>
-        /// Redis连接字符串
-        /// </summary>
-        public string Cache_Redis_Configuration { get; set; }
+        #region 扩展
 
-        /// <summary>
-        /// Memcached连接字符串
-        /// </summary>
-        public string Cache_Memcached_Configuration { get; set; }
-
+        public string AgentUrl { get; set; }
+        public string AgentToken { get; set; }
+        public string SenparcWechatAgentKey { get; set; }
 
         #endregion
     }

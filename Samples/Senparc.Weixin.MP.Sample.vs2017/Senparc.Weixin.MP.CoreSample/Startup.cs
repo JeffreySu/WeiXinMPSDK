@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
-                                                       .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcWeixinSetting.Value));
+                                                        .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting.Value));
 
             //如果需要自动扫描自定义扩展缓存，可以这样使用：
             //register.UseSenparcWeixin(true);
@@ -111,8 +111,8 @@ namespace Senparc.Weixin.MP.CoreSample
             // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
             register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
 
-            //配置Redis缓存（按需，独立）
-            var redisConfigurationStr = senparcWeixinSetting.Value.Cache_Redis_Configuration;
+            //配置全局使用Redis缓存（按需，独立）
+            var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
             var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的
             {
@@ -322,7 +322,7 @@ namespace Senparc.Weixin.MP.CoreSample
         /// 获取扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcSetting senparcSetting)
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
 
@@ -332,14 +332,14 @@ namespace Senparc.Weixin.MP.CoreSample
             #region 演示扩展缓存注册方法
 
             //判断Redis是否可用
-            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
+            var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
             if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
             {
                 exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
             }
 
             //判断Memcached是否可用
-            var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
+            var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
             if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
                 exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常

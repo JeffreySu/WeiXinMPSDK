@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.0.6.1</Version>
+    <Version>2.0.9</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -86,7 +86,8 @@
 
       v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
       V2.0.3 SessionBag 添加 UnionId 属性
-      v2.0.6.1  持 CO3NET v0.1.6.1 解决 XXE 漏洞
+      v2.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
+      v2.0.9 支持 CO2NET v0.1.9
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

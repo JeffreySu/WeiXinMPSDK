@@ -60,6 +60,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 
+    修改标识：Senparc - 20180707
+    修改描述：v2.0.9  1、Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+                      2、AccessTokenBag 的 AppId 和 Secret 属性名称改为 CorpId 和 CorpSecret
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -72,6 +76,7 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -81,7 +86,7 @@ namespace Senparc.Weixin.Work.Containers
     [Serializable]
     public class JsApiTicketBag : BaseContainerBag
     {
-        public string AppId { get; set; }
+        public string CoprId { get; set; }
         //        {
         //            get { return _appId; }
         //#if NET35 || NET40
@@ -91,7 +96,7 @@ namespace Senparc.Weixin.Work.Containers
         //#endif
         //        }
 
-        public string AppSecret { get; set; }
+        public string CorpSecret { get; set; }
         //        {
         //            get { return _appSecret; }
         //#if NET35 || NET40
@@ -144,14 +149,14 @@ namespace Senparc.Weixin.Work.Containers
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         /// 此接口无异步方法
         private static string BuildingKey(string corpId, string corpSecret)
         {
             return corpId + corpSecret;
         }
 
-        public static void Register(string appId, string appSecret, string name = null)
+        public static void Register(string corpId, string corpSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             RegisterFunc = () =>
@@ -161,16 +166,22 @@ namespace Senparc.Weixin.Work.Containers
                 var bag = new JsApiTicketBag()
                 {
                     Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
+                    CoprId = corpId,
+                    CorpSecret = corpSecret,
                     ExpireTime = DateTime.MinValue,
                     JsApiTicketResult = new JsApiTicketResult()
                 };
-                Update(BuildingKey(appId, appSecret), bag);
+                Update(BuildingKey(corpId, corpSecret), bag);
                 return bag;
                 //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpId = corpId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpSecret = corpSecret;
+            }
         }
 
         #region 同步方法
@@ -222,7 +233,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
                     Update(jsApiTicketBag);//更新到缓存
                 }
@@ -292,7 +303,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);

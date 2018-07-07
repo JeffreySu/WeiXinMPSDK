@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>5.0.10</Version>
+    <Version>5.0.11</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -252,9 +252,11 @@
       2、优化扩展缓存自动注册过程
       v5.0.8.4 优化 WeixinRegister.UseSenparcWeixin() 提供 autoScanExtensionCacheStrategies 参数，可设置是否全局扫描扩展缓存（扫描会增加系统启动时间）
       v5.0.9
-      1、重构 SenparcWeixinSetting 参数，添加公众号信息集中管理功能
-      2、重构账号注册过程
+      1、支持 CO2NET v0.1.9，扩展缓存扫描方式重构
+      2、重构 SenparcWeixinSetting 参数，添加公众号信息集中管理功能
+      3、重构账号注册过程
       v5.0.10 支持 CO2NET v0.1.10，将 SenparcWeixinSetting 中的 Redis 和 Memcached 配置参数调整到 CO2NET 的 SenparcSetting 中
+      v5.0.11 支持 CO2NET v5.0.11
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -342,7 +344,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.1.10" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.1.11" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

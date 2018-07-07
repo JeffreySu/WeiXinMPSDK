@@ -166,7 +166,8 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
 
             //开始注册微信信息，必须！
-            register.UseSenparcWeixin(senparcWeixinSetting.Value)  //注意：这里没有 ; 下面可接着写 .RegisterXX()
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
+            //注意：上一行没有 ; 下面可接着写 .RegisterXX()
 
             #region 注册公众号或小程序（按需）
 

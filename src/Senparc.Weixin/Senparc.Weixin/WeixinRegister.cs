@@ -26,12 +26,14 @@
     修改标识：Senparc - 20180707
     修改描述：v5.0.8.4 优化 WeixinRegister.UseSenparcWeixin() 提供 autoScanExtensionCacheStrategies 参数，
               可设置是否全局扫描扩展缓存（扫描会增加系统启动时间）
-    
+    修改描述：v5.0.10 UseSenparcWeixin() 添加 SenparcSetting 参数
+
 ----------------------------------------------------------------*/
 
 #if NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.Extensions.Options;
 #endif
+using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
@@ -53,11 +55,13 @@ namespace Senparc.Weixin
         /// 开始 Senparc.Weixin SDK 初始化参数流程
         /// </summary>
         /// <param name="registerService"></param>
-        /// <param name="senparcWeixinSetting"></param>
+        /// <param name="senparcWeixinSetting">微信全局设置参数，必填</param>
+        /// <param name="senparcSetting">用于提供 SenparcSetting.Cache_Redis_Configuration 和 Cache_Memcached_Configuration 两个参数，如果不使用这两种分布式缓存可传入null</param>
         /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting)
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null)
         {
             senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
+            senparcSetting = senparcSetting ?? new SenparcSetting();
 
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.SenparcWeixinSetting = senparcWeixinSetting;
@@ -77,7 +81,7 @@ namespace Senparc.Weixin
 
             //自动注册 Redis 和 Memcached
             //Redis
-            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
+            var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
             //if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
             {
                 try
@@ -96,7 +100,7 @@ namespace Senparc.Weixin
             }
 
             //Memcached
-            var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
+            var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
             //if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
                 try

@@ -61,7 +61,12 @@ namespace Senparc.Weixin.Entities
             Items["Default"] = this;//储存第一个默认参数
         }
 
-#if !NETCOREAPP2_0 && !NETCOREAPP2_1
+#if !NETCOREAPP2_0 && !NETCOREAPP2_1 && !NETSTANDARD2_0
+        /// <summary>
+        /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
+        /// </summary>
+        /// <param name="isDebug">设置微信的 Debug 状态 </param>
+        /// <returns></returns>
         public static SenparcWeixinSetting BuildFromWebConfig(bool isDebug)
         {
             var senparcWeixinSetting = new SenparcWeixinSetting(isDebug);

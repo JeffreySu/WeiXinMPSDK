@@ -35,7 +35,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace ClearDotNetCoreBadFiRemoveBinFilesles
+namespace RemoveBinFiles
 {
     class Program
     {
@@ -70,7 +70,7 @@ Copyrignt 2018 Senparc
             var dirs = System.IO.Directory.GetDirectories(root);
             foreach (var dir in dirs)
             {
-                if (dir.IndexOf("Test", StringComparison.OrdinalIgnoreCase) >= 0)
+                if (justCleanTestProject && dir.IndexOf("Test", StringComparison.OrdinalIgnoreCase) == -1)
                 {
                     continue;
                 }

@@ -54,7 +54,7 @@ namespace Senparc.Weixin
     /// </summary>
     public static class Config
     {
-        private static bool _isDebug = false;
+        //private static bool _isDebug = false;
 
         /// <summary>
         /// <para>指定是否是Debug状态，如果是，系统会自动输出日志。</para>
@@ -62,14 +62,21 @@ namespace Senparc.Weixin
         /// </summary>
         public static bool IsDebug
         {
-            get { return CO2NET.Config.IsDebug || _isDebug; }
-            set { _isDebug = value; }
+            get { return CO2NET.Config.IsDebug || SenparcWeixinSetting.IsDebug; }
+            set { SenparcWeixinSetting.IsDebug = value; }
         }
 
         /// <summary>
         /// 默认微信配置
         /// </summary>
-        public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get; set; }
+        [Obsolete("请使用 SenparcWeixinSetting")]
+        public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get { return SenparcWeixinSetting; } set { SenparcWeixinSetting = value; } }
+
+        /// <summary>
+        /// 默认微信配置
+        /// </summary>
+        public static SenparcWeixinSetting SenparcWeixinSetting { get; set; }
+
 
 
         /// <summary>

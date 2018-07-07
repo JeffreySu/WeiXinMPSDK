@@ -30,7 +30,10 @@ namespace Senparc.Weixin.RegisterServices
             /*
              * appsettings.json 中添加节点：
   //Senparc.Weixin SDK 设置
+    //Senparc.Weixin SDK 设置
   "SenparcWeixinSetting": {
+    //微信全局
+    "IsDebug": true,
     //公众号
     "Token": "weixin",
     "EncodingAESKey": "",
@@ -64,9 +67,11 @@ namespace Senparc.Weixin.RegisterServices
     "Component_EncodingAESKey": "Component_EncodingAESKey",
 
     //分布式缓存
-    "Cache_Redis_Configuration": "localhost:6379", //Redis配置  localhost:6379
+    //"Cache_Redis_Configuration": "Redis配置", 
+    "Cache_Redis_Configuration": "localhost:6379", 
     "Cache_Memcached_Configuration": "Memcached配置"
-  }             */
+  }
+  */
 
             return serviceCollection;
         }

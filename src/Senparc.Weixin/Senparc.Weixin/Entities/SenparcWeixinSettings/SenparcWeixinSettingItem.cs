@@ -1,39 +1,31 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：SenparcWeixinSetting.cs
-    文件功能描述：Senparc.Weixin JSON 配置
+    文件名：SenparcWeixinSettingItem.cs
+    文件功能描述：Senparc.Weixin SDK 中单个公众号配置信息
     
     
-    创建标识：Senparc - 20170302
-
-    修改标识：Senparc - 20180622
-    修改描述：v5.0.3.1 SenparcWeixinSetting 添加 Cache_Memcached_Configuration 属性
-    
-    修改标识：Senparc - 20180622
-    修改描述：v5.0.6.2 WeixinRegister.UseSenparcWeixin() 方法去除 isDebug 参数，提供扩展缓存自动扫描添加功能
+    创建标识：Senparc - 20180707
 
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// Senparc.Weixin JSON 配置
+    /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSetting
+    public class SenparcWeixinSettingItem
     {
-        #region 微信全局
-
         /// <summary>
-        /// 是否处于 Debug 状态（仅限微信范围）
+        /// 唯一标识
         /// </summary>
-        public bool IsDebug { get; set; }
-
-        #endregion
+        public virtual string ItemKey { get; set; }
 
         #region 公众号
 
@@ -66,6 +58,14 @@ namespace Senparc.Weixin.Entities
         /// 小程序AppSecret
         /// </summary>
         public virtual string WxOpenAppSecret { get; set; }
+        /// <summary>
+        /// 小程序 Token
+        /// </summary>
+        public virtual string WxOpenToken { get; set; }
+        /// <summary>
+        /// 小程序EncodingAESKey 
+        /// </summary>
+        public virtual string WxOpenEncodingAESKey { get; set; }
 
         #endregion
 
@@ -156,18 +156,12 @@ namespace Senparc.Weixin.Entities
 
         #endregion
 
-        #region 分布式缓存
 
-        /// <summary>
-        /// Redis连接字符串
-        /// </summary>
-        public string Cache_Redis_Configuration { get; set; }
+        #region 扩展
 
-        /// <summary>
-        /// Memcached连接字符串
-        /// </summary>
-        public string Cache_Memcached_Configuration { get; set; }
-
+        public string AgentUrl { get; set; }
+        public string AgentToken { get; set; }
+        public string SenparcWechatAgentKey { get; set; }
 
         #endregion
     }

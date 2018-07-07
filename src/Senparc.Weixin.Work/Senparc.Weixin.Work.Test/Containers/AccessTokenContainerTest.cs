@@ -78,5 +78,18 @@ namespace Senparc.Weixin.Work.Test.CommonAPIs
             Assert.AreEqual(1, accessTokenList.Distinct().Count());//只存在同一个Token，实际不会多次刷新
             Console.WriteLine(accessTokenList[0]);
         }
+
+        [TestMethod]
+        public void RegisterToWeixinSettingTest()
+        {
+            var corpId = Guid.NewGuid().ToString("n");
+            var corpSecret = Guid.NewGuid().ToString("n");
+            var name = "企业微信单元测试-AccessTokenContainer";
+            AccessTokenContainer.Register(corpId, corpSecret, name);
+
+            Assert.AreEqual(corpId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpId);
+            Assert.AreEqual(corpSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpSecret);
+        }
+
     }
 }

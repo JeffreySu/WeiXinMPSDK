@@ -12,10 +12,11 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.Open.Test
 {
-    public class BaseTest
+    public class OpenBaseTest : BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.Open.Test
 
         protected bool _userRedis = true;//使用Redis缓存
 
-        public BaseTest()
+        public OpenBaseTest()
         {
             Func<string, string> getComponentVerifyTicketFunc = s =>
             {
@@ -77,10 +78,10 @@ namespace Senparc.Weixin.Open.Test
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;
-              CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
-            ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc,null,null,"Open缓存测试");
+            ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc, null, null, "Open缓存测试");
         }
     }
 }

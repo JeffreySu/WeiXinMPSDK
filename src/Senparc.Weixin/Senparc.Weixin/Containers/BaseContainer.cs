@@ -44,6 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
+    修改标识：Senparc - 20180707
+    修改描述：Update() 方法中记录缓存时间 bag.CacheTime = DateTime.Now;
+
 ----------------------------------------------------------------*/
 
 
@@ -285,6 +289,9 @@ namespace Senparc.Weixin.Containers
                 //var c2 = ItemCollection.GetCount();
             }
             //var containerCacheKey = GetContainerCacheKey();
+
+            bag.CacheTime = DateTime.Now;
+
             Cache.Update(cacheKey, bag);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 

@@ -83,6 +83,7 @@ using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.Containers
 {
@@ -325,6 +326,12 @@ namespace Senparc.Weixin.Open.Containers
                 //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Appid = componentAppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Secret = componentAppSecret;
+            }
         }
 
         #region component_verify_ticket

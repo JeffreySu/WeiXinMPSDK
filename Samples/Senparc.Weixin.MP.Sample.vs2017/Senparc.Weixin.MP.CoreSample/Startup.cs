@@ -8,7 +8,6 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
@@ -90,9 +89,14 @@ namespace Senparc.Weixin.MP.CoreSample
             Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
             #endregion
 
-
+            // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
-                                                       .UseSenparcGlobal(senparcSetting.Value);
+                                                        .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting.Value));
+
+            //如果需要自动扫描自定义扩展缓存，可以这样使用：
+            //register.UseSenparcWeixin(true);
+            //如果需要指定自定义扩展缓存，可以这样用：
+            //register.UseSenparcWeixin(false, GetExCacheStrategies);
 
             #region CO2NET 全局配置
 
@@ -107,8 +111,8 @@ namespace Senparc.Weixin.MP.CoreSample
             // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
             register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
 
-            //配置Redis缓存（按需，独立）
-            var redisConfigurationStr = senparcWeixinSetting.Value.Cache_Redis_Configuration;
+            //配置全局使用Redis缓存（按需，独立）
+            var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
             var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的
             {
@@ -161,11 +165,9 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #endregion
 
-            //开始注册微信信息
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, null) //必须
-                                                                        //注意：这里没有 ; 下面可接着写 .RegisterXX()
-                                                                        //如果需要进行自定义的扩展缓存注册，请提供第二个参数：
-                                                                        //register.UseSenparcWeixin(senparcWeixinSetting.Value, GetExCacheStrategies)
+            //开始注册微信信息，必须！
+            register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
+            //注意：上一行没有 ; 下面可接着写 .RegisterXX()
 
             #region 注册公众号或小程序（按需）
 
@@ -198,29 +200,19 @@ namespace Senparc.Weixin.MP.CoreSample
                 //注册旧微信支付版本（V2）
                 .RegisterTenpayOld(() =>
                 {
-                    //提供微信支付信息
-                    var weixinPay_PartnerId = senparcWeixinSetting.Value.WeixinPay_PartnerId;
-                    var weixinPay_Key = senparcWeixinSetting.Value.WeixinPay_Key;
-                    var weixinPay_AppId = senparcWeixinSetting.Value.WeixinPay_AppId;
-                    var weixinPay_AppKey = senparcWeixinSetting.Value.WeixinPay_AppKey;
-                    var weixinPay_TenpayNotify = senparcWeixinSetting.Value.WeixinPay_TenpayNotify;
-                    var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key,
-                            weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
+                    //提供微信支付（旧版本）信息
+                    var weixinPayInfo = new TenPayInfo(senparcWeixinSetting.Value);
                     return weixinPayInfo;
-                })
+                },
+                "【盛派网络小助手】公众号"//这里的name和RegisterMpAccount()中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
                 {
-                    //提供微信支付信息
-                    var tenPayV3_MchId = senparcWeixinSetting.Value.TenPayV3_MchId;
-                    var tenPayV3_Key = senparcWeixinSetting.Value.TenPayV3_Key;
-                    var tenPayV3_AppId = senparcWeixinSetting.Value.TenPayV3_AppId;
-                    var tenPayV3_AppSecret = senparcWeixinSetting.Value.TenPayV3_AppSecret;
-                    var tenPayV3_TenpayNotify = senparcWeixinSetting.Value.TenPayV3_TenpayNotify;
-                    var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret,
-                        tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
+                    //提供微信支付（新版本 V3）信息
+                    var tenPayV3Info = new TenPayV3Info(senparcWeixinSetting.Value);
                     return tenPayV3Info;
-                })
+                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 
@@ -308,7 +300,6 @@ namespace Senparc.Weixin.MP.CoreSample
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
 
             //如果全局的IsDebug（Senparc.CO2NET.Config.IsDebug）为false，此处可以单独设置true，否则自动为true
-            Config.IsDebug = true;
             CO2NET.Trace.SenparcTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
 
             //全局自定义日志记录回调
@@ -332,9 +323,10 @@ namespace Senparc.Weixin.MP.CoreSample
         /// 获取扩展缓存策略
         /// </summary>
         /// <returns></returns>
-        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcWeixinSetting senparcWeixinSetting)
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcSetting senparcSetting)
         {
             var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
+            senparcSetting = senparcSetting ?? new SenparcSetting();
 
             //注意：以下两个 if 判断仅作为演示，方便大家添加自定义的扩展缓存策略，
             //      只要进行了 register.UseSenparcWeixin() 操作，Container 的缓存策略下的 Local、Redis 和 Memcached 系统已经默认自动注册，无需操作！
@@ -342,14 +334,14 @@ namespace Senparc.Weixin.MP.CoreSample
             #region 演示扩展缓存注册方法
 
             //判断Redis是否可用
-            var redisConfiguration = senparcWeixinSetting.Cache_Redis_Configuration;
+            var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
             if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
             {
                 exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
             }
 
             //判断Memcached是否可用
-            var memcachedConfiguration = senparcWeixinSetting.Cache_Memcached_Configuration;
+            var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
             if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
                 exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常

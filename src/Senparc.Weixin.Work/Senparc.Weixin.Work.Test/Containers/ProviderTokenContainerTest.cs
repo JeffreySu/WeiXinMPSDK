@@ -31,33 +31,20 @@ namespace Senparc.Weixin.Work.Test.CommonAPIs
 {
     //已测试通过
     [TestClass]
-    public class JsApiTicketContainerTest : CommonApiTest
+    public class ProviderTokenContainerTest : CommonApiTest
     {
+
         [TestMethod]
-        public void ContainerTest()
+        public void RegisterToWeixinSettingTest()
         {
-            //注册
-            JsApiTicketContainer.Register(base._corpId, base._corpSecret);
+            var corpId = Guid.NewGuid().ToString("n");
+            var corpSecret = Guid.NewGuid().ToString("n");
+            var name = "企业微信单元测试-ProviderTokenContainer";
+            AccessTokenContainer.Register(corpId, corpSecret, name);
 
-            //获取Ticket完整结果（包括当前过期秒数）
-            var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId,base._corpSecret);
-            Assert.IsNotNull(ticketResult);
-            Console.WriteLine(ticketResult.ticket);
-
-            //只获取Ticket字符串
-            var ticket = JsApiTicketContainer.GetTicket(base._corpId, base._corpSecret);
-            Assert.AreEqual(ticketResult.ticket, ticket);
-
-            //getNewTicket
-            {
-                ticket = JsApiTicketContainer.TryGetTicket(base._corpId, base._corpSecret, false);
-                Assert.AreEqual(ticketResult.ticket, ticket);
-
-                ticket = JsApiTicketContainer.TryGetTicket(base._corpId, base._corpSecret, true);
-                Assert.AreEqual(ticketResult.ticket, ticket);//现在微信服务器有Ticket缓存，短时间内一致
-                Console.WriteLine(ticketResult.ticket);
-            }
-
+            Assert.AreEqual(corpId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpId);
+            Assert.AreEqual(corpSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpSecret);
         }
+
     }
 }

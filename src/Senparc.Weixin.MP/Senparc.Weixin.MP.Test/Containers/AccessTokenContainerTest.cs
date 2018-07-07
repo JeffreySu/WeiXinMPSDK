@@ -180,8 +180,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void RegisterToWeixinSettingTest()
         {
-            RegisterStart();//需要用到缓存，进行全局注册
-
             var appId = Guid.NewGuid().ToString("n");
             var appSecret = Guid.NewGuid().ToString("n");
             var name = "公众号单元测试";

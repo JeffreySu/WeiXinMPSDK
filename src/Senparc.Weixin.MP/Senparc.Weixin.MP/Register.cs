@@ -58,10 +58,12 @@ namespace Senparc.Weixin.MP
         /// 注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
         /// </summary>
         /// <param name="registerService">RegisterService</param>
+        /// <param name="tenPayInfo">微信支付（旧版本）参数</param>
+        /// <param name="name">公众号唯一标识名称</param>
         /// <returns></returns>
-        public static IRegisterService RegisterTenpayOld(this IRegisterService registerService, Func<TenPayInfo> tenPayInfo)
+        public static IRegisterService RegisterTenpayOld(this IRegisterService registerService, Func<TenPayInfo> tenPayInfo, string name)
         {
-            TenPayInfoCollection.Register(tenPayInfo());
+            TenPayInfoCollection.Register(tenPayInfo(), name);
             return registerService;
         }
 
@@ -69,10 +71,12 @@ namespace Senparc.Weixin.MP
         /// 注册微信支付TenpayV3
         /// </summary>
         /// <param name="registerService">RegisterService</param>
+        /// <param name="tenPayV3Info">微信支付（新版本 V3）参数</param>
+        /// <param name="name">公众号唯一标识名称</param>
         /// <returns></returns>
-        public static IRegisterService RegisterTenpayV3(this IRegisterService registerService, Func<TenPayV3Info> tenPayV3Info)
+        public static IRegisterService RegisterTenpayV3(this IRegisterService registerService, Func<TenPayV3Info> tenPayV3Info, string name)
         {
-            TenPayV3InfoCollection.Register(tenPayV3Info());
+            TenPayV3InfoCollection.Register(tenPayV3Info(), name);
             return registerService;
         }
     }

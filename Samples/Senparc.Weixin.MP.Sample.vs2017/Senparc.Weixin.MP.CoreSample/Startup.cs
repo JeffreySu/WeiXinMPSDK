@@ -199,29 +199,19 @@ namespace Senparc.Weixin.MP.CoreSample
                 //注册旧微信支付版本（V2）
                 .RegisterTenpayOld(() =>
                 {
-                    //提供微信支付信息
-                    var weixinPay_PartnerId = senparcWeixinSetting.Value.WeixinPay_PartnerId;
-                    var weixinPay_Key = senparcWeixinSetting.Value.WeixinPay_Key;
-                    var weixinPay_AppId = senparcWeixinSetting.Value.WeixinPay_AppId;
-                    var weixinPay_AppKey = senparcWeixinSetting.Value.WeixinPay_AppKey;
-                    var weixinPay_TenpayNotify = senparcWeixinSetting.Value.WeixinPay_TenpayNotify;
-                    var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key,
-                            weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
+                    //提供微信支付（旧版本）信息
+                    var weixinPayInfo = new TenPayInfo(senparcWeixinSetting.Value);
                     return weixinPayInfo;
-                })
+                },
+                "【盛派网络小助手】公众号"//这里的name和RegisterMpAccount()中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
                 {
-                    //提供微信支付信息
-                    var tenPayV3_MchId = senparcWeixinSetting.Value.TenPayV3_MchId;
-                    var tenPayV3_Key = senparcWeixinSetting.Value.TenPayV3_Key;
-                    var tenPayV3_AppId = senparcWeixinSetting.Value.TenPayV3_AppId;
-                    var tenPayV3_AppSecret = senparcWeixinSetting.Value.TenPayV3_AppSecret;
-                    var tenPayV3_TenpayNotify = senparcWeixinSetting.Value.TenPayV3_TenpayNotify;
-                    var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret,
-                        tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
+                    //提供微信支付（新版本 V3）信息
+                    var tenPayV3Info = new TenPayV3Info(senparcWeixinSetting.Value);
                     return tenPayV3Info;
-                })
+                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 

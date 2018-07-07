@@ -66,7 +66,8 @@ namespace Senparc.Weixin.MP.Sample
 
             //CO2NET 全局注册，必须！！
             var register = RegisterService.Start()
-                                          .UseSenparcGlobal(senparcSetting) //这里没有 ; 下面接着写
+                                          //.UseSenparcGlobal(false, () => GetExCacheStrategies) //这里没有 ; 下面接着写
+                                          .UseSenparcGlobal(null) //这里没有 ; 下面接着写
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -112,7 +113,7 @@ namespace Senparc.Weixin.MP.Sample
             //Senparc.Weixin.Config.IsDebug = isWeixinDebug;//也可以通过这种方法在程序任意位置设置微信的 Debug 状态
 
             //微信全局注册，必须！！
-            register.UseSenparcWeixin(senparcWeixinSetting, null)//如果需要进行自定义的扩展缓存注册，请提供第二个参数：register.UseSenparcWeixin([setting], GetExCacheStrategies)
+            register.UseSenparcWeixin(senparcWeixinSetting)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号
@@ -153,7 +154,9 @@ namespace Senparc.Weixin.MP.Sample
                     var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key,
                         weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
                     return weixinPayInfo;
-                })
+                },
+                "【盛派网络小助手】公众号"//这里的name和RegisterMpAccount()中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
                 {
@@ -166,7 +169,7 @@ namespace Senparc.Weixin.MP.Sample
                     var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret,
                         tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
                     return tenPayV3Info;
-                })
+                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 

@@ -34,8 +34,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
     public partial class CustomWxOpenMessageHandler : WxOpenMessageHandler<CustomWxOpenMessageContext>
     {
 #if NET45
-           private string appId = WebConfigurationManager.AppSettings["WxOpenAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];
+           private string appId = Config.SenparcWeixinSetting.WxOpenAppId;
+        private string appSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;
 #else
         private string appId = "WxOpenAppId";
         private string appSecret = "WxOpenAppSecret";

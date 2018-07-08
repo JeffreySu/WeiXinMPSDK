@@ -37,8 +37,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
         //private string testAppId = "wx570bc396a51b8ff8";
 
 #if NET45
-        private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string componentAppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string componentSecret = Config.SenparcWeixinSetting.Component_Secret;
 #else
         private string componentAppId = "ComponentAppId";
         private string componentSecret = "Component_Secret";

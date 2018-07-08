@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             await webSocketHandler.SendMessage(result);
 
 #if NET45
-            var appId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+            var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 #else
             var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 #endif

@@ -16,8 +16,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class AsyncMethodsController : AsyncController
     {
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         public ActionResult Index()
         {

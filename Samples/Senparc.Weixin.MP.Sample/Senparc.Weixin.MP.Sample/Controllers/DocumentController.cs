@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class DocumentController : BaseController
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
 
         private bool CheckCanDownload(string guid)
         {

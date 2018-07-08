@@ -156,7 +156,6 @@ namespace Senparc.Weixin.Entities
 
         #endregion
 
-
         #region 扩展
 
         public string AgentUrl { get; set; }

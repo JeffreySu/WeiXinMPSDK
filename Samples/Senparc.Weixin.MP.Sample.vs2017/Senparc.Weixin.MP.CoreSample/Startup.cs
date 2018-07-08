@@ -100,7 +100,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region CO2NET 全局配置
 
-            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略，仅作演示
+            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略，仅作演示
 
             register.RegisterThreads();  //启动线程，RegisterThreads()也可以省略，在RegisterService.Start()中已经自动注册
 
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.CoreSample
             #region 缓存配置（按需）
 
             // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-            register.ChangeDefaultCacheNamespace("DefaultWeixinCache");
+            register.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #endregion
 
-            #region 注册日志（按需）
+            #region 注册日志（按需，建议）
 
             register.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
 
@@ -180,7 +180,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 .RegisterMpAccount(
                     senparcWeixinSetting.Value.WxOpenAppId,
                     senparcWeixinSetting.Value.WxOpenAppSecret,
-                    "【盛派互动】小程序")
+                    "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
             #endregion
 
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.MP.CoreSample
                     var weixinPayInfo = new TenPayInfo(senparcWeixinSetting.Value);
                     return weixinPayInfo;
                 },
-                "【盛派网络小助手】公众号"//这里的name和RegisterMpAccount()中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                "【盛派网络小助手】公众号"//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
                 )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>

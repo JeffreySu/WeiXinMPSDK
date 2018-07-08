@@ -50,8 +50,7 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
-
+            
             /* CO2NET 全局注册开始
              * 建议按照以下顺序进行注册
              */
@@ -65,8 +64,14 @@ namespace Senparc.Weixin.MP.Sample
 
 
             //CO2NET 全局注册，必须！！
-            var register = RegisterService.Start(senparcSetting)
+            IRegisterService register = RegisterService.Start(senparcSetting)
                                           .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting)) //这里没有 ; 下面接着写
+
+            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略
+
+                  .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
+
+            #endregion
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -76,7 +81,7 @@ namespace Senparc.Weixin.MP.Sample
 
                  //配置Redis缓存
                  .RegisterCacheRedis(
-                     ConfigurationManager.AppSettings["Cache_Redis_Configuration"],
+                     senparcSetting.Cache_Redis_Configuration,
                      redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
                                           ? RedisObjectCacheStrategy.Instance
                                           : null)
@@ -90,17 +95,12 @@ namespace Senparc.Weixin.MP.Sample
 
             #endregion
 
-            #region 注册日志（按需）
+            #region 注册日志（按需，建议）
 
-                 .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
-
-            #endregion
-
-            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略
-
-                  .RegisterThreads();  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
+                 .RegisterTraceLog(ConfigWeixinTraceLog);//配置TraceLog
 
             #endregion
+
 
             /* 微信配置开始
              * 建议按照以下顺序进行注册
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.MP.Sample
             //Senparc.Weixin.Config.IsDebug = isWeixinDebug;
 
             //微信全局注册，必须！！
-            register.UseSenparcWeixin(senparcWeixinSetting)
+            register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
 
             #region 注册公众号或小程序（按需）
                 //注册公众号
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.Sample
                 .RegisterMpAccount(
                     ConfigurationManager.AppSettings["WxOpenAppId"],
                     ConfigurationManager.AppSettings["WxOpenAppSecret"],
-                    "【盛派互动】小程序")
+                    "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
             #endregion
 
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.Sample
                     ConfigurationManager.AppSettings["WeixinCorpId"],
                     ConfigurationManager.AppSettings["WeixinCorpSecret"],
                     "【盛派网络】企业微信")
-                //可注册多个企业号
+                //还可注册任意多个企业号
 
             #endregion
 
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.Sample
                     var weixinPayInfo = new TenPayInfo(senparcWeixinSetting);
                     return weixinPayInfo;
                 },
-                "【盛派网络小助手】公众号"//这里的name和RegisterMpAccount()中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                "【盛派网络小助手】公众号"//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
                 )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
@@ -165,8 +165,8 @@ namespace Senparc.Weixin.MP.Sample
             #region 注册微信第三方平台（按需）
 
                 .RegisterOpenComponent(
-                    ConfigurationManager.AppSettings["Component_Appid"],
-                    ConfigurationManager.AppSettings["Component_Secret"],
+                    senparcWeixinSetting.Component_Appid,
+                    senparcWeixinSetting.Component_Secret,
 
                     //getComponentVerifyTicketFunc
                     componentAppId =>

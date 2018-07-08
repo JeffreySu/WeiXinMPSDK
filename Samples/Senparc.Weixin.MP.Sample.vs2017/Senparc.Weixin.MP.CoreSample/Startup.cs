@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
@@ -116,16 +117,32 @@ namespace Senparc.Weixin.MP.CoreSample
             var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的
             {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
-                //如果不进行任何设置，则默认使用内存缓存
+                //设置Redis链接信息，并在全局立即启用Redis缓存。
+                register.RegisterCacheRedis(redisConfigurationStr, redisConfiguration => RedisObjectCacheStrategy.Instance);
+
+                //此外还可以通过这种方式修改 Redis 链接信息（不立即启用）：
+                //RedisManager.ConfigurationOption = redisConfigurationStr;
+
+                //一下代码会立即将全局缓存设置为Redis（不修改配置）。
+                //如果要使用其他缓存，同样可以在任意地方使用这个方法，修改 RedisObjectCacheStrategy 为其他缓存策略
+                //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }
+            //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
 
             //配置Memcached缓存（按需，独立）
             //这里配置的是 CO2NET 的 Memcached 缓存（如果执行了下面的 app.UseSenparcWeixinCacheMemcached()，
             //会自动包含本步骤，这一步注册可以忽略）
             var useMemcached = false;
-            app.UseWhen(h => useMemcached, a => a.UseEnyimMemcached());
+            app.UseWhen(h => useMemcached, a =>
+            {
+                a.UseEnyimMemcached();
+                //确保Memcached连接可用后，启用下面的做法
+                //var memcachedConnStr = senparcSetting.Value.Cache_Memcached_Configuration;
+                //var memcachedConnDic = new Dictionary<string, int>() {/*进行配置 { "localhost", 9101 }*/ };//可以由 memcachedConnStr 分割得到，或直接填写
+                //register.RegisterCacheMemcached(memcachedConnDic, memcachedConfig => MemcachedObjectCacheStrategy.Instance);
+            });
+
 
             #endregion
 
@@ -167,7 +184,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //开始注册微信信息，必须！
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
-            //注意：上一行没有 ; 下面可接着写 .RegisterXX()
+                //注意：上一行没有 ; 下面可接着写 .RegisterXX()
 
             #region 注册公众号或小程序（按需）
 

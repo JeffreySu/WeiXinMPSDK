@@ -73,10 +73,11 @@ namespace Senparc.Weixin
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get { return SenparcWeixinSetting; } set { SenparcWeixinSetting = value; } }
 
         /// <summary>
-        /// 默认微信配置
+        /// <para>微信全局配置</para>
+        /// <para>注意：在程序运行过程中修改 SenparcWeixinSetting.Items 中的微信配置值，并不能修改 Container 中的对应信息（如AppSecret），</para>
+        /// <para>如果需要修改微信信息（如AppSecret）应该使用 xxContainer.Register() 修改，这里的值也会随之更新。</para>
         /// </summary>
         public static SenparcWeixinSetting SenparcWeixinSetting { get; set; }
-
 
 
         /// <summary>
@@ -157,8 +158,6 @@ namespace Senparc.Weixin
         #endregion
 
         #endregion
-
-
 
         /// <summary>
         /// 默认的AppId检查规则

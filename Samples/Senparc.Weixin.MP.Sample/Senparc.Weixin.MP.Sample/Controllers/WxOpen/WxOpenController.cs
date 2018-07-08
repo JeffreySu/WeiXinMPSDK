@@ -21,10 +21,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     /// </summary>
     public partial class WxOpenController : Controller
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string WxOpenAppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-        public static readonly string WxOpenAppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string WxOpenAppId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string WxOpenAppSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
+                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
                 }
                 return _tenPayV3Info;
             }

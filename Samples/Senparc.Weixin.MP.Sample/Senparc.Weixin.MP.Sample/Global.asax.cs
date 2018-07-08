@@ -119,13 +119,13 @@ namespace Senparc.Weixin.MP.Sample
             #region 注册公众号或小程序（按需）
                 //注册公众号
                 .RegisterMpAccount(
-                    ConfigurationManager.AppSettings["WeixinAppId"],
-                    ConfigurationManager.AppSettings["WeixinAppSecret"],
+                    Config.SenparcWeixinSetting.WeixinAppId,
+                    Config.SenparcWeixinSetting.WeixinAppSecret,
                     "【盛派网络小助手】公众号")
                 //注册多个公众号或小程序
                 .RegisterMpAccount(
-                    ConfigurationManager.AppSettings["WxOpenAppId"],
-                    ConfigurationManager.AppSettings["WxOpenAppSecret"],
+                    Config.SenparcWeixinSetting.WxOpenAppId,
+                    Config.SenparcWeixinSetting.WxOpenAppSecret,
                     "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
             #endregion
@@ -134,8 +134,8 @@ namespace Senparc.Weixin.MP.Sample
 
                 //注册企业号
                 .RegisterWorkAccount(
-                    ConfigurationManager.AppSettings["WeixinCorpId"],
-                    ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                    Config.SenparcWeixinSetting.WeixinCorpId,
+                    Config.SenparcWeixinSetting.WeixinCorpSecret,
                     "【盛派网络】企业微信")
                 //还可注册任意多个企业号
 
@@ -430,14 +430,14 @@ namespace Senparc.Weixin.MP.Sample
         {
             //注册公众号
             AccessTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WeixinAppId,
+                System.Configuration.Config.SenparcWeixinSetting.WeixinAppSecret,
                 "【盛派网络小助手】公众号");
 
             //注册小程序（完美兼容）
             AccessTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WxOpenAppId,
+                System.Configuration.Config.SenparcWeixinSetting.WxOpenAppSecret,
                 "【盛派互动】小程序");
         }
 
@@ -448,8 +448,8 @@ namespace Senparc.Weixin.MP.Sample
         private void RegisterSenparcWorkWeixin()
         {
             Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WeixinCorpId,
+                System.Configuration.Config.SenparcWeixinSetting.WeixinCorpSecret,
                 "【盛派网络】企业微信"
                 );
         }
@@ -466,9 +466,9 @@ namespace Senparc.Weixin.MP.Sample
             var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
             var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
 
-            var tenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
+            var tenPayV3_MchId = Config.SenparcWeixinSetting.TenPayV3_MchId;
             var tenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
-            var tenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
+            var tenPayV3_AppId = Config.SenparcWeixinSetting.TenPayV3_MchId;
             var tenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
             var tenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
 

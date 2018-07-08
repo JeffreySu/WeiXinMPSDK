@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_tenPayInfo == null)
                 {
                     _tenPayInfo =
-                        TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
+                        TenPayInfoCollection.Data[Config.SenparcWeixinSetting.WeixinPay_PartnerId];
                 }
                 return _tenPayInfo;
             }

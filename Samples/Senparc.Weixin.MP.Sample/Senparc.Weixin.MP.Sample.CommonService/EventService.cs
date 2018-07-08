@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 Task.Factory.StartNew(async () =>
                 {
 #if NET45
-                    var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+                    var appId = Config.SenparcWeixinSetting.WeixinAppId;
 #else
                     var appId = "AppId";
 #endif

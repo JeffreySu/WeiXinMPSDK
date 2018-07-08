@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 //此外还可以通过这种方式修改 Redis 链接信息（不立即启用）：
                 //RedisManager.ConfigurationOption = redisConfigurationStr;
 
-                //一下代码会立即将全局缓存设置为Redis（不修改配置）。
+                //以下会立即将全局缓存设置为Redis（不修改配置）。
                 //如果要使用其他缓存，同样可以在任意地方使用这个方法，修改 RedisObjectCacheStrategy 为其他缓存策略
                 //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
             }

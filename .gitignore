@@ -46,3 +46,8 @@ packages/
 /src/Senparc.WebSocket/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.0
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1
+/Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/App_Data/SenparcTraceLog/*
+/Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/appsettings.Development.json
+/Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcTraceLog/*
+/src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/App_Data/SenparcTraceLog/*
+/src/Senparc.Weixin.Open/Senparc.Weixin.Open.Test/App_Data/SenparcTraceLog/*

@@ -10,7 +10,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -23,9 +22,15 @@ using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Work;
 using Senparc.Weixin.Open;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache.Memcached;
+using Senparc.Weixin.Cache;
+using Senparc.CO2NET.Cache;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -45,60 +50,83 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
-            /* 微信配置开始
-             * 
-             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+            
+            /* CO2NET 全局注册开始
+             * 建议按照以下顺序进行注册
              */
 
-            //注册开始
-            RegisterService.Start() //这里没有 ; 下面接着写
+            //设置全局 Debug 状态
+            var isGLobalDebug = true;
+            //全局设置参数，将被储存到 Senparc.CO2NET.Config.SenparcSetting
+            var senparcSetting = SenparcSetting.BuildFromWebConfig(isGLobalDebug);
+            //也可以通过这种方法在程序任意位置设置全局 Debug 状态：
+            //Senparc.CO2NET.Config.IsDebug = isGLobalDebug;
+
+
+            //CO2NET 全局注册，必须！！
+            IRegisterService register = RegisterService.Start(senparcSetting)
+                                          .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting)) //这里没有 ; 下面接着写
+
+            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略
+
+                  .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
+
+            #endregion
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
-                // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-                .ChangeDefaultCacheNamespace("DefaultWeixinCache")
+                 // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+                 // 也可以在 senparcSetting.DefaultCacheNamespace 属性上进行设置
+                 .ChangeDefaultCacheNamespace("DefaultCO2NETCache")
 
-                //配置Redis缓存
-                .RegisterCacheRedis(
-                    ConfigurationManager.AppSettings["Cache_Redis_Configuration"],
-                    redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-                                         ? RedisObjectCacheStrategy.Instance
+                 //配置Redis缓存
+                 .RegisterCacheRedis(
+                     senparcSetting.Cache_Redis_Configuration,
+                     redisConfiguration => (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+                                          ? RedisObjectCacheStrategy.Instance
+                                          : null)
+
+                 //配置Memcached缓存
+                 .RegisterCacheMemcached(
+                     new Dictionary<string, int>() {/* { "localhost", 9101 }*/ },
+                     memcachedConfig => (memcachedConfig != null && memcachedConfig.Count > 0)
+                                         ? MemcachedObjectCacheStrategy.Instance
                                          : null)
 
-                //配置Memcached缓存
-                .RegisterCacheMemcached(
-                    new Dictionary<string, int>() {/* { "localhost", 9101 }*/ },
-                    memcachedConfig => (memcachedConfig != null && memcachedConfig.Count > 0)
-                                        ? MemcachedObjectCacheStrategy.Instance
-                                        : null)
+            #endregion
+
+            #region 注册日志（按需，建议）
+
+                 .RegisterTraceLog(ConfigWeixinTraceLog);//配置TraceLog
 
             #endregion
 
-            #region 注册日志（按需）
 
-                .RegisterTraceLog(ConfigWeixinTraceLog)//配置TraceLog
+            /* 微信配置开始
+             * 建议按照以下顺序进行注册
+             */
 
-            #endregion
+            //设置微信 Debug 状态
+            var isWeixinDebug = true;
+            //全局设置参数，将被储存到 Senparc.Weixin.Config.SenparcWeixinSetting
+            var senparcWeixinSetting = SenparcWeixinSetting.BuildFromWebConfig(isWeixinDebug);
+            //也可以通过这种方法在程序任意位置设置微信的 Debug 状态：
+            //Senparc.Weixin.Config.IsDebug = isWeixinDebug;
 
-            #region 注册线程（必须） 在Start()中已经自动注册，此处也可以省略
-
-                 .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
-
-            #endregion
+            //微信全局注册，必须！！
+            register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
 
             #region 注册公众号或小程序（按需）
-
                 //注册公众号
                 .RegisterMpAccount(
-                    ConfigurationManager.AppSettings["WeixinAppId"],
-                    ConfigurationManager.AppSettings["WeixinAppSecret"],
+                    Config.SenparcWeixinSetting.WeixinAppId,
+                    Config.SenparcWeixinSetting.WeixinAppSecret,
                     "【盛派网络小助手】公众号")
                 //注册多个公众号或小程序
                 .RegisterMpAccount(
-                    ConfigurationManager.AppSettings["WxOpenAppId"],
-                    ConfigurationManager.AppSettings["WxOpenAppSecret"],
-                    "【盛派互动】小程序")
+                    Config.SenparcWeixinSetting.WxOpenAppId,
+                    Config.SenparcWeixinSetting.WxOpenAppSecret,
+                    "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
             #endregion
 
@@ -106,10 +134,10 @@ namespace Senparc.Weixin.MP.Sample
 
                 //注册企业号
                 .RegisterWorkAccount(
-                    ConfigurationManager.AppSettings["WeixinCorpId"],
-                    ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                    Config.SenparcWeixinSetting.WeixinCorpId,
+                    Config.SenparcWeixinSetting.WeixinCorpSecret,
                     "【盛派网络】企业微信")
-                //可注册多个企业号
+                //还可注册任意多个企业号
 
             #endregion
 
@@ -119,36 +147,26 @@ namespace Senparc.Weixin.MP.Sample
                 .RegisterTenpayOld(() =>
                 {
                     //提供微信支付信息
-                    var weixinPay_PartnerId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"];
-                    var weixinPay_Key = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Key"];
-                    var weixinPay_AppId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppId"];
-                    var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
-                    var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
-                    var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key,
-                        weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
+                    var weixinPayInfo = new TenPayInfo(senparcWeixinSetting);
                     return weixinPayInfo;
-                })
+                },
+                "【盛派网络小助手】公众号"//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                )
                 //注册最新微信支付版本（V3）
                 .RegisterTenpayV3(() =>
                 {
                     //提供微信支付信息
-                    var tenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
-                    var tenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
-                    var tenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
-                    var tenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
-                    var tenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
-                    var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret,
-                        tenPayV3_MchId, tenPayV3_Key, tenPayV3_TenpayNotify);
+                    var tenPayV3Info = new TenPayV3Info(senparcWeixinSetting);
                     return tenPayV3Info;
-                })
+                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 
             #region 注册微信第三方平台（按需）
 
                 .RegisterOpenComponent(
-                    ConfigurationManager.AppSettings["Component_Appid"],
-                    ConfigurationManager.AppSettings["Component_Secret"],
+                    senparcWeixinSetting.Component_Appid,
+                    senparcWeixinSetting.Component_Secret,
 
                     //getComponentVerifyTicketFunc
                     componentAppId =>
@@ -187,7 +205,7 @@ namespace Senparc.Weixin.MP.Sample
 
                          using (Stream fs = new FileStream(file, FileMode.Open))
                          {
-                             BinaryFormatter binFormat = new BinaryFormatter();
+                             var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                              var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
                              return result.authorizer_refresh_token;
                          }
@@ -206,7 +224,7 @@ namespace Senparc.Weixin.MP.Sample
                          using (Stream fs = new FileStream(file, FileMode.Create))
                          {
                              //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                             BinaryFormatter binFormat = new BinaryFormatter();
+                             var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                              binFormat.Serialize(fs, refreshResult);
                              fs.Flush();
                          }
@@ -231,8 +249,9 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void ConfigWeixinTraceLog()
         {
+            //Senparc.CO2NET.Config.IsDebug = false;
+
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
-            Senparc.Weixin.Config.IsDebug = true;
             Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
 
             //自定义日志记录回调
@@ -250,6 +269,41 @@ namespace Senparc.Weixin.MP.Sample
                 var eventService = new EventService();
                 eventService.ConfigOnWeixinExceptionFunc(ex);
             };
+        }
+
+        /// <summary>
+        /// 获取扩展缓存策略
+        /// </summary>
+        /// <returns></returns>
+        private IList<IDomainExtensionCacheStrategy> GetExCacheStrategies(SenparcSetting senparcSetting)
+        {
+            var exContainerCacheStrategies = new List<IDomainExtensionCacheStrategy>();
+            senparcSetting = senparcSetting ?? new SenparcSetting();
+
+            //注意：以下两个 if 判断仅作为演示，
+            //      只要进行了 register.UseSenparcWeixin() 操作，Redis 和 Memcached 系统已经默认自动注册，无需操作！
+
+            #region 演示扩展缓存注册方法
+
+            //判断Redis是否可用
+            var redisConfiguration = senparcSetting.Cache_Redis_Configuration;// ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            {
+                exContainerCacheStrategies.Add(RedisContainerCacheStrategy.Instance);
+            }
+
+            //判断Memcached是否可用
+            var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;// ConfigurationManager.AppSettings["Cache_Memcached_Configuration"];
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+            {
+                exContainerCacheStrategies.Add(MemcachedContainerCacheStrategy.Instance);//TODO:如果没有进行配置会产生异常
+            }
+
+            #endregion
+
+            //扩展自定义的缓存策略
+
+            return exContainerCacheStrategies;
         }
     }
 }
@@ -376,14 +430,14 @@ namespace Senparc.Weixin.MP.Sample
         {
             //注册公众号
             AccessTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WeixinAppId,
+                System.Configuration.Config.SenparcWeixinSetting.WeixinAppSecret,
                 "【盛派网络小助手】公众号");
 
             //注册小程序（完美兼容）
             AccessTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WxOpenAppId,
+                System.Configuration.Config.SenparcWeixinSetting.WxOpenAppSecret,
                 "【盛派互动】小程序");
         }
 
@@ -394,8 +448,8 @@ namespace Senparc.Weixin.MP.Sample
         private void RegisterSenparcWorkWeixin()
         {
             Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                System.Configuration.Config.SenparcWeixinSetting.WeixinCorpId,
+                System.Configuration.Config.SenparcWeixinSetting.WeixinCorpSecret,
                 "【盛派网络】企业微信"
                 );
         }
@@ -412,9 +466,9 @@ namespace Senparc.Weixin.MP.Sample
             var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
             var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
 
-            var tenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
+            var tenPayV3_MchId = Config.SenparcWeixinSetting.TenPayV3_MchId;
             var tenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
-            var tenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
+            var tenPayV3_AppId = Config.SenparcWeixinSetting.TenPayV3_MchId;
             var tenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
             var tenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
 

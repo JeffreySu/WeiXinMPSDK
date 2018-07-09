@@ -23,6 +23,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -39,7 +41,8 @@ namespace Senparc.WeixinTests.Cache
         [TestMethod]
         public void SerializeDataTest()
         {
-            var sessionBag = SessionContainer.UpdateSession(null, "OpenId", "SessionKey");
+            var unionId = "";
+            var sessionBag = SessionContainer.UpdateSession(null, "OpenId", "SessionKey", unionId);
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(sessionBag);
             Console.WriteLine(jsonString);
         }
@@ -96,9 +99,8 @@ namespace Senparc.WeixinTests.Cache
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
                 //序列化
-                SerializerHelper serializerHelper=new SerializerHelper();
-                var jsonString = serializerHelper.GetJsonString(sessionBag);
-                var obj = serializerHelper.GetObject<SessionBag>(jsonString);
+                var jsonString = SerializerHelper.GetJsonString(sessionBag);
+                var obj = SerializerHelper.GetObject<SessionBag>(jsonString);
 
                 if (i == 0)
                 {
@@ -117,7 +119,7 @@ namespace Senparc.WeixinTests.Cache
             {
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 MemoryStream memoryStream = new MemoryStream();
                 {
                     //序列化

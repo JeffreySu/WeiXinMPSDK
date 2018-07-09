@@ -60,9 +60,10 @@ using System.Collections;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Helpers
 {

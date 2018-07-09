@@ -64,5 +64,17 @@ namespace Senparc.Weixin.MP.Test.Containers
             }
 
         }
+
+        [TestMethod]
+        public void RegisterToWeixinSettingTest()
+        {
+            var appId = Guid.NewGuid().ToString("n");
+            var appSecret = Guid.NewGuid().ToString("n");
+            var name = "公众号 JsApiTicketContainer 单元测试";
+            JsApiTicketContainer.Register(appId, appSecret, name);
+
+            Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
+            Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
+        }
     }
 }

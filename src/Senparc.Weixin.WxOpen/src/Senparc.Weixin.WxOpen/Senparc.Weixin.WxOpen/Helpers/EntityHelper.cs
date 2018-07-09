@@ -35,6 +35,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Utilities;
 using System.Reflection;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.WxOpen.Helpers
 {
@@ -70,12 +71,12 @@ namespace Senparc.Weixin.WxOpen.Helpers
                         case "Int64":
                         case "Double":
                         case "Nullable`1": //可为空对象
-                            EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
+                            Senparc.CO2NET.Utilities.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
+                                Senparc.CO2NET.Utilities.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
                             }
                             else
                             {
@@ -97,7 +98,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
                             //prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
                             break;
                         //以下为实体类型
-                        
+
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
                             break;

@@ -34,13 +34,21 @@ using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Threads;
+using Senparc.CO2NET.Threads;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Moq;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     //已通过测试
     //[TestClass]
-    public partial class CommonApiTest
+    public partial class CommonApiTest : BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -198,7 +206,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
             //}
 
-            ThreadUtility.Register();
+            //ThreadUtility.Register();
 
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次

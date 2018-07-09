@@ -16,8 +16,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class AsyncMethodsController : AsyncController
     {
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         public ActionResult Index()
         {
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult DeadLockTest()
         {
             var result =
-                Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+                Senparc.CO2NET.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
                     cookieContainer: null).Result;
             return Content(result);
         }
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public async Task<ActionResult> NoDeadLockTest()
         {
-            var result = await Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+            var result = await Senparc.CO2NET.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
                 cookieContainer: null);
             return Content(result);
         }

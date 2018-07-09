@@ -43,6 +43,8 @@ using Senparc.Weixin.MP.CoreSample.Filters;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -436,7 +438,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             try
             {
-                ResponseHandler resHandler = new ResponseHandler(null);
+                ResponseHandler resHandler = new ResponseHandler(HttpContext);
 
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
@@ -759,8 +761,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
                 );
 
-            SerializerHelper serializerHelper = new SerializerHelper();
-            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
+            return Content(SerializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 

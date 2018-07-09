@@ -72,6 +72,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.MP.CommonAPIs;
 using System.Linq;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

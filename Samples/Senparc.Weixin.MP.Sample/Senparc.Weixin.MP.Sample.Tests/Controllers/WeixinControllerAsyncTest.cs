@@ -33,8 +33,9 @@ using Senparc.Weixin.MP.Sample.Controllers;
 using System.Web.Mvc;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
 using System.Threading.Tasks;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {

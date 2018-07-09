@@ -27,6 +27,7 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System.Threading;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Test.CacheTests
 {
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
         public void LocalCacheDeadLockTest()
         {
             //测试本地缓存死锁问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/402
-            CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
+           CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
 
             List<Task> taskList = new List<Task>();
             var dt1 = DateTime.Now;

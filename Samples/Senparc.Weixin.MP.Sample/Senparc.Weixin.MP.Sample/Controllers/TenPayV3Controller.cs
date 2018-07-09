@@ -42,6 +42,8 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.Filters;
 using System.Web.Security;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -72,7 +74,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
+                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
                 }
                 return _tenPayV3Info;
             }
@@ -433,7 +435,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //发送支付成功的模板消息
                 try
                 {
-                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     string openId = resHandler.GetParameter("openid");
                     var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
@@ -732,8 +734,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
                 );
 
-            SerializerHelper serializerHelper = new SerializerHelper();
-            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
+            return Content(SerializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 

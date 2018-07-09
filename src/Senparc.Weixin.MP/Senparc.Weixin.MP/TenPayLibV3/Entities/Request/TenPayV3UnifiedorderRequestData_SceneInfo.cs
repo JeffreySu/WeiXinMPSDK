@@ -36,7 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 //统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_1 
 //H5统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_20&index=1
 
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {

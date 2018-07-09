@@ -29,7 +29,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180707
+    修改描述：添加支持 SenparcWeixinSetting 参数的构造函数
+
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -59,6 +65,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
 
+        /// <summary>
+        /// 微信支付 V3 参数 构造函数
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="mchId"></param>
+        /// <param name="key"></param>
+        /// <param name="tenPayV3Notify"></param>
         public TenPayV3Info(string appId, string appSecret, string mchId, string key, string tenPayV3Notify)
         {
             AppId = appId;
@@ -67,5 +81,20 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             Key = key;
             TenPayV3Notify = tenPayV3Notify;
         }
+
+
+        /// <summary>
+        /// 微信支付 V3 参数 构造函数
+        /// </summary>
+        /// <param name="senparcWeixinSetting">已经填充过微信支付（旧版本）参数的 SenparcWeixinSetting 对象</param>
+        public TenPayV3Info(SenparcWeixinSetting senparcWeixinSetting)
+            : this(senparcWeixinSetting.TenPayV3_AppId,
+                  senparcWeixinSetting.TenPayV3_AppSecret,
+                  senparcWeixinSetting.TenPayV3_MchId,
+                  senparcWeixinSetting.TenPayV3_Key,
+                  senparcWeixinSetting.TenPayV3_TenpayNotify)
+        {
+        }
+
     }
 }

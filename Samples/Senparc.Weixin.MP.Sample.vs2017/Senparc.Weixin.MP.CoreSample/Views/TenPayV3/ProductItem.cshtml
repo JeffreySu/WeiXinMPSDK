@@ -12,10 +12,20 @@
     <div>
         <h1>商品名称：@Model.Name</h1>
         <p>单价：@Model.Price.ToString("c")</p>
-        <p>
-            使用微信“扫一扫”下方二维码完成支付：<br />
-            <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
-        </p>
     </div>
+    <hr />
+
+    <h2>支付方式一：H5支付</h2>
+    <p>注意：H5支付用于已经安装微信的手机客户端，使用微信外部浏览器网页内的支付。</p>
+    <p>@Html.ActionLink("点击这里使用H5支付", "H5Pay", "TenPayV3", new { productId = Model.Id, hc = Model.GetHashCode() }, null)</p>
+    <hr />
+
+    <h2>支付方式二：“扫一扫”支付</h2>
+    <p>
+        使用微信“扫一扫”下方二维码完成支付：<br />
+        <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
+    </p>
+    <hr />
+
 </body>
 </html>

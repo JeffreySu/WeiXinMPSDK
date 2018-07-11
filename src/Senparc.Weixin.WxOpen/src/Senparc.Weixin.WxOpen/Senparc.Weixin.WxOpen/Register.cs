@@ -1,5 +1,5 @@
 ﻿using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

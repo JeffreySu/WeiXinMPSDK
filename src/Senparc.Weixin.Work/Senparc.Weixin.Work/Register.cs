@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Work.Containers;
 
 namespace Senparc.Weixin.Work

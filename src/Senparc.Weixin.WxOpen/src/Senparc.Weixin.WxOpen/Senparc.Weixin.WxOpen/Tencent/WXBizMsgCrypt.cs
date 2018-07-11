@@ -69,9 +69,9 @@ namespace Senparc.Weixin.WxOpen.Tencent
         };
 
         //构造函数
-	    // @param sToken: 公众平台上，开发者设置的Token
-	    // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-	    // @param sAppID: 公众帐号的appid
+        // @param sToken: 公众平台上，开发者设置的Token
+        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
+        // @param sAppID: 公众帐号的appid
         public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sAppID)
         {
             m_sToken = sToken;
@@ -89,11 +89,11 @@ namespace Senparc.Weixin.WxOpen.Tencent
         // @return: 成功0，失败返回对应的错误码
         public int DecryptMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
-            XmlDocument doc = new XmlDocument();
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
+            XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             XmlNode root;
             string sEncryptMsg;
             try
@@ -139,10 +139,10 @@ namespace Senparc.Weixin.WxOpen.Tencent
         // return：成功0，失败返回对应的错误码
         public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             string raw = "";
             try
             {
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.WxOpen.Tencent
             }
         }
 
-        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt ,ref string sMsgSignature)
+        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
             ArrayList AL = new ArrayList();
             AL.Add(sToken);

@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
+//using Senparc.CO2NET.Helpers.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
@@ -18,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class DocumentController : BaseController
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
 
         private bool CheckCanDownload(string guid)
         {

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Memcached;
+using Senparc.CO2NET.Cache.Redis;
 using Senparc.Weixin;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
@@ -25,7 +29,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         public static void RunMutipleCache(Action action, params CacheType[] cacheTypes)
         {
-            List<IObjectCacheStrategy> cacheStrategies = new List<IObjectCacheStrategy>();
+            var cacheStrategies = new List<IBaseObjectCacheStrategy>();
 
             foreach (var cacheType in cacheTypes)
             {
@@ -47,6 +51,8 @@ namespace Senparc.WeixinTests
             {
                 //原始缓存策越
                 var originalCache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                //var exCache = CacheStrategyFactory.GetExtensionCacheStrategyInstance();
+
 
                 Console.WriteLine("== 使用缓存策略：" + objectCacheStrategy.GetType().Name + " 开始 == ");
 

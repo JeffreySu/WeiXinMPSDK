@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180122
     修改描述：OnExecuting() 和 OnExecuted() 方法改为 override
 
+    修改标识：Senparc - 20180318
+    修改描述：v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断 - https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -191,6 +194,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
+
+        #region 私有方法
+
+        /// <summary>
+        /// 标记为已重复消息
+        /// </summary>
+        private void MarkRepeatedMessage()
+        {
+            CancelExcute = true;//重复消息，取消执行
+            MessageIsRepeated = true;
+        }
+
+        #endregion
+
         /// <summary>
         /// 构造MessageHandler
         /// </summary>
@@ -281,7 +298,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
             if (WeixinContextGlobal.UseWeixinContext)
             {
-
                 var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
 
                 lock (WeixinContextGlobal.OmitRepeatLock)//TODO:使用分布式锁
@@ -299,15 +315,42 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                         if (
                             //使用MsgId去重
-                            (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
+                            (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId) ||
                             //使用CreateTime去重（OpenId对象已经是同一个）
-                            || (lastMessage.MsgId == RequestMessage.MsgId
-                                && lastMessage.CreateTime == RequestMessage.CreateTime
-                                && lastMessage.MsgType == RequestMessage.MsgType)
+                            (lastMessage.MsgId == RequestMessage.MsgId &&
+                                 lastMessage.CreateTime == RequestMessage.CreateTime &&
+                                 lastMessage.MsgType == RequestMessage.MsgType)
                             )
                         {
-                            CancelExcute = true;//重复消息，取消执行
-                            MessageIsRepeated = true;
+                            MarkRepeatedMessage();//标记为已重复
+                        }
+
+                        //判断特殊事件
+                        if (!MessageIsRepeated &&
+                            lastMessage is RequestMessageEventBase &&
+                            RequestMessage is RequestMessageEventBase &&
+                            (lastMessage as RequestMessageEventBase).Event == (RequestMessage as RequestMessageEventBase).Event
+                            )
+                        {
+                            var lastEventMessage = lastMessage as RequestMessageEventBase;
+                            var currentEventMessage = RequestMessage as RequestMessageEventBase;
+                            switch (lastEventMessage.Event)
+                            {
+
+                                case Event.user_get_card://领取事件推送
+                                    //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274
+                                    //问题反馈：https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
+                                    var lastGetUserCardMessage = lastMessage as RequestMessageEvent_User_Get_Card;
+                                    var currentGetUserCardMessage = RequestMessage as RequestMessageEvent_User_Get_Card;
+                                    if (lastGetUserCardMessage.UserCardCode == currentGetUserCardMessage.UserCardCode &&
+                                        lastGetUserCardMessage.CardId == currentGetUserCardMessage.CardId)
+                                    {
+                                        MarkRepeatedMessage();//标记为已重复
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
 

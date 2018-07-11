@@ -42,6 +42,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {

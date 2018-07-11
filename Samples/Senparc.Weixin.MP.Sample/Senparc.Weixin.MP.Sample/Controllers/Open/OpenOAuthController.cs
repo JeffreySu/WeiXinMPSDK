@@ -16,8 +16,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public class OpenOAuthController : BaseController
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string component_AppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Config.SenparcWeixinSetting.Component_Secret;
         //private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
         #region 开放平台入口及回调

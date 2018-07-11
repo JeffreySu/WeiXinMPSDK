@@ -1,6 +1,6 @@
 ﻿using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
-using Senparc.Weixin.RegisterServices;
+using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

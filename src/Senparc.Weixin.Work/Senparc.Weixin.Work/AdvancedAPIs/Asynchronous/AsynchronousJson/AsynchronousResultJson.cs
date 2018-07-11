@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150408
+
+    修改标识：Senparc - 20150313
+    修改描述：修改 AsynchronousReplaceUserResult 参数类型
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -77,9 +81,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
     /// </summary>
     public class AsynchronousReplaceUserResult : BaseAsynchronousResult
     {
-        public List<AsynchronousReplaceUserResult> result { get; set; }
+        public List<AsynchronousReplaceUserItem> result { get; set; }
     }
 
+    /// <summary>
+    /// 异步新增或更新成员返回结果 - result
+    /// </summary>
     public class AsynchronousReplaceUserItem : WorkJsonResult
     {
         /// <summary>

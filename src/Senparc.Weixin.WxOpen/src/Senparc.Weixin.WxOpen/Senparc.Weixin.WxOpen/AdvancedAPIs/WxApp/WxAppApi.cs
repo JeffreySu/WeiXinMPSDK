@@ -43,11 +43,13 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.Extensions;
+//using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
@@ -90,8 +92,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -142,7 +143,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, Stream stream, string scene,
-            string page, int width = 430, bool auto_color = false, LineColor lineColor = null, 
+            string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -156,9 +157,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 }
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor };
-                SerializerHelper serializerHelper = new SerializerHelper();
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -178,11 +178,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="auto_color">自动配置线条颜色</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, width);
+                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -212,8 +212,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -262,7 +261,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
-                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var signature = EncryptHelper.GetHmacSha256("", sessionKey);
                 var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -421,8 +420,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -488,8 +486,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data,jsonSetting), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data,jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -516,8 +513,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -567,7 +563,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
-                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var signature = EncryptHelper.GetHmacSha256("", sessionKey);
                 var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
 
                 return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);

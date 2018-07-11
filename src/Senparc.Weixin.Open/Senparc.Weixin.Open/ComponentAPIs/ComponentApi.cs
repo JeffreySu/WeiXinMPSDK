@@ -18,6 +18,9 @@
     修改标识：Senparc - 20170119
     修改描述：v2.3.7 修复：ApiConfirmAuth的URL中带空格
 
+    修改标识：Senparc - 20180505
+    修改描述：修改 ApiAuthorizerToken() 方法注释
+
 ----------------------------------------------------------------*/
 
 /*
@@ -25,9 +28,10 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
@@ -159,7 +163,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
         /// <summary>
         /// 获取（刷新）授权公众号的令牌
-        /// 由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>
@@ -384,7 +387,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
         /// <summary>
         /// 【异步方法】获取（刷新）授权公众号的令牌
-        /// 由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>

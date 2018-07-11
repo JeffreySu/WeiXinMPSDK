@@ -51,12 +51,25 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public string UploadImageTest()
         {
-            string _media = "E:\\1.jpg";
+            string _media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\test.jpg";
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+
+            Console.WriteLine("mediaId:" + result.media_id);
             return result.media_id;
+        }
+
+        /// <summary>
+        /// 上传并下载两次
+        /// 相关问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/1196
+        /// </summary>
+        [TestMethod]
+        public void UploadAndGetImageTwiceTest()
+        {
+            GetImageTest();
+            GetImageTest();
         }
 
         [TestMethod]

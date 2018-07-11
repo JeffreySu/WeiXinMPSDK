@@ -19,6 +19,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections;
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.Work.Helpers
              .Append("noncestr=").Append(noncestr).Append("&")
              .Append("timestamp=").Append(timestamp).Append("&")
              .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
+            return EncryptHelper.GetSha1(sb.ToString()).ToLower();
         }
 
 

@@ -41,6 +41,8 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {

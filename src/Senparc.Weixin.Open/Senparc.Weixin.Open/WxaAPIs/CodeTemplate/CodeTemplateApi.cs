@@ -38,6 +38,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Entities;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {

@@ -1,4 +1,6 @@
-﻿@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
+﻿@using Microsoft.AspNetCore.Http;
+@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
+
 @{
     Layout = null;
 }
@@ -12,7 +14,7 @@
     <title>公众号JSSDK演示</title>
     <!--jQuery非JS-SDK必须-->
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
-    <script src="@(Context.Request.Scheme)://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="@(this.Context.Request.Scheme)://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -65,7 +67,7 @@
 
          wx.ready(function () {
                 var url = '@(Context.Request.Scheme)://sdk.weixin.senparc.com';
-                var link = url + '@($"{Context.Request.Path}{Context.Request.QueryString}")';
+                var link = url + '@(Context.Request.PathAndQuery())';
                 var imgUrl = url + '/images/v2/ewm_01.png';
 
                 //转发到朋友圈

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Senparc.Weixin.MP.Sample.WebForms._Default" %>
-<% var domainName = "http://weixin.senparc.com"; %>
+<% var domainName = "https://sdk.weixin.senparc.com"; %>
 <!DOCTYPE html>
 <html>
 <head>

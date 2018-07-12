@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.0.11.1</Version>
+    <Version>2.0.11.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -91,6 +91,8 @@
       v2.0.10 支持 Senparc.Weixin v5.0.10
       v2.0.11 支持 Senparc.Weixin v5.0.11
       v2.0.11.1 添加 小程序码的接口缺少 is_hyaline 参数
+      v2.0.11.2 修正 TemplateApi.Add() 方法返回类型
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

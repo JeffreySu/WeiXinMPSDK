@@ -73,12 +73,6 @@ namespace Senparc.Weixin.MP.Sample
             IRegisterService register = RegisterService.Start(senparcSetting)
                                           .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting)) //这里没有 ; 下面接着写
 
-            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略
-
-                  .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
-
-            #endregion
-
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
                  // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）

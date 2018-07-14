@@ -128,6 +128,10 @@ namespace Senparc.Weixin.MP.Sample
                     Config.SenparcWeixinSetting.WxOpenAppSecret,
                     "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
+
+                //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+                //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
+
             #endregion
 
             #region 注册企业号（按需）
@@ -138,6 +142,9 @@ namespace Senparc.Weixin.MP.Sample
                     Config.SenparcWeixinSetting.WeixinCorpSecret,
                     "【盛派网络】企业微信")
                 //还可注册任意多个企业号
+
+                //除此以外，仍然可以在程序任意地方注册企业微信：
+                //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
 
             #endregion
 
@@ -229,6 +236,9 @@ namespace Senparc.Weixin.MP.Sample
                              fs.Flush();
                          }
                      }, "【盛派网络】开放平台");
+
+            //除此以外，仍然可以在程序任意地方注册开放平台：
+            //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
 
             #endregion
 

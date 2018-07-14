@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 缓存配置（按需）
 
-            // 当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+            //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
             register.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
 
             //配置全局使用Redis缓存（按需，独立）
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.CoreSample
             app.UseWhen(h => useMemcached, a =>
             {
                 a.UseEnyimMemcached();
-                //确保Memcached连接可用后，启用下面的做法
+                //确保Memcached连接可用后，启用下面的做法：
                 //var memcachedConnStr = senparcSetting.Value.Cache_Memcached_Configuration;
                 //var memcachedConnDic = new Dictionary<string, int>() {/*进行配置 { "localhost", 9101 }*/ };//可以由 memcachedConnStr 分割得到，或直接填写
                 //register.RegisterCacheMemcached(memcachedConnDic, memcachedConfig => MemcachedObjectCacheStrategy.Instance);
@@ -182,6 +182,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #endregion
 
+            
+
             //开始注册微信信息，必须！
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
                 //注意：上一行没有 ; 下面可接着写 .RegisterXX()
@@ -199,17 +201,21 @@ namespace Senparc.Weixin.MP.CoreSample
                     senparcWeixinSetting.Value.WxOpenAppSecret,
                     "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
+                //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+                //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
             #endregion
 
             #region 注册企业号（按需）
 
-                //注册企业号
+                //注册企业微信
                 .RegisterWorkAccount(
                     senparcWeixinSetting.Value.WeixinCorpId,
                     senparcWeixinSetting.Value.WeixinCorpSecret,
                     "【盛派网络】企业微信")
                 //还可注册任意多个企业号
 
+                //除此以外，仍然可以在程序任意地方注册企业微信：
+                //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
             #endregion
 
             #region 注册微信支付（按需）
@@ -301,9 +307,9 @@ namespace Senparc.Weixin.MP.CoreSample
                          }
                      }, "【盛派网络】开放平台")
 
+            //除此以外，仍然可以在程序任意地方注册开放平台：
+            //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
             #endregion
-
-            ;
 
             /* 微信配置结束 */
 

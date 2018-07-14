@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.CoreSample
             services.AddMvc();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddMemoryCache();//使用本地缓存必须添加
 
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                     .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册

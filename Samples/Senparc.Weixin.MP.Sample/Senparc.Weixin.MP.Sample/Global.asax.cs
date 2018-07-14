@@ -8,7 +8,6 @@
 #if 使用RegisterServices方式注册
 
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Http;
@@ -28,7 +27,6 @@ using Senparc.Weixin.Open;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
-using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Entities;
 

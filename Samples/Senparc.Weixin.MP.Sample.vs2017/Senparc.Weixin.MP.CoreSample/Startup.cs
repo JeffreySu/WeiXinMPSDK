@@ -182,7 +182,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #endregion
 
-            
+
 
             //开始注册微信信息，必须！
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
@@ -310,6 +310,8 @@ namespace Senparc.Weixin.MP.CoreSample
             //除此以外，仍然可以在程序任意地方注册开放平台：
             //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
             #endregion
+
+            ;
 
             /* 微信配置结束 */
 

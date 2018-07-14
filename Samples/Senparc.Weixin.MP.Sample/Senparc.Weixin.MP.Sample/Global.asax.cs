@@ -8,7 +8,6 @@
 #if 使用RegisterServices方式注册
 
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Http;
@@ -28,7 +27,6 @@ using Senparc.Weixin.Open;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
-using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Entities;
 
@@ -50,10 +48,18 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            
-            /* CO2NET 全局注册开始
+
+            /* 
+             * CO2NET 全局注册开始
              * 建议按照以下顺序进行注册
              */
+
+            /*
+             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
+             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
+             * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
+             */
+
 
             //设置全局 Debug 状态
             var isGLobalDebug = true;
@@ -66,12 +72,6 @@ namespace Senparc.Weixin.MP.Sample
             //CO2NET 全局注册，必须！！
             IRegisterService register = RegisterService.Start(senparcSetting)
                                           .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting)) //这里没有 ; 下面接着写
-
-            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略
-
-                  .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
-
-            #endregion
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 
@@ -128,6 +128,10 @@ namespace Senparc.Weixin.MP.Sample
                     Config.SenparcWeixinSetting.WxOpenAppSecret,
                     "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
+
+                //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+                //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
+
             #endregion
 
             #region 注册企业号（按需）
@@ -138,6 +142,9 @@ namespace Senparc.Weixin.MP.Sample
                     Config.SenparcWeixinSetting.WeixinCorpSecret,
                     "【盛派网络】企业微信")
                 //还可注册任意多个企业号
+
+                //除此以外，仍然可以在程序任意地方注册企业微信：
+                //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
 
             #endregion
 
@@ -229,6 +236,9 @@ namespace Senparc.Weixin.MP.Sample
                              fs.Flush();
                          }
                      }, "【盛派网络】开放平台");
+
+            //除此以外，仍然可以在程序任意地方注册开放平台：
+            //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
 
             #endregion
 

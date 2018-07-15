@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.0.9</Version>
+    <Version>2.1.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -63,6 +63,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
       v2.0.6.1 支持 CO2NET v0.1.6.1
       v2.0.9 支持 CO2NET v0.1.9
+      v2.1.0 支持 CO2NET v0.2.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->

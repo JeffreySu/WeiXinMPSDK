@@ -187,7 +187,7 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTime.MinValue,
                     ProviderTokenResult = new ProviderTokenResult()
                 };
-                Update(BuildingKey(corpId, corpSecret), bag);
+                Update(BuildingKey(corpId, corpSecret), bag,null);
                 return bag;
                 //}
             };
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.Work.Containers
                     providerTokenBag.ProviderTokenResult = SsoApi.GetProviderToken(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                    Update(providerTokenBag);//更新到缓存
+                    Update(providerTokenBag, ApiUtility.GetExpiryTimeSpan(providerTokenBag.ProviderTokenResult.expires_in));//更新到缓存
                 }
             }
             return providerTokenBag.ProviderTokenResult;
@@ -325,7 +325,7 @@ namespace Senparc.Weixin.Work.Containers
                     //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
                     //    providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                    Update(providerTokenBag);//更新到缓存
+                    Update(providerTokenBag, ApiUtility.GetExpiryTimeSpan(providerTokenBag.ProviderTokenResult.expires_in));//更新到缓存
                 }
             }
             return providerTokenBag.ProviderTokenResult;

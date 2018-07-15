@@ -29,10 +29,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Appid;
-        private string component_Secret = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Secret;
-        private string component_Token = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Token;
-        private string component_EncodingAESKey = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_EncodingAESKey;
+        private string component_AppId = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Secret;
+        private string component_Token = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Senparc.Weixin.Config.SenparcWeixinSetting.Component_EncodingAESKey;
 
         /// <summary>
         /// 发起授权页的体验URL

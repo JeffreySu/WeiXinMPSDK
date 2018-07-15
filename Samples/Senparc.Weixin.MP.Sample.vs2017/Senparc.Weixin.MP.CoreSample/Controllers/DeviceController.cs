@@ -15,8 +15,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class DeviceController : BaseController
     {
-        private string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;
-        private string secret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
 
         public ActionResult Index()

@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP.Containers
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    Update(jsApiTicketBag, ApiUtility.GetExpiryTimeSpan(jsApiTicketBag.JsApiTicketResult.expires_in));
+                    Update(jsApiTicketBag, null);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;
@@ -299,7 +299,7 @@ namespace Senparc.Weixin.MP.Containers
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    Update(jsApiTicketBag, ApiUtility.GetExpiryTimeSpan(jsApiTicketBag.JsApiTicketResult.expires_in));
+                    Update(jsApiTicketBag, null);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

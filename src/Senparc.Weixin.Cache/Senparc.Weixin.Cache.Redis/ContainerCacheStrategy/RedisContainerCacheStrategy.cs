@@ -116,6 +116,8 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override IDictionary<string, TBag> GetAll<TBag>()
         {
+
+
             #region 旧方法（没有使用Hash之前）
 
             //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
@@ -144,14 +146,16 @@ namespace Senparc.Weixin.Cache.Redis
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
             key = baseCacheStrategy.GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
-            var list = (baseCacheStrategy as RedisObjectCacheStrategy).HashGetAll(key);
+            var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAllByPrefix<TBag>(key);
+
+            //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
             var dic = new Dictionary<string, TBag>();
 
-            foreach (var hashEntry in list)
+            foreach (var item in list)
             {
-                var fullKey = key + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                var fullKey = key + ":" + item.Key;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
                 //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
-                dic[fullKey] = hashEntry.Value.ToString().DeserializeFromCache<TBag>();
+                dic[fullKey] = item;
             }
 
             return dic;

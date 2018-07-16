@@ -41,6 +41,12 @@ namespace Senparc.Weixin.MP.CoreSample
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
 
+            /*
+             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
+             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
+             * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
+             */
+
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                     .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
 
@@ -100,12 +106,6 @@ namespace Senparc.Weixin.MP.CoreSample
             //register.UseSenparcWeixin(false, GetExCacheStrategies);
 
             #region CO2NET 全局配置
-
-            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略，仅作演示
-
-            register.RegisterThreads();  //启动线程，RegisterThreads()也可以省略，在RegisterService.Start()中已经自动注册
-
-            #endregion
 
             #region 缓存配置（按需）
 
@@ -318,6 +318,8 @@ namespace Senparc.Weixin.MP.CoreSample
             #endregion
         }
 
+
+        /// <summary>
         /// 配置微信跟踪日志
         /// </summary>
         private void ConfigTraceLog()

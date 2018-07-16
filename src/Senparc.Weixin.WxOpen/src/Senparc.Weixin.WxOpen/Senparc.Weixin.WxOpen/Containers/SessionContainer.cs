@@ -44,6 +44,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.WxOpen.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Containers
@@ -131,9 +132,9 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// 获取最新的过期时间
         /// </summary>
         /// <returns></returns>
-        private static DateTime GetExpireTime()
+        private static TimeSpan GetExpireTime()
         {
-            return DateTime.Now.AddDays(2);//有效期2天
+            return TimeSpan.FromDays(2);//有效期2天
         }
 
         #region 同步方法
@@ -160,8 +161,8 @@ namespace Senparc.Weixin.WxOpen.Containers
 
             //using (FlushCache.CreateInstance())
             //{
-            bag.ExpireTime = GetExpireTime();//滚动过期时间
-            Update(key, bag);
+            bag.ExpireTime = DateTime.Now.Add(GetExpireTime());//滚动过期时间
+            Update(key, bag, GetExpireTime());
             //}
             return bag;
         }
@@ -174,7 +175,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <param name="sessionKey">SessionKey</param>
         /// <param name="uniondId">UnionId</param>
         /// <returns></returns>
-        public static SessionBag UpdateSession(string key, string openId, string sessionKey,string uniondId)
+        public static SessionBag UpdateSession(string key, string openId, string sessionKey, string uniondId)
         {
             key = key ?? SessionHelper.GetNewThirdSessionName();
 
@@ -186,9 +187,9 @@ namespace Senparc.Weixin.WxOpen.Containers
                 OpenId = openId,
                 UnionId = uniondId,
                 SessionKey = sessionKey,
-                ExpireTime = GetExpireTime()
+                ExpireTime = DateTime.Now.Add(GetExpireTime())
             };
-            Update(key, sessionBag);
+            Update(key, sessionBag, GetExpireTime());
             return sessionBag;
             //}
         }

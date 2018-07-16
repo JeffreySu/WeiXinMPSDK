@@ -171,7 +171,7 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTime.MinValue,
                     JsApiTicketResult = new JsApiTicketResult()
                 };
-                Update(BuildingKey(corpId, corpSecret), bag);
+                Update(BuildingKey(corpId, corpSecret), bag,null);
                 return bag;
                 //}
             };
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Work.Containers
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    Update(jsApiTicketBag);//更新到缓存
+                    Update(jsApiTicketBag, null);//更新到缓存
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.Work.Containers
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    Update(jsApiTicketBag);//更新到缓存
+                    Update(jsApiTicketBag, null);//更新到缓存
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

@@ -48,10 +48,18 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            
-            /* CO2NET 全局注册开始
+
+            /* 
+             * CO2NET 全局注册开始
              * 建议按照以下顺序进行注册
              */
+
+            /*
+             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
+             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
+             * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
+             */
+
 
             //设置全局 Debug 状态
             var isGLobalDebug = true;
@@ -64,12 +72,6 @@ namespace Senparc.Weixin.MP.Sample
             //CO2NET 全局注册，必须！！
             IRegisterService register = RegisterService.Start(senparcSetting)
                                           .UseSenparcGlobal(false, () => GetExCacheStrategies(senparcSetting)) //这里没有 ; 下面接着写
-
-            #region 注册线程，在 RegisterService.Start() 中已经自动注册，此处也可以省略
-
-                  .RegisterThreads()  //启动线程，RegisterThreads()也可以省略，在Start()中已经自动注册
-
-            #endregion
 
             #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
 

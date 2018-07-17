@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// 小程序名称设置及改名
         /// </summary>
         /// <para>https://api.weixin.qq.com/wxa/setnickname?access_token=TOKEN</para>
-        /// <param name="accessToken">小程序accessToken</param>
+        /// <param name="accessToken"></param>
         /// <param name="nick_name">昵称	必填</param>
         /// <param name="id_card">身份证照片–临时素材mediaid	个人号必填</param>
         /// <param name="license">组织机构代码证或营业执照–临时素材mediaid	组织号必填</param>
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// 小程序名称设置及改名
         /// </summary>
         /// <para>https://api.weixin.qq.com/wxa/setnickname?access_token=TOKEN</para>
-        /// <param name="accessToken">小程序accessToken</param>
+        /// <param name="accessToken"></param>
         /// <param name="nick_name">昵称	必填</param>
         /// <param name="id_card">身份证照片–临时素材mediaid	个人号必填</param>
         /// <param name="license">组织机构代码证或营业执照–临时素材mediaid	组织号必填</param>

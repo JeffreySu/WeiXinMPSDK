@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <param name="appid">公众号的 appid</param>
         /// <param name="copy_wx_verify">是否复用公众号的资质进行微信认证(1:申请复用资质进行微信 认证 0:不申请)</param>
         /// <param name="redirect_uri">
-        /// 用户扫码授权后，MP 扫码页面将跳转到该地址(注:1.链接需 urlencode 2.Host 需和第三方平台在微信开放平台上面填写的登 录授权的发起页域名一致)
+        /// 用户扫码授权后，MP 扫码页面将跳转到该地址(注:Host 需和第三方平台在微信开放平台上面填写的登 录授权的发起页域名一致)
         /// 公众号管理员扫码后在手机端完成授权确认。跳转回第三方平台，会在上述 redirect_uri后拼接 ticket=*
         /// </param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// </summary>
         /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
         /// 注：实际头像始终为正方形</para>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="head_img_media_id">头像素材media_id</param>
         /// <param name="x1">裁剪框左上角x坐标（取值范围：[0, 1]）</param>
         /// <param name="y1">裁剪框左上角y坐标（取值范围：[0, 1]）</param>
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <summary>
         /// 跳转至第三方平台，第三方平台调用快速注册API完成管理员换绑。
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="taskid">换绑管理员任务序列号(公众平台最终点击提交回跳到第三方平台时携带)
         /// <para><see cref="Senparc.Weixin.Open.WxOpenAPIs.WxOpenApi.ComponentRebindAdmin"/></para></param>
         /// <returns></returns>
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// </summary>
         /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
         /// 注：实际头像始终为正方形</para>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="head_img_media_id">头像素材media_id</param>
         /// <param name="x1">裁剪框左上角x坐标（取值范围：[0, 1]）</param>
         /// <param name="y1">裁剪框左上角y坐标（取值范围：[0, 1]）</param>

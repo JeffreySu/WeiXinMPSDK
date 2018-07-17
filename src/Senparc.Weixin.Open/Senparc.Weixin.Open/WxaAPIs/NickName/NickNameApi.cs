@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// 小程序名称设置及改名
         /// </summary>
         /// <para>https://api.weixin.qq.com/wxa/setnickname?access_token=TOKEN</para>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="nick_name">昵称	必填</param>
         /// <param name="id_card">身份证照片–临时素材mediaid	个人号必填</param>
         /// <param name="license">组织机构代码证或营业执照–临时素材mediaid	组织号必填</param>
@@ -60,6 +60,9 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// <summary>
         /// 小程序改名审核状态查询
         /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="audit_id">审核单id</param>
+        /// <returns></returns>
         public static QueryNickNameJsonResult QueryNickName(string accessToken, int audit_id)
         {
             var url = $"{Config.ApiMpHost}/wxa/api_wxa_querynickname?access_token={accessToken.AsUrlData()}";
@@ -74,8 +77,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// <summary>
         /// 微信认证名称检测
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="nick_name"></param>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="nick_name">名称（昵称）</param>
         /// <returns></returns>
         public static CheckWxVerifyNickNameJsonResult CheckWxVerifyNickName(string accessToken, string nick_name)
         {
@@ -98,7 +101,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// 小程序名称设置及改名
         /// </summary>
         /// <para>https://api.weixin.qq.com/wxa/setnickname?access_token=TOKEN</para>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="nick_name">昵称	必填</param>
         /// <param name="id_card">身份证照片–临时素材mediaid	个人号必填</param>
         /// <param name="license">组织机构代码证或营业执照–临时素材mediaid	组织号必填</param>
@@ -136,6 +139,9 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// <summary>
         /// 小程序改名审核状态查询
         /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="audit_id">审核单id</param>
+        /// <returns></returns>
         public static async Task<QueryNickNameJsonResult> QueryNickNameAsync(string accessToken, int audit_id)
         {
             var url = $"{Config.ApiMpHost}/wxa/api_wxa_querynickname?access_token={accessToken.AsUrlData()}";
@@ -150,8 +156,8 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         /// <summary>
         /// 微信认证名称检测
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="nick_name"></param>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="nick_name">名称（昵称）</param>
         /// <returns></returns>
         public static async Task<CheckWxVerifyNickNameJsonResult> CheckWxVerifyNickNameAsync(string accessToken,
             string nick_name)
@@ -165,7 +171,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
             return await CommonJsonSend.SendAsync<CheckWxVerifyNickNameJsonResult>(accessToken, url, data);
         }
 
-#endregion
+        #endregion
 
 #endif
     }

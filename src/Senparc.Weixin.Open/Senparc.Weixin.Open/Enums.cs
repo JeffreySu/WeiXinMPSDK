@@ -240,7 +240,7 @@ namespace Senparc.Weixin.Open
     }
 
     /// <summary>
-    /// 审核状态，1：审核中，2：审核失败，3：审核成功
+    /// 小程序昵称审核状态，1：审核中，2：审核失败，3：审核成功
     /// </summary>
     public enum AuditStat
     {
@@ -249,6 +249,9 @@ namespace Senparc.Weixin.Open
         审核成功 = 3
     }
 
+    /// <summary>
+    /// 小程序类目审核状态，1：审核中，2：审核失败，3：审核成功
+    /// </summary>
     public enum AuditStatus
     {
         审核中 = 1,

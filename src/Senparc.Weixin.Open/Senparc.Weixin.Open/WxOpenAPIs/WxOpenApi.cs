@@ -20,13 +20,21 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
 
         #region 换绑小程序管理员接口
 
+        /*
+         *  流程
+         *  步骤一：从第三方平台页面发起，并跳转至微信公众平台指定换绑页面。
+         *  步骤二：小程序原管理员扫码，并填写原管理员身份证信息确认。
+         *  步骤三：填写新管理员信息(姓名、身份证、手机号)，使用新管理员的微信确认。
+         *  步骤四：点击提交后跳转至第三方平台页面，第三方平台回调对应 api 完成换绑流程。
+         */
+
         /// <summary>
         /// 从第三方平台跳转至微信公众平台授权注册页面
         /// </summary>
         /// <param name="component_appid">第三方平台的appid</param>
         /// <param name="appid">公众号的 appid</param>
         /// <param name="redirect_uri">新管理员信息填写完成点击提交后，将跳转到该地址
-        /// (注：1.链接需 urlencode 2.Host需和第三方平台在微信开放平台上面填写的登录授权的发起页域名一致)
+        /// (注：Host需和第三方平台在微信开放平台上面填写的登录授权的发起页域名一致)
         /// <para>点击页面提交按钮。 跳转回第三方平台，会在上述 redirect_uri 后拼接 taskid=*</para>
         /// <para><see cref="AccountApi.ComponentRebindAdmin"/>方法</para>
         /// </param>
@@ -44,7 +52,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 获取账号可以设置的所有类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
         public static CategoryListJsonResult GetAllCategories(string accessToken)
         {
@@ -55,7 +63,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 添加类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>
@@ -76,7 +84,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 删除类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <returns></returns>
@@ -94,7 +102,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 获取账号已经设置的所有类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
         public static GetCategoryJsonResult GetCategory(string accessToken)
         {
@@ -105,7 +113,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 添加类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>
@@ -136,7 +144,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 获取账号可以设置的所有类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
         public static async Task<CategoryListJsonResult> GetAllCategoriesAsync(string accessToken)
         {
@@ -148,7 +156,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 添加类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>
@@ -169,7 +177,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 删除类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <returns></returns>
@@ -187,7 +195,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 获取账号已经设置的所有类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
         public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken)
         {
@@ -199,7 +207,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <summary>
         /// 添加类目
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>

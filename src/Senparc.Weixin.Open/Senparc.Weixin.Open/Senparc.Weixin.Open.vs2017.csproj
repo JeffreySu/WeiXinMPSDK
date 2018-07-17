@@ -123,6 +123,7 @@
       v3.0.11 支持 Senparc.Weixin v5.0.11
       v3.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
       v3.1.2 修正 CodeApi.GetLatestAuditStatusAsync 请求方法错误（应该为GET）
+      v3.2.0 添加接口：复用公众号主体快速注册小程序
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

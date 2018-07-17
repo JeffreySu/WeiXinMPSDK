@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 if (_tenPayInfo == null)
                 {
                     _tenPayInfo = 
-                        TenPayInfoCollection.Data[Config.DefaultSenparcWeixinSetting.WeixinPay_PartnerId];
+                        TenPayInfoCollection.Data[Config.SenparcWeixinSetting.WeixinPay_PartnerId];
                 }
                 return _tenPayInfo;
             }

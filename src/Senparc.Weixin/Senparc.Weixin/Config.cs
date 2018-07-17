@@ -38,6 +38,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180622
     修改描述：v5.0.2.1 修复 IsDebug 逻辑判断错误
+
+    修改标识：Senparc - 20180717
+    修改描述：v5.1.2 Config.SenparcWeixinSetting 提供默认实例
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -190,5 +195,10 @@ namespace Senparc.Weixin
                 ;
             }
         };
+
+        static Config()
+        {
+            SenparcWeixinSetting = new SenparcWeixinSetting();//提供默认实例
+        }
     }
 }

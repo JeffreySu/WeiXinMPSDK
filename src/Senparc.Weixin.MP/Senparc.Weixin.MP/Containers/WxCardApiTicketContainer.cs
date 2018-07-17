@@ -165,7 +165,7 @@ namespace Senparc.Weixin.MP.Containers
                     WxCardApiTicketExpireTime = DateTime.MinValue,
                     WxCardApiTicketResult = new JsApiTicketResult()
                 };
-                Update(appId, bag);
+                Update(appId, bag, null);
                 return bag;
                 //}
             };
@@ -232,7 +232,7 @@ namespace Senparc.Weixin.MP.Containers
                                                                                    wxCardApiTicketBag.AppSecret,
                                                                                    "wx_card");
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = ApiUtility.GetExpireTime(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
-                    Update(wxCardApiTicketBag);
+                    Update(wxCardApiTicketBag, null);
                 }
             }
             return wxCardApiTicketBag.WxCardApiTicketResult;
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.Containers
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = DateTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
-                    Update(wxCardApiTicketBag);
+                    Update(wxCardApiTicketBag, null);
                 }
             }
             return wxCardApiTicketBag.WxCardApiTicketResult;

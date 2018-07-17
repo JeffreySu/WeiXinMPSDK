@@ -158,7 +158,7 @@ namespace Senparc.Weixin.MP.Containers
                     OAuthAccessTokenExpireTime = DateTime.MinValue,
                     OAuthAccessTokenResult = new OAuthAccessTokenResult()
                 };
-                Update(appId, bag);
+                Update(appId, bag, null);
                 return bag;
                 //}
             };
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.Containers
                     oAuthAccessTokenBag.OAuthAccessTokenResult = OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                    Update(oAuthAccessTokenBag);
+                    Update(oAuthAccessTokenBag, null);
                 }
             }
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
@@ -293,7 +293,7 @@ namespace Senparc.Weixin.MP.Containers
                     //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                    Update(oAuthAccessTokenBag);
+                    Update(oAuthAccessTokenBag, null);
                 }
             }
             return oAuthAccessTokenBag.OAuthAccessTokenResult;

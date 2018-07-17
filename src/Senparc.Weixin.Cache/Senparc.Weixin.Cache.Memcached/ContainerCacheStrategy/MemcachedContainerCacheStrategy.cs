@@ -88,13 +88,13 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();
         }
 
-        public override void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
+        public override void UpdateContainerBag(string key, IBaseContainerBag containerBag, TimeSpan? expiry = null, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();
             object value;
             if ((baseCacheStrategy as MemcachedObjectCacheStrategy).TryGet(key, out value))
             {
-                baseCacheStrategy.Update(key, containerBag, true);
+                baseCacheStrategy.Update(key, containerBag, expiry, isFullKey);
             }
         }
 

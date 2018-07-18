@@ -24,8 +24,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class MediaController : Controller
     {
-        public readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-        private readonly string appSecret = Config.DefaultSenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        private readonly string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         public FileResult GetVoice(string mediaId)
         {

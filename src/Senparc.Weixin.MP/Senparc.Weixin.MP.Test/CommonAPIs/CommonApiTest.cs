@@ -40,7 +40,9 @@ using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
+#if NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Hosting;
+#endif
 using Moq;
 using Senparc.WeixinTests;
 

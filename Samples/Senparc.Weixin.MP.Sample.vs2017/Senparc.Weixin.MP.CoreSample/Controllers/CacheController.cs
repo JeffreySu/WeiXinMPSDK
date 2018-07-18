@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 DateTime = DateTime.Now
             };
 
-            TestContainer1.Update(bagKey, bag);//更新到缓存（立即更新）
+            TestContainer1.Update(bagKey, bag,TimeSpan.FromHours(1));//更新到缓存（立即更新）
 
             itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     Key = shortBagKey,
                     DateTime = DateTime.Now
                 };
-                TestContainer1.Update(shortBagKey, bag); //更新到缓存（立即更新）
+                TestContainer1.Update(shortBagKey, bag,TimeSpan.FromHours(1)); //更新到缓存（立即更新）
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
 
                 Thread.Sleep(1);

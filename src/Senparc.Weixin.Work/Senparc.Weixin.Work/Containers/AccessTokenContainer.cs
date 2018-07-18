@@ -200,7 +200,7 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTime.MinValue,
                     AccessTokenResult = new AccessTokenResult()
                 };
-                Update(BuildingKey(corpId, corpSecret), bag);
+                Update(BuildingKey(corpId, corpSecret), bag, null);
                 return bag;
                 //}
             };
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.Work.Containers
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
                         accessTokenBag.CorpSecret);
                     accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -393,7 +393,7 @@ namespace Senparc.Weixin.Work.Containers
                     //    accessTokenBag.CorpSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;

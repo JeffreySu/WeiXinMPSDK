@@ -61,6 +61,16 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// <returns></returns>
         public static DateTime GetExpireTime(int expireInSeconds)
         {
+            return DateTime.Now.Add(GetExpiryTimeSpan(expireInSeconds));//提前x分钟重新获取
+        }
+
+        /// <summary>
+        /// 获取过期 TimeSpan
+        /// </summary>
+        /// <param name="expireInSeconds">有效时间（秒）</param>
+        /// <returns></returns>
+        public static TimeSpan GetExpiryTimeSpan(int expireInSeconds)
+        {
             if (expireInSeconds > 3600)
             {
                 expireInSeconds -= 600;//提前10分钟过期
@@ -73,8 +83,7 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
             {
                 expireInSeconds -= 30;//提前1分钟过期
             }
-
-            return DateTime.Now.AddSeconds(expireInSeconds);//提前2分钟重新获取
+            return TimeSpan.FromSeconds(expireInSeconds);
         }
     }
 }

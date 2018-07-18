@@ -13,7 +13,8 @@ using Senparc.Weixin.Open.MpAPIs.Open;
 namespace Senparc.Weixin.Open.AccountAPIs
 {
     /// <summary>
-    /// 快速创建小程序 账户 管理
+    /// 复用公众号主体快速注册小程序
+    /// <para>快速创建小程序 账户 管理</para>
     /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN</para>
     /// </summary>
     public class AccountApi

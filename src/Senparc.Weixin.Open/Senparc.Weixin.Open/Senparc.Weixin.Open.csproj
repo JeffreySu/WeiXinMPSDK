@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAPIs\AccountApi.cs" />
+    <Compile Include="AccountAPIs\AccountBasicInfoJson\AccountBasicInfoJsonResult.cs" />
+    <Compile Include="AccountAPIs\FastRegisterJson\FastRegisterJsonResult.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Containers\OAuthContainer.cs" />
     <Compile Include="Containers\ComponentContainer.cs" />

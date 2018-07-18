@@ -32,12 +32,16 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.Weixin, Version=4.21.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.4.21.5-rc1\lib\net45\Senparc.Weixin.dll</HintPath>
+    <Reference Include="Senparc.Weixin, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.5.1.2\lib\net45\Senparc.Weixin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=14.13.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.14.13.5-rc1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+    <Reference Include="Senparc.Weixin.MP, Version=15.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.MP.15.1.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.2.0\lib\net45\Senparc.CO2NET.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

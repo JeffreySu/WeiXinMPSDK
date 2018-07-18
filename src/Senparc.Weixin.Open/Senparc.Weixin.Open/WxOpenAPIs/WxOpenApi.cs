@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static CategoryListJsonResult GetAllCategories(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getallcategories?access_token={accessToken.AsUrlData()}";
-            return CommonJsonSend.Send<CategoryListJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<CategoryListJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 second = second,
                 certicates = certicates
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 first = first,
                 second = second
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static GetCategoryJsonResult GetCategory(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getcategory?access_token={accessToken.AsUrlData()}";
-            return CommonJsonSend.Send<GetCategoryJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetCategoryJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 second = second,
                 certicates = certicates
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static async Task<CategoryListJsonResult> GetAllCategoriesAsync(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getallcategories?access_token={accessToken.AsUrlData()}";
-            return await CommonJsonSend.SendAsync<CategoryListJsonResult>(accessToken, url, null,
+            return await CommonJsonSend.SendAsync<CategoryListJsonResult>(null, url, null,
                 CommonJsonSendType.GET);
         }
 
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 second = second,
                 certicates = certicates
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 first = first,
                 second = second
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getcategory?access_token={accessToken.AsUrlData()}";
-            return await CommonJsonSend.SendAsync<GetCategoryJsonResult>(accessToken, url, null,
+            return await CommonJsonSend.SendAsync<GetCategoryJsonResult>(null, url, null,
                 CommonJsonSendType.GET);
         }
 
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 second = second,
                 certicates = certicates
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         #endregion

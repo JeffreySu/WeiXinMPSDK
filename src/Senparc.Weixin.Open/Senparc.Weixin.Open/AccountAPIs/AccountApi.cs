@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
             var data = new {ticket = ticket};
-            return CommonJsonSend.Send<FastRegisterJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<FastRegisterJsonResult>(null, url, data);
         }
 
         #endregion
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url =
                 $"{Config.ApiMpHost}/cgi-bin/account/getaccountbasicinfo?access_token={accessToken.AsUrlData()}";
-            return CommonJsonSend.Send<AccountBasicInfoJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<AccountBasicInfoJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
             {
                 signature = signature
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
             var data = new {taskid = taskid};
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
             var data = new { ticket = ticket };
-            return await CommonJsonSend.SendAsync<FastRegisterJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<FastRegisterJsonResult>(null, url, data);
         }
 
         #endregion
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url =
                 $"{Config.ApiMpHost}/cgi-bin/account/getaccountbasicinfo?access_token={accessToken.AsUrlData()}";
-            return await CommonJsonSend.SendAsync<AccountBasicInfoJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<AccountBasicInfoJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
             {
                 signature = signature
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -236,7 +236,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
             var data = new { taskid = taskid };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         #endregion

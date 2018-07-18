@@ -15,6 +15,8 @@ namespace Senparc.Weixin.Open.AccountAPIs
     /// <summary>
     /// 小程序信息设置
     /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21528465979XX32V&token=&lang=zh_CN</para>
+    /// <para>包含 复用公众号主体快速注册小程序</para>
+    /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN</para>
     /// </summary>
     public class AccountApi
     {

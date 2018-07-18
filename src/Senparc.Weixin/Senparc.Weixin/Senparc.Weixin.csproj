@@ -141,6 +141,7 @@
     <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="RegisterServices\SenparcWeixinRegisterServiceExtension.cs" />
     <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtility.cs" />

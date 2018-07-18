@@ -13,15 +13,16 @@ using Senparc.Weixin.Open.MpAPIs.Open;
 namespace Senparc.Weixin.Open.AccountAPIs
 {
     /// <summary>
-    /// 复用公众号主体快速注册小程序
-    /// <para>快速创建小程序 账户 管理</para>
+    /// 小程序信息设置
+    /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21528465979XX32V&token=&lang=zh_CN</para>
+    /// <para>包含 复用公众号主体快速注册小程序</para>
     /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN</para>
     /// </summary>
     public class AccountApi
     {
         #region 同步方法
 
-        #region 快速注册小程序
+        #region 快速注册小程序 https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN
 
         /// <summary>
         /// 从第三方平台跳转至微信公众平台授权注册页面
@@ -53,7 +54,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
             var data = new {ticket = ticket};
-            return CommonJsonSend.Send<FastRegisterJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<FastRegisterJsonResult>(null, url, data);
         }
 
         #endregion
@@ -63,13 +64,16 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <summary>
         /// 获取帐号基本信息
         /// </summary>
-        /// <param name="accessToken">新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</param>
+        /// <param name="accessToken">
+        /// 小程序的access_token
+        /// <para>新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</para>
+        /// </param>
         /// <returns></returns>
         public static AccountBasicInfoJsonResult GetAccountBasicInfo(string accessToken)
         {
             var url =
                 $"{Config.ApiMpHost}/cgi-bin/account/getaccountbasicinfo?access_token={accessToken.AsUrlData()}";
-            return CommonJsonSend.Send<AccountBasicInfoJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<AccountBasicInfoJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -87,7 +91,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static WxJsonResult ModifyHeadImage(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
-            //https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=TOKEN
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifyheadimage?access_token={accessToken.AsUrlData()}";
             var data = new
             {
@@ -97,7 +100,23 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
+        }
+
+        /// <summary>
+        /// 修改功能介绍
+        /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="signature">功能介绍</param>
+        /// <returns></returns>
+        public static WxJsonResult ModifySignature(string accessToken, string signature)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
+            var data = new
+            {
+                signature = signature
+            };
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -115,7 +134,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
             var data = new {taskid = taskid};
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -138,7 +157,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
             var data = new { ticket = ticket };
-            return await CommonJsonSend.SendAsync<FastRegisterJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<FastRegisterJsonResult>(null, url, data);
         }
 
         #endregion
@@ -154,7 +173,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url =
                 $"{Config.ApiMpHost}/cgi-bin/account/getaccountbasicinfo?access_token={accessToken.AsUrlData()}";
-            return await CommonJsonSend.SendAsync<AccountBasicInfoJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<AccountBasicInfoJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -172,7 +191,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static async Task<WxJsonResult> ModifyHeadImageAsync(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
-            //https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=TOKEN
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifyheadimage?access_token={accessToken.AsUrlData()}";
             var data = new
             {
@@ -182,7 +200,23 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
+        }
+
+        /// <summary>
+        /// 修改功能介绍
+        /// </summary>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="signature">功能介绍</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> ModifySignatureAsync(string accessToken, string signature)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
+            var data = new
+            {
+                signature = signature
+            };
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         #endregion
@@ -200,7 +234,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
             var data = new { taskid = taskid };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
         }
 
         #endregion

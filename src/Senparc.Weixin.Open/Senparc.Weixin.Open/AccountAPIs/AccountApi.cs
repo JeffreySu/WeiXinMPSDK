@@ -13,14 +13,14 @@ using Senparc.Weixin.Open.MpAPIs.Open;
 namespace Senparc.Weixin.Open.AccountAPIs
 {
     /// <summary>
-    /// 快速创建小程序 账户 管理
-    /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN</para>
+    /// 小程序信息设置
+    /// <para>https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21528465979XX32V&token=&lang=zh_CN</para>
     /// </summary>
     public class AccountApi
     {
         #region 同步方法
 
-        #region 快速注册小程序
+        #region 快速注册小程序 https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21521706765hLoMO&token=&lang=zh_CN
 
         /// <summary>
         /// 从第三方平台跳转至微信公众平台授权注册页面
@@ -62,7 +62,10 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <summary>
         /// 获取帐号基本信息
         /// </summary>
-        /// <param name="accessToken">新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</param>
+        /// <param name="accessToken">
+        /// 小程序的access_token
+        /// <para>新创建小程序appid及authorization_code换取authorizer_refresh_token进而得到authorizer_access_token。</para>
+        /// </param>
         /// <returns></returns>
         public static AccountBasicInfoJsonResult GetAccountBasicInfo(string accessToken)
         {
@@ -86,7 +89,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static WxJsonResult ModifyHeadImage(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
-            //https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=TOKEN
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifyheadimage?access_token={accessToken.AsUrlData()}";
             var data = new
             {
@@ -96,7 +98,25 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
+        }
+
+        /// <summary>
+        /// 修改功能介绍
+        /// </summary>
+        /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
+        /// 注：实际头像始终为正方形</para>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="signature">功能介绍</param>
+        /// <returns></returns>
+        public static WxJsonResult ModifySignature(string accessToken, string signature)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
+            var data = new
+            {
+                signature = signature
+            };
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data);
         }
 
         #endregion
@@ -171,7 +191,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static async Task<WxJsonResult> ModifyHeadImageAsync(string accessToken, string head_img_media_id, float x1, float y1,
             float x2, float y2)
         {
-            //https://api.weixin.qq.com/cgi-bin/account/modifyheadimage?access_token=TOKEN
             var url = $"{Config.ApiMpHost}/cgi-bin/account/modifyheadimage?access_token={accessToken.AsUrlData()}";
             var data = new
             {
@@ -181,7 +200,25 @@ namespace Senparc.Weixin.Open.AccountAPIs
                 x2 = x2,
                 y2 = y2
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
+        }
+
+        /// <summary>
+        /// 修改功能介绍
+        /// </summary>
+        /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
+        /// 注：实际头像始终为正方形</para>
+        /// <param name="accessToken">小程序的access_token</param>
+        /// <param name="signature">功能介绍</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> ModifySignatureAsync(string accessToken, string signature)
+        {
+            var url = $"{Config.ApiMpHost}/cgi-bin/account/modifysignature?access_token={accessToken.AsUrlData()}";
+            var data = new
+            {
+                signature = signature
+            };
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data);
         }
 
         #endregion

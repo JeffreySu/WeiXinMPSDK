@@ -104,8 +104,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <summary>
         /// 修改功能介绍
         /// </summary>
-        /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
-        /// 注：实际头像始终为正方形</para>
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="signature">功能介绍</param>
         /// <returns></returns>
@@ -206,8 +204,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         /// <summary>
         /// 修改功能介绍
         /// </summary>
-        /// <para>图片格式只支持：BMP、JPEG、JPG、GIF、PNG，大小不超过2M
-        /// 注：实际头像始终为正方形</para>
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="signature">功能介绍</param>
         /// <returns></returns>

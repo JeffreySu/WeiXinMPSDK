@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>5.1.0</Version>
+    <Version>5.1.2</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -258,6 +258,8 @@
       v5.0.10 支持 CO2NET v0.1.10，将 SenparcWeixinSetting 中的 Redis 和 Memcached 配置参数调整到 CO2NET 的 SenparcSetting 中
       v5.0.11 支持 CO2NET v0.1.11
       v5.1.0 支持 CO2NET v0.2.0，重构Container代码
+      v5.1.2 Config.SenparcWeixinSetting 提供默认实例
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

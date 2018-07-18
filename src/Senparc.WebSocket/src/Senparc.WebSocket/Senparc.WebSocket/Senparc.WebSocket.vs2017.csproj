@@ -6,7 +6,7 @@
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     
-  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - WebSocket 模块

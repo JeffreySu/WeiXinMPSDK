@@ -21,6 +21,7 @@ using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.Open.AccountAPIs;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -45,6 +46,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            return Redirect(url);
+        }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth() {
+
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
             return Redirect(url);
         }
 

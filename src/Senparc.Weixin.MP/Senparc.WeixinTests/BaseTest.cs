@@ -26,7 +26,6 @@ namespace Senparc.WeixinTests
             RegisterStart();
         }
 
-
         /// <summary>
         /// 运行默认注册流程
         /// </summary>

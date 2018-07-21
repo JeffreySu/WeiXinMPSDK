@@ -259,6 +259,9 @@
       v5.0.11 支持 CO2NET v0.1.11
       v5.1.0 支持 CO2NET v0.2.0，重构Container代码
       v5.1.2 Config.SenparcWeixinSetting 提供默认实例
+      v5.1.3
+      1、支持 CO2NET v0.2.3
+      2、优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

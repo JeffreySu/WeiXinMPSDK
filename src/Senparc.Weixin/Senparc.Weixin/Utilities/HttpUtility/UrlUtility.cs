@@ -95,7 +95,7 @@ namespace Senparc.Weixin.HttpUtility
 
             var request = httpContext.Request;
             //var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
-            //var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();      var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+            //var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();    
             var returnUrl = request.AbsoluteUri();
             var urlData = httpContext.Request;
             var scheme = urlData.Scheme;//协议

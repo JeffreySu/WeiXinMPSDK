@@ -258,4 +258,15 @@ namespace Senparc.Weixin.Open
         审核不通过 = 2,
         审核通过 = 3
     }
+
+    /// <summary>
+    /// 要授权的帐号类型
+    /// </summary>
+    public enum LoginAuthType
+    {
+        默认,
+        仅展示公众号 = 1,
+        仅展示小程序 = 2,
+        表示公众号和小程序都展示 = 3
+    }
 }

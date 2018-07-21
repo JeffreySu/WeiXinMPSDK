@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>5.1.2</Version>
+    <Version>5.1.3</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -259,6 +259,9 @@
       v5.0.11 支持 CO2NET v0.1.11
       v5.1.0 支持 CO2NET v0.2.0，重构Container代码
       v5.1.2 Config.SenparcWeixinSetting 提供默认实例
+      v5.1.3
+      1、支持 CO2NET v0.2.3
+      2、优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -347,7 +350,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

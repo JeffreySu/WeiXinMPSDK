@@ -40,6 +40,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
+            services.AddSession();//使用Session
 
             /*
              * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
@@ -67,6 +68,7 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             //引入EnableRequestRewind中间件
             app.UseEnableRequestRewind();
+            app.UseSession();
 
             if (env.IsDevelopment())
             {

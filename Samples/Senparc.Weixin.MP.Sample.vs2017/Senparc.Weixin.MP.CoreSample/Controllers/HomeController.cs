@@ -42,9 +42,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult Index()
         {
-            return Content()
-
-
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
             {
                 var dllPath =

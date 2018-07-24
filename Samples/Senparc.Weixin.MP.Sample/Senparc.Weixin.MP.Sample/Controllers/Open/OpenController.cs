@@ -3,6 +3,7 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
@@ -35,6 +36,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth()
+        {
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
+            return Redirect(url);
+        }
+
 
         /// <summary>
         /// 微信服务器会不间断推送最新的Ticket（10分钟一次），需要在此方法中更新缓存

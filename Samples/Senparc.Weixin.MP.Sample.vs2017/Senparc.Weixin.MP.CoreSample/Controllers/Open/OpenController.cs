@@ -21,6 +21,7 @@ using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.Open.AccountAPIs;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -29,10 +30,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Appid;
-        private string component_Secret = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Secret;
-        private string component_Token = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Token;
-        private string component_EncodingAESKey = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_EncodingAESKey;
+        private string component_AppId = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Secret;
+        private string component_Token = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Senparc.Weixin.Config.SenparcWeixinSetting.Component_EncodingAESKey;
 
         /// <summary>
         /// 发起授权页的体验URL
@@ -45,6 +46,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            return Redirect(url);
+        }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth() {
+
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
             return Redirect(url);
         }
 

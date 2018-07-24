@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
  ----------------------------------------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Containers;
@@ -63,7 +64,8 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="containerBag"></param>
+        /// <param name="expiry">超时时间</param>
         /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
-        void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false);
+        void UpdateContainerBag(string key, IBaseContainerBag containerBag, TimeSpan? expiry = null, bool isFullKey = false);
     }
 }

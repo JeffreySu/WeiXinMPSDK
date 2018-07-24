@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.0.11</Version>
+    <Version>15.1.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 微信公众号 模块
@@ -413,6 +413,7 @@
       v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
       v15.0.10 支持 Senparc.Weixin v5.0.10
       v15.0.11 支持 Senparc.Weixin v5.0.11
+      v15.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

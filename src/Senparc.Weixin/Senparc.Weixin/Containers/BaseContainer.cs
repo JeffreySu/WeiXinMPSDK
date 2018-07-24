@@ -261,7 +261,8 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         /// <param name="shortKey">即bag.Key</param>
         /// <param name="bag">为null时删除该项</param>
-        public static void Update(string shortKey, TBag bag)
+        /// <param name="expiry"></param>
+        public static void Update(string shortKey, TBag bag, TimeSpan? expiry)
         {
             var cacheKey = GetBagCacheKey(shortKey);
             if (bag == null)
@@ -292,22 +293,22 @@ namespace Senparc.Weixin.Containers
 
             bag.CacheTime = DateTime.Now;
 
-            Cache.Update(cacheKey, bag);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+            Cache.Update(cacheKey, bag, expiry);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>
         /// 更新已经添加过的数据项
         /// </summary>
-        /// <param name="shortKey"></param>
         /// <param name="bag">为null时删除该项</param>
-        public static void Update(TBag bag)
+        /// <param name="expiry"></param>
+        public static void Update(TBag bag, TimeSpan? expiry)
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
                 throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
             }
 
-            Update(bag.Key, bag);
+            Update(bag.Key, bag, expiry);
         }
 
         /// <summary>
@@ -315,7 +316,8 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         /// <param name="shortKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string shortKey, Action<TBag> partialUpdate)
+        /// <param name="expiry"></param>
+        public static void Update(string shortKey, Action<TBag> partialUpdate, TimeSpan? expiry)
         {
             var cacheKey = GetBagCacheKey(shortKey);
             if (partialUpdate == null)
@@ -331,7 +333,7 @@ namespace Senparc.Weixin.Containers
                         Key = cacheKey//确保这一项Key已经被记录
                     };
 
-                    Cache.Set(cacheKey, newBag);
+                    Cache.Set(cacheKey, newBag, expiry);
                 }
                 partialUpdate(TryGetItem(shortKey));//更新对象
             }

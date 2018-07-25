@@ -116,18 +116,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="resultXml"></param>
         public PayBankResult(string resultXml) : base(resultXml)
         {
+            result_code = GetXmlValue("result_code") ?? "";
+            err_code = GetXmlValue("err_code") ?? "";
             err_code_des = GetXmlValue("err_code_des") ?? "";
-            mch_id = GetXmlValue("mch_id") ?? "";
-            partner_trade_no = GetXmlValue("partner_trade_no") ?? "";
-            amount = int.Parse(GetXmlValue("amount"));//必填
-            nonce_str = GetXmlValue("nonce_str") ?? "";
-            sign = GetXmlValue("sign") ?? "";
 
-
-            if (base.IsReturnCodeSuccess() && this.IsResultCodeSuccess())
+            if (base.IsReturnCodeSuccess())
             {
-                payment_no = GetXmlValue("payment_no") ?? "";
-                cmms_amt = int.Parse(GetXmlValue("cmms_amt"));//必填
+                mch_id = GetXmlValue("mch_id") ?? "";
+                partner_trade_no = GetXmlValue("partner_trade_no") ?? "";
+                amount = int.Parse(GetXmlValue("amount"));//必填
+                nonce_str = GetXmlValue("nonce_str") ?? "";
+                sign = GetXmlValue("sign") ?? "";
+
+                if (this.IsResultCodeSuccess())
+                {
+                    payment_no = GetXmlValue("payment_no") ?? "";
+                    cmms_amt = int.Parse(GetXmlValue("cmms_amt"));//必填
+                }
             }
 
         }

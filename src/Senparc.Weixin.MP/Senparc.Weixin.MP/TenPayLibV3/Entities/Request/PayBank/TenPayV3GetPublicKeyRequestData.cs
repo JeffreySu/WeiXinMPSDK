@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
               /// <summary>
         /// 随机字符串
         /// </summary>
-        public string NonceStr { get; }
+        public string NonceStr { get; set; }
 
     
         /// <summary>
@@ -66,8 +66,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public readonly string Sign;
 
-        public TenPayV3GetPublicKeyRequestData()
+        public TenPayV3GetPublicKeyRequestData(string mchId, string nonceStr, string key)
         {
+            MchId = mchId;
+            NonceStr = nonceStr;
+            Key = key;
 
             #region 设置RequestHandler
 
@@ -78,7 +81,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //设置package订单参数
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 

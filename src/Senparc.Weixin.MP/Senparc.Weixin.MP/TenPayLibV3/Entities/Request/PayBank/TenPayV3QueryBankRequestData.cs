@@ -65,8 +65,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public readonly string Sign;
 
-        public TenPayV3QueryBankRequestData()
+        public TenPayV3QueryBankRequestData(string mchId, string nonceStr, string key, string partnerTradeNo)
         {
+            this.MchId = mchId;
+            this.NonceStr = nonceStr;
+            this.Key = key;
+            this.PartnerTradeNumber = partnerTradeNo;
 
             #region 设置RequestHandler
 

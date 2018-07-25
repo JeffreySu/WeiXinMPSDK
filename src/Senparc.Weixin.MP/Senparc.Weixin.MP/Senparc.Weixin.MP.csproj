@@ -357,6 +357,7 @@
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\Entities\NormalRedPackParameters.cs" />
+    <Compile Include="TenPayLibV3\Entities\Request\PayBank\TenPayV3GetPublicKeyRequestData.cs" />
     <Compile Include="TenPayLibV3\Entities\Request\PayBank\TenPayV3PayBankRequestData.cs" />
     <Compile Include="TenPayLibV3\Entities\Request\PayBank\TenPayV3QueryBankRequestData.cs" />
     <Compile Include="TenPayLibV3\Entities\Request\ServiceProvider\TenPayV3MicroPayRequestData.cs" />

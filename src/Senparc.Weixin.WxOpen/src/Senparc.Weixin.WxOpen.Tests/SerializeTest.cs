@@ -29,11 +29,12 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.WeixinTests.Cache
 {
     [TestClass]
-    public class SerializeTest : CommonApiTest
+    public class SerializeTest : WxOpenBaseTest
     {
         /// <summary>
         /// 不同的序列化方式比较

@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     ]
 }".Replace("\r", "").Replace("\n", "");
 
-            var dataInfo = new TenPayV3MicroPayRequestData(base._wxAppId, base._mchId, sandBoxKey,
+            var dataInfo = new TenPayV3MicroPayRequestData(base._appId, base._mchId, sandBoxKey,
                 nonceStr, deviceInfo, body, detail, null, outTradeNo, totalFee.ToString(), "CNY", "127.0.0.1",
                 null, null);
 
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         private void OrderQueryTest(string sandBoxKey, string nonceStr,string transactionId,string outTradeNo)
         {
-            var dataInfo = new TenPayV3OrderQueryRequestData(base._wxAppId, base._mchId, transactionId, nonceStr, outTradeNo, sandBoxKey);
+            var dataInfo = new TenPayV3OrderQueryRequestData(base._appId, base._mchId, transactionId, nonceStr, outTradeNo, sandBoxKey);
             var result = TenPayV3.OrderQuery(dataInfo);
 
 
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         private void DownloadBillTest(string sandBoxKey, string nonceStr)
         {
-            var dataInfo = new TenPayV3DownloadBillRequestData(base._wxAppId, base._mchId, nonceStr, "Senparc POS 1",
+            var dataInfo = new TenPayV3DownloadBillRequestData(base._appId, base._mchId, nonceStr, "Senparc POS 1",
                 DateTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
 
 

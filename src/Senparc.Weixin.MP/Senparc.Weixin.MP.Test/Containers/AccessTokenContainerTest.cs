@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             {
                 //获取Token完整结果（包括当前过期秒数）
                 DateTime dt1 = DateTime.Now;
-                var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId);
+                var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
                 DateTime dt2 = DateTime.Now;
 
                 Assert.IsNotNull(tokenResult);
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
                 //只获取Token字符串
                 dt1 = DateTime.Now;
-                var token = AccessTokenContainer.GetAccessToken(base._wxAppId);
+                var token = AccessTokenContainer.GetAccessToken(base._appId);
                 dt2 = DateTime.Now;
                 Assert.AreEqual(tokenResult.access_token, token);
                 Console.WriteLine(tokenResult.access_token);
@@ -71,14 +71,14 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 //getNewToken
                 {
                     dt1 = DateTime.Now;
-                    token = AccessTokenContainer.TryGetAccessToken(base._wxAppId, base._wxAppSecret, false);
+                    token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
                     dt2 = DateTime.Now;
                     Console.WriteLine(token);
                     Assert.AreEqual(tokenResult.access_token, token);
 
                     Console.WriteLine("强制重新获取AccessToken");
                     dt1 = DateTime.Now;
-                    token = AccessTokenContainer.TryGetAccessToken(base._wxAppId, base._wxAppSecret, true);
+                    token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
                     dt2 = DateTime.Now;
                     Console.WriteLine(token);
                     Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 }
 
                 {
-                    tokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId);
+                    tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
                     if (base._useRedis)
                     {
                         Thread.Sleep(2500);//等待缓存更新
@@ -113,14 +113,14 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         public void GetTokenResultTest()
         {
             //注册
-            AccessTokenContainer.Register(base._wxAppId, base._wxAppSecret);
+            AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //模拟多线程获取
             List<string> accessTokenList = new List<string>();
             int[] treads = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             Parallel.For(0, treads.Length, (i) =>
             {
-                var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId, false);
+                var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, false);
                 accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
             });
 
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         {
             //此测试需要使用本地缓存进行测试
 
-            var registeredAppId = base._wxAppId;//已经注册的AppId
+            var registeredAppId = base._appId;//已经注册的AppId
 
             var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
             Assert.AreEqual(registeredAppId, appId);
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         public void ReTryRegisterTest()
         {
             //第一步：注册（基类已完成）
-            var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId);
+            var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
             Assert.IsNotNull(accessTokenResult);
             Assert.IsNotNull(accessTokenResult.access_token);
             Console.WriteLine(accessTokenResult.access_token);
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
 
             //第三步：在不注册的情况下调用接口
-            accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId, true);
+            accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
             Assert.IsNotNull(accessTokenResult);
             Assert.IsNotNull(accessTokenResult.access_token);
             Console.WriteLine(accessTokenResult.access_token);

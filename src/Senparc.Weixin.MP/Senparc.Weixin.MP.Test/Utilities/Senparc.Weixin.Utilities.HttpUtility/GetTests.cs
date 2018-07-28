@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
 #endif
 
             //上传素材
-            var result = MediaApi.UploadTemporaryMedia(base._wxAppId, UploadMediaFileType.image, fileName);
+            var result = MediaApi.UploadTemporaryMedia(base._appId, UploadMediaFileType.image, fileName);
             Console.WriteLine("MediaId：" + result.media_id);
 
             //下载

@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 name = "代理消息-返回图文"
             });
 
-            var result = CommonApi.CreateMenu(_wxAppId, bg);
+            var result = CommonApi.CreateMenu(_appId, bg);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
@@ -132,7 +132,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         public void GetMenuTest()
         {
             return;//已经通过测试
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.GetMenu(accessToken);
 
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试，删除之后，GetMenu将返回null
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.DeleteMenu(accessToken);
             Assert.IsNotNull(result);

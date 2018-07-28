@@ -40,7 +40,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             var dt1 = DateTime.Now;
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.CreateWxQrCode(base._wxAppId, ms, "pages/websocket", 100);
+                var result = WxAppApi.CreateWxQrCode(base._appId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
                 ms.Seek(0, SeekOrigin.Begin);
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         {
             var dt1 = DateTime.Now;
             var filePath = "../../Config/qr2.jpg";
-            var result = WxAppApi.CreateWxQrCode(base._wxAppId, filePath, "pages/websocket", 100);
+            var result = WxAppApi.CreateWxQrCode(base._appId, filePath, "pages/websocket", 100);
             var dt2 = DateTime.Now;
             Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
         }
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             Task.Factory.StartNew(async () =>
             {
                 var ms = new MemoryStream();
-                var result = await WxAppApi.CreateWxQrCodeAsync(base._wxAppId, ms, "pages/websocket", 100);
+                var result = await WxAppApi.CreateWxQrCodeAsync(base._appId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
                 ms.Seek(0, SeekOrigin.Begin);
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             var filePath = "../../Config/qr-async2.jpg";
             Task.Factory.StartNew(async () =>
             {
-                var result = await WxAppApi.CreateWxQrCodeAsync(base._wxAppId, filePath, "pages/websocket", 100);
+                var result = await WxAppApi.CreateWxQrCodeAsync(base._appId, filePath, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
                 Assert.IsTrue(File.Exists(filePath));
             });
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         {
             var filePath = "../../Config/qr-unlimit.jpg";
             var scene = "";
-            var result = WxAppApi.GetWxaCodeUnlimit(base._wxAppId,filePath, scene, "pages/websocket", 100);
+            var result = WxAppApi.GetWxaCodeUnlimit(base._appId,filePath, scene, "pages/websocket", 100);
             Assert.IsNotNull(result);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }

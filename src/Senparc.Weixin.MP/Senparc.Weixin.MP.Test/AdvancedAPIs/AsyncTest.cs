@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 Task.Factory.StartNew(async () =>
                 {
                     var d2 = DateTime.Now;
-                    var tagJsonResult = await Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.GetAsync(base._wxAppId);
+                    var tagJsonResult = await Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.GetAsync(base._appId);
                     Console.WriteLine("3. tagJsonResult 1：" + string.Join(",", tagJsonResult.tags.Select(z => z.name)));
                     Console.WriteLine("4. 用时：" + (DateTime.Now-d2).TotalMilliseconds+" ms");
 

@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateCardTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var data = new Card_GrouponData()
             {
                 base_info = _BaseInfo,
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         public List<string> CardBatchGetTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardBatchGet(accessToken, 0, 5, null);
             Console.Write(result);
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateQRTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var cardIdList = CardBatchGetTest();
             var cardId = cardIdList.FirstOrDefault();
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             string cardId = "p3IHxjt-CLCTd_r3eZ9cQqM7jrZE";    //换成你的卡券Id
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);

@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string file = "";//文件路径，以下以图片为例
             string groupId = "";//分组Id
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
 
             var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId,GroupMessageType.image,false);
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string file = "";//文件路径，以下以图片为例
             string[] openIds = new string[] { _testOpenId };
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
             var clientMsgId = DateTime.Now.Ticks.ToString();
             var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, clientMsgId, Config.TIME_OUT, openIds);
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var msgId = SendImageByOpenIdTest();
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = GroupMessageApi.GetGroupMessageResult(accessToken, msgId);
 
             Assert.IsTrue(result.msg_id.Length > 0);
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             string mediaId = "Qk7qR9oZGG1CyzJ8ik3j3nElgY5xETEFAiTLrMsZJs9iAKarM7DopvxbREE7fINU";
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = GroupMessageApi.GetVideoMediaIdResult(accessToken, mediaId, "test", "test");
 
             Assert.IsTrue(result.media_id.Length > 0);

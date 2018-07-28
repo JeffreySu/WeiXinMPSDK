@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void InfoTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             //获取OpenId
             getTestOpenId(true);
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
 
             var result = UserApi.Get(accessToken, null);
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string nextOpenId = null;
             var stop = false;
             List<UserInfoJson> userInfoList = new List<UserInfoJson>();
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             while (!stop)
             {
                 var result = UserApi.Get(accessToken, nextOpenId);
@@ -115,12 +115,12 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 });
             }
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = UserApi.BatchGetUserInfo(accessToken, data);
 
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
 
-            var result2 = UserApi.BatchGetUserInfo(_wxAppId, data);
+            var result2 = UserApi.BatchGetUserInfo(_appId, data);
 
             Assert.AreEqual(result2.errcode, ReturnCode.请求成功);
 

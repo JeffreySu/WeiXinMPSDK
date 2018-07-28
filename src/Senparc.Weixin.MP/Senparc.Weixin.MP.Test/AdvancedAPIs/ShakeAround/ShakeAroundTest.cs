@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void Register()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var testData = new RegisterData()
                {
                    name = "苏震巍",
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void DeviceApplyTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = ShakeAroundApi.DeviceApply(accessToken, 1, "测试", "测试");
             Assert.IsNotNull(result);
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UploadImageTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             string file = @"E:\测试.jpg";
 

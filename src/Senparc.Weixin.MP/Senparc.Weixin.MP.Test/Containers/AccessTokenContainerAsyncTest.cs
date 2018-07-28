@@ -51,11 +51,11 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             }
             
             //注册
-            AccessTokenContainer.Register(base._wxAppId, base._wxAppSecret);
+            AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //获取Token完整结果（包括当前过期秒数）
             DateTime dt1 = DateTime.Now;
-            var tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._wxAppId).Result;
+            var tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId).Result;
             DateTime dt2 = DateTime.Now;
 
             Assert.IsNotNull(tokenResult);
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             //只获取Token字符串
             dt1 = DateTime.Now;
-            var token = AccessTokenContainer.GetAccessTokenAsync(base._wxAppId).Result;
+            var token = AccessTokenContainer.GetAccessTokenAsync(base._appId).Result;
             dt2 = DateTime.Now;
             Assert.AreEqual(tokenResult.access_token, token);
             Console.WriteLine(tokenResult.access_token);
@@ -73,14 +73,14 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             //getNewToken
             {
                 dt1 = DateTime.Now;
-                token = AccessTokenContainer.TryGetAccessTokenAsync(base._wxAppId, base._wxAppSecret, false).Result;
+                token = AccessTokenContainer.TryGetAccessTokenAsync(base._appId, base._appSecret, false).Result;
                 dt2 = DateTime.Now;
                 Assert.AreEqual(tokenResult.access_token, token);
                 Console.WriteLine(tokenResult.access_token);
 
                 Console.WriteLine("强制重新获取AccessToken");
                 dt1 = DateTime.Now;
-                token = AccessTokenContainer.TryGetAccessTokenAsync(base._wxAppId, base._wxAppSecret, true).Result;
+                token = AccessTokenContainer.TryGetAccessTokenAsync(base._appId, base._appSecret, true).Result;
                 dt2 = DateTime.Now;
                 Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
                 Console.WriteLine(tokenResult.access_token);
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             }
 
             {
-                tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._wxAppId).Result;
+                tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId).Result;
                 Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
                 dt1 = DateTime.Now;
                 var allItems = AccessTokenContainer.GetAllItems();
@@ -105,15 +105,15 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         public void GetTokenResultTest()
         {
             //注册
-            AccessTokenContainer.Register(base._wxAppId, base._wxAppSecret);
+            AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //模拟多线程获取
             List<string> accessTokenList = new List<string>();
             int[] threads = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var accessTokenResultInit = AccessTokenContainer.GetAccessTokenResult(base._wxAppId, false);//先获取一次
+            var accessTokenResultInit = AccessTokenContainer.GetAccessTokenResult(base._appId, false);//先获取一次
             Parallel.For(0, threads.Length, (i) =>
             {
-                var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._wxAppId, false).Result;
+                var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId, false).Result;
                 accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
                 Console.WriteLine(accessTokenResult.access_token);
             });
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         public void GetTokenResultAsyncTest()
         {
             //注册
-            AccessTokenContainer.Register(base._wxAppId, base._wxAppSecret);
+            AccessTokenContainer.Register(base._appId, base._appSecret);
             //模拟多线程获取
             List<string> accessTokenList = new List<string>();
             int threadsCount = 5;//数字不易过大，否则超过微信允许同一个客户端同时并发数量，将可能看不到效果
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 Parallel.For(0, threadsCount, (i) =>
                 {
                     var dts = DateTime.Now;
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._wxAppId, true);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
                     var dte = DateTime.Now;
                     accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
 
@@ -167,7 +167,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 Parallel.For(0, threadsCount, (i) =>
                 {
                     var dts = DateTime.Now;
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._wxAppId, true).Result;
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId, true).Result;
                     var dte = DateTime.Now;
                     accessTokenList.Add(accessTokenResult.access_token); //同时多次获取
 
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         {
             //此测试需要使用本地缓存进行测试
 
-            var registeredAppId = base._wxAppId;//已经注册的AppId
+            var registeredAppId = base._appId;//已经注册的AppId
 
             var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
             Assert.AreEqual(registeredAppId, appId);

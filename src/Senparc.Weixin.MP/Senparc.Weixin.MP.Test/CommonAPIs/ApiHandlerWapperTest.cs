@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //正确的测试
             {
-                var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, base._wxAppId);
+                var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, base._appId);
 
                 Assert.IsTrue(result.menu.button.Count > 0);
                 Console.WriteLine(result.menu.button.Count);
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 {
                     Func<string,Task<OpenIdResultJson>> func = appId => Senparc.Weixin.MP.AdvancedAPIs.UserApi.GetAsync(appId, null);
 
-                        var result = await ApiHandlerWapper.TryCommonApiAsync(func, base._wxAppId);
+                        var result = await ApiHandlerWapper.TryCommonApiAsync(func, base._appId);
 
                     Assert.IsTrue(result.count> 0);
                     Console.WriteLine(result.count);

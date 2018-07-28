@@ -75,8 +75,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 #endif
                         _appConfig = new
                         {
-                            AppId = doc.Root.Element("WxOpenAppId").Value,
-                            Secret = doc.Root.Element("WxOpenSecret").Value,
+                            AppId = doc.Root.Element("AppId").Value,
+                            Secret = doc.Root.Element("Secret").Value,
+                            WxOpenAppId = doc.Root.Element("WxOpenAppId").Value,
+                            WxOpenSecret = doc.Root.Element("WxOpenSecret").Value,
                             MchId = doc.Root.Element("MchId").Value,
                             TenPayKey = doc.Root.Element("TenPayKey").Value,
                             TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
@@ -91,6 +93,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         {
                             AppId = "YourAppId", //换成你的信息
                             Secret = "YourSecret",//换成你的信息
+                            WxOpenAppId ="YourWxOpenAppId",//换成你的信息
+                            WxOpenSecret = "YourWxOpenSecret",//换成你的信息
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息
                             TenPayCertPath = "YourTenPayCertPath",//换成你的信息
@@ -103,12 +107,23 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             }
         }
 
-        protected string _wxAppId
+        protected string _appId
         {
             get { return AppConfig.AppId; }
         }
 
-        protected string _wxAppSecret
+        protected string _appSecret
+        {
+            get { return AppConfig.Secret; }
+        }
+
+
+        protected string _wxOpenAppId
+        {
+            get { return AppConfig.AppId; }
+        }
+
+        protected string _wxOpenAppSecret
         {
             get { return AppConfig.Secret; }
         }
@@ -157,7 +172,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             if (getNew || string.IsNullOrEmpty(_testOpenId))
             {
-                var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var openIdResult = UserApi.Get(accessToken, null);
                 _testOpenId = openIdResult.data.openid.First();
             }
@@ -200,7 +215,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             }
 
             //全局只需注册一次
-            AccessTokenContainer.Register(_wxAppId, _wxAppSecret);
+            AccessTokenContainer.Register(_appId, _appSecret);
 
             ////注册小程序
             //if (!string.IsNullOrEmpty(_wxOpenAppId))
@@ -218,7 +233,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetTokenTest()
         {
-            var tokenResult = CommonApi.GetToken(_wxAppId, _wxAppSecret);
+            var tokenResult = CommonApi.GetToken(_appId, _appSecret);
             Assert.IsNotNull(tokenResult);
             Assert.IsTrue(tokenResult.access_token.Length > 0);
             Assert.IsTrue(tokenResult.expires_in > 0);
@@ -244,7 +259,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             try
             {
-                var accessToken = AccessTokenContainer.GetAccessToken(_wxAppId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var result = CommonApi.GetUserInfo(accessToken, _testOpenId);
                 Assert.IsNotNull(result);
             }
@@ -257,7 +272,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetTicketTest()
         {
-            var tokenResult = CommonApi.GetTicket(_wxAppId, _wxAppSecret);
+            var tokenResult = CommonApi.GetTicket(_appId, _appSecret);
             Assert.IsNotNull(tokenResult);
             Assert.IsTrue(tokenResult.ticket.Length > 0);
             Assert.IsTrue(tokenResult.expires_in > 0);

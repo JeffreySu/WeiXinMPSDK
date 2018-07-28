@@ -33,7 +33,7 @@ using Senparc.Weixin.WxOpen.Containers;
 namespace Senparc.WeixinTests.Cache
 {
     [TestClass]
-    public class SerializeTest : CommonApiTest
+    public class SerializeTest : WxOpenBaseTest
     {
         /// <summary>
         /// 不同的序列化方式比较

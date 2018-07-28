@@ -74,7 +74,7 @@ namespace Senparc.WeixinTests
             var configBuilder = new ConfigurationBuilder();
             var config = configBuilder.Build();
             serviceCollection.AddSenparcGlobalServices(config);
-            //serviceCollection.AddMemoryCache();//使用内存缓存
+            serviceCollection.AddMemoryCache();//使用内存缓存
         }
 #endif
     }

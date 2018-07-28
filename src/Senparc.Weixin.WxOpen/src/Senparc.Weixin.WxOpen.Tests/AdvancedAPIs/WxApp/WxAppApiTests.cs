@@ -32,7 +32,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {
     [TestClass()]
-    public class WxAppApiTests : CommonApiTest
+    public class WxAppApiTests : WxOpenBaseTest
     {
         [TestMethod()]
         public void CreateWxaQrCodeTest()
@@ -107,7 +107,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void CreateWxaQrCodeAsyncTest2()
         {
             var dt1 = DateTime.Now;
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+            var filePath = "../../../Config/qr-async2.jpg";
+#else
             var filePath = "../../Config/qr-async2.jpg";
+#endif
             Task.Factory.StartNew(async () =>
             {
                 var result = await WxAppApi.CreateWxQrCodeAsync(base._wxOpenAppId, filePath, "pages/websocket", 100);
@@ -128,7 +132,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         [TestMethod]
         public void GetWxaCodeUnlimitTest()
         {
-            var filePath = "../../Config/qr-unlimit.jpg";
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+            var filePath = "../../../Config/qr-async2.jpg";
+#else
+            var filePath = "../../Config/qr-async2.jpg";
+# endif
             var scene = "";
             var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId,filePath, scene, "pages/websocket", 100);
             Assert.IsNotNull(result);

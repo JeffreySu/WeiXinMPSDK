@@ -31,7 +31,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.WxOpen.Containers.Tests
 {
     [TestClass()]
-    public class SessionContainerTests:CommonApiTest
+    public class SessionContainerTests: WxOpenBaseTest
     {
         [TestMethod()]
         public void UpdateSessionTest()

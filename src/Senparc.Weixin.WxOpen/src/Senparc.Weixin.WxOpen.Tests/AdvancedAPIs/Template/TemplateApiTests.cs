@@ -78,7 +78,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 
 
     [TestClass()]
-    public class TemplateApiTests:CommonApiTest
+    public class TemplateApiTests: WxOpenBaseTest
     {
         [TestMethod()]
         public void SendTemplateMessageTest()

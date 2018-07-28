@@ -28,8 +28,6 @@
     <None Include="Views\Cache\Test.cshtml" />
     <None Include="Views\Device\Index.cshtml" />
     <None Include="Views\Document\Index.cshtml" />
-    <None Include="Views\Home\About.cshtml" />
-    <None Include="Views\Home\Contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Menu\Index.cshtml" />
     <None Include="Views\OAuth2\Index.cshtml" />

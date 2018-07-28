@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -86,7 +86,10 @@
       v2.0.10 支持 Senparc.Weixin v5.0.10
       v2.0.11 支持 Senparc.Weixin v5.0.11
       v2.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
-
+      v2.1.2 
+        1、支持 Senparc.Weixin v5.1.4
+        2、整理高级接口命名空间及定义
+        3、更新 MailListApi.CreateMember() 和 UpdateMember() 接口输入参数，增加官方新增的 to_invite 参数
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

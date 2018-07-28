@@ -7,6 +7,8 @@
     
     创建标识：Senparc - 20180707
 
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
@@ -31,7 +33,7 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         /// <param name="key">SenparcWeixinSettingItem 标识</param>
         /// <returns></returns>
-        public SenparcWeixinSettingItem this[string key]
+        new public SenparcWeixinSettingItem this[string key]
         {
             get
             {

@@ -64,8 +64,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
 
@@ -88,8 +86,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
         #endregion
@@ -114,8 +110,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
         /// <summary>
@@ -136,8 +130,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
 

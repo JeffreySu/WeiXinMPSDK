@@ -18,10 +18,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.UserTag
         [TestMethod]
         public void CreateAndGetTest()
         {
-            var createResult = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Create(_appId, "新增标签");
+            var createResult = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Create(_wxAppId, "新增标签");
             Assert.AreEqual(Senparc.Weixin.ReturnCode.请求成功, createResult.errcode);
 
-            var getResult = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Get(_appId, createResult.tag.id);
+            var getResult = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Get(_wxAppId, createResult.tag.id);
             Assert.AreEqual(Senparc.Weixin.ReturnCode.请求成功, getResult.errcode);
 
         }

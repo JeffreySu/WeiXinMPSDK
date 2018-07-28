@@ -88,7 +88,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
                 "在线购买",DateTime.Now,"图书众筹","1234567890",
                 100, "400-9939-858","http://sdk.senparc.weixin.com");
 
-           var result = TemplateApi.SendTemplateMessage(_appId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
+           var result = TemplateApi.SendTemplateMessage(_wxAppId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
                 "keyword3");
 
             Assert.AreEqual(ReturnCode.请求成功,result.errcode);

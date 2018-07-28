@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
 
             base.TestAyncMethod(1, openId, () =>
             {
-                var result = QrCodeApi.CreateAsync(base._appId, 100, 999999, QrCode_ActionName.QR_SCENE, "QrTest").Result;
+                var result = QrCodeApi.CreateAsync(base._wxAppId, 100, 999999, QrCode_ActionName.QR_SCENE, "QrTest").Result;
                 //Assert.AreEqual(ReturnCode.请求成功,result.errcode);
 
                 Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.ToString());
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                     remark = new TemplateDataItem("结果：" + result.errcode.ToString())
                 };
 
-                var tmResult = TemplateApi.SendTemplateMessageAsync(base._appId, openId, "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4",
+                var tmResult = TemplateApi.SendTemplateMessageAsync(base._wxAppId, openId, "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4",
                     (result.url)
                     , testData).Result;
 

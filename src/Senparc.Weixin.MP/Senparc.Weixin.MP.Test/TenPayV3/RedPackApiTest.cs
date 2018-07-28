@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Test.RedPackApiTest
         {
             string nonceStr = "";
             string paySign = "";
-            var result = RedPackApi.SendNormalRedPack(_appId, _mchId, _tenPayKey, _tenPayCertPath, _testOpenId, "测试红包发送者", "127.0.0.1",
+            var result = RedPackApi.SendNormalRedPack(_wxAppId, _mchId, _tenPayKey, _tenPayCertPath, _testOpenId, "测试红包发送者", "127.0.0.1",
                 100, "祝福", "活动", "备注", out nonceStr, out paySign, null);
             Assert.IsNotNull(result);
             Console.Write(result);
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Test.RedPackApiTest
         [TestMethod]
         public void SearchRedPackTest()
         {
-            var result = RedPackApi.SearchRedPack(_appId, _mchId, _tenPayKey, _tenPayCertPath, "10000098201411111234567890");
+            var result = RedPackApi.SearchRedPack(_wxAppId, _mchId, _tenPayKey, _tenPayCertPath, "10000098201411111234567890");
             Console.Write(result);
             Assert.IsNotNull(result);
         }

@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
     {
         private void LocalCacheDeadLockTestThreadFun()
         {
-            var result = UserApi.Info(base._appId, base._testOpenId);
+            var result = UserApi.Info(base._wxAppId, base._testOpenId);
             Console.WriteLine(Thread.CurrentThread.GetHashCode() + "：" + Newtonsoft.Json.JsonConvert.SerializeObject(result));
         }
 
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
             for (int i = 0; i < 200; i++)
             {
                 Console.WriteLine("开始循环：{0}", i);
-                var result = Senparc.Weixin.MP.AdvancedAPIs.UserApi.InfoAsync(base._appId, base._testOpenId);
+                var result = Senparc.Weixin.MP.AdvancedAPIs.UserApi.InfoAsync(base._wxAppId, base._testOpenId);
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result.Result));
             }
 

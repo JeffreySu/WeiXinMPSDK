@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Senparc.Weixin.WxOpen.Tests.vs2017
+namespace Senparc.Weixin.WxOpen.Tests
 {
     public class WxOpenBaseTest : CommonApiTest
     {

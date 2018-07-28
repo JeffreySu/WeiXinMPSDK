@@ -28,6 +28,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {
@@ -132,15 +134,20 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         [TestMethod]
         public void GetWxaCodeUnlimitTest()
         {
+            Console.WriteLine("GetWxaCodeUnlimitTest开始");
 #if NETCOREAPP2_0 || NETCOREAPP2_1
-            var filePath = "../../../Config/qr-async2.jpg";
+            var filePath = "../../../Config/qr-wxopen.jpg";
 #else
             var filePath = "../../Config/qr-async2.jpg";
 # endif
             var scene = "";
-            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId,filePath, scene, "pages/websocket", 100);
+            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket", 100);
             Assert.IsNotNull(result);
+            Console.WriteLine("GetWxaCodeUnlimitTest 返回结果");
+            Console.WriteLine(result.ToJson());
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+            Assert.IsTrue(File.Exists(filePath));
+        
         }
     }
 }

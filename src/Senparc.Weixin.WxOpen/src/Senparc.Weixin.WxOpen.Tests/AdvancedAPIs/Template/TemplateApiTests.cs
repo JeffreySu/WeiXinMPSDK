@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 {

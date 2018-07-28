@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Senparc.Weixin.WxOpen.Tests</AssemblyName>
+
+    <RootNamespace>Senparc.Weixin.WxOpen.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -53,6 +53,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
                  Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
 
+            TempData["CO2NET"] = getDisplayVersion(getFileVersionInfo("Senparc.CO2NET.dll"));
             TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
             TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
             TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));

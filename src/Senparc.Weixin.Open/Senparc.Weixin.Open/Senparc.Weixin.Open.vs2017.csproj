@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.4.0.1</Version>
+    <Version>3.4.1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -128,6 +128,7 @@
         1、添加接口：修改功能介绍 AccountAPIs.ModifySignature()
         2、修复代码
       v3.4.0 增加第三方平台授权接口的授权类型字段
+      v3.4.1 支持 CO2NET v0.2.4
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

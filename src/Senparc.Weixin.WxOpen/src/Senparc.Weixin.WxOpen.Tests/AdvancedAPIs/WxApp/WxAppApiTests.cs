@@ -136,12 +136,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         {
             Console.WriteLine("GetWxaCodeUnlimitTest开始");
 #if NETCOREAPP2_0 || NETCOREAPP2_1
-            var filePath = "../../../Config/qr-wxopen.jpg";
+            var filePath = "../../../qr-wxopen.jpg";
 #else
-            var filePath = "../../Config/qr-async2.jpg";
+            var filePath = "../../qr-wxopen.jpg";
 # endif
-            var scene = "";
-            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket", 100);
+            string scene = "notnull";
+            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket/websocket", 640, false,new LineColor(100,20,30));
             Assert.IsNotNull(result);
             Console.WriteLine("GetWxaCodeUnlimitTest 返回结果");
             Console.WriteLine(result.ToJson());

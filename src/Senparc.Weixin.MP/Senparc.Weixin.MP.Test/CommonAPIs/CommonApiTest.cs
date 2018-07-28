@@ -120,12 +120,12 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         protected string _wxOpenAppId
         {
-            get { return AppConfig.AppId; }
+            get { return AppConfig.WxOpenAppId; }
         }
 
         protected string _wxOpenAppSecret
         {
-            get { return AppConfig.Secret; }
+            get { return AppConfig.WxOpenSecret; }
         }
 
         protected string _mchId

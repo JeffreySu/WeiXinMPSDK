@@ -9,6 +9,8 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
+
 namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
 {
     /// <summary>
@@ -93,7 +95,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
 
     public class Extattr
     {
-        public Attr[] attrs { get; set; }
+        public List<Attr> attrs { get; set; }
     }
 
     public class Attr

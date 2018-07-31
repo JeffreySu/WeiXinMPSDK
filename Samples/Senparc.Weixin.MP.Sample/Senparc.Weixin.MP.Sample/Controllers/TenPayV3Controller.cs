@@ -416,37 +416,50 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
 
-                string res = null;
+                bool paySuccess = false;
 
                 resHandler.SetKey(TenPayV3Info.Key);
                 //验证请求是否从微信发过来（安全）
                 if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
                 {
-                    res = "success";//正确的订单处理
+                    paySuccess = true;//正确的订单处理
                     //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
                 }
                 else
                 {
-                    res = "wrong";//错误的订单处理
+                    paySuccess = false;//错误的订单处理
                 }
 
-                /* 这里可以进行订单处理的逻辑 */
-
-                //发送支付成功的模板消息
-                try
+                if (paySuccess)
                 {
-                    string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+                    /* 这里可以进行订单处理的逻辑 */
 
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
+                    //发送支付成功的模板消息
+                    try
+                    {
+                        string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                        string openId = resHandler.GetParameter("openid");
+                        var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
-                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
+
+                        var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.WeixinExceptionLog(new WeixinException("支付成功模板消息异常", ex));
+                        //WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                    }
+
+                    WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付成功");
                 }
-                catch (Exception ex)
+                else
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付成功");
+
                 }
+
+
 
                 #region 记录日志
 

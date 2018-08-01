@@ -307,7 +307,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
-                WeixinTrace.SendCustomLog("统一订单接口调用结束", result.ToJson());
+                WeixinTrace.SendCustomLog("统一订单接口调用结束", "请求：" + xmlDataInfo.ToJson() + "\r\n\r\n返回结果：" + result.ToJson());
 
                 var packageStr = "prepay_id=" + result.prepay_id;
 

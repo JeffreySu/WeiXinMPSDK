@@ -531,9 +531,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信支付回调
+        /// 小程序微信支付回调
         /// </summary>
-        /// <param name="isWxOpenPay"></param>
         /// <returns></returns>
         public ActionResult PayNotifyUrlWxOpen()
         {

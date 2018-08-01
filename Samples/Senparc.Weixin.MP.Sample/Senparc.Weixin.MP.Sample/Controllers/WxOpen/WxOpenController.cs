@@ -13,6 +13,8 @@ using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
 using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -182,7 +184,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                 //使用SessionContainer管理登录信息（推荐）
                 var unionId = "";
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key,unionId);
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
 
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
@@ -300,12 +302,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify,
-                    TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, TenPayV3Info.MchId, body, sp_billno,
+                    price, Request.UserHostAddress, TenPayV3Info.TenPayV3_WxOpenNotify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
+                WeixinTrace.SendCustomLog("统一订单接口调用结束", result.ToJson());
+
                 var packageStr = "prepay_id=" + result.prepay_id;
+
+                //记录到缓存
+
+                var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                cacheStrategy.Set($"WxOpenPrepayId-{openId}", result.prepay_id, TimeSpan.FromDays(4));//3天内可以发送模板消息
 
                 return Json(new
                 {

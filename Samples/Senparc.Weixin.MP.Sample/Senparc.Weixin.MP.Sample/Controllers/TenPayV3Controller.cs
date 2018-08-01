@@ -44,6 +44,8 @@ using System.Web.Security;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -407,8 +409,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
         /// </summary>
         /// <returns></returns>
-        public ActionResult PayNotifyUrl()
+        public ActionResult PayNotifyUrl(bool isWxOpenPay = false)//注意：统一下单接口中不能带参数！
         {
+            WeixinTrace.SendCustomLog("微信支付回调", "来源：" + (isWxOpenPay ? "微信支付" : "小程序支付"));
+
             try
             {
                 ResponseHandler resHandler = new ResponseHandler(null);
@@ -439,11 +443,41 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     {
                         string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                         string openId = resHandler.GetParameter("openid");
-                        var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
-                        Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
+                        if (isWxOpenPay)
+                        {
+                            //小程序支付，发送小程序模板消息
+                            var templateData = new WxOpenTemplateMessage_PaySuccessNotice(
+                                                "在线购买（小程序支付）测试", DateTime.Now, "小程序支付", "1234567890",
+                                                100, "400-031-8816", "https://weixin.senparc.com");
 
-                        var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                            var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                            var prepayId = cacheStrategy.Get<string>($"WxOpenPrepayId-{openId}");//3天内可以发送模板消息
+                            if (!string.IsNullOrEmpty(prepayId))
+                            {
+                                Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", appId + " , " + openId);
+
+                                Senparc.Weixin.WxOpen.AdvancedAPIs
+                                    .Template.TemplateApi
+                                    .SendTemplateMessage(
+                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, prepayId, "pages/index/index", "图书", "#fff00");
+                            }
+                            else
+                            {
+                                Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", "prepayId未记录：" + appId + " , " + openId);
+                            }
+
+                        }
+                        else
+                        {
+                            //微信公众号支付
+                            var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+
+                            Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（公众号）", appId + " , " + openId);
+
+                            var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -452,11 +486,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     }
 
                     WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付成功");
+
                 }
                 else
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付成功");
-
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付失败");
                 }
 
 
@@ -494,6 +528,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 微信支付回调
+        /// </summary>
+        /// <param name="isWxOpenPay"></param>
+        /// <returns></returns>
+        public ActionResult PayNotifyUrlWxOpen(bool isWxOpenPay = false)
+        {
+            return PayNotifyUrl(true);
         }
 
         #endregion

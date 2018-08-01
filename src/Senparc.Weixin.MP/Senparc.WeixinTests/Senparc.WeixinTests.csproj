@@ -142,6 +142,7 @@
     <Compile Include="Utilities\HttpUtility\PostTests.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
     <Compile Include="Utilities\HttpUtility\UrlUtilityTests.cs" />
+    <Compile Include="WeixinRegisterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">

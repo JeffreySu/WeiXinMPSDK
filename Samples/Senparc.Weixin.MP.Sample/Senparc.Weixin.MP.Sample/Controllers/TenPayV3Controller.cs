@@ -17,6 +17,16 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.MP.Sample.Filters;
+using Senparc.Weixin.MP.Sample.Models;
+using Senparc.Weixin.MP.TenPayLibV3;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
@@ -25,27 +35,10 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.Models;
-using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
 using ZXing.Common;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.Filters;
-using System.Web.Security;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -536,6 +529,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult PayNotifyUrlWxOpen()
         {
+            WeixinTrace.SendCustomLog("小程序微信支付回调", "TenPayV3Controller.PayNotifyUrlWxOpen()");
             return PayNotifyUrl(true);
         }
 

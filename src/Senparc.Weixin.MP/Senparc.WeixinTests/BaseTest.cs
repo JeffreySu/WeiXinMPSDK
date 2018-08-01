@@ -77,5 +77,18 @@ namespace Senparc.WeixinTests
             serviceCollection.AddMemoryCache();//使用内存缓存
         }
 #endif
+
+        /// <summary>
+        /// 获取到达项目根目录的相对路径
+        /// </summary>
+        /// <returns></returns>
+        protected string GetParentRootRelativePath()
+        {
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+            return @"..\..\..\";
+#else
+            return @"..\..\";
+#endif
+        }
     }
 }

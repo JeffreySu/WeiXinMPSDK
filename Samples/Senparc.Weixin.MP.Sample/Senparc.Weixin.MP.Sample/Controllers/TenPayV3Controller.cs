@@ -535,7 +535,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <param name="isWxOpenPay"></param>
         /// <returns></returns>
-        public ActionResult PayNotifyUrlWxOpen(bool isWxOpenPay = false)
+        public ActionResult PayNotifyUrlWxOpen()
         {
             return PayNotifyUrl(true);
         }

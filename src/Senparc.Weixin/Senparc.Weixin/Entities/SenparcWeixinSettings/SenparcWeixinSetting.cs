@@ -16,6 +16,9 @@
     修改标识：Senparc - 20180622
     修改描述：v5.0.8 SenparcWeixinSetting 构造函数提供 isDebug 参数
 
+    修改标识：Senparc - 20180802
+    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -95,6 +98,12 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.TenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
             senparcWeixinSetting.TenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
             senparcWeixinSetting.TenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
+            senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_WxOpenTenpayNotify"];
+            if (string.IsNullOrEmpty(senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify))
+            {
+                senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify = senparcWeixinSetting.TenPayV3_TenpayNotify + "WxOpen";//设置默认值
+            }
+
             //开放平台
             senparcWeixinSetting.Component_Appid = System.Configuration.ConfigurationManager.AppSettings["Component_Appid"];
             senparcWeixinSetting.Component_Secret = System.Configuration.ConfigurationManager.AppSettings["Component_Secret"];

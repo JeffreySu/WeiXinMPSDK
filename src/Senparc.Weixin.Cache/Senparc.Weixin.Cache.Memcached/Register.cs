@@ -1,4 +1,18 @@
-﻿#if NETCOREAPP2_0 || NETCOREAPP2_1
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
+
+    文件名：Register.cs
+    文件功能描述：Senparc.Weixin.Cache.Memcached 注册类
+
+
+    创建标识：Senparc - 20180609
+
+    修改标识：Senparc - 20180802
+    修改描述：当前类所有方法支持 .net standard 2.0
+
+----------------------------------------------------------------*/
+
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 using Microsoft.AspNetCore.Builder;
 #endif
 
@@ -6,8 +20,8 @@ namespace Senparc.Weixin.Cache.Memcached
 {
     public static class Register
     {
-#if NETCOREAPP2_0 || NETCOREAPP2_1
-     /// <summary>
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+        /// <summary>
         /// 注册 Senparc.Weixin.Cache.Memcached
         /// </summary>
         /// <param name="app"></param>

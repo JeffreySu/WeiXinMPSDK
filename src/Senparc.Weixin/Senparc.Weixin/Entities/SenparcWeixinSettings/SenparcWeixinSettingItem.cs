@@ -7,6 +7,10 @@
     
     创建标识：Senparc - 20180707
 
+	修改标识：Senparc - 20170802
+    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -130,6 +134,10 @@ namespace Senparc.Weixin.Entities
         /// 微信支付TenpayNotify
         /// </summary>
         public virtual string TenPayV3_TenpayNotify { get; set; }
+        /// <summary>
+        /// 小程序微信支付WxOpenTenpayNotify
+        /// </summary>
+        public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
 
         #endregion
 

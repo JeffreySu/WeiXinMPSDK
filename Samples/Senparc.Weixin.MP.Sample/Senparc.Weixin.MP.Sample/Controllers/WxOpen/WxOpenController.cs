@@ -247,9 +247,41 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             var sessionBag = SessionContainer.GetSession(sessionId);
             var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
 
-            var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                "在线购买（小程序Demo测试）", DateTime.Now, "图书众筹", "1234567890",
-                100, "400-031-8816", "https://sdk.senparc.weixin.com");
+            string title = null;
+            decimal price = 100;
+            string productName = null;
+            string orderNumber = null;
+
+            if (formId.StartsWith("prepay_id="))
+            {
+                formId = formId.Replace("prepay_id=", "");
+                title = "这是来自小程序支付的模板消息";
+
+                var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                var unifiedorderRequestData = cacheStrategy.Get<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
+                var unifedorderResult = cacheStrategy.Get<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
+
+                if (unifedorderResult != null && formId == unifedorderResult.prepay_id)
+                {
+                    price = unifiedorderRequestData.TotalFee;
+                    productName = unifiedorderRequestData.Body + "/缓存获取 prepay_id 成功";
+                    orderNumber = unifiedorderRequestData.OutTradeNo;
+                }
+                else
+                {
+                    productName = "缓存获取 prepay_id 失败";
+                    orderNumber = "1234567890";
+                }
+            }
+            else
+            {
+                title = "在线购买（小程序Demo测试）";
+                productName = "商品名称-模板消息测试";
+                orderNumber = "9876543210";
+            }
+
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(title, DateTime.Now, productName, orderNumber, price,
+                            "400-031-8816", "https://sdk.senparc.weixin.com");
 
             try
             {
@@ -314,7 +346,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //记录到缓存
 
                 var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-                cacheStrategy.Set($"WxOpenPrepayId-{openId}", result.prepay_id, TimeSpan.FromDays(4));//3天内可以发送模板消息
+                cacheStrategy.Set($"WxOpenUnifiedorderRequestData-{openId}", xmlDataInfo, TimeSpan.FromDays(4));//3天内可以发送模板消息
+                cacheStrategy.Set($"WxOpenUnifiedorderResultData-{openId}", result, TimeSpan.FromDays(4));//3天内可以发送模板消息
 
                 return Json(new
                 {

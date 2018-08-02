@@ -422,7 +422,7 @@
 
       v15.2.0 
       1、SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
-      2、支持 Senparc.Weixin v5.1.5
+      2、支持 Senparc.Weixin v5.1.6
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

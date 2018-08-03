@@ -21,6 +21,7 @@ using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Work;
 using System.Collections.Generic;
 using System.IO;
+using Senparc.Weixin.WxOpen;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -197,16 +198,10 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 注册公众号或小程序（按需）
 
-                //注册公众号
-                .RegisterMpAccount(
-                    senparcWeixinSetting.Value.WeixinAppId,
-                    senparcWeixinSetting.Value.WeixinAppSecret,
-                    "【盛派网络小助手】公众号")
-                //注册多个公众号或小程序
-                .RegisterMpAccount(
-                    senparcWeixinSetting.Value.WxOpenAppId,
-                    senparcWeixinSetting.Value.WxOpenAppSecret,
-                    "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
+                //注册公众号（可注册多个）
+                .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")
+                //注册多个公众号或小程序（可注册多个）
+                .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
@@ -214,12 +209,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 注册企业号（按需）
 
-                //注册企业微信
-                .RegisterWorkAccount(
-                    senparcWeixinSetting.Value.WeixinCorpId,
-                    senparcWeixinSetting.Value.WeixinCorpSecret,
-                    "【盛派网络】企业微信")
-                //还可注册任意多个企业号
+                //注册企业微信（可注册多个）
+                .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -227,31 +218,18 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 注册微信支付（按需）
 
-                //注册旧微信支付版本（V2）
-                .RegisterTenpayOld(() =>
-                {
-                    //提供微信支付（旧版本）信息
-                    var weixinPayInfo = new TenPayInfo(senparcWeixinSetting.Value);
-                    return weixinPayInfo;
-                },
-                "【盛派网络小助手】公众号"//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
-                )
-                //注册最新微信支付版本（V3）
-                .RegisterTenpayV3(() =>
-                {
-                    //提供微信支付（新版本 V3）信息
-                    var tenPayV3Info = new TenPayV3Info(senparcWeixinSetting.Value);
-                    return tenPayV3Info;
-                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                //注册旧微信支付版本（V2）（可注册多个）
+                .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+
+                //注册最新微信支付版本（V3）（可注册多个）
+                .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 
             #region 注册微信第三方平台（按需）
 
-                .RegisterOpenComponent(
-                    senparcWeixinSetting.Value.Component_Appid,
-                    senparcWeixinSetting.Value.Component_Secret,
-
+                //注册第三方平台（可注册多个）
+                .RegisterOpenComponent(senparcWeixinSetting.Value,
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {

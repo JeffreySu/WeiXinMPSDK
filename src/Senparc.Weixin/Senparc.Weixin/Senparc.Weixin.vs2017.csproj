@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>5.1.6</Version>
+    <Version>5.1.7</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -264,6 +264,7 @@
       2、优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
       v5.1.4 支持 CO2NET v0.2.4
       v5.1.6 支持 CO2NET v0.2.6
+      v5.1.7 优化 SenparcWeixinSetting，分离不同模块接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

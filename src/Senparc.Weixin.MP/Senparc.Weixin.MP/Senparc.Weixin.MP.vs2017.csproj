@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.2.0</Version>
+    <Version>15.2.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -420,9 +420,10 @@
       2、支持 Senparc.Weixin v5.1.4
       v15.1.4 修复 GetForeverMedia() 接口 bug
 
-      v15.2.0 
+      v15.2.0
       1、SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
       2、支持 Senparc.Weixin v5.1.6
+      v15.2.1 实现 SenparcWeixinSetting 自动注册
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -27,14 +27,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170302
 
+    修改标识：Senparc - 20180802
+    修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterWxOpenAccount() 方法
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.RegisterServices;
 using System;
+using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.WxOpen
 {
+    /// <summary>
+    /// 注册小程序
+    /// </summary>
     public static class Register
     {
         /// <summary>
@@ -49,6 +57,19 @@ namespace Senparc.Weixin.WxOpen
         public static IRegisterService RegisterWxOpenAccount(this IRegisterService registerService, string appId, string appSercet, string name = null)
         {
             throw new WeixinException("请统一使用Senparc.Weixin.MP.Register.RegisterMpAccount()方法进行注册！");
+        }
+
+        /// <summary>
+        /// 根据 SenparcWeixinSetting 自动注册小程序信息
+        /// </summary>
+        /// <param name="registerService">RegisterService</param>
+        /// <param name="weixinSettingForWxOpen">SenparcWeixinSetting</param>
+        /// <param name="name">统一标识，如果为null，则使用 SenparcWeixinSetting.ItemKey </param>
+        /// <returns></returns>
+        public static IRegisterService RegisterWxOpenAccount(this IRegisterService registerService, ISenparcWeixinSettingForWxOpen weixinSettingForWxOpen, string name = null)
+        {
+            AccessTokenContainer.Register(weixinSettingForWxOpen.WxOpenAppId, weixinSettingForWxOpen.WxOpenAppSecret, name ?? weixinSettingForWxOpen.ItemKey);
+            return registerService;
         }
 
     }

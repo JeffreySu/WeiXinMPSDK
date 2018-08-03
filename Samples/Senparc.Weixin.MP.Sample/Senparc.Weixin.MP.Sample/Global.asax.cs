@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.Sample
             //CO2NET 全局注册，必须！！
             IRegisterService register = RegisterService.Start(senparcSetting).UseSenparcGlobal();
 
-            #region 注册分自定义（分布式）缓存策略（按需，如果需要，必须放在第一个）
+            #region  全局缓存配置（按需）
 
             #region 配置和使用 Redis
 
@@ -140,15 +140,42 @@ namespace Senparc.Weixin.MP.Sample
             var isWeixinDebug = true;
             //全局设置参数，将被储存到 Senparc.Weixin.Config.SenparcWeixinSetting
             var senparcWeixinSetting = SenparcWeixinSetting.BuildFromWebConfig(isWeixinDebug);
+            //也可以通过这种方法在程序任意位置设置微信的 Debug 状态：
+            //Senparc.Weixin.Config.IsDebug = isWeixinDebug;
 
             //微信全局注册，必须！！
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
-                    .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")
-                    .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")
-                    .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
-                    .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")
-                    .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")
 
+
+            #region 注册公众号或小程序（按需）
+
+                //注册公众号（可注册多个）
+                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")
+                //注册多个公众号或小程序（可注册多个）
+                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")
+
+                //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+                //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
+            #endregion
+
+            #region 注册企业号（按需）
+
+                //注册企业微信（可注册多个）
+                .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
+
+                //除此以外，仍然可以在程序任意地方注册企业微信：
+                //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
+            #endregion
+
+            #region 注册微信支付（按需）
+
+                //注册旧微信支付版本（V2）（可注册多个）
+                .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+
+                //注册最新微信支付版本（V3）（可注册多个）
+                .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+
+            #endregion
 
             #region 注册微信第三方平台（按需）
 

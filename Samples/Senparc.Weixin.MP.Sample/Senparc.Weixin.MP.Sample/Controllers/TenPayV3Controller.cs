@@ -439,21 +439,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                         if (isWxOpenPay)
                         {
-                            //小程序支付，发送小程序模板消息
-                            var templateData = new WxOpenTemplateMessage_PaySuccessNotice(
-                                                "在线购买（小程序支付）测试", DateTime.Now, "小程序支付", "1234567890",
-                                                100, "400-031-8816", "https://weixin.senparc.com");
-
                             var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-                            var prepayId = cacheStrategy.Get<string>($"WxOpenPrepayId-{openId}");//3天内可以发送模板消息
-                            if (!string.IsNullOrEmpty(prepayId))
+                            var unifiedorderRequestData = cacheStrategy.Get<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
+                            var unifedorderResult = cacheStrategy.Get<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
+
+                            if (unifedorderResult != null || !string.IsNullOrEmpty(unifedorderResult.prepay_id))
                             {
                                 Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", appId + " , " + openId);
+
+                                //小程序支付，发送小程序模板消息
+                                var templateData = new WxOpenTemplateMessage_PaySuccessNotice(
+                                                    "在线购买（小程序支付）测试", DateTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id："+ unifedorderResult.prepay_id,
+                                                   unifiedorderRequestData.OutTradeNo, unifiedorderRequestData.TotalFee, "400-031-8816", "https://weixin.senparc.com");
 
                                 Senparc.Weixin.WxOpen.AdvancedAPIs
                                     .Template.TemplateApi
                                     .SendTemplateMessage(
-                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, prepayId, "pages/index/index", "图书", "#fff00");
+                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, unifedorderResult.prepay_id, "pages/index/index", "图书", "#fff00");
                             }
                             else
                             {
@@ -530,7 +532,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult PayNotifyUrlWxOpen()
         {
             WeixinTrace.SendCustomLog("小程序微信支付回调", "TenPayV3Controller.PayNotifyUrlWxOpen()");
-            return PayNotifyUrl(true);
+            return PayNotifyUrl(true);//调用正常的流程
+
         }
 
         #endregion

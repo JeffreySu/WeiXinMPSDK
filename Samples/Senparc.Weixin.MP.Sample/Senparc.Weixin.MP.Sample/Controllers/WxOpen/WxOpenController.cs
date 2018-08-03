@@ -259,7 +259,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                     productName = "缓存获取 prepay_id 失败";
                     orderNumber = "1234567890";
                 }
-                productName += " | 注意：这条消息是从小程序发起的！仅作为UI上支付成功的演示！不能确定支付真实成功！ | prepay_id：" + unifedorderResult.prepay_id,;
+                productName += " | 注意：这条消息是从小程序发起的！仅作为UI上支付成功的演示！不能确定支付真实成功！ | prepay_id：" + unifedorderResult.prepay_id;
             }
             else
             {

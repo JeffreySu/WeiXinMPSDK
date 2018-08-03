@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// 微信支付（旧版本）参数 构造函数
         /// </summary>
         /// <param name="senparcWeixinSetting">已经填充过微信支付（旧版本）参数的 SenparcWeixinSetting 对象</param>
-        public TenPayInfo(SenparcWeixinSetting senparcWeixinSetting)
+        public TenPayInfo(ISenparcWeixinSettingForOldTenpay senparcWeixinSetting)
             : this(senparcWeixinSetting.WeixinPay_PartnerId,
                    senparcWeixinSetting.WeixinPay_Key,
                    senparcWeixinSetting.WeixinPay_AppId,

@@ -132,6 +132,9 @@
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
+    <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\GetCategoryJson\GetCategoryJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\WxOpenApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

@@ -125,6 +125,7 @@
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSetting.cs" />
+    <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItem.Interfaces.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItemCollection.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItem.cs" />
     <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />

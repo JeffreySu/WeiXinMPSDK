@@ -24,7 +24,8 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSettingItem
+    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay, 
+                                            ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
         /// 唯一标识
@@ -148,27 +149,27 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// Component_Appid
         /// </summary>
-        public string Component_Appid { get; set; }
+        public virtual string Component_Appid { get; set; }
         /// <summary>
         /// Component_Secret
         /// </summary>
-        public string Component_Secret { get; set; }
+        public virtual string Component_Secret { get; set; }
         /// <summary>
         /// 全局统一的 Component_Token（非必须）
         /// </summary>
-        public string Component_Token { get; set; }
+        public virtual string Component_Token { get; set; }
         /// <summary>
         /// 全局统一的 Component_EncodingAESKey（非必须）
         /// </summary>
-        public string Component_EncodingAESKey { get; set; }
+        public virtual string Component_EncodingAESKey { get; set; }
 
         #endregion
 
         #region 扩展
 
-        public string AgentUrl { get; set; }
-        public string AgentToken { get; set; }
-        public string SenparcWechatAgentKey { get; set; }
+        public virtual string AgentUrl { get; set; }
+        public virtual string AgentToken { get; set; }
+        public virtual string SenparcWechatAgentKey { get; set; }
 
         #endregion
     }

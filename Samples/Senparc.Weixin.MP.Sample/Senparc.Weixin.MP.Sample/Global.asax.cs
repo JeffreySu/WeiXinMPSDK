@@ -29,6 +29,7 @@ using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -116,69 +117,45 @@ namespace Senparc.Weixin.MP.Sample
             //微信全局注册，必须！！
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
 
-            #region 注册公众号或小程序（按需）
-                //注册公众号
-                .RegisterMpAccount(
-                    Config.SenparcWeixinSetting.WeixinAppId,
-                    Config.SenparcWeixinSetting.WeixinAppSecret,
-                    "【盛派网络小助手】公众号")
-                //注册多个公众号或小程序
-                .RegisterMpAccount(
-                    Config.SenparcWeixinSetting.WxOpenAppId,
-                    Config.SenparcWeixinSetting.WxOpenAppSecret,
-                    "【盛派网络小助手】小程序")//注意：小程序和公众号的AppId/Secret属于并列关系，这里name需要区分开
 
+            #region 注册公众号或小程序（按需）
+
+                //注册公众号（可注册多个）
+                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")
+                //注册多个公众号或小程序（可注册多个）
+                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
-
             #endregion
 
             #region 注册企业号（按需）
 
-                //注册企业号
-                .RegisterWorkAccount(
-                    Config.SenparcWeixinSetting.WeixinCorpId,
-                    Config.SenparcWeixinSetting.WeixinCorpSecret,
-                    "【盛派网络】企业微信")
-                //还可注册任意多个企业号
+                //注册企业微信（可注册多个）
+                .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
-
             #endregion
 
             #region 注册微信支付（按需）
 
-                //注册旧微信支付版本（V2）
-                .RegisterTenpayOld(() =>
-                {
-                    //提供微信支付信息
-                    var weixinPayInfo = new TenPayInfo(senparcWeixinSetting);
-                    return weixinPayInfo;
-                },
-                "【盛派网络小助手】公众号"//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
-                )
-                //注册最新微信支付版本（V3）
-                .RegisterTenpayV3(() =>
-                {
-                    //提供微信支付信息
-                    var tenPayV3Info = new TenPayV3Info(senparcWeixinSetting);
-                    return tenPayV3Info;
-                }, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                //注册旧微信支付版本（V2）（可注册多个）
+                .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+
+                //注册最新微信支付版本（V3）（可注册多个）
+                .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion
 
             #region 注册微信第三方平台（按需）
 
-                .RegisterOpenComponent(
-                    senparcWeixinSetting.Component_Appid,
-                    senparcWeixinSetting.Component_Secret,
-
+                //注册第三方平台（可注册多个）
+                .RegisterOpenComponent(senparcWeixinSetting,
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\OpenTicket");
+                        var dir = Path.Combine(Server.MapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -198,7 +175,7 @@ namespace Senparc.Weixin.MP.Sample
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
+                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -221,7 +198,7 @@ namespace Senparc.Weixin.MP.Sample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
+                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -235,12 +212,13 @@ namespace Senparc.Weixin.MP.Sample
                              binFormat.Serialize(fs, refreshResult);
                              fs.Flush();
                          }
-                     }, "【盛派网络】开放平台");
+                     }, "【盛派网络】开放平台")
 
             //除此以外，仍然可以在程序任意地方注册开放平台：
             //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
-
             #endregion
+
+            ;
 
             /* 微信配置结束 */
         }

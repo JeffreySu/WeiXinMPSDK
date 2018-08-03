@@ -603,7 +603,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             int totalFee = (int)(Session["BillFee"]);
             int refundFee = totalFee;
             string opUserId = TenPayV3Info.MchId;
-            var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
+            var notifyUrl = "http://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
             var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
             var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
@@ -631,7 +631,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //string data = packageReqHandler.ParseXML();
 
             ////退款接口地址
-            //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //string url = "http://api.mch.weixin.qq.com/secapi/pay/refund";
             ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
             ////私钥（在安装证书时设置）

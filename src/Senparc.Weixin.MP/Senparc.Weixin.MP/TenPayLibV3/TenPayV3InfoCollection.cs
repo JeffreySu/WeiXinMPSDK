@@ -78,6 +78,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+        /// <summary>
+        /// 索引 TenPayV3Info
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public new TenPayV3Info this[string key]
         {
             get

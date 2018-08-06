@@ -26,7 +26,7 @@ namespace Senparc.Weixin.Cache.Redis
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
 
         /// <summary>
-        /// 注册 Senparc.Weixin.Cache.Memcached
+        /// 注册 Senparc.Weixin.Cache.Redis
         /// </summary>
         /// <param name="app"></param>
         public static IApplicationBuilder UseSenparcWeixinCacheRedis(this IApplicationBuilder app)

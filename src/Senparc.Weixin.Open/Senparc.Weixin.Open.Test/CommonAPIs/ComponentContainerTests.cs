@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.Test;
 using Senparc.Weixin.Open.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Open.CommonAPIs.Tests
 {
     [TestClass()]
-    public class ComponentContainerTests : BaseTest
+    public class ComponentContainerTests : OpenBaseTest
     {
 
 
@@ -48,8 +49,7 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             var preAuthCodeResult = ComponentContainer.GetPreAuthCodeResult(base._appId);
             Assert.IsTrue(preAuthCodeResult.expires_in > 0);
 
-            SerializerHelper serializerHelper=new SerializerHelper();
-            Console.Write(serializerHelper.GetJsonString(preAuthCodeResult));
+            Console.Write(SerializerHelper.GetJsonString(preAuthCodeResult));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-	Copyright (C) 2017 Senparc
+	Copyright (C) 2018 Senparc
 	
 	文件名：MenuMatchRule.cs
 	文件功能描述：个性化菜单匹配规则
@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：lishewen - 20150628
     修改描述：v13.8.8 添加tag_id和language匹配项
 ----------------------------------------------------------------*/
+
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
@@ -82,14 +84,14 @@ namespace Senparc.Weixin.MP.Entities.Menu
         /// <returns></returns>
         public bool CheckAllNull()
         {
-            return string.IsNullOrWhiteSpace(group_id)
-                   && string.IsNullOrWhiteSpace(sex)
-                   && string.IsNullOrWhiteSpace(country)
-                   && string.IsNullOrWhiteSpace(province)
-                   && string.IsNullOrWhiteSpace(city)
-                   && string.IsNullOrWhiteSpace(client_platform_type)
-                   && string.IsNullOrWhiteSpace(tag_id)
-                   && string.IsNullOrWhiteSpace(language);
+            return    group_id.IsNullOrWhiteSpace()
+                   && sex.IsNullOrWhiteSpace()
+                   && country.IsNullOrWhiteSpace()
+                   && province.IsNullOrWhiteSpace()
+                   && city.IsNullOrWhiteSpace()
+                   && client_platform_type.IsNullOrWhiteSpace()
+                   && tag_id.IsNullOrWhiteSpace()
+                   && language.IsNullOrWhiteSpace();
         }
     }
 }

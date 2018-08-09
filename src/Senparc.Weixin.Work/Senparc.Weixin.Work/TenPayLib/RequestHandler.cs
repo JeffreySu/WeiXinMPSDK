@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付 请求处理
@@ -15,9 +15,16 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
-using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.Work.Helpers;
+using Senparc.CO2NET.Helpers;
+
+#if NET35 || NET40 || NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
+
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -39,13 +46,22 @@ namespace Senparc.Weixin.Work.TenPayLib
     public class RequestHandler
     {
 
+        public RequestHandler()
+        {
+            Parameters = new Hashtable();
+        }
+
+
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
+#if NET35 || NET40 || NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
+
         /// <summary>
         /// 密钥
         /// </summary>
@@ -138,7 +154,7 @@ namespace Senparc.Weixin.Work.TenPayLib
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             return sign;
         }
@@ -187,7 +203,11 @@ namespace Senparc.Weixin.Work.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if NET35 || NET40 || NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

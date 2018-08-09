@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
     public partial class DepartmentTest : CommonApiTest
     {
         //[TestMethod]
-        public int CreateDepartmentTest()
+        public long CreateDepartmentTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.CreateDepartment(accessToken, "test", 1, id: 3);
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         //[TestMethod]
-        public void UpdateDepartmentTest(string id)
+        public void UpdateDepartmentTest(long id)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.UpdateDepartment(accessToken, id, "更新test", 1);
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         }
 
         //[TestMethod]
-        public void DeleteDepartmentTest(string id)
+        public void DeleteDepartmentTest(long id)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.DeleteDepartment(accessToken, id);
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public void TestAllSet()
         {
-            string id = CreateDepartmentTest().ToString();
+            var id = CreateDepartmentTest();
             UpdateDepartmentTest(id);
             DeleteDepartmentTest(id);
             GetDepartmentListTest();

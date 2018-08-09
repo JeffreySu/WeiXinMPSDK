@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayV3Util.cs
     文件功能描述：微信支付V3配置文件
@@ -40,11 +40,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170522
     修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
+    修改标识：Senparc - 20180331
+    修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Text;
+using System.Net;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -87,20 +92,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
-
-                return res;
+                //return res;
             }
         }
 
@@ -116,20 +127,25 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if NET35 || NET40 || NET45 || NET461
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlDecode(instr);
+#endif
                 }
-
-
-                return res;
+                //return res;
 
             }
         }
@@ -141,7 +157,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if NET35 || NET40 || NET45 || NET461
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 
@@ -190,5 +210,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return stringFormat;
         }
 
+
+        /// <summary>
+        /// 对退款通知消息进行解密
+        /// </summary>
+        /// <param name="reqInfo"></param>
+        /// <param name="mchKey"></param>
+        /// <returns></returns>
+        public static string DecodeRefundReqInfo(string reqInfo, string mchKey)
+        {
+            //参考文档：https://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
+            /*
+               解密步骤如下： 
+                （1）对加密串A做base64解码，得到加密串B
+                （2）对商户key做md5，得到32位小写key* ( key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置 )
+
+                （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
+             */
+            //var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
+            var base64Encode = reqInfo;//(1) EncryptHelper.AESDecrypt 方法内部会进行一次base64解码，因此这里不再需要解码
+            var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
+            var result = EncryptHelper.AESDecrypt(base64Encode, md5Str);//(3)
+            return result;
+        }
     }
 }

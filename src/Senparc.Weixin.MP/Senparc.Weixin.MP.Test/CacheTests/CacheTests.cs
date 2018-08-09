@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,6 +27,7 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System.Threading;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Test.CacheTests
 {
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
         public void LocalCacheDeadLockTest()
         {
             //测试本地缓存死锁问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/402
-            CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
+           CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
 
             List<Task> taskList = new List<Task>();
             var dt1 = DateTime.Now;

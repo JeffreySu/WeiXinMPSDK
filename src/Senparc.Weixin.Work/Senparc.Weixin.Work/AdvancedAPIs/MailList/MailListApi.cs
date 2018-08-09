@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：通讯录同步接口
@@ -22,13 +22,22 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
  
-    -----------------------------------
+-----------------------------------
     
     修改标识：Senparc - 20170616
     修改描述：从QY移植，同步Work接口
 
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20180821
+    修改描述：v0.4.1 更新MailListApi.GetDepartmentMemberInfo()参数
+ 
+    修改标识：Senparc - 20171017
+    修改描述：v1.2.0 部门id改为long类型
+
+    修改标识：Senparc - 20171220
+    修改描述：v1.2.9 为OAuth Url添加agendId参数（可选）
 
 ----------------------------------------------------------------*/
 
@@ -46,14 +55,17 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.MailList;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList.Member;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class MailListApi
     {
-        #region 同步请求
+        #region 同步方法
 
         #region 成员管理
 
@@ -62,57 +74,27 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
-        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
-        /// <param name="enable">（非必填）</param>
+        /// <param name="memberCreateRequest">创建成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WorkJsonResult CreateMember(string accessTokenOrAppKey, string userId, string name = null,
-            string mobile = null, string englishName = null,
-            int[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateMember(string accessTokenOrAppKey, MemberCreateRequest memberCreateRequest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
-
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
+                var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+
+                /*
+                   返回结果：
+                   {
+                       "errcode": 0,
+                       "errmsg": "created"
+                    }
+                */
             }, accessTokenOrAppKey);
-
-
         }
 
 
@@ -126,7 +108,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
                 return Get.GetJson<GetMemberResult>(url);
             }, accessTokenOrAppKey);
@@ -139,54 +121,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：系统应用须拥有指定部门、成员的管理权限。注意，每个部门下的节点不能超过3万个。
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        ///<param name="memberUpdateRequest">更新成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WorkJsonResult UpdateMember(string accessTokenOrAppKey, string userId, string name,
-            string mobile, string englishName = null,
-            int[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateMember(string accessTokenOrAppKey, MemberUpdateRequest memberUpdateRequest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
-
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
+                var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
         }
 
 
@@ -200,7 +156,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
                 return Get.GetJson<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
@@ -219,7 +175,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -244,44 +200,42 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static GetDepartmentMemberResult GetDepartmentMember(string accessTokenOrAppKey, int departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
+        public static GetDepartmentMemberResult GetDepartmentMember(string accessTokenOrAppKey, long departmentId, int fetchChild /*,int status,*/ /*int? maxJsonLength = null*/)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+                //var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+                return Get.GetJson<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 
         }
 
+        /* <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>*/
         /// <summary>
         /// 获取部门成员(详情)【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="departmentId">获取的部门id</param>
-        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        /// <param name="fetchChild">（）1/0：是否递归获取子部门下面的成员</param>
         /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
         /// <remarks>
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessTokenOrAppKey, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
+        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessTokenOrAppKey, long departmentId, int? fetchChild /*, int status, *//*int? maxJsonLength = null*/)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+                //var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
+                return Get.GetJson<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
-
-
         }
 
 
@@ -301,11 +255,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, int parentId, int order = 1, int? id = null, int timeOut = Config.TIME_OUT)
+        public static CreateDepartmentResult CreateDepartment(string accessTokenOrAppKey, string name, long parentId, int order = 1, long? id = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -333,11 +287,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, long id, string name, long parentId, int order = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -361,11 +315,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// <returns></returns>
-        public static WorkJsonResult DeleteDepartment(string accessTokenOrAppKey, string id)
+        public static WorkJsonResult DeleteDepartment(string accessTokenOrAppKey, long id)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id);
 
                 return Get.GetJson<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
@@ -379,11 +333,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="id">部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构</param>
         /// <returns></returns>
-        public static GetDepartmentListResult GetDepartmentList(string accessTokenOrAppKey, int? id = null)
+        public static GetDepartmentListResult GetDepartmentList(string accessTokenOrAppKey, long? id = null)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
 
                 if (id.HasValue)
                 {
@@ -412,7 +366,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -441,7 +395,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -465,7 +419,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
                 return Get.GetJson<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
@@ -483,7 +437,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
                 return Get.GetJson<GetTagMemberResult>(url);
             }, accessTokenOrAppKey);
@@ -500,11 +454,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static AddTagMemberResult AddTagMember(string accessTokenOrAppKey, int tagId, string[] userList = null, int[] partyList = null, int timeOut = Config.TIME_OUT)
+        public static AddTagMemberResult AddTagMember(string accessTokenOrAppKey, int tagId, string[] userList = null, long[] partyList = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/addtagusers?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -530,11 +484,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="partylist">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static DelTagMemberResult DelTagMember(string accessTokenOrAppKey, int tagId, string[] userList = null, int[] partylist = null, int timeOut = Config.TIME_OUT)
+        public static DelTagMemberResult DelTagMember(string accessTokenOrAppKey, int tagId, string[] userList = null, long[] partylist = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/deltagusers?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -559,7 +513,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetTagListResult>(url);
             }, accessTokenOrAppKey);
@@ -583,7 +537,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/invite/send?access_token={0}", accessToken);
 
                 var data = new
                 {
@@ -599,7 +553,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         #region 成员管理
 
@@ -608,60 +563,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
-        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
-        /// <param name="enable">（非必填）</param>
+        /// <param name="memberCreateRequest">创建成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static async Task<WorkJsonResult> CreateMemberAsync(string accessTokenOrAppKey, string userId, string name,
-            string mobile,
-            string englishName = null,
-            int[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> CreateMemberAsync(string accessTokenOrAppKey, MemberCreateRequest memberCreateRequest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
-
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
-
+                var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                /*
+                   返回结果：
+                   {
+                       "errcode": 0,
+                       "errmsg": "created"
+                    }
+                */
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -674,12 +595,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
                 return await Get.GetJsonAsync<GetMemberResult>(url);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -687,54 +606,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：系统应用须拥有指定部门、成员的管理权限。注意，每个部门下的节点不能超过3万个。
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        ///<param name="memberUpdateRequest">更新成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static async Task<WorkJsonResult> UpdateMemberAsync(string accessTokenOrAppKey, string userId, string name,
-            string mobile, string englishName = null,
-            int[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateMemberAsync(string accessTokenOrAppKey, MemberUpdateRequest memberUpdateRequest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
-
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
+                var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
-
-
+            /*
+            *  返回结果：
+               {
+                  "errcode": 0,
+                  "errmsg": "updated"
+               }
+           */
+            , accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -747,25 +640,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
                 return await Get.GetJsonAsync<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
-            
+
         }
 
         /// <summary>
         /// 【异步方法】批量删除成员【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userIds"></param>
+        /// <param name="useridlist"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<WorkJsonResult> BatchDeleteMemberAsync(string accessTokenOrAppKey, string[] useridlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -791,41 +684,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessTokenOrAppKey, int departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessTokenOrAppKey, long departmentId, int fetchChild /*,int status,*//* int? maxJsonLength = null*/)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+                //var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+                return await Get.GetJsonAsync<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 
         }
 
+        /*/// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>*/
         /// <summary>
         /// 【异步方法】获取部门成员(详情)【QY移植修改】
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="departmentId">获取的部门id</param>
-        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        /// <param name="fetchChild">（非必填）1/0：是否递归获取子部门下面的成员</param>
         /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
         /// <remarks>
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessTokenOrAppKey, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessTokenOrAppKey, long departmentId, int? fetchChild /*, int status, *//*int? maxJsonLength = null*/)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+                //var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
+                return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 
@@ -847,11 +740,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessTokenOrAppKey, string name, int parentId, int order = 1, int? id = null, int timeOut = Config.TIME_OUT)
+        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessTokenOrAppKey, string name, long parentId, int order = 1, long? id = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -879,11 +772,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, long id, string name, long parentId, int order = 1, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -907,11 +800,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> DeleteDepartmentAsync(string accessTokenOrAppKey, string id)
+        public static async Task<WorkJsonResult> DeleteDepartmentAsync(string accessTokenOrAppKey, long id)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id);
 
                 return await Get.GetJsonAsync<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
@@ -925,11 +818,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="id">部门ID。获取指定部门ID下的子部门</param>
         /// <returns></returns>
-        public static async Task<GetDepartmentListResult> GetDepartmentListAsync(string accessTokenOrAppKey, int? id = null)
+        public static async Task<GetDepartmentListResult> GetDepartmentListAsync(string accessTokenOrAppKey, long? id = null)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
 
                 if (id.HasValue)
                 {
@@ -958,7 +851,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/create?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -987,7 +880,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/tag/update?access_token={0}";
 
                 var data = new
                 {
@@ -1011,7 +904,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
                 return await Get.GetJsonAsync<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
@@ -1030,7 +923,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
                 return await Get.GetJsonAsync<GetTagMemberResult>(url);
             }, accessTokenOrAppKey);
@@ -1047,11 +940,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<AddTagMemberResult> AddTagMemberAsync(string accessTokenOrAppKey, int tagId, string[] userList = null, int[] partyList = null, int timeOut = Config.TIME_OUT)
+        public static async Task<AddTagMemberResult> AddTagMemberAsync(string accessTokenOrAppKey, int tagId, string[] userList = null, long[] partyList = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/addtagusers?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1076,11 +969,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="partylist">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<DelTagMemberResult> DelTagMemberAsync(string accessTokenOrAppKey, int tagId, string[] userList, int[] partylist = null, int timeOut = Config.TIME_OUT)
+        public static async Task<DelTagMemberResult> DelTagMemberAsync(string accessTokenOrAppKey, int tagId, string[] userList, long[] partylist = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}",accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/deltagusers?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -1106,7 +999,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
 
                 return await Get.GetJsonAsync<GetTagListResult>(url);
             }, accessTokenOrAppKey);
@@ -1131,7 +1024,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/invite/send?access_token={0}", accessToken);
 
                 var data = new
                 {
@@ -1144,7 +1037,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
-        
+
         #endregion
+#endif
     }
 }

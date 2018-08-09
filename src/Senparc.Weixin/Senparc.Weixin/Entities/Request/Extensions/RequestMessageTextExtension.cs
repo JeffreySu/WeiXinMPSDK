@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
  
     文件名：TenPayV3.cs
     文件功能描述：微信支付V3接口
@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170725
     修改描述：v4.13.2 添加RequestMessageTextExtension的大小写是否敏感设置
 
+    修改标识：Senparc - 20170725
+    修改描述：v4.14.2 修复RequestMessageTextExtension.GetResponseMessage()方法判断问题
+
 ----------------------------------------------------------------*/
 
 
@@ -38,7 +41,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities.Request
 {
@@ -106,7 +108,7 @@ namespace Senparc.Weixin.Entities.Request
         /// <returns></returns>
         public static IResponseMessageBase GetResponseMessage(this RequestMessageTextKeywordHandler handler)
         {
-            if (!!handler.MatchSuccessed
+            if (!handler.MatchSuccessed
                 && handler.DefaultMessage != null)
             {
                 handler.ResponseMessage = handler.DefaultMessage();

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 {
@@ -78,7 +79,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 
 
     [TestClass()]
-    public class TemplateApiTests:CommonApiTest
+    public class TemplateApiTests: WxOpenBaseTest
     {
         [TestMethod()]
         public void SendTemplateMessageTest()
@@ -88,7 +89,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
                 "在线购买",DateTime.Now,"图书众筹","1234567890",
                 100, "400-9939-858","http://sdk.senparc.weixin.com");
 
-           var result = TemplateApi.SendTemplateMessage(_appId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
+           var result = TemplateApi.SendTemplateMessage(_wxOpenAppId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
                 "keyword3");
 
             Assert.AreEqual(ReturnCode.请求成功,result.errcode);

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Open.XML</DocumentationFile>
@@ -56,8 +56,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAPIs\AccountApi.cs" />
+    <Compile Include="AccountAPIs\AccountBasicInfoJson\AccountBasicInfoJsonResult.cs" />
+    <Compile Include="AccountAPIs\FastRegisterJson\FastRegisterJsonResult.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Containers\OAuthContainer.cs" />
     <Compile Include="Containers\ComponentContainer.cs" />
@@ -94,6 +104,7 @@
     <Compile Include="OAuthAPIs\OAuthAPI.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuthAPIs\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -102,6 +113,9 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateApi.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateJson\GetTemplateListResultJson.cs" />
+    <Compile Include="WxaAPIs\CodeTemplate\CodeTemplateJson\GetTemplateDraftListResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeApi.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
@@ -111,10 +125,16 @@
     <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditPageInfo.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsApi.cs" />
+    <Compile Include="WxaAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="WxaAPIs\Template\TemplateApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
+    <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\GetCategoryJson\GetCategoryJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\WxOpenApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -124,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MpAPIs\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

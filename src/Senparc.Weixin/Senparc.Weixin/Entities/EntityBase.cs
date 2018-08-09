@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：EntityBase.cs
     文件功能描述：EntityBase
@@ -50,28 +50,28 @@ namespace Senparc.Weixin.Entities
 
     //}
 
-    /// <summary>
-    /// 接口：生成JSON时忽略NULL对象
-    /// </summary>
-    public interface IJsonIgnoreNull : IEntityBase
-    {
+    ///// <summary>
+    ///// 接口：生成JSON时忽略NULL对象
+    ///// </summary>
+    //public interface IJsonIgnoreNull : IEntityBase
+    //{
 
-    }
+    //}
 
-    /// <summary>
-    /// 生成JSON时忽略NULL对象
-    /// </summary>
-    public class JsonIgnoreNull : IJsonIgnoreNull
-    {
+    ///// <summary>
+    ///// 生成JSON时忽略NULL对象
+    ///// </summary>
+    //public class JsonIgnoreNull : IJsonIgnoreNull
+    //{
 
-    }
+    //}
 
-    /// <summary>
-    /// 接口：类中有枚举在序列化的时候，需要转成字符串
-    /// </summary>
-    public interface IJsonEnumString : IEntityBase
-    {
+    ///// <summary>
+    ///// 接口：类中有枚举在序列化的时候，需要转成字符串
+    ///// </summary>
+    //public interface IJsonEnumString : IEntityBase
+    //{
 
-    }
+    //}
 
 }

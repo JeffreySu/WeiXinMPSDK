@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：Card_BaseInfoBase.cs
     文件功能描述：基本的卡券数据，所有卡券通用。作为 Card_BaseInfo和 的基类
@@ -32,9 +32,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20160910
     修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
+
+    修改标识：Senparc - 20170927
+    修改描述：v4.16.5 添加Card_BaseInfoBase下的sub_merchant_info属性
+
+    修改标识：Senparc - 20180618
+    修改描述：Modify_Msg_Operation modify_msg_operationg 添加  [JsonSetting.IgnoreNull] 特性
+
 ----------------------------------------------------------------*/
 
 
+using Senparc.CO2NET.Helpers.Serializers;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -44,6 +52,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_BaseInfoBase
     {
+        /// <summary>
+        /// 子商户id，对于一个母商户公众号下唯一。
+        /// 详情见创建卡券接口：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432
+        /// </summary>
+        public Card_BaseInfoBase_SubMerchantInfo sub_merchant_info { get; set; }
+
         /// <summary>
         /// 卡券的商户logo，尺寸为300*300。
         /// 必填
@@ -176,6 +190,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 积分余额变动消息类型
         /// </summary>
+        [JsonSetting.IgnoreNull]
         public Modify_Msg_Operation modify_msg_operation { get; set; }
 
         //public Card_BaseInfoBase()
@@ -187,7 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 设置本卡券支持全部门店
         /// </summary>
-        public bool use_all_locations { get; set;}
+        public bool use_all_locations { get; set; }
         /// <summary>
         ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
         /// </summary>
@@ -195,7 +210,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 会员卡支持微信支付刷卡
         /// </summary>
-        public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set; }
+    }
+
+    public class Card_BaseInfoBase_SubMerchantInfo
+    {
+        public int merchant_id { get; set; }
     }
 
     public class Modify_Msg_Operation /*: JsonIgnoreNull//为了解决提交时候modify_msg_operation=null，导致47001的错误*/

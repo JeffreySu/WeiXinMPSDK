@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：TempleteModel.cs
     文件功能描述：小程序模板消息接口需要的数据
@@ -35,7 +35,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 {
     /// <summary>
     /// 模板消息Post数据
@@ -69,9 +69,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
         public object data { get; set; }
 
         /// <summary>
-        /// 
+        /// 模板需要放大的关键词，不填则默认无放大（非必填）
         /// </summary>
         public string emphasis_keyword { get; set; }
+
+        /// <summary>
+        /// 模板内容字体的颜色，不填默认黑色（非必填）
+        /// </summary>
+        public string color { get; set; }
 
 
 

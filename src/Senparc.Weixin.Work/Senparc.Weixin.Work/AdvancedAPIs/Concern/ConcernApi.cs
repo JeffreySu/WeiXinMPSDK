@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：ConcernApi.cs
     文件功能描述：二次验证接口
@@ -22,6 +22,7 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -32,7 +33,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class ConcernApi
     {
-        #region 同步请求
+        #region 同步方法
 
         /// <summary>
         /// 二次验证
@@ -44,7 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
                 return Get.GetJson<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
 
@@ -52,7 +53,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】二次验证
@@ -64,12 +66,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
                 return await Get.GetJsonAsync<WorkJsonResult>(url);
             }, accessTokenOrAppKey);
 
 
         }
         #endregion
+#endif
     }
 }

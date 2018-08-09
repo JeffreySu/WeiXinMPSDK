@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
 
     文件名：OpenApi.cs
     文件功能描述：微信开放平台帐号管理接口
@@ -7,6 +7,8 @@
 
     创建标识：Senparc - 20170629
     
+    修改标识：Senparc - 20160707
+    修改描述：完善微信开放平台帐号管理
 ----------------------------------------------------------------*/
 
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
 {
     public static class OpenApi
     {
-        #region 同步接口
+        #region 同步方法
 
         /// <summary>
         /// 创建开放平台帐号并绑定公众号/小程序。
@@ -28,7 +30,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static CreateJsonResult Create(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -42,7 +44,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static WxJsonResult Bind(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -56,7 +58,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static WxJsonResult Unbind(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/unbind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -69,14 +71,15 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static GetJsonResult Get(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, data);
         }
 
         #endregion
 
-        #region 异步接口
+#if !NET35 && !NET40
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】创建开放平台帐号并绑定公众号/小程序。
@@ -87,7 +90,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<CreateJsonResult> CreateAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
         }
@@ -101,7 +104,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<WxJsonResult> BindAsync(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -115,7 +118,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<WxJsonResult> UnbindAsync(string accessToken, string appId, string openAppid)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/unbind?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
@@ -128,11 +131,12 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <returns></returns>
         public static async Task<GetJsonResult> GetAsync(string accessToken, string appId)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/get?access_token={0}";
+            var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
             return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
         }
 
         #endregion
+#endif
     }
 }

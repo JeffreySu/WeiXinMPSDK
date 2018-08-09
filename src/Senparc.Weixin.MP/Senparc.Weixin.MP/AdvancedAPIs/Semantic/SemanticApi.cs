@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：SemanticApi.cs
     文件功能描述：语意理解接口
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class SemanticApi
     {
-        #region 同步请求
+        #region 同步方法
  
         /// <summary>
         /// 发送语义理解请求
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -82,7 +82,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
         /// <summary>
         /// 【异步方法】发送语义理解请求
         /// </summary>
@@ -95,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+                var urlFormat = Config.ApiMpHost + "/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -108,5 +109,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
+#endif
     }
 }

@@ -1,11 +1,12 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：GetCheckinDataJsonResult.cs
     文件功能描述：获取打卡数据返回结果
     
     
     创建标识：Senparc - 20170617
+
 
 ----------------------------------------------------------------*/
 
@@ -20,7 +21,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 {
     public class GetCheckinDataJsonResult : WorkJsonResult
     {
-        public GetCheckinDataJsonResult_Result[] result { get; set; }
+        /// <summary>
+        /// 打卡数据
+        /// </summary>
+        public GetCheckinDataJsonResult_Result[] checkindata { get; set; }
     }
 
     public class GetCheckinDataJsonResult_Result
@@ -65,5 +69,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 打卡的MAC地址/bssid
         /// </summary>
         public string wifimac { get; set; }
+        /// <summary>
+        /// 打卡的附件media_id，可使用media/get获取附件
+        /// </summary>
+        public string[] mediaids { get; set; }
     }
 }

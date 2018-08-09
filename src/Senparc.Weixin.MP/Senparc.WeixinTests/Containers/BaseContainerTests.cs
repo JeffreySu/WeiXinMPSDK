@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -32,23 +32,22 @@ namespace Senparc.Weixin.Containers.Tests
     {
         private DateTime _dateTime;
 
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set { this.SetContainerProperty(ref _dateTime, value); }
+        //}
     }
 
     internal class TestContainerBag2 : BaseContainerBag
     {
         private DateTime _dateTime;
 
-        public DateTime DateTime
-        {
-            get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
-
-        }
+        public DateTime DateTime { get; set; }
+        //{
+        //    get { return _dateTime; }
+        //    set { this.SetContainerProperty(ref _dateTime, value); }
+        //}
     }
 
     internal class TestContainer1 : BaseContainer<TestContainerBag1>

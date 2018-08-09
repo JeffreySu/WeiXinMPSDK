@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -22,7 +22,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.MP.Helpers;
 
 /**
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         public virtual void SetContent(string content)
         {
             this.Content = content;
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             xmlDoc.LoadXml(content);
             XmlNode root = xmlDoc.SelectSingleNode("root");
             XmlNodeList xnl = root.ChildNodes;
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
@@ -210,7 +210,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);

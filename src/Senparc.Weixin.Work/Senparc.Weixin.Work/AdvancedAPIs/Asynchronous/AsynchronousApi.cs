@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -23,6 +23,7 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -34,7 +35,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class AsynchronousApi
     {
-        #region 同步请求
+        #region 同步方法
 
         #region 通讯录更新
 
@@ -81,7 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/syncuser?access_token={0}";
 
                 var data = new
                 {
@@ -123,7 +124,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/replaceuser?access_token={0}";
 
                 var data = new
                 {
@@ -165,7 +166,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/replaceparty?access_token={0}";
 
                 var data = new
                 {
@@ -189,7 +190,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
                 return Get.GetJson<AsynchronousReplaceUserResult>(url);
@@ -208,7 +209,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
                 return Get.GetJson<AsynchronousReplacePartyResult>(url);
@@ -220,7 +221,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
         #endregion
 
-        #region 异步请求
+#if !NET35 && !NET40
+        #region 异步方法
 
         #region 通讯录更新
 
@@ -267,7 +269,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/syncuser?access_token={0}";
 
                 var data = new
                 {
@@ -309,7 +311,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/replaceuser?access_token={0}";
 
                 var data = new
                 {
@@ -351,7 +353,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty?access_token={0}";
+                var url = Config.ApiWorkHost + "/cgi-bin/batch/replaceparty?access_token={0}";
 
                 var data = new
                 {
@@ -375,7 +377,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
                 return await Get.GetJsonAsync<AsynchronousReplaceUserResult>(url);
@@ -394,7 +396,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
                 return await Get.GetJsonAsync<AsynchronousReplacePartyResult>(url);
@@ -405,5 +407,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
         #endregion
+#endif
     }
 }

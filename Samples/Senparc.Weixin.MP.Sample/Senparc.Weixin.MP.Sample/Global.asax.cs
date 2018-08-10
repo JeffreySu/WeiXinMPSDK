@@ -49,21 +49,20 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            System.Web.WebPages.Razor.CompilingPathEventArgs
-              /* 
-               * CO2NET 全局注册开始
-               * 建议按照以下顺序进行注册
-               */
+            /* 
+             * CO2NET 全局注册开始
+             * 建议按照以下顺序进行注册
+             */
 
-              /*
-               * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
-               * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
-               * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
-               */
+            /*
+             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化。
+             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
+             * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
+             */
 
 
-              //设置全局 Debug 状态
-              var isGLobalDebug = true;
+            //设置全局 Debug 状态
+            var isGLobalDebug = true;
             //全局设置参数，将被储存到 Senparc.CO2NET.Config.SenparcSetting
             var senparcSetting = SenparcSetting.BuildFromWebConfig(isGLobalDebug);
             //也可以通过这种方法在程序任意位置设置全局 Debug 状态：

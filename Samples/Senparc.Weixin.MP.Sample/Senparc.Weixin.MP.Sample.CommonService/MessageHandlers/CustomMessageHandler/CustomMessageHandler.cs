@@ -322,7 +322,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var openId = requestMessage.FromUserName;
                     var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
                     TemplateMessageCollection[checkCode] = openId;
-                    defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：http://sdk.weixin.senparc.com/AsyncMethods", checkCode);
+                    defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：https://sdk.weixin.senparc.com/AsyncMethods", checkCode);
                     return defaultResponseMessage;
                 })
                 .Keyword("OPENID", () =>

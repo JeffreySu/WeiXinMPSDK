@@ -571,7 +571,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\NeuChar\Senparc.NeuChar\Senparc.NeuChar.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 

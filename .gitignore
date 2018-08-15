@@ -51,3 +51,6 @@ packages/
 /Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcTraceLog/*
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/App_Data/SenparcTraceLog/*
 /src/Senparc.Weixin.Open/Senparc.Weixin.Open.Test/App_Data/SenparcTraceLog/*
+/Senparc.Weixin.MP.BuildOutPut/net35/*
+/Senparc.Weixin.MP.BuildOutPut/net40/*
+/Senparc.Weixin.MP.BuildOutPut/net45/*

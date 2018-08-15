@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <Version>0.0.1</Version>
+    <AssemblyName>Senparc.NeuChar</AssemblyName>
+    <RootNamespace>Senparc.NeuChar</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Description>
+      NeuChar SDK
+
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2018</Copyright>
+    <PackageTags>NeuChar,Standard,json,yaml,xml</PackageTags>
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.NeuChar.dll</Title>
+
+    <Summary>NeuChar SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.0.1 初始化项目
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>  </PropertyGroup>
+
+</Project>

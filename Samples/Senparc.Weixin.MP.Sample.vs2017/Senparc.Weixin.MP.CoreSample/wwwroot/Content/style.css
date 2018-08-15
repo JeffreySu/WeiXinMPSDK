@@ -142,7 +142,7 @@
 
 .contatc-img {
     float: left;
-    margin-right: 10px;
+    margin-right: 7px;
     display: inline;
 }
 
@@ -226,7 +226,7 @@
 img.official-img {
     /*margin: 30px 0 0 0;*/
     clear: both;
-    width:256px;
+    width: 256px;
 }
 
 .weixin-weiweihi {
@@ -252,13 +252,13 @@ img.official-img {
 
 .weixin-item-left {
     float: left;
-    margin-right:20px;
+    margin-right: 20px;
 }
 
 .readmore {
     margin-top: 40px;
-    margin-left:60px;
-    background-color:#e0f3fe;
+    margin-left: 60px;
+    background-color: #e0f3fe;
     float: left;
 }
 
@@ -684,9 +684,9 @@ p.crowdfunding-note {
         padding-left: 30px;
     }
 
-    .nav-catalog li a:hover {
-        color:#b8b8b8;
-    }
+        .nav-catalog li a:hover {
+            color: #b8b8b8;
+        }
 
     .container-left {
         width: 260px;
@@ -2013,12 +2013,15 @@ p.crowdfunding-note {
         margin-top: 0;
     }
 }
+
 .textTop {
     margin-top: 37px;
 }
+
 .contentTop {
     padding-top: 35px;
 }
+
 .top {
     padding-top: 35px;
     text-align: left;

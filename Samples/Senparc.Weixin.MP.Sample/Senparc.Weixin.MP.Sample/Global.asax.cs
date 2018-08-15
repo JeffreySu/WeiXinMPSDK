@@ -49,7 +49,6 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
             /* 
              * CO2NET 全局注册开始
              * 建议按照以下顺序进行注册

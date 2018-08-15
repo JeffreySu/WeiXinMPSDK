@@ -353,6 +353,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     //方案三：
                     base.TextResponseMessage = "success";
                     return null;
+
+                    //方案四：
+                    return null;//在 Action 中结合使用 return new FixWeixinBugWeixinResult(messageHandler);
                 })
                 .Keyword("JSSDK", () =>
                 {

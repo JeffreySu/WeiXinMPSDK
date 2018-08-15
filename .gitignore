@@ -54,3 +54,4 @@ packages/
 /Senparc.Weixin.MP.BuildOutPut/net35/*
 /Senparc.Weixin.MP.BuildOutPut/net40/*
 /Senparc.Weixin.MP.BuildOutPut/net45/*
+/Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/App_Data/NeuChar/json.json

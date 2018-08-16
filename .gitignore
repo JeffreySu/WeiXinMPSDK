@@ -54,4 +54,8 @@ packages/
 /Senparc.Weixin.MP.BuildOutPut/net35/*
 /Senparc.Weixin.MP.BuildOutPut/net40/*
 /Senparc.Weixin.MP.BuildOutPut/net45/*
+/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.0/*
+/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1/*
+/Senparc.Weixin.MP.BuildOutPut/netstandard2.0/*
+/Senparc.Weixin.MP.BuildOutPut/*.nupkg
 /Samples/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/App_Data/NeuChar/json.json

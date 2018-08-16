@@ -39,6 +39,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using System.IO;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
@@ -341,7 +342,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             };
 
-            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.GET, timeOut);
         }
         /// <summary>
         /// 发布已通过审核的小程序

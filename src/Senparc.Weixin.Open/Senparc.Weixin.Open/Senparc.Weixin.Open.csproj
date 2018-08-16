@@ -56,8 +56,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAPIs\AccountApi.cs" />
+    <Compile Include="AccountAPIs\AccountBasicInfoJson\AccountBasicInfoJsonResult.cs" />
+    <Compile Include="AccountAPIs\FastRegisterJson\FastRegisterJsonResult.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Containers\OAuthContainer.cs" />
     <Compile Include="Containers\ComponentContainer.cs" />
@@ -122,6 +132,9 @@
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
+    <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\GetCategoryJson\GetCategoryJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\WxOpenApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -132,7 +145,9 @@
   <ItemGroup>
     <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

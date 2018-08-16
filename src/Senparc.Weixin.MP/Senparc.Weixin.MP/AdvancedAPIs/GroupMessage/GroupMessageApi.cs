@@ -43,9 +43,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
-    修改标识：Senparc - 2011224
+    修改标识：Senparc - 2017224
     修改描述：v14.8.12 完成群发接口添加clientmsgid属性
    
+    修改标识：Senparc - 20180319
+    修改描述：v14.10.8 GroupMessageApi.SendGroupMessageByFilter() 方法修复判断错误
+
+    修改标识：Senparc - 20180507
+    修改描述：v14.12.4 删除群发接口 GroupMessageApi.DeleteSendMessage() 添加article_idx参数
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -55,7 +61,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
@@ -102,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 BaseGroupMessageDataByFilter baseData = null;
                 BaseGroupMessageByFilter filter = null;
-                if (groupId.IsNullOrEmpty())
+                if (!groupId.IsNullOrEmpty())
                 {
                     filter = new GroupMessageByGroupId()
                     {
@@ -386,9 +392,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
+        /// <param name="articleIdx">（非必填）要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteSendMessage(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeleteSendMessage(string accessTokenOrAppId, string msgId, int? articleIdx, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -397,7 +404,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    msg_id = msgId
+                    msg_id = msgId,
+                    article_idx = articleIdx
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
@@ -615,7 +623,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 BaseGroupMessageDataByFilter baseData = null;
                 BaseGroupMessageByFilter filter = null;
-                if (groupId.IsNullOrEmpty())
+                if (!groupId.IsNullOrEmpty())
                 {
                     filter = new GroupMessageByGroupId()
                     {
@@ -901,9 +909,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
+        /// <param name="articleIdx">（非必填）要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int? articleIdx, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -912,7 +921,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    msg_id = msgId
+                    msg_id = msgId,
+                    article_idx = articleIdx
                 };
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 

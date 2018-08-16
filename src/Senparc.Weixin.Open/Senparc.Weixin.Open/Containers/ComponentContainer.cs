@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
 
     文件名：ComponentContainer.cs
@@ -47,12 +67,15 @@
     修改标识：Senparc - 20170318
     修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
 
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -60,6 +83,7 @@ using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.Containers
 {
@@ -72,121 +96,121 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 第三方平台AppId
         /// </summary>
-        public string ComponentAppId
-        {
-            get { return _componentAppId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
-#else
-            set { this.SetContainerProperty(ref _componentAppId, value); }
-#endif
-        }
+        public string ComponentAppId { get; set; }
+        //        {
+        //            get { return _componentAppId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentAppId, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 第三方平台AppSecret
         /// </summary>
-        public string ComponentAppSecret
-        {
-            get { return _componentAppSecret; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
-#else
-            set { this.SetContainerProperty(ref _componentAppSecret, value); }
-#endif
-        }
+        public string ComponentAppSecret { get; set; }
+        //        {
+        //            get { return _componentAppSecret; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentAppSecret, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 第三方平台ComponentVerifyTicket（每隔10分钟微信会主动推送到服务器，IP必须在白名单内）
         /// </summary>
-        public string ComponentVerifyTicket
-        {
-            get { return _componentVerifyTicket; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
-#else
-            set { this.SetContainerProperty(ref _componentVerifyTicket, value); }
-#endif
-        }
+        public string ComponentVerifyTicket { get; set; }
+        //        {
+        //            get { return _componentVerifyTicket; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentVerifyTicket, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 第三方平台ComponentVerifyTicket过期时间（实际上过期之后仍然可以使用一段时间）
         /// </summary>
-        public DateTime ComponentVerifyTicketExpireTime
-        {
-            get { return _componentVerifyTicketExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
-#endif
+        public DateTime ComponentVerifyTicketExpireTime { get; set; }
+        //        {
+        //            get { return _componentVerifyTicketExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+        //#endif
 
-        }
+        //        }
 
         /// <summary>
         /// ComponentAccessTokenResult
         /// </summary>
-        public ComponentAccessTokenResult ComponentAccessTokenResult
-        {
-            get { return _componentAccessTokenResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
-#else
-            set { this.SetContainerProperty(ref _componentAccessTokenResult, value); }
-#endif
-        }
+        public ComponentAccessTokenResult ComponentAccessTokenResult { get; set; }
+        //        {
+        //            get { return _componentAccessTokenResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentAccessTokenResult, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// ComponentAccessToken过期时间
         /// </summary>
-        public DateTime ComponentAccessTokenExpireTime
-        {
-            get { return _componentAccessTokenExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
-#endif
-        }
+        public DateTime ComponentAccessTokenExpireTime { get; set; }
+        //        {
+        //            get { return _componentAccessTokenExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+        //#endif
+        //        }
 
 
         /// <summary>
         /// PreAuthCodeResult 预授权码结果
         /// </summary>
-        public PreAuthCodeResult PreAuthCodeResult
-        {
-            get { return _preAuthCodeResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
-#else
-            set { this.SetContainerProperty(ref _preAuthCodeResult, value); }
-#endif
-        }
+        public PreAuthCodeResult PreAuthCodeResult { get; set; }
+        //        {
+        //            get { return _preAuthCodeResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _preAuthCodeResult, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 预授权码过期时间
         /// </summary>
-        public DateTime PreAuthCodeExpireTime
-        {
-            get { return _preAuthCodeExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
-#endif
-        }
+        public DateTime PreAuthCodeExpireTime { get; set; }
+        //        {
+        //            get { return _preAuthCodeExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// AuthorizerAccessToken
         /// </summary>
-        public string AuthorizerAccessToken
-        {
-            get { return _authorizerAccessToken; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
-#else
-            set { this.SetContainerProperty(ref _authorizerAccessToken, value); }
-#endif
-        }
+        public string AuthorizerAccessToken { get; set; }
+        //        {
+        //            get { return _authorizerAccessToken; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _authorizerAccessToken, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 只针对这个AppId的锁
@@ -273,8 +297,8 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
         /// <param name="name">标记名称（如开放平台名称），帮助管理员识别</param>
         public static void Register(string componentAppId, string componentAppSecret,
-            Func<string, string> getComponentVerifyTicketFunc, 
-            Func<string, string, string> getAuthorizerRefreshTokenFunc, 
+            Func<string, string> getComponentVerifyTicketFunc,
+            Func<string, string, string> getAuthorizerRefreshTokenFunc,
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
@@ -289,19 +313,25 @@ namespace Senparc.Weixin.Open.Containers
 
             RegisterFunc = () =>
             {
-                using (FlushCache.CreateInstance())
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new ComponentBag()
                 {
-                    var bag = new ComponentBag()
-                    {
-                        Name = name,
-                        ComponentAppId = componentAppId,
-                        ComponentAppSecret = componentAppSecret,
-                    };
-                    Update(componentAppId, bag);
-                    return bag;
-                }
+                    Name = name,
+                    ComponentAppId = componentAppId,
+                    ComponentAppSecret = componentAppSecret,
+                };
+                Update(componentAppId, bag, null);
+                return bag;
+                //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Appid = componentAppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Secret = componentAppSecret;
+            }
         }
 
         #region component_verify_ticket
@@ -330,6 +360,7 @@ namespace Senparc.Weixin.Open.Containers
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
                 bag.ComponentVerifyTicket = componentVerifyTicket;
                 bag.ComponentVerifyTicketExpireTime = ApiUtility.GetExpireTime(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES * 60);
+                Update(bag, null);//更新到缓存
             }
             return componentVerifyTicket;
         }
@@ -344,7 +375,8 @@ namespace Senparc.Weixin.Open.Containers
             Update(componentAppId, bag =>
             {
                 bag.ComponentVerifyTicket = componentVerifyTicket;
-            });
+                Update(bag, null);//更新到缓存
+            }, null);
         }
 
         #endregion
@@ -403,6 +435,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
                     accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;
@@ -463,6 +496,9 @@ namespace Senparc.Weixin.Open.Containers
 
 
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
+
+                    Update(componentBag, null);//更新到缓存
+
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
                     //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
@@ -569,6 +605,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
                     accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;
@@ -630,6 +667,8 @@ namespace Senparc.Weixin.Open.Containers
 
 
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
+
+                    Update(componentBag, null);//更新到缓存
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
                     //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0

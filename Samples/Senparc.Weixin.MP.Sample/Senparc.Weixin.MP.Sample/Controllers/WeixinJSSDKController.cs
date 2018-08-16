@@ -14,9 +14,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class WeixinJSSDKController : Controller
     {
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
-
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.SenparcWeixinSetting.WeixinAppSecret;
         //
         // GET: /JSSDK/
 

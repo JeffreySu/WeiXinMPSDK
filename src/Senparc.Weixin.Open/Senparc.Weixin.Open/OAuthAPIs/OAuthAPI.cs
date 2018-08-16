@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 

@@ -30,11 +30,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
+    修改标识：Senparc - 20180707
+    修改描述：TenPayV3InfoCollection 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+
+    修改标识：Senparc - 20180802
+    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
+
     TODO：升级为Container
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -53,11 +61,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 注册TenPayV3Info信息
         /// </summary>
         /// <param name="tenPayV3Info"></param>
-        public static void Register(TenPayV3Info tenPayV3Info)
+        /// <param name="name">公众号唯一标识（或名称）</param>
+        public static void Register(TenPayV3Info tenPayV3Info,string name)
         {
             Data[tenPayV3Info.MchId] = tenPayV3Info;
+
+            //添加到全局变量
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_AppId = tenPayV3Info.AppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_AppSecret = tenPayV3Info.AppSecret;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_MchId = tenPayV3Info.MchId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Key = tenPayV3Info.Key;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_TenpayNotify = tenPayV3Info.TenPayV3Notify;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_WxOpenTenpayNotify = tenPayV3Info.TenPayV3_WxOpenNotify;
+            }
         }
 
+        /// <summary>
+        /// 索引 TenPayV3Info
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public new TenPayV3Info this[string key]
         {
             get
@@ -77,6 +102,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+        /// <summary>
+        /// TenPayV3InfoCollection 构造函数
+        /// </summary>
         public TenPayV3InfoCollection()
             : base(StringComparer.OrdinalIgnoreCase)
         {

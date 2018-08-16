@@ -10,9 +10,10 @@
 
 using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.BaiduMap;
-using Senparc.Weixin.MP.Entities.GoogleMap;
+using Senparc.CO2NET.Helpers.BaiduMap;
+using Senparc.CO2NET.Helpers.GoogleMap;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.CommonService
 {

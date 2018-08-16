@@ -7,19 +7,18 @@
     
     创建标识：Senparc - 20170617
 
+    修改标识：Senparc - 201807128
+    修改描述：修改命名空间为 Senparc.Weixin.Work.AdvancedAPIs
 
-----------------------------------------------------------------*/
+    ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.Work.AdvancedAPIs.SSO;
 using Senparc.Weixin.Work.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     /// <summary>
@@ -65,8 +64,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
                 };
 
                 return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
 
@@ -89,8 +86,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
         #endregion
@@ -115,8 +110,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
         /// <summary>
@@ -137,8 +130,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-
         }
 
 

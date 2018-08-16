@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -25,8 +26,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         /// <summary>
         /// 

@@ -60,6 +60,7 @@ using Senparc.Weixin.Exceptions;
 
 #if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
+using Senparc.Weixin.HttpUtility;
 #endif
 #if !NET35 && !NET40
 using System.Net.Http;
@@ -127,22 +128,21 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="useAjax"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <param name="fileDictionary"></param>
-        /// <param name="postDataDictionary"></param>
+        /// <param name="fileDictionary">需要Post的文件（Dictionary 的 Key=name，Value=绝对路径）</param>
+        /// <param name="postDataDictionary">需要Post的键值对（name,value）</param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null,
+            Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false,
+            int timeOut = CO2NET.Config.TIME_OUT)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                postDataDictionary.FillFormDataStream(ms); //填充formData
-                string returnText = RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, cer, useAjax, timeOut);
-                var result = GetResult<T>(returnText);
-                return result;
-            }
+            var result = CO2NET.HttpUtility.Post.PostFileGetJson<T>(url, cookieContainer, fileDictionary,
+                            postDataDictionary, encoding, cer, useAjax, Get.AfterReturnText, timeOut);
+
+            return result;
         }
 
         /// <summary>
-        /// 发起Post请求
+        /// 发起Post请求，可包含文件流
         /// </summary>
         /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
         /// <param name="url">请求Url</param>
@@ -154,18 +154,16 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null,
+            X509Certificate2 cer = null, bool useAjax = false, bool checkValidationResult = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
-            string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, useAjax, timeOut, checkValidationResult);
-
-            WeixinTrace.SendApiLog(url, returnText);
-
-            var result = GetResult<T>(returnText);
+            var result = CO2NET.HttpUtility.Post.PostGetJson<T>(url, cookieContainer, fileStream, encoding,
+                            cer, useAjax, checkValidationResult, Get.AfterReturnText, timeOut);
             return result;
         }
 
         /// <summary>
-        /// PostGetJson
+        /// 【异步方法】Form表单Post数据，获取JSON
         /// </summary>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
@@ -176,10 +174,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null,
+            Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
-            string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, cer, useAjax, timeOut);
-            var result = GetResult<T>(returnText);
+            var result = CO2NET.HttpUtility.Post.PostGetJson<T>(url, cookieContainer, formData, encoding,
+                             cer, useAjax, Get.AfterReturnText, timeOut);
             return result;
         }
 
@@ -192,9 +191,9 @@ namespace Senparc.Weixin.HttpUtility
         public static void Download(string url, string data, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            WebClient wc = new WebClient();
+            WebClient wc = new WebClient(); 
             var file = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
-            stream.Write(file, 0, file.Length);
+            stream.Write(file, 0, file.Length);     
 
             //foreach (var b in file)
             //{
@@ -226,25 +225,23 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="encoding"></param>
         /// <param name="cer">证书，如果不需要则保留null</param>
-        /// <param name="useAjax">是否使用Ajax请求</param>
+        /// <param name="useAjax"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <param name="fileDictionary"></param>
-        /// <param name="postDataDictionary"></param>
+        /// <param name="fileDictionary">需要Post的文件（Dictionary 的 Key=name，Value=绝对路径）</param>
+        /// <param name="postDataDictionary">需要Post的键值对（name,value）</param>
         /// <returns></returns>
-        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null,
+            Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false,
+            int timeOut = CO2NET.Config.TIME_OUT)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                postDataDictionary.FillFormDataStream(ms); //填充formData
-                string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, ms, fileDictionary, null, encoding, cer, useAjax, timeOut);
-                var result = GetResult<T>(returnText);
-                return result;
-            }
+            var result = await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<T>(url, cookieContainer, fileDictionary,
+                           postDataDictionary, encoding, cer, useAjax, Get.AfterReturnText, timeOut);
+            return result;
         }
 
 
         /// <summary>
-        /// 【异步方法】PostGetJson的异步版本
+        /// 【异步方法】发起Post请求，可包含文件流
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
@@ -256,19 +253,17 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null,
+            X509Certificate2 cer = null, bool useAjax = false, bool checkValidationResult = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, cer, useAjax, timeOut, checkValidationResult);
-
-            WeixinTrace.SendApiLog(url, returnText);
-
-            var result = GetResult<T>(returnText);
+            var result =  await CO2NET.HttpUtility.Post.PostGetJsonAsync<T>(url, cookieContainer, fileStream, encoding,
+                      cer, useAjax, checkValidationResult, Get.AfterReturnText, timeOut);
             return result;
         }
 
 
         /// <summary>
-        /// PostGetJson的异步版本
+        /// 【异步方法】Form表单Post数据，获取JSON
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
@@ -279,10 +274,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="useAjax">是否使用Ajax请求</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, 
+            Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, cer, useAjax, timeOut);
-            var result = GetResult<T>(returnText);
+            var result = await CO2NET.HttpUtility.Post.PostGetJsonAsync<T>(url, cookieContainer, formData, encoding,
+                           cer, useAjax, Get.AfterReturnText, timeOut);
             return result;
         }
 
@@ -297,7 +293,7 @@ namespace Senparc.Weixin.HttpUtility
         ///// <param name="cer">证书，如果不需要则保留null</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
-        //public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        //public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = CO2NET.Config.TIME_OUT)
         //{
         //    string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, cer, timeOut);
         //    var result = GetResult<T>(returnText);

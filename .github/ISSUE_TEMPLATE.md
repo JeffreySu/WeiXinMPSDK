@@ -4,6 +4,10 @@
 ##### 问题描述
 
 
+##### 重现问题步骤（如果可以）
+
+1. ...
+2. ...
 
 ##### 微信官方文档 URL
 
@@ -17,7 +21,7 @@
 - [ ] Senparc.Weixin.MP 版本：
 - [ ] Senparc.Weixin.MP.MVC 版本：
 - [ ] Senparc.Weixin.Open 版本：
-- [ ] Senparc.Weixin.QY 版本：
+~- [ ] Senparc.Weixin.QY 版本：~
 - [ ] Senparc.Weixin.Work 版本：
 - [ ] Senparc.Weixin.WxOpen 版本：
 - [ ] Senparc.Weixin.Cache.Redis 版本：
@@ -25,13 +29,14 @@
 - [ ] 其他模块：
 
 
-##### 模块对应的.net版本
+##### 模块对应的 .net 版本
 
-- [ ] .net 3.5（已经停止更新）
-- [ ] .net 4.0（已于2017年7月暂时停止更新）
-- [x] .net 4.5
-- [x] .net 4.6.1
-- [ ] .net core
+- [ ] .net 3.5
+- [ ] .net 4.0
+- [ ] .net 4.5
+- [ ] .net standard 2.0
+- [ ] .net core 1.x
+- [x] .net core 2.x
 
 ##### 开发环境
 
@@ -40,12 +45,12 @@
 - [ ] Visual Studio 2012
 - [ ] Visual Studio 2013
 - [ ] Visual Studio 2015
-- [ ] Visual Studio 2017
+- [x] Visual Studio 2017
 - [ ] 其他：
 
 ##### 缓存环境
 
-- [X] 服务器内存缓存（默认）
+- [x] 服务器内存缓存（默认）
 - [ ] Redis 版本：
 - [ ] Memcached 版本：
 - [ ] 其他
@@ -54,3 +59,5 @@
 Email：
 
 （也可将问题地址及联系方式发送到 www.jeffrey.su@gmail.com）
+
+> 发布问题后，请保持对 issue 的关注，有时会有需要进一步沟通的信息，很长时间内没有得到答复的 issue 将被关闭。

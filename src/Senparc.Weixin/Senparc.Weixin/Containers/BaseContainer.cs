@@ -19,25 +19,34 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-Copyright (C) 2018 Senparc
+    Copyright (C) 2018 Senparc
 
-文件名：WeixinContainer.cs
-文件功能描述：微信容器（如Ticket、AccessToken）
+    文件名：WeixinContainer.cs
+    文件功能描述：微信容器（如Ticket、AccessToken）
 
 
-创建标识：Senparc - 20151003
+    创建标识：Senparc - 20151003
 
-修改标识：Senparc - 20160321
-修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
+    修改标识：Senparc - 20160321
+    修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
 
-修改标识：Senparc - 20160808
-修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+    修改标识：Senparc - 20160808
+    修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
-修改标识：Senparc - 20160813
-修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+    修改标识：Senparc - 20160813
+    修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
     
-修改标识：Senparc - 20170204
-修改描述：v4.10.3 添加RemoveFromCache方法
+    修改标识：Senparc - 20170204
+    修改描述：v4.10.3 添加RemoveFromCache方法
+
+    修改标识：Senparc - 20180606
+    修改描述：缓存工厂重命名为 ContainerCacheStrategyFactory
+
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
+    修改标识：Senparc - 20180707
+    修改描述：Update() 方法中记录缓存时间 bag.CacheTime = DateTime.Now;
 
 ----------------------------------------------------------------*/
 
@@ -46,10 +55,10 @@ Copyright (C) 2018 Senparc
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
@@ -75,16 +84,31 @@ namespace Senparc.Weixin.Containers
     [Serializable]
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
+        private static IBaseObjectCacheStrategy _baseCache = null;
+        private static IContainerCacheStrategy _containerCache = null;
+
         /// <summary>
         /// 获取符合当前缓存策略配置的缓存的操作对象实例
         /// </summary>
-        protected static IContainerCacheStrategy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
+        protected static IBaseObjectCacheStrategy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {
                 //使用工厂模式或者配置进行动态加载
                 //return CacheStrategyFactory.GetContainerCacheStrategyInstance();
-                return CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+
+                //以下代码可以实现缓存“热切换”，损失的效率有限。如果需要追求极致效率，可以禁用type的判断
+                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+                if (_containerCache == null || _containerCache.GetType() != containerCacheStrategy.GetType())
+                {
+                    _containerCache = containerCacheStrategy;
+                }
+
+                if (_baseCache == null)
+                {
+                    _baseCache = _baseCache ?? containerCacheStrategy.BaseCacheStrategy();
+                }
+                return _baseCache;
             }
         }
 
@@ -192,7 +216,8 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll<TBag>().Values
+            //return Cache.GetAll<TBag>().Values
+            return _containerCache.GetAll<TBag>().Values
                 //如果需要做进一步的筛选，则使用Select或Where，但需要注意效率问题
                 //.Select(z => z)
                 .ToList();
@@ -208,7 +233,7 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
-                return (TBag)Cache.Get(cacheKey);
+                return Cache.Get<TBag>(cacheKey);
             }
 
             return default(TBag);
@@ -225,7 +250,7 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
-                var item = Cache.Get(cacheKey) as TBag;
+                var item = Cache.Get<TBag>(cacheKey);
                 return property(item);
             }
             return default(TK);
@@ -234,9 +259,10 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="shortKey"></param>
+        /// <param name="shortKey">即bag.Key</param>
         /// <param name="bag">为null时删除该项</param>
-        public static void Update(string shortKey, TBag bag)
+        /// <param name="expiry"></param>
+        public static void Update(string shortKey, TBag bag, TimeSpan? expiry)
         {
             var cacheKey = GetBagCacheKey(shortKey);
             if (bag == null)
@@ -264,7 +290,25 @@ namespace Senparc.Weixin.Containers
                 //var c2 = ItemCollection.GetCount();
             }
             //var containerCacheKey = GetContainerCacheKey();
-            Cache.Update(cacheKey, bag);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+
+            bag.CacheTime = DateTime.Now;
+
+            Cache.Update(cacheKey, bag, expiry);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+        }
+
+        /// <summary>
+        /// 更新已经添加过的数据项
+        /// </summary>
+        /// <param name="bag">为null时删除该项</param>
+        /// <param name="expiry"></param>
+        public static void Update(TBag bag, TimeSpan? expiry)
+        {
+            if (string.IsNullOrEmpty(bag.Key))
+            {
+                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
+            }
+
+            Update(bag.Key, bag, expiry);
         }
 
         /// <summary>
@@ -272,7 +316,8 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         /// <param name="shortKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string shortKey, Action<TBag> partialUpdate)
+        /// <param name="expiry"></param>
+        public static void Update(string shortKey, Action<TBag> partialUpdate, TimeSpan? expiry)
         {
             var cacheKey = GetBagCacheKey(shortKey);
             if (partialUpdate == null)
@@ -288,7 +333,7 @@ namespace Senparc.Weixin.Containers
                         Key = cacheKey//确保这一项Key已经被记录
                     };
 
-                    Cache.InsertToCache(cacheKey, newBag);
+                    Cache.Set(cacheKey, newBag, expiry);
                 }
                 partialUpdate(TryGetItem(shortKey));//更新对象
             }

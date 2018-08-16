@@ -55,8 +55,11 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.MailList;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList.Member;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -71,57 +74,27 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
-        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
-        /// <param name="enable">（非必填）</param>
+        /// <param name="memberCreateRequest">创建成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WorkJsonResult CreateMember(string accessTokenOrAppKey, string userId, string name = null,
-            string mobile = null, string englishName = null,
-            long[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateMember(string accessTokenOrAppKey, MemberCreateRequest memberCreateRequest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
-
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+
+                /*
+                   返回结果：
+                   {
+                       "errcode": 0,
+                       "errmsg": "created"
+                    }
+                */
             }, accessTokenOrAppKey);
-
-
         }
 
 
@@ -148,54 +121,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：系统应用须拥有指定部门、成员的管理权限。注意，每个部门下的节点不能超过3万个。
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        ///<param name="memberUpdateRequest">更新成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WorkJsonResult UpdateMember(string accessTokenOrAppKey, string userId, string name,
-            string mobile, string englishName = null,
-            long[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateMember(string accessTokenOrAppKey, MemberUpdateRequest memberUpdateRequest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
-
                 JsonSetting jsonSetting = new JsonSetting(true);
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
         }
 
 
@@ -253,7 +200,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static GetDepartmentMemberResult GetDepartmentMember(string accessTokenOrAppKey, long departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
+        public static GetDepartmentMemberResult GetDepartmentMember(string accessTokenOrAppKey, long departmentId, int fetchChild /*,int status,*/ /*int? maxJsonLength = null*/)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -261,7 +208,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+                return Get.GetJson<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 
@@ -279,7 +226,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessTokenOrAppKey, long departmentId, int? fetchChild, /*int status, */int? maxJsonLength = null)
+        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessTokenOrAppKey, long departmentId, int? fetchChild /*, int status, *//*int? maxJsonLength = null*/)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -287,7 +234,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
+                return Get.GetJson<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
         }
 
@@ -616,60 +563,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
-        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
-        /// <param name="enable">（非必填）</param>
+        /// <param name="memberCreateRequest">创建成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static async Task<WorkJsonResult> CreateMemberAsync(string accessTokenOrAppKey, string userId, string name,
-            string mobile,
-            string englishName = null,
-            long[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> CreateMemberAsync(string accessTokenOrAppKey, MemberCreateRequest memberCreateRequest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
-
-
                 JsonSetting jsonSetting = new JsonSetting(true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                /*
+                   返回结果：
+                   {
+                       "errcode": 0,
+                       "errmsg": "created"
+                    }
+                */
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -686,8 +599,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await Get.GetJsonAsync<GetMemberResult>(url);
             }, accessTokenOrAppKey);
-
-
         }
 
         /// <summary>
@@ -695,54 +606,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 权限说明：系统应用须拥有指定部门、成员的管理权限。注意，每个部门下的节点不能超过3万个。
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        ///<param name="memberUpdateRequest">更新成员信息请求包</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static async Task<WorkJsonResult> UpdateMemberAsync(string accessTokenOrAppKey, string userId, string name,
-            string mobile, string englishName = null,
-            long[] department = null, int[] order = null, string gender = null,
-            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
-            int? isLeader = null, int? enable = null,
-            Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateMemberAsync(string accessTokenOrAppKey, MemberUpdateRequest memberUpdateRequest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
-                var data = new
-                {
-                    userid = userId,
-                    name = name,
-                    english_name = englishName,
-                    mobile = mobile,
-                    department = department,
-                    order = order,
-                    position = position,
-                    gender = gender,
-                    email = email,
-                    telephone = telephone,
-                    isleader = isLeader,
-                    avatar_mediaid = avatarMediaid,
-                    enable = enable,
-                    extattr = extattr
-                };
-
                 JsonSetting jsonSetting = new JsonSetting(true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
-
-
+            /*
+            *  返回结果：
+               {
+                  "errcode": 0,
+                  "errmsg": "updated"
+               }
+           */
+            , accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -799,7 +684,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessTokenOrAppKey, long departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessTokenOrAppKey, long departmentId, int fetchChild /*,int status,*//* int? maxJsonLength = null*/)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -807,7 +692,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+                return await Get.GetJsonAsync<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 
@@ -825,7 +710,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessTokenOrAppKey, long departmentId, int? fetchChild, /*int status, */int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessTokenOrAppKey, long departmentId, int? fetchChild /*, int status, *//*int? maxJsonLength = null*/)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -833,7 +718,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
+                return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
             }, accessTokenOrAppKey);
 
 

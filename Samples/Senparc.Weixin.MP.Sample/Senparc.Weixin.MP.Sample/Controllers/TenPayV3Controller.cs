@@ -17,6 +17,16 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+using Senparc.Weixin.MP.Sample.Filters;
+using Senparc.Weixin.MP.Sample.Models;
+using Senparc.Weixin.MP.TenPayLibV3;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
@@ -25,26 +35,19 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.Models;
-using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
 using ZXing.Common;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.Filters;
-using System.Web.Security;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    /* 
+     * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 
+     * 单元测试见：Senparc.Weixin.MP.Test.TenPayV3/TenPayV3Test.cs/GetSignKeyTest()
+     */
+
+
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
     /// </summary>
@@ -66,7 +69,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
+                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
                 }
                 return _tenPayV3Info;
             }
@@ -334,7 +337,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //packageReqHandler.SetParameter("sign", sign);
 
             //string data = packageReqHandler.ParseXML();
-            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId,
+            TenPayV3Info.MchId,
+            "test",
+            sp_billno,
+            1,
+            Request.UserHostAddress,
+            TenPayV3Info.TenPayV3Notify,
+            TenPayV3Type.NATIVE,
+            null,
+            TenPayV3Info.Key,
+            nonceStr,
+            productId: productId);
             //调用统一订单接口
             var result = TenPayV3.Unifiedorder(xmlDataInfo);
             //var unifiedorderRes = XDocument.Parse(result);
@@ -388,8 +402,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
         /// </summary>
         /// <returns></returns>
-        public ActionResult PayNotifyUrl()
+        public ActionResult PayNotifyUrl(bool isWxOpenPay = false)//注意：统一下单接口中不能带参数！
         {
+            WeixinTrace.SendCustomLog("微信支付回调", "来源：" + (isWxOpenPay ? "微信支付" : "小程序支付"));
+
             try
             {
                 ResponseHandler resHandler = new ResponseHandler(null);
@@ -397,37 +413,82 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 string return_code = resHandler.GetParameter("return_code");
                 string return_msg = resHandler.GetParameter("return_msg");
 
-                string res = null;
+                bool paySuccess = false;
 
                 resHandler.SetKey(TenPayV3Info.Key);
                 //验证请求是否从微信发过来（安全）
                 if (resHandler.IsTenpaySign() && return_code.ToUpper() == "SUCCESS")
                 {
-                    res = "success";//正确的订单处理
+                    paySuccess = true;//正确的订单处理
                     //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
                 }
                 else
                 {
-                    res = "wrong";//错误的订单处理
+                    paySuccess = false;//错误的订单处理
                 }
 
-                /* 这里可以进行订单处理的逻辑 */
-
-                //发送支付成功的模板消息
-                try
+                if (paySuccess)
                 {
-                    string appId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
-                    string openId = resHandler.GetParameter("openid");
-                    var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+                    /* 这里可以进行订单处理的逻辑 */
 
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
+                    //发送支付成功的模板消息
+                    try
+                    {
+                        string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                        string openId = resHandler.GetParameter("openid");
 
-                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                        if (isWxOpenPay)
+                        {
+                            var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                            var unifiedorderRequestData = cacheStrategy.Get<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
+                            var unifedorderResult = cacheStrategy.Get<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
+
+                            if (unifedorderResult != null || !string.IsNullOrEmpty(unifedorderResult.prepay_id))
+                            {
+                                Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", appId + " , " + openId);
+
+                                //小程序支付，发送小程序模板消息
+                                var templateData = new WxOpenTemplateMessage_PaySuccessNotice(
+                                                    "在线购买（小程序支付）测试", DateTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id："+ unifedorderResult.prepay_id,
+                                                   unifiedorderRequestData.OutTradeNo, unifiedorderRequestData.TotalFee, "400-031-8816", "https://weixin.senparc.com");
+
+                                Senparc.Weixin.WxOpen.AdvancedAPIs
+                                    .Template.TemplateApi
+                                    .SendTemplateMessage(
+                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, unifedorderResult.prepay_id, "pages/index/index", "图书", "#fff00");
+                            }
+                            else
+                            {
+                                Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", "prepayId未记录：" + appId + " , " + openId);
+                            }
+
+                        }
+                        else
+                        {
+                            //微信公众号支付
+                            var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
+
+                            Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（公众号）", appId + " , " + openId);
+
+                            var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.WeixinExceptionLog(new WeixinException("支付成功模板消息异常", ex));
+                        //WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                    }
+
+                    WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付成功");
+
                 }
-                catch (Exception ex)
+                else
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息", ex.ToString());
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("PayNotifyUrl回调", "支付失败");
                 }
+
+
 
                 #region 记录日志
 
@@ -459,9 +520,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                new WeixinException(ex.Message, ex);
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 小程序微信支付回调
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult PayNotifyUrlWxOpen()
+        {
+            WeixinTrace.SendCustomLog("小程序微信支付回调", "TenPayV3Controller.PayNotifyUrlWxOpen()");
+            return PayNotifyUrl(true);//调用正常的流程
+
         }
 
         #endregion
@@ -534,8 +606,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             int totalFee = (int)(Session["BillFee"]);
             int refundFee = totalFee;
             string opUserId = TenPayV3Info.MchId;
+            var notifyUrl = "http://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
             var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
-                null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null);
+                null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
             var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
             var password = TenPayV3Info.MchId;//默认为商户号，建议修改
             var result = TenPayV3.Refund(dataInfo, cert, password);
@@ -561,7 +634,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //string data = packageReqHandler.ParseXML();
 
             ////退款接口地址
-            //string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //string url = "http://api.mch.weixin.qq.com/secapi/pay/refund";
             ////本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             //string cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";
             ////私钥（在安装证书时设置）
@@ -594,6 +667,72 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             #endregion
 
         }
+
+        /// <summary>
+        /// 退款通知地址
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult RefundNotifyUrl()
+        {
+            WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "IP" + HttpContext.Request.UserHostAddress);
+
+            string responseCode = "FAIL";
+            string responseMsg = "FAIL";
+            try
+            {
+                ResponseHandler resHandler = new ResponseHandler(null);
+
+                string return_code = resHandler.GetParameter("return_code");
+                string return_msg = resHandler.GetParameter("return_msg");
+
+                WeixinTrace.SendCustomLog("跟踪RefundNotifyUrl信息", resHandler.ParseXML());
+
+                if (return_code == "SUCCESS")
+                {
+                    responseCode = "SUCCESS";
+                    responseMsg = "OK";
+
+                    string appId = resHandler.GetParameter("appid");
+                    string mch_id = resHandler.GetParameter("mch_id");
+                    string nonce_str = resHandler.GetParameter("nonce_str");
+                    string req_info = resHandler.GetParameter("req_info");
+
+                    var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
+                    var decodeDoc = XDocument.Parse(decodeReqInfo);
+
+                    //获取接口中需要用到的信息
+                    string transaction_id = decodeDoc.Root.Element("transaction_id").Value;
+                    string out_trade_no = decodeDoc.Root.Element("out_trade_no").Value;
+                    string refund_id = decodeDoc.Root.Element("refund_id").Value;
+                    string out_refund_no = decodeDoc.Root.Element("out_refund_no").Value;
+                    int total_fee = int.Parse(decodeDoc.Root.Element("total_fee").Value);
+                    int? settlement_total_fee = decodeDoc.Root.Element("settlement_total_fee") != null
+                            ? int.Parse(decodeDoc.Root.Element("settlement_total_fee").Value)
+                            : null as int?;
+                    int refund_fee = int.Parse(decodeDoc.Root.Element("refund_fee").Value);
+                    int tosettlement_refund_feetal_fee = int.Parse(decodeDoc.Root.Element("settlement_refund_fee").Value);
+                    string refund_status = decodeDoc.Root.Element("refund_status").Value;
+                    string success_time = decodeDoc.Root.Element("success_time").Value;
+                    string refund_recv_accout = decodeDoc.Root.Element("refund_recv_accout").Value;
+                    string refund_account = decodeDoc.Root.Element("refund_account").Value;
+                    string refund_request_source = decodeDoc.Root.Element("refund_request_source").Value;
+
+                    //进行业务处理
+                }
+            }
+            catch (Exception ex)
+            {
+                responseMsg = ex.Message;
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+            }
+
+            string xml = string.Format(@"<xml>
+<return_code><![CDATA[{0}]]></return_code>
+<return_msg><![CDATA[{1}]]></return_msg>
+</xml>", responseCode, responseMsg);
+            return Content(xml, "text/xml");
+        }
+
         #endregion
 
         #region 对账单
@@ -648,8 +787,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
                 );
 
-            SerializerHelper serializerHelper = new SerializerHelper();
-            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
+            return Content(SerializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 
@@ -813,7 +951,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
+            var url = string.Format("https://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
                 product.GetHashCode(), DateTime.Now.Ticks);
 
             BitMatrix bitMatrix;

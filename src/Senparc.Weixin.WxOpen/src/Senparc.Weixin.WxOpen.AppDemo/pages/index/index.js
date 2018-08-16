@@ -120,7 +120,92 @@ Page({
     })
 
   } ,
+  wxPay: function(){
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetPrepayid',//注意：必须使用https
+      data: {
+        sessionId: wx.getStorageSync('sessionId')
+      },
+      method: 'POST',
+      success: function (res) {
+        // success
+        var json = res.data;
+        console.log(res.data);
 
+        if (json.success) {
+          wx.showModal({
+            title: '得到预支付id',
+            content: 'package：' + json.package,
+            showCancel: false
+          });
+
+          //开始发起微信支付
+          wx.requestPayment(
+            {
+              'timeStamp': json.timeStamp,
+              'nonceStr': json.nonceStr,
+              'package': json.package,
+              'signType': 'MD5',
+              'paySign': json.paySign,
+              'success': function (res) {
+                wx.showModal({
+                  title: '支付成功！',
+                  content: '请在服务器后台的回调地址中进行支付成功确认，不能完全相信UI！',
+                  showCancel: false
+                });
+
+                wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
+                data: {
+                  sessionId: wx.getStorageSync('sessionId'),
+                  formId: json.package
+                },
+                method: 'POST',
+                success: function (templateMsgRes) {
+                  if (templateMsgRes.data.success){
+                    wx.showModal({
+                      title: '模板消息发送成功！',
+                      content: templateMsgRes.data.msg,
+                      showCancel: false
+                    });
+                  }else{
+                    wx.showModal({
+                      title: '模板消息发送失败！',
+                      content: templateMsgRes.data.msg,
+                      showCancel: false
+                    });
+                  }
+                }
+              });
+
+               },
+              'fail': function (res) {
+                console.log(res);
+                wx.showModal({
+                  title: '支付失败！',
+                  content: '请检查日志！',
+                  showCancel: false
+                });
+               },
+              'complete': function (res) { 
+                wx.showModal({
+                  title: '支付流程结束！',
+                  content: '执行 complete()，成功或失败都会执行！',
+                  showCancel: false
+                });
+              }
+            })
+         
+        }else{
+          wx.showModal({
+            title: '微信支付发生异常',
+            content: json.msg,
+            showCancel: false
+          });
+        }
+      }
+      });
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this

@@ -1,0 +1,332 @@
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 18:55:22]
+[线程：3]
+    注册总用时：224.609ms
+自动扫描程序集：88个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 18:55:23]
+[线程：3]
+    微信扩展缓存注册总用时：630.3997ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 18:57:44]
+[线程：3]
+    注册总用时：336.414ms
+自动扫描程序集：87个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 18:57:45]
+[线程：3]
+    微信扩展缓存注册总用时：676.8683ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:03:34]
+[线程：3]
+    注册总用时：357.0337ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:03:34]
+[线程：3]
+    微信扩展缓存注册总用时：80.9656ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:40]
+[线程：3]
+    注册总用时：276.7696ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:40]
+[线程：3]
+    微信扩展缓存注册总用时：57.7217ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:41]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[接口调用]]]
+[2018/7/7 19:11:42]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q
+    Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VFa0lcKeNusq6elIZBn4swrI7ERjwxS5OdufaAC0yPmnlwofH0JWg4gWyZK4g0_y3g","expires_in":7200}
+
+[[[接口调用]]]
+[2018/7/7 19:11:42]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q
+    Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VFa0lcKeNusq6elIZBn4swrI7ERjwxS5OdufaAC0yPmnlwofH0JWg4gWyZK4g0_y3g","expires_in":7200}
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    注册总用时：0.0159ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    微信扩展缓存注册总用时：0.5656ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    注册总用时：0.0047ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    微信扩展缓存注册总用时：0.4461ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    注册总用时：0.0038ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    微信扩展缓存注册总用时：0.4394ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=appid&corpsecret=secret
+    Result：
+{"errcode":40013,"errmsg":"invalid corpid"}
+
+[[[ErrorJsonResultException]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    ErrorJsonResultException
+    AccessTokenOrAppId：null
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=appid&corpsecret=secret
+    errcode：不合法的APPID
+    errmsg：invalid corpid
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    注册总用时：0.0031ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    微信扩展缓存注册总用时：0.4915ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[接口调用]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q
+    Result：
+{"ip_list":["101.226.233.*","101.227.139.*","112.90.75.*","117.144.245.*","14.17.43.*","14.215.153.*","140.207.54.*","163.177.87.246","183.61.51.*"]}
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    注册总用时：0.0047ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:43]
+[线程：3]
+    微信扩展缓存注册总用时：0.4927ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[接口调用]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q&agentid=7
+    Post Data：
+{"button":[{"key":"OneClick","type":"click","name":"单击测试"},{"sub_button":[{"key":"SubClickRoot_Text","type":"click","name":"返回文本"},{"key":"SubClickRoot_News","type":"click","name":"返回图文"},{"key":"SubClickRoot_Music","type":"click","name":"返回音乐"},{"url":"https://weixin.senparc.com","type":"view","name":"Url跳转"},{"key":"SubClickRoot_Pic_Photo_Or_Album","type":"pic_photo_or_album","name":"微信拍照"}],"name":"二级菜单"}]}
+
+[[[接口调用]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q&agentid=7
+    Result：
+{"errcode":301002,"errmsg":"not allow operate another agent with this accesstoken., hint: [1530961904_7_372239141b170d60bc5b1111537d90ba], more info at https://open.work.weixin.qq.com/devtool/query?e=301002"}
+
+[[[ErrorJsonResultException]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    ErrorJsonResultException
+    AccessTokenOrAppId：null
+    URL：https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q&agentid=7
+    errcode：301002
+    errmsg：not allow operate another agent with this accesstoken., hint: [1530961904_7_372239141b170d60bc5b1111537d90ba], more info at https://open.work.weixin.qq.com/devtool/query?e=301002
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    注册总用时：0.0037ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    微信扩展缓存注册总用时：0.4596ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[WeixinException]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    WeixinException
+    AccessTokenOrAppId：
+    Message：not allow operate another agent with this accesstoken., hint: [1530961905_6_25fa260a6df0d9c7996961953b7c2a14], more info at https://open.work.weixin.qq.com/devtool/query?e=301002
+    StackTrace：
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    注册总用时：0.01ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:11:44]
+[线程：3]
+    微信扩展缓存注册总用时：0.5582ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[接口调用]]]
+[2018/7/7 19:11:45]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=wx7618c0a6d9358622&corpsecret=XWyiCNnBlLnlEmJeoYu36S12_QczwECzStlJuA48hVs
+    Result：
+{"errcode":0,"errmsg":"ok","access_token":"e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q","expires_in":7200}
+
+[[[接口调用]]]
+[2018/7/7 19:11:45]
+[线程：3]
+    URL：https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q&agentid=7
+    Result：
+{"errcode":301002,"errmsg":"not allow operate another agent with this accesstoken., hint: [1530961905_6_3092649be6210ae582ab473d459409b1], more info at https://open.work.weixin.qq.com/devtool/query?e=301002"}
+
+[[[ErrorJsonResultException]]]
+[2018/7/7 19:11:45]
+[线程：3]
+    ErrorJsonResultException
+    AccessTokenOrAppId：null
+    URL：https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token=e6skYy7GQ4tGOb-CvRuxqVNivCGg0LThNd7Wx1h__hLCZY9AKDES3Yjdeq3FkE-Om5Efm8-Ui5U05uKNJWEppPZ_b3BwUr0WEufXM3_Vro6UQt22UUijyssR3yx9ybjwy7J3K3XfpYd_u7eeOubY3_WNIM_YjzEbe_xTJ8lgKKazj2MRNU4i8FkXQm-ZMSuJmc_aITtPfHjAOQW_fdfm5Q&agentid=7
+    errcode：301002
+    errmsg：not allow operate another agent with this accesstoken., hint: [1530961905_6_3092649be6210ae582ab473d459409b1], more info at https://open.work.weixin.qq.com/devtool/query?e=301002
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:12:26]
+[线程：3]
+    注册总用时：296.1455ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:12:26]
+[线程：3]
+    微信扩展缓存注册总用时：65.8302ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[自动注册扩展缓存完成]]]
+[2018/7/7 19:15:44]
+[线程：3]
+    注册总用时：310.0682ms
+自动扫描程序集：0个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2018/7/7 19:15:44]
+[线程：3]
+    微信扩展缓存注册总用时：82.719ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy

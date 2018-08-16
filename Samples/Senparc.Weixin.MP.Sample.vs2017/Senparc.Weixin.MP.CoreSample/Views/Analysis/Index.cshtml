@@ -4,12 +4,25 @@
     ViewBag.Title = "微信分析数据接口测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    #analysis-form{width: 400px; margin: 0px auto;}
+    
+    .form-control li {
+        clear: both;
+    }
+    .form-control li input{
+        line-height: 32px;
+        margin: 10px 0;
+    }
+</style>
 @using (Html.BeginForm("Index", "Analysis", null, FormMethod.Post))
 {
     <div class="wrapper">
-        <div class="form-control">
+        <div id="analysis-form" class="form-control">
             <ul>
+                <li>
+                    <label class="control-title">统计接口</label>
+                </li>
                 <li>
                     <label class="control-label">AppId:</label>
                     @Html.TextBoxFor(z => z.AppId)
@@ -48,11 +61,14 @@
                         <option value="16">累计用户数据</option>
                     </select>
                 </li>
+                <li>
+                    @Newtonsoft.Json.JsonConvert.SerializeObject(Model.Result)<br/>
+                    <input type="submit" value="提交"/>
+                </li>
             </ul>
         </div>
     </div>
-    @*@Model.Result.ToJson()*@
-    <input type="submit" value="提交" />
+
 }
 
 

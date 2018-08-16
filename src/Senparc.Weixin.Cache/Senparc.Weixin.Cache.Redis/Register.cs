@@ -2,43 +2,47 @@
     Copyright (C) 2018 Senparc
 
     文件名：Register.cs
-    文件功能描述：Senparc.Weixin.Cache.Redis 快捷注册流程
+    文件功能描述：Senparc.Weixin.Cache.Redis 注册类
 
 
-    创建标识：Senparc - 20180222
+    创建标识：Senparc - 20180609
+
+    修改标识：Senparc - 20180802
+    修改描述：当前类所有方法支持 .net standard 2.0
 
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.RegisterServices;
-using System;
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.AspNetCore.Builder;
+#endif
 
 namespace Senparc.Weixin.Cache.Redis
 {
+    /// <summary>
+    /// Senparc.Weixin.Cache.Redis 注册类
+    /// </summary>
     public static class Register
     {
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+
         /// <summary>
-        /// 注册 Redis 缓存信息
+        /// 注册 Senparc.Weixin.Cache.Redis
         /// </summary>
-        /// <param name="registerService">RegisterService</param>
-        /// <param name="redisConfigurationString">Redis的连接字符串</param>
-        /// <param name="redisObjectCacheStrategyInstance">缓存策略的委托，第一个参数为 redisConfigurationString</param>
-        /// <returns></returns>
-        public static IRegisterService RegisterCacheRedis(this IRegisterService registerService,
-            string redisConfigurationString,
-            Func<string, IObjectCacheStrategy> redisObjectCacheStrategyInstance)
+        /// <param name="app"></param>
+        public static IApplicationBuilder UseSenparcWeixinCacheRedis(this IApplicationBuilder app)
         {
-            RedisManager.ConfigurationOption = redisConfigurationString;
-
-            //此处先执行一次委托，直接在下方注册结果，提高每次调用的执行效率
-            IObjectCacheStrategy objectCacheStrategy = redisObjectCacheStrategyInstance(redisConfigurationString);
-            if (objectCacheStrategy != null)
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Redis
-            }
-
-            return registerService;
+            RegisterDomainCache();
+            return app;
         }
+#endif
 
 
+        /// <summary>
+        /// 注册领域缓存
+        /// </summary>
+        public static void RegisterDomainCache()
+        {
+            var cache = RedisContainerCacheStrategy.Instance;
+        }
     }
 }

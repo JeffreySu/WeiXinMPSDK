@@ -35,20 +35,28 @@
     </style>
 </head>
 <body>
-    <div>
-        <ul id="productList">
-            @for (int i = 0; i <= Model.Count - 1; i++)
-            {
-                var item = Model[i];
-                <li class="@(i > 0 && i % 4==0 ? "br" : null)">
-                    <a href="@Url.Action("ProductItem", "TenPayV3", new {productId = item.Id, hc = item.GetHashCode()})">
-                        <h2>@item.Name</h2>
-                        <p>@item.Price.ToString("c")</p>
-                        <p>点击购买</p>
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
+@if (Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(this.Context))
+{
+    <div>提示：此网页在微信外部浏览器中打开可以体验“扫一扫支付”和“H5”支付</div>
+}
+else
+{
+    <div>提示：此页面在微信浏览器内打开可以体验微信JS-SDK微信支付</div>
+}
+<div>
+    <ul id="productList">
+        @for (int i = 0; i <= Model.Count - 1; i++)
+        {
+            var item = Model[i];
+            <li class="@(i > 0 && i % 4 == 0 ? "br" : null)">
+                <a href="@Url.Action("ProductItem", "TenPayV3", new {productId = item.Id, hc = item.GetHashCode()})">
+                    <h2>@item.Name</h2>
+                    <p>@item.Price.ToString("c")</p>
+                    <p>点击购买</p>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
 </body>
 </html>

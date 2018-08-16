@@ -163,15 +163,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
                 }
                 catch (ErrorJsonResultException ex)
                 {
+                    Console.WriteLine(ex.JsonResult.ToJson());
                     Assert.AreEqual(ReturnCode.内容含有违法违规内容, ex.JsonResult.errcode);
-                    Assert.AreEqual("risky", ex.JsonResult.errmsg);
+                    Assert.IsTrue(ex.JsonResult.errmsg.Contains("risky"));
                 }
                 catch
                 {
                     throw;
                 }
             }
-
         }
     }
 }

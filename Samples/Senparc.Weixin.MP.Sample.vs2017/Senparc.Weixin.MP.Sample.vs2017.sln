@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NeuChar", "NeuChar", "{DD0C5033-2CF5-4505-9673-AA1A4757F54A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.NeuChar", "..\..\NeuChar\Senparc.NeuChar\Senparc.NeuChar.csproj", "{83E1A880-092E-4CA2-AFE5-68333ABF5552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.NeuChar", "..\..\NeuChar\Senparc.NeuChar\Senparc.NeuChar.vs2017.csproj", "{83E1A880-092E-4CA2-AFE5-68333ABF5552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

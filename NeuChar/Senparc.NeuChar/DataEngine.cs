@@ -17,7 +17,8 @@ namespace Senparc.NeuChar
         /// 数据处理引擎 构造函数
         /// </summary>
         /// <param name="file">文件相对路径</param>
-        public DataEngine(string file="~/App_Data/NeuChar/json.json") {
+        public DataEngine(string file = "~/App_Data/NeuChar/json.json")
+        {
             //FullFilePath = 
         }
     }

@@ -50,14 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="NeuralSystems\BaseNeuralNode.cs" />
     <Compile Include="DataEngine.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="NeuralNode.cs" />
-    <Compile Include="NeuralSystem.cs" />
+    <Compile Include="NeuralSystems\INeuralNode.cs" />
+    <Compile Include="NeuralSystems\NeuralSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Neurals.Weixin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -52,6 +52,8 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="DataEngine.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="NeuralNode.cs" />
+    <Compile Include="NeuralSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

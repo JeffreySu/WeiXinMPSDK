@@ -11,6 +11,8 @@ namespace Senparc.NeuChar
 
         string Version { get; set; }
 
+        string Name { get; set; }
+
         /// <summary>
         /// 父节点
         /// </summary>

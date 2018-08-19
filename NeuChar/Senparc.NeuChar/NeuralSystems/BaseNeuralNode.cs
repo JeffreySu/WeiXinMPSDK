@@ -14,6 +14,12 @@ namespace Senparc.NeuChar
         public abstract string Version { get; set; }
 
         /// <summary>
+        /// 名称
+        /// </summary>
+        public virtual string Name { get; set; }
+
+
+        /// <summary>
         /// 父节点
         /// </summary>
         public virtual INeuralNode ParentNode { get; set; }

@@ -14,5 +14,7 @@ namespace Senparc.Weixin.MP.NeuChar
     {
         public override string Version { get; set; }
 
+
+
     }
 }

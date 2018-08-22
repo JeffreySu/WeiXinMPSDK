@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             Parameters = new Hashtable();
 #if NET35 || NET40 || NET45 || NET461
-			this.HttpContext = httpContext ?? HttpContext.Current;
+            this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
 #endif
@@ -213,6 +213,56 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             return sign;
         }
+
+
+
+
+
+        // TODO:★554393109 修改
+        //***************************************************************************************
+        /// <summary>
+        /// 创建sha256摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+        /// </summary>
+        /// <param name="key">参数名</param>
+        /// <param name="value">参数值</param>
+        /// key和value通常用于填充最后一组参数
+        /// <returns></returns>
+        public virtual string CreateSha256Sign(string key, string value)
+        {
+            var sb = new StringBuilder();
+
+            var akeys = new ArrayList(Parameters.Keys);
+            akeys.Sort(ASCIISort.Create());
+
+            foreach (string k in akeys)
+            {
+                string v = (string)Parameters[k];
+                if (null != v && "".CompareTo(v) != 0
+                    && "sign".CompareTo(k) != 0
+                    //&& "sign_type".CompareTo(k) != 0
+                    && "key".CompareTo(k) != 0)
+                {
+                    sb.Append(k + "=" + v + "&");
+                }
+            }
+
+            sb.Append(key + "=" + value);
+
+            //string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
+
+            // 现支持HMAC-SHA256签名方式（EncryptHelper.GetHmacSha256方法留待实现）
+            // https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
+            string sign = EncryptHelper.GetHmacSha256(sb.ToString(), "UTF-8").ToUpper();
+
+            return sign;
+        }
+        //***************************************************************************************
+
+
+
+
 
         /// <summary>
         /// 输出XML

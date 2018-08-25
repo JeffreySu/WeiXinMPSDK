@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     public partial class WxOpenController : Controller
     {
         public static readonly string Token = Config.SenparcWeixinSetting.WxOpenToken;//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WxOpenEncodingAESKey;//与微信小程序后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string WxOpenAppId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
         public static readonly string WxOpenAppSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 

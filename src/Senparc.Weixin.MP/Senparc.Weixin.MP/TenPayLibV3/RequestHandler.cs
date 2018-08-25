@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180331
     修改描述：v14.10.12 更新过期方法
 
+    修改标识：Senparc - 20180825
+    修改描述：v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -214,12 +217,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return sign;
         }
 
-
-
-
-
-        // TODO:★554393109 修改
-        //***************************************************************************************
         /// <summary>
         /// 创建sha256摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
         /// </summary>
@@ -254,7 +251,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             // 现支持HMAC-SHA256签名方式（EncryptHelper.GetHmacSha256方法留待实现）
             // https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=4_3
-            string sign = EncryptHelper.GetHmacSha256(sb.ToString(), "UTF-8").ToUpper();
+            string sign = EncryptHelper.GetHmacSha256(sb.ToString(), value).ToUpper();
 
             return sign;
         }

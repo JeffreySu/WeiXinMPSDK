@@ -172,7 +172,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIp); //终端IP
             PackageRequestHandler.SetParameter("goods_tag", this.GoodsTag); //商品标记
             PackageRequestHandler.SetParameter("auth_code", this.AuthCode); //授权码
-            Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+
+            // TODO:★554393109 修改
+            //***************************************************************************************
+            Sign = "MD5".Equals(signType, System.StringComparison.OrdinalIgnoreCase) 
+                ? PackageRequestHandler.CreateMd5Sign("key", this.Key) 
+                : PackageRequestHandler.CreateSha256Sign("key", this.Key);
+            //***************************************************************************************
+
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 
             #endregion

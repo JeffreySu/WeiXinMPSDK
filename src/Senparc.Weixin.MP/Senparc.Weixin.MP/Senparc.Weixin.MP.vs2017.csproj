@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.2.2</Version>
+    <Version>15.2.3</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -425,6 +425,7 @@
       2、支持 Senparc.Weixin v5.1.6
       v15.2.1 实现 SenparcWeixinSetting 自动注册
       v15.2.2 优化客服接口，分离小程序客服接口
+      v15.2.3 支持 CO2NET v0.2.8
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

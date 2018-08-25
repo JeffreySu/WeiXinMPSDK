@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.4.0</Version>
+    <Version>2.4.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -98,6 +98,7 @@
       v2.2.0 实现 SenparcWeixinSetting 自动注册
       v2.3.0 单独设立小程序客服接口（AdvancedAPIs.CustomApi），支持所有小程序客服消息类型
       v2.4.0 添加校验文字及图片是否含有违法内容的接口
+      v2.4.1 fix bug：
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

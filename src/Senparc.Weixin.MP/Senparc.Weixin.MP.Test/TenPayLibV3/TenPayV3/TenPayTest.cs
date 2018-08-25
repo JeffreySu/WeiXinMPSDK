@@ -34,9 +34,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
         [TestMethod()]
         public void OrderQueryTest()
         {
-            
-
 
         }
+
     }
 }

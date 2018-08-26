@@ -272,6 +272,8 @@ namespace Senparc.Weixin
         /// 小程序为“签名错误”。对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
         /// </summary>
         签名错误 = 87009,
+        //小程序MsgSecCheck接口
+        内容含有违法违规内容 = 87014,
 
         //小程序地点管理返回码
         POST参数非法 = 20002,

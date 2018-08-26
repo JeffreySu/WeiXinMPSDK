@@ -31,11 +31,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 获取 RSA 加密公钥接口
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3GetPublicKeyRequestData
     {
         /// <summary>
@@ -43,12 +46,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string MchId { get; set; }
 
-              /// <summary>
+        /// <summary>
         /// 随机字符串
         /// </summary>
         public string NonceStr { get; set; }
 
-    
+
         /// <summary>
         /// 签名类型
         /// </summary>
@@ -87,5 +90,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             #endregion
 
         }
+
     }
 }

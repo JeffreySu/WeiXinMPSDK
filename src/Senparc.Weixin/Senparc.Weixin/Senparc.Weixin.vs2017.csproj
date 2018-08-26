@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>5.1.7</Version>
+    <Version>5.1.8</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -265,6 +265,8 @@
       v5.1.4 支持 CO2NET v0.2.4
       v5.1.6 支持 CO2NET v0.2.6
       v5.1.7 优化 SenparcWeixinSetting，分离不同模块接口
+      v5.1.8 支持 CO2NET v0.2.8
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -346,7 +348,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.6" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

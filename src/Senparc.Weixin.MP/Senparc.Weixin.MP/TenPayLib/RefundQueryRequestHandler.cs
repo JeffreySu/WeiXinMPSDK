@@ -18,6 +18,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+using System;
+
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
@@ -26,6 +28,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class RefundQueryRequestHandler : ClientRequestHandler
     {
         /// <summary>

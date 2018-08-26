@@ -31,11 +31,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 微信支付提交的XML Data数据[下载对账单]
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3DownloadBillRequestData
     {
         /// <summary>
@@ -130,5 +133,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             #endregion
         }
+
     }
 }

@@ -50,6 +50,7 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
@@ -362,6 +363,47 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 检查一段文本是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult MsgSecCheck(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+
+                var data = new { content = content };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 校验一张图片是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="filePath">文件完整物理路径<para>格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px * 1334px</para></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ImgSecCheck(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+                var fileDic = new Dictionary<string, string>();
+                fileDic["media"] = filePath;
+                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -669,6 +711,49 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 检查一段文本是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> MsgSecCheckAsync(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+
+                var data = new { content = content };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】校验一张图片是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="filePath">文件完整物理路径<para>格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px * 1334px</para></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> ImgSecCheckAsync(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+                var fileDic = new Dictionary<string, string>();
+                fileDic["media"] = filePath;
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 #endif
     }

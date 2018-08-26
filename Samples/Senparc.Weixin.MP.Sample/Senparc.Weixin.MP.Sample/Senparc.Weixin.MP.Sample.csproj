@@ -410,6 +410,10 @@
       <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
       <Name>Senparc.Weixin.Open</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.csproj">
+      <Project>{defc9e7a-f6f0-4e97-ac11-30cf0e6a875c}</Project>
+      <Name>Senparc.Weixin.TenPay</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
       <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
       <Name>Senparc.Weixin.Work</Name>

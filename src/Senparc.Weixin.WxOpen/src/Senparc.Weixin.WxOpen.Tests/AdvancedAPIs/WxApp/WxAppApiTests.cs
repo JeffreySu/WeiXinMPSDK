@@ -30,6 +30,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.WxOpen.Tests;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 {
@@ -141,13 +142,36 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             var filePath = "../../qr-wxopen.jpg";
 # endif
             string scene = "notnull";
-            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket/websocket", 640, false,new LineColor(100,20,30));
+            var result = WxAppApi.GetWxaCodeUnlimit(base._wxOpenAppId, filePath, scene, "pages/websocket/websocket", 640, false, new LineColor(100, 20, 30));
             Assert.IsNotNull(result);
             Console.WriteLine("GetWxaCodeUnlimitTest 返回结果");
             Console.WriteLine(result.ToJson());
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
             Assert.IsTrue(File.Exists(filePath));
-        
+
+        }
+
+        [TestMethod]
+        public void MsgSecCheckTest()
+        {
+            var contents = new[] { "特3456书yuuo莞6543李zxcz蒜7782法fgnv级", "完2347全dfji试3726测asad感3847知qwez到 " };//官方提供
+            foreach (var content in contents)
+            {
+                try
+                {
+                    WxAppApi.MsgSecCheck(base._wxOpenAppId, content);
+                }
+                catch (ErrorJsonResultException ex)
+                {
+                    Console.WriteLine(ex.JsonResult.ToJson());
+                    Assert.AreEqual(ReturnCode.内容含有违法违规内容, ex.JsonResult.errcode);
+                    Assert.IsTrue(ex.JsonResult.errmsg.Contains("risky"));
+                }
+                catch
+                {
+                    throw;
+                }
+            }
         }
     }
 }

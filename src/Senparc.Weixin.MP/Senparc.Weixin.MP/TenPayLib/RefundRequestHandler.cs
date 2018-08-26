@@ -44,6 +44,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// RefundRequestHandler
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class RefundRequestHandler : ClientRequestHandler
     {
         /// <summary>

@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.6" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
@@ -70,6 +70,7 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.vs2017.csproj" />
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />

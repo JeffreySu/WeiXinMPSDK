@@ -21,7 +21,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.TenPayLib;
+using Senparc.Weixin.TenPay.V2;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

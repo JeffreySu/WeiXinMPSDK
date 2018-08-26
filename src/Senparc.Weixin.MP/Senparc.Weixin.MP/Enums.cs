@@ -86,6 +86,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
 using System.ComponentModel;
 
 namespace Senparc.Weixin.MP
@@ -971,4 +972,65 @@ namespace Senparc.Weixin.MP
         /// </summary>
         QR_STR_SCENE
     }
+
+
+    /// <summary>
+    /// 支付类型
+    /// </summary>
+    
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
+    public enum TenPayV3Type
+    {
+        /// <summary>
+        /// 公众号JS-API支付和小程序支付
+        /// </summary>
+        JSAPI,
+        NATIVE,
+        APP,
+        MWEB
+    }
+
+    #region 过期
+
+    /// <summary>
+    /// 红包的场景id（scene_id），最中输出为字符串
+    /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
+    public enum RedPack_Scene
+    {
+        /// <summary>
+        /// 商品促销
+        /// </summary>
+        PRODUCT_1,
+        /// <summary>
+        /// 抽奖
+        /// </summary>
+        PRODUCT_2,
+        /// <summary>
+        /// 虚拟物品兑奖
+        /// </summary>
+        PRODUCT_3,
+        /// <summary>
+        /// 企业内部福利
+        /// </summary>
+        PRODUCT_4,
+        /// <summary>
+        /// 渠道分润
+        /// </summary>
+        PRODUCT_5,
+        /// <summary>
+        /// 保险回馈
+        /// </summary>
+        PRODUCT_6,
+        /// <summary>
+        /// 彩票派奖
+        /// </summary>
+        PRODUCT_7,
+        /// <summary>
+        /// 税务刮奖
+        /// </summary>
+        PRODUCT_8
+    }
+
+    #endregion
 }

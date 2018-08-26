@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Work.TenPayLib
     '============================================================================
     */
 
-    [Obsolete("请使用 Senparc.Weixin.TenPay.V3 下的对应方法")]
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class ResponseHandler
     {
 		/// <summary>

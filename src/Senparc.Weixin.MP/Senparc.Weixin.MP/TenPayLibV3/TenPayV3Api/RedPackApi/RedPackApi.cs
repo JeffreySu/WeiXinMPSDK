@@ -71,6 +71,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 红包发送和查询Api（暂缺裂变红包发送）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public partial class RedPackApi
     {
         private static string GetNewBillNo(string mchId)

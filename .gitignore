@@ -54,3 +54,11 @@ packages/
 /Senparc.Weixin.TenPay.BuildOutPut/netcoreapp2.0/*
 /Senparc.Weixin.TenPay.BuildOutPut/netcoreapp2.1/*
 /Senparc.Weixin.TenPay.BuildOutPut/netstandard2.0/*
+/Senparc.Weixin.MP.BuildOutPut/net35
+/Senparc.Weixin.MP.BuildOutPut/net45
+/Senparc.Weixin.MP.BuildOutPut/net40
+/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.0
+/Senparc.Weixin.MP.BuildOutPut/netcoreapp2.1
+/Senparc.Weixin.MP.BuildOutPut/netstandard2.0
+*.nupkg
+/src/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML

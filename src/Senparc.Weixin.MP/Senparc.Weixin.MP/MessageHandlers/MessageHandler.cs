@@ -433,6 +433,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return;
                 }
 
+                //TODO:Neuchar：在这里先做一次NeuChar标准的判断
+
+
+
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:

@@ -30,7 +30,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 企业号微信支付接口
     /// </summary>
-    
+
+    [Obsolete("请使用 Senparc.Weixin.TenPay.V3 下的对应方法")]
     public static class TenPay
     {
         #region 同步方法

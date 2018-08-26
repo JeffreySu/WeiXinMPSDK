@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEFC9E7A-F6F0-4E97-AC11-30CF0E6A875C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
+    <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <DefineConstants>TRACE;NET45</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.TenPay.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.TenPay.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Register.cs" />
+    <Compile Include="V2\CheckRequestHandler.cs" />
+    <Compile Include="V2\ClientRequestHandler.cs" />
+    <Compile Include="V2\ClientResponseHandler.cs" />
+    <Compile Include="V2\QRCode.cs" />
+    <Compile Include="V2\RefundQueryRequestHandler.cs" />
+    <Compile Include="V2\RefundRequestHandler.cs" />
+    <Compile Include="V2\RefundResponseHandler.cs" />
+    <Compile Include="V2\RequestHandler.cs" />
+    <Compile Include="V2\ResponseHandler.cs" />
+    <Compile Include="V2\TenPayHttpClient.cs" />
+    <Compile Include="V2\TenPayInfo.cs" />
+    <Compile Include="V2\TenPayInfoCollection.cs" />
+    <Compile Include="V2\TenPayRights\TenPayRights.cs" />
+    <Compile Include="V2\TenPayUtil.cs" />
+    <Compile Include="V2\TenPay\TenPay.cs" />
+    <Compile Include="V2\TenPay\TenPayResult.cs" />
+    <Compile Include="V3\RequestHandler.cs" />
+    <Compile Include="V3\ResponseHandler.cs" />
+    <Compile Include="V3\TenPayV3Info.cs" />
+    <Compile Include="V3\TenPayV3InfoCollection.cs" />
+    <Compile Include="V3\TenPayV3Util.cs" />
+    <Compile Include="V3\Universal\Entities\NormalRedPackParameters.cs" />
+    <Compile Include="V3\Universal\Entities\Request\PayBank\TenPayV3GetPublicKeyRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\PayBank\TenPayV3PayBankRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\PayBank\TenPayV3QueryBankRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\ServiceProvider\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3CloseOrderRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3DownloadBillRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3GetSignKeyRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3GetTransferInfoRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3OrderQueryRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3RefundQueryRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3RefundRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3RequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3ReverseRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3ShortUrlRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3TransfersRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3UnifiedorderRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3UnifiedorderRequestData_SceneInfo.cs" />
+    <Compile Include="V3\Universal\Entities\Result\NormalRedPackResult.cs" />
+    <Compile Include="V3\Universal\Entities\Result\PayBank\TenPayV3Results.PayBank.cs" />
+    <Compile Include="V3\Universal\Entities\Result\SearchRedPackResult.cs" />
+    <Compile Include="V3\Universal\Entities\Result\TenPayV3Results.cs" />
+    <Compile Include="V3\Universal\RedPackApi\RedPackApi.cs" />
+    <Compile Include="V3\Universal\RedPackApi\RedPackApi.Via.cs" />
+    <Compile Include="V3\Universal\TenPayV3.cs" />
+    <Compile Include="V3\Universal\TenpayV3.PayBank.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="V3\Universal\Entities\Request\ServiceProvider\readme.txt" />
+    <Content Include="V3\Universal\Normal\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="V3\Work\readme.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

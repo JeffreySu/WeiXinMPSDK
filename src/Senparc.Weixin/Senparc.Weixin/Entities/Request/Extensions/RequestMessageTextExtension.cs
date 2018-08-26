@@ -59,6 +59,9 @@ namespace Senparc.Weixin.Entities.Request
     {
         internal string Keyword { get; set; }
 
+        /// <summary>
+        /// DefaultMessage
+        /// </summary>
         internal Func<ResponseMessageBase> DefaultMessage;
 
         internal IRequestMessageText RequestMessage { get; set; }

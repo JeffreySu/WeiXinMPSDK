@@ -32,12 +32,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 订单查询
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class OrderqueryResult : WxJsonResult
     {
         public int errcode { get; set; }

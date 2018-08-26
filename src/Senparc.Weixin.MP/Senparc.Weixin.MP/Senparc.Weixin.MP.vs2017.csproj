@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.2.4</Version>
+    <Version>15.3.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -427,6 +427,7 @@
       v15.2.2 优化客服接口，分离小程序客服接口
       v15.2.3 支持 CO2NET v0.2.8
       v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
+      v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

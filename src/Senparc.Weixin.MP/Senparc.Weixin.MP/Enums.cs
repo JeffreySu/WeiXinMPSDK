@@ -81,6 +81,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170225
     修改描述：v14.10.3 增加MessageHandler的file类型处理
 
+    修改标识：Senparc - 20180826
+    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene 枚举迁移过去
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -982,42 +985,5 @@ namespace Senparc.Weixin.MP
         QR_STR_SCENE
     }
 
-    /// <summary>
-    /// 红包的场景id（scene_id），最中输出为字符串
-    /// </summary>
-    public enum RedPack_Scene
-    {
-        /// <summary>
-        /// 商品促销
-        /// </summary>
-        PRODUCT_1,
-        /// <summary>
-        /// 抽奖
-        /// </summary>
-        PRODUCT_2,
-        /// <summary>
-        /// 虚拟物品兑奖
-        /// </summary>
-        PRODUCT_3,
-        /// <summary>
-        /// 企业内部福利
-        /// </summary>
-        PRODUCT_4,
-        /// <summary>
-        /// 渠道分润
-        /// </summary>
-        PRODUCT_5,
-        /// <summary>
-        /// 保险回馈
-        /// </summary>
-        PRODUCT_6,
-        /// <summary>
-        /// 彩票派奖
-        /// </summary>
-        PRODUCT_7,
-        /// <summary>
-        /// 税务刮奖
-        /// </summary>
-        PRODUCT_8
-    }
+   
 }

@@ -45,6 +45,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 

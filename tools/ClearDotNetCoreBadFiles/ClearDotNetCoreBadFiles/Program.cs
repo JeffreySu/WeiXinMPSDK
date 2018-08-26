@@ -89,7 +89,7 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
             foreach (var dir in dirs)
             {
                 var fileName = Path.GetFileName(dir).ToUpper();
-                if (fileName == "OBJ" || fileName == "BIN")
+                if (fileName == "OBJ"/* || fileName == "BIN"*/)
                 {
                     try
                     {

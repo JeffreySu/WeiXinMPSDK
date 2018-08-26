@@ -70,7 +70,8 @@ namespace Senparc.Weixin.MP
         }
 
         #region 过期方法
-
+        /*
+        
         /// <summary>
         /// 注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
         /// </summary>
@@ -126,6 +127,8 @@ namespace Senparc.Weixin.MP
             Func<TenPayV3Info> func = () => new TenPayV3Info(weixinSettingForTenpayV3);
             return RegisterTenpayV3(registerService, func, name ?? weixinSettingForTenpayV3.ItemKey);
         }
+        */
+
         #endregion
 
     }

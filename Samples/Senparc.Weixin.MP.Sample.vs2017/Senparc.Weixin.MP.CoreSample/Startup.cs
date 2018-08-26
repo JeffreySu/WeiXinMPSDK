@@ -16,6 +16,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.TenPay;
 using Senparc.Weixin.Work;
 using Senparc.Weixin.WxOpen;
 using System.IO;

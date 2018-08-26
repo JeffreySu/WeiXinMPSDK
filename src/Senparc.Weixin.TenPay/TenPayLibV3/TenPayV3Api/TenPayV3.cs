@@ -105,6 +105,7 @@ using System.Xml.Linq;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.TenPay;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {

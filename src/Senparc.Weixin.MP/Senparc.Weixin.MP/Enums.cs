@@ -82,7 +82,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.10.3 增加MessageHandler的file类型处理
 
     修改标识：Senparc - 20180826
-    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene 枚举迁移过去
+    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
 
 ----------------------------------------------------------------*/
 
@@ -456,19 +456,6 @@ namespace Senparc.Weixin.MP
     //    涉嫌其他 = 21000
     //}
 
-    /// <summary>
-    /// 支付类型
-    /// </summary>
-    public enum TenPayV3Type
-    {
-        /// <summary>
-        /// 公众号JS-API支付和小程序支付
-        /// </summary>
-        JSAPI,
-        NATIVE,
-        APP,
-        MWEB
-    }
 
     public enum GroupMessageType
     {
@@ -984,6 +971,4 @@ namespace Senparc.Weixin.MP
         /// </summary>
         QR_STR_SCENE
     }
-
-   
 }

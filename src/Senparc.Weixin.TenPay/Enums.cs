@@ -6,6 +6,21 @@ using System.Text;
 namespace Senparc.Weixin.TenPay
 {
     /// <summary>
+    /// 支付类型
+    /// </summary>
+    public enum TenPayV3Type
+    {
+        /// <summary>
+        /// 公众号JS-API支付和小程序支付
+        /// </summary>
+        JSAPI,
+        NATIVE,
+        APP,
+        MWEB
+    }
+
+
+    /// <summary>
     /// 红包的场景id（scene_id），最中输出为字符串
     /// </summary>
     public enum RedPack_Scene

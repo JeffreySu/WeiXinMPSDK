@@ -12,8 +12,6 @@
 
 ----------------------------------------------------------------*/
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.TenPayLib;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Collections.Generic;

@@ -33,6 +33,9 @@ namespace Senparc.NeuChar
 
         #endregion
 
+        //TODO：开发流程：实体->JSON/XML->General
+
+
         /// <summary>
         /// NeuChar 核心神经系统，包含所有神经节点信息
         /// </summary>
@@ -48,7 +51,6 @@ namespace Senparc.NeuChar
             //TODO:解密
 
             INeuralNode root = null;
-
 
         }
     }

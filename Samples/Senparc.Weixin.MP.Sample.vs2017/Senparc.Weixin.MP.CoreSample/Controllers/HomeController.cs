@@ -42,27 +42,26 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult Index()
         {
-            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
+            Func<Version, string> getDisplayVersion = version =>
+                 Regex.Match(version.ToString(), @"\d+\.\d+\.\d+").Value;
+
+            Func<Type, string> getTypeVersionInfo = type =>
             {
-                var dllPath =
-                    Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(
-                        System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName)); //dll所在目录
-                return FileVersionInfo.GetVersionInfo(dllPath);
+                var version = System.Reflection.Assembly.GetAssembly(type).GetName().Version;
+                return getDisplayVersion(version);
             };
 
-            Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
-                 Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
-
-            TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
-            TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
-            TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
-            TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
+            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
+            TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
+            TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));
+            TempData["ExtensionVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult));
+            TempData["OpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Open.Register));
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
-            TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
-            TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
-            TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
-            TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
-            TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
+            TempData["WorkVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Work.Register));
+            TempData["RedisCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Redis.Register));
+            TempData["MemcachedCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Memcached.Register));
+            TempData["WxOpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.WxOpen.Register));
+            TempData["WebSocketVersion"] = getTypeVersionInfo(typeof(Senparc.WebSocket.WebSocketConfig));
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();

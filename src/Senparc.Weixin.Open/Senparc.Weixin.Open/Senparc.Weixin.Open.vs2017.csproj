@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.4.0.1</Version>
+    <Version>3.5.0</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -124,10 +124,12 @@
       v3.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
       v3.1.2 修正 CodeApi.GetLatestAuditStatusAsync 请求方法错误（应该为GET）
       v3.2.0 添加接口：复用公众号主体快速注册小程序
-      v3.3.0 
-        1、添加接口：修改功能介绍 AccountAPIs.ModifySignature()
-        2、修复代码
+      v3.3.0
+      1、添加接口：修改功能介绍 AccountAPIs.ModifySignature()
+      2、修复代码
       v3.4.0 增加第三方平台授权接口的授权类型字段
+      v3.4.1 支持 CO2NET v0.2.4
+      v3.5.0 实现 SenparcWeixinSetting 自动注册
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

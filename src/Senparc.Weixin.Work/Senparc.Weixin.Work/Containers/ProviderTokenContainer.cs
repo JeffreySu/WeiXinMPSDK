@@ -66,17 +66,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
-using Senparc.Weixin.Work.AdvancedAPIs.SSO;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Work.AdvancedAPIs;
 
 namespace Senparc.Weixin.Work.Containers
 {

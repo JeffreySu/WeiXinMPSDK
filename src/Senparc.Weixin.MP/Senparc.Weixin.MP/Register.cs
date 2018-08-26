@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20180222
 
+    修改标识：Senparc - 20180802
+    修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterMpAccount()、RegisterTenpayOld()、RegisterTenpayV3() 方法
+
 ----------------------------------------------------------------*/
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.TenPayLib;
@@ -17,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP
 {
@@ -40,6 +44,18 @@ namespace Senparc.Weixin.MP
         }
 
         /// <summary>
+        /// 根据 SenparcWeixinSetting 自动注册公众号信息（包括JsApi）
+        /// </summary>
+        /// <param name="registerService">RegisterService</param>
+        /// <param name="weixinSettingForMP">SenparcWeixinSetting</param>
+        /// <param name="name">统一标识，如果为null，则使用 weixinSettingForMP.ItemKey </param>
+        /// <returns></returns>
+        public static IRegisterService RegisterMpAccount(this IRegisterService registerService, ISenparcWeixinSettingForMP weixinSettingForMP, string name = null)
+        {
+            return RegisterMpAccount(registerService, weixinSettingForMP.WeixinAppId, weixinSettingForMP.WeixinAppSecret, name ?? weixinSettingForMP.ItemKey);
+        }
+
+        /// <summary>
         /// 注册公众号（或小程序）的JSApi（RegisterMpAccount注册过程中已包含）
         /// </summary>
         /// <param name="registerService">RegisterService</param>
@@ -52,7 +68,6 @@ namespace Senparc.Weixin.MP
             JsApiTicketContainer.Register(appId, appSecret, name);
             return registerService;
         }
-
 
         /// <summary>
         /// 注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
@@ -67,6 +82,20 @@ namespace Senparc.Weixin.MP
             return registerService;
         }
 
+
+        /// <summary>
+        /// 根据 SenparcWeixinSetting 自动注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
+        /// </summary>
+        /// <param name="registerService">RegisterService</param>
+        /// <param name="weixinSettingForOldTepay">ISenparcWeixinSetting</param>
+        /// <param name="name">统一标识，如果为null，则使用 weixinSettingForOldTepay.ItemKey </param>
+        /// <returns></returns>
+        public static IRegisterService RegisterTenpayOld(this IRegisterService registerService, ISenparcWeixinSettingForOldTenpay weixinSettingForOldTepay, string name)
+        {
+            Func<TenPayInfo> func = () => new TenPayInfo(weixinSettingForOldTepay);
+            return RegisterTenpayOld(registerService, func, name ?? weixinSettingForOldTepay.ItemKey);
+        }
+
         /// <summary>
         /// 注册微信支付TenpayV3
         /// </summary>
@@ -79,5 +108,19 @@ namespace Senparc.Weixin.MP
             TenPayV3InfoCollection.Register(tenPayV3Info(), name);
             return registerService;
         }
+
+        /// <summary>
+        /// 根据 SenparcWeixinSetting 自动注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
+        /// </summary>
+        /// <param name="registerService">RegisterService</param>
+        /// <param name="weixinSettingForTenpayV3">ISenparcWeixinSetting</param>
+        /// <param name="name">统一标识，如果为null，则使用 SenparcWeixinSetting.ItemKey </param>
+        /// <returns></returns>
+        public static IRegisterService RegisterTenpayV3(this IRegisterService registerService, ISenparcWeixinSettingForTenpayV3 weixinSettingForTenpayV3, string name)
+        {
+            Func<TenPayV3Info> func = () => new TenPayV3Info(weixinSettingForTenpayV3);
+            return RegisterTenpayV3(registerService, func, name ?? weixinSettingForTenpayV3.ItemKey);
+        }
+
     }
 }

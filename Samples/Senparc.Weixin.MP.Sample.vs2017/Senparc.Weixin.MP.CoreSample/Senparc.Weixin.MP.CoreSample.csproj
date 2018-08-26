@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.3" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
@@ -28,8 +28,6 @@
     <None Include="Views\Cache\Test.cshtml" />
     <None Include="Views\Device\Index.cshtml" />
     <None Include="Views\Document\Index.cshtml" />
-    <None Include="Views\Home\About.cshtml" />
-    <None Include="Views\Home\Contact.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Menu\Index.cshtml" />
     <None Include="Views\OAuth2\Index.cshtml" />

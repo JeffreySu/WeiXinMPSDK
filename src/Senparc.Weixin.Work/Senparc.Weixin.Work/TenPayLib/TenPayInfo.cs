@@ -8,6 +8,8 @@
     创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.Work.TenPayLib
 {
     /// <summary>

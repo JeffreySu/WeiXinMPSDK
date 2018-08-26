@@ -6,22 +6,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Cache.Memcached;
+using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.MP.TenPayLib;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.RegisterServices;
 using Senparc.Weixin.Work;
-using System.Collections.Generic;
-using System.IO;
 using Senparc.Weixin.WxOpen;
+using System.IO;
 
 namespace Senparc.Weixin.MP.CoreSample
 {

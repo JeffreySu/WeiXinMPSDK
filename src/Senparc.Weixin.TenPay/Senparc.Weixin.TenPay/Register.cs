@@ -27,7 +27,7 @@ namespace Senparc.Weixin.TenPay
 
 
         /// <summary>
-        /// 根据 SenparcWeixinSetting 自动注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！
+        /// 根据 SenparcWeixinSetting 自动注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！）
         /// </summary>
         /// <param name="registerService">RegisterService</param>
         /// <param name="weixinSettingForOldTepay">ISenparcWeixinSetting</param>

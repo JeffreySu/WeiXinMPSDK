@@ -30,6 +30,7 @@ using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.TenPay;
 
 namespace Senparc.Weixin.MP.Sample
 {

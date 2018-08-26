@@ -252,7 +252,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
             base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
         }
 
-
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
             //进行加密判断并处理

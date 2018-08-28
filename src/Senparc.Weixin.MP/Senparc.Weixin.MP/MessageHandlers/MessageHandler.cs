@@ -61,6 +61,7 @@ using Senparc.Weixin.MP.Tencent;
 using System.Linq;
 using Senparc.NeuChar;
 using Senparc.Weixin.MP.NeuChar;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -444,9 +445,22 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //模拟添加
                 var fakeMessageHandlerNode = new MessageHandlerNode()
                 {
-                    Name = "MessageHandlerNode"
+                    Name = "MessageHandlerNode",
                 };
+                fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                {
+                    Request = new Request
+                    {
+                        Type = RequestMsgType.Text,
+                        Keywords = new List<string>() { "nc", "neuchar" }
+                    },
+                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：" + DateTime.Now }
+                });
+
                 neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+
+
+
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 
                 //不同类型请求的委托
@@ -502,9 +516,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
                 {
-                    ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
+                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
                 }
-                else
+
+                //如果没有得到结果，则继续运行编译好的代码
+                if (ResponseMessage == null)
                 {
                     executeFunc();//直接执行
                 }

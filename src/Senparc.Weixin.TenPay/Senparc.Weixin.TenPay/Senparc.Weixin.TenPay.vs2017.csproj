@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <Version>0.1.0</Version>
+    <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
+    <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - 微信支付 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2018</Copyright>
+    <PackageTags>微信,微信支付,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.TenPay.dll</Title>
+
+    <Summary>微信支付 SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1.0 从 Senparc.Weixin.MP 和 Senparc.Weixin.Work 抽象并分离独立的微信支付模块
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.TenPay.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>-->
+
+
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>-->
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,32 @@
+{
+  "version": "0.0.1",
+  //"AppType": "WeChat",
+  "name": "Weixin.MessageHandler",
+  "type": "Weixin.MessageHandler",
+  "guid": "9F88AF01CC084F658DDD31F022B18053",
+  "messageHandler": {
+    //接收到文字请求
+    "onTextRequest": {
+      "items": [
+        //处理关键字
+        {
+          "keywords": [ "NeuChar" ],
+          "ignoreCase": true,
+          "result": {
+            "type": "text",
+            "content": "xxxxxxxx：{requestContent}"
+          }
+        },
+        {
+          "keywords": [ "1", "2", "3" ],
+          "ignoreCase": true,
+          "result": {
+            "type": "text",
+            "content": "使用NeuChar返回，您刚才输入了数字：{requestContent}"
+          }
+        }
+      ]
+    }
+  }
+}
+

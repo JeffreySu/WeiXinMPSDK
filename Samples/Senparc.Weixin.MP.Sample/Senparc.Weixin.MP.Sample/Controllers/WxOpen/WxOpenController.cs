@@ -12,9 +12,9 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     public partial class WxOpenController : Controller
     {
         public static readonly string Token = Config.SenparcWeixinSetting.WxOpenToken;//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WxOpenEncodingAESKey;//与微信小程序后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string WxOpenAppId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
         public static readonly string WxOpenAppSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
@@ -323,7 +323,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
-                    price, Request.UserHostAddress, Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
+                    price, Request.UserHostAddress, Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 

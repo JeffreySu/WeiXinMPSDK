@@ -19,7 +19,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System;
 using System.Collections.Generic;

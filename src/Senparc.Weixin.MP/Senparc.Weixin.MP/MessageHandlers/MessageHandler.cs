@@ -62,6 +62,7 @@ using System.Linq;
 using Senparc.NeuChar;
 using Senparc.Weixin.MP.NeuChar;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -460,9 +461,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
 
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
+                Weixin.WeixinTrace.SendCustomLog("NeuChar", "messageHandlerNode != null:" + (messageHandlerNode != null));
 
                 //不同类型请求的委托
-                Func<IResponseMessageBase> executeFunc = () =>
+                Func<Task<IResponseMessageBase>> executeFunc = () => Task.Run(() =>
                 {
                     IResponseMessageBase responseMessage = null;
                     switch (RequestMessage.MsgType)
@@ -510,17 +512,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     }
 
                     return responseMessage;
-                };
+                });
 
                 if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
                 {
-                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
+                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "进入判断流程 ((MessageHandlerNode)messageHandlerNode).GetResponseMessage");
+                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessageAsync(RequestMessage, executeFunc).Result;
                 }
 
                 //如果没有得到结果，则继续运行编译好的代码
                 if (ResponseMessage == null)
                 {
-                    executeFunc();//直接执行
+                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
+                    //executeFunc();//直接执行
                 }
 
                 #endregion

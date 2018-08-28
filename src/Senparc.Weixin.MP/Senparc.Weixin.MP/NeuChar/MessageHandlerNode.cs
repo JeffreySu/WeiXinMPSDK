@@ -57,9 +57,9 @@ namespace Senparc.Weixin.MP.NeuChar
         /// 获取响应消息
         /// </summary>
         /// <param name="requestMessage"></param>
-        /// <param name="defaultProcess"></param>
+        /// <param name="defaultProcess">默认流程</param>
         /// <returns></returns>
-        public IResponseMessageBase GetResponseMessage(IRequestMessageBase requestMessage, Func<IResponseMessageBase> defaultProcess)
+        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage, Func<Task<IResponseMessageBase>> defaultProcess)
         {
             IResponseMessageBase responseMessage = null;
 

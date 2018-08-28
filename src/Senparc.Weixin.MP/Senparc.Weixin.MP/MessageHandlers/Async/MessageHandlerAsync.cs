@@ -137,8 +137,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //获取当前设置节点
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 
-                Weixin.WeixinTrace.SendCustomLog("NeuChar JSON", 
-                    Newtonsoft.Json.JsonConvert.SerializeObject(messageHandlerNode, Newtonsoft.Json.Formatting.Indented/*,new Newtonsoft.Json.JsonSerializerSettings() {  }*/));
+                //Weixin.WeixinTrace.SendCustomLog("NeuChar JSON", 
+                //    Newtonsoft.Json.JsonConvert.SerializeObject(messageHandlerNode, Newtonsoft.Json.Formatting.Indented/*,new Newtonsoft.Json.JsonSerializerSettings() {  }*/));
 
 
                 //不同类型请求的委托

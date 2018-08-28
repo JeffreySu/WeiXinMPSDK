@@ -435,58 +435,81 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return;
                 }
 
+                #region NeuChar 执行过程
+
                 //TODO:Neuchar：在这里先做一次NeuChar标准的判断
 
                 var neuralSystem = NeuralSystem.Instance;
 
                 //模拟添加
-                var messageHandlerNode = new MessageHandlerNode();
-                neuralSystem.Root.ChildrenNodes.Add(messageHandlerNode);
-
-
-                switch (RequestMessage.MsgType)
+                var fakeMessageHandlerNode = new MessageHandlerNode()
                 {
-                    case RequestMsgType.Text:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
-                        }
-                        break;
-                    case RequestMsgType.Location:
-                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                        break;
-                    case RequestMsgType.Image:
-                        ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                        break;
-                    case RequestMsgType.Voice:
-                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                        break;
-                    case RequestMsgType.Video:
-                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                        break;
-                    case RequestMsgType.Link:
-                        ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
-                        break;
-                    case RequestMsgType.ShortVideo:
-                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                        break;
-                    case RequestMsgType.File:
-                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                        break;
-                    case RequestMsgType.Unknown:
-                        ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
-                                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                        }
-                        break;
+                    Name = "MessageHandlerNode"
+                };
+                neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                //不同类型请求的委托
+                Func<IResponseMessageBase> executeFunc = () =>
+                {
+                    IResponseMessageBase responseMessage = null;
+                    switch (RequestMessage.MsgType)
+                    {
+                        case RequestMsgType.Text:
+                            {
+                                var requestMessage = RequestMessage as RequestMessageText;
+                                responseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                            }
+                            break;
+                        case RequestMsgType.Location:
+                            responseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                            break;
+                        case RequestMsgType.Image:
+                            responseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                            break;
+                        case RequestMsgType.Voice:
+                            responseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                            break;
+                        case RequestMsgType.Video:
+                            responseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                            break;
+                        case RequestMsgType.Link:
+                            responseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
+                            break;
+                        case RequestMsgType.ShortVideo:
+                            responseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                            break;
+                        case RequestMsgType.File:
+                            responseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                            break;
+                        case RequestMsgType.Unknown:
+                            responseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
+                            break;
+                        case RequestMsgType.Event:
+                            {
+                                var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                                responseMessage = OnTextOrEventRequest(requestMessageText)
+                                                    ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                            }
+                            break;
+
+                        default:
+                            throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                    }
+
+                    return responseMessage;
+                };
+
+                if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
+                {
+                    ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
                 }
+                else
+                {
+                    executeFunc();//直接执行
+                }
+
+                #endregion
 
                 //记录上下文
                 //此处修改

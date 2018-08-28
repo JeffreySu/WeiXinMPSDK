@@ -56,5 +56,37 @@ namespace Senparc.NeuChar
 
             Root = root;
         }
+
+        /// <summary>
+        /// 获取指定Name的节点
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public INeuralNode GetNode(string name, INeuralNode parentNode = null)
+        {
+            if (parentNode == null)
+            {
+                parentNode = Root;
+            }
+
+            INeuralNode foundNode = null;
+
+            foreach (var node in parentNode.ChildrenNodes)
+            {
+                if (node.Name == name)
+                {
+                    foundNode = node;
+                    break;
+                }
+
+                foundNode = GetNode(name, node);
+                if (foundNode != null)
+                {
+                    break;
+                }
+            }
+
+            return foundNode;
+        }
     }
 }

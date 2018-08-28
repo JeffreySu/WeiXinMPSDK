@@ -23,6 +23,10 @@ namespace Senparc.Weixin.MP.NeuChar
         /// </summary>
         new public MessageReply Config { get; set; }
 
+        public MessageHandlerNode() {
+            Config = new MessageReply();
+        }
+
         /// <summary>
         /// 生成响应信息
         /// </summary>

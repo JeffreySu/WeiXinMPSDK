@@ -71,19 +71,23 @@ namespace Senparc.NeuChar
 
             INeuralNode foundNode = null;
 
-            foreach (var node in parentNode.ChildrenNodes)
+            if (parentNode.Name == name)
             {
-                if (node.Name == name)
+                foundNode = parentNode;
+            }
+
+            if (foundNode == null && parentNode.ChildrenNodes != null && parentNode.ChildrenNodes.Count > 0)
+            {
+                foreach (var node in parentNode.ChildrenNodes)
                 {
-                    foundNode = node;
-                    break;
+
+                    foundNode = GetNode(name, parentNode);//监测当前节点
+                    if (foundNode != null)
+                    {
+                        break;
+                    }
                 }
 
-                foundNode = GetNode(name, node);
-                if (foundNode != null)
-                {
-                    break;
-                }
             }
 
             return foundNode;

@@ -45,6 +45,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.NeuChar;
 using Senparc.NeuChar;
 using System.Collections.Generic;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -135,6 +136,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 //获取当前设置节点
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
+
+                Weixin.WeixinTrace.SendCustomLog("NeuChar JSON", 
+                    Newtonsoft.Json.JsonConvert.SerializeObject(messageHandlerNode, Newtonsoft.Json.Formatting.Indented/*,new Newtonsoft.Json.JsonSerializerSettings() {  }*/));
+
 
                 //不同类型请求的委托
                 Func<Task<IResponseMessageBase>> executeFunc = async () =>

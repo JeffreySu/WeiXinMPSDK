@@ -19,10 +19,10 @@ namespace Senparc.NeuChar
         public virtual string Name { get; set; }
 
 
-        /// <summary>
-        /// 父节点
-        /// </summary>
-        public virtual INeuralNode ParentNode { get; private set; }
+        ///// <summary>
+        ///// 父节点
+        ///// </summary>
+        //public virtual INeuralNode ParentNode { get; private set; }
         /// <summary>
         /// 所有子节点
         /// </summary>
@@ -46,13 +46,13 @@ namespace Senparc.NeuChar
 
         public virtual void SetChildNode(INeuralNode childNode)
         {
-            childNode.SetParentNode(this);
+            //childNode.SetParentNode(this);
             ChildrenNodes.Add(childNode);
         }
 
-        public virtual void SetParentNode(INeuralNode childNode)
-        {
-            ParentNode = childNode;
-        }
+        //public virtual void SetParentNode(INeuralNode childNode)
+        //{
+        //    ParentNode = childNode;
+        //}
     }
 }

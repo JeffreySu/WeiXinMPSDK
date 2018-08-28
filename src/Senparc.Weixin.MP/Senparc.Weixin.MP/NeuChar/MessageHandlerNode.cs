@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var strongSesponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                         responseMessage = strongSesponseMessage;
-                        strongSesponseMessage.Content = responseConfig.Content;
+                        strongSesponseMessage.Content = responseConfig.Content.Replace("{now}",DateTime.Now.ToString());
                     }
                     break;
 

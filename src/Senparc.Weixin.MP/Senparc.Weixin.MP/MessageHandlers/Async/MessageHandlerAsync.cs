@@ -117,8 +117,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         Type = RequestMsgType.Text,
                         Keywords = new List<string>() { "nc", "neuchar" }
                     },
-                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：" + DateTime.Now }
+                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
                 });
+
+                fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                {
+                    Request = new Request
+                    {
+                        Type = RequestMsgType.Text,
+                        Keywords = new List<string>() { "senparc", "s" }
+                    },
+                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
+                });
+
 
                 neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//模拟添加（应当在初始化的时候就添加）
 
@@ -171,7 +182,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             break;
 
                         default:
-                            throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                            Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型" + RequestMessage.MsgType);
+                            //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                            break;
                     }
 
                     return responseMessage;
@@ -185,7 +198,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //如果没有得到结果，则继续运行编译好的代码
                 if (ResponseMessage == null)
                 {
-                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
+                    //Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
                     ResponseMessage = await executeFunc();//直接执行
                 }
 

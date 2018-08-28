@@ -59,6 +59,7 @@ namespace Senparc.NeuChar
 
         /// <summary>
         /// 获取指定Name的节点
+        /// <para>TODO：建立索引搜索</para>
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>

@@ -22,16 +22,32 @@ namespace Senparc.NeuChar
         /// <summary>
         /// 父节点
         /// </summary>
-        public virtual INeuralNode ParentNode { get; set; }
+        public virtual INeuralNode ParentNode { get; private set; }
         /// <summary>
         /// 所有子节点
         /// </summary>
-        public virtual IList<INeuralNode> ChildrenNodes { get; set; }
+        public virtual IList<INeuralNode> ChildrenNodes { get; }
 
 
         //public object ApiData { get; set; }
         //public object ApiDataKey { get; set; }
         //public object ExtData { get; set; }
         //public object ExtDataKey { get; set; }
+
+        public BaseNeuralNode()
+        {
+            ChildrenNodes = new List<INeuralNode>();
+        }
+
+        public virtual void SetChildNode(INeuralNode childNode)
+        {
+            childNode.SetParentNode(this);
+            ChildrenNodes.Add(childNode);
+        }
+
+        public virtual void SetParentNode(INeuralNode childNode)
+        {
+            ParentNode = childNode;
+        }
     }
 }

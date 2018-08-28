@@ -59,6 +59,8 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Tencent;
 using System.Linq;
+using Senparc.NeuChar;
+using Senparc.Weixin.MP.NeuChar;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -435,6 +437,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 //TODO:Neuchar：在这里先做一次NeuChar标准的判断
 
+                var neuralSystem = NeuralSystem.Instance;
+
+                //模拟添加
+                var messageHandlerNode = new MessageHandlerNode();
+                neuralSystem.Root.ChildrenNodes.Add(messageHandlerNode);
 
 
                 switch (RequestMessage.MsgType)
@@ -498,6 +505,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        /// <summary>
+        /// OnExecuting
+        /// </summary>
         public override void OnExecuting()
         {
             /* 

@@ -16,10 +16,22 @@ namespace Senparc.NeuChar
         /// <summary>
         /// 父节点
         /// </summary>
-        INeuralNode ParentNode { get; set; }
+        INeuralNode ParentNode { get; }
         /// <summary>
         /// 所有子节点
         /// </summary>
-        IList<INeuralNode> ChildrenNodes { get; set; }
+        IList<INeuralNode> ChildrenNodes { get; }
+
+        /// <summary>
+        /// 设置父节点
+        /// </summary>
+        /// <param name="childNode"></param>
+        void SetParentNode(INeuralNode childNode);
+        /// <summary>
+        /// 设置子节点
+        /// </summary>
+        /// <param name="childNode"></param>
+        void SetChildNode(INeuralNode childNode);
+
     }
 }

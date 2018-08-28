@@ -524,7 +524,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 if (ResponseMessage == null)
                 {
                     Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    //executeFunc();//直接执行
+                    ResponseMessage = executeFunc().Result;//直接执行
                 }
 
                 #endregion

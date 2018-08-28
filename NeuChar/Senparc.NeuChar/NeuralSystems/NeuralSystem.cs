@@ -81,7 +81,7 @@ namespace Senparc.NeuChar
                 foreach (var node in parentNode.ChildrenNodes)
                 {
 
-                    foundNode = GetNode(name, parentNode);//监测当前节点
+                    foundNode = GetNode(name, node);//监测当前节点
                     if (foundNode != null)
                     {
                         break;

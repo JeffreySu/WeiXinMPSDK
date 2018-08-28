@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180712
     修改描述：v2.0.11.2 修正 TemplateApi.Add() 方法返回类型
 
+    修改标识：Senparc - 20180712
+    修改描述：v2.4.1 TemplateApi.LibraryGet() 方法修正 API 地址
+
 ----------------------------------------------------------------*/
 
 /*
@@ -150,7 +153,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <returns></returns>
         public static LibraryGetJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
-            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
             var data = new
             {
                 id = id
@@ -292,7 +295,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <returns></returns>
         public static async Task<LibraryGetJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
-            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
+            string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
             var data = new
             {
                 id = id

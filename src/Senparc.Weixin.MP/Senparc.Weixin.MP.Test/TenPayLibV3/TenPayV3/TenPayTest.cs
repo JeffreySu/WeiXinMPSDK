@@ -19,7 +19,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.TenPayLibV3;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +33,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
         [TestMethod()]
         public void OrderQueryTest()
         {
-            
-
 
         }
+
     }
 }

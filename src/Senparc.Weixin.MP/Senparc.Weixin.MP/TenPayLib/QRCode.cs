@@ -18,6 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+using System;
 using System.Net;
 using System.Text;
 
@@ -26,6 +27,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// 生成Native支付方式使用的二维码
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class QRCode
     {
         /// <summary>

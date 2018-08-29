@@ -94,7 +94,6 @@
     <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
   </ItemGroup>
 
-
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>

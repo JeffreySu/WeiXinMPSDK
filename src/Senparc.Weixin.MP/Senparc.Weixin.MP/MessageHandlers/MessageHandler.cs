@@ -506,6 +506,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         case RequestMsgType.File:
                             responseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
                             break;
+                        case RequestMsgType.NeuChar:
+                            responseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                            break;
                         case RequestMsgType.Unknown:
                             responseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
                             break;

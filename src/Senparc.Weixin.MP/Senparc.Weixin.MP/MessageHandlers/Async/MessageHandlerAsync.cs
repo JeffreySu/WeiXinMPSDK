@@ -175,6 +175,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         case RequestMsgType.File:
                             responseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
                             break;
+                        case RequestMsgType.NeuChar:
+                            responseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                            break;
                         case RequestMsgType.Unknown:
                             responseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
                             break;

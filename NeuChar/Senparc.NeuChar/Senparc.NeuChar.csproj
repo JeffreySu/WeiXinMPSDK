@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="ConfigRoot.cs" />
     <Compile Include="NeuralSystems\BaseNeuralNode.cs" />
     <Compile Include="DataEngine.cs" />
     <Compile Include="Enums.cs" />

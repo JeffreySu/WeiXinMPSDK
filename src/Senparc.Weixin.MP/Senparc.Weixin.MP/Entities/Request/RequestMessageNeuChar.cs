@@ -31,7 +31,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageNeuChar : RequestMessageBase,IRequestMessageBase
+    /// <summary>
+    /// NeuChar 请求消息
+    /// </summary>
+    public class RequestMessageNeuChar : RequestMessageBase, IRequestMessageBase
     {
         public override RequestMsgType MsgType
         {
@@ -41,6 +44,6 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 设置信息（通常为JSON）
         /// </summary>
-        public string Config { get; set; }
+        public string ConfigRoot { get; set; }
     }
 }

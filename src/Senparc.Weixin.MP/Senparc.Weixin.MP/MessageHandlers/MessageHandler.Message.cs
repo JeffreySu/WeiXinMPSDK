@@ -37,6 +37,9 @@ using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -161,7 +164,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual IResponseMessageBase OnNeuCharRequest(RequestMessageNeuChar requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            var configRootJson = requestMessage.ConfigRoot;
+            SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);
+            var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
+
+            //TODO:进行记录
+
+
+            return new SuccessResponseMessage();
         }
 
         #endregion

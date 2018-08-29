@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180122
     
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 支持NeuChar，添加 OnNeuCharRequestAsync() 方法
+
 ----------------------------------------------------------------*/
 
 #if !NET35 && !NET40
@@ -154,6 +157,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnFileRequestAsync(RequestMessageFile requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnFileRequest(requestMessage));
+        }
+
+        #endregion
+
+        #region NeuChar 方法
+
+        /// <summary>
+        /// NeuChar 请求
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnNeuCharRequestAsync(RequestMessageNeuChar requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnNeuCharRequest(requestMessage));
         }
 
         #endregion

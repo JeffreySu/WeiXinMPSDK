@@ -97,7 +97,10 @@ namespace Senparc.Weixin.MP.NeuChar
                     }
                     break;
                 default:
-                    throw new UnknownRequestMsgTypeException("NeuChar未支持的的MsgType请求类型", null);
+                    //不作处理
+
+                    //throw new UnknownRequestMsgTypeException("NeuChar未支持的的MsgType请求类型："+ requestMessage.MsgType, null);
+                    break;
 
             }
 

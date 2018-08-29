@@ -7,7 +7,6 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
@@ -15,6 +14,7 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -322,7 +322,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
-                    price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
+                    price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 

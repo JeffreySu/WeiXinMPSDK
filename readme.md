@@ -23,11 +23,6 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
-
-> 1、_针对 7 月 4 日微信爆出的官方推荐代码存在 XXE 漏洞，Senparc 已经在当天提供了更新版本，在更新过程中不少开发者版本跨度比较大，很多人出现了“当前扩展缓存策略没有进行注册”的异常，可以参考做法（只需要一行代码）：https://www.cnblogs.com/szw/p/9265705.html<br>
-更多详情参见：https://mp.weixin.qq.com/s/_QcDbNnOHQ2dcKl_UMqaoQ_<br>
-> 2、_经过五年半的持续维护，Senparc.Weixin SDK 逐步丰满和完善，在升级的过程中，我们为基础库（Senparc.Weixin.dll）加入了许多通用的功能，例如加密/解密算法、通用缓存方法等等，许多这些方法其实和微信没有一对一的服务关系，而是具备了非常好的全局通用性。经过一系列的调研，也已经有许多开发者开始使用 Senparc.Weixin.dll 中的通用方法为全系统服务，而不只是用于开发微信。为此，盛派团队决定将 Senparc.Weixin.dll 中具备全系统通用性的功能分离出来，帮助大家提供一个更加完善高效的基础通用模块，并融入更多盛派尚未开源的模块和技术，代号：CO2NET。与此同时， Senparc.Weixin.dll 中的方法也将更加集中地为微信各模块服务。希望大家继续关注和支持此次计划，关注并一起建设好 [CO2NET](https://github.com/Senparc/Senparc.CO2NET)！盛派一直在你身边！_<br><br>
-> _升级记录：https://www.cnblogs.com/szw/p/9124981.html_<br><br>
 > _Senparc.CO2NET 项目（持续高密度更新中，请关注）：https://github.com/Senparc/Senparc.CO2NET_<br><br>
 
 

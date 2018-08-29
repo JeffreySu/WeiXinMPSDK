@@ -94,10 +94,6 @@
     <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -130,6 +126,10 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
 

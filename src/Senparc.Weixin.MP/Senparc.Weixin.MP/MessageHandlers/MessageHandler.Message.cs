@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             {
                 var configRootJson = requestMessage.ConfigRoot;
                 SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);
-                var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
+                var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);//这里只做序列化校验
 
                 //TODO:进行验证
 
@@ -197,6 +197,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
 
                 //替换备份文件
+                File.Delete(file);
                 File.Move(fileBak, file);
 
                 var successMsg = new

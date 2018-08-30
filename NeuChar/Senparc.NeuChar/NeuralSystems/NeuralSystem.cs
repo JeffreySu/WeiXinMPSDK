@@ -72,6 +72,8 @@ namespace Senparc.NeuChar
                         var configRootJson = sr.ReadToEnd();
                         //TODO:可以进行格式和版本校验
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
+                        SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
+
                         foreach (var config in configRoot.Configs)
                         {
                             SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());

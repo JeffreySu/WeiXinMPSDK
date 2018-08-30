@@ -194,7 +194,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         sw.Write(configRootJson);
                         sw.Flush();
                     }
-                    fs.Flush();
                 }
 
                 //替换备份文件

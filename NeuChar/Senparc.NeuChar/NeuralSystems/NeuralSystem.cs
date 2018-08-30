@@ -63,7 +63,6 @@ namespace Senparc.NeuChar
             var file = Path.Combine(path, "NeuCharRoot.config");
             SenparcTrace.SendCustomLog("NeuChar file path", file);
 
-
             if (File.Exists(file))
             {
                 using (var fs = new FileStream(file, FileMode.Open))

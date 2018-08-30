@@ -1,4 +1,5 @@
-﻿using Senparc.CO2NET.Helpers;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using System;
@@ -60,6 +61,9 @@ namespace Senparc.NeuChar
 
             var path = ServerUtility.ContentRootMapPath("~/App_Data/NeuChar");
             var file = Path.Combine(path, "NeuCharRoot.config");
+            SenparcTrace.SendCustomLog("NeuChar file path", file);
+
+
             if (File.Exists(file))
             {
                 using (var fs = new FileStream(file, FileMode.Open))
@@ -69,23 +73,15 @@ namespace Senparc.NeuChar
                         var configRootJson = sr.ReadToEnd();
                         //TODO:可以进行格式和版本校验
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
-                        var configs = SerializerHelper.GetObject<dynamic[]>(configRoot.Configs);
-
-                        foreach (var config in configs)
+                        foreach (var config in configRoot.Configs)
                         {
                             SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
-                            if (config.Name != null)
-                            {
 
-                            }
                         }
 
                     }
                 }
             }
-
-
-
         }
 
         /// <summary>

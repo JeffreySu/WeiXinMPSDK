@@ -40,6 +40,8 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
 using Senparc.CO2NET.Trace;
+using System.IO;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -164,14 +166,57 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual IResponseMessageBase OnNeuCharRequest(RequestMessageNeuChar requestMessage)
         {
-            var configRootJson = requestMessage.ConfigRoot;
-            SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);
-            var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
+            try
+            {
+                var configRootJson = requestMessage.ConfigRoot;
+                SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);
+                var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
 
-            //TODO:进行记录
+                //TODO:进行验证
 
 
-            return new SuccessResponseMessage();
+                var path = ServerUtility.ContentRootMapPath( "~/App_Data/NeuChar");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                var file = Path.Combine(path, "NeuCharRoot.config");
+                var fileBak = Path.Combine(path, "NeuCharRoot.bak.config");
+                //TODO：后期也可以考虑把不同模块分离到不同的文件中
+
+                File.Delete(fileBak);
+
+                using (var fs = new FileStream(fileBak,FileMode.CreateNew))
+                {
+                    using (var sw = new StreamWriter(fs))
+                    {
+                        sw.Write(configRootJson);
+                        sw.Flush();
+                    }
+                }
+
+                //替换备份文件
+                File.Move(fileBak, file);
+
+                var successMsg = new
+                {
+                    success = true,
+                    msg = ""
+                };
+                TextResponseMessage = successMsg.ToJson();
+            }
+            catch (Exception ex)
+            {
+                var errMsg = new
+                {
+                    success = false,
+                    msg = ex.Message
+                };
+                TextResponseMessage = errMsg.ToJson();
+            }
+
+            return null;
         }
 
         #endregion

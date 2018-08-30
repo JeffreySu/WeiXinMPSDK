@@ -16,6 +16,9 @@ namespace Senparc.NeuChar
         public string Guid { get; set; }
         public string Key { get; set; }
 
+        /// <summary>
+        /// 详细的配置信息
+        /// </summary>
         public string Configs { get; set; }
     }
 

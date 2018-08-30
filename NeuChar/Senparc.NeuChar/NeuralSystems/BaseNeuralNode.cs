@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Senparc.NeuChar
 {
-    public abstract class BaseNeuralNode : INeuralNode
+    public class BaseNeuralNode : INeuralNode
     {
         //TODO:使用命名空间以及唯一标识Guid来区分
         //public abstract string Namespace { get; set; }
 
-        public abstract string Version { get; set; }
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// 名称

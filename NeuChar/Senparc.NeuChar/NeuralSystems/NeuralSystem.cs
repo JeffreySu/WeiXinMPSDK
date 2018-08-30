@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,9 +49,6 @@ namespace Senparc.NeuChar
         {
             //获取所有配置并初始化
 
-            var path = "~/App_Data/NeuChar/";
-            var file = "json.json";//TODO：后期通过自动扫描得到
-
             //TODO:当配置文件多了之后可以遍历所有的配置文件
 
             //TODO:解密
@@ -55,6 +56,36 @@ namespace Senparc.NeuChar
             INeuralNode root = new RootNeuralNode();
 
             Root = root;
+
+
+            var path = ServerUtility.ContentRootMapPath("~/App_Data/NeuChar");
+            var file = Path.Combine(path, "NeuCharRoot.config");
+            if (File.Exists(file))
+            {
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    using (var sr = new StreamReader(fs))
+                    {
+                        var configRootJson = sr.ReadToEnd();
+                        //TODO:可以进行格式和版本校验
+                        var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
+                        var configs = SerializerHelper.GetObject<dynamic[]>(configRoot.Configs);
+
+                        foreach (var config in configs)
+                        {
+                            SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
+                            if (config.Name != null)
+                            {
+
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+
         }
 
         /// <summary>

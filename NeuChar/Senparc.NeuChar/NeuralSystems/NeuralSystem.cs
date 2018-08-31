@@ -61,7 +61,7 @@ namespace Senparc.NeuChar
 
             var path = ServerUtility.ContentRootMapPath("~/App_Data/NeuChar");
             var file = Path.Combine(path, "NeuCharRoot.config");
-            SenparcTrace.SendCustomLog("NeuChar file path", file);
+            //SenparcTrace.SendCustomLog("NeuChar file path", file);
 
             if (File.Exists(file))
             {
@@ -72,25 +72,50 @@ namespace Senparc.NeuChar
                         var configRootJson = sr.ReadToEnd();
                         //TODO:可以进行格式和版本校验
 
-                        SenparcTrace.SendCustomLog("NeuChar Saved ConfigRoot", configRootJson);
+                        //SenparcTrace.SendCustomLog("NeuChar Saved ConfigRoot", configRootJson);
                         
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
-                        SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
+                        //SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
 
-                        var connfigs = SerializerHelper.GetObject<List<BaseNeuralNode>>(configRoot.Configs);
-                        SenparcTrace.SendCustomLog("NeuChar configs", connfigs.ToJson());
+                        object[] connfigs = configRoot.Configs;//SerializerHelper.GetObject<List<BaseNeuralNode>>(configRoot.Configs);
+                        //SenparcTrace.SendCustomLog("NeuChar configs", connfigs.ToJson());
 
-                        foreach (var config in connfigs)
+                        //转换成 List<BaseNeuralNode> 对象
+                        var configsJsonString = connfigs.ToJson();
+                        var configsList = SerializerHelper.GetObject<List<BaseNeuralNode>>(configsJsonString);
+
+                        for (int i = 0; i < connfigs.Length; i++)
                         {
-                            SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
-                            if (Senparc.NeuChar.Register.NeuralNodeRegisterCollection.ContainsKey(config.Name))
+                            if (Senparc.NeuChar.Register.NeuralNodeRegisterCollection.ContainsKey(configsList[i].Name))
                             {
-                                var configNodeType = Senparc.NeuChar.Register.NeuralNodeRegisterCollection[config.Name];
-                                SenparcTrace.SendCustomLog("NeuChar config type",configNodeType.FullName);
+                                var configNodeType = Senparc.NeuChar.Register.NeuralNodeRegisterCollection[configsList[i].Name];
+                                //SenparcTrace.SendCustomLog("NeuChar config type", configNodeType.FullName);
 
+                                var configNodeJsonStr = connfigs[i].ToJson();//转成字符串，方便再次反序列化到具体类型中
+
+                                var finalNeuralNode = Newtonsoft.Json.JsonConvert.DeserializeObject(configNodeJsonStr, configNodeType) as INeuralNode;
+
+                                //SenparcTrace.SendCustomLog("NeuChar finalNeuralNode", finalNeuralNode.ToJson());
+
+                                Root.SetChildNode(finalNeuralNode);
+
+
+                                //SerializerHelper.GetObject()
                             }
-
                         }
+
+
+                        //foreach (var config in connfigs)
+                        //{
+                        //    SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
+                        //    if (Senparc.NeuChar.Register.NeuralNodeRegisterCollection.ContainsKey(config.Name))
+                        //    {
+                        //        var configNodeType = Senparc.NeuChar.Register.NeuralNodeRegisterCollection[config.Name];
+                        //        SenparcTrace.SendCustomLog("NeuChar config type", configNodeType.FullName);
+
+                        //    }
+
+                        //}
 
                     }
                 }

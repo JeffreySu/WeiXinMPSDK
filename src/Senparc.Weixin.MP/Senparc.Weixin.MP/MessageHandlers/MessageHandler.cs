@@ -443,33 +443,33 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 var neuralSystem = NeuralSystem.Instance;
 
-                //模拟添加
-                var fakeMessageHandlerNode = new MessageHandlerNode()
-                {
-                    Name = "MessageHandlerNode",
-                };
+                ////模拟添加
+                //var fakeMessageHandlerNode = new MessageHandlerNode()
+                //{
+                //    Name = "MessageHandlerNode",
+                //};
 
-                fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-                {
-                    Request = new Request
-                    {
-                        Type = RequestMsgType.Text,
-                        Keywords = new List<string>() { "nc", "neuchar" }
-                    },
-                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
-                });
+                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                //{
+                //    Request = new Request
+                //    {
+                //        Type = RequestMsgType.Text,
+                //        Keywords = new List<string>() { "nc", "neuchar" }
+                //    },
+                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
+                //});
 
-                fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-                {
-                    Request = new Request
-                    {
-                        Type = RequestMsgType.Text,
-                        Keywords = new List<string>() { "senparc", "s" }
-                    },
-                    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
-                });
+                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                //{
+                //    Request = new Request
+                //    {
+                //        Type = RequestMsgType.Text,
+                //        Keywords = new List<string>() { "senparc", "s" }
+                //    },
+                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
+                //});
 
-                neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+                //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
 
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 

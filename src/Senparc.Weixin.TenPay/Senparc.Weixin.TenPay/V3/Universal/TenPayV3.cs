@@ -255,19 +255,20 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static UnifiedorderResult Html5Order(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
             dataInfo.TradeType = TenPayV3Type.MWEB;
+            return Unifiedorder(dataInfo, timeOut);
+            //var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            //dataInfo.TradeType = TenPayV3Type.MWEB;
 
-            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            //throw new Exception(data.HtmlEncode());
-            MemoryStream ms = new MemoryStream();
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            ////throw new Exception(data.HtmlEncode());
+            //MemoryStream ms = new MemoryStream();
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //ms.Write(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
-            return new UnifiedorderResult(resultXml);
+            //var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            //return new UnifiedorderResult(resultXml);
         }
 
         /// <summary>
@@ -761,18 +762,20 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static async Task<UnifiedorderResult> Html5OrderAsync(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
             dataInfo.TradeType = TenPayV3Type.MWEB;
+            return UnifiedorderAsync(dataInfo,timeOut);
+            //var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            //dataInfo.TradeType = TenPayV3Type.MWEB;
 
-            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            //throw new Exception(data.HtmlEncode());
-            MemoryStream ms = new MemoryStream();
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            ////throw new Exception(data.HtmlEncode());
+            //MemoryStream ms = new MemoryStream();
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
-            return new UnifiedorderResult(resultXml);
+            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+            //return new UnifiedorderResult(resultXml);
         }
 
         //退款申请请可参考Senparc.Weixin.MP.Sample中的退款demo

@@ -23,7 +23,8 @@ namespace Senparc.Weixin.MP.NeuChar
         /// </summary>
         new public MessageReply Config { get; set; }
 
-        public MessageHandlerNode() {
+        public MessageHandlerNode()
+        {
             Config = new MessageReply();
         }
 
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var strongSesponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                         responseMessage = strongSesponseMessage;
-                        strongSesponseMessage.Content = responseConfig.Content.Replace("{now}",DateTime.Now.ToString());
+                        strongSesponseMessage.Content = responseConfig.Content.Replace("{now}", DateTime.Now.ToString());
                     }
                     break;
 

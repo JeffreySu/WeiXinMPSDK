@@ -19,7 +19,8 @@ namespace Senparc.NeuChar
         /// <summary>
         /// 详细的配置信息
         /// </summary>
-        public List<BaseNeuralNode> Configs { get; set; }
+        public string Configs { get; set; }
+        //public List<BaseNeuralNode> Configs { get; set; }
     }
 
 }

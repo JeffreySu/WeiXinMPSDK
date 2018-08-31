@@ -74,9 +74,16 @@ namespace Senparc.NeuChar
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
                         SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
 
-                        foreach (var config in configRoot.Configs)
+                        var connfigs = SerializerHelper.GetObject<List<BaseNeuralNode>>(configRoot.Configs);
+                        SenparcTrace.SendCustomLog("NeuChar configs", connfigs.ToJson());
+
+                        foreach (var config in connfigs)
                         {
                             SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
+                            if (Senparc.NeuChar.Register.NeuralNodeRegisterCollection.ContainsKey(config.Name))
+                            {
+                                //var configNode = 
+                            }
 
                         }
 

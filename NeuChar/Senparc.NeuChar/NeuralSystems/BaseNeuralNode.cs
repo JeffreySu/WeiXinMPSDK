@@ -28,10 +28,10 @@ namespace Senparc.NeuChar
         /// </summary>
         public virtual IList<INeuralNode> ChildrenNodes { get; }
 
-        ///// <summary>
-        ///// 设置信息
-        ///// </summary>
-        //public abstract object Config { get; set; }
+        /// <summary>
+        /// 设置信息
+        /// </summary>
+        public BaseNeuralNode Config { get; set; }
 
 
         //public object ApiData { get; set; }

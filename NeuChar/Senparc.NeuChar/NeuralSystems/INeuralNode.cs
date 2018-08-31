@@ -22,10 +22,10 @@ namespace Senparc.NeuChar
         /// </summary>
         IList<INeuralNode> ChildrenNodes { get; }
 
-        ///// <summary>
-        ///// 默认设置数据
-        ///// </summary>
-        //INeuralNodeConfig Config { get; set; }
+        /// <summary>
+        /// 默认设置数据
+        /// </summary>
+        BaseNeuralNode Config { get; set; }
 
         ///// <summary>
         ///// 设置父节点

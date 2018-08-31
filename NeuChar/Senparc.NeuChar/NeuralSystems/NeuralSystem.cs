@@ -23,13 +23,13 @@ namespace Senparc.NeuChar
         {
             get
             {
-                return Nested.instance;//返回Nested类中的静态成员instance
+                return NeuralSystemNested.instance;//返回Nested类中的静态成员instance
             }
         }
 
-        class Nested
+        class NeuralSystemNested
         {
-            static Nested()
+            static NeuralSystemNested()
             {
             }
             //将instance设为一个初始化的BaseCacheStrategy新实例
@@ -71,6 +71,9 @@ namespace Senparc.NeuChar
                     {
                         var configRootJson = sr.ReadToEnd();
                         //TODO:可以进行格式和版本校验
+
+                        SenparcTrace.SendCustomLog("NeuChar Saved ConfigRoot", configRootJson);
+                        
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
                         SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
 
@@ -82,7 +85,9 @@ namespace Senparc.NeuChar
                             SenparcTrace.SendCustomLog("NeuChar config", config.ToJson());
                             if (Senparc.NeuChar.Register.NeuralNodeRegisterCollection.ContainsKey(config.Name))
                             {
-                                //var configNode = 
+                                var configNodeType = Senparc.NeuChar.Register.NeuralNodeRegisterCollection[config.Name];
+                                SenparcTrace.SendCustomLog("NeuChar config type",configNodeType.FullName);
+
                             }
 
                         }

@@ -69,7 +69,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=0.2.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.2.9-preview2\lib\net45\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.0.2.9-preview3\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.1.0.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>

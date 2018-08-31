@@ -45,7 +45,7 @@
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=0.2.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.9-preview2\lib\net45\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.9-preview3\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=5.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.5.1.7\lib\net45\Senparc.Weixin.dll</HintPath>

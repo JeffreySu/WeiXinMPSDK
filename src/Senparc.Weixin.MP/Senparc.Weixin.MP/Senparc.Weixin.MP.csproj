@@ -357,6 +357,7 @@
     <Compile Include="MessageHandlers\MessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\MessageHandler.NeuChar.cs" />
     <Compile Include="NeuChar\MessageHandlerNode.cs" />
+    <Compile Include="NeuChar\MessageReply.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />

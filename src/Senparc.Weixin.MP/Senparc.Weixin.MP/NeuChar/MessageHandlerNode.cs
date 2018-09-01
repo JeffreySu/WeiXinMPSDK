@@ -29,48 +29,13 @@ namespace Senparc.Weixin.MP.NeuChar
         }
 
         /// <summary>
-        /// 生成响应信息
-        /// </summary>
-        /// <param name="requestMessage">请求消息</param>
-        /// <param name="responseConfig">返回消息</param>
-        /// <returns></returns>
-        private IResponseMessageBase RenderResponseMessage(IRequestMessageBase requestMessage, Response responseConfig)
-        {
-            IResponseMessageBase responseMessage = null;
-            switch (responseConfig.Type)
-            {
-                case ResponseMsgType.Text:
-                    {
-                        var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
-                        responseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = responseConfig.Content.Replace("{now}", DateTime.Now.ToString());
-                    }
-                    break;
-
-                case ResponseMsgType.Image:
-                    {
-                        var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageImage>();
-                        responseMessage = strongResponseMessage;
-                        strongResponseMessage.Image.MediaId = "";
-                    }
-                    break;
-                //case ResponseMsgType.NoResponse:
-                //    break;
-                //case ResponseMsgType.SuccessResponse:
-                //    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("NeuChar未支持的的MsgType响应类型", null);
-            }
-            return responseMessage;
-
-        }
-        /// <summary>
         /// 获取响应消息
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <param name="defaultProcess">默认流程</param>
         /// <returns></returns>
-        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage, Func<Task<IResponseMessageBase>> defaultProcess)
+        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage,
+            Func<Task<IResponseMessageBase>> defaultProcess)
         {
             IResponseMessageBase responseMessage = null;
 
@@ -87,7 +52,7 @@ namespace Senparc.Weixin.MP.NeuChar
                             {
                                 if (keyword.Equals(textRequestMessage.Content, StringComparison.OrdinalIgnoreCase))//TODO:加入大小写敏感设计
                                 {
-                                    responseMessage = RenderResponseMessage(requestMessage, messagePair.Response);
+                                    responseMessage = RenderResponseMessageText(requestMessage, messagePair.Response);
                                     break;
                                 }
                             }
@@ -104,7 +69,7 @@ namespace Senparc.Weixin.MP.NeuChar
                         //遍历所有的消息设置
                         foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Image))
                         {
-                            responseMessage = RenderResponseMessage(requestMessage, messagePair.Response);
+                            responseMessage = RenderResponseMessageImage(requestMessage, messagePair.Response, imageRequestMessage.MediaId);
 
                             if (responseMessage != null)
                             {
@@ -124,55 +89,23 @@ namespace Senparc.Weixin.MP.NeuChar
             return responseMessage;
         }
 
-    }
+        #region 返回信息
 
-    public class MessageReply : NeuralNodeConfig
-    {
-        public List<MessagePair> MessagePair { get; set; }
-        public MessageReply()
+        private ResponseMessageText RenderResponseMessageText(IRequestMessageBase requestMessage, Response responseConfig)
         {
-            MessagePair = new List<MessagePair>();
+            var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+            strongResponseMessage.Content = responseConfig.Content.Replace("{now}", DateTime.Now.ToString());
+            return strongResponseMessage;
         }
-    }
 
-    public class MessagePair
-    {
-        public Request Request { get; set; }
-        public Response Response { get; set; }
-
-        public MessagePair()
+        private ResponseMessageImage RenderResponseMessageImage(IRequestMessageBase requestMessage, Response responseConfig, string mediaId)
         {
-            Request = new Request();
-            Response = new Response();
+            var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageImage>();
+            strongResponseMessage.Image.MediaId = mediaId;
+            return strongResponseMessage;
         }
+
+        #endregion
     }
 
-    public class Request
-    {
-        /// <summary>
-        /// 说明：目前只支持Text和Image
-        /// </summary>
-        public RequestMsgType Type { get; set; }
-        /// <summary>
-        /// 文本、事件的关键字
-        /// </summary>
-        public List<string> Keywords { get; set; }
-
-        public Request()
-        {
-            Type = RequestMsgType.Unknown;
-            Keywords = new List<string>();
-        }
-    }
-
-    public class Response
-    {
-        public ResponseMsgType Type { get; set; }
-        public string Content { get; set; }
-
-        public Response()
-        {
-            Type = ResponseMsgType.Text;
-        }
-    }
 }

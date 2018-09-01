@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Context
     /// 微信消息上下文（全局）
     /// 默认过期时间：90分钟
     /// </summary>
-    public class WeixinContext<TM, TRequest, TResponse> /*: IWeixinContext<TM, TRequest, TResponse>*/
+    public class GlobalMessageContext<TM, TRequest, TResponse> /*: IWeixinContext<TM, TRequest, TResponse>*/
         where TM : class, IMessageContext<TRequest, TResponse>, new() //TODO:TRequest, TResponse直接写明基类类型
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.Context
         public int MaxRecordCount { get; set; }
 
 
-        public WeixinContext()
+        public GlobalMessageContext()
         {
             Restore();
         }

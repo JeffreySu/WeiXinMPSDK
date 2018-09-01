@@ -475,7 +475,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 
                 //不同类型请求的委托
-                Func<Task<IResponseMessageBase>> executeFunc = () => Task.Run(() =>
+                Func<Task<IResponseMessageBase>> executeFunc = () => Task.Factory.StartNew(() =>
                 {
                     IResponseMessageBase responseMessage = null;
                     switch (RequestMessage.MsgType)

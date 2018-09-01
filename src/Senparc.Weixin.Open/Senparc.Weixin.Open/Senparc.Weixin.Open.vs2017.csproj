@@ -249,6 +249,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.0.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 

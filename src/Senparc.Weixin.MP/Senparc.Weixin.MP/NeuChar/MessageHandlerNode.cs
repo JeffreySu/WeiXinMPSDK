@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Senparc.Weixin.MP.NeuChar
 {
     /// <summary>
@@ -37,6 +38,7 @@ namespace Senparc.Weixin.MP.NeuChar
         public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage,
             Func<Task<IResponseMessageBase>> defaultProcess)
         {
+            
             IResponseMessageBase responseMessage = null;
 
             switch (requestMessage.MsgType)
@@ -85,7 +87,6 @@ namespace Senparc.Weixin.MP.NeuChar
                     break;
 
             }
-
             return responseMessage;
         }
 

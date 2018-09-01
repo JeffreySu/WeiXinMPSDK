@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, 10);
 
-            messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            messageHandler.DefaultMessageHandlerAsyncEvent = Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
             #region 设置消息去重
 

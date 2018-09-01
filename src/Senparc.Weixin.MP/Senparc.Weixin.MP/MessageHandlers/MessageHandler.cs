@@ -47,22 +47,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Tencent;
-using System.Linq;
-using Senparc.NeuChar;
 using Senparc.Weixin.MP.NeuChar;
-using System.Collections.Generic;
+using Senparc.Weixin.MP.Tencent;
+using System;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -77,14 +75,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
         //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get
             {
@@ -236,7 +234,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, maxRecordCount, postModel)
         {
             DeveloperInfo = developerInfo;
-            //WeixinContext.MaxRecordCount = maxRecordCount;
+            //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
 
@@ -305,11 +303,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
             //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (MessageContextGlobalConfig.UseMessageContext)
             {
                 var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
 
-                lock (WeixinContextGlobal.OmitRepeatLock)//TODO:使用分布式锁
+                lock (MessageContextGlobalConfig.OmitRepeatLock)//TODO:使用分布式锁
                 {
                     #region 消息去重
 
@@ -368,7 +366,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     //在消息没有被去重的情况下记录上下文
                     if (!MessageIsRepeated)
                     {
-                        WeixinContext.InsertMessage(RequestMessage);
+                        GlobalMessageContext.InsertMessage(RequestMessage);
                     }
                 }
             }
@@ -477,7 +475,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 
                 //不同类型请求的委托
-                Func<Task<IResponseMessageBase>> executeFunc = () => Task.Run(() =>
+                Func<IResponseMessageBase> executeFunc = () =>
                 {
                     IResponseMessageBase responseMessage = null;
                     switch (RequestMessage.MsgType)
@@ -530,28 +528,29 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     }
 
                     return responseMessage;
-                });
+                };
 
                 if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
                 {
                     Weixin.WeixinTrace.SendCustomLog("NeuChar", "进入判断流程 ((MessageHandlerNode)messageHandlerNode).GetResponseMessage");
-                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessageAsync(RequestMessage, executeFunc).Result;
+
+                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
                 }
 
                 //如果没有得到结果，则继续运行编译好的代码
                 if (ResponseMessage == null)
                 {
                     Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    ResponseMessage = executeFunc().Result;//直接执行
+                    ResponseMessage = executeFunc();//直接执行
                 }
 
                 #endregion
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

@@ -33,9 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
                 //不同类型请求的委托
-                Func<Task<IResponseMessageBase>> executeFunc = async () =>
+                Func<IResponseMessageBase> executeFunc =  () =>  Task.Run(async ()=>
                 {
                     IResponseMessageBase responseMessage = null;
                     switch (RequestMessage.MsgType)
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     }
 
                     return responseMessage;
-                };
+                }).Result;
 
                 if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
                 {
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 if (ResponseMessage == null)
                 {
                     //Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    ResponseMessage = await executeFunc();//直接执行
+                    ResponseMessage = executeFunc();//直接执行
                 }
 
                 #endregion
@@ -184,9 +184,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

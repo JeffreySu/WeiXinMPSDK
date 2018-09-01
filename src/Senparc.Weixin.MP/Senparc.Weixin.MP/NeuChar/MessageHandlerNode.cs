@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Senparc.Weixin.MP.NeuChar
 {
     /// <summary>
@@ -32,10 +33,9 @@ namespace Senparc.Weixin.MP.NeuChar
         /// 获取响应消息
         /// </summary>
         /// <param name="requestMessage"></param>
-        /// <param name="defaultProcess">默认流程</param>
+        /// <param name="defaultProcess"></param>
         /// <returns></returns>
-        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage,
-            Func<Task<IResponseMessageBase>> defaultProcess)
+        public IResponseMessageBase GetResponseMessage(IRequestMessageBase requestMessage, Func<IResponseMessageBase> defaultProcess)
         {
             IResponseMessageBase responseMessage = null;
 
@@ -85,10 +85,22 @@ namespace Senparc.Weixin.MP.NeuChar
                     break;
 
             }
-
             return responseMessage;
         }
 
+#if !NET35 && !NET40
+        /// <summary>
+        /// 获取响应消息
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="defaultProcess">默认流程</param>
+        /// <returns></returns>
+        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage,
+            Func<IResponseMessageBase> defaultProcess)
+        {
+            return await Task.Run(() => GetResponseMessage(requestMessage, defaultProcess));
+        }
+#endif
         #region 返回信息
 
         private ResponseMessageText RenderResponseMessageText(IRequestMessageBase requestMessage, Response responseConfig)

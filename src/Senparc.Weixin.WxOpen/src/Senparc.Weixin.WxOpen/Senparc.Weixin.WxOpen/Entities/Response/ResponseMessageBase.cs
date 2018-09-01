@@ -35,7 +35,7 @@ using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
-    public interface IResponseMessageBase : Weixin.Entities.IResponseMessageBase
+    public interface IResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase
     {
         ResponseMsgType MsgType { get; }
         //string Content { get; set; }
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 微信公众号响应回复消息
     /// </summary>
-    public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageBase : Senparc.NeuChar.Entities.ResponseMessageBase, IResponseMessageBase
     {
         public virtual ResponseMsgType MsgType
         {

@@ -18,9 +18,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
@@ -31,9 +28,13 @@ using System.Linq;
     创建标识：Senparc - 20150505
     
 ----------------------------------------------------------------*/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {

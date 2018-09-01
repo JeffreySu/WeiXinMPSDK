@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;

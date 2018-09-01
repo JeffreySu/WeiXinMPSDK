@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
@@ -40,6 +42,8 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return RequestMsgType.NeuChar; }
         }
+
+        public NeuCharMessageType NeuCharMessageType { get; set; }
 
         /// <summary>
         /// 设置信息（通常为JSON）

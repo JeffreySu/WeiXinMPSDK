@@ -16,4 +16,19 @@ namespace Senparc.NeuChar
         AccessToken,
         Normal
     }
+
+    /// <summary>
+    /// NeuChar 消息的乐行
+    /// </summary>
+    public enum NeuCharMessageType
+    {
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        GetConfig,
+        /// <summary>
+        /// 储存配置
+        /// </summary>
+        SaveConfig,
+    }
 }

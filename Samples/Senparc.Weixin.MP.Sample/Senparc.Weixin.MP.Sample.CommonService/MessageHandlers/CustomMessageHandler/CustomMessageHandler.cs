@@ -30,7 +30,7 @@ using Senparc.Weixin.MP.Helpers;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities.Request;
+using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
 
 #if NET45

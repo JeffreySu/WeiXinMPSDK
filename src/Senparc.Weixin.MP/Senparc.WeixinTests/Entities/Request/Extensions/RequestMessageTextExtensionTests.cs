@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Entities.Request;
+using Senparc.NeuChar.Entities.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.Entities.Request.Tests
+namespace Senparc.NeuChar.Entities.Request.Tests
 {
     [TestClass()]
     public class RequestMessageTextExtensionTests

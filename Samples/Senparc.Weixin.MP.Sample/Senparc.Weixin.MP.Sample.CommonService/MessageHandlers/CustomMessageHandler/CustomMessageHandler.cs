@@ -86,8 +86,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             : base(inputStream, postModel, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
-            //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
-            WeixinContext.ExpireMinutes = 3;
+            //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
+            GlobalMessageContext.ExpireMinutes = 3;
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {
@@ -387,7 +387,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     }
 
                     result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
-                        WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
+                        GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
                     result.AppendLine("\r\n");
                     result.AppendLine(
                         "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
@@ -438,7 +438,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //一隔一返回News或Image格式
-            if (base.WeixinContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
+            if (base.GlobalMessageContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {
                 var responseMessage = CreateResponseMessage<ResponseMessageNews>();
 

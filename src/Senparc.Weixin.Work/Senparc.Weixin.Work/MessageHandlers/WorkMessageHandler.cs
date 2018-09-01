@@ -201,7 +201,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             //记录上下文
             if (RequestMessage.MsgType != RequestMsgType.DEFAULT && MessageContextGlobalConfig.UseMessageContext)
             {
-                WeixinContext.InsertMessage(RequestMessage);
+                GlobalMessageContext.InsertMessage(RequestMessage);
             }
 
             return requestDocument;
@@ -297,7 +297,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 //记录上下文
                 if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null)
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

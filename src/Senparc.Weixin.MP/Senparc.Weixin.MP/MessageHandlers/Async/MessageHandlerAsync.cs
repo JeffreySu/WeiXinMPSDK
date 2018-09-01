@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
                 //不同类型请求的委托
-                Func<Task<IResponseMessageBase>> executeFunc = async () =>
+                Func<IResponseMessageBase> executeFunc =  () =>  Task.Run(async ()=>
                 {
                     IResponseMessageBase responseMessage = null;
                     switch (RequestMessage.MsgType)
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     }
 
                     return responseMessage;
-                };
+                }).Result;
 
                 if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
                 {
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 if (ResponseMessage == null)
                 {
                     //Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    ResponseMessage = await executeFunc();//直接执行
+                    ResponseMessage = executeFunc();//直接执行
                 }
 
                 #endregion
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //此处修改
                 if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

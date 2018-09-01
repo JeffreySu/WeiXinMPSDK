@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, maxRecordCount, postModel)
         {
             DeveloperInfo = developerInfo;
-            //WeixinContext.MaxRecordCount = maxRecordCount;
+            //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
 
@@ -366,7 +366,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     //在消息没有被去重的情况下记录上下文
                     if (!MessageIsRepeated)
                     {
-                        WeixinContext.InsertMessage(RequestMessage);
+                        GlobalMessageContext.InsertMessage(RequestMessage);
                     }
                 }
             }
@@ -550,7 +550,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //此处修改
                 if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

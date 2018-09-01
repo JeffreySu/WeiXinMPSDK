@@ -213,7 +213,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             //记录上下文
             if (MessageContextGlobalConfig.UseMessageContext)
             {
-                WeixinContext.InsertMessage(RequestMessage);
+                GlobalMessageContext.InsertMessage(RequestMessage);
             }
 
             return decryptDoc;
@@ -269,7 +269,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 //此处修改
                 if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

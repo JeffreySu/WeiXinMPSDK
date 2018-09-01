@@ -200,6 +200,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 File.Delete(file);
                 File.Move(fileBak, file);
 
+                //刷新数据
+                var neuralSystem = NeuralSystem.Instance;
+                neuralSystem.ReloadNode();
+
                 var successMsg = new
                 {
                     success = true,

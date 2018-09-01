@@ -57,7 +57,10 @@ namespace Senparc.NeuChar
             INeuralNode root = new RootNeuralNode();
 
             Root = root;
+        }
 
+        public void ReloadNode()
+        {
 
             var path = ServerUtility.ContentRootMapPath("~/App_Data/NeuChar");
             var file = Path.Combine(path, "NeuCharRoot.config");
@@ -73,7 +76,7 @@ namespace Senparc.NeuChar
                         //TODO:可以进行格式和版本校验
 
                         //SenparcTrace.SendCustomLog("NeuChar Saved ConfigRoot", configRootJson);
-                        
+
                         var configRoot = SerializerHelper.GetObject<ConfigRoot>(configRootJson);
                         //SenparcTrace.SendCustomLog("NeuChar NeuralSystem", configRoot.ToJson());
 

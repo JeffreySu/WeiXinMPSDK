@@ -52,12 +52,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
         {
             get { return GlobalWeixinContext; }
         }

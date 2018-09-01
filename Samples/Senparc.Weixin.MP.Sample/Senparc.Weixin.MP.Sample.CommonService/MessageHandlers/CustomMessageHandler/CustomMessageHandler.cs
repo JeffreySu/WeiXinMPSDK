@@ -20,7 +20,7 @@ using System.Text;
 using System.Threading;
 
 using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;

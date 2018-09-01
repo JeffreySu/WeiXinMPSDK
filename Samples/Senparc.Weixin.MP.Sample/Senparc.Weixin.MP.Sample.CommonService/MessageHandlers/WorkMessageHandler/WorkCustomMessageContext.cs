@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using System.Runtime.Remoting.Messaging;
 using System.Text;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler

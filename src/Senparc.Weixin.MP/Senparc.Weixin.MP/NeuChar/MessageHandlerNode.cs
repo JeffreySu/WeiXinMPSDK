@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var textRequestMessage = requestMessage as RequestMessageText;
                         //遍历所有的消息设置
-                        foreach (var messagePair in Config.MessagePair)
+                        foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Text))//TODO：把foreach放到外面
                         {
                             //遍历每一个消息设置中的关键词
                             foreach (var keyword in messagePair.Request.Keywords)
@@ -102,12 +102,9 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var imageRequestMessage = requestMessage as RequestMessageImage;
                         //遍历所有的消息设置
-                        foreach (var messagePair in Config.MessagePair)
+                        foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Image))
                         {
-                            if (messagePair.Request.Type == RequestMsgType.Image)
-                            {
-                                responseMessage = RenderResponseMessage(requestMessage, messagePair.Response);
-                            }
+                            responseMessage = RenderResponseMessage(requestMessage, messagePair.Response);
 
                             if (responseMessage != null)
                             {

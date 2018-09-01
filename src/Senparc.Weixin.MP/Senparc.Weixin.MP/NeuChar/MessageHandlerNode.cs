@@ -31,7 +31,8 @@ namespace Senparc.Weixin.MP.NeuChar
         /// <summary>
         /// 生成响应信息
         /// </summary>
-        /// <param name="responseConfig"></param>
+        /// <param name="requestMessage">请求消息</param>
+        /// <param name="responseConfig">返回消息</param>
         /// <returns></returns>
         private IResponseMessageBase RenderResponseMessage(IRequestMessageBase requestMessage, Response responseConfig)
         {
@@ -40,13 +41,18 @@ namespace Senparc.Weixin.MP.NeuChar
             {
                 case ResponseMsgType.Text:
                     {
-                        var strongSesponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
-                        responseMessage = strongSesponseMessage;
-                        strongSesponseMessage.Content = responseConfig.Content.Replace("{now}", DateTime.Now.ToString());
+                        var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                        responseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = responseConfig.Content.Replace("{now}", DateTime.Now.ToString());
                     }
                     break;
 
                 case ResponseMsgType.Image:
+                    {
+                        var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageImage>();
+                        responseMessage = strongResponseMessage;
+                        strongResponseMessage.Image.MediaId = "";
+                    }
                     break;
                 //case ResponseMsgType.NoResponse:
                 //    break;
@@ -94,7 +100,20 @@ namespace Senparc.Weixin.MP.NeuChar
                     break;
                 case RequestMsgType.Image:
                     {
+                        var imageRequestMessage = requestMessage as RequestMessageImage;
+                        //遍历所有的消息设置
+                        foreach (var messagePair in Config.MessagePair)
+                        {
+                            if (messagePair.Request.Type == RequestMsgType.Image)
+                            {
+                                responseMessage = RenderResponseMessage(requestMessage, messagePair.Response);
+                            }
 
+                            if (responseMessage != null)
+                            {
+                                break;
+                            }
+                        }
                     }
                     break;
                 default:
@@ -137,7 +156,11 @@ namespace Senparc.Weixin.MP.NeuChar
         /// 说明：目前只支持Text和Image
         /// </summary>
         public RequestMsgType Type { get; set; }
+        /// <summary>
+        /// 文本、事件的关键字
+        /// </summary>
         public List<string> Keywords { get; set; }
+
         public Request()
         {
             Type = RequestMsgType.Unknown;

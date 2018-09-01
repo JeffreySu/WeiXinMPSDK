@@ -443,7 +443,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 var neuralSystem = NeuralSystem.Instance;
 
-                ////模拟添加
+                #region 添加模拟数据
+
                 //var fakeMessageHandlerNode = new MessageHandlerNode()
                 //{
                 //    Name = "MessageHandlerNode",
@@ -470,6 +471,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //});
 
                 //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+
+                #endregion
 
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
 

@@ -54,13 +54,24 @@ namespace Senparc.NeuChar
 
             //TODO:解密
 
-            INeuralNode root = new RootNeuralNode();
+            ReloadNode();
+        }
 
+       /// <summary>
+       /// 初始化 Root 参数
+       /// </summary>
+        private void InitRoot() {
+
+            INeuralNode root = new RootNeuralNode();
             Root = root;
         }
 
+        /// <summary>
+        /// 加载节点信息
+        /// </summary>
         public void ReloadNode()
         {
+            InitRoot();//独立放在外面强制执行
 
             var path = ServerUtility.ContentRootMapPath("~/App_Data/NeuChar");
             var file = Path.Combine(path, "NeuCharRoot.config");

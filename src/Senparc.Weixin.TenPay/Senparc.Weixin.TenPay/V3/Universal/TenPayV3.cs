@@ -257,18 +257,18 @@ namespace Senparc.Weixin.TenPay.V3
         {
             dataInfo.TradeType = TenPayV3Type.MWEB;
             return Unifiedorder(dataInfo, timeOut);
-            //var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
-            //dataInfo.TradeType = TenPayV3Type.MWEB;
+            /*var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
+            dataInfo.TradeType = TenPayV3Type.MWEB;
 
-            //var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            ////throw new Exception(data.HtmlEncode());
-            //MemoryStream ms = new MemoryStream();
-            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            //ms.Write(formDataBytes, 0, formDataBytes.Length);
-            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            //throw new Exception(data.HtmlEncode());
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            //var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
-            //return new UnifiedorderResult(resultXml);
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new UnifiedorderResult(resultXml);*/
         }
 
         /// <summary>

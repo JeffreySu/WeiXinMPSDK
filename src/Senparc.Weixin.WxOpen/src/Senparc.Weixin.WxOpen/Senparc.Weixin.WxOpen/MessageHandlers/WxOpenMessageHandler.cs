@@ -211,7 +211,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
 
             //记录上下文
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (MessageContextGlobalConfig.UseMessageContext)
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
@@ -267,7 +267,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }

@@ -12,6 +12,8 @@
 ----------------------------------------------------------------*/
 
 
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>

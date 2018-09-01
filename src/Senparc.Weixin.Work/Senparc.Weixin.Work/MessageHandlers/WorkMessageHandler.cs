@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get { return GlobalWeixinContext; }
         }
@@ -199,7 +199,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
 
             //记录上下文
-            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && WeixinContextGlobal.UseWeixinContext)
+            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && MessageContextGlobalConfig.UseMessageContext)
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 }
 
                 //记录上下文
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null)
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }

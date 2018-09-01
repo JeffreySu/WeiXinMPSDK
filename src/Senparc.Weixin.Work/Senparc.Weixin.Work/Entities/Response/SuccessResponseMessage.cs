@@ -6,10 +6,13 @@
     
     
     创建标识：Senparc - 20170106
+
+    修改标识：Senparc - 20180901
+    修改描述：支持 NeuChar
 ----------------------------------------------------------------*/
 
 
-using Senparc.Weixin.Entities;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {

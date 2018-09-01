@@ -49,9 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.WxOpen.Tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.Tests.vs2017", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.Tests\Senparc.Weixin.Cache.Redis.Tests.vs2017.csproj", "{6CF93018-06A8-46D3-B1A2-CC95CD9EE9F1}"
 EndProject
-
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.vs2017", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.vs2017.csproj", "{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}"
-
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

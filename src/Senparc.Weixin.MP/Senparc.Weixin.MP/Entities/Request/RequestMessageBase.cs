@@ -29,11 +29,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180901
+    修改描述：改为从 NeuChar 继承
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
+    public interface IRequestMessageBase : Senparc.NeuChar.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
         string Encrypt { get; set; }
@@ -43,7 +47,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 接收到请求的消息基类
     /// </summary>
-    public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
+    public class RequestMessageBase : Senparc.NeuChar.Entities.RequestMessageBase, IRequestMessageBase
     {
         public virtual RequestMsgType MsgType
         {

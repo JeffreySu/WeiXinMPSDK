@@ -291,8 +291,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             var sessionBag = SessionContainer.GetSession(sessionId);
             try
             {
-                var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData,
-               iv);
+                var phoneNumber = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptPhoneNumber(sessionId, encryptedData, iv);
 
                 //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
 

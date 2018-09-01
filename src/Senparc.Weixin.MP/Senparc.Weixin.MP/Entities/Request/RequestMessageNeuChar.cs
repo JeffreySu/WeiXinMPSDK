@@ -21,33 +21,33 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：MessageQueue.cs
-    文件功能描述：微信消息队列（针对单个账号的往来消息）
+    文件名：RequestMessageNeuChar.cs
+    文件功能描述：接收 NeuChar 消息
     
     
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20180829
     
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
 
-
-using System.Collections.Generic;
-using Senparc.Weixin.Entities;
-
-namespace Senparc.Weixin.Context
+namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 微信消息队列（所有微信账号的往来消息）
+    /// NeuChar 请求消息
     /// </summary>
-    /// <typeparam name="TM">IMessageContext&lt;TRequest, TResponse&gt;</typeparam>
-    /// <typeparam name="TRequest">IRequestMessageBase</typeparam>
-    /// <typeparam name="TResponse">IResponseMessageBase</typeparam>
-    public class MessageQueue<TM,TRequest, TResponse> : List<TM> 
-        where TM : class, IMessageContext<TRequest, TResponse>, new()
-        where TRequest : IRequestMessageBase
-        where TResponse : IResponseMessageBase
+    public class RequestMessageNeuChar : RequestMessageBase, IRequestMessageBase
     {
+        public override RequestMsgType MsgType
+        {
+            get { return RequestMsgType.NeuChar; }
+        }
+
+        public NeuCharMessageType NeuCharMessageType { get; set; }
+
+        /// <summary>
+        /// 设置信息（通常为JSON）
+        /// </summary>
+        public string ConfigRoot { get; set; }
     }
 }

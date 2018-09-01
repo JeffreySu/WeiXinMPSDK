@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -355,7 +355,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageHandlers1 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             var messageHandlers2 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers1.Execute();
-            Assert.AreEqual(messageHandlers1.WeixinContext.GetHashCode(), messageHandlers2.WeixinContext.GetHashCode());
+            Assert.AreEqual(messageHandlers1.GlobalMessageContext.GetHashCode(), messageHandlers2.GlobalMessageContext.GetHashCode());
         }
 
         [TestMethod]
@@ -363,14 +363,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            var messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.IsTrue(messageContext.RequestMessages.Count > 0);
             Assert.IsNotNull(messageHandlers.CurrentMessageContext);
             Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", messageHandlers.CurrentMessageContext.UserName);
 
-            messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
+            messageHandlers.GlobalMessageContext.ExpireMinutes = 0;//马上过期
             messageHandlers.Execute();
-            messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.AreEqual(0, messageContext.RequestMessages.Count);
         }
 
@@ -412,9 +412,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            Assert.IsTrue(messageHandlers.WeixinContext.MessageCollection.Count > 0);
-            messageHandlers.WeixinContext.Restore();
-            Assert.AreEqual(0, messageHandlers.WeixinContext.MessageCollection.Count);
+            Assert.IsTrue(messageHandlers.GlobalMessageContext.MessageCollection.Count > 0);
+            messageHandlers.GlobalMessageContext.Restore();
+            Assert.AreEqual(0, messageHandlers.GlobalMessageContext.MessageCollection.Count);
         }
 
         [TestMethod]

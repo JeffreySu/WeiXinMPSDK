@@ -33,7 +33,7 @@ using System.Linq;
 ----------------------------------------------------------------*/
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {

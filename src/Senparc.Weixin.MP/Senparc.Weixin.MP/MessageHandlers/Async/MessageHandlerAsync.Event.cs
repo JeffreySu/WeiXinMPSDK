@@ -33,7 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using System.Threading.Tasks;
 using System;
 

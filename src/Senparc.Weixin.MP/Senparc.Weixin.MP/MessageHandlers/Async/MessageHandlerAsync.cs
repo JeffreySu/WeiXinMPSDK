@@ -33,9 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -184,7 +184,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }

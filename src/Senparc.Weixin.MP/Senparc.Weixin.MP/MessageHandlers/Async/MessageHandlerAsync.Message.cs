@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnTextOrEventRequestAsync(RequestMessageText requestMessage)
         {
-            var result = base.DefaultMessageHandlerAsyncEvent == Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
+            var result = base.DefaultMessageHandlerAsyncEvent == Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
                    ? null
                    : await Task.Run(()=> OnTextOrEventRequest(requestMessage));
             return result;

@@ -47,22 +47,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Tencent;
-using System.Linq;
-using Senparc.NeuChar;
 using Senparc.Weixin.MP.NeuChar;
-using System.Collections.Generic;
+using Senparc.Weixin.MP.Tencent;
+using System;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -84,7 +82,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get
             {
@@ -305,11 +303,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
             //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (MessageContextGlobalConfig.UseMessageContext)
             {
                 var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
 
-                lock (WeixinContextGlobal.OmitRepeatLock)//TODO:使用分布式锁
+                lock (MessageContextGlobalConfig.OmitRepeatLock)//TODO:使用分布式锁
                 {
                     #region 消息去重
 
@@ -549,7 +547,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }

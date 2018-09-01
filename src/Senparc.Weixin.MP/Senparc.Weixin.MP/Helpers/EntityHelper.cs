@@ -210,7 +210,23 @@ namespace Senparc.Weixin.MP.Helpers
                         #endregion
 
                         default:
-                            prop.SetValue(entity, root.Element(propName).Value, null);
+                            var enumSuccess = false;
+                            if (prop.PropertyType.IsEnum)
+                            {
+                                //未知的枚举类型
+                                try
+                                {
+                                    prop.SetValue(entity, Enum.Parse(prop.PropertyType, root.Element(propName).Value, true), null);
+                                    enumSuccess = true;
+                                }
+                                catch {
+                                }
+                            }
+
+                            if (!enumSuccess)
+                            {
+                                prop.SetValue(entity, root.Element(propName).Value, null);
+                            }
                             break;
                     }
                 }

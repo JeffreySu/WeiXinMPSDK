@@ -97,7 +97,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     default:
                         break;
                 }
-
           
 
                 var successMsg = new

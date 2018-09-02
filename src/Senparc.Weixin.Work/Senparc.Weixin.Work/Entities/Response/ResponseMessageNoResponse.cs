@@ -6,21 +6,23 @@
     
     
     创建标识：Senparc - 20150505
-    
+
+    修改标识：Senparc - 20180901
+    修改描述：支持 NeuChar   
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
     /// </summary>
-    public class ResponseMessageNoResponse : ResponseMessageBase,IResponseMessageNoResponse
+    public class ResponseMessageNoResponse : ResponseMessageBase, IResponseMessageNoResponse
     {
     }
 }

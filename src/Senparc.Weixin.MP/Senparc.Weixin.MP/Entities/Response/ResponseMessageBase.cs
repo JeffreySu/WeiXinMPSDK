@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150505
     修改描述：添加ResponseMessageNoResponse类型处理
+
+    修改标识：Senparc - 20180901
+    修改描述：改为从 NeuChar 继承
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,7 +46,7 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IResponseMessageBase : Weixin.Entities.IResponseMessageBase
+    public interface IResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase
     {
         ResponseMsgType MsgType { get; }
         //string Content { get; set; }
@@ -52,7 +56,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 微信公众号响应回复消息基类
     /// </summary>
-    public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageBase : Senparc.NeuChar.Entities.ResponseMessageBase, IResponseMessageBase
     {
         public virtual ResponseMsgType MsgType
         {

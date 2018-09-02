@@ -27,9 +27,9 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.Tencent;
@@ -52,12 +52,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get { return GlobalWeixinContext; }
         }
@@ -199,9 +199,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
 
             //记录上下文
-            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && WeixinContextGlobal.UseWeixinContext)
+            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && MessageContextGlobalConfig.UseMessageContext)
             {
-                WeixinContext.InsertMessage(RequestMessage);
+                GlobalMessageContext.InsertMessage(RequestMessage);
             }
 
             return requestDocument;
@@ -295,9 +295,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 }
 
                 //记录上下文
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null)
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)

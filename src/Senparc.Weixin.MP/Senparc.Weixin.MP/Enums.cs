@@ -84,6 +84,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180826
     修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
 
+    修改标识：Senparc - 20180826
+    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
+
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 RequestMsgType 枚举添加 NeuChar 类型
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -96,16 +102,18 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public enum RequestMsgType
     {
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        ShortVideo,//小视频
-        Event, //事件推送
-        File,//文件类型
         Unknown = -1,//未知类型
+        Text = 0, //文本
+        Location = 1, //地理位置
+        Image = 2, //图片
+        Voice = 3, //语音
+        Video = 4, //视频
+        Link = 5, //连接信息
+        ShortVideo = 6,//小视频
+        Event = 7, //事件推送
+        File = 8,//文件类型
+
+        NeuChar = 99//NeuChar请求
     }
 
 
@@ -977,7 +985,7 @@ namespace Senparc.Weixin.MP
     /// <summary>
     /// 支付类型
     /// </summary>
-    
+
     [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public enum TenPayV3Type
     {

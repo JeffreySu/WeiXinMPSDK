@@ -32,6 +32,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170810
     修改描述：v14.5.9 提取EntityHelper.FillClassValue()方法，优化FillEntityWithXml()方法
+
+    修改标识：Senparc - 20180901
+    修改描述：优化FillEntityWithXml()方法
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -210,7 +215,23 @@ namespace Senparc.Weixin.MP.Helpers
                         #endregion
 
                         default:
-                            prop.SetValue(entity, root.Element(propName).Value, null);
+                            var enumSuccess = false;
+                            if (prop.PropertyType.IsEnum)
+                            {
+                                //未知的枚举类型
+                                try
+                                {
+                                    prop.SetValue(entity, Enum.Parse(prop.PropertyType, root.Element(propName).Value, true), null);
+                                    enumSuccess = true;
+                                }
+                                catch {
+                                }
+                            }
+
+                            if (!enumSuccess)
+                            {
+                                prop.SetValue(entity, root.Element(propName).Value, null);
+                            }
                             break;
                     }
                 }

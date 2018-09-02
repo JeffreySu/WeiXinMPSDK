@@ -47,18 +47,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.NeuChar;
 using Senparc.Weixin.MP.Tencent;
-using System.Linq;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -73,14 +75,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
         //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
+        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get
             {
@@ -232,7 +234,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, maxRecordCount, postModel)
         {
             DeveloperInfo = developerInfo;
-            //WeixinContext.MaxRecordCount = maxRecordCount;
+            //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
 
@@ -252,7 +254,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
             base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
         }
 
-
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
             //进行加密判断并处理
@@ -296,11 +303,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
             //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (MessageContextGlobalConfig.UseMessageContext)
             {
                 var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
 
-                lock (WeixinContextGlobal.OmitRepeatLock)//TODO:使用分布式锁
+                lock (MessageContextGlobalConfig.OmitRepeatLock)//TODO:使用分布式锁
                 {
                     #region 消息去重
 
@@ -359,7 +366,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     //在消息没有被去重的情况下记录上下文
                     if (!MessageIsRepeated)
                     {
-                        WeixinContext.InsertMessage(RequestMessage);
+                        GlobalMessageContext.InsertMessage(RequestMessage);
                     }
                 }
             }
@@ -428,55 +435,122 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return;
                 }
 
-                switch (RequestMessage.MsgType)
-                {
-                    case RequestMsgType.Text:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
-                        }
-                        break;
-                    case RequestMsgType.Location:
-                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                        break;
-                    case RequestMsgType.Image:
-                        ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                        break;
-                    case RequestMsgType.Voice:
-                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                        break;
-                    case RequestMsgType.Video:
-                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                        break;
-                    case RequestMsgType.Link:
-                        ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
-                        break;
-                    case RequestMsgType.ShortVideo:
-                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                        break;
-                    case RequestMsgType.File:
-                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                        break;
-                    case RequestMsgType.Unknown:
-                        ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
-                                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                        }
-                        break;
+                #region NeuChar 执行过程
 
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                //TODO:Neuchar：在这里先做一次NeuChar标准的判断
+
+                var neuralSystem = NeuralSystem.Instance;
+
+                #region 添加模拟数据
+
+                //var fakeMessageHandlerNode = new MessageHandlerNode()
+                //{
+                //    Name = "MessageHandlerNode",
+                //};
+
+                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                //{
+                //    Request = new Request
+                //    {
+                //        Type = RequestMsgType.Text,
+                //        Keywords = new List<string>() { "nc", "neuchar" }
+                //    },
+                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
+                //});
+
+                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+                //{
+                //    Request = new Request
+                //    {
+                //        Type = RequestMsgType.Text,
+                //        Keywords = new List<string>() { "senparc", "s" }
+                //    },
+                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
+                //});
+
+                //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+
+                #endregion
+
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
+
+                //不同类型请求的委托
+                Func<IResponseMessageBase> executeFunc = () =>
+                {
+                    IResponseMessageBase responseMessage = null;
+                    switch (RequestMessage.MsgType)
+                    {
+                        case RequestMsgType.Text:
+                            {
+                                var requestMessage = RequestMessage as RequestMessageText;
+                                responseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                            }
+                            break;
+                        case RequestMsgType.Location:
+                            responseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                            break;
+                        case RequestMsgType.Image:
+                            responseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                            break;
+                        case RequestMsgType.Voice:
+                            responseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                            break;
+                        case RequestMsgType.Video:
+                            responseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                            break;
+                        case RequestMsgType.Link:
+                            responseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
+                            break;
+                        case RequestMsgType.ShortVideo:
+                            responseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                            break;
+                        case RequestMsgType.File:
+                            responseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                            break;
+                        case RequestMsgType.NeuChar:
+                            responseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                            break;
+                        case RequestMsgType.Unknown:
+                            responseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
+                            break;
+                        case RequestMsgType.Event:
+                            {
+                                var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                                responseMessage = OnTextOrEventRequest(requestMessageText)
+                                                    ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                            }
+                            break;
+
+                        default:
+                            Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型"+ RequestMessage.MsgType);
+                            //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                            break;
+                    }
+
+                    return responseMessage;
+                };
+
+                if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
+                {
+                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "进入判断流程 ((MessageHandlerNode)messageHandlerNode).GetResponseMessage");
+
+                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
                 }
+
+                //如果没有得到结果，则继续运行编译好的代码
+                if (ResponseMessage == null)
+                {
+                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
+                    ResponseMessage = executeFunc();//直接执行
+                }
+
+                #endregion
 
                 //记录上下文
                 //此处修改
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
+                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
-                    WeixinContext.InsertMessage(ResponseMessage);
+                    GlobalMessageContext.InsertMessage(ResponseMessage);
                 }
             }
             catch (Exception ex)
@@ -489,6 +563,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        /// <summary>
+        /// OnExecuting
+        /// </summary>
         public override void OnExecuting()
         {
             /* 

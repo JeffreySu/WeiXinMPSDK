@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Open
     /// <summary>
     /// 请求消息接口
     /// </summary>
-    public interface IRequestMessageBase// : Weixin.Entities.IRequestMessageBase
+    public interface IRequestMessageBase// : Senparc.NeuChar.Entities.IRequestMessageBase
     {
         string AppId { get; set; }
         DateTime CreateTime { get; set; }

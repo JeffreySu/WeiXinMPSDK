@@ -95,7 +95,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             try
             {
-
                 #region 记录 Request 日志
 
                 var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));

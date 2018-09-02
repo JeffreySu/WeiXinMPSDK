@@ -157,14 +157,23 @@ namespace Senparc.Weixin.MP.NeuChar
         /// <param name="requestMessage"></param>
         /// <param name="responseConfig"></param>
         /// <returns></returns>
-        private ResponseMessageImage RenderResponseMessageImage(IRequestMessageBase requestMessage, Response responseConfig)
-        { 
+        private IResponseMessageBase RenderResponseMessageImage(IRequestMessageBase requestMessage, Response responseConfig)
+        {
             var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageImage>();
 
-            string mediaId = null;
             if (responseConfig.Content.Equals("{current_img}", StringComparison.OrdinalIgnoreCase))
             {
-                strongResponseMessage.Image.MediaId = mediaId;
+                var strongRequestMessage = requestMessage as RequestMessageImage;
+                if (strongRequestMessage != null)
+                {
+                    strongResponseMessage.Image.MediaId = strongRequestMessage.MediaId;
+                }
+                else
+                {
+                    var textResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                    textResponseMessage.Content = "消息中未获取到图片信息";
+                    return textResponseMessage;
+                }
             }
             else
             {

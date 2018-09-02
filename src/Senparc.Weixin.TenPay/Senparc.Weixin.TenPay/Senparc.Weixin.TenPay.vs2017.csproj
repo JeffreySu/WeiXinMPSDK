@@ -91,7 +91,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.8.2" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.10" />
   </ItemGroup>
 
 

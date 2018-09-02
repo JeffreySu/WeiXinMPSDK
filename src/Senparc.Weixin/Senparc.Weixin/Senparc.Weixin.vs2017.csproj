@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>6.0.0</Version>
+    <Version>6.0.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -268,6 +268,7 @@
       v5.1.8 支持 CO2NET v0.2.8
       
       v6.0.0 支持 NeuChar 标准，分离 MessageHandlers 和 WeixinContext
+      v6.0.1 支持 CO2NET v0.2.10
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

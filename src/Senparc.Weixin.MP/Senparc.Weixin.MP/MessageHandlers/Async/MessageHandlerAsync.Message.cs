@@ -39,6 +39,8 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using System.Threading.Tasks;
+using Senparc.Weixin.MP.NeuChar;
+using System.Linq;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -89,7 +91,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var result = base.DefaultMessageHandlerAsyncEvent == Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
                    ? null
-                   : await Task.Run(()=> OnTextOrEventRequest(requestMessage));
+                   : await Task.Run(() => OnTextOrEventRequest(requestMessage));
             return result;
         }
 

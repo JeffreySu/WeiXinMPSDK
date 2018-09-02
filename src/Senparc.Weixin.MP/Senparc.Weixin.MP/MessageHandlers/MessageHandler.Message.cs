@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        /// <summary>
+         /// <summary>
         /// 位置类型请求
         /// </summary>
         public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)

@@ -436,10 +436,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
 
                 #region NeuChar 执行过程
-
                 //TODO:Neuchar：在这里先做一次NeuChar标准的判断
 
                 var neuralSystem = NeuralSystem.Instance;
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
 
                 #region 添加模拟数据
 
@@ -472,76 +472,51 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 #endregion
 
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
-
-                //不同类型请求的委托
-                Func<IResponseMessageBase> executeFunc = () =>
+                switch (RequestMessage.MsgType)
                 {
-                    IResponseMessageBase responseMessage = null;
-                    switch (RequestMessage.MsgType)
-                    {
-                        case RequestMsgType.Text:
-                            {
-                                var requestMessage = RequestMessage as RequestMessageText;
-                                responseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
-                            }
-                            break;
-                        case RequestMsgType.Location:
-                            responseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                            break;
-                        case RequestMsgType.Image:
-                            responseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                            break;
-                        case RequestMsgType.Voice:
-                            responseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                            break;
-                        case RequestMsgType.Video:
-                            responseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                            break;
-                        case RequestMsgType.Link:
-                            responseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
-                            break;
-                        case RequestMsgType.ShortVideo:
-                            responseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                            break;
-                        case RequestMsgType.File:
-                            responseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                            break;
-                        case RequestMsgType.NeuChar:
-                            responseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
-                            break;
-                        case RequestMsgType.Unknown:
-                            responseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
-                            break;
-                        case RequestMsgType.Event:
-                            {
-                                var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                                responseMessage = OnTextOrEventRequest(requestMessageText)
-                                                    ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                            }
-                            break;
-
-                        default:
-                            Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型"+ RequestMessage.MsgType);
-                            //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                            break;
-                    }
-
-                    return responseMessage;
-                };
-
-                if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
-                {
-                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "进入判断流程 ((MessageHandlerNode)messageHandlerNode).GetResponseMessage");
-
-                    ResponseMessage = ((MessageHandlerNode)messageHandlerNode).GetResponseMessage(RequestMessage, executeFunc);
-                }
-
-                //如果没有得到结果，则继续运行编译好的代码
-                if (ResponseMessage == null)
-                {
-                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    ResponseMessage = executeFunc();//直接执行
+                    case RequestMsgType.Text:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageText;
+                            ResponseMessage = messageHandlerNode.Execute(requestMessage) ??
+                                                (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
+                        }
+                        break;
+                    case RequestMsgType.Location:
+                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                        break;
+                    case RequestMsgType.Image:
+                        ResponseMessage = messageHandlerNode.Execute(RequestMessage) ?? OnImageRequest(RequestMessage as RequestMessageImage);
+                        break;
+                    case RequestMsgType.Voice:
+                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                        break;
+                    case RequestMsgType.Video:
+                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                        break;
+                    case RequestMsgType.Link:
+                        ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
+                        break;
+                    case RequestMsgType.ShortVideo:
+                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                        break;
+                    case RequestMsgType.File:
+                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                        break;
+                    case RequestMsgType.NeuChar:
+                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                        break;
+                    case RequestMsgType.Unknown:
+                        ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
+                        break;
+                    case RequestMsgType.Event:
+                        {
+                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
+                                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                        }
+                        break;
+                    default:
+                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
 
                 #endregion

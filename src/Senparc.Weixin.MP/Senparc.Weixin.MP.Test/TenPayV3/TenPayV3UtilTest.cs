@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Senparc.Weixin.TenPay;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.Test.vs2017.TenPayV3
 {

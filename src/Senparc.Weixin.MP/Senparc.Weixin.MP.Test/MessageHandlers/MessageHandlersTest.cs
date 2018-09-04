@@ -30,6 +30,8 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {

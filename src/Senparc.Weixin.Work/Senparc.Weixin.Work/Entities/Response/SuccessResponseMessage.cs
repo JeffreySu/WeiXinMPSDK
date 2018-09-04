@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 只返回"success"成功字符串的响应信息
     /// </summary>
-    public class SuccessResponseMessage : SuccessResponseMessageBase, Senparc.Weixin.Work.Entities.IResponseMessageBase
+    public class SuccessResponseMessage : SuccessResponseMessageBase, Senparc.Weixin.Work.Entities.IWorkResponseMessageBase
     {
         public ResponseMsgType MsgType
         {

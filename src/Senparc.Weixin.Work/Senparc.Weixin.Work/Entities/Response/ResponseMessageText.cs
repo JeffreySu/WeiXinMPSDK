@@ -13,7 +13,7 @@
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageText : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageText : WorkResponseMessageBase, IWorkResponseMessageBase
     {
         public new virtual ResponseMsgType MsgType
         {

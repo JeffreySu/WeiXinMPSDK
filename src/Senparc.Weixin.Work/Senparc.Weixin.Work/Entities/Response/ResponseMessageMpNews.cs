@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageMpNews : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageMpNews : WorkResponseMessageBase, IWorkResponseMessageBase
     {
         public new virtual ResponseMsgType MsgType
         {

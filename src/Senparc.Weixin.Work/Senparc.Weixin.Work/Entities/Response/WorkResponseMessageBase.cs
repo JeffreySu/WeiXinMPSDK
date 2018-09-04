@@ -22,7 +22,7 @@ using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work.Entities
 {
-	public interface IResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase, IMessageBase
+	public interface IWorkResponseMessageBase : Senparc.NeuChar.Entities.IResponseMessageBase, IMessageBase
 	{
 		ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Work.Entities
 	/// <summary>
 	/// 响应回复消息
 	/// </summary>
-	public class ResponseMessageBase : MessageBase, IResponseMessageBase
+	public class WorkResponseMessageBase : ResponseMessageBase, IWorkResponseMessageBase
 	{
 		public virtual ResponseMsgType MsgType
 		{
@@ -48,9 +48,9 @@ namespace Senparc.Weixin.Work.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		private static WorkResponseMessageBase CreateFromRequestMessage(IWorkRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
-			ResponseMessageBase responseMessage = null;
+			WorkResponseMessageBase responseMessage = null;
 			try
 			{
 				switch (msgType)
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.Work.Entities
 		/// <typeparam name="T">需要返回的类型</typeparam>
 		/// <param name="requestMessage">请求数据</param>
 		/// <returns></returns>
-		public static T CreateFromRequestMessage<T>(IRequestMessageBase requestMessage) where T : ResponseMessageBase
+		public static T CreateFromRequestMessage<T>(IWorkRequestMessageBase requestMessage) where T : WorkResponseMessageBase
 		{
 			try
 			{
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.Work.Entities
 		/// </summary>
 		/// <param name="xml">返回给服务器的Response Xml</param>
 		/// <returns></returns>
-		public static IResponseMessageBase CreateFromResponseXml(string xml)
+		public static IWorkResponseMessageBase CreateFromResponseXml(string xml)
 		{
 			try
 			{
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.Work.Entities
 				}
 
 				var doc = XDocument.Parse(xml);
-				ResponseMessageBase responseMessage = null;
+				WorkResponseMessageBase responseMessage = null;
 				var msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), doc.Root.Element("MsgType").Value, true);
 				switch (msgType)
 				{

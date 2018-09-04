@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 需要预先上传多媒体文件到微信服务器，只支持认证服务号。
     /// </summary>
-    public class ResponseMessageVideo : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageVideo : WorkResponseMessageBase, IWorkResponseMessageBase
     {
         public new virtual ResponseMsgType MsgType
         {

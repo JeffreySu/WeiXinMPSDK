@@ -27,9 +27,9 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IResponseMessageBase GetResponseEntity(XDocument doc)
+        public static IWorkResponseMessageBase GetResponseEntity(XDocument doc)
         {
-            ResponseMessageBase responseMessage = null;
+            WorkResponseMessageBase responseMessage = null;
             ResponseMsgType msgType;
             try
             {
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IResponseMessageBase GetResponseEntity(string xml)
+        public static IWorkResponseMessageBase GetResponseEntity(string xml)
         {
             return GetResponseEntity(XDocument.Parse(xml));
         }

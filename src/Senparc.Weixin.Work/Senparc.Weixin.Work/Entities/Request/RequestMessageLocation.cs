@@ -13,7 +13,7 @@
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class RequestMessageLocation : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageLocation : WorkRequestMessageBase, IWorkRequestMessageBase
     {
         public override RequestMsgType MsgType
         {

@@ -433,9 +433,9 @@ namespace Senparc.Weixin.Work.Helpers
         /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
         /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
         /// <returns></returns>
-        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        public static T CreateResponseMessage<T>(this IWorkRequestMessageBase requestMessage) where T : WorkResponseMessageBase
         {
-            return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
+            return WorkResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
         }
 
         /// <summary>
@@ -443,9 +443,9 @@ namespace Senparc.Weixin.Work.Helpers
         /// </summary>
         /// <param name="xml">返回给服务器的Response Xml</param>
         /// <returns></returns>
-        public static IResponseMessageBase CreateResponseMessage(this string xml)
+        public static IWorkResponseMessageBase CreateResponseMessage(this string xml)
         {
-            return ResponseMessageBase.CreateFromResponseXml(xml);
+            return WorkResponseMessageBase.CreateFromResponseXml(xml);
         }
     }
 }

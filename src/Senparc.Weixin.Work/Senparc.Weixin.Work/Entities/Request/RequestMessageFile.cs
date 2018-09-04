@@ -14,7 +14,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 文件消息请求
     /// </summary>
-    public class RequestMessageFile : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageFile : WorkRequestMessageBase, IWorkRequestMessageBase
     {
         public override RequestMsgType MsgType
         {

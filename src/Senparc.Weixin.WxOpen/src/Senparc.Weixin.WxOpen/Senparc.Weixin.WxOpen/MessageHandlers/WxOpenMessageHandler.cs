@@ -39,6 +39,7 @@ using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Tencent;
 using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -47,7 +48,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     /// 小程序MessageHandler
     /// </summary>
     /// <typeparam name="TC">上下文MessageContext类型</typeparam>
-    public abstract partial class WxOpenMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IWxOpenMessageHandler
+    public abstract partial class WxOpenMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>

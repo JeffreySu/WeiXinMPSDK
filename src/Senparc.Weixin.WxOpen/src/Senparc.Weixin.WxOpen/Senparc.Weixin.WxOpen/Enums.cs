@@ -43,17 +43,17 @@ namespace Senparc.Weixin.WxOpen
     //    Event, //事件推送
     //}
 
-    ///// <summary>
-    ///// 当RequestMsgType类型为Event时，Event属性的类型
-    ///// </summary>
-    //public enum Event
-    //{
-    //    /// <summary>
-    //    /// 进入会话事件
-    //    /// </summary>
-    //    user_enter_tempsession,
-    //    add_nearby_poi_audit_info
-    //}
+    /// <summary>
+    /// 当RequestMsgType类型为Event时，Event属性的类型
+    /// </summary>
+    public enum Event
+    {
+        /// <summary>
+        /// 进入会话事件
+        /// </summary>
+        user_enter_tempsession,
+        add_nearby_poi_audit_info
+    }
 
     ///// <summary>
     ///// 发送消息类型

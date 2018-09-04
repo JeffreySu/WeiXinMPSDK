@@ -41,6 +41,7 @@ using Senparc.Weixin.MP.Helpers;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.NeuChar;
 using System.Linq;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

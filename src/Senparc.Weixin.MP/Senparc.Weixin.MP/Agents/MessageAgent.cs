@@ -43,6 +43,8 @@ using System.IO;
 using System.Xml.Linq;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;

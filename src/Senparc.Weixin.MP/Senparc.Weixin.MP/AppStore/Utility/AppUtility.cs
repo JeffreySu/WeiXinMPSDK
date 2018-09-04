@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AppStore.Utility

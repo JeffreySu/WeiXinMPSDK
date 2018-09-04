@@ -33,7 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageLocation : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageLocation : RequestMessageBase, Senparc.NeuChar.Entities.IRequestMessageLocation
     {
         public override RequestMsgType MsgType
         {

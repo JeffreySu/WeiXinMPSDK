@@ -32,6 +32,8 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Helpers;
+using Senparc.NeuCHar.Entities;
 
 #if NET45
 using System.Web;
@@ -237,7 +239,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     *
                     */
                     var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
-                    var agentResponseMessage = responseXml.CreateResponseMessage();
+                    var agentResponseMessage = responseXml.CreateResponseMessage(this.Enlighten);
                     if (agentResponseMessage is ResponseMessageText)
                     {
                         (agentResponseMessage as ResponseMessageText).Content += msg;

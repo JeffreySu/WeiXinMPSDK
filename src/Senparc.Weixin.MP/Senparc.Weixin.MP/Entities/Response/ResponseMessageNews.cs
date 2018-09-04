@@ -31,6 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuCHar.Entities;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Entities
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 图文消息
     /// </summary>
-    public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageNews : ResponseMessageBase, Senparc.NeuChar.Entities.IResponseMessageNews
     {
         public new virtual ResponseMsgType MsgType
         {

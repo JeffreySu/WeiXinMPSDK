@@ -42,6 +42,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         private string appSecret = "WxOpenAppSecret";
 #endif
 
+
         public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {

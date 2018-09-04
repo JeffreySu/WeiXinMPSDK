@@ -33,7 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageShortVideo : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageShortVideo : RequestMessageBase, Senparc.NeuChar.Entities.IRequestMessageShortVideo
     {
         public override RequestMsgType MsgType
         {

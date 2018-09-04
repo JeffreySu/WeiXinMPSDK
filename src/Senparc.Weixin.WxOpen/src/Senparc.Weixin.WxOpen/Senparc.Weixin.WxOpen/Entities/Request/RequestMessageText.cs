@@ -29,9 +29,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.WxOpen.Entities
 {
-    public class RequestMessageText : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageText : RequestMessageBase, IRequestMessageText
     {
         public override RequestMsgType MsgType
         {

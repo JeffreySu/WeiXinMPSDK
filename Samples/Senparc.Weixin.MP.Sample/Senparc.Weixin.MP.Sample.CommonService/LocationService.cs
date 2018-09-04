@@ -14,6 +14,7 @@ using Senparc.CO2NET.Helpers.BaiduMap;
 using Senparc.CO2NET.Helpers.GoogleMap;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService
 {

@@ -49,6 +49,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AppStore;
@@ -107,7 +109,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     return null;
                 }
-                return EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase);
+                return Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase);
             }
         }
 
@@ -196,6 +198,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
+
+        /// <summary>
+        /// 请求和响应消息定义
+        /// </summary>
+        public override MessageEntityEnlighten Enlighten { get { return MpMessageEntityEnlighten.Instance; } }
 
         #region 私有方法
 
@@ -373,21 +380,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
             return decryptDoc;
-        }
-
-        /// <summary>
-        /// 根据当前的RequestMessage创建指定类型的ResponseMessage
-        /// </summary>
-        /// <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
-        /// <returns></returns>
-        public TR CreateResponseMessage<TR>() where TR : ResponseMessageBase
-        {
-            if (RequestMessage == null)
-            {
-                return null;
-            }
-
-            return RequestMessage.CreateResponseMessage<TR>();
         }
 
         #region 扩展

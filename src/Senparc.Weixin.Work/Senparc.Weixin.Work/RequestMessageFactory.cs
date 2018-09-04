@@ -20,7 +20,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.Work
 {
@@ -31,9 +32,9 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(XDocument doc)
+        public static IWorkRequestMessageBase GetRequestEntity(XDocument doc)
         {
-            RequestMessageBase requestMessage = null;
+            WorkRequestMessageBase requestMessage = null;
             RequestMsgType msgType;
             ThirdPartyInfo infoType;
 
@@ -160,7 +161,7 @@ namespace Senparc.Weixin.Work
                 //第三方回调
                 try
                 {
-                    infoType = MsgTypeHelper.GetThirdPartyInfo(doc);
+                    infoType = Work.Helpers.MsgTypeHelper.GetThirdPartyInfo(doc);
                     switch (infoType)
                     {
                         case ThirdPartyInfo.SUITE_TICKET://推送suite_ticket协议
@@ -202,7 +203,7 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(string xml)
+        public static IWorkRequestMessageBase GetRequestEntity(string xml)
         {
             return GetRequestEntity(XDocument.Parse(xml));
         }
@@ -213,7 +214,7 @@ namespace Senparc.Weixin.Work
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(Stream stream)
+        public static IWorkRequestMessageBase GetRequestEntity(Stream stream)
         {
             using (XmlReader xr = XmlReader.Create(stream))
             {

@@ -48,7 +48,7 @@
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.NeuChar, Version=0.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.4-preview1\lib\net45\Senparc.NeuChar.dll</HintPath>
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.4-preview3\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.0.1\lib\net45\Senparc.Weixin.dll</HintPath>
@@ -103,7 +103,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UserEnterTempSession.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Entities\Watermark.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WxOpenException.cs" />
@@ -111,6 +110,7 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="MessageHandlers\IWxOpenMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WxOpenMessageEntityEnlighten.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.cs" />

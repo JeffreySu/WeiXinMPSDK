@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.WxOpen.Entities
 {
     public interface IRequestMessageBase : Senparc.NeuChar.Entities.IRequestMessageBase

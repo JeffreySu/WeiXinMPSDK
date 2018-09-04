@@ -38,6 +38,7 @@ using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Tencent;
+using Senparc.NeuChar;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -117,8 +118,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public bool UsingCompatibilityModelEcryptMessage { get; set; }
 
 
+
+        /// <summary>
+        /// 请求和响应消息定义
+        /// </summary>
+        public override MessageEntityEnlighten Enlighten { get { return WxOpenMessageEntityEnlighten.Instance; } }
+
+
         #region 构造函数
-        
+
         /// <summary>
         /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
         /// </summary>

@@ -49,6 +49,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
@@ -62,6 +63,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using IRequestMessageBase = Senparc.Weixin.MP.
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -198,14 +200,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
 
-
-        public MessageEntityEnlighten Enlighten
-        {
-            get
-            {
-
-            }
-        }
+        /// <summary>
+        /// 请求和响应消息定义
+        /// </summary>
+        public override MessageEntityEnlighten Enlighten { get { return MpMessageEntityEnlighten.Instance; } }
 
         #region 私有方法
 

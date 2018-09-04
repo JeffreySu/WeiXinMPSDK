@@ -48,7 +48,6 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
-using Senparc.NeuCHar.Entities;
 
 namespace Senparc.Weixin.MP.Helpers
 {

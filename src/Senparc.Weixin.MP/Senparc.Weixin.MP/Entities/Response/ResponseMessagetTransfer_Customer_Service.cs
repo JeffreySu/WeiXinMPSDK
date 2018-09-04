@@ -53,8 +53,8 @@ namespace Senparc.Weixin.MP.Entities
 		public List<CustomerServiceAccount> TransInfo { get; set; }
 	}
 
-	public class CustomerServiceAccount
-	{
-		public string KfAccount { get; set; }
-	}
+	//public class CustomerServiceAccount
+	//{
+	//	public string KfAccount { get; set; }
+	//}
  }

@@ -323,7 +323,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
-    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Not_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
@@ -331,10 +330,7 @@
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
-    <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
-    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
-    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\RequestMessageUnknownType.cs" />
@@ -452,13 +448,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
-    <Compile Include="Entities\Response\Article.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Entities\Response\Image.cs" />
-    <Compile Include="Entities\Response\Music.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Entities\Response\ResponseMessageMusic.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -471,8 +460,6 @@
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
     <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
-    <Compile Include="Entities\Response\Video.cs" />
-    <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />

@@ -16,8 +16,6 @@ using Senparc.Weixin.WxOpen;
 using Senparc.Weixin.WxOpen.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
-using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Entities;

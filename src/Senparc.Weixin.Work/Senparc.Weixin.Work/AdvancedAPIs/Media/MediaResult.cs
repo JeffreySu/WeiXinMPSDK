@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.Entities;
 

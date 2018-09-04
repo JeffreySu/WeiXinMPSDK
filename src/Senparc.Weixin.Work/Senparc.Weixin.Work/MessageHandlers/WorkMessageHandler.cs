@@ -33,6 +33,7 @@ using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.Tencent;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -150,9 +151,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
             }
         }
 
-
-
         private PostModel _postModel;
+
+        /// <summary>
+        /// 请求和响应消息定义
+        /// </summary>
+        public override MessageEntityEnlighten Enlighten { get { return WorkMessageEntityEnlighten.Instance; } }
+
 
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount, postModel)
@@ -199,7 +204,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
 
             //记录上下文
-            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && MessageContextGlobalConfig.UseMessageContext)
+            if (RequestMessage.MsgType != RequestMsgType.Unknown && MessageContextGlobalConfig.UseMessageContext)
             {
                 GlobalMessageContext.InsertMessage(RequestMessage);
             }
@@ -246,7 +251,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
                 switch (RequestMessage.MsgType)
                 {
-                    case RequestMsgType.DEFAULT://第三方回调
+                    case RequestMsgType.Unknown://第三方回调
                         {
                             if (RequestMessage is IThirdPartyInfoBase)
                             {

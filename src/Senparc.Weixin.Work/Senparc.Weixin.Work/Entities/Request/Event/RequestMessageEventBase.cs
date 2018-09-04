@@ -11,9 +11,12 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public interface IRequestMessageEventBase : IWorkRequestMessageBase
+    public interface IRequestMessageEventBase : IWorkRequestMessageBase, IRequestMessageEvent
     {
         /// <summary>
         /// 事件类型

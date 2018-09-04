@@ -12,10 +12,11 @@
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageImage : WorkResponseMessageBase, IWorkResponseMessageBase
+    public class ResponseMessageImage : WorkResponseMessageBase, IResponseMessageImage
     {
         public new virtual ResponseMsgType MsgType
         {

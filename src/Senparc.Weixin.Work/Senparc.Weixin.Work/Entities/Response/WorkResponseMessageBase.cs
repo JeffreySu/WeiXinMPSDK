@@ -19,6 +19,7 @@ using System.Xml.Linq;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Helpers;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities
 {
@@ -74,7 +75,7 @@ namespace Senparc.Weixin.Work.Entities
 						responseMessage = new ResponseMessageMpNews();
 						break;
                     case ResponseMsgType.NoResponse:
-                        responseMessage = new ResponseMessageNoResponse();
+                        responseMessage = new WorkResponseMessageNoResponse();
 				        break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
@@ -152,7 +153,7 @@ namespace Senparc.Weixin.Work.Entities
                         responseMessage = new ResponseMessageMpNews();
 						break;
                     case ResponseMsgType.NoResponse:
-                        responseMessage = new ResponseMessageNoResponse();
+                        responseMessage = new WorkResponseMessageNoResponse();
                         break;
                 }
 

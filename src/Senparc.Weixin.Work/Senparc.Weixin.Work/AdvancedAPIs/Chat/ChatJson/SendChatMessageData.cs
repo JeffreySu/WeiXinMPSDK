@@ -12,8 +12,7 @@
 
 ----------------------------------------------------------------*/
 
-using Senparc.NeuCHar.Entities;
-using Senparc.Weixin.Work.Entities;
+using Senparc.NeuChar.Entities;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.Chat

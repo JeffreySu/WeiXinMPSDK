@@ -13,9 +13,10 @@
 
 using System;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work
 {

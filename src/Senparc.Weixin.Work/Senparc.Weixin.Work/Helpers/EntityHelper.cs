@@ -30,7 +30,7 @@ using System.Reflection;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Entities;
-using Senparc.NeuCHar.Entities;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Helpers
 {
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.Work.Helpers
                             var msgTypeEle = item.Element("MsgType");
                             if (msgTypeEle != null)
                             {
-                                RequestMsgType type = RequestMsgType.DEFAULT;
+                                RequestMsgType type = RequestMsgType.Unknown;
                                 var parseSuccess = false;
 #if NET35
                                 try

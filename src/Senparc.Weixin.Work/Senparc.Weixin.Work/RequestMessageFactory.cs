@@ -20,7 +20,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.Work
 {
@@ -160,7 +161,7 @@ namespace Senparc.Weixin.Work
                 //第三方回调
                 try
                 {
-                    infoType = MsgTypeHelper.GetThirdPartyInfo(doc);
+                    infoType = Work.Helpers.MsgTypeHelper.GetThirdPartyInfo(doc);
                     switch (infoType)
                     {
                         case ThirdPartyInfo.SUITE_TICKET://推送suite_ticket协议

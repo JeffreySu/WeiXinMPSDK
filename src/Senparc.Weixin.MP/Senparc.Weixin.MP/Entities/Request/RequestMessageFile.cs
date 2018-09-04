@@ -34,7 +34,7 @@ using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageFile : ResponseMessageBase, IRequestMessageFile
+    public class RequestMessageFile : RequestMessageBase, IRequestMessageFile
     {
         public override RequestMsgType MsgType
         {

@@ -35,6 +35,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
 using System;
 using System.Xml.Linq;
 

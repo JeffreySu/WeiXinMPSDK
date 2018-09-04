@@ -20,6 +20,7 @@ using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.MessageHandlers;
+using Senparc.NeuChar.Entities;
 
 #if NET45
 using System.Web.Configuration;

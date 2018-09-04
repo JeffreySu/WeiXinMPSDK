@@ -34,6 +34,7 @@ using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuCHar.Entities;
+using Senparc.NeuChar.Entities;
 
 #if NET45
 using System.Web;

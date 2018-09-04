@@ -35,7 +35,7 @@ using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class ResponseMessageMusic : ResponseMessageBase, Senparc.NeuChar.Entities.IResponseMessageMusic
+    public class ResponseMessageMusic : ResponseMessageBase, IResponseMessageMusic
     {
         public override ResponseMsgType MsgType
         {

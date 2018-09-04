@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.NeuChar.Context;
-using Senparc.Weixin.MP.Entities;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {

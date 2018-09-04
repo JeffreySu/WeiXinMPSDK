@@ -35,7 +35,7 @@ using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class ResponseMessageImage : ResponseMessageBase, Senparc.NeuChar.Entities.IResponseMessageImage
+    public class ResponseMessageImage : ResponseMessageBase, IResponseMessageImage
     {
         public new virtual ResponseMsgType MsgType
         {

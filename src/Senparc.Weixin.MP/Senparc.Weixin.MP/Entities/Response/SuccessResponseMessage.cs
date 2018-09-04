@@ -33,7 +33,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {

@@ -63,7 +63,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using IRequestMessageBase = Senparc.Weixin.MP.
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

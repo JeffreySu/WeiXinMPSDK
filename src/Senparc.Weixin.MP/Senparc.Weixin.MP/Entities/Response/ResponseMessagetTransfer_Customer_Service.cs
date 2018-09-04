@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 响应回复多客服消息
     /// </summary>
-	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, Senparc.NeuChar.Entities.IResponseMessageTransfer_Customer_Service
+	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageTransfer_Customer_Service
     {
 		public ResponseMessageTransfer_Customer_Service()
 		{

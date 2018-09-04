@@ -47,6 +47,7 @@ using Senparc.NeuChar;
 using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

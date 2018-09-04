@@ -31,9 +31,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageLink : RequestMessageBase, Senparc.NeuChar.Entities.IRequestMessageLink
+    public class RequestMessageLink : ResponseMessageBase, IRequestMessageLink
     {
         public override RequestMsgType MsgType
         {

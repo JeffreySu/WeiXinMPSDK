@@ -39,14 +39,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Entities.Request;
 
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 文本类型消息
     /// </summary>
-    public class RequestMessageText : RequestMessageBase, IRequestMessageBase, IRequestMessageText
+    public class RequestMessageText : RequestMessageBase, IRequestMessageText
     {
         public override RequestMsgType MsgType
         {

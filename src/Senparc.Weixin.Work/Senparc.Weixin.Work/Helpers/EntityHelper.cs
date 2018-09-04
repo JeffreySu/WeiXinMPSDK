@@ -29,6 +29,8 @@ using Senparc.Weixin.Utilities;
 using System.Reflection;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuCHar.Entities;
 
 namespace Senparc.Weixin.Work.Helpers
 {

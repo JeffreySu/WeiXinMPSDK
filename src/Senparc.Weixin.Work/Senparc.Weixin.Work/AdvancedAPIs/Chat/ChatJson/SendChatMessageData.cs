@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.NeuCHar.Entities;
 using Senparc.Weixin.Work.Entities;
 using System.Collections.Generic;
 

@@ -11,6 +11,8 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>

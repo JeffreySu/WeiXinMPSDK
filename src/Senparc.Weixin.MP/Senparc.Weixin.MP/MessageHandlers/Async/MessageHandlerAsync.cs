@@ -46,6 +46,8 @@ using Senparc.Weixin.MP.NeuChar;
 using Senparc.NeuChar;
 using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -104,79 +106,56 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var neuralSystem = NeuralSystem.Instance;
 
                 //获取当前设置节点
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode");
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
 
-                //Weixin.WeixinTrace.SendCustomLog("NeuChar JSON", 
-                //    Newtonsoft.Json.JsonConvert.SerializeObject(messageHandlerNode, Newtonsoft.Json.Formatting.Indented/*,new Newtonsoft.Json.JsonSerializerSettings() {  }*/));
-
-
-                //不同类型请求的委托
-                Func<IResponseMessageBase> executeFunc =  () =>  Task.Run(async ()=>
+                switch (RequestMessage.MsgType)
                 {
-                    IResponseMessageBase responseMessage = null;
-                    switch (RequestMessage.MsgType)
-                    {
-                        case RequestMsgType.Text:
-                            {
-                                var requestMessage = RequestMessage as RequestMessageText;
-                                responseMessage = (await (OnTextOrEventRequestAsync(requestMessage))
-                                    ?? (await OnTextRequestAsync(requestMessage)));
-                            }
-                            break;
-                        case RequestMsgType.Location:
-                            responseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
-                            break;
-                        case RequestMsgType.Image:
-                            responseMessage = await OnImageRequestAsync(RequestMessage as RequestMessageImage);
-                            break;
-                        case RequestMsgType.Voice:
-                            responseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
-                            break;
-                        case RequestMsgType.Video:
-                            responseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo);
-                            break;
-                        case RequestMsgType.Link:
-                            responseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink);
-                            break;
-                        case RequestMsgType.ShortVideo:
-                            responseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
-                            break;
-                        case RequestMsgType.File:
-                            responseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
-                            break;
-                        case RequestMsgType.NeuChar:
-                            responseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
-                            break;
-                        case RequestMsgType.Unknown:
-                            responseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
-                            break;
-                        case RequestMsgType.Event:
-                            {
-                                var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                                responseMessage = (await (OnTextOrEventRequestAsync(requestMessageText)))
-                                    ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
-                            }
-                            break;
+                    case RequestMsgType.Text:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageText;
+                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage) ?? (await (OnTextOrEventRequestAsync(requestMessage))
+                                ?? (await OnTextRequestAsync(requestMessage)));
+                        }
+                        break;
+                    case RequestMsgType.Location:
+                        ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
+                        break;
+                    case RequestMsgType.Image:
+                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                        break;
+                    case RequestMsgType.Voice:
+                        ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
+                        break;
+                    case RequestMsgType.Video:
+                        ResponseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo);
+                        break;
+                    case RequestMsgType.Link:
+                        ResponseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink);
+                        break;
+                    case RequestMsgType.ShortVideo:
+                        ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
+                        break;
+                    case RequestMsgType.File:
+                        ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
+                        break;
+                    case RequestMsgType.NeuChar:
+                        ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                        break;
+                    case RequestMsgType.Unknown:
+                        ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
+                        break;
+                    case RequestMsgType.Event:
+                        {
+                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                            ResponseMessage = (await (OnTextOrEventRequestAsync(requestMessageText)))
+                                ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                        }
+                        break;
 
-                        default:
-                            Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型" + RequestMessage.MsgType);
-                            //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                            break;
-                    }
-
-                    return responseMessage;
-                }).Result;
-
-                if (messageHandlerNode != null && messageHandlerNode is MessageHandlerNode)
-                {
-                    ResponseMessage = await ((MessageHandlerNode)messageHandlerNode).GetResponseMessageAsync(RequestMessage, executeFunc);
-                }
-
-                //如果没有得到结果，则继续运行编译好的代码
-                if (ResponseMessage == null)
-                {
-                    //Weixin.WeixinTrace.SendCustomLog("NeuChar", "executeFunc()");
-                    ResponseMessage = executeFunc();//直接执行
+                    default:
+                        Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型" + RequestMessage.MsgType);
+                        //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                        break;
                 }
 
                 #endregion

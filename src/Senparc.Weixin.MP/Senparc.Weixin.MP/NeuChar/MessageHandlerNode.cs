@@ -1,5 +1,8 @@
-﻿using Senparc.NeuChar;
-using Senparc.Weixin.Exceptions;
+﻿using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using System;
@@ -30,12 +33,11 @@ namespace Senparc.Weixin.MP.NeuChar
         }
 
         /// <summary>
-        /// 获取响应消息
+        /// 执行NeuChar判断过程，获取响应消息
         /// </summary>
         /// <param name="requestMessage"></param>
-        /// <param name="defaultProcess"></param>
         /// <returns></returns>
-        public IResponseMessageBase GetResponseMessage(IRequestMessageBase requestMessage, Func<IResponseMessageBase> defaultProcess)
+        public IResponseMessageBase Execute(IRequestMessageBase requestMessage)
         {
             IResponseMessageBase responseMessage = null;
 
@@ -45,14 +47,14 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var textRequestMessage = requestMessage as RequestMessageText;
                         //遍历所有的消息设置
-                        foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Text))//TODO：把foreach放到外面
+                        foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Text))
                         {
                             //遍历每一个消息设置中的关键词
                             foreach (var keyword in messagePair.Request.Keywords)
                             {
                                 if (keyword.Equals(textRequestMessage.Content, StringComparison.OrdinalIgnoreCase))//TODO:加入大小写敏感设计
                                 {
-                                    responseMessage = RenderResponseMessageText(requestMessage, messagePair.Response);
+                                    responseMessage = GetResponseMessage(requestMessage, messagePair.Response);
                                     break;
                                 }
                             }
@@ -67,9 +69,10 @@ namespace Senparc.Weixin.MP.NeuChar
                     {
                         var imageRequestMessage = requestMessage as RequestMessageImage;
                         //遍历所有的消息设置
+
                         foreach (var messagePair in Config.MessagePair.Where(z => z.Request.Type == RequestMsgType.Image))
                         {
-                            responseMessage = RenderResponseMessageImage(requestMessage, messagePair.Response, imageRequestMessage.MediaId);
+                            responseMessage = GetResponseMessage(requestMessage, messagePair.Response);
 
                             if (responseMessage != null)
                             {
@@ -90,19 +93,58 @@ namespace Senparc.Weixin.MP.NeuChar
 
 #if !NET35 && !NET40
         /// <summary>
-        /// 获取响应消息
+        /// 执行NeuChar判断过程，获取响应消息
         /// </summary>
         /// <param name="requestMessage"></param>
-        /// <param name="defaultProcess">默认流程</param>
         /// <returns></returns>
-        public async Task<IResponseMessageBase> GetResponseMessageAsync(IRequestMessageBase requestMessage,
-            Func<IResponseMessageBase> defaultProcess)
+        public async Task<IResponseMessageBase> ExecuteAsync(IRequestMessageBase requestMessage)
         {
-            return await Task.Run(() => GetResponseMessage(requestMessage, defaultProcess));
+            return await Task.Run(() => Execute(requestMessage));
         }
 #endif
         #region 返回信息
 
+        private IResponseMessageBase GetResponseMessage(IRequestMessageBase requestMessage, Response responseConfig)
+        {
+            IResponseMessageBase responseMessage = null;
+            switch (responseConfig.Type)
+            {
+                case ResponseMsgType.Text:
+                    responseMessage = RenderResponseMessageText(requestMessage, responseConfig);
+                    break;
+                case ResponseMsgType.News:
+                    break;
+                case ResponseMsgType.Music:
+                    break;
+                case ResponseMsgType.Image:
+                    responseMessage = RenderResponseMessageImage(requestMessage, responseConfig);
+                    break;
+                case ResponseMsgType.Voice:
+                    break;
+                case ResponseMsgType.Video:
+                    break;
+                case ResponseMsgType.Transfer_Customer_Service:
+                    break;
+                case ResponseMsgType.MultipleNews:
+                    break;
+                case ResponseMsgType.LocationMessage:
+                    break;
+                case ResponseMsgType.NoResponse:
+                    break;
+                case ResponseMsgType.SuccessResponse:
+                    break;
+                default:
+                    break;
+            }
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 返回文字类型信息
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="responseConfig"></param>
+        /// <returns></returns>
         private ResponseMessageText RenderResponseMessageText(IRequestMessageBase requestMessage, Response responseConfig)
         {
             var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
@@ -110,10 +152,35 @@ namespace Senparc.Weixin.MP.NeuChar
             return strongResponseMessage;
         }
 
-        private ResponseMessageImage RenderResponseMessageImage(IRequestMessageBase requestMessage, Response responseConfig, string mediaId)
+        /// <summary>
+        /// 返回图片类型信息
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="responseConfig"></param>
+        /// <returns></returns>
+        private IResponseMessageBase RenderResponseMessageImage(IRequestMessageBase requestMessage, Response responseConfig)
         {
             var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageImage>();
-            strongResponseMessage.Image.MediaId = mediaId;
+
+            if (responseConfig.Content.Equals("{current_img}", StringComparison.OrdinalIgnoreCase))
+            {
+                var strongRequestMessage = requestMessage as RequestMessageImage;
+                if (strongRequestMessage != null)
+                {
+                    strongResponseMessage.Image.MediaId = strongRequestMessage.MediaId;
+                }
+                else
+                {
+                    var textResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                    textResponseMessage.Content = "消息中未获取到图片信息";
+                    return textResponseMessage;
+                }
+            }
+            else
+            {
+                //TODO：其他情况
+            }
+
             return strongResponseMessage;
         }
 

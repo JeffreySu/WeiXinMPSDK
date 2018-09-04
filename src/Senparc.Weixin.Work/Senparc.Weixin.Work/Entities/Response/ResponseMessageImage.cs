@@ -11,9 +11,12 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageImage : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageImage : WorkResponseMessageBase, IResponseMessageImage
     {
         public new virtual ResponseMsgType MsgType
         {

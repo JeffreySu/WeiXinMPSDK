@@ -36,6 +36,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using System.Threading.Tasks;
 using System;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

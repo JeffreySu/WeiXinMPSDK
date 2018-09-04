@@ -42,6 +42,8 @@ using Senparc.NeuChar;
 using Senparc.CO2NET.Trace;
 using System.IO;
 using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -98,7 +100,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        /// <summary>
+         /// <summary>
         /// 位置类型请求
         /// </summary>
         public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)

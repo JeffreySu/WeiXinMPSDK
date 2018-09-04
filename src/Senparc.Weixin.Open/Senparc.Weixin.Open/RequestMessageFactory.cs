@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Open.Helpers;

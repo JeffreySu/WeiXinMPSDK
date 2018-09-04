@@ -42,6 +42,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -271,7 +274,7 @@ namespace Senparc.Weixin.MP
                             break;
                         }
                 }
-                EntityHelper.FillEntityWithXml(requestMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
             {

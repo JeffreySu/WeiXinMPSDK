@@ -3,6 +3,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.NeuChar;
@@ -12,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IResponseMessageBase = Senparc.Weixin.MP.Entities.IResponseMessageBase;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

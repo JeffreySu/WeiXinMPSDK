@@ -22,6 +22,9 @@ using Senparc.Weixin.MP.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

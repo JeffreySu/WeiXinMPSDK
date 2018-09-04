@@ -27,22 +27,22 @@
 
 namespace Senparc.Weixin.Work
 {
-    /// <summary>
-    /// 接收消息类型
-    /// </summary>
-    public enum RequestMsgType
-    {
-        DEFAULT,//默认
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        Event, //事件推送
-        ShortVideo, //小视频
-        File,//文件
-    }
+    ///// <summary>
+    ///// 接收消息类型
+    ///// </summary>
+    //public enum RequestMsgType
+    //{
+    //    DEFAULT,//默认
+    //    Text, //文本
+    //    Location, //地理位置
+    //    Image, //图片
+    //    Voice, //语音
+    //    Video, //视频
+    //    Link, //连接信息
+    //    Event, //事件推送
+    //    ShortVideo, //小视频
+    //    File,//文件
+    //}
 
     /// <summary>
     /// 当RequestMsgType类型为Event时，Event属性的类型
@@ -173,23 +173,23 @@ namespace Senparc.Weixin.Work
     }
 
 
-    /// <summary>
-    /// 发送消息类型
-    /// </summary>
-    public enum ResponseMsgType
-    {
-        Text,
-        News,
-        Music,
-        Image,
-        Voice,
-        Video,
-        MpNews,
+    ///// <summary>
+    ///// 发送消息类型
+    ///// </summary>
+    //public enum ResponseMsgType
+    //{
+    //    Text,
+    //    News,
+    //    Music,
+    //    Image,
+    //    Voice,
+    //    Video,
+    //    MpNews,
 
-        //以下类型为Senparc.Weixin自用类型
-        NoResponse,
-        SuccessResponse
-    }
+    //    //以下类型为Senparc.Weixin自用类型
+    //    NoResponse,
+    //    SuccessResponse
+    //}
 
     /// <summary>
     /// 菜单按钮类型

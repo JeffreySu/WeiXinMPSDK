@@ -32,6 +32,8 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Helpers;
+using Senparc.NeuChar.Entities;
 
 #if NET45
 using System.Web;
@@ -237,7 +239,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     *
                     */
                     var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
-                    var agentResponseMessage = responseXml.CreateResponseMessage();
+                    var agentResponseMessage = responseXml.CreateResponseMessage(this.Enlighten);
                     if (agentResponseMessage is ResponseMessageText)
                     {
                         (agentResponseMessage as ResponseMessageText).Content += msg;
@@ -599,7 +601,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
              * 原始XML可以通过requestMessage.RequestDocument（或this.RequestDocument）获取到。
              * 如果不重写此方法，遇到未知的请求类型将会抛出异常（v14.8.3 之前的版本就是这么做的）
              */
-            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
+            var msgType = Senparc.NeuChar.Helpers.MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "未知消息类型：" + msgType;
 

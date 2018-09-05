@@ -5,11 +5,11 @@ using System.Text;
 using Senparc.NeuChar.ApiHandlers;
 
 
-namespace Senparc.Weixin.Work.AdvancedAPIs
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 {
-    public class MpApiEnlighten : ApiEnlighten
+    public class WxOpenApiEnlighten : ApiEnlighten
     {
-        public static ApiEnlighten Instance = new MpApiEnlighten();
+        public static ApiEnlighten Instance = new WxOpenApiEnlighten();
 
         /// <summary>
         /// 发送文本客服消息
@@ -20,7 +20,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendText(string accessTokenOrAppId, string openId, string content)
         {
-            throw new NotImplementedException();
+            var reuslt = CustomApi.SendText(accessTokenOrAppId, openId, content);
+            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
         }
 
         /// <summary>
@@ -32,7 +33,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
-            throw new NotImplementedException();
+            var reuslt = CustomApi.SendImage(accessTokenOrAppId, openId, mediaId);
+            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
         }
     }
 }

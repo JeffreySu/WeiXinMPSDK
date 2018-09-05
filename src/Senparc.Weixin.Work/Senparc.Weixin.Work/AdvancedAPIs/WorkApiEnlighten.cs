@@ -5,7 +5,7 @@ using System.Text;
 using Senparc.NeuChar.ApiHandlers;
 
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public class WorkApiEnlighten : ApiEnlighten
     {

@@ -42,7 +42,6 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Tencent;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.NeuChar;
 using Senparc.NeuChar;
 using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
@@ -106,14 +105,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var neuralSystem = NeuralSystem.Instance;
 
                 //获取当前设置节点
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as BaseMessageHandlerNode;
 
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage) ?? (await (OnTextOrEventRequestAsync(requestMessage))
+                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage,this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
                                 ?? (await OnTextRequestAsync(requestMessage)));
                         }
                         break;
@@ -121,7 +120,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);

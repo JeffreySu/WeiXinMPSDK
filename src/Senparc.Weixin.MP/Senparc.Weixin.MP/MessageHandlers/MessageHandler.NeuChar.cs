@@ -4,9 +4,9 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.NeuChar;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     {
         static MessageHandler()
         {
-            Senparc.NeuChar.Register.RegisterNeuralNode("MessageHandlerNode", typeof(MessageHandlerNode));
+            Senparc.NeuChar.Register.RegisterNeuralNode("MessageHandlerNode", typeof(BaseMessageHandlerNode));
         }
 
         #region NeuChar 方法

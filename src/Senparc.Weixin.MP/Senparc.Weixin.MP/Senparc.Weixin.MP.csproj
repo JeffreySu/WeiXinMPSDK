@@ -348,8 +348,6 @@
     <Compile Include="MessageHandlers\MessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\MessageHandler.NeuChar.cs" />
     <Compile Include="MessageHandlers\MpMessageEntityEnlighten.cs" />
-    <Compile Include="NeuChar\MessageHandlerNode.cs" />
-    <Compile Include="NeuChar\MessageReply.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
@@ -517,7 +515,9 @@
     <None Include="Entities\Request\Event\Verify\readme.md" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NeuChar\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

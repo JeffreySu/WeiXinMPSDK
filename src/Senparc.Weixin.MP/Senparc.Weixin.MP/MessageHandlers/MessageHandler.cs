@@ -59,7 +59,6 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.NeuChar;
 using Senparc.Weixin.MP.Tencent;
 using System;
 using System.IO;
@@ -434,7 +433,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //TODO:Neuchar：在这里先做一次NeuChar标准的判断
 
                 var neuralSystem = NeuralSystem.Instance;
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as BaseMessageHandlerNode;
 
                 #region 添加模拟数据
 
@@ -472,7 +471,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = messageHandlerNode.Execute(requestMessage) ??
+
+                            ResponseMessage = messageHandlerNode.Execute(requestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ??
                                                 (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
                         }
                         break;
@@ -480,7 +480,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = messageHandlerNode.Execute(RequestMessage) ?? OnImageRequest(RequestMessage as RequestMessageImage);
+                        ResponseMessage = messageHandlerNode.Execute(RequestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);

@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Linq;
-using Senparc.Weixin.MP.MessageHandlers;
+﻿using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
+using System;
+using System.IO;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -26,12 +18,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
-        private string component_Token = WebConfigurationManager.AppSettings["Component_Token"];
-        private string component_EncodingAESKey = WebConfigurationManager.AppSettings["Component_EncodingAESKey"];
+        private string component_AppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Config.SenparcWeixinSetting.Component_Secret;
+        private string component_Token = Config.SenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Config.SenparcWeixinSetting.Component_EncodingAESKey;
 
-        /// <summary>
+        /// <summary>                      
         /// 发起授权页的体验URL
         /// </summary>
         /// <returns></returns>
@@ -44,6 +36,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth()
+        {
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
+            return Redirect(url);
+        }
+
 
         /// <summary>
         /// 微信服务器会不间断推送最新的Ticket（10分钟一次），需要在此方法中更新缓存

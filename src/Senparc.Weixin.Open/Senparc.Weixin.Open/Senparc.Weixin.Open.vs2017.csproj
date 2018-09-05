@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.0.0-preview1</Version>
+    <Version>4.0.1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 开放平台 模块
@@ -117,6 +117,23 @@
       v2.10.5 发布支持 .net core 2.1 的正式版
 
       v3.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      v3.0.6.1 支持 CO3NET v0.1.6.1 解决 XXE 漏洞
+      v3.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+      v3.0.10 支持 Senparc.Weixin v5.0.10
+      v3.0.11 支持 Senparc.Weixin v5.0.11
+      v3.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v3.1.2 修正 CodeApi.GetLatestAuditStatusAsync 请求方法错误（应该为GET）
+      v3.2.0 添加接口：复用公众号主体快速注册小程序
+      v3.3.0
+      1、添加接口：修改功能介绍 AccountAPIs.ModifySignature()
+      2、修复代码
+      v3.4.0 增加第三方平台授权接口的授权类型字段
+      v3.4.1 支持 CO2NET v0.2.4
+      v3.5.0 实现 SenparcWeixinSetting 自动注册
+
+      v4.0.0 支持 NeuChar 标准
+      v4.0.1 支持 Senparc.Weixin v6.0.1
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -233,6 +250,10 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="WxaAPIs\Template\TemplateJson\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.0.5" />
   </ItemGroup>
 
   <ItemGroup>

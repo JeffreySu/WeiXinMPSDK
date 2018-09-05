@@ -261,7 +261,7 @@ namespace Senparc.Weixin.Open.Containers
                     JsApiTicketResult = new JsApiTicketResult(),
                     JsApiTicketExpireTime = DateTime.MinValue,
                 };
-                Update(authorizerAppId, bag);
+                Update(authorizerAppId, bag, null);
                 return bag;
                 //}
             };
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.Open.Containers
                     var getAuthorizationInfoResult = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
                     authorizerBag.AuthorizationInfo = getAuthorizationInfoResult;
 
-                    Update(authorizerBag);//更新到缓存
+                    Update(authorizerBag, null);//更新到缓存
 
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
@@ -418,7 +418,7 @@ namespace Senparc.Weixin.Open.Containers
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
-                Update(authorizerBag);//立即更新
+                Update(authorizerBag, null);//立即更新
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -459,7 +459,7 @@ namespace Senparc.Weixin.Open.Containers
                     authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                     authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
 
-                    Update(authorizerBag);//立即更新
+                    Update(authorizerBag, null);//立即更新
 
                     //通知变更
                     if (refreshTokenChanged)
@@ -543,7 +543,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
 
-                    Update(accessTicketBag);//更新到缓存
+                    Update(accessTicketBag, null);//更新到缓存
                 }
             }
             return accessTicketBag.JsApiTicketResult;
@@ -650,7 +650,7 @@ namespace Senparc.Weixin.Open.Containers
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
 
-                    Update(authorizerBag);//更新到缓存
+                    Update(authorizerBag, null);//更新到缓存
 
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
@@ -737,7 +737,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
 
-                    Update(accessTicketBag);//更新到缓存
+                    Update(accessTicketBag, null);//更新到缓存
                 }
             }
             return accessTicketBag.JsApiTicketResult;

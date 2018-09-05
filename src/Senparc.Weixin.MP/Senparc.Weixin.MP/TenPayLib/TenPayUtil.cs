@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// TenpayUtil 的摘要说明。
     /// 配置文件
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class TenPayUtil
     {
         /// <summary>

@@ -9,12 +9,15 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 文件消息请求
     /// </summary>
-    public class RequestMessageFile : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageFile : WorkRequestMessageBase, IRequestMessageFile
     {
         public override RequestMsgType MsgType
         {

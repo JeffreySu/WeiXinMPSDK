@@ -75,6 +75,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 
+    修改标识：Senparc - 20180707
+    修改描述：v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -90,6 +93,7 @@ using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -157,7 +161,7 @@ namespace Senparc.Weixin.MP.Containers
         /// </summary>
         /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
-        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         public static void Register(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
@@ -174,11 +178,17 @@ namespace Senparc.Weixin.MP.Containers
                     AccessTokenExpireTime = DateTime.MinValue,
                     AccessTokenResult = new AccessTokenResult()
                 };
-                Update(appId, bag);//第一次添加，此处已经立即更新
+                Update(appId, bag, null);//第一次添加，此处已经立即更新
                 return bag;
                 //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
+            }
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret, name);
@@ -241,7 +251,7 @@ namespace Senparc.Weixin.MP.Containers
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -307,7 +317,7 @@ namespace Senparc.Weixin.MP.Containers
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;

@@ -63,7 +63,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen.Tests
                 "CFcsIXmH2r0v9ehjEhS+uUpJkr8qGQyt+Za3YkhjVNNA+xGj2WB2QFxDXdKVSzc10LukeB2maCxZCqpPQrWQx6CKF/VkEx96hXpPuBMpWBnnLzupoJpkRW9gJGRz7dcXDnqzstf2etRumDeAFDyjEKZ6bqs+KTE7qHauMsctxg4TXPbzzvWQm783j9PoWsCm/0A+aGNWCfZSFuJgi5G+LjTVqcGqP+mlAnLIFmgGLTo3vWrekz0//2vCMhgcgwKjPMR+VZTB7UItvnWfF4h4oOajcMuEiwTifaFkyn7l4NtLroMYjOfId16B6XCTK0BvPhTw9GI3wPMDopwWF2q3Op8M2fYWJuVGFKbrAZvVY/ILeIxYLaHuwHAOYULLre5Mg1kQpURlQ6I6e6GjraJUoL1BqsM38DayY5xRRFJsehZgrWkOySWICuN20Bte7+2N8D6PvhsaNyQz+4Lp4XY/Nn+clNGoM1v6aKTCv7PY2wo=";
             var iv = "ASJ0whjRyLK1tvgb7bAVSw==";
 
-            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey);
+            var unionId = "";//TODO：需要添加真实的UnionId
+            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
 
 
             var result = target.DecodeEncryptedData("userInfo", sessionId, encryptedData, iv);

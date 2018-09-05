@@ -191,9 +191,9 @@ namespace Senparc.Weixin.HttpUtility
         public static void Download(string url, string data, Stream stream)
         {
 #if NET35 || NET40 || NET45
-            WebClient wc = new WebClient();
+            WebClient wc = new WebClient(); 
             var file = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
-            stream.Write(file, 0, file.Length);
+            stream.Write(file, 0, file.Length);     
 
             //foreach (var b in file)
             //{

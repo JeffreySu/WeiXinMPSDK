@@ -31,11 +31,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 查询企业付款银行卡接口 请求参数
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3QueryBankRequestData
     {
         /// <summary>
@@ -65,8 +68,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public readonly string Sign;
 
-        public TenPayV3QueryBankRequestData()
+        public TenPayV3QueryBankRequestData(string mchId, string nonceStr, string key, string partnerTradeNo)
         {
+            this.MchId = mchId;
+            this.NonceStr = nonceStr;
+            this.Key = key;
+            this.PartnerTradeNumber = partnerTradeNo;
 
             #region 设置RequestHandler
 
@@ -82,7 +89,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 
             #endregion
-
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class DocumentController : BaseController
     {
-        public static readonly string appId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         private bool CheckCanDownload(string guid)
         {

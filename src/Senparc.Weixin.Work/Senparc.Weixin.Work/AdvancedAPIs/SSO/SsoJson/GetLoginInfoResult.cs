@@ -136,16 +136,4 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         public string id { get; set; }
         public string writable { get; set; }
     }
-
-    public class GetLoginUrlResult
-    {
-        /// <summary>
-        /// 登录跳转的url，一次性有效，不可多次使用
-        /// </summary>
-        public string login_url { get; set; }
-        /// <summary>
-        /// url有效时长，单位为秒
-        /// </summary>
-        public int expires_in { get; set; }
-    }
 }

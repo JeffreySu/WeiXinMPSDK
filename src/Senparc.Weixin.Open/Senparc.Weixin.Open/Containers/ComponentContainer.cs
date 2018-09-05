@@ -83,6 +83,7 @@ using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Open.Containers
 {
@@ -320,11 +321,17 @@ namespace Senparc.Weixin.Open.Containers
                     ComponentAppId = componentAppId,
                     ComponentAppSecret = componentAppSecret,
                 };
-                Update(componentAppId, bag);
+                Update(componentAppId, bag, null);
                 return bag;
                 //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Appid = componentAppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Secret = componentAppSecret;
+            }
         }
 
         #region component_verify_ticket
@@ -353,7 +360,7 @@ namespace Senparc.Weixin.Open.Containers
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
                 bag.ComponentVerifyTicket = componentVerifyTicket;
                 bag.ComponentVerifyTicketExpireTime = ApiUtility.GetExpireTime(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES * 60);
-                Update(bag);//更新到缓存
+                Update(bag, null);//更新到缓存
             }
             return componentVerifyTicket;
         }
@@ -368,8 +375,8 @@ namespace Senparc.Weixin.Open.Containers
             Update(componentAppId, bag =>
             {
                 bag.ComponentVerifyTicket = componentVerifyTicket;
-                Update(bag);//更新到缓存
-            });
+                Update(bag, null);//更新到缓存
+            }, null);
         }
 
         #endregion
@@ -428,8 +435,8 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
                     accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
-                                    }
+                    Update(accessTokenBag, null);//更新到缓存
+                }
             }
             return accessTokenBag.ComponentAccessTokenResult;
         }
@@ -490,7 +497,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
 
-                    Update(componentBag);//更新到缓存
+                    Update(componentBag, null);//更新到缓存
 
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
@@ -598,7 +605,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
                     accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
-                    Update(accessTokenBag);//更新到缓存
+                    Update(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;
@@ -661,7 +668,7 @@ namespace Senparc.Weixin.Open.Containers
 
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
 
-                    Update(componentBag);//更新到缓存
+                    Update(componentBag, null);//更新到缓存
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
                     //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0

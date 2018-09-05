@@ -42,6 +42,7 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class ClientResponseHandler
     {
         /// <summary>
@@ -83,7 +84,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         public virtual void SetContent(string content)
         {
             this.Content = content;
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             xmlDoc.LoadXml(content);
             XmlNode root = xmlDoc.SelectSingleNode("root");
             XmlNodeList xnl = root.ChildNodes;

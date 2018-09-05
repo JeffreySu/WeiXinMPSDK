@@ -29,13 +29,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180516
     修改描述：提供 RefundDescription、NotifyUrl 两个新参数
 
+    修改标识：Senparc - 20180705
+    修改描述：v15.0.6.2 TenPayV3RefundRequestData 添加 SubAppId、SubMchId 两个参数，以及支持这两个参数的构造函数
+
 ----------------------------------------------------------------*/
+using System;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 微信支付提交的XML Data数据[申请退款]
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3RefundRequestData
     {
         /// <summary>
@@ -121,6 +126,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 
         /// </summary>
         public string Key { get; set; }
+        /// <summary>
+        /// 服务商模式下，特约商户的开发配置中的AppId
+        /// </summary>
+        public string SubAppId { get; set; }
+        /// <summary>
+        /// 服务商模式下，特约商户的商户Id
+        /// </summary>
+        public string SubMchId { get; set; }
 
         public readonly RequestHandler PackageRequestHandler;
         public readonly string Sign;
@@ -177,6 +190,80 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
+            PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo);
+            PackageRequestHandler.SetParameter("sign_type", this.SignType);
+            PackageRequestHandler.SetParameterWhenNotNull("transaction_id", this.TransactionId);
+            PackageRequestHandler.SetParameterWhenNotNull("out_trade_no", this.OutTradeNo);
+            PackageRequestHandler.SetParameter("out_refund_no", this.OutRefundNo);
+            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());
+            PackageRequestHandler.SetParameter("refund_fee", this.RefundFee.ToString());
+            PackageRequestHandler.SetParameter("op_user_id", this.OpUserId);
+            PackageRequestHandler.SetParameterWhenNotNull("refund_fee_type", this.RefundFeeType);
+            PackageRequestHandler.SetParameterWhenNotNull("refund_desc", this.RefundDescription);
+            PackageRequestHandler.SetParameterWhenNotNull("notify_url", this.NotifyUrl);
+            PackageRequestHandler.SetParameterWhenNotNull("refund_account", this.RefundAccount);
+            Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+            PackageRequestHandler.SetParameter("sign", Sign); //签名
+
+            #endregion
+        }
+        /// <summary>
+        /// 申请退款 请求参数
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="mchId"></param>
+        /// <param name="subAppId">服务商模式下，特约商户的开发配置中的AppId</param>
+        /// <param name="subMchId">服务商模式下，特约商户的商户Id</param>
+        /// <param name="key"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="deviceInfo"></param>
+        /// <param name="transactionId"></param>
+        /// <param name="outTradeNo"></param>
+        /// <param name="outRefundNo"></param>
+        /// <param name="refundFeeType"></param>
+        /// <param name="signType"></param>
+        /// <param name="totalFee"></param>
+        /// <param name="refundFee"></param>
+        /// <param name="opUserId"></param>
+        /// <param name="refundAccount"></param>
+        /// <param name="refundDescription"></param>
+        /// <param name="notifyUrl"></param>
+        public TenPayV3RefundRequestData(string appId, string mchId, string subAppId, string subMchId, string key, string deviceInfo, string nonceStr,
+            string transactionId, string outTradeNo, string outRefundNo, int totalFee, int refundFee,
+            string opUserId, string refundAccount, string refundDescription = null, string notifyUrl = null,
+            string refundFeeType = "CNY", string signType = "MD5")
+        {
+            AppId = appId;
+            MchId = mchId;
+            Key = key;
+            NonceStr = nonceStr;
+            DeviceInfo = deviceInfo;
+            TransactionId = transactionId;
+            OutTradeNo = outTradeNo;
+            OutRefundNo = outRefundNo;
+            TotalFee = totalFee;
+            RefundFee = refundFee;
+            OpUserId = opUserId;
+            RefundFeeType = refundFeeType;
+            RefundAccount = refundAccount;
+            RefundDescription = refundDescription;
+            NotifyUrl = notifyUrl;
+            SubAppId = subAppId;
+            SubMchId = subMchId;
+            SignType = signType;
+
+            #region 设置RequestHandler
+
+            //创建支付应答对象
+            PackageRequestHandler = new RequestHandler(null);
+            //初始化
+            PackageRequestHandler.Init();
+            //设置package订单参数
+            PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
+            PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameter("sub_appid", this.SubAppId);
+            PackageRequestHandler.SetParameter("sub_mch_id", this.SubMchId);
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo);
             PackageRequestHandler.SetParameter("sign_type", this.SignType);

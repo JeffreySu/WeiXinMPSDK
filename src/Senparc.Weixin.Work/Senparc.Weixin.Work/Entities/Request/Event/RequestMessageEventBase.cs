@@ -11,9 +11,12 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public interface IRequestMessageEventBase : IRequestMessageBase
+    public interface IRequestMessageEventBase : IWorkRequestMessageBase, IRequestMessageEvent
     {
         /// <summary>
         /// 事件类型
@@ -25,7 +28,7 @@ namespace Senparc.Weixin.Work.Entities
         //string EventKey { get; set; }
     }
 
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
+    public class RequestMessageEventBase : WorkRequestMessageBase, IRequestMessageEventBase
     {
         public override RequestMsgType MsgType
         {

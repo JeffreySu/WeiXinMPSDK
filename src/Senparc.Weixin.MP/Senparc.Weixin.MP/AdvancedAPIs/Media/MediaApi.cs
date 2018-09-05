@@ -265,11 +265,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="stream">写入文件流</param>
+        /// <param name="timeOut"></param>
         public static WxJsonResult GetForeverMedia(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", (object)accessToken.AsUrlData());
+
                 var data = new
                 {
                     media_id = mediaId
@@ -278,7 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    Post.Download(urlFormat, null, stream);
+                    Post.Download(urlFormat, data.ToJson(), stream);
                 }
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
@@ -288,12 +290,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取永久视频素材
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="mediaId"></param>
+        /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static GetForeverMediaVideoResultJson GetForeverVideo(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi<GetForeverMediaVideoResultJson>(accessToken =>
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}";
                 var data = new
@@ -573,13 +575,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
-               //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
-               //var dataDictionary = new Dictionary<string, string>();
-               //dataDictionary["type"] = UploadMediaFileType.image.ToString();
+           //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
+           //var dataDictionary = new Dictionary<string, string>();
+           //dataDictionary["type"] = UploadMediaFileType.image.ToString();
 
-               var fileDictionary = new Dictionary<string, string>();
-               //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
-               fileDictionary["media"] = file;
+           var fileDictionary = new Dictionary<string, string>();
+           //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
+           fileDictionary["media"] = file;
                return await Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);
@@ -634,12 +636,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要获取的素材的media_id</param>
+        /// <param name="stream">写入文件流</param>
+        /// <param name="timeOut"></param>
         public static async Task<WxJsonResult> GetForeverMediaAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
 
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_material?access_token={0}", (object)accessToken.AsUrlData());
+
                 var data = new
                 {
                     media_id = mediaId
@@ -648,7 +653,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    await Post.DownloadAsync(urlFormat, null, stream);
+                    await Post.DownloadAsync(urlFormat, data.ToJson(), stream);
                 }
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
@@ -658,7 +663,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 获取永久视频素材
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="mediaId"></param>
+        /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<GetForeverMediaVideoResultJson> GetForeverVideoAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
@@ -808,11 +813,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
-         
+
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
-         
+
             }, accessTokenOrAppId);
         }
 

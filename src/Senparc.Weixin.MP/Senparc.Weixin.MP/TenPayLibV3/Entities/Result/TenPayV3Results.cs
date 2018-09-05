@@ -68,6 +68,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -83,6 +84,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 基础返回结果（微信支付返回结果基类）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3Result
     {
         public string return_code { get; set; }
@@ -168,6 +170,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 统一支付接口在 return_code为 SUCCESS的时候有返回
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class Result : TenPayV3Result
     {
         /// <summary>
@@ -248,6 +251,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回详细信息
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class UnifiedorderResult : Result
     {
         /// <summary>
@@ -308,6 +312,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 查询订单接口返回结果
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class OrderQueryResult : Result
     {
         /// <summary>
@@ -493,6 +498,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 关闭订单接口
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class CloseOrderResult : Result
     {
         /// <summary>
@@ -512,6 +518,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 申请退款接口
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class RefundResult : Result
     {
         #region 错误代码
@@ -795,6 +802,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 短链接转换接口
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class ShortUrlResult : Result
     {
         /// <summary>
@@ -825,6 +833,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 撤销订单接口
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class ReverseResult : Result
     {
         /// <summary>
@@ -845,6 +854,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// 刷卡支付
     /// 提交被扫支付
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class MicropayResult : Result
     {
         /// <summary>
@@ -952,6 +962,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 企业付款
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TransfersResult : TenPayV3Result
     {
         /// <summary>
@@ -1033,6 +1044,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 商户的企业付款操作进行结果查询，返回付款操作详细结果
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class GetTransferInfoResult : TenPayV3Result
     {
 
@@ -1134,6 +1146,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 获取验签秘钥API 返回结果
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenpayV3GetSignKeyResult : TenPayV3Result
     {
         ///// <summary>

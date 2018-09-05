@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.0.1</Version>
+    <Version>3.1.0</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -102,6 +102,7 @@
 
       v3.0.0 支持 NeuChar 标准
       v3.0.1 支持 Senparc.Weixin v6.0.1
+      v3.1.0 支持 Senparc.NeuChar v0.0.5
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -481,9 +481,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-
-                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{Config.SenparcWeixinSetting.WeixinAppId}");
-
                         ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:

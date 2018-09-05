@@ -120,6 +120,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
+
+                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{Config.SenparcWeixinSetting.WeixinAppId}");
+
                         ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:

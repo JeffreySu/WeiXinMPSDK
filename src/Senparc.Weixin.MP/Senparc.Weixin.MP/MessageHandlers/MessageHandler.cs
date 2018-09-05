@@ -435,6 +435,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var neuralSystem = NeuralSystem.Instance;
                 var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as BaseMessageHandlerNode;
 
+                messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+
                 #region 添加模拟数据
 
                 //var fakeMessageHandlerNode = new MessageHandlerNode()

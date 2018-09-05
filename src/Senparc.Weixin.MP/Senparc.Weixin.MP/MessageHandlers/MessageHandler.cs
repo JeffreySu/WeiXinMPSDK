@@ -380,7 +380,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
             }
 
-
             return decryptDoc;
         }
 

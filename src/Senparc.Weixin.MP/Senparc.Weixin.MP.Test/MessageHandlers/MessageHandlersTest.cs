@@ -32,6 +32,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -193,7 +194,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public partial class MessageHandlersTest
+    public partial class MessageHandlersTest:BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

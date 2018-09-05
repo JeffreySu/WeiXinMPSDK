@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage,this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
+                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage,this, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
                                 ?? (await OnTextRequestAsync(requestMessage)));
                         }
                         break;
@@ -120,7 +120,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);

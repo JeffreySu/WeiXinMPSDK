@@ -473,7 +473,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
 
-                            ResponseMessage = messageHandlerNode.Execute(requestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ??
+                            ResponseMessage = messageHandlerNode.Execute(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ??
                                                 (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
                         }
                         break;
@@ -481,7 +481,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = messageHandlerNode.Execute(RequestMessage, this.ApiEnlighten, Config.SenparcWeixinSetting.WeixinAppId) ?? OnImageRequest(RequestMessage as RequestMessageImage);
+                        ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);

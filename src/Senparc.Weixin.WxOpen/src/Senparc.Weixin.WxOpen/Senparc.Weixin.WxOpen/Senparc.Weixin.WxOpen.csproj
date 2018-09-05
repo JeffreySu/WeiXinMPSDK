@@ -47,8 +47,8 @@
     <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.0.6.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.2\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.0.6.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.4\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.0.2\lib\net45\Senparc.Weixin.dll</HintPath>

@@ -34,6 +34,8 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.Tencent;
 using Senparc.NeuChar;
+using Senparc.NeuChar.ApiHandlers;
+using Senparc.Weixin.Work.AdvancedAPIs;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -156,7 +158,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten Enlighten { get { return WorkMessageEntityEnlighten.Instance; } }
+        public override MessageEntityEnlighten MessageEntityEnlighten { get { return WorkMessageEntityEnlighten.Instance; } }
+
+        public override ApiEnlighten ApiEnlighten { get { return WorkApiEnlighten.Instance; } }
 
 
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)

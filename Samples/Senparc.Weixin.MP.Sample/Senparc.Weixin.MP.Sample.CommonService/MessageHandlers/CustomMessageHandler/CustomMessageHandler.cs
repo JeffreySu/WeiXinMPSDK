@@ -239,7 +239,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     *
                     */
                     var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
-                    var agentResponseMessage = responseXml.CreateResponseMessage(this.Enlighten);
+                    var agentResponseMessage = responseXml.CreateResponseMessage(this.MessageEntityEnlighten);
                     if (agentResponseMessage is ResponseMessageText)
                     {
                         (agentResponseMessage as ResponseMessageText).Content += msg;

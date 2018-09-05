@@ -40,6 +40,8 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Tencent;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.ApiHandlers;
+using Senparc.Weixin.WxOpen.AdvancedAPIs;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -123,7 +125,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten Enlighten { get { return WxOpenMessageEntityEnlighten.Instance; } }
+        public override MessageEntityEnlighten MessageEntityEnlighten { get { return WxOpenMessageEntityEnlighten.Instance; } }
+        public override ApiEnlighten ApiEnlighten { get { return WxOpenApiEnlighten.Instance; } }
 
 
         #region 构造函数

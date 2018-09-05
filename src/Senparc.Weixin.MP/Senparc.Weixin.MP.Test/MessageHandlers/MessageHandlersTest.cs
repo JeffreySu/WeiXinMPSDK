@@ -602,5 +602,33 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         #endregion
+
+        #region NeuChar 测试
+
+        [TestMethod]
+        public void NeuCharTest()
+        {
+            string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>1357986928</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[neuchar]]></Content>
+    <MsgId>5832509444155992350</MsgId>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
+            Console.Write(messageHandlers.ResponseDocument.ToString());
+        }
+
+        #endregion
     }
 }

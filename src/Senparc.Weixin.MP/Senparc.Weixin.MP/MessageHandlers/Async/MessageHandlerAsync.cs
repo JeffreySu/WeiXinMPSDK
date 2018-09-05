@@ -42,7 +42,6 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Tencent;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.NeuChar;
 using Senparc.NeuChar;
 using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
@@ -113,7 +112,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage) ?? (await (OnTextOrEventRequestAsync(requestMessage))
+                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage,this, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
                                 ?? (await OnTextRequestAsync(requestMessage)));
                         }
                         break;
@@ -121,7 +120,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+
+                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{Config.SenparcWeixinSetting.WeixinAppId}");
+
+                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);

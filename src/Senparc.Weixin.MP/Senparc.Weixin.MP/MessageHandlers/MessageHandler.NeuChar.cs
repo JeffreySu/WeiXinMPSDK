@@ -4,9 +4,9 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.NeuChar;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 switch (requestMessage.NeuCharMessageType)
                 {
-                    case NeuCharMessageType.GetConfig:
+                    case NeuCharActionType.GetConfig:
                         {
                             if (File.Exists(file))
                             {
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             }
                         }
                         break;
-                    case NeuCharMessageType.SaveConfig:
+                    case NeuCharActionType.SaveConfig:
                         {
                             var configRootJson = requestMessage.ConfigRoot;
                             SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);

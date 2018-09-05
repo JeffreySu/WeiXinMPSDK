@@ -39,7 +39,6 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.NeuChar;
 using System.Linq;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;

@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var neuralSystem = NeuralSystem.Instance;
 
                 //获取当前设置节点
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as BaseMessageHandlerNode;
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
 
                 switch (RequestMessage.MsgType)
                 {

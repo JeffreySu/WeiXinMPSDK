@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     {
         static MessageHandler()
         {
-            Senparc.NeuChar.Register.RegisterNeuralNode("MessageHandlerNode", typeof(BaseMessageHandlerNode));
+            Senparc.NeuChar.Register.RegisterNeuralNode("MessageHandlerNode", typeof(MessageHandlerNode));
         }
 
         #region NeuChar 方法

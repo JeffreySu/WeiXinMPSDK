@@ -93,6 +93,7 @@
     <Compile Include="AdvancedAPIs\MailList\Member\MemberCreateRequest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberUpdateRequest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\WorkApiEnlighten.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />

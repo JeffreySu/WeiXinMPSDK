@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 switch (requestMessage.NeuCharMessageType)
                 {
-                    case NeuCharMessageType.GetConfig:
+                    case NeuCharActionType.GetConfig:
                         {
                             if (File.Exists(file))
                             {
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             }
                         }
                         break;
-                    case NeuCharMessageType.SaveConfig:
+                    case NeuCharActionType.SaveConfig:
                         {
                             var configRootJson = requestMessage.ConfigRoot;
                             SenparcTrace.SendCustomLog("收到NeuCharRequest", configRootJson);

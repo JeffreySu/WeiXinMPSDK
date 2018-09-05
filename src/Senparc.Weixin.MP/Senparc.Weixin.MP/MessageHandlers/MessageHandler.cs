@@ -48,11 +48,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
+using Senparc.NeuChar.ApiHandlers;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -202,7 +204,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten Enlighten { get { return MpMessageEntityEnlighten.Instance; } }
+        public override MessageEntityEnlighten MessageEntityEnlighten { get { return MpMessageEntityEnlighten.Instance; } }
+        public override ApiEnlighten ApiEnlighten { get { return MpApiEnlighten.Instance; } }
 
         #region 私有方法
 

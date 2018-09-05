@@ -7,9 +7,10 @@ using Senparc.NeuChar.ApiHandlers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class MpApiEnlighten : ApiEnlighten
+    public class WorkApiEnlighten : ApiEnlighten
     {
-        public static ApiEnlighten Instance = new MpApiEnlighten();
+        public static ApiEnlighten Instance = new WorkApiEnlighten();
+
 
         /// <summary>
         /// 发送文本客服消息
@@ -20,8 +21,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendText(string accessTokenOrAppId, string openId, string content)
         {
-            var reuslt = CustomApi.SendText(accessTokenOrAppId, openId, content);
-            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -33,8 +33,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
-            var reuslt = CustomApi.SendImage(accessTokenOrAppId, openId, mediaId);
-            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
+            throw new NotImplementedException();
         }
     }
 }

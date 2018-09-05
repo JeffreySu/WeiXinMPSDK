@@ -160,6 +160,7 @@
     <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfResult.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockApi.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockPostData.cs" />
+    <Compile Include="AdvancedAPIs\MpApiEnlighten.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />

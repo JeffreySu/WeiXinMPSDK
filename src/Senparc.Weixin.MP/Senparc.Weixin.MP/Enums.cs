@@ -331,7 +331,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 小程序审核失败
         /// </summary>
-        weapp_audit_fail
+        weapp_audit_fail,
 
         #endregion
 

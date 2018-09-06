@@ -55,10 +55,10 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 礼品卡是否发送至群，true为是
         /// </summary>
-        public bool IsChatRoom { get; set; }
+        public string IsChatRoom { get; set; }
         /// <summary>
         /// 标识礼品卡是否因超过24小时未被领取，退回卡包。True时表明超时退回卡包
         /// </summary>
-        public bool IsReturnBack { get; set; }
+        public string IsReturnBack { get; set; }
     }
 }

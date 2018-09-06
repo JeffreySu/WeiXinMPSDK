@@ -55,6 +55,6 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 礼品卡是否发送至群，true为是
         /// </summary>
-        public bool IsChatRoom { get; set; }
+        public string IsChatRoom { get; set; }
     }
 }

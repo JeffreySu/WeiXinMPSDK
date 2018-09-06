@@ -191,6 +191,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             responseMessage.Content = "欢迎关注";
             return responseMessage;
         }
+
+
+        #region 卡券回调测试
+
+        public override IResponseMessageBase OnEvent_GiftCard_Pay_DoneRequest(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_Pay_DoneRequest";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_GiftCard_Send_To_FriendRequest(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_Send_To_FriendRequest";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_GiftCard_User_AcceptRequest(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_User_AcceptRequest";
+            return responseMessage;
+        }
+
+        #endregion
     }
 
     [TestClass]
@@ -631,5 +657,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         #endregion
+
+
     }
 }

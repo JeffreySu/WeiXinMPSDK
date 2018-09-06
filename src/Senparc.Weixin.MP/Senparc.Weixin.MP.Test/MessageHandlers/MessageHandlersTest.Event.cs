@@ -137,5 +137,11 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         #endregion
 
+        #region 卡券回调
+
+
+
+        #endregion
+
     }
 }

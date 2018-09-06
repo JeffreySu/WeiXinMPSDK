@@ -334,6 +334,21 @@ namespace Senparc.Weixin.MP
         weapp_audit_fail
 
         #endregion
+
+        #region 卡券回调：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=215143440770UT7Y
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        giftcard_pay_done,
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        giftcard_send_to_friend,
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        giftcard_user_accept,
+        #endregion
     }
 
 

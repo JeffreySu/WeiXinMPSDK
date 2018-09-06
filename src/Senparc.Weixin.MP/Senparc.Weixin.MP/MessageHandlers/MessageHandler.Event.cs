@@ -157,6 +157,22 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_Card_Pay_OrderRequest(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
 
+                #region 卡券回调
+
+                case Event.giftcard_pay_done:
+                    responseMessage = OnEvent_GiftCard_Pay_DoneRequest(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done);
+                    break;
+
+                case Event.giftcard_send_to_friend:
+                    responseMessage = OnEvent_GiftCard_Send_To_FriendRequest(RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend);
+                    break;
+
+                case Event.giftcard_user_accept:
+                    responseMessage = OnEvent_GiftCard_User_AcceptRequest(RequestMessage as RequestMessageEvent_GiftCard_User_Accept);
+                    break;
+
+                #endregion
+
                 #region 微信认证事件推送
 
                 case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
@@ -585,6 +601,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        #endregion
+
+        #region 卡券回调
+
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_Pay_DoneRequest(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_Send_To_FriendRequest(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_User_AcceptRequest(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
         #endregion
 

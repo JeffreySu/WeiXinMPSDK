@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20150924
-    
+  
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 支持NeuChar，添加 OnNeuCharRequest() 方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -34,6 +37,13 @@ using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar;
+using Senparc.CO2NET.Trace;
+using System.IO;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -90,7 +100,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        /// <summary>
+         /// <summary>
         /// 位置类型请求
         /// </summary>
         public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)

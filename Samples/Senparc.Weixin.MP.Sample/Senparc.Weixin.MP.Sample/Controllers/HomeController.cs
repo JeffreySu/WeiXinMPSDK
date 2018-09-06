@@ -44,6 +44,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
+            TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));
             TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));
             TempData["ExtensionVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult));
             TempData["OpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Open.Register));

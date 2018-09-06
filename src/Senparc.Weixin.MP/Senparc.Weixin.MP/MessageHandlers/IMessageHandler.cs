@@ -29,8 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.MessageHandlers;
-using Senparc.Weixin.MP.Entities;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

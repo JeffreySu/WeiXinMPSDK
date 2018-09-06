@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150327
     修改描述：添加小视频类型
+    
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 支持NeuChar，添加 RequestMessageNeuChar() 方法
 
 ----------------------------------------------------------------*/
 
@@ -39,6 +42,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -99,6 +105,9 @@ namespace Senparc.Weixin.MP
                         break;
                     case RequestMsgType.File:
                         requestMessage = new RequestMessageFile();
+                        break;
+                    case RequestMsgType.NeuChar:
+                        requestMessage = new RequestMessageNeuChar();
                         break;
                     case RequestMsgType.Event:
                         //判断Event类型
@@ -265,7 +274,7 @@ namespace Senparc.Weixin.MP
                             break;
                         }
                 }
-                EntityHelper.FillEntityWithXml(requestMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
             {

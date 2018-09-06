@@ -56,6 +56,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 微信支付工具类
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3Util
     {
         public static Random random = new Random();

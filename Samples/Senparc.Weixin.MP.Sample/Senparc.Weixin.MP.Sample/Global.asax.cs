@@ -7,29 +7,23 @@
 
 #if 使用RegisterServices方式注册
 
-using System.Collections.Generic;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Memcached;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+using Senparc.Weixin.Open;
+using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.TenPay;
+using Senparc.Weixin.Work;
+using Senparc.Weixin.WxOpen;
 using System.IO;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.MP.Sample.CommonService;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Senparc.Weixin.MP.TenPayLib;
-using Senparc.Weixin.MP.TenPayLibV3;
-using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.Open;
-using Senparc.CO2NET;
-using Senparc.CO2NET.Cache.Redis;
-using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.Cache;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.WxOpen;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -111,7 +105,7 @@ namespace Senparc.Weixin.MP.Sample
                 * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
                 */
-                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(redisConfigurationStr);
+                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
                 //以下会立即将全局缓存设置为 Memcached
                 Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
@@ -309,11 +303,10 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Senparc.Weixin.MP.TenPayLib;
-using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Threads;
+using Senparc.Weixin.TenPay;
 
 namespace Senparc.Weixin.MP.Sample
 {

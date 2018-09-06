@@ -24,12 +24,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -191,7 +194,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public partial class MessageHandlersTest
+    public partial class MessageHandlersTest:BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -355,7 +358,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageHandlers1 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             var messageHandlers2 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers1.Execute();
-            Assert.AreEqual(messageHandlers1.WeixinContext.GetHashCode(), messageHandlers2.WeixinContext.GetHashCode());
+            Assert.AreEqual(messageHandlers1.GlobalMessageContext.GetHashCode(), messageHandlers2.GlobalMessageContext.GetHashCode());
         }
 
         [TestMethod]
@@ -363,14 +366,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            var messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.IsTrue(messageContext.RequestMessages.Count > 0);
             Assert.IsNotNull(messageHandlers.CurrentMessageContext);
             Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", messageHandlers.CurrentMessageContext.UserName);
 
-            messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
+            messageHandlers.GlobalMessageContext.ExpireMinutes = 0;//马上过期
             messageHandlers.Execute();
-            messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.AreEqual(0, messageContext.RequestMessages.Count);
         }
 
@@ -412,9 +415,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            Assert.IsTrue(messageHandlers.WeixinContext.MessageCollection.Count > 0);
-            messageHandlers.WeixinContext.Restore();
-            Assert.AreEqual(0, messageHandlers.WeixinContext.MessageCollection.Count);
+            Assert.IsTrue(messageHandlers.GlobalMessageContext.MessageCollection.Count > 0);
+            messageHandlers.GlobalMessageContext.Restore();
+            Assert.AreEqual(0, messageHandlers.GlobalMessageContext.MessageCollection.Count);
         }
 
         [TestMethod]
@@ -597,6 +600,34 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
                
+        }
+
+        #endregion
+
+        #region NeuChar 测试
+
+        [TestMethod]
+        public void NeuCharTest()
+        {
+            string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>1357986928</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[neuchar]]></Content>
+    <MsgId>5832509444155992350</MsgId>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
+            Console.Write(messageHandlers.ResponseDocument.ToString());
         }
 
         #endregion

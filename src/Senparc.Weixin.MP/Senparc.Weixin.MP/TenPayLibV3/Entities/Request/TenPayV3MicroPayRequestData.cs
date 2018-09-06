@@ -27,11 +27,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20161227
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 微信支付提交的XML Data数据[提交刷卡支付]
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3MicroPayRequestData
     {
         /// <summary>
@@ -172,7 +175,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIp); //终端IP
             PackageRequestHandler.SetParameter("goods_tag", this.GoodsTag); //商品标记
             PackageRequestHandler.SetParameter("auth_code", this.AuthCode); //授权码
-            Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+
+            // TODO:★554393109 修改
+            //***************************************************************************************
+            Sign = "MD5".Equals(signType, System.StringComparison.OrdinalIgnoreCase) 
+                ? PackageRequestHandler.CreateMd5Sign("key", this.Key) 
+                : PackageRequestHandler.CreateSha256Sign("key", this.Key);
+            //***************************************************************************************
+
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 
             #endregion

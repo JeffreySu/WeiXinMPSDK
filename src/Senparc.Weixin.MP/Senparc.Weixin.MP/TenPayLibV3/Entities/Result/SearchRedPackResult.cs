@@ -39,6 +39,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 获取查询红包接口的结果，既可以查询普通红包，也可以查询裂变红包
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class SearchRedPackResult
     {
         /// <summary>
@@ -149,6 +150,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 单个OpenID红包领取信息
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class RedPackHBInfo
     {
         /// <summary>

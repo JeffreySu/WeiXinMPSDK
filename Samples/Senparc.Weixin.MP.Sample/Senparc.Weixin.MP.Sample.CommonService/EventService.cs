@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 #if NET45
 using System.Web;

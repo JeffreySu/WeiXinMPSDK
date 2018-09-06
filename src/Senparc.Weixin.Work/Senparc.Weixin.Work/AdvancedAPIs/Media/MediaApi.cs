@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;

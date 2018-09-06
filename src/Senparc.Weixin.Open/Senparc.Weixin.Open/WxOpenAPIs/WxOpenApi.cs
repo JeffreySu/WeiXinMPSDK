@@ -11,6 +11,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson;
 using Senparc.Weixin.Open.WxOpenAPIs.GetCategoryJson;
+using Senparc.Weixin.Open.WxOpenAPIs.AddCategoryJson;
 
 namespace Senparc.Weixin.Open.WxOpenAPIs
 {
@@ -64,21 +65,12 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// 添加类目
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
-        /// <param name="first">一级类目ID</param>
-        /// <param name="second">二级类目ID</param>
-        /// <param name="certicates">资质名称,资质图片</param>
+        /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
-        public static WxJsonResult AddCategory(string accessToken, int first, int second,
-            IList<KeyValuePair<string, string>> certicates)
+        public static WxJsonResult AddCategory(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
-            var data = new
-            {
-                first = first,
-                second = second,
-                certicates = certicates
-            };
-            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, addCategoryData);
         }
 
         /// <summary>
@@ -157,21 +149,12 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// 添加类目
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
-        /// <param name="first">一级类目ID</param>
-        /// <param name="second">二级类目ID</param>
-        /// <param name="certicates">资质名称,资质图片</param>
+        /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, int first, int second,
-            IList<KeyValuePair<string, string>> certicates)
+        public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
-            var data = new
-            {
-                first = first,
-                second = second,
-                certicates = certicates
-            };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, addCategoryData);
         }
 
         /// <summary>

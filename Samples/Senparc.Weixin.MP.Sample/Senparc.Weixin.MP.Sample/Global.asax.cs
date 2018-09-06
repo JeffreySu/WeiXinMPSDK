@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.Sample
                 * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
                 */
-                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(redisConfigurationStr);
+                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
                 //以下会立即将全局缓存设置为 Memcached
                 Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();

@@ -28,26 +28,40 @@
         >（←点图标）进入客服，查看消息接口</contact-button>
   </view>
 
-  <!-- 请求数据 -->
-  <button type="primary" bindtap="doRequest" 
-  hover-class="other-button-hover" class="btn-DoRequest">
-  获取数据
-  </button>
-
-  <!-- 模板消息 -->
-  <form report-submit="true" bindsubmit="formTemplateMessageSubmit">
-  <button formType="submit" type="primary"
-  hover-class="other-button-hover" class="btn-DoRequest">
-  测试模板消息
-  </button>
-  </form>
-
-    <!-- 获取手机号 -->
-  <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"
-   class="btn-DoRequest" hover-class="other-button-hover" >获取手机号</button>
-
-
+  <view class="flex-wrp" style="flex-direction:row;">
+    <!-- 请求数据 -->
+    <view class="flex-item"><button type="primary" bindtap="doRequest" 
+      hover-class="other-button-hover" class="btn-DoRequest">
+      获取数据
+      </button>
+    </view>
+    <view class="flex-item">
+      <!-- 模板消息 -->
+      <form report-submit="true" bindsubmit="formTemplateMessageSubmit">
+      <button formType="submit" type="primary"
+      hover-class="other-button-hover" class="btn-DoRequest">
+      测试模板消息
+      </button>
+      </form>
+    </view>
+  </view>
+<view class="flex-wrp" style="flex-direction:row;">
+    <view class="flex-item">
+      <!-- 获取手机号 -->
+      <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"
+      class="btn-DoRequest" hover-class="other-button-hover" >获取手机号</button>
+    </view>
+    <view class="flex-item">
       <!-- 微信支付 -->
-  <button bindtap="wxPay" class="btn-DoRequest"  hover-class="other-button-hover" >微信支付(1分钱)</button>
+      <button bindtap="wxPay" class="btn-DoRequest"  hover-class="other-button-hover">微信支付(1分钱)</button>
+    </view>
+  </view>
+
+
+
+
+
+
+
 
 </view>

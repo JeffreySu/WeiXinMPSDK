@@ -206,6 +206,11 @@ Page({
       }
       });
   },
+  openLivePusher:function(){
+    wx.navigateTo({
+      url: '../LivePusher/LivePusher'
+    })
+  },
   onLoad: function () {
     console.log('onLoad')
     var that = this

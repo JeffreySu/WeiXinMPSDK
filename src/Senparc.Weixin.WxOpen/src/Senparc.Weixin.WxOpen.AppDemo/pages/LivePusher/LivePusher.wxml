@@ -1,0 +1,13 @@
+<view class="page-body">
+  <view class="page-section tc">
+    <live-pusher id="pusher" url="https://domain/push_stream" mode="RTC" autopush bindstatechange="statechange" />
+
+    <view class="btn-area">
+      <button bindtap="bindStart" class="page-body-button" type="primary">播放推流</button>
+      <button bindtap="bindPause" class="page-body-button" type="primary">暂停推流</button>
+      <button bindtap="bindStop" class="page-body-button" type="primary">停止推流</button>
+      <button bindtap="bindResume" class="page-body-button" type="primary"> 恢复推流</button>
+      <button bindtap="bindSwitchCamera" class="page-body-button" type="primary">切换前后摄像头</button>
+    </view>
+  </view>
+</view>

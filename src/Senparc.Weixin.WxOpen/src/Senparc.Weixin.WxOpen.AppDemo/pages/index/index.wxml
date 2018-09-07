@@ -30,7 +30,8 @@
 
   <view class="flex-wrp" style="flex-direction:row;">
     <!-- 请求数据 -->
-    <view class="flex-item"><button type="primary" bindtap="doRequest" 
+    <view class="flex-item">
+      <button type="primary" bindtap="doRequest" 
       hover-class="other-button-hover" class="btn-DoRequest">
       获取数据
       </button>
@@ -45,6 +46,7 @@
       </form>
     </view>
   </view>
+
 <view class="flex-wrp" style="flex-direction:row;">
     <view class="flex-item">
       <!-- 获取手机号 -->
@@ -58,7 +60,13 @@
   </view>
 
 
-
+<view class="flex-wrp" style="flex-direction:row;">
+    <view class="flex-item">
+      <!-- 获取手机号 -->
+      <button type="primary" bindtap="openLivePusher" 
+      hover-class="other-button-hover" class="btn-DoRequest">Live Pusher（仅演示）</button>
+    </view>
+</view>
 
 
 

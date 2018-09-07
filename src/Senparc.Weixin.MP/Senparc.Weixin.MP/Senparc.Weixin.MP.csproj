@@ -300,6 +300,9 @@
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Pay_Done.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Send_To_Friend.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_User_Accept.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />

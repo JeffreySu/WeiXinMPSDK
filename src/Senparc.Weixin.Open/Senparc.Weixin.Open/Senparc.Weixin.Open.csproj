@@ -133,6 +133,7 @@
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
+    <Compile Include="WxOpenAPIs\AddCategoryJson\AddCategoryData.cs" />
     <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
     <Compile Include="WxOpenAPIs\GetCategoryJson\GetCategoryJsonResult.cs" />
     <Compile Include="WxOpenAPIs\WxOpenApi.cs" />

@@ -60,8 +60,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170810
     修改描述：v4.14.1 ReturnCode添加：没有留言权限 = 88000
    
+    修改标识：Senparc - 20170901
+    修改描述：删除 AppStoreState 枚举，移植到 Senparc.NeuChar
+
 ----------------------------------------------------------------*/
 
+
+using System;
 
 namespace Senparc.Weixin
 {
@@ -105,25 +110,6 @@ namespace Senparc.Weixin
         /// 企业微信
         /// </summary>
         Work
-    }
-
-    /// <summary>
-    /// 缓存类型
-    /// </summary>
-    public enum CacheType
-    {
-        /// <summary>
-        /// 本地运行时缓存（单机）
-        /// </summary>
-        Local,
-        /// <summary>
-        /// Redis缓存（支持分布式）
-        /// </summary>
-        Redis,
-        /// <summary>
-        /// Memcached（支持分布式）
-        /// </summary>
-        Memcached
     }
 
     /// <summary>
@@ -289,6 +275,8 @@ namespace Senparc.Weixin
         /// 小程序为“签名错误”。对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
         /// </summary>
         签名错误 = 87009,
+        //小程序MsgSecCheck接口
+        内容含有违法违规内容 = 87014,
 
         //小程序地点管理返回码
         POST参数非法 = 20002,
@@ -878,29 +866,20 @@ namespace Senparc.Weixin
         en
     }
 
+
     /// <summary>
-    /// AppStore状态
+    /// 用户信息中的性别（sex）
     /// </summary>
-    public enum AppStoreState
+    [Obsolete("请使用 Senparc.Weixin.Enums.WeixinSex 枚举。")]
+    public enum Sex
     {
-        /// <summary>
-        /// 无状态
-        /// </summary>
-        None = 1,
-        /// <summary>
-        /// 已进入应用状态
-        /// </summary>
-        Enter = 2,
-        /// <summary>
-        /// 退出App状态（临时传输状态，退出后即为None）
-        /// </summary>
-        Exit = 4
+
     }
 
     /// <summary>
     /// 用户信息中的性别（sex）
     /// </summary>
-    public enum Sex
+    public enum WeixinSex
     {
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释   
         未知 = 0,

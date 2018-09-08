@@ -36,13 +36,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 //统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_1 
 //H5统一支付文档：https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=9_20&index=1
 
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
+using System;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// TenPayV3UnifiedorderRequestData 的 SceneInfo 参数（非必填）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3UnifiedorderRequestData_SceneInfo
     {
         /// <summary>
@@ -118,6 +120,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// store_info 数据
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class Store_Info
     {
         /// <summary>
@@ -142,6 +145,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// H5支付信息
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public interface IH5_Info
     {
         /// <summary>
@@ -153,6 +157,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// H5支付-IOS移动应用
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class H5_Info_IOS : IH5_Info
     {
         /// <summary>
@@ -172,6 +177,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// H5支付-安卓移动应用
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class H5_Info_Android : IH5_Info
     {
         /// <summary>
@@ -191,6 +197,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// H5支付-WAP网站应用
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class H5_Info_WAP : IH5_Info
     {
         /// <summary>

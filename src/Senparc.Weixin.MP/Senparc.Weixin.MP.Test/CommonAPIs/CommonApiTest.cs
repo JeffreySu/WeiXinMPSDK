@@ -34,13 +34,23 @@ using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Threads;
+using Senparc.CO2NET.Threads;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+#if NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.AspNetCore.Hosting;
+#endif
+using Moq;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     //已通过测试
     //[TestClass]
-    public partial class CommonApiTest
+    public partial class CommonApiTest : BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -67,6 +77,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         {
                             AppId = doc.Root.Element("AppId").Value,
                             Secret = doc.Root.Element("Secret").Value,
+                            WxOpenAppId = doc.Root.Element("WxOpenAppId").Value,
+                            WxOpenSecret = doc.Root.Element("WxOpenSecret").Value,
                             MchId = doc.Root.Element("MchId").Value,
                             TenPayKey = doc.Root.Element("TenPayKey").Value,
                             TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
@@ -81,6 +93,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         {
                             AppId = "YourAppId", //换成你的信息
                             Secret = "YourSecret",//换成你的信息
+                            WxOpenAppId ="YourWxOpenAppId",//换成你的信息
+                            WxOpenSecret = "YourWxOpenSecret",//换成你的信息
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息
                             TenPayCertPath = "YourTenPayCertPath",//换成你的信息
@@ -101,6 +115,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         protected string _appSecret
         {
             get { return AppConfig.Secret; }
+        }
+
+
+        protected string _wxOpenAppId
+        {
+            get { return AppConfig.WxOpenAppId; }
+        }
+
+        protected string _wxOpenAppSecret
+        {
+            get { return AppConfig.WxOpenSecret; }
         }
 
         protected string _mchId
@@ -198,7 +223,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
             //}
 
-            ThreadUtility.Register();
+            //ThreadUtility.Register();
 
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次

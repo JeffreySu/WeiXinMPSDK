@@ -34,6 +34,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System.Collections;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
+using System;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -44,6 +46,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class CheckRequestHandler : ClientRequestHandler
     {
         /// <summary>
@@ -82,7 +85,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 
             this.SetParameter("sign", sign);
 

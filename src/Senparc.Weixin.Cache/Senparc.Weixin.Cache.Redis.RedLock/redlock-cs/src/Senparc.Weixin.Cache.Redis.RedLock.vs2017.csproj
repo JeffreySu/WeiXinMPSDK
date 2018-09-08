@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.2.5-rc1</Version>
+    <Version>1.2.5</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis.RedLock</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis.RedLock</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       Senparc.Weixin.Cache.Redis.RedLock 模块
@@ -49,6 +49,7 @@
 
       v1.2.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
+      v1.2.5 发布支持 .net core 2.1 的正式版
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>0.5.5-rc1</Version>
+    <Version>0.5.5</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     
-  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - WebSocket 模块
@@ -42,8 +42,9 @@
       v0.3.3 常规优化
       v0.4.0 停止对 .net core 1.1 生成的独立版本
 
-      v0.5.0-rc1 支持 .NET Core 2.1.0-rc1-final
+      v0.5.0-rc1 支持 .NET Core 2.1.0
 
+      v0.5.5 发布支持 .net core 2.1 的正式版
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -129,10 +130,10 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebSockets" Version="2.1.0" />
     <!--<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />-->
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <!--<PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />-->

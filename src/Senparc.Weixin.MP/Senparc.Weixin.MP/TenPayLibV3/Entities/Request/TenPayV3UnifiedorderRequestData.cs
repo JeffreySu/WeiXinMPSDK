@@ -45,7 +45,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.3.135 trade_type=NATIVE时，OpenId允许为null
     
     修改标识：Senparc - 20180223
-    修改描述：14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
+    修改描述：v14.10.2 微信支付统一下单接口TenPayV3UnifiedorderRequestData数据添加“场景信息”字段（sceneInfo）
+
+    修改标识：Senparc - 20180223
+    修改描述：v15.2.0 TenPayV3UnifiedorderRequestData 提供不带参数的构造函数
 
 ----------------------------------------------------------------*/
 
@@ -61,6 +64,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 微信支付提交的XML Data数据[统一下单]
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3UnifiedorderRequestData
     {
         /// <summary>
@@ -235,6 +239,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
 
         }
+
+        /// <summary>
+        /// 此不带参数的构造函数是为了反序列化的实例初始化，提交数据时请使用其他构造函数
+        /// </summary>
+        public TenPayV3UnifiedorderRequestData() { }
 
 
 

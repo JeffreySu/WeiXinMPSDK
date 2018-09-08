@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.10.5-rc1</Version>
+    <Version>3.1.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 微信小程序 模块
@@ -82,6 +82,27 @@
 
       v1.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
+      v1.10.5 发布支持 .net core 2.1 的正式版
+
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      V2.0.3 SessionBag 添加 UnionId 属性
+      v2.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
+      v2.0.9 支持 CO2NET v0.1.9
+      v2.0.10 支持 Senparc.Weixin v5.0.10
+      v2.0.11 支持 Senparc.Weixin v5.0.11
+      v2.0.11.1 添加 小程序码的接口缺少 is_hyaline 参数
+      v2.0.11.2 修正 TemplateApi.Add() 方法返回类型
+      v2.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v2.1.1 fix bug 小程序“数据分析”接口 日趋势 字段类型
+      v2.1.2 优化接口，支持 CO2NET v0.2.4
+      v2.2.0 实现 SenparcWeixinSetting 自动注册
+      v2.3.0 单独设立小程序客服接口（AdvancedAPIs.CustomApi），支持所有小程序客服消息类型
+      v2.4.0 添加校验文字及图片是否含有违法内容的接口
+      v2.4.1 fixbug：TemplateApi.LibraryGet() 方法修正 API 地址
+
+      v3.0.0 支持 NeuChar 标准
+      v3.0.1 支持 Senparc.Weixin v6.0.1
+      v3.1.0 支持 Senparc.NeuChar v0.0.5
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -219,9 +240,9 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
@@ -232,6 +253,13 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+
+
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.0.6.10" />
   </ItemGroup>
 
 

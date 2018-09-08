@@ -28,9 +28,10 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
@@ -94,8 +95,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentAppId">第三方平台方appid</param>
         /// <param name="preAuthCode">预授权码</param>
         /// <param name="redirectUrl">回调URL</param>
+        /// <param name="authType">要授权的帐号类型</param>
+        /// <param name="bizAppId">指定授权唯一的小程序或公众号</param>
         /// <returns></returns>
-        public static string GetComponentLoginPageUrl(string componentAppId, string preAuthCode, string redirectUrl)
+        public static string GetComponentLoginPageUrl(string componentAppId, string preAuthCode, string redirectUrl, LoginAuthType authType = LoginAuthType.默认, string bizAppId = "")
         {
             /*
              * 授权流程完成后，会进入回调URI，并在URL参数中返回授权码和过期时间(redirect_url?auth_code=xxx&expires_in=600)
@@ -105,6 +108,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 string.Format(
                     "https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid={0}&pre_auth_code={1}&redirect_uri={2}",
                     componentAppId.AsUrlData(), preAuthCode.AsUrlData(), redirectUrl.AsUrlData());
+
+            if (authType != LoginAuthType.默认)
+                url = string.Format("{0}&auth_type={1}", url, authType);
+
+            if(!string.IsNullOrEmpty(bizAppId))
+                url = string.Format("{0}&biz_appid={1}", url, bizAppId);
 
             return url;
         }

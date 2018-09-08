@@ -30,6 +30,9 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Cache.Redis;
 //using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
@@ -172,6 +175,18 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.IsNotNull(accessTokenResult);
             Assert.IsNotNull(accessTokenResult.access_token);
             Console.WriteLine(accessTokenResult.access_token);
+        }
+
+        [TestMethod]
+        public void RegisterToWeixinSettingTest()
+        {
+            var appId = Guid.NewGuid().ToString("n");
+            var appSecret = Guid.NewGuid().ToString("n");
+            var name = "公众号单元测试";
+            AccessTokenContainer.Register(appId, appSecret, name);
+
+            Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
+            Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
         }
     }
 }

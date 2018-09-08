@@ -26,12 +26,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20161227
 ----------------------------------------------------------------*/
+using System;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 微信支付提交的XML Data数据[查询退款]
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3RefundQueryRequestData
     {
         /// <summary>
@@ -130,7 +132,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             OutRefundNo = outRefundNo;
             RefundId = refundId;
             SubAppId = subAppid;
-            SubMchId = subAppid;
+            SubMchId = subMchId;
             Offset = offset;
             SignType = signType;
             Key = key;

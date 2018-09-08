@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>14.13.5-rc1</Version>
+    <Version>16.2.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 微信公众号 模块
@@ -375,27 +375,64 @@
       v14.10.9 TenPayV3UnifiedorderRequestData_SceneInfo 支持新H5支付的场景参数
       v14.10.10 修正 Net Core 版本错误的代理设置
       v14.10.11-beta1 测试.net core下的文件上传方法
-      v14.10.12 
-	      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
-	      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
-	      3、支持自定义菜单传入菜单对象为null（自动过滤）
+      v14.10.12
+      1、TenpayV3的GetSignKey()接口，用于获取模拟支付环境下的签名。
+      2、添加 TenPayV3Util.DecodeRefundReqInfo() 方法，提供给退款通知解密使用
+      3、支持自定义菜单传入菜单对象为null（自动过滤）
       v14.10.13 优化 TenPayV3Util.DecodeRefundReqInfo() 方法
       v14.10.14 优化 Get.Download() 方法，完善对 FileName 的判断
       v14.10.15 Wifi连接页面支持跳转到小程序。微信返回的JSON有变化。
       v14.11.0 添加“付款到银行卡”接口
       v14.11.1 为 TenPayV3.GetTransferInfo() 及对应异步方法添加证书参数。
-      v14.12.0 
-	      1、用户信息扫码场景信息
-	      2、cardapi增加多卡二维码API
-	      3、UpdateUser、MemberCardDeal增加参数
-	      4、统一cardmanageResultjson的类命名规则
+      v14.12.0
+      1、用户信息扫码场景信息
+      2、cardapi增加多卡二维码API
+      3、UpdateUser、MemberCardDeal增加参数
+      4、统一cardmanageResultjson的类命名规则
       v14.12.1 修改.NET Core环境下，ResponseHandler 中构造函数传入 HttpContext 的异常提示
       v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
       v14.12.3 1、添加黑名单管理
-               2、分离永久视频素材获取接口
-               
+      2、分离永久视频素材获取接口
+
       v14.13.0-rc1 支持 .NET Core 2.1.0-rc1-final
 
+      v14.14.0-rc1
+      1、支持 Senparc.Weixin v4.22.0-rc1
+      2、CardAPI 升级到新的 Newtonsoft.Json 的序列化参数
+
+      v14.14.0
+      1、发布支持 .net core 2.1 的正式版
+      2、获取用户基本信息（包括UnionID机制）API 的 ResultJson 模型增加 subscribe_scene（用户关注的渠道来源）字段。
+
+      v15.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      v15.0.2-preview1 支持 CO2NET v0.1.2
+      v15.0.3.1 解决.NetCore环境微信支付回调时ResponseHandler传入HttpContext实例后解析xml提示找不到根节点的错误
+      v15.0.6.1  支持 CO3NET v0.1.6.1 解决 XXE 漏洞
+      v15.0.6.2 TenPayV3RefundRequestData 添加 SubAppId、SubMchId 两个参数，以及支持这两个参数的构造函数
+      v15.0.7 支持 Senparc.Weixin 5.0.7
+      v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+      v15.0.10 支持 Senparc.Weixin v5.0.10
+      v15.0.11 支持 Senparc.Weixin v5.0.11
+      v15.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v15.1.2 企业付款到银行卡修复携带证书问题
+      v15.1.3
+      1、优化接口
+      2、支持 Senparc.Weixin v5.1.4
+      v15.1.4 修复 GetForeverMedia() 接口 bug
+
+      v15.2.0
+      1、SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+      2、支持 Senparc.Weixin v5.1.6
+      v15.2.1 实现 SenparcWeixinSetting 自动注册
+      v15.2.2 优化客服接口，分离小程序客服接口
+      v15.2.3 支持 CO2NET v0.2.8
+      v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
+      v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll
+    
+      v16.0.0 支持 NeuChar 标准
+      v16.0.1 支持 Senparc.Weixin v6.0.1
+      v16.1.0 支持 Senparc.NeuChar v0.0.5
+      v16.2.0 支持卡券消息回调
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -533,12 +570,16 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.1.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.0.6.10" />
   </ItemGroup>
 
   <ItemGroup>

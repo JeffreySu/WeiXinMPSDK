@@ -88,7 +88,8 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
             var dirs = System.IO.Directory.GetDirectories(root);
             foreach (var dir in dirs)
             {
-                if (Path.GetFileName(dir).ToUpper() == "OBJ")
+                var fileName = Path.GetFileName(dir).ToUpper();
+                if (fileName == "OBJ"/* || fileName == "BIN"*/)
                 {
                     try
                     {
@@ -101,7 +102,7 @@ Your project.json doesn't have a runtimes section. You should add '""runtimes"":
                         Console.WriteLine(e);
                         //throw;
                     }
-                 
+
                 }
                 else
                 {

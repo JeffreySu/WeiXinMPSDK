@@ -28,6 +28,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20170106
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>

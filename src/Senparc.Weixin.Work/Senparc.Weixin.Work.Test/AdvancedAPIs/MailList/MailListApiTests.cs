@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Tests
         public void GetDepartmentMemberInfoTest()
         {
             var appKeyOrAccessToken = "";
-            var result = MailListApi.GetDepartmentMemberInfo(appKeyOrAccessToken, 1, 1, Int32.MaxValue);
+            var result = MailListApi.GetDepartmentMemberInfo(appKeyOrAccessToken, 1, 1/*, Int32.MaxValue*/);
             Assert.IsNotNull(result);
         }
     }

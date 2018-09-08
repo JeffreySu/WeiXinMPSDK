@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20171129
 
+    修改标识：Mc7246 - 20180725
+    修改描述：请求携带证书
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,6 +38,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -52,17 +56,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static PayBankResult PayBank(TenPayV3PayBankRequestData dataInfo)
+        public static PayBankResult PayBank(TenPayV3PayBankRequestData dataInfo, string cert, string certPassword)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //ms.Write(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            #endregion
+            var resultXml = CertPost(cert,certPassword, data, urlFormat);
             return new PayBankResult(resultXml);
         }
 
@@ -72,17 +81,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static QueryBankResult QueryBank(TenPayV3QueryBankRequestData dataInfo)
+        public static QueryBankResult QueryBank(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //ms.Write(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            #endregion
+            var resultXml = CertPost(cert, certPassword, data, urlFormat);
             return new QueryBankResult(resultXml);
         }
 
@@ -91,18 +105,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=24_7&index=4</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static GetPublicKeyResult GetPublicKey(TenPayV3QueryBankRequestData dataInfo)
+        public static GetPublicKeyResult GetPublicKey(TenPayV3GetPublicKeyRequestData dataInfo, string cert, string certPassword)
         {
             //TODO：官方文档没有明确此接口是否支持沙箱
             var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //ms.Write(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            #endregion
+            var resultXml = CertPost(cert, certPassword, data, urlFormat);
             return new GetPublicKeyResult(resultXml);
         }
 
@@ -118,17 +137,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<PayBankResult> PayBankAsync(TenPayV3PayBankRequestData dataInfo)
+        public static async Task<PayBankResult> PayBankAsync(TenPayV3PayBankRequestData dataInfo, string cert, string certPassword)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #endregion
+            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
             return new PayBankResult(resultXml);
         }
 
@@ -138,17 +162,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<QueryBankResult> QueryBankAsync(TenPayV3QueryBankRequestData dataInfo)
+        public static async Task<QueryBankResult> QueryBankAsync(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #endregion
+            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
             return new QueryBankResult(resultXml);
         }
 
@@ -157,18 +186,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=24_7&index=4</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="cert">证书路径</param>
+        /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<GetPublicKeyResult> GetPublicKeyAsync(TenPayV3QueryBankRequestData dataInfo)
+        public static async Task<GetPublicKeyResult> GetPublicKeyAsync(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
         {
             //TODO：官方文档没有明确此接口是否支持沙箱
             var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #region 弃用
+            //var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            //MemoryStream ms = new MemoryStream();
+            //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            #endregion
+            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
             return new GetPublicKeyResult(resultXml);
         }
 

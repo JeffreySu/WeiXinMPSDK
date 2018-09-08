@@ -30,7 +30,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.IsTrue(File.Exists(fileName));
 
-            Console.WriteLine("原始文件："+ fileName);
+            Console.WriteLine("原始文件：" + fileName);
         }
 
 
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
-            var file = @"..\..\AdvancedAPIs\Media\test.jpg";
+            var file = GetParentRootRelativePath() + @"AdvancedAPIs\Media\test.jpg";
 
             var result = MediaApi.UploadForeverMedia(accessToken, file);
 
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 MediaApi.GetForeverMedia(accessToken, mediaId, stream);
                 Assert.IsTrue(stream.Length > 0);
 
-                var fileName = @"..\..\AdvancedAPIs\Media\test.download." + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".jpg";
+                var fileName = GetParentRootRelativePath() + @"AdvancedAPIs\Media\test.download." + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".jpg";
                 using (var fs = new FileStream(fileName, FileMode.CreateNew))
                 {
                     stream.Seek(0, SeekOrigin.Begin);

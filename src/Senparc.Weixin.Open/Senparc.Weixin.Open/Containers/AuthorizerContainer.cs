@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+Copyright(C) 2018 Senparc
 
     文件名：AuthorizerContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于OPEN第三方JSSDK自动管理JsApiTicket，如果过期会重新获取
@@ -49,12 +69,15 @@
     修改标识：Senparc - 20180414
     修改描述：v2.9.2 修复 TryUpdateAuthorizationInfo 中缓存跟新的问题
 
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
@@ -72,28 +95,28 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 授权方AppId，缓存中实际的Key
         /// </summary>
-        public string AuthorizerAppId
-        {
-            get { return _authorizerAppId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _authorizerAppId, value, "AuthorizerAppId"); }
-#else
-            set { this.SetContainerProperty(ref _authorizerAppId, value); }
-#endif
-        }
+        public string AuthorizerAppId { get; set; }
+        //        {
+        //            get { return _authorizerAppId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _authorizerAppId, value, "AuthorizerAppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _authorizerAppId, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 第三方平台AppId
         /// </summary>
-        public string ComponentAppId
-        {
-            get { return _componentAppId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
-#else
-            set { this.SetContainerProperty(ref _componentAppId, value); }
-#endif
-        }
+        public string ComponentAppId { get; set; }
+        //        {
+        //            get { return _componentAppId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _componentAppId, value); }
+        //#endif
+        //        }
 
         ///// <summary>
         ///// 从ComponentContainer取过来的对应ComponentAppId的ComponentBag
@@ -117,67 +140,67 @@ namespace Senparc.Weixin.Open.Containers
         }
 
 
-        public JsApiTicketResult JsApiTicketResult
-        {
-            get { return _jsApiTicketResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-#else
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-#endif
-        }
+        public JsApiTicketResult JsApiTicketResult { get; set; }
+        //        {
+        //            get { return _jsApiTicketResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+        //#endif
+        //        }
 
-        public DateTime JsApiTicketExpireTime
-        {
-            get { return _jsApiTicketExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
-#endif
-        }
+        public DateTime JsApiTicketExpireTime { get; set; }
+        //        {
+        //            get { return _jsApiTicketExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+        //#endif
+        //}
 
         /// <summary>
         /// 授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
         /// </summary>
-        public AuthorizationInfo AuthorizationInfo
-        {
-            get { return _authorizationInfo; }
-            //set
-            //{
-            //    base.SetContainerProperty(ref _authorizationInfo, value);
-            //    //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
-            //}
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _authorizationInfo, value, "AuthorizationInfo"); }
-#else
-            set { this.SetContainerProperty(ref _authorizationInfo, value); }
-#endif
+        public AuthorizationInfo AuthorizationInfo { get; set; }
+        //        {
+        //            get { return _authorizationInfo; }
+        //            //set
+        //            //{
+        //            //    base.SetContainerProperty(ref _authorizationInfo, value);
+        //            //    //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
+        //            //}
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _authorizationInfo, value, "AuthorizationInfo"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _authorizationInfo, value); }
+        //#endif
 
-        }
+        //        }
 
-        public DateTime AuthorizationInfoExpireTime
-        {
-            get { return _authorizationInfoExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value, "AuthorizationInfoExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
-#endif
-        }
+        public DateTime AuthorizationInfoExpireTime { get; set; }
+        //        {
+        //            get { return _authorizationInfoExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value, "AuthorizationInfoExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 授权方资料信息
         /// </summary>
-        public AuthorizerInfo AuthorizerInfo
-        {
-            get { return _authorizerInfo; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _authorizerInfo, value, "AuthorizerInfo"); }
-#else
-            set { this.SetContainerProperty(ref _authorizerInfo, value); }
-#endif
-        }
+        public AuthorizerInfo AuthorizerInfo { get; set; }
+        //        {
+        //            get { return _authorizerInfo; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _authorizerInfo, value, "AuthorizerInfo"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _authorizerInfo, value); }
+        //#endif
+        //        }
 
         //public DateTime AuthorizerInfoExpireTime { get; set; }
 
@@ -220,27 +243,27 @@ namespace Senparc.Weixin.Open.Containers
 
             RegisterFunc = () =>
             {
-                using (FlushCache.CreateInstance())
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new AuthorizerBag()
                 {
-                    var bag = new AuthorizerBag()
-                    {
-                        Name = name,
+                    Name = name,
 
-                        AuthorizerAppId = authorizerAppId,
-                        ComponentAppId = componentAppId,
+                    AuthorizerAppId = authorizerAppId,
+                    ComponentAppId = componentAppId,
 
-                        AuthorizationInfo = new AuthorizationInfo(),
-                        AuthorizationInfoExpireTime = DateTime.MinValue,
+                    AuthorizationInfo = new AuthorizationInfo(),
+                    AuthorizationInfoExpireTime = DateTime.MinValue,
 
-                        AuthorizerInfo = new AuthorizerInfo(),
-                        //AuthorizerInfoExpireTime = DateTime.MinValue,
+                    AuthorizerInfo = new AuthorizerInfo(),
+                    //AuthorizerInfoExpireTime = DateTime.MinValue,
 
-                        JsApiTicketResult = new JsApiTicketResult(),
-                        JsApiTicketExpireTime = DateTime.MinValue,
-                    };
-                    Update(authorizerAppId, bag);
-                    return bag;
-                }
+                    JsApiTicketResult = new JsApiTicketResult(),
+                    JsApiTicketExpireTime = DateTime.MinValue,
+                };
+                Update(authorizerAppId, bag, null);
+                return bag;
+                //}
             };
             RegisterFunc();
 
@@ -360,6 +383,8 @@ namespace Senparc.Weixin.Open.Containers
                     var getAuthorizationInfoResult = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
                     authorizerBag.AuthorizationInfo = getAuthorizationInfoResult;
 
+                    Update(authorizerBag, null);//更新到缓存
+
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
                     //{
@@ -393,7 +418,7 @@ namespace Senparc.Weixin.Open.Containers
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
-                Update(authorizerAppid, authorizerBag);//立即更新
+                Update(authorizerBag, null);//立即更新
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -434,7 +459,7 @@ namespace Senparc.Weixin.Open.Containers
                     authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                     authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
 
-                    Update(authorizerAppid, authorizerBag);//立即更新
+                    Update(authorizerBag, null);//立即更新
 
                     //通知变更
                     if (refreshTokenChanged)
@@ -517,6 +542,8 @@ namespace Senparc.Weixin.Open.Containers
                     accessTicketBag.JsApiTicketResult = ComponentApi.GetJsApiTicket(authorizerAccessToken);
 
                     accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
+
+                    Update(accessTicketBag, null);//更新到缓存
                 }
             }
             return accessTicketBag.JsApiTicketResult;
@@ -623,6 +650,8 @@ namespace Senparc.Weixin.Open.Containers
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
 
+                    Update(authorizerBag, null);//更新到缓存
+
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
                     //{
@@ -707,6 +736,8 @@ namespace Senparc.Weixin.Open.Containers
                     accessTicketBag.JsApiTicketResult = await ComponentApi.GetJsApiTicketAsync(authorizerAccessToken);
 
                     accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
+
+                    Update(accessTicketBag, null);//更新到缓存
                 }
             }
             return accessTicketBag.JsApiTicketResult;

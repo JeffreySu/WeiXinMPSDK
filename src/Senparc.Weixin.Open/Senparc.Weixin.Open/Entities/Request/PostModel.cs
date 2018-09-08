@@ -7,7 +7,12 @@
     
     创建标识：Senparc - 201500712
  
+    修改标识：Senparc - 20180901
+    修改描述：支持 NeuChar
+
 ----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Open.Entities.Request
 {

@@ -31,6 +31,8 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Menu;
+using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Extensions;
 
 #if NET45
 using System.Web.Script.Serialization;
@@ -43,7 +45,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
     public partial class CommonApi
     {
         #region 同步方法
-        
+
         /// <summary>
         /// 创建菜单
         /// </summary>
@@ -435,7 +437,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         public static WorkJsonResult DeleteMenu(string accessToken, int agentId)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = Get.GetJson<WorkJsonResult>(url);
+            var result = Senparc.Weixin.HttpUtility.Get.GetJson<WorkJsonResult>(url);
             return result;
         }
         #endregion
@@ -452,7 +454,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         public static async Task<WorkJsonResult> DeleteMenuAsync(string accessToken, int agentId)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = await Get.GetJsonAsync<WorkJsonResult>(url);
+            var result = await Senparc.Weixin.HttpUtility.Get.GetJsonAsync<WorkJsonResult>(url);
             return result;
         }
         #endregion

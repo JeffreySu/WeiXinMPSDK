@@ -20,7 +20,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.Work
 {
@@ -31,9 +32,9 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(XDocument doc)
+        public static IWorkRequestMessageBase GetRequestEntity(XDocument doc)
         {
-            RequestMessageBase requestMessage = null;
+            WorkRequestMessageBase requestMessage = null;
             RequestMsgType msgType;
             ThirdPartyInfo infoType;
 
@@ -111,6 +112,35 @@ namespace Senparc.Weixin.Work
                                 case "BATCH_JOB_RESULT"://异步任务完成事件推送(batch_job_result)
                                     requestMessage = new RequestMessageEvent_Batch_Job_Result();
                                     break;
+                                case "CHANGE_CONTACT"://通讯录更改推送(change_contact)
+                                    switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                                    {
+                                        case "CREATE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Create();
+                                            break;
+                                        case "UPDATE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Update();
+                                            break;
+                                        case "DELETE_USER":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_User_Base();
+                                            break;
+                                        case "CREATE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Create();
+                                            break;
+                                        case "UPDATE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Update();
+                                            break;
+                                        case "DELETE_PARTY":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Party_Base();
+                                            break;
+                                        case "UPDATE_TAG":
+                                            requestMessage = new RequestMessageEvent_Change_Contact_Tag_Update();
+                                            break;
+                                        default://其他意外类型（也可以选择抛出异常）
+                                            requestMessage = new RequestMessageEventBase();
+                                            break;
+                                    }
+                                    break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();
                                     break;
@@ -131,7 +161,7 @@ namespace Senparc.Weixin.Work
                 //第三方回调
                 try
                 {
-                    infoType = MsgTypeHelper.GetThirdPartyInfo(doc);
+                    infoType = Work.Helpers.MsgTypeHelper.GetThirdPartyInfo(doc);
                     switch (infoType)
                     {
                         case ThirdPartyInfo.SUITE_TICKET://推送suite_ticket协议
@@ -163,7 +193,7 @@ namespace Senparc.Weixin.Work
             {
                 throw new WeixinException(string.Format("RequestMessage转换出错！可能是MsgType和InfoType都不存在！，XML：{0}", doc.ToString()));
             }
-            
+
             return requestMessage;
         }
 
@@ -173,7 +203,7 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(string xml)
+        public static IWorkRequestMessageBase GetRequestEntity(string xml)
         {
             return GetRequestEntity(XDocument.Parse(xml));
         }
@@ -184,7 +214,7 @@ namespace Senparc.Weixin.Work
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(Stream stream)
+        public static IWorkRequestMessageBase GetRequestEntity(Stream stream)
         {
             using (XmlReader xr = XmlReader.Create(stream))
             {

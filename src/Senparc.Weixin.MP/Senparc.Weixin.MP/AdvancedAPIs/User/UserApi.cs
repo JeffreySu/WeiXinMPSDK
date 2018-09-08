@@ -54,6 +54,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

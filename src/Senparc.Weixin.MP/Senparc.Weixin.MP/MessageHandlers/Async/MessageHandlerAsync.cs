@@ -114,12 +114,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             try
                             {
                                 var requestMessage = RequestMessage as RequestMessageText;
-                                ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
-                                    ?? (await OnTextRequestAsync(requestMessage)));
+                                ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) 
+                                    ?? ((await (OnTextOrEventRequestAsync(requestMessage))
+                                    ?? (await OnTextRequestAsync(requestMessage))));
                             }
                             catch (Exception ex)
                             {
-                                SenparcTrace.SendCustomLog("mp-response error", ex.Message+"\r\n|||\r\n"+(ex.InnerException!=null? ex.InnerException.StackTrace :""));
+                                SenparcTrace.SendCustomLog("mp-response error", ex.Message + "\r\n|||\r\n" + (ex.InnerException != null ? ex.InnerException.ToString() : ""));
 
                             }
 

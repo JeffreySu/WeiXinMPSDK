@@ -1,4 +1,5 @@
-﻿using Senparc.NeuChar.MessageHandlers;
+﻿using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         {
             NewRequestMessageText = () => new RequestMessageText(),
             NewRequestMessageImage = () => new RequestMessageImage(),
-        };
+
+            //NewResponseMessageText = () => new SuccessResponseMessage();
+            //NewResponseMessageImage = () => new SuccessResponseMessage();
+    };
     }
 }

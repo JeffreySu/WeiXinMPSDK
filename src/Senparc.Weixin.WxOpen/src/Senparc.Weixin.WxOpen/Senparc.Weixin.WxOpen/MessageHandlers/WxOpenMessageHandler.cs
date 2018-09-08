@@ -42,6 +42,8 @@ using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Extensions;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -255,16 +257,28 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     return;
                 }
 
+                #region NeuChar 执行过程
+
+                var neuralSystem = NeuralSystem.Instance;
+                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+
+                messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+
+
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
-                            ResponseMessage =  OnTextRequest(RequestMessage as RequestMessageText);
+                            SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
+                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                                    OnTextRequest(RequestMessage as RequestMessageText);
+                            SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:
                         {
-                            ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                                    OnImageRequest(RequestMessage as RequestMessageImage);
                         }
                         break;
 
@@ -276,6 +290,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
+
+
+                #endregion
 
                 //记录上下文
                 //此处修改

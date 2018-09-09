@@ -763,7 +763,7 @@ namespace Senparc.Weixin.TenPay.V3
         public static async Task<UnifiedorderResult> Html5OrderAsync(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             dataInfo.TradeType = TenPayV3Type.MWEB;
-            return UnifiedorderAsync(dataInfo,timeOut);
+            return await UnifiedorderAsync(dataInfo, timeOut);
             /*var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
             dataInfo.TradeType = TenPayV3Type.MWEB;
 

@@ -86,7 +86,6 @@ namespace Senparc.Weixin.HttpUtility
             var returnUrl = "{0}://{1}{2}"
                             .FormatWith(httpContext.Request.Url.Scheme, httpContext.Request.Headers["Host"], httpContext.Request.Url.PathAndQuery);
 
-
             var urlData = httpContext.Request.Url;
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host;//主机名（不带端口）

@@ -47,14 +47,14 @@
     <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.0.6.14, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.14\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.0.7.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.7.4\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin, Version=6.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.0.2\lib\net45\Senparc.Weixin.dll</HintPath>
+    <Reference Include="Senparc.Weixin, Version=6.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.0.3\lib\net45\Senparc.Weixin.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=16.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.1.0\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+    <Reference Include="Senparc.Weixin.MP, Version=16.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.2.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -80,7 +80,6 @@
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
-    <Compile Include="AdvancedAPIs\WxOpenApiEnlighten.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
@@ -93,6 +92,7 @@
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxOpenApiEnlightener.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
@@ -107,7 +107,7 @@
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
-    <Compile Include="MessageHandlers\WxOpenMessageEntityEnlighten.cs" />
+    <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.cs" />

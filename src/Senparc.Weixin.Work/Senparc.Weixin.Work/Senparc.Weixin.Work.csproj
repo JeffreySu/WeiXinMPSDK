@@ -59,8 +59,8 @@
     <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.0.6.14, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.14\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.0.7.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.7.4\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -93,7 +93,6 @@
     <Compile Include="AdvancedAPIs\MailList\Member\MemberCreateRequest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberUpdateRequest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
-    <Compile Include="AdvancedAPIs\WorkApiEnlighten.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
+    <Compile Include="AdvancedAPIs\WorkApiEnlightener.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="Containers\JsApiTicketContainer.cs" />
     <Compile Include="Containers\ProviderTokenContainer.cs" />
@@ -177,7 +177,7 @@
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Contact.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Create_Auth.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />
@@ -203,7 +203,7 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
-    <Compile Include="MessageHandlers\WorkMessageEntityEnlighten.cs" />
+    <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs" />

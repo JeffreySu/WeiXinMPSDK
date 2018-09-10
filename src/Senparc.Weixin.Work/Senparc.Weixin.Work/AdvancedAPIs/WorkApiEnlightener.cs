@@ -7,10 +7,11 @@ using Senparc.NeuChar.ApiHandlers;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
-    public class WorkApiEnlighten : ApiEnlighten
+    public class WorkApiEnlightener : ApiEnlightener
     {
-        public static ApiEnlighten Instance = new WorkApiEnlighten();
+        public static ApiEnlightener Instance = new WorkApiEnlightener();
 
+        public override NeuChar.PlatformType PlatformType { get; set; } = NeuChar.PlatformType.WeChat_Work;
 
         /// <summary>
         /// 发送文本客服消息

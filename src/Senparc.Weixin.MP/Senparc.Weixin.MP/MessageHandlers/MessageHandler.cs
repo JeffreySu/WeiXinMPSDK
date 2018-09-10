@@ -203,8 +203,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten MessageEntityEnlighten { get { return MpMessageEntityEnlighten.Instance; } }
-        public override ApiEnlighten ApiEnlighten { get { return MpApiEnlighten.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return MpMessageEntityEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener { get { return MpApiEnlightener.Instance; } }
+
 
         #region 私有方法
 

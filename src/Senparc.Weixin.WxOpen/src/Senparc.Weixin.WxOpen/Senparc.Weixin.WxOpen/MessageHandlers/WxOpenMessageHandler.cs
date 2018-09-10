@@ -127,8 +127,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten MessageEntityEnlighten { get { return WxOpenMessageEntityEnlighten.Instance; } }
-        public override ApiEnlighten ApiEnlighten { get { return WxOpenApiEnlighten.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WxOpenMessageEntityEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener { get { return WxOpenApiEnlightener.Instance; } }
 
 
         #region 构造函数

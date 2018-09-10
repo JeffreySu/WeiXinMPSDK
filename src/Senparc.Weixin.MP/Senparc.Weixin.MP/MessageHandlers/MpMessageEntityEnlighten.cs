@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
+    /// <summary>
+    /// 公众号 MessageEntityEnlighten
+    /// </summary>
     public class MpMessageEntityEnlighten
     {
+        //说明：此处不需要强制使用单例模式
+
+        /// <summary>
+        /// MpMessageEntityEnlighten 全局对象
+        /// </summary>
         public static MessageEntityEnlighten Instance = new MessageEntityEnlighten()
         {
             NewRequestMessageText = () => new RequestMessageText(),
@@ -24,8 +32,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
             NewRequestMessageFile = () => new RequestMessageFile(),
 
 
-            NewResponseMessageText = () => new  ResponseMessageText(),
-            NewResponseMessageNews = () => new  ResponseMessageNews(),
+            NewResponseMessageText = () => new ResponseMessageText(),
+            NewResponseMessageNews = () => new ResponseMessageNews(),
             NewResponseMessageMusic = () => new ResponseMessageMusic(),
             NewResponseMessageImage = () => new ResponseMessageImage(),
             NewResponseMessageVoice = () => new ResponseMessageVoice(),

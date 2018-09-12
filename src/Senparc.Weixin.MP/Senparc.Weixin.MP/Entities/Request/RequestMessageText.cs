@@ -32,16 +32,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170422
     修改描述：添加IRequestMessageText接口
+    
+    修改标识：Senparc - 20180901
+    修改描述：支持 NeuChar
+
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities.Request;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 文本类型消息
     /// </summary>
-    public class RequestMessageText : RequestMessageBase, IRequestMessageBase, IRequestMessageText
+    public class RequestMessageText : RequestMessageBase, IRequestMessageText
     {
         public override RequestMsgType MsgType
         {

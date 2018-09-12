@@ -84,6 +84,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180826
     修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
 
+    修改标识：Senparc - 20180826
+    修改描述：v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll，将 RedPack_Scene、TenPayV3Type 枚举迁移过去
+
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 RequestMsgType 枚举添加 NeuChar 类型
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -91,22 +97,24 @@ using System.ComponentModel;
 
 namespace Senparc.Weixin.MP
 {
-    /// <summary>
-    /// 接收消息类型
-    /// </summary>
-    public enum RequestMsgType
-    {
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        ShortVideo,//小视频
-        Event, //事件推送
-        File,//文件类型
-        Unknown = -1,//未知类型
-    }
+    ///// <summary>
+    ///// 接收消息类型
+    ///// </summary>
+    //public enum RequestMsgType
+    //{
+    //    Unknown = -1,//未知类型
+    //    Text = 0, //文本
+    //    Location = 1, //地理位置
+    //    Image = 2, //图片
+    //    Voice = 3, //语音
+    //    Video = 4, //视频
+    //    Link = 5, //连接信息
+    //    ShortVideo = 6,//小视频
+    //    Event = 7, //事件推送
+    //    File = 8,//文件类型
+
+    //    NeuChar = 99//NeuChar请求
+    //}
 
 
     /// <summary>
@@ -323,43 +331,58 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 小程序审核失败
         /// </summary>
-        weapp_audit_fail
+        weapp_audit_fail,
 
+        #endregion
+
+        #region 卡券回调：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=215143440770UT7Y
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        giftcard_pay_done,
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        giftcard_send_to_friend,
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        giftcard_user_accept,
         #endregion
     }
 
 
-    /// <summary>
-    /// 发送消息类型
-    /// </summary>
-    public enum ResponseMsgType
-    {
-        [Description("文本")]
-        Text = 0,
-        [Description("单图文")]
-        News = 1,
-        [Description("音乐")]
-        Music = 2,
-        [Description("图片")]
-        Image = 3,
-        [Description("语音")]
-        Voice = 4,
-        [Description("视频")]
-        Video = 5,
-        [Description("多客服")]
-        Transfer_Customer_Service,
-        //transfer_customer_service
+    ///// <summary>
+    ///// 发送消息类型
+    ///// </summary>
+    //public enum ResponseMsgType
+    //{
+    //    [Description("文本")]
+    //    Text = 0,
+    //    [Description("单图文")]
+    //    News = 1,
+    //    [Description("音乐")]
+    //    Music = 2,
+    //    [Description("图片")]
+    //    Image = 3,
+    //    [Description("语音")]
+    //    Voice = 4,
+    //    [Description("视频")]
+    //    Video = 5,
+    //    [Description("多客服")]
+    //    Transfer_Customer_Service,
+    //    //transfer_customer_service
 
-        //以下为延伸类型，微信官方并未提供具体的回复类型
-        [Description("多图文")]
-        MultipleNews = 106,
-        [Description("位置")]
-        LocationMessage = 107,//
-        [Description("无回复")]
-        NoResponse = 110,
-        [Description("success")]
-        SuccessResponse = 200
-    }
+    //    //以下为延伸类型，微信官方并未提供具体的回复类型
+    //    [Description("多图文")]
+    //    MultipleNews = 106,
+    //    [Description("位置")]
+    //    LocationMessage = 107,//
+    //    [Description("无回复")]
+    //    NoResponse = 110,
+    //    [Description("success")]
+    //    SuccessResponse = 200
+    //}
 
     /// <summary>
     /// 菜单按钮类型
@@ -977,7 +1000,7 @@ namespace Senparc.Weixin.MP
     /// <summary>
     /// 支付类型
     /// </summary>
-    
+
     [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public enum TenPayV3Type
     {

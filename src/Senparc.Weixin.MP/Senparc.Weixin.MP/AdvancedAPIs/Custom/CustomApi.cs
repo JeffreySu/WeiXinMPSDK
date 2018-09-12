@@ -66,6 +66,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

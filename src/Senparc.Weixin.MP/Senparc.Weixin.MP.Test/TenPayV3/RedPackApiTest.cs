@@ -20,6 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.TenPay.V3;
 using System;
 using System.Collections.Generic;
 using System.Linq;

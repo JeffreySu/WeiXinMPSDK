@@ -26,7 +26,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20150319
+
+    修改标识：Senparc - 20180901
+    修改描述：支持 NeuChar
+
 ----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.AppStore
 {

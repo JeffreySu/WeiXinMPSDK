@@ -57,8 +57,11 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.NeuChar, Version=0.0.6.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.14\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -157,6 +160,7 @@
     <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfResult.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockApi.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockPostData.cs" />
+    <Compile Include="AdvancedAPIs\MpApiEnlighten.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
@@ -296,6 +300,9 @@
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Pay_Done.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Send_To_Friend.cs" />
+    <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_User_Accept.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />
@@ -320,7 +327,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
-    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\Card\RequestMessageEvent_Card_Not_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
@@ -328,21 +334,13 @@
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
-    <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
-    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
-    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
-    <Compile Include="Entities\Request\RequestMessageUnknownType.cs" />
-    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
-    <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.Message.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.Event.cs" />
@@ -351,6 +349,8 @@
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="MessageHandlers\MessageHandler.Event.cs" />
     <Compile Include="MessageHandlers\MessageHandler.Message.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.NeuChar.cs" />
+    <Compile Include="MessageHandlers\MpMessageEntityEnlighten.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
@@ -413,9 +413,6 @@
     <Compile Include="Entities\Menu\Buttons\SubButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleViewButton.cs" />
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
-    <Compile Include="Entities\Request\RequestMessageBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -445,13 +442,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
-    <Compile Include="Entities\Response\Article.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Entities\Response\Image.cs" />
-    <Compile Include="Entities\Response\Music.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Entities\Response\ResponseMessageMusic.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -464,8 +454,6 @@
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
     <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
-    <Compile Include="Entities\Response\Video.cs" />
-    <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />
@@ -530,7 +518,9 @@
     <None Include="Entities\Request\Event\Verify\readme.md" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NeuChar\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

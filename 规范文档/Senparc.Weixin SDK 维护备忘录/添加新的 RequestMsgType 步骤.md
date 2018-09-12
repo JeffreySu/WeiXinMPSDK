@@ -2,7 +2,7 @@
 
 MP项目为例：
 
-1. Enums.cs，在 RequestMsgType 枚举中添加对应类型（如File）
+1. Enums.cs，在 RequestMsgType 枚举（目前已统一到 NeuChar 中，Event 的具体类型仍然保留在项目中）中添加对应类型（如File）
 
 2. Entities/Request 目录下添加对应类，如：RequestMessageFile.cs
 

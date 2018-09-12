@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 
 namespace Senparc.Weixin.MP.Test.Context
 {

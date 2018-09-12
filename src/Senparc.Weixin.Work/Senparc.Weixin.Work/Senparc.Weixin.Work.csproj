@@ -56,8 +56,11 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.NeuChar, Version=0.0.8.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.8.1\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -102,6 +105,7 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
+    <Compile Include="AdvancedAPIs\WorkApiEnlightener.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="Containers\JsApiTicketContainer.cs" />
     <Compile Include="Containers\ProviderTokenContainer.cs" />
@@ -158,9 +162,6 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UnSubscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs" />
     <Compile Include="Entities\Request\Event\ChatInfo.cs" />
-    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
-    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
-    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\Event\BatchJobInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
     <Compile Include="Entities\Request\KF\RequestEvent.cs" />
@@ -176,38 +177,33 @@
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Contact.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Create_Auth.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Cancel_Auth.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
-    <Compile Include="Entities\Request\RequestMessageBase.cs" />
+    <Compile Include="Entities\Request\WorkRequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageLocation.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
     <Compile Include="Entities\Request\RequestMessageVoice.cs" />
-    <Compile Include="Entities\Response\Article.cs" />
     <Compile Include="Entities\Response\EncryptResponseMessage.cs" />
-    <Compile Include="Entities\Response\Image.cs" />
-    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
     <Compile Include="Entities\Response\ResponseMessageNews.cs" />
-    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\ResponseMessageText.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
-    <Compile Include="Entities\Response\Video.cs" />
-    <Compile Include="Entities\Response\Voice.cs" />
-    <Compile Include="Entities\Response\MpNewsArticle.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageNoResponse.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs" />

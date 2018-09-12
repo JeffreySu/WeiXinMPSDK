@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.TenPay;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.Test.vs2017.TenPayLibV3
 {

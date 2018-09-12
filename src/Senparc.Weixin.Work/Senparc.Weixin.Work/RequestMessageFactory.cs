@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150507
     修改描述：添加 事件 异步任务完成事件推送
+
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,7 +23,8 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.Work
 {
@@ -31,9 +35,9 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(XDocument doc)
+        public static IWorkRequestMessageBase GetRequestEntity(XDocument doc)
         {
-            RequestMessageBase requestMessage = null;
+            WorkRequestMessageBase requestMessage = null;
             RequestMsgType msgType;
             ThirdPartyInfo infoType;
 
@@ -160,7 +164,7 @@ namespace Senparc.Weixin.Work
                 //第三方回调
                 try
                 {
-                    infoType = MsgTypeHelper.GetThirdPartyInfo(doc);
+                    infoType = Work.Helpers.MsgTypeHelper.GetThirdPartyInfo(doc);
                     switch (infoType)
                     {
                         case ThirdPartyInfo.SUITE_TICKET://推送suite_ticket协议
@@ -175,8 +179,8 @@ namespace Senparc.Weixin.Work
                         case ThirdPartyInfo.CREATE_AUTH://授权成功推送auth_code事件
                             requestMessage = new RequestMessageInfo_Create_Auth();
                             break;
-                        case ThirdPartyInfo.CONTACT_SYNC://通讯录变更通知
-                            requestMessage = new RequestMessageInfo_Contact_Sync();
+                        case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
+                            requestMessage = new RequestMessageInfo_Change_Contact();
                             break;
                         default:
                             throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
@@ -202,7 +206,7 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(string xml)
+        public static IWorkRequestMessageBase GetRequestEntity(string xml)
         {
             return GetRequestEntity(XDocument.Parse(xml));
         }
@@ -213,7 +217,7 @@ namespace Senparc.Weixin.Work
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(Stream stream)
+        public static IWorkRequestMessageBase GetRequestEntity(Stream stream)
         {
             using (XmlReader xr = XmlReader.Create(stream))
             {

@@ -8,9 +8,13 @@
     创建标识：Senparc - 20150708
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public class RequestMessageShortVideo : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageShortVideo : WorkRequestMessageBase, IRequestMessageShortVideo
     {
         public override RequestMsgType MsgType
         {

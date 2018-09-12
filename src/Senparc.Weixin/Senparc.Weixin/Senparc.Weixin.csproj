@@ -76,8 +76,8 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.6\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -102,13 +102,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
-    <Compile Include="Context\MessageContainer.cs" />
-    <Compile Include="Context\MessageContext.cs" />
-    <Compile Include="Context\MessageQueue.cs" />
-    <Compile Include="Context\WeixinContext.cs" />
-    <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BindableBase.cs" />
-    <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\IAccessTokenResult.cs" />
     <Compile Include="Entities\IApiData.cs" />
     <Compile Include="Entities\JsonResult\BaseJsonResult.cs" />
@@ -116,14 +110,6 @@
     <Compile Include="Entities\JsonResult\Interface\IJsonResultCallback.cs" />
     <Compile Include="Entities\JsonResult\QYJsonResult.cs" />
     <Compile Include="Entities\JsonResult\WorkJsonResult.cs" />
-    <Compile Include="Entities\MessageBase.cs">
-      <SubType>
-      </SubType>
-    </Compile>
-    <Compile Include="Entities\Request\EncryptPostModel.cs" />
-    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
-    <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSetting.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItem.Interfaces.cs" />
     <Compile Include="Entities\SenparcWeixinSettings\SenparcWeixinSettingItemCollection.cs" />
@@ -139,8 +125,6 @@
     <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Exceptions\WeixinObsoleteException.cs" />
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
-    <Compile Include="MessageHandlers\Async\DefaultMessageHandlerAsyncEvent.cs" />
-    <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RegisterServices\SenparcWeixinRegisterServiceExtension.cs" />
     <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
@@ -150,19 +134,16 @@
     <Compile Include="Utilities\HttpUtility\Get.cs" />
     <Compile Include="Utilities\HttpUtility\Post.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
-    <Compile Include="MessageHandlers\IMessageHandler.cs" />
-    <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
-    <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Request\RequestMessageBase.cs" />
-    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Trace\WeixinTrace.cs" />
     <Compile Include="WeixinRegister.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MessageHandlers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

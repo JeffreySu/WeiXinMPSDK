@@ -16,9 +16,9 @@ using Senparc.Weixin.WxOpen;
 using Senparc.Weixin.WxOpen.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
-using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.NeuChar.MessageHandlers;
+using Senparc.NeuChar.Entities;
 
 #if NET45
 using System.Web.Configuration;
@@ -34,20 +34,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
     /// </summary>
     public partial class CustomWxOpenMessageHandler : WxOpenMessageHandler<CustomWxOpenMessageContext>
     {
-#if NET45
         private string appId = Config.SenparcWeixinSetting.WxOpenAppId;
         private string appSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;
-#else
-        private string appId = "WxOpenAppId";
-        private string appSecret = "WxOpenAppSecret";
-#endif
+
+
 
         public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
-            //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
-            WeixinContext.ExpireMinutes = 3;
+            //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
+            GlobalMessageContext.ExpireMinutes = 3;
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {

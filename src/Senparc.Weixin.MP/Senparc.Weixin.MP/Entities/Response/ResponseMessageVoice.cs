@@ -31,14 +31,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 需要预先上传多媒体文件到微信服务器，只支持认证服务号。
     /// </summary>
-    public class ResponseMessageVoice : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageVoice : ResponseMessageBase, IResponseMessageVoice
     {
-        public new virtual ResponseMsgType MsgType
+        public override ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Voice; }
         }

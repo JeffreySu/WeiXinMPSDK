@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
         /// 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
         /// </summary>
-        public virtual IResponseMessageBase OnTextOrEventRequest(IRequestMessageText requestMessage)
+        public virtual IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
         {
             return null;
         }
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 文字类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnTextRequest(IRequestMessageText requestMessage)
+        public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             base.OnExecuted();
         }
 
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override IResponseMessageBase OnTextRequest(IRequestMessageText requestMessage)
         {
             RunStep = "Execute";
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();

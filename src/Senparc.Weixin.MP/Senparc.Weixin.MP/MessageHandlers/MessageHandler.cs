@@ -433,7 +433,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //TODO:Neuchar：在这里先做一次NeuChar标准的判断
 
                 var neuralSystem = NeuralSystem.Instance;
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                var messageHandlerNode = (neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode) ?? new MessageHandlerNode();
 
                 messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
 
@@ -472,7 +472,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     case RequestMsgType.Text:
                         {
-                            var requestMessage = RequestMessage as IRequestMessageText;
+                            var requestMessage = RequestMessage as RequestMessageText;
 
                             ResponseMessage = messageHandlerNode.Execute(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ??
                                                 (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));

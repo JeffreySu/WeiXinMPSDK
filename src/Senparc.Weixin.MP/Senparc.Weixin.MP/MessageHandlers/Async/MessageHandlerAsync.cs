@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         {
                             try
                             {
-                                var requestMessage = RequestMessage as RequestMessageText;
+                                var requestMessage = RequestMessage as IRequestMessageText;
                                 ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) 
                                     ?? ((await (OnTextOrEventRequestAsync(requestMessage))
                                     ?? (await OnTextRequestAsync(requestMessage))));

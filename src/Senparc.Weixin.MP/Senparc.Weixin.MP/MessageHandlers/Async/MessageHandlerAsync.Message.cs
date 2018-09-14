@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
         /// 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
         /// </summary>
-        public virtual async Task<IResponseMessageBase> OnTextOrEventRequestAsync(RequestMessageText requestMessage)
+        public virtual async Task<IResponseMessageBase> OnTextOrEventRequestAsync(IRequestMessageText requestMessage)
         {
             var result = base.DefaultMessageHandlerAsyncEvent == Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
                    ? null
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 【异步方法】文字类型请求
         /// </summary>
-        public virtual async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
+        public virtual async Task<IResponseMessageBase> OnTextRequestAsync(IRequestMessageText requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage));
         }

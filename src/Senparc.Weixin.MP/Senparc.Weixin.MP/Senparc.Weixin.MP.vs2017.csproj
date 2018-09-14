@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>16.2.2</Version>
+    <Version>16.3.0-preivew1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -433,6 +433,7 @@
       v16.0.1 支持 Senparc.Weixin v6.0.1
       v16.1.0 支持 Senparc.NeuChar v0.0.5
       v16.2.0 支持卡券消息回调
+      v16.3.0 重构 MessageHandler OnXxRequest() 方法参数类型，逐步开始使用接口，如 IRequestMessageText
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

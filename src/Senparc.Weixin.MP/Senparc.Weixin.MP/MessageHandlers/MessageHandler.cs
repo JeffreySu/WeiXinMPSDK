@@ -472,7 +472,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     case RequestMsgType.Text:
                         {
-                            var requestMessage = RequestMessage as RequestMessageText;
+                            var requestMessage = RequestMessage as IRequestMessageText;
 
                             ResponseMessage = messageHandlerNode.Execute(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ??
                                                 (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));

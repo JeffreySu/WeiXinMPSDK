@@ -37,8 +37,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v5.1.3 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
 
     修改标识：Senparc - 20180909
-    修改描述：v16.2.1 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
+    修改描述：v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
 
+   修改标识：Senparc - 20180917
+    修改描述：v6.1.1 还原上一个版本 v6.0.4 的修改
 ----------------------------------------------------------------*/
 
 using System;
@@ -82,10 +84,7 @@ namespace Senparc.Weixin.HttpUtility
                 throw new WeixinNullReferenceException("httpContext.Request.Url 不能为null！", httpContext.Request);
             }
 
-            //var returnUrl = httpContext.Request.Url.ToString();
-            var returnUrl = "{0}://{1}{2}"
-                            .FormatWith(httpContext.Request.Url.Scheme, httpContext.Request.Headers["Host"], httpContext.Request.Url.PathAndQuery);
-
+            var returnUrl = httpContext.Request.Url.ToString();
             var urlData = httpContext.Request.Url;
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host;//主机名（不带端口）
@@ -104,12 +103,8 @@ namespace Senparc.Weixin.HttpUtility
             var returnUrl = request.AbsoluteUri();
             var urlData = httpContext.Request;
             var scheme = urlData.Scheme;//协议
-
-            //var host = urlData.Host.Host;//主机名（不带端口）
-            //var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
-            var host = httpContext.Request.Headers["Host"];
-            var port = string.IsNullOrEmpty(httpContext.Request.Headers["Port"]) ? -1 : int.Parse(httpContext.Request.Headers["Port"]);
-
+            var host = urlData.Host.Host;//主机名（不带端口）
+            var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
 #endif

@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var neuralSystem = NeuralSystem.Instance;
 
                 //获取当前设置节点
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                var messageHandlerNode = (neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode) ?? new MessageHandlerNode();
 
                 switch (RequestMessage.MsgType)
                 {
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             try
                             {
                                 var requestMessage = RequestMessage as RequestMessageText;
-                                ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) 
+                                ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId)
                                     ?? ((await (OnTextOrEventRequestAsync(requestMessage))
                                     ?? (await OnTextRequestAsync(requestMessage))));
                             }

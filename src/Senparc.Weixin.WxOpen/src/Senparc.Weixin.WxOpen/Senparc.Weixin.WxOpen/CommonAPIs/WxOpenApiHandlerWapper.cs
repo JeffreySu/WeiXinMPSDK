@@ -21,45 +21,26 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：ApiHandlerWapper.cs（v12之前原AccessTokenHandlerWapper.cs）
+    文件名：ApiHandlerWapper.cs（从MP移植）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
-    
-    修改标识：Senparc - 20150703
-    修改描述：添加TryCommonApi()方法
- 
-    修改标识：Senparc - 20170102
-    修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
-
-    修改标识：Senparc - 20170123
-    修改描述：v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
-
-    修改标识：Senparc - 20180917
-    修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+    创建标识：Senparc - 20180917
 
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.Utilities.WeixinUtility;
-using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
+using Senparc.Weixin.MP.Containers;
 
-namespace Senparc.Weixin.MP
+namespace Senparc.Weixin.WxOpen
 {
     /// <summary>
     /// 针对AccessToken无效或过期的自动处理类
     /// </summary>
-    public static class ApiHandlerWapper
+    public static class WxOpenApiHandlerWapper
     {
         #region 同步方法
 
@@ -76,7 +57,7 @@ namespace Senparc.Weixin.MP
         {
 
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
+                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.WxOpen);
 
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
                 appId => AccessTokenContainer.CheckRegistered(appId);
@@ -220,7 +201,7 @@ namespace Senparc.Weixin.MP
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
+                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.WxOpen);
 
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
                 appId => AccessTokenContainer.CheckRegistered(appId);

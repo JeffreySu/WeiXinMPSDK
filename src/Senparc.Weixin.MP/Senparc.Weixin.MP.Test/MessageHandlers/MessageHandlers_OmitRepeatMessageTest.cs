@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             base.OnExecuting();
         }
 
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override IResponseMessageBase OnTextRequest(IRequestMessageText requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = requestMessage.Content;

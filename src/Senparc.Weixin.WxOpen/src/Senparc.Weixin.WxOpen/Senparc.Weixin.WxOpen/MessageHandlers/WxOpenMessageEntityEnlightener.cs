@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
 {
-   public class WxOpenMessageEntityEnlighten
+   public class WxOpenMessageEntityEnlightener
     {
-        public static MessageEntityEnlighten Instance = new MessageEntityEnlighten()
+        public static MessageEntityEnlightener Instance = new MessageEntityEnlightener(NeuChar.PlatformType.WeChat_MiniProgram)
         {
             NewRequestMessageText = () => new RequestMessageText(),
             NewRequestMessageImage = () => new RequestMessageImage(),

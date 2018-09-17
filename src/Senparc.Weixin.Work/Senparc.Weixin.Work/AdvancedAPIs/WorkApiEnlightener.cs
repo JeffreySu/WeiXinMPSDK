@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.ApiHandlers;
 
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
-    public class WxOpenApiEnlighten : ApiEnlighten
+    public class WorkApiEnlightener : ApiEnlightener
     {
-        public static ApiEnlighten Instance = new WxOpenApiEnlighten();
+        public static ApiEnlightener Instance = new WorkApiEnlightener();
+
+        public override NeuChar.PlatformType PlatformType { get; set; } = NeuChar.PlatformType.WeChat_Work;
 
         /// <summary>
         /// 发送文本客服消息
@@ -21,10 +22,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendText(string accessTokenOrAppId, string openId, string content)
         {
-            SenparcTrace.SendCustomLog("wxTest-sendText", "openID：" + openId + " || appID:" + accessTokenOrAppId + "|| content:" + content);
-
-            var reuslt = CustomApi.SendText(accessTokenOrAppId, openId, content);
-            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -36,8 +34,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
-            var reuslt = CustomApi.SendImage(accessTokenOrAppId, openId, mediaId);
-            return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
+            throw new NotImplementedException();
         }
     }
 }

@@ -26,7 +26,7 @@ using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.Filters;
 using Senparc.Weixin.MP.Sample.Models;
-using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.TenPay.V3;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                                                                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //string data = packageReqHandler.ParseXML();
 
-            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
 
             try
@@ -344,7 +344,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             1,
             Request.UserHostAddress,
             TenPayV3Info.TenPayV3Notify,
-            TenPayV3Type.NATIVE,
+           TenPay.TenPayV3Type.NATIVE,
             null,
             TenPayV3Info.Key,
             nonceStr,
@@ -449,7 +449,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                                 //小程序支付，发送小程序模板消息
                                 var templateData = new WxOpenTemplateMessage_PaySuccessNotice(
-                                                    "在线购买（小程序支付）测试", DateTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id："+ unifedorderResult.prepay_id,
+                                                    "在线购买（小程序支付）测试", DateTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id：" + unifedorderResult.prepay_id,
                                                    unifiedorderRequestData.OutTradeNo, unifiedorderRequestData.TotalFee, "400-031-8816", "https://weixin.senparc.com");
 
                                 Senparc.Weixin.WxOpen.AdvancedAPIs
@@ -1011,7 +1011,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     var body = product == null ? "test" : product.Name;
                     var price = product == null ? 100 : (int)product.Price * 100;
                     //var ip = Request.Params["REMOTE_ADDR"];
-                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
+                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
                                                                   //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);

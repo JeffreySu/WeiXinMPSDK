@@ -33,9 +33,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using System.Threading.Tasks;
 using System;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -187,6 +188,24 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_WeAppAuditFailRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                     break;
                 #endregion
+
+                #region 卡券回调
+
+                case Event.giftcard_pay_done:
+                    responseMessage = await OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done);
+                    break;
+
+                case Event.giftcard_send_to_friend:
+                    responseMessage = await OnEvent_GiftCard_Send_To_FriendRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend);
+                    break;
+
+                case Event.giftcard_user_accept:
+                    responseMessage = await OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_User_Accept);
+                    break;
+
+                #endregion
+
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -203,7 +222,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_EnterRequest(requestMessage));
         }
 
-   
+
         /// <summary>
         /// 【异步方法】Event事件类型请求之LOCATION
         /// </summary>
@@ -586,6 +605,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage));
         }
+
+        #endregion
+
+        #region 卡券回调
+
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_Pay_DoneRequest(requestMessage));
+        }
+
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_Send_To_FriendRequestAsync(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_Send_To_FriendRequest(requestMessage));
+        }
+
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_User_AcceptRequest(requestMessage));
+        }
+
 
         #endregion
 

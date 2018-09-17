@@ -60,6 +60,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170810
     修改描述：v4.14.1 ReturnCode添加：没有留言权限 = 88000
    
+    修改标识：Senparc - 20170901
+    修改描述：删除 AppStoreState 枚举，移植到 Senparc.NeuChar
+
 ----------------------------------------------------------------*/
 
 
@@ -272,6 +275,8 @@ namespace Senparc.Weixin
         /// 小程序为“签名错误”。对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
         /// </summary>
         签名错误 = 87009,
+        //小程序MsgSecCheck接口
+        内容含有违法违规内容 = 87014,
 
         //小程序地点管理返回码
         POST参数非法 = 20002,
@@ -861,24 +866,6 @@ namespace Senparc.Weixin
         en
     }
 
-    /// <summary>
-    /// AppStore状态
-    /// </summary>
-    public enum AppStoreState
-    {
-        /// <summary>
-        /// 无状态
-        /// </summary>
-        None = 1,
-        /// <summary>
-        /// 已进入应用状态
-        /// </summary>
-        Enter = 2,
-        /// <summary>
-        /// 退出App状态（临时传输状态，退出后即为None）
-        /// </summary>
-        Exit = 4
-    }
 
     /// <summary>
     /// 用户信息中的性别（sex）

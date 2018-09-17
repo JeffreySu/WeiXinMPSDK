@@ -26,9 +26,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.TenPay;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {

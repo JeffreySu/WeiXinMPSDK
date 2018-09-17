@@ -49,15 +49,16 @@ namespace Senparc.WeixinTests
             register = RegisterService.Start(senparcSetting);
 #endif
 
-            Func<IList<IDomainExtensionCacheStrategy>> func = () =>
-            {
-                var list = new List<IDomainExtensionCacheStrategy>();
-                list.Add(LocalContainerCacheStrategy.Instance);
-                list.Add(RedisContainerCacheStrategy.Instance);
-                //list.Add(MemcachedContainerCacheStrategy.Instance);
-                return list;
-            };
-            register.UseSenparcGlobal(false, func);
+            //Func<IList<IDomainExtensionCacheStrategy>> func = () =>
+            //{
+            //    var list = new List<IDomainExtensionCacheStrategy>();
+            //    list.Add(LocalContainerCacheStrategy.Instance);
+            //    list.Add(RedisContainerCacheStrategy.Instance);
+            //    //list.Add(MemcachedContainerCacheStrategy.Instance);
+            //    return list;
+            //};
+            //register.UseSenparcGlobal(false, func);
+            register.UseSenparcGlobal(false);
 
             //注册微信
             var senparcWeixinSetting = new SenparcWeixinSetting(true);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web.Mvc;

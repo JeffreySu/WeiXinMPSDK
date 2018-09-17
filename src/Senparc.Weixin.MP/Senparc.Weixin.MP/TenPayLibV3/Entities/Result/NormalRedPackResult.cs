@@ -38,6 +38,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 获取普通现金红包发送接口的结果
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class NormalRedPackResult
     {
         /// <summary>

@@ -21,7 +21,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.TenPayLib;
+using Senparc.Weixin.TenPay.V2;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -188,7 +188,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string sign = Params.CreateSHA1Sign();
             Params.SetParameter("sign", sign);
 
-            var parm = TenPay.NativePay(TenPayInfo.AppId, timeStamp, nonceStr, productid, sign);
+            var parm = TenPay.V2.TenPay.NativePay(TenPayInfo.AppId, timeStamp, nonceStr, productid, sign);
             parm = QRCode.QRfromGoogle(parm);
             ViewData["parm"] = parm;
             return View();
@@ -458,7 +458,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             paySignReqHandler.SetParameter("deliver_Status", "1");
             paySignReqHandler.SetParameter("deliver_Msg", "ok");
             appSignature = paySignReqHandler.CreateSHA1Sign();
-            var result = TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
+            var result = TenPay.V2.TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
                                  timeStamp, "1", "ok", appSignature, "sha1");
 
             ViewData["message"] = result.errcode;

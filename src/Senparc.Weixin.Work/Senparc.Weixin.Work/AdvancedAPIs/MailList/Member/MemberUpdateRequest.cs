@@ -17,6 +17,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
     /// </summary>
     public class MemberUpdateRequest : MemberBase
     {
-
+        //非必填，特别地，如果userid由系统自动生成，则仅允许修改一次。新值可由new_userid字段指定。
+        public string new_userid { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Senparc.NeuChar;
 namespace Senparc.Weixin.Work.Entities.Request.KF
 {
     public class RequestMessageLink : RequestMessage

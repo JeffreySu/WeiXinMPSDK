@@ -11,9 +11,12 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public class RequestMessageText : RequestMessageBase,IRequestMessageBase
+    public class RequestMessageText : WorkRequestMessageBase, IRequestMessageText
     {
         public override RequestMsgType MsgType
         {

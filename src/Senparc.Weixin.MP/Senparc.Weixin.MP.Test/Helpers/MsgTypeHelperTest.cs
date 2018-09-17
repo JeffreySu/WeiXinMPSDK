@@ -21,6 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Helpers;
 

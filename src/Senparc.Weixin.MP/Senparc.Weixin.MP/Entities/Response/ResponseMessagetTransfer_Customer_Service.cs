@@ -31,6 +31,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Entities
@@ -38,14 +40,14 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 响应回复多客服消息
     /// </summary>
-	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageBase
-	{
+	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageTransfer_Customer_Service
+    {
 		public ResponseMessageTransfer_Customer_Service()
 		{
 			TransInfo = new List<CustomerServiceAccount>();
 		}
 
-		public new virtual ResponseMsgType MsgType
+		public override ResponseMsgType MsgType
 		{
 			get { return ResponseMsgType.Transfer_Customer_Service; }
 		}
@@ -53,8 +55,8 @@ namespace Senparc.Weixin.MP.Entities
 		public List<CustomerServiceAccount> TransInfo { get; set; }
 	}
 
-	public class CustomerServiceAccount
-	{
-		public string KfAccount { get; set; }
-	}
+	//public class CustomerServiceAccount
+	//{
+	//	public string KfAccount { get; set; }
+	//}
  }

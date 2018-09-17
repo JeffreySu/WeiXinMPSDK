@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150327
     修改描述：添加小视频类型
+    
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 支持NeuChar，添加 RequestMessageNeuChar() 方法
 
 ----------------------------------------------------------------*/
 
@@ -39,6 +42,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -99,6 +105,9 @@ namespace Senparc.Weixin.MP
                         break;
                     case RequestMsgType.File:
                         requestMessage = new RequestMessageFile();
+                        break;
+                    case RequestMsgType.NeuChar:
+                        requestMessage = new RequestMessageNeuChar();
                         break;
                     case RequestMsgType.Event:
                         //判断Event类型
@@ -211,6 +220,18 @@ namespace Senparc.Weixin.MP
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
                                 break;
 
+                            #region 卡券回调
+                            case "GIFTCARD_PAY_DONE"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Pay_Done();
+                                break;
+                            case "GIFTCARD_SEND_TO_FRIEND"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Send_To_Friend();
+                                break;
+                            case "GIFTCARD_USER_ACCEPT"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_User_Accept();
+                                break;
+                            #endregion
+
                             #region 微信认证事件推送
                             case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
                                 requestMessage = new RequestMessageEvent_QualificationVerifySuccess();
@@ -265,7 +286,7 @@ namespace Senparc.Weixin.MP
                             break;
                         }
                 }
-                EntityHelper.FillEntityWithXml(requestMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
             {

@@ -127,7 +127,6 @@ namespace Senparc.Weixin
             //ApiBind 自动扫描
             Senparc.NeuChar.Register.RegisterApiBind();
 
-
             return registerService;
         }
     }

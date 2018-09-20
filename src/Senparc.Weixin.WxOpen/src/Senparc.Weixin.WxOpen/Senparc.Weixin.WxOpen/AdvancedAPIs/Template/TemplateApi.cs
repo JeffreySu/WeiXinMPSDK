@@ -75,7 +75,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         public static WxJsonResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId,
             object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
                 var msgData = new TempleteModel()
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <returns></returns>
         public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
                 var msgData = new TempleteModel()

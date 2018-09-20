@@ -82,7 +82,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         public static WxJsonResult GetWxaCode(string accessTokenOrAppId, Stream stream, string path,
             int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -211,7 +211,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
         public static WxJsonResult CheckSession(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
                 var signature = EncryptHelper.GetHmacSha256("", sessionKey);
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -308,7 +308,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static GetNearbyPoiListJsonResult GetNearbyPoiList(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -329,7 +329,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static WxJsonResult DelNearbyPoi(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static WxJsonResult SetNearbyPoiShowStatus(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -373,7 +373,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static WxJsonResult MsgSecCheck(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
 
@@ -394,7 +394,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static WxJsonResult ImgSecCheck(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
                 var url = urlFormat.FormatWith(accessToken);
@@ -458,7 +458,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -526,7 +526,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path,
             int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -559,7 +559,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream,
             string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -612,7 +612,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
         public static async Task<WxJsonResult> CheckSessionAsync(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
                 var signature = EncryptHelper.GetHmacSha256("", sessionKey);
@@ -635,7 +635,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -657,7 +657,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<GetNearbyPoiListJsonResult> GetNearbyPoiListAsync(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -678,7 +678,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<WxJsonResult> DelNearbyPoiAsync(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -700,7 +700,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<WxJsonResult> SetNearbyPoiListAsync(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
@@ -722,7 +722,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<WxJsonResult> MsgSecCheckAsync(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
 
@@ -743,7 +743,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <returns></returns>
         public static async Task<WxJsonResult> ImgSecCheckAsync(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
                 var url = urlFormat.FormatWith(accessToken);

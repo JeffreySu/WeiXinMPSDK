@@ -15,6 +15,7 @@ using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
 using Senparc.Weixin.TenPay.V3;
+using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -235,7 +236,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             var templateMessageService = new TemplateMessageService();
             try
             {
-                var sessionBag = templateMessageService.RunTemplateTest(sessionId, formId);
+                var sessionBag = templateMessageService.RunTemplateTest(WxOpenAppId, sessionId, formId);
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }

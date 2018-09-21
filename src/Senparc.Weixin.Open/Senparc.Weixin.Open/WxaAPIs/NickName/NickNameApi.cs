@@ -173,7 +173,5 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
 
         #endregion
 #endif
-
-#endif
     }
 }

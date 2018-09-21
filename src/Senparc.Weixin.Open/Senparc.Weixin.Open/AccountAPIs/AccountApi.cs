@@ -142,7 +142,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         #endregion
 
 #if !NET35 && !NET40
-
         #region 异步方法
 
         #region 快速注册小程序
@@ -240,7 +239,6 @@ namespace Senparc.Weixin.Open.AccountAPIs
         #endregion
 
         #endregion
-
 #endif
     }
 }

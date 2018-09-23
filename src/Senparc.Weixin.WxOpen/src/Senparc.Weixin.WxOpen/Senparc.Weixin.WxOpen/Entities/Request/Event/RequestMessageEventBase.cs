@@ -51,7 +51,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 请求消息的事件推送消息基类
     /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
+    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
     {
         public override RequestMsgType MsgType
         {

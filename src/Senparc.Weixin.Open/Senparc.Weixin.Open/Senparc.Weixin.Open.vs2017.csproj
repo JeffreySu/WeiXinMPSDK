@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.1.7</Version>
+    <Version>4.1.8</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -137,6 +137,8 @@
       v4.1.2 修复：添加类目接口参数结构不正确
       v4.1.3 支持 Senparc.NeuChar v0.0.6.10，解决 InfoType.component_verify_ticket 枚举等只读属性识别问题
       v4.1.6 支持 Senparc.NeuChar v0.1.2
+      v4.1.8 支持 Senparc.NeuChar v0.1.4
+      
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -256,7 +258,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.1.3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.1.4.1" />
   </ItemGroup>
 
   <ItemGroup>

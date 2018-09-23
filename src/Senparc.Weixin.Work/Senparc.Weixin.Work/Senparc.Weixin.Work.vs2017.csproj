@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>3.1.7</Version>
+		<Version>3.1.8</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -100,6 +100,8 @@
       v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact；枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT
       v3.1.5 添加 MemberUpdateRequest.new_userid 属性
       v3.1.6 支持 Senparc.NeuChar v0.1.2
+      v3.1.8 支持 Senparc.NeuChar v0.1.4
+
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -265,7 +267,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.1.3" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.1.4.1" />
 	</ItemGroup>
 
 	<ItemGroup>

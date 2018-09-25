@@ -24,7 +24,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         {
             SenparcTrace.SendCustomLog("wxTest-sendText", "openID：" + openId + " || appID:" + accessTokenOrAppId + "|| content:" + content);
 
-            var reuslt = CustomApi.SendText(accessTokenOrAppId, openId, content);
+            var reuslt = AdvancedAPIs.CustomApi.SendText(accessTokenOrAppId, openId, content);
             return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
         }
 
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <returns></returns>
         public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
-            var reuslt = CustomApi.SendImage(accessTokenOrAppId, openId, mediaId);
+            var reuslt = AdvancedAPIs.CustomApi.SendImage(accessTokenOrAppId, openId, mediaId);
             return new ApiResult((int)reuslt.errcode, reuslt.errmsg, reuslt);
         }
     }

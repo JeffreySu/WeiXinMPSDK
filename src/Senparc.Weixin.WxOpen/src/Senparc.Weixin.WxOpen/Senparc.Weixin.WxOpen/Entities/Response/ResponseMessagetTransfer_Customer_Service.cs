@@ -21,11 +21,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：RequestMessageEventBase.cs
-    文件功能描述：事件基类
+    文件名：ResponseMessagetTransfer_Customer_Service.cs
+    文件功能描述：响应回复多客服消息
     
     
-    创建标识：Senparc - 20170106
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20180924
+    修改描述：从 Senparc.Weixi.MP 移植并修改
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -34,36 +38,18 @@ using Senparc.NeuChar.Entities;
 namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// IRequestMessageEventBase
+    /// 响应回复多客服消息
     /// </summary>
-    public interface IRequestMessageEventBase : IRequestMessageBase
+	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageTransfer_Customer_Service
     {
-        /// <summary>
-        /// 事件类型
-        /// </summary>
-        Event Event { get; }
-        ///// <summary>
-        ///// 事件KEY值，与自定义菜单接口中KEY值对应
-        ///// </summary>
-        //string EventKey { get; set; }
-    }
+		public ResponseMessageTransfer_Customer_Service()
+		{
+		}
 
-    /// <summary>
-    /// 请求消息的事件推送消息基类
-    /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
-    {
-        public override RequestMsgType MsgType
-        {
-            get { return RequestMsgType.Event; }
-        }
+		public override ResponseMsgType MsgType
+		{
+			get { return ResponseMsgType.Transfer_Customer_Service; }
+		}
 
-        /// <summary>
-        /// 事件类型
-        /// </summary>
-        public virtual Event Event
-        {
-            get { return Event.user_enter_tempsession; }
-        }
-    }
-}
+	}
+ }

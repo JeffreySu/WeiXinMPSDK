@@ -42,3 +42,5 @@
 
 .flex-wrp {display: flex;}
 .flex-item{margin: 0px 10px;}
+
+.hide {display: none;}

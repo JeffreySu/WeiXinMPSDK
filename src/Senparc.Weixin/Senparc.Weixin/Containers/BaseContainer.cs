@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180707
     修改描述：Update() 方法中记录缓存时间 bag.CacheTime = DateTime.Now;
 
+    修改标识：Senparc - 20180917
+    修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+
 ----------------------------------------------------------------*/
 
 
@@ -183,10 +186,35 @@ namespace Senparc.Weixin.Containers
         /// 返回已经注册的第一个AppId
         /// </summary>
         /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
+        public static string GetFirstOrDefaultAppId(PlatformType platformType)
         {
-            var firstBag = GetAllItems().FirstOrDefault() as IBaseContainerBag_AppId;
-            return firstBag == null ? null : firstBag.AppId;
+            string appId = null;
+            switch (platformType)
+            {
+                case PlatformType.MP:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
+                    break;
+                case PlatformType.Open:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+                    break;
+                case PlatformType.WxOpen:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+                    break;
+                case PlatformType.QY:
+                    break;
+                case PlatformType.Work:
+                    break;
+                default:
+                    break;
+            }
+
+            if (appId == null)
+            {
+                var firstBag = GetAllItems().FirstOrDefault() as IBaseContainerBag_AppId;
+                appId = firstBag == null ? null : firstBag.AppId;
+            }
+
+            return appId;
         }
 
         /// <summary>

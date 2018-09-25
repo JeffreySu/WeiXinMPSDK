@@ -269,10 +269,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 {
                     case RequestMsgType.Text:
                         {
-                            SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
+                            //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
                             ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
                                     OnTextRequest(RequestMessage as RequestMessageText);
-                            SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
+                            //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:

@@ -23,6 +23,9 @@
     修改描述：v1.4.0 新增企业微信群聊会话功能支持
               v1.4.1 增加“接收通讯录变更事件”
 
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work
@@ -169,7 +172,7 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 通讯录变更通知
         /// </summary>
-        CONTACT_SYNC
+        CHANGE_CONTACT//更新前字符串：CONTACT_SYNC
     }
 
 

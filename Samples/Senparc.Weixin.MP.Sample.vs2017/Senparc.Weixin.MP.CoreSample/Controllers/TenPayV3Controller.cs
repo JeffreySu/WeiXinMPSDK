@@ -1084,5 +1084,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         }
 
         #endregion
+
+        #region 付款到银行卡
+
+        //TODO：完善
+
+
+
+
+        #endregion
     }
 }

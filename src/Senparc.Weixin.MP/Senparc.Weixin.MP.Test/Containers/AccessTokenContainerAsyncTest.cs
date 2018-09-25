@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             var registeredAppId = base._appId;//已经注册的AppId
 
-            var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+            var appId = AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
             Assert.AreEqual(registeredAppId, appId);
 
             //注册多个AppId

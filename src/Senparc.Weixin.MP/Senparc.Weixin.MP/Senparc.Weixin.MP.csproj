@@ -60,8 +60,8 @@
     <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.0.6.14, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.14\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.1.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.1.4.1\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -160,7 +160,7 @@
     <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfResult.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockApi.cs" />
     <Compile Include="AdvancedAPIs\MerChant\Stock\StockPostData.cs" />
-    <Compile Include="AdvancedAPIs\MpApiEnlighten.cs" />
+    <Compile Include="AdvancedAPIs\MpApiEnlightener.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
@@ -349,8 +349,7 @@
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="MessageHandlers\MessageHandler.Event.cs" />
     <Compile Include="MessageHandlers\MessageHandler.Message.cs" />
-    <Compile Include="MessageHandlers\MessageHandler.NeuChar.cs" />
-    <Compile Include="MessageHandlers\MpMessageEntityEnlighten.cs" />
+    <Compile Include="MessageHandlers\MpMessageEntityEnlightener.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />

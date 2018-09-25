@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream, int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestXml(url, token, stream, timeOut: timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlighten);
+            return messageHandler.RequestXml(url, token, stream, timeOut: timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlightener);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml, int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestXml(url, token, xml, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlighten);
+            return messageHandler.RequestXml(url, token, xml, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlightener);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, xml, weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlighten);
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, xml, weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlightener);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, document.ToString(), weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlighten);
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, document.ToString(), weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlightener);
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlighten);
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName, timeOut).CreateResponseMessage(messageHandler.MessageEntityEnlightener);
         }
 
         /// <summary>

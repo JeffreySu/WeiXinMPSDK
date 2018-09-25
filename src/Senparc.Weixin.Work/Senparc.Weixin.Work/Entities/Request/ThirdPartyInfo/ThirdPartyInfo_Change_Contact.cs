@@ -21,49 +21,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：RequestMessageEventBase.cs
-    文件功能描述：事件基类
+    文件名：RequestMessageInfo_Change_Contact.cs
+    文件功能描述：通讯录变更事件通知 请求消息
     
     
-    创建标识：Senparc - 20170106
+    创建标识：Senparc - 20161204
+
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact；
+                     枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT
+    
 ----------------------------------------------------------------*/
 
-using Senparc.NeuChar;
-using Senparc.NeuChar.Entities;
-
-namespace Senparc.Weixin.WxOpen.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
-    /// IRequestMessageEventBase
+    /// 变更授权的通知
     /// </summary>
-    public interface IRequestMessageEventBase : IRequestMessageBase
+    public class RequestMessageInfo_Change_Contact : ThirdPartyInfoBase, IThirdPartyInfoBase
     {
-        /// <summary>
-        /// 事件类型
-        /// </summary>
-        Event Event { get; }
-        ///// <summary>
-        ///// 事件KEY值，与自定义菜单接口中KEY值对应
-        ///// </summary>
-        //string EventKey { get; set; }
-    }
-
-    /// <summary>
-    /// 请求消息的事件推送消息基类
-    /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
-    {
-        public override RequestMsgType MsgType
+        public override ThirdPartyInfo InfoType
         {
-            get { return RequestMsgType.Event; }
+            get { return ThirdPartyInfo.CHANGE_CONTACT; }
         }
 
         /// <summary>
-        /// 事件类型
+        /// 授权方企业号的corpid
         /// </summary>
-        public virtual Event Event
-        {
-            get { return Event.user_enter_tempsession; }
-        }
+        public string AuthCorpId { get; set; }
+
+        /// <summary>
+        /// 当前序号
+        /// </summary>
+        public int Seq { get; set; }
     }
 }

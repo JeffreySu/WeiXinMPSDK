@@ -3,6 +3,7 @@
 Nuget/
 bin/
 obj/
+.vscode/
 *.[pdb]
 *.suo
 *.user

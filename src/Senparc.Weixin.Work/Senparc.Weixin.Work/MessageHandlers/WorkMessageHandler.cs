@@ -22,6 +22,11 @@
     修改标识：pekrr1e - 20180503
     修改描述：v1.4.1 增加“接收通讯录变更事件”
 
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact；
+                     枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
+                     OnThirdPartyEvent_Contact_Sync 改名为 OnThirdPartyEvent_Change_Contact()
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -158,9 +163,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten MessageEntityEnlighten { get { return WorkMessageEntityEnlighten.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WorkMessageEntityEnlightener.Instance; } }
 
-        public override ApiEnlighten ApiEnlighten { get { return WorkApiEnlighten.Instance; } }
+        public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
@@ -708,14 +713,14 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.CREATE_AUTH:
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CONTACT_SYNC:
-                    return OnThirdPartyEvent_Contact_Sync((RequestMessageInfo_Contact_Sync)thirdPartyInfo);
+                case ThirdPartyInfo.CHANGE_CONTACT:
+                    return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
                 default:
                     throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
             }
         }
 
-        protected virtual string OnThirdPartyEvent_Contact_Sync(RequestMessageInfo_Contact_Sync thirdPartyInfo)
+        protected virtual string OnThirdPartyEvent_Change_Contact(RequestMessageInfo_Change_Contact thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }

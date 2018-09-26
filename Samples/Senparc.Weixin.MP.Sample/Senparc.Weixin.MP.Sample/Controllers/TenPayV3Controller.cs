@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
+                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId + "_" + Config.SenparcWeixinSetting.TenPayV3_Sub_MchId];
                 }
                 return _tenPayV3Info;
             }

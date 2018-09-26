@@ -64,7 +64,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="name">公众号唯一标识（或名称）</param>
         public static void Register(TenPayV3Info tenPayV3Info,string name)
         {
-            Data[tenPayV3Info.MchId] = tenPayV3Info;
+            Data[tenPayV3Info.MchId + "_" + tenPayV3Info.Sub_MchId] = tenPayV3Info;
 
             //添加到全局变量
             if (!name.IsNullOrEmpty())
@@ -75,6 +75,8 @@ namespace Senparc.Weixin.TenPay.V3
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Key = tenPayV3Info.Key;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_TenpayNotify = tenPayV3Info.TenPayV3Notify;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_WxOpenTenpayNotify = tenPayV3Info.TenPayV3_WxOpenNotify;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_MchId = tenPayV3Info.Sub_MchId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_AppId = tenPayV3Info.Sub_AppId;
             }
         }
 

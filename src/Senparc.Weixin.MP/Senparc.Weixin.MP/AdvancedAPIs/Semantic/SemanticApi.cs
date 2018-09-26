@@ -43,6 +43,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  */
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -64,6 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSend", true)]
         public static T SemanticSend<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -92,6 +94,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSendAsync", true)]
         public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

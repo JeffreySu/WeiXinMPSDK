@@ -36,6 +36,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {

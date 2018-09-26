@@ -23,26 +23,29 @@
     修改描述：v1.4.0 新增企业微信群聊会话功能支持
               v1.4.1 增加“接收通讯录变更事件”
 
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work
 {
-    /// <summary>
-    /// 接收消息类型
-    /// </summary>
-    public enum RequestMsgType
-    {
-        DEFAULT,//默认
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        Event, //事件推送
-        ShortVideo, //小视频
-        File,//文件
-    }
+    ///// <summary>
+    ///// 接收消息类型
+    ///// </summary>
+    //public enum RequestMsgType
+    //{
+    //    DEFAULT,//默认
+    //    Text, //文本
+    //    Location, //地理位置
+    //    Image, //图片
+    //    Voice, //语音
+    //    Video, //视频
+    //    Link, //连接信息
+    //    Event, //事件推送
+    //    ShortVideo, //小视频
+    //    File,//文件
+    //}
 
     /// <summary>
     /// 当RequestMsgType类型为Event时，Event属性的类型
@@ -169,27 +172,27 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 通讯录变更通知
         /// </summary>
-        CONTACT_SYNC
+        CHANGE_CONTACT//更新前字符串：CONTACT_SYNC
     }
 
 
-    /// <summary>
-    /// 发送消息类型
-    /// </summary>
-    public enum ResponseMsgType
-    {
-        Text,
-        News,
-        Music,
-        Image,
-        Voice,
-        Video,
-        MpNews,
+    ///// <summary>
+    ///// 发送消息类型
+    ///// </summary>
+    //public enum ResponseMsgType
+    //{
+    //    Text,
+    //    News,
+    //    Music,
+    //    Image,
+    //    Voice,
+    //    Video,
+    //    MpNews,
 
-        //以下类型为Senparc.Weixin自用类型
-        NoResponse,
-        SuccessResponse
-    }
+    //    //以下类型为Senparc.Weixin自用类型
+    //    NoResponse,
+    //    SuccessResponse
+    //}
 
     /// <summary>
     /// 菜单按钮类型

@@ -172,7 +172,10 @@ namespace Senparc.Weixin.Open
         广告管理权限 = 23,
         开放平台帐号管理权限 = 24,
         开放平台帐号管理权限_小程序 = 25,
-        微信电子发票权限 = 26
+        微信电子发票权限 = 26,
+        快速注册小程序权限 = 27,
+        小程序管理权限 = 33,
+        微信卡路里权限 = 35
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
@@ -206,5 +209,64 @@ namespace Senparc.Weixin.Open
     {
         open,
         close
+    }
+
+    /// <summary>
+    /// 帐号类型（1：订阅号，2：服务号，3：小程序）
+    /// </summary>
+    public enum AccountType
+    {
+        订阅号 = 1,
+        服务号 = 2,
+        小程序 = 3
+    }
+
+    /// <summary>
+    /// 主体类型（1：企业）
+    /// </summary>
+    public enum PrincipalType
+    {
+        企业 = 1
+    }
+
+    /// <summary>
+    /// 1：实名验证成功，2：实名验证中，3：实名验证失败
+    /// </summary>
+    public enum RealNameStatus
+    {
+        实名验证成功 = 1,
+        实名验证中 = 2,
+        实名验证失败 = 3
+    }
+
+    /// <summary>
+    /// 小程序昵称审核状态，1：审核中，2：审核失败，3：审核成功
+    /// </summary>
+    public enum AuditStat
+    {
+        审核中 = 1,
+        审核失败 = 2,
+        审核成功 = 3
+    }
+
+    /// <summary>
+    /// 小程序类目审核状态，1：审核中，2：审核失败，3：审核成功
+    /// </summary>
+    public enum AuditStatus
+    {
+        审核中 = 1,
+        审核不通过 = 2,
+        审核通过 = 3
+    }
+
+    /// <summary>
+    /// 要授权的帐号类型
+    /// </summary>
+    public enum LoginAuthType
+    {
+        默认,
+        仅展示公众号 = 1,
+        仅展示小程序 = 2,
+        表示公众号和小程序都展示 = 3
     }
 }

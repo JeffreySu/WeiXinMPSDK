@@ -35,7 +35,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.CoreSample.Models;
-using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
 using Senparc.Weixin.Exceptions;
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 if (_tenPayV3Info == null)
                 {
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[Config.DefaultSenparcWeixinSetting.TenPayV3_MchId];
+                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
                 }
                 return _tenPayV3Info;
             }
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                                                                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //string data = packageReqHandler.ParseXML();
 
-            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
 
             try
@@ -363,7 +363,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             1,
             HttpContext.UserHostAddress()?.ToString(),
             TenPayV3Info.TenPayV3Notify,
-            TenPayV3Type.NATIVE,
+            TenPay.TenPayV3Type.NATIVE,
             null,
             TenPayV3Info.Key,
             nonceStr,
@@ -462,7 +462,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 //发送支付成功的模板消息
                 try
                 {
-                    string appId = Config.DefaultSenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                    string appId = Config.SenparcWeixinSetting.TenPayV3_AppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
                     string openId = resHandler.GetParameter("openid");
                     var templateData = new WeixinTemplate_PaySuccess("https://weixin.senparc.com", "购买商品", "状态：" + return_code);
 
@@ -998,7 +998,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     var body = product == null ? "test" : product.Name;
                     var price = product == null ? 100 : (int)product.Price * 100;
                     //var ip = Request.Params["REMOTE_ADDR"];
-                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
+                    var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
                                                                   //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -1082,6 +1082,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return Content(msg);
             }
         }
+
+        #endregion
+
+        #region 付款到银行卡
+
+        //TODO：完善
+
+
+
 
         #endregion
     }

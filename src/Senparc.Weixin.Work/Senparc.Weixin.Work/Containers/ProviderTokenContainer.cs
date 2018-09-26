@@ -66,17 +66,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
-using Senparc.Weixin.Work.AdvancedAPIs.SSO;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Work.AdvancedAPIs;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -187,7 +183,7 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTime.MinValue,
                     ProviderTokenResult = new ProviderTokenResult()
                 };
-                Update(BuildingKey(corpId, corpSecret), bag);
+                Update(BuildingKey(corpId, corpSecret), bag, null);
                 return bag;
                 //}
             };
@@ -223,6 +219,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static string GetToken(string corpId, string corpSecret, bool getNewToken = false)
@@ -234,6 +231,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static ProviderTokenResult GetTokenResult(string corpId, string corpSecret, bool getNewToken = false)
@@ -252,7 +250,7 @@ namespace Senparc.Weixin.Work.Containers
                     providerTokenBag.ProviderTokenResult = SsoApi.GetProviderToken(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                    Update(providerTokenBag);//更新到缓存
+                    Update(providerTokenBag, null);//更新到缓存
                 }
             }
             return providerTokenBag.ProviderTokenResult;
@@ -292,6 +290,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
@@ -304,6 +303,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
@@ -325,7 +325,7 @@ namespace Senparc.Weixin.Work.Containers
                     //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
                     //    providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                    Update(providerTokenBag);//更新到缓存
+                    Update(providerTokenBag, null);//更新到缓存
                 }
             }
             return providerTokenBag.ProviderTokenResult;

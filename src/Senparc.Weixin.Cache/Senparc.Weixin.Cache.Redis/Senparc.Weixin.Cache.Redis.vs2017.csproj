@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.0.9</Version>
+    <Version>2.2.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - Redis 模块
@@ -74,6 +74,9 @@
       v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
       v2.0.6.1 支持 CO2NET v0.1.6.1
       v2.0.9 支持 CO2NET v0.1.9
+      v2.1.0 支持 CO2NET v0.2.0
+      v2.2.1 支持 CO2NET v0.2.6，Senparc.CO2NET.Cache.Redis v3.1.1
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -172,7 +175,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="2.0.9" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.1.1" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 

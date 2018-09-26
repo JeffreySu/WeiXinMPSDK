@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20180101
+
+    修改标识：Senparc - 20180718
+    修改描述：修改 stay_time_uv,stay_time_session 类型
     
 ----------------------------------------------------------------*/
 using System;
@@ -72,11 +75,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <summary>
         /// 人均停留时长 (浮点型，单位：秒)
         /// </summary>
-        public int stay_time_uv { get; set; }
+        public double stay_time_uv { get; set; }
         /// <summary>
         /// 次均停留时长 (浮点型，单位：秒)
         /// </summary>
-        public int stay_time_session { get; set; }
+        public double stay_time_session { get; set; }
         /// <summary>
         /// 平均访问深度 (浮点型)
         /// </summary>

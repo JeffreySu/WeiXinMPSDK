@@ -38,6 +38,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
+using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -48,11 +49,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public static class TenPay
     {
         #region 同步方法
-        
-       /*此接口不提供异步方法*/
+
+        /*此接口不提供异步方法*/
         /// <summary>
         /// Native
         /// </summary>

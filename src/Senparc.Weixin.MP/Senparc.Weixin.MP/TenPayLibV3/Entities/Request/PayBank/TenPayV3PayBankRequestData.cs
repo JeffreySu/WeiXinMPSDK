@@ -31,11 +31,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 付款到银行卡提交数据
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class TenPayV3PayBankRequestData
     {
         ///// <summary>
@@ -109,8 +112,17 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public readonly string Sign;
 
-        public TenPayV3PayBankRequestData()
+        public TenPayV3PayBankRequestData(string mchId, string nonceStr, string key, string partnerTradeNumber, string encBankNumber, string encTrueName, string bankCode, string amount, string desc = "")
         {
+            this.MchId = mchId;
+            this.NonceStr = nonceStr;
+            this.Key = key;
+            this.PartnerTradeNumber = partnerTradeNumber;
+            this.EncBankNumber = encBankNumber;
+            this.EncTrueName = encTrueName;
+            this.BankCode = bankCode;
+            this.Amount = int.Parse(amount);
+            this.Desc = desc;
 
             #region 设置RequestHandler
 
@@ -128,11 +140,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("amount", this.Amount.ToString());
             PackageRequestHandler.SetParameterWhenNotNull("desc", this.Desc);
 
+
+
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 
             #endregion
-
         }
     }
 }

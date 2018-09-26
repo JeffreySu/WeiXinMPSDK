@@ -24,8 +24,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.Agents
 {
@@ -49,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 </xml>";
 
             var xml = MessageAgent.RequestXml(null, url, token, requestXml);
-            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
+            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;

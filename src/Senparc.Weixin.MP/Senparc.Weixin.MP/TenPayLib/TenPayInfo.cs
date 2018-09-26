@@ -36,12 +36,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
     /// 微信支付基础信息储存类
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class TenPayInfo
     {
         /// <summary>
@@ -86,7 +88,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// 微信支付（旧版本）参数 构造函数
         /// </summary>
         /// <param name="senparcWeixinSetting">已经填充过微信支付（旧版本）参数的 SenparcWeixinSetting 对象</param>
-        public TenPayInfo(SenparcWeixinSetting senparcWeixinSetting)
+        public TenPayInfo(ISenparcWeixinSettingForOldTenpay senparcWeixinSetting)
             : this(senparcWeixinSetting.WeixinPay_PartnerId,
                    senparcWeixinSetting.WeixinPay_Key,
                    senparcWeixinSetting.WeixinPay_AppId,

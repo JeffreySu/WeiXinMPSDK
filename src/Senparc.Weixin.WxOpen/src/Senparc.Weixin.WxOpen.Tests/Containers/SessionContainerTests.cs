@@ -27,11 +27,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.Weixin.WxOpen.Containers.Tests
 {
     [TestClass()]
-    public class SessionContainerTests:CommonApiTest
+    public class SessionContainerTests: WxOpenBaseTest
     {
         [TestMethod()]
         public void UpdateSessionTest()

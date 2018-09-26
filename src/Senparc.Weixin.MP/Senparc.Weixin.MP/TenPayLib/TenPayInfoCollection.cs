@@ -45,6 +45,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// 微信支付信息集合，Key为商户号（PartnerId）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class TenPayInfoCollection : Dictionary<string, TenPayInfo>
     {
         /// <summary>

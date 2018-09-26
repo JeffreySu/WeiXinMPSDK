@@ -82,7 +82,7 @@ namespace Senparc.Weixin
             //自动注册 Redis 和 Memcached
             //Redis
             var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
-            //if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
             {
                 try
                 {
@@ -101,7 +101,7 @@ namespace Senparc.Weixin
 
             //Memcached
             var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
-            //if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
             {
                 try
                 {
@@ -123,6 +123,9 @@ namespace Senparc.Weixin
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
+
+            //ApiBind 自动扫描
+            Senparc.NeuChar.Register.RegisterApiBind();
 
             return registerService;
         }

@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>15.0.11</Version>
+    <Version>16.3.4</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 微信公众号 模块
@@ -413,6 +413,30 @@
       v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
       v15.0.10 支持 Senparc.Weixin v5.0.10
       v15.0.11 支持 Senparc.Weixin v5.0.11
+      v15.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v15.1.2 企业付款到银行卡修复携带证书问题
+      v15.1.3
+      1、优化接口
+      2、支持 Senparc.Weixin v5.1.4
+      v15.1.4 修复 GetForeverMedia() 接口 bug
+
+      v15.2.0
+      1、SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+      2、支持 Senparc.Weixin v5.1.6
+      v15.2.1 实现 SenparcWeixinSetting 自动注册
+      v15.2.2 优化客服接口，分离小程序客服接口
+      v15.2.3 支持 CO2NET v0.2.8
+      v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
+      v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll
+    
+      v16.0.0 支持 NeuChar 标准
+      v16.0.1 支持 Senparc.Weixin v6.0.1
+      v16.1.0 支持 Senparc.NeuChar v0.0.5
+      v16.2.0 支持卡券消息回调
+      v16.3.0 重构 MessageHandler OnXxRequest() 方法参数类型，逐步开始使用接口，如 IRequestMessageText
+      v16.3.2 支持 Senparc.NeuChar v0.1.2
+      v16.3.4 支持 Senparc.NeuChar v0.1.4
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -556,6 +580,10 @@
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.1.4.1" />
   </ItemGroup>
 
   <ItemGroup>

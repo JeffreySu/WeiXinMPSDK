@@ -7,6 +7,10 @@
     
     创建标识：Senparc - 20180707
 
+	修改标识：Senparc - 20170802
+    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,7 +24,8 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSettingItem
+    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay, 
+                                            ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
         /// 唯一标识
@@ -130,6 +135,10 @@ namespace Senparc.Weixin.Entities
         /// 微信支付TenpayNotify
         /// </summary>
         public virtual string TenPayV3_TenpayNotify { get; set; }
+        /// <summary>
+        /// 小程序微信支付WxOpenTenpayNotify
+        /// </summary>
+        public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
 
         #endregion
 
@@ -140,27 +149,27 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// Component_Appid
         /// </summary>
-        public string Component_Appid { get; set; }
+        public virtual string Component_Appid { get; set; }
         /// <summary>
         /// Component_Secret
         /// </summary>
-        public string Component_Secret { get; set; }
+        public virtual string Component_Secret { get; set; }
         /// <summary>
         /// 全局统一的 Component_Token（非必须）
         /// </summary>
-        public string Component_Token { get; set; }
+        public virtual string Component_Token { get; set; }
         /// <summary>
         /// 全局统一的 Component_EncodingAESKey（非必须）
         /// </summary>
-        public string Component_EncodingAESKey { get; set; }
+        public virtual string Component_EncodingAESKey { get; set; }
 
         #endregion
 
         #region 扩展
 
-        public string AgentUrl { get; set; }
-        public string AgentToken { get; set; }
-        public string SenparcWechatAgentKey { get; set; }
+        public virtual string AgentUrl { get; set; }
+        public virtual string AgentToken { get; set; }
+        public virtual string SenparcWechatAgentKey { get; set; }
 
         #endregion
     }

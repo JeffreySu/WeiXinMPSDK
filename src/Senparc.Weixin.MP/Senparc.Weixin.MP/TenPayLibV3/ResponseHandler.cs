@@ -72,6 +72,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     '============================================================================
     */
 
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class ResponseHandler
     {
         /// <summary>
@@ -157,8 +158,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #if NETSTANDARD2_0
             HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
 #else
-            HttpContext = httpContext ?? CO2NET.RegisterServices.RegisterService.GlobalServiceCollection
-                                            .BuildServiceProvider().GetService<IHttpContextAccessor>()?.HttpContext;
+            HttpContext = httpContext ?? CO2NET.SenparcDI.GetService<IHttpContextAccessor>()?.HttpContext;
 #endif
 
             //post data

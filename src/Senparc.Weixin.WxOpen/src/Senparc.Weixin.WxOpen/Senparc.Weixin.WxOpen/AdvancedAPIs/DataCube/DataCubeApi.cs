@@ -63,7 +63,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidDailySummaryTrendResultJson GetWeAnalysisAppidDailySummaryTrend(string accessTokenOrAppId,string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailysummarytrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidDailyVisitTrendResultJson GetWeAnalysisAppidDailyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidWeeklyVisitTrendResultJson GetWeAnalysisAppidWeeklyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidMonthlyVisitTrendResultJson GetWeAnalysisAppidMonthlyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidVisitDistributionResultJson GetWeAnalysisAppidVisitDistribution(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitdistribution?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidDailyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidWeeklyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -211,7 +211,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidMonthlyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -233,7 +233,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidVisitPageResultJson GetWeAnalysisAppidVisitPage(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitpage?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static GetWeAnalysisAppidUserPortraitResultJson GetWeAnalysisAppidUserPortrait(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -289,7 +289,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidDailySummaryTrendResultJson> GetWeAnalysisAppidDailySummaryTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailysummarytrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -311,7 +311,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidDailyVisitTrendResultJson> GetWeAnalysisAppidDailyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -330,7 +330,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidWeeklyVisitTrendResultJson> GetWeAnalysisAppidWeeklyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -348,7 +348,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidMonthlyVisitTrendResultJson> GetWeAnalysisAppidMonthlyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -372,7 +372,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidVisitDistributionResultJson> GetWeAnalysisAppidVisitDistributionAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitdistribution?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -395,7 +395,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidDailyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidWeeklyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -434,7 +434,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidMonthlyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -456,7 +456,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidVisitPageResultJson> GetWeAnalysisAppidVisitPageAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitpage?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
@@ -484,7 +484,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <returns></returns>
         public static async Task<GetWeAnalysisAppidUserPortraitResultJson> GetWeAnalysisAppidUserPortraitAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };

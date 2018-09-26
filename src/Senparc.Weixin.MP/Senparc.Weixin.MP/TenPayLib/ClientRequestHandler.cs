@@ -33,6 +33,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class ClientRequestHandler
     {
         public ClientRequestHandler(HttpContext httpContext)

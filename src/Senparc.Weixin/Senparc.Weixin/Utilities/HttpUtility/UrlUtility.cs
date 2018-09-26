@@ -31,8 +31,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：修改GenerateOAuthCallbackUrl()，更方便移植到.NET Core
 
     修改标识：Senparc - 20180502
-    修改描述：v4.20.3  为 .NET Core 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法中的端口获取过程
+    修改描述：v4.20.3 为 .NET Core 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法中的端口获取过程
 
+    修改标识：Senparc - 20180502
+    修改描述：v5.1.3 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
+
+    修改标识：Senparc - 20180909
+    修改描述：v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
+
+   修改标识：Senparc - 20180917
+    修改描述：v6.1.1 还原上一个版本 v6.0.4 的修改
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,7 +50,6 @@ using System.Text;
 using Senparc.CO2NET.Extensions;
 #if NET35 || NET40 || NET45
 using System.Web;
-using Senparc.CO2NET.Extensions;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -91,8 +98,9 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             var request = httpContext.Request;
-            var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
-            var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();
+            //var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
+            //var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();    
+            var returnUrl = request.AbsoluteUri();
             var urlData = httpContext.Request;
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host.Host;//主机名（不带端口）
@@ -100,7 +108,7 @@ namespace Senparc.Weixin.HttpUtility
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
 #endif
-            if ( port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
+            if (port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
                 (schemeUpper == "HTTP" && port == 80) ||
                 (schemeUpper == "HTTPS" && port == 443))
             {

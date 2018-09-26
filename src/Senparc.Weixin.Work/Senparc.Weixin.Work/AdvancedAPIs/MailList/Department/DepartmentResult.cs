@@ -14,7 +14,7 @@
     修改描述：添加order字段
 
     修改标识：Senparc - 20171017
-    修改描述：v1.2.0 部门id改为long类型
+    修改描述：v1.2.0 部门id改为long类型    
 
     修改标识：Senparc - 20171127
     修改描述：v1.2.3 GetDepartmentListResult.order改为long类型

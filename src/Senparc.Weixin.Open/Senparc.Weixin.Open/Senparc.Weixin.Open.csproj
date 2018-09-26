@@ -59,8 +59,11 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.1.11\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.NeuChar, Version=0.1.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.1.4.1\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -72,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountAPIs\AccountApi.cs" />
+    <Compile Include="AccountAPIs\AccountBasicInfoJson\AccountBasicInfoJsonResult.cs" />
+    <Compile Include="AccountAPIs\FastRegisterJson\FastRegisterJsonResult.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Containers\OAuthContainer.cs" />
     <Compile Include="Containers\ComponentContainer.cs" />
@@ -87,10 +93,8 @@
     <Compile Include="Entities\Request\RequestMessageAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageUnauthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageComponentVerifyTicket.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinOpenException.cs" />
-    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
     <Compile Include="MpAPIs\Open\OpenJson\GetJsonResult.cs" />
     <Compile Include="MpAPIs\Open\OpenApi.cs" />
@@ -129,6 +133,10 @@
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
+    <Compile Include="WxOpenAPIs\AddCategoryJson\AddCategoryData.cs" />
+    <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\GetCategoryJson\GetCategoryJsonResult.cs" />
+    <Compile Include="WxOpenAPIs\WxOpenApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -140,7 +148,12 @@
     <Content Include="MpAPIs\readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Response\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.1.6</Version>
+    <Version>3.1.7</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -105,6 +105,8 @@
       v3.1.0 支持 Senparc.NeuChar v0.0.5
       v3.1.4 支持 Senparc.NeuChar v0.1.2；新增小程序专属的WxOpenApiHandlerWapper
       v3.1.6 支持 Senparc.NeuChar v0.1.4
+      v3.1.7 支持 Senparc.NeuChar v0.2.1
+
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

@@ -376,7 +376,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             RequestHandler payHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             payHandler.SetParameter("auth_code", authCode);//授权码

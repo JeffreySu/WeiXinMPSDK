@@ -12,6 +12,7 @@
 ----------------------------------------------------------------*/
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 
@@ -28,6 +29,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Create", true)]
         public static CreateJsonResult Create(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -42,6 +44,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Bind", true)]
         public static WxJsonResult Bind(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
@@ -56,6 +59,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Unbind", true)]
         public static WxJsonResult Unbind(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
@@ -69,6 +73,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.Get", true)]
         public static GetJsonResult Get(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
@@ -88,6 +93,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.CreateAsync", true)]
         public static async Task<CreateJsonResult> CreateAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
@@ -102,6 +108,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.BindAsync", true)]
         public static async Task<WxJsonResult> BindAsync(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
@@ -116,6 +123,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <param name="openAppid">开放平台帐号appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.UnbindAsync", true)]
         public static async Task<WxJsonResult> UnbindAsync(string accessToken, string appId, string openAppid)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
@@ -129,6 +137,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// <param name="accessToken"></param>
         /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "OpenApi.GetAsync", true)]
         public static async Task<GetJsonResult> GetAsync(string accessToken, string appId)
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";

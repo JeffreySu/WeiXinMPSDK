@@ -500,6 +500,42 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 客服输入状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="timeOut"></param>
+        /// <param name="kfAccount"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendImage", true)]
+        public static WxJsonResult Typing(string accessTokenOrAppId, string openId, string command, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        {
+
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    command= command
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/message/custom/typing?access_token={0}", accessToken.AsUrlData());
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
 #if !NET35 && !NET40

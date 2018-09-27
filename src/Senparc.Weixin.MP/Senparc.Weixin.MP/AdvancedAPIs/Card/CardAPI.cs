@@ -1840,6 +1840,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+
+
         #endregion
 
 #if !NET35 && !NET40
@@ -3494,6 +3497,34 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】更新电子票据状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="code"></param>
+        /// <param name="reimburseStatus"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.UpdateStatusAsync", true)]
+        public static async Task<WxJsonResult> UpdateStatusAsync(string accessTokenOrAppId, string cardId, string code, string reimburseStatus, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/platform/updatestatus?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    card_id = cardId,
+                    code = code,
+                    reimburse_status = reimburseStatus
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

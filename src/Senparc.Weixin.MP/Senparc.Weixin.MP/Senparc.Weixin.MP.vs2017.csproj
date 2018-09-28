@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>16.3.5</Version>
+    <Version>16.4.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -437,6 +437,7 @@
       v16.3.2 支持 Senparc.NeuChar v0.1.2
       v16.3.4 支持 Senparc.NeuChar v0.1.4
       v16.3.5 支持 Senparc.NeuChar v0.2.1
+      v16.4.0 支持电子发票等新接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

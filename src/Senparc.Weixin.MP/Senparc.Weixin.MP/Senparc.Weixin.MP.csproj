@@ -127,6 +127,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SpeedResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetForeverMediaVideoResultJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetNewsResultJson.cs" />

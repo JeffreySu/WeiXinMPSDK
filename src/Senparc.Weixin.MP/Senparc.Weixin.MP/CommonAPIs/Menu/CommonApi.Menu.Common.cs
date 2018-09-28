@@ -61,6 +61,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -76,6 +77,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="rootButtonList"></param>
         /// <param name="buttonGroup"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetButtonGroup", true)]
         private static void GetButtonGroup(List<MenuFull_RootButton> rootButtonList, ButtonGroupBase buttonGroup)
         {
             foreach (var rootButton in rootButtonList)
@@ -361,6 +363,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="resultFull"></param>
         /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetMenuFromJsonResult", true)]
         public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull, ButtonGroupBase buttonGroupBase)
         {
             GetMenuResult result = null;

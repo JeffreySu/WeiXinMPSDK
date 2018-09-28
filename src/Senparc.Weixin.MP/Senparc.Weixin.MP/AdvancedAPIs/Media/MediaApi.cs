@@ -164,6 +164,31 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
             return result.errmsg;
         }
+
+        //todo 20180928 返回值
+        /// <summary>
+        /// 附录：高清语音素材获取接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quota", true)]
+        public static WxJsonResult GetJssdk(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/media/get/jssdk?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    media_id = mediaId
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 永久素材

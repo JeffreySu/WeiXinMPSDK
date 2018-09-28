@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
+
+    修改标识：Senparc - 20180928
+    修改描述：增加GetTypingStatus
 ----------------------------------------------------------------*/
 
 /* 
@@ -500,6 +503,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 客服输入状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="typingStatus"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.GetTypingStatus", true)]
+        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/message/custom/typing?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    touser = cardId,
+                    command = typingStatus
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
 #if !NET35 && !NET40
@@ -920,6 +949,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】客服输入状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="typingStatus"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.TypingAsync", true)]
+        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/message/custom/typing?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    card_id = cardId,
+                    command = typingStatus
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

@@ -52,6 +52,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180507
     修改描述：v14.12.4 删除群发接口 GroupMessageApi.DeleteSendMessage() 添加article_idx参数
 
+    修改标识：Senparc - 20180928
+    修改描述：增加GetSendSpeed,SetSendSpeed
 ----------------------------------------------------------------*/
 
 /* 
@@ -101,6 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByFilter", true)]
         private static SendResult SendGroupMessageByFilter(string accessTokenOrAppId, string groupId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -226,6 +229,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByGroupId", true)]
         public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -252,6 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByTagId", true)]
         public static SendResult SendGroupMessageByTagId(string accessTokenOrAppId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -596,6 +601,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 获取群发速度
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetSendSpeed", true)]
+        public static GetSpeedResult GetSendSpeed(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/speed/get?access_token={0}";
+
+                return CommonJsonSend.Send<GetSpeedResult>(null, urlFormat, null, CommonJsonSendType.POST, timeOut, true);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 设置群发速度
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="speed">群发速度的级别</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SetSendSpeed", true)]
+        public static WxJsonResult SetSendSpeed(string accessTokenOrAppId, int speed, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/speed/set?access_token={0}";
+
+                var data = new
+                {
+                    speed = speed
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut, true);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
 #if !NET35 && !NET40
@@ -623,6 +671,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByFilterAsync", true)]
         private static async Task<SendResult> SendGroupMessageByFilterAsync(string accessTokenOrAppId, string groupId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -749,6 +798,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByGroupIdAsync", true)]
         public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -775,6 +825,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByTagIdAsync", true)]
         public static async Task<SendResult> SendGroupMessageByTagIdAsync(string accessTokenOrAppId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -1120,6 +1171,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取群发速度
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetSendSpeedAsync", true)]
+        public static async Task<GetSpeedResult> GetSendSpeedAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/speed/get?access_token={0}";
+                
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSpeedResult>(null, urlFormat, null, CommonJsonSendType.POST, timeOut, true);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】设置群发速度
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="speed">群发速度的级别</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SetSendSpeedAsync", true)]
+        public static async Task<WxJsonResult> SetSendSpeedAsync(string accessTokenOrAppId, int speed, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/speed/set?access_token={0}";
+
+                var data = new
+                {
+                    speed = speed
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut, true);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 #endif
     }

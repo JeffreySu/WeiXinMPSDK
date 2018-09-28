@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -62,6 +63,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.Upload", true)]
         public static UploadTemporaryResultJson Upload(string accessTokenOrAppKey, UploadMediaFileType type, string media, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -82,6 +84,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.Get", true)]
         public static void Get(string accessTokenOrAppKey, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -103,6 +106,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir">保存目录</param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.Get", true)]
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -121,6 +125,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.AddMpNews", true)]
         public static UploadForeverResultJson AddMpNews(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT, params MpNewsArticle[] mpNewsArticles)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -152,6 +157,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.AddMaterial", true)]
         public static UploadForeverResultJson AddMaterial(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, string media, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -172,6 +178,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetForeverMpNews", true)]
         public static GetForeverMpNewsResult GetForeverMpNews(string accessTokenOrAppKey, int agentId, string mediaId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -194,6 +201,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetForeverMaterial", true)]
         public static void GetForeverMaterial(string accessTokenOrAppKey, int agentId, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -215,6 +223,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.DeleteForeverMaterial", true)]
         public static WorkJsonResult DeleteForeverMaterial(string accessTokenOrAppKey, int agentId, string mediaId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -239,6 +248,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.UpdateMpNews", true)]
         public static UploadForeverResultJson UpdateMpNews(string accessTokenOrAppKey, string mediaId, int agentId, int timeOut = Config.TIME_OUT, params MpNewsArticle[] mpNewsArticles)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -268,6 +278,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetCount", true)]
         public static GetCountResult GetCount(string accessTokenOrAppKey, int agentId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -291,6 +302,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.BatchGetMaterial", true)]
         public static BatchGetMaterialResult BatchGetMaterial(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -319,6 +331,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.UploadimgMedia", true)]
         public static UploadimgMediaResult UploadimgMedia(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
             //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
@@ -348,6 +361,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.UploadAsync", true)]
         public static async Task<UploadTemporaryResultJson> UploadAsync(string accessTokenOrAppKey, UploadMediaFileType type, string media, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -367,6 +381,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetAsync", true)]
         public static async Task GetAsync(string accessTokenOrAppKey, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -388,6 +403,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.AddMpNewsAsync", true)]
         public static async Task<UploadForeverResultJson> AddMpNewsAsync(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT, params MpNewsArticle[] mpNewsArticles)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -419,6 +435,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.AddMaterialAsync", true)]
         public static async Task<UploadForeverResultJson> AddMaterialAsync(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, string media, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -439,6 +456,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetForeverMpNewsAsync", true)]
         public static async Task<GetForeverMpNewsResult> GetForeverMpNewsAsync(string accessTokenOrAppKey, int agentId, string mediaId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -460,6 +478,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetForeverMaterialAsync", true)]
         public static async Task GetForeverMaterialAsync(string accessTokenOrAppKey, int agentId, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -484,6 +503,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.DeleteForeverMaterialAsync", true)]
         public static async Task<WorkJsonResult> DeleteForeverMaterialAsync(string accessTokenOrAppKey, int agentId, string mediaId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -508,6 +528,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <param name="mpNewsArticles"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.UpdateMpNewsAsync", true)]
         public static async Task<UploadForeverResultJson> UpdateMpNewsAsync(string accessTokenOrAppKey, string mediaId, int agentId, int timeOut = Config.TIME_OUT, params MpNewsArticle[] mpNewsArticles)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -537,6 +558,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="agentId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetCountAsync", true)]
         public static async Task<GetCountResult> GetCountAsync(string accessTokenOrAppKey, int agentId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -560,6 +582,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.BatchGetMaterialAsync", true)]
         public static async Task<BatchGetMaterialResult> BatchGetMaterialAsync(string accessTokenOrAppKey, UploadMediaFileType type, int agentId, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -589,6 +612,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="imgFile">图片文件的本地独立路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.UploadimgMediaAsync", true)]
         public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessTokenOrAppKey, string imgFile, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

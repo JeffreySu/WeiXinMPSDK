@@ -69,6 +69,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180526
     修改描述：v14.8.14 CardApi.UpdateUser() 方法参数中重新加添 add_bonus 和 add_balance 两个参数
 
+    修改标识：Senparc - 20180928
+    修改描述：添加拉取单张会员卡数据接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -924,6 +927,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetCardBizuinInfo", true)]
         public static GetCardBizuinInfoResultJson GetCardBizuinInfo(string accessTokenOrAppId, string beginDate, string endDate, int condSource, int timeOut = Config.TIME_OUT)
@@ -952,6 +956,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
         /// <param name="cardId">卡券ID。填写后，指定拉出该卡券的相关数据。</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetCardInfo", true)]
         public static GetCardInfoResultJson GetCardInfo(string accessTokenOrAppId, string beginDate, string endDate, int condSource, string cardId, int timeOut = Config.TIME_OUT)
@@ -980,6 +985,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetCardMemberCardInfo", true)]
         public static GetCardMemberCardInfoResultJson GetCardMemberCardInfo(string accessTokenOrAppId, string beginDate, string endDate, int condSource, int timeOut = Config.TIME_OUT)
@@ -993,8 +999,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     begin_date = beginDate,
                     end_date = endDate,
                     cond_source = condSource
-
-
                 };
 
                 return CommonJsonSend.Send<GetCardMemberCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
@@ -1002,6 +1006,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 拉取单张会员卡数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="beginDate">查询数据的起始时间。</param>
+        /// <param name="endDate">查询数据的截至时间。</param>
+        /// <param name="cardId">卡券id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetCardMemberCardInfo", true)]
+        public static GetCardMemberCardDetailResultJson GetCardMemberCardDetail(string accessTokenOrAppId, string beginDate, string endDate, string cardId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/datacube/getcardmembercarddetail?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    begin_date = beginDate,
+                    end_date = endDate,
+                    card_id = cardId
+                };
+
+                return CommonJsonSend.Send<GetCardMemberCardDetailResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         /// <summary>
         /// 更改卡券信息接口
@@ -1840,6 +1871,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+
+
         #endregion
 
 #if !NET35 && !NET40
@@ -2678,6 +2712,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 【异步方法】拉取单张会员卡数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="beginDate">查询数据的起始时间。</param>
+        /// <param name="endDate">查询数据的截至时间。</param>
+        /// <param name="cardId">卡券id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetCardMemberCardInfo", true)]
+        public static async Task<GetCardMemberCardDetailResultJson> GetCardMemberCardDetailAsync(string accessTokenOrAppId, string beginDate, string endDate, string cardId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/datacube/getcardmembercarddetail?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    begin_date = beginDate,
+                    end_date = endDate,
+                    card_id = cardId
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardDetailResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         /// <summary>
         /// 【异步方法】更改卡券信息接口
@@ -3497,6 +3558,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+     
         #endregion
 
         #region 门店接口已过期

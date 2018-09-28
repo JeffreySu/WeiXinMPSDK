@@ -22,6 +22,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -46,6 +47,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="scopes">应用授权作用域，拥有多个作用域用逗号（,）分隔，网页应用目前仅填写snsapi_login即可</param>
         /// <param name="responseType">填code</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.GetQRConnectUrl", true)]
         public static string GetQRConnectUrl(string appId, string redirectUrl, string state, OAuthScope[] scopes, string responseType = "code")
         {
             //此URL比MP中的对应接口多了&component_appid=component_appid参数
@@ -68,6 +70,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="code">GetQRConnectUrl()接口返回的code</param>
         /// <param name="grantType">填authorization_code</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.GetAccessToken", true)]
         public static QRConnectAccessTokenResult GetAccessToken(string appId, string appSecret, string code, string grantType = "authorization_code")
         {
             var url =
@@ -97,6 +100,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
         /// <param name="grantType">填refresh_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.RefreshToken", true)]
         public static RefreshAccessTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
@@ -113,6 +117,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.GetUserInfo", true)]
         public static QRConnectUserInfo GetUserInfo(string accessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
@@ -129,6 +134,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="accessToken"></param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.Auth", true)]
         public static WxJsonResult Auth(string accessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
@@ -146,6 +152,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="code">GetQRConnectUrl()接口返回的code</param>
         /// <param name="grantType">填authorization_code</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.GetAccessTokenAsync", true)]
         public static async Task<QRConnectAccessTokenResult> GetAccessTokenAsync(string appId, string appSecret, string code, string grantType = "authorization_code")
         {
             var url =
@@ -175,6 +182,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
         /// <param name="grantType">填refresh_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.RefreshTokenAsync", true)]
         public static async Task<RefreshAccessTokenResult> RefreshTokenAsync(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
@@ -191,6 +199,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.GetUserInfoAsync", true)]
         public static async Task<QRConnectUserInfo> GetUserInfoAsync(string accessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
@@ -207,6 +216,7 @@ namespace Senparc.Weixin.Open.QRConnect
         /// <param name="accessToken"></param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "QRConnectAPI.AuthAsync", true)]
         public static async Task<WxJsonResult> AuthAsync(string accessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());

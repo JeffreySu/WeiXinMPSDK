@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>3.1.8</Version>
+		<Version>3.1.9</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -101,6 +101,7 @@
       v3.1.5 添加 MemberUpdateRequest.new_userid 属性
       v3.1.6 支持 Senparc.NeuChar v0.1.2
       v3.1.8 支持 Senparc.NeuChar v0.1.4
+      v3.1.9 支持 Senparc.NeuChar v0.2.1
 
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -267,7 +268,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.1.4.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.2.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>

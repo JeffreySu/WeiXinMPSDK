@@ -92,6 +92,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public List<UserinfoGetResult_UserInfo_Item> custom_field_list { get; set; }
     }
 
+    /// <summary>
+    /// 获取用户开卡时提交的信息
+    /// </summary>
+    public class GetActivateTempInfoResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 会员信息
+        /// </summary>
+        public UserinfoGetResult_UserInfo info { get; set; }
+    }
+
     public class UserinfoGetResult_UserInfo_Item
     {
         /// <summary>

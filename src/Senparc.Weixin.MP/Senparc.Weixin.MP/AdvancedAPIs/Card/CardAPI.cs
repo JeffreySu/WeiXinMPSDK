@@ -72,6 +72,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180928
     修改描述：添加拉取单张会员卡数据接口
 
+    修改标识：Senparc - 20180929
+    修改描述：添加获取开卡插件参数接口,获取用户开卡时提交的信息（跳转型开卡组件）接口,创建-礼品卡货架接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -1872,7 +1875,74 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 获取开卡插件参数
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="outerStr"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static Card_GetUrlResultJson GetCardUrl(string accessTokenOrAppId, string cardId, string outerStr, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activate/geturl?access_token={0}", accessToken.AsUrlData());
 
+                var data = new
+                {
+                    card_id = cardId,
+                    outer_str = outerStr
+                };
+
+                return CommonJsonSend.Send<Card_GetUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取用户开卡时提交的信息（跳转型开卡组件）
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="activateTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static GetActivateTempInfoResultJson GetActivateTempInfo(string accessTokenOrAppId, string activateTicket, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activatetempinfo/get?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    activate_ticket = activateTicket
+                };
+
+                return CommonJsonSend.Send<GetActivateTempInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 创建-礼品卡货架接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static CardCreateResultJson AddGiftCardPage(string accessTokenOrAppId, GiftCardPageData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/page/add?access_token={0}", accessToken.AsUrlData());
+                
+                return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -3559,7 +3629,75 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-     
+        /// <summary>
+        /// 【异步方法】获取开卡插件参数
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="outerStr"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static async Task<Card_GetUrlResultJson> GetCardUrlAsync(string accessTokenOrAppId, string cardId, string outerStr, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activate/geturl?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    card_id = cardId,
+                    outer_str = outerStr
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<Card_GetUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取用户开卡时提交的信息（跳转型开卡组件）
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="activateTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static async Task<GetActivateTempInfoResultJson> GetActivateTempInfoAsync(string accessTokenOrAppId, string activateTicket, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activatetempinfo/get?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    activate_ticket = activateTicket
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetActivateTempInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建-礼品卡货架接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ModifyStock", true)]
+        public static async Task<CardCreateResultJson> AddGiftCardPageAsync(string accessTokenOrAppId, GiftCardPageData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/page/add?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 门店接口已过期

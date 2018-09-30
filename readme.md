@@ -282,7 +282,7 @@ Senparc 官方视频教程
 ```C#
 public readonly string Token = "weixin";
 ```
-下面这个Action（Get）用于接收并返回微信后台Url的验证结果，无需改动。地址如：http://domain/Weixin或http://domain/Weixin/Index
+下面这个Action（Get）用于接收并返回微信后台Url的验证结果，无需改动。地址如：http://domain/Weixin 或 http://domain/Weixin/Index
 ```C#
 /// <summary>
 /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://weixin.senparc.com/weixin

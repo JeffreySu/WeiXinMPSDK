@@ -1013,6 +1013,15 @@ namespace Senparc.Weixin.MP
         MWEB
     }
 
+    /// <summary>
+    /// 排序类型
+    /// </summary>
+    public enum SortType
+    {
+        ASC,
+        DESC
+    }
+
     #region 过期
 
     /// <summary>

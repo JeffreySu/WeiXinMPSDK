@@ -57,11 +57,11 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.11\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.1.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.1.4.1\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.2.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.2.1.1\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -127,6 +127,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SpeedResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetForeverMediaVideoResultJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetNewsResultJson.cs" />

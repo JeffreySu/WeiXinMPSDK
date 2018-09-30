@@ -12,6 +12,7 @@ using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson;
 using Senparc.Weixin.Open.WxOpenAPIs.GetCategoryJson;
 using Senparc.Weixin.Open.WxOpenAPIs.AddCategoryJson;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Open.WxOpenAPIs
 {
@@ -39,6 +40,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <para>点击页面提交按钮。 跳转回第三方平台，会在上述 redirect_uri 后拼接 taskid=*</para>
         /// <para><see cref="AccountApi.ComponentRebindAdmin"/>方法</para>
         /// </param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.ComponentRebindAdmin", true)]
         public static string ComponentRebindAdmin(string component_appid, string appid, string redirect_uri)
         {
             var url =
@@ -55,6 +57,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.GetAllCategories", true)]
         public static CategoryListJsonResult GetAllCategories(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getallcategories?access_token={accessToken.AsUrlData()}";
@@ -67,6 +70,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.AddCategory", true)]
         public static WxJsonResult AddCategory(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
@@ -80,6 +84,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.DeleteCategory", true)]
         public static WxJsonResult DeleteCategory(string accessToken, int first, int second)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/deletecategory?access_token={accessToken.AsUrlData()}";
@@ -96,6 +101,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.GetCategory", true)]
         public static GetCategoryJsonResult GetCategory(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getcategory?access_token={accessToken.AsUrlData()}";
@@ -110,6 +116,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.ModifyCategory", true)]
         public static WxJsonResult ModifyCategory(string accessToken, int first, int second,
             IList<KeyValuePair<string, string>> certicates)
         {
@@ -138,6 +145,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.GetAllCategoriesAsync", true)]
         public static async Task<CategoryListJsonResult> GetAllCategoriesAsync(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getallcategories?access_token={accessToken.AsUrlData()}";
@@ -151,6 +159,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.AddCategoryAsync", true)]
         public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
@@ -164,6 +173,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="first">一级类目ID</param>
         /// <param name="second">二级类目ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.DeleteCategoryAsync", true)]
         public static async Task<WxJsonResult> DeleteCategoryAsync(string accessToken, int first, int second)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/deletecategory?access_token={accessToken.AsUrlData()}";
@@ -180,6 +190,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.GetCategoryAsync", true)]
         public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getcategory?access_token={accessToken.AsUrlData()}";
@@ -195,6 +206,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="second">二级类目ID</param>
         /// <param name="certicates">资质名称,资质图片</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.ModifyCategoryAsync", true)]
         public static async Task<WxJsonResult> ModifyCategoryAsync(string accessToken, int first, int second,
             IList<KeyValuePair<string, string>> certicates)
         {

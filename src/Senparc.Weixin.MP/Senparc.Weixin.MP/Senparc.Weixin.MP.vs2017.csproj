@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>16.3.4</Version>
+    <Version>16.4.0</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -428,7 +428,7 @@
       v15.2.3 支持 CO2NET v0.2.8
       v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
       v15.3.0 分离微信支付到 Senparc.Weixin.TenPay.dll
-    
+
       v16.0.0 支持 NeuChar 标准
       v16.0.1 支持 Senparc.Weixin v6.0.1
       v16.1.0 支持 Senparc.NeuChar v0.0.5
@@ -436,7 +436,8 @@
       v16.3.0 重构 MessageHandler OnXxRequest() 方法参数类型，逐步开始使用接口，如 IRequestMessageText
       v16.3.2 支持 Senparc.NeuChar v0.1.2
       v16.3.4 支持 Senparc.NeuChar v0.1.4
-
+      v16.3.5 支持 Senparc.NeuChar v0.2.1
+      v16.4.0 支持电子发票等新接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -583,7 +584,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.1.4.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

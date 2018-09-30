@@ -160,11 +160,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 订单创建时间，十位时间戳（utc+8）
         /// </summary>
-        public string create_time { get; set; }
+        public int create_time { get; set; }
         /// <summary>
         /// 订单支付完成时间，十位时间戳（utc+8）
         /// </summary>
-        public string pay_finish_time { get; set; }
+        public int pay_finish_time { get; set; }
         /// <summary>
         /// 全部金额，以分为单位
         /// </summary>

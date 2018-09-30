@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -49,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public class UserTagApi
     {
         #region 同步方法
-        
+
         /// <summary>
         /// 创建标签
         /// </summary>
@@ -57,7 +58,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static CreateTagResult Create(string accessTokenOrAppId,string name, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.Create", true)]
+        public static CreateTagResult Create(string accessTokenOrAppId, string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -77,6 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.Get", true)]
         public static TagJson Get(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -95,7 +98,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public  static WxJsonResult Update(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.Update", true)]
+        public static WxJsonResult Update(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -119,6 +123,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="id"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.Delete", true)]
         public static WxJsonResult Delete(string accessTokenOrAppId, int id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -129,7 +134,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     tag = new
                     {
-                        id = id 
+                        id = id
                     }
                 };
 
@@ -145,7 +150,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="nextOpenid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UserTagJsonResult Get(string accessTokenOrAppId, int tagid,string nextOpenid="", int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.Get", true)]
+        public static UserTagJsonResult Get(string accessTokenOrAppId, int tagid, string nextOpenid = "", int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -166,7 +172,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult BatchTagging(string accessTokenOrAppId,int tagid,List<string> openid_list,int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.BatchTagging", true)]
+        public static WxJsonResult BatchTagging(string accessTokenOrAppId, int tagid, List<string> openid_list, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -188,6 +195,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.BatchUntagging", true)]
         public static WxJsonResult BatchUntagging(string accessTokenOrAppId, int tagid, List<string> openid_list, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -209,7 +217,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UserTagListResult UserTagList(string accessTokenOrAppid,string openid,int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.UserTagList", true)]
+        public static UserTagListResult UserTagList(string accessTokenOrAppid, string openid, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -232,7 +241,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task <CreateTagResult> CreateAsync(string accessTokenOrAppId,string name, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.CreateAsync", true)]
+        public static async Task<CreateTagResult> CreateAsync(string accessTokenOrAppId, string name, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -244,7 +254,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -252,6 +262,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.GetAsync", true)]
         public static async Task<TagJson> GetAsync(string accessTokenOrAppId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -270,7 +281,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public  static async Task<WxJsonResult> UpdateAsync(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.UpdateAsync", true)]
+        public static async Task<WxJsonResult> UpdateAsync(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -283,7 +295,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -294,6 +306,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="id"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.DeleteAsync", true)]
         public static async Task<WxJsonResult> DeleteAsync(string accessTokenOrAppId, int id, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -304,11 +317,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     tag = new
                     {
-                        id = id 
+                        id = id
                     }
                 };
 
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -320,7 +333,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="nextOpenid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<UserTagJsonResult> GetAsync(string accessTokenOrAppId, int tagid,string nextOpenid="", int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.GetAsync", true)]
+        public static async Task<UserTagJsonResult> GetAsync(string accessTokenOrAppId, int tagid, string nextOpenid = "", int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -330,7 +344,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     tagid = tagid,
                     next_openid = nextOpenid
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -341,7 +355,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> BatchTaggingAsync(string accessTokenOrAppId,int tagid,List<string> openid_list,int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.BatchTaggingAsync", true)]
+        public static async Task<WxJsonResult> BatchTaggingAsync(string accessTokenOrAppId, int tagid, List<string> openid_list, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -351,7 +366,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -363,6 +378,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.BatchUntaggingAsync", true)]
         public static async Task<WxJsonResult> BatchUntaggingAsync(string accessTokenOrAppId, int tagid, List<string> openid_list, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -373,7 +389,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -384,7 +400,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openid"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<UserTagListResult> UserTagListAsync(string accessTokenOrAppid,string openid,int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserTagApi.UserTagListAsync", true)]
+        public static async Task<UserTagListResult> UserTagListAsync(string accessTokenOrAppid, string openid, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -393,7 +410,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid = openid
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppid);
         }
         #endregion

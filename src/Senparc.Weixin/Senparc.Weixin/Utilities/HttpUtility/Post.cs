@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170409
     修改描述：v4.11.9 修改Download方法
+
+    修改标识：Senparc - 20180928
+    修改描述：将 CO2NET 已经移植的方法标记为过期
 ----------------------------------------------------------------*/
 
 
@@ -131,6 +134,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary">需要Post的文件（Dictionary 的 Key=name，Value=绝对路径）</param>
         /// <param name="postDataDictionary">需要Post的键值对（name,value）</param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostFileGetJson<T>() 方法")]
         public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null,
             Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false,
             int timeOut = CO2NET.Config.TIME_OUT)
@@ -154,6 +158,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostGetJson<T>() 方法")]
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null,
             X509Certificate2 cer = null, bool useAjax = false, bool checkValidationResult = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
@@ -174,6 +179,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostGetJson<T>() 方法")]
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null,
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
@@ -188,6 +194,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <param name="stream"></param>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.Download() 方法")]
         public static void Download(string url, string data, Stream stream)
         {
 #if NET35 || NET40 || NET45
@@ -230,6 +237,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary">需要Post的文件（Dictionary 的 Key=name，Value=绝对路径）</param>
         /// <param name="postDataDictionary">需要Post的键值对（name,value）</param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostFileGetJsonAsync<T>() 方法")]
         public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null,
             Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false,
             int timeOut = CO2NET.Config.TIME_OUT)
@@ -253,6 +261,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostGetJsonAsync<T>() 方法")]
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null,
             X509Certificate2 cer = null, bool useAjax = false, bool checkValidationResult = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
@@ -274,6 +283,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="useAjax">是否使用Ajax请求</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.PostGetJsonAsync<T>() 方法")]
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, 
             Encoding encoding = null, X509Certificate2 cer = null, bool useAjax = false, int timeOut = CO2NET.Config.TIME_OUT)
         {
@@ -308,6 +318,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <param name="stream"></param>
+        [Obsolete("请使用 CO2NET.HttpUtility.Post.DownloadAsync() 方法")]
         public static async Task DownloadAsync(string url, string data, Stream stream)
         {
 #if NET35 || NET40 || NET45

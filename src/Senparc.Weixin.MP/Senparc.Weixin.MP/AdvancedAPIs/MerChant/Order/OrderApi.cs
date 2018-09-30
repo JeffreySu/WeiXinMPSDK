@@ -40,6 +40,7 @@ using System;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -60,6 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="orderId">订单Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.GetByIdOrder", true)]
         public static GetByIdOrderResult GetByIdOrder(string accessToken, string orderId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/getbyid?access_token={0}";
@@ -80,6 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="beginTime">订单创建时间起始时间(不带该字段则不按照时间做筛选)</param>
         /// <param name="endTime">订单创建时间终止时间(不带该字段则不按照时间做筛选)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.GetByFilterOrder", true)]
         public static GetByFilterResult GetByFilterOrder(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/getbyfilter?access_token={0}";
@@ -115,6 +118,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 宅急送	    064zhaijisong
         /// 汇通快运	020huitong
         /// 易迅快递	zj001yixun
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.SetdeliveryOrder", true)]
         public static WxJsonResult SetdeliveryOrder(string accessToken, string orderId, string deliveryCompany, string deliveryTrackNo, int needDelivery = 1, int isOthers = 0)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/setdelivery?access_token={0}";
@@ -137,6 +141,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="orderId">订单ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.CloseOrder", true)]
         public static WxJsonResult CloseOrder(string accessToken, string orderId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/close?access_token={0}";
@@ -158,6 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="orderId">订单Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.GetByIdOrderAsync", true)]
         public static async Task<GetByIdOrderResult> GetByIdOrderAsync(string accessToken, string orderId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/getbyid?access_token={0}";
@@ -178,6 +184,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="beginTime">订单创建时间起始时间(不带该字段则不按照时间做筛选)</param>
         /// <param name="endTime">订单创建时间终止时间(不带该字段则不按照时间做筛选)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.GetByFilterOrderAsync", true)]
         public static async Task<GetByFilterResult> GetByFilterOrderAsync(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/getbyfilter?access_token={0}";
@@ -213,6 +220,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 宅急送	    064zhaijisong
         /// 汇通快运	020huitong
         /// 易迅快递	zj001yixun
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.SetdeliveryOrderAsync", true)]
         public static async Task<WxJsonResult> SetdeliveryOrderAsync(string accessToken, string orderId, string deliveryCompany, string deliveryTrackNo, int needDelivery = 1, int isOthers = 0)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/setdelivery?access_token={0}";
@@ -235,6 +243,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="orderId">订单ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OrderApi.CloseOrderAsync", true)]
         public static async Task<WxJsonResult> CloseOrderAsync(string accessToken, string orderId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/order/close?access_token={0}";

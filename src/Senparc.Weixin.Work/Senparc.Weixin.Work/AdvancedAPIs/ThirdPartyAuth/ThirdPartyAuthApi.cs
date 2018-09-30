@@ -43,6 +43,7 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -58,6 +59,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="suiteTicket">微信后台推送的ticket</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetSuiteToken", true)]
         public static GetSuiteTokenResult GetSuiteToken(string suiteId, string suiteSecret, string suiteTicket, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -105,6 +107,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="suiteId">应用套件id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetPreAuthCode", true)]
         public static GetPreAuthCodeResult GetPreAuthCode(string suiteAccessToken, string suiteId, int timeOut = 10000)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -129,6 +132,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetAuthConfig", true)]
         public static WorkJsonResult SetAuthConfig(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -160,6 +164,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="authCode">临时授权码会在授权成功时附加在redirect_uri中跳转回应用提供商网站。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetPermanentCode", true)]
         public static GetPermanentCodeResult GetPermanentCode(string suiteAccessToken, string suiteId, string authCode, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -187,6 +192,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="permanentCode">永久授权码，通过get_permanent_code获取</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAuthInfo", true)]
         public static GetAuthInfoResult GetAuthInfo(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -216,6 +222,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAgent", true)]
         public static GetAgentResult GetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, string agentId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -246,6 +253,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agent">要设置的企业应用的信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetAgent", true)]
         public static WorkJsonResult SetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -275,6 +283,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="permanentCode">永久授权码，通过get_permanent_code获取</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetCorpToken", true)]
         public static GetCorpTokenResult GetCorpToken(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -306,6 +315,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="suiteTicket">微信后台推送的ticket</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetSuiteTokenAsync", true)]
         public static async Task<GetSuiteTokenResult> GetSuiteTokenAsync(string suiteId, string suiteSecret, string suiteTicket, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -353,6 +363,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="suiteId">应用套件id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetPreAuthCodeAsync", true)]
         public static async Task<GetPreAuthCodeResult> GetPreAuthCodeAsync(string suiteAccessToken, string suiteId, int timeOut = 10000)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -377,6 +388,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetAuthConfigAsync", true)]
         public static async Task<WorkJsonResult> SetAuthConfigAsync(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -408,6 +420,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="authCode">临时授权码会在授权成功时附加在redirect_uri中跳转回应用提供商网站。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetPermanentCodeAsync", true)]
         public static async Task<GetPermanentCodeResult> GetPermanentCodeAsync(string suiteAccessToken, string suiteId, string authCode, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -435,6 +448,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="permanentCode">永久授权码，通过get_permanent_code获取</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAuthInfoAsync", true)]
         public static async Task<GetAuthInfoResult> GetAuthInfoAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -464,6 +478,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAgentAsync", true)]
         public static async Task<GetAgentResult> GetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, string agentId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -494,6 +509,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agent">要设置的企业应用的信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetAgentAsync", true)]
         public static async Task<WorkJsonResult> SetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -523,6 +539,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="permanentCode">永久授权码，通过get_permanent_code获取</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetCorpTokenAsync", true)]
         public static async Task<GetCorpTokenResult> GetCorpTokenAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

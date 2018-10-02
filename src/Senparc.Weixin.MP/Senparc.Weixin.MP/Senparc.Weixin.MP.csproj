@@ -138,6 +138,11 @@
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoicePlatformData.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoicePlatformResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\MakeOutInvoiceData.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetForeverMediaVideoResultJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetNewsResultJson.cs" />

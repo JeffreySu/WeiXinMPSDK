@@ -194,44 +194,7 @@ namespace Senparc.Weixin.Work
     //    SuccessResponse
     //}
 
-    /// <summary>
-    /// 菜单按钮类型
-    /// </summary>
-    public enum ButtonType
-    {
-        /// <summary>
-        /// 点击
-        /// </summary>
-        click = 101,
-        /// <summary>
-        /// Url
-        /// </summary>
-        view = 102,
-        /// <summary>
-        /// 扫码推事件
-        /// </summary>
-        scancode_push = 104,
-        /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
-        /// </summary>
-        scancode_waitmsg = 105,
-        /// <summary>
-        /// 弹出系统拍照发图
-        /// </summary>
-        pic_sysphoto = 106,
-        /// <summary>
-        /// 弹出拍照或者相册发图
-        /// </summary>
-        pic_photo_or_album = 107,
-        /// <summary>
-        /// 弹出微信相册发图器
-        /// </summary>
-        pic_weixin = 108,
-        /// <summary>
-        /// 弹出地理位置选择器
-        /// </summary>
-        location_select = 109
-    }
+
 
     /// <summary>
     /// 上传媒体文件类型（所有文件size必须大于5个字节）【QY移植修改】

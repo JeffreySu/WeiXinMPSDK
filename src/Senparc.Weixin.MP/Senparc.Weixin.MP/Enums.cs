@@ -392,47 +392,47 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 点击
         /// </summary>
-        click,
+        click = 101,
         /// <summary>
         /// Url
         /// </summary>
-        view,
+        view = 102,
         /// <summary>
         /// 小程序
         /// </summary>
-        miniprogram,
+        miniprogram = 103,
         /// <summary>
         /// 扫码推事件
         /// </summary>
-        scancode_push,
+        scancode_push = 104,
         /// <summary>
         /// 扫码推事件且弹出“消息接收中”提示框
         /// </summary>
-        scancode_waitmsg,
+        scancode_waitmsg = 105,
         /// <summary>
         /// 弹出系统拍照发图
         /// </summary>
-        pic_sysphoto,
+        pic_sysphoto = 106,
         /// <summary>
         /// 弹出拍照或者相册发图
         /// </summary>
-        pic_photo_or_album,
+        pic_photo_or_album = 107,
         /// <summary>
         /// 弹出微信相册发图器
         /// </summary>
-        pic_weixin,
+        pic_weixin = 108,
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
-        location_select,
+        location_select = 109,
         /// <summary>
         /// 下发消息（除文本消息）
         /// </summary>
-        media_id,
+        media_id = 110,
         /// <summary>
         /// 跳转图文消息URL
         /// </summary>
-        view_limited
+        view_limited = 111
     }
 
     /// <summary>

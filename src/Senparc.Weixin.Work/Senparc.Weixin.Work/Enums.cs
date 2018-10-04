@@ -202,35 +202,35 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 点击
         /// </summary>
-        click,
+        click = 101,
         /// <summary>
         /// Url
         /// </summary>
-        view,
+        view = 102,
         /// <summary>
         /// 扫码推事件
         /// </summary>
-        scancode_push,
+        scancode_push = 104,
         /// <summary>
         /// 扫码推事件且弹出“消息接收中”提示框
         /// </summary>
-        scancode_waitmsg,
+        scancode_waitmsg = 105,
         /// <summary>
         /// 弹出系统拍照发图
         /// </summary>
-        pic_sysphoto,
+        pic_sysphoto = 106,
         /// <summary>
         /// 弹出拍照或者相册发图
         /// </summary>
-        pic_photo_or_album,
+        pic_photo_or_album = 107,
         /// <summary>
         /// 弹出微信相册发图器
         /// </summary>
-        pic_weixin,
+        pic_weixin = 108,
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
-        location_select
+        location_select = 109
     }
 
     /// <summary>

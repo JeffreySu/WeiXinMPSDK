@@ -419,7 +419,6 @@
     <Compile Include="Entities\Menu\Buttons\SingleClickButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SubButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleViewButton.cs" />
-    <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs">
       <SubType>Code</SubType>
     </Compile>

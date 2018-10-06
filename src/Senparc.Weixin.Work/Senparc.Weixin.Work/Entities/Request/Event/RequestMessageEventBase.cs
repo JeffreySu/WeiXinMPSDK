@@ -43,6 +43,17 @@ namespace Senparc.Weixin.Work.Entities
             get { return Event.ENTER; }
         }
 
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public virtual object EventType { get { return Event; } }
+
+        /// <summary>
+        /// 获取事件类型的字符串
+        /// </summary>
+        public string GetEventName { get { return EventType != null ? EventType.ToString() : null; } }
+
         ///// <summary>
         ///// 事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址
         ///// </summary>

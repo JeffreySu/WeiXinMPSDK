@@ -28,8 +28,13 @@ namespace Senparc.Weixin.Work.Entities
         //string EventKey { get; set; }
     }
 
-    public class RequestMessageEventBase : WorkRequestMessageBase, IRequestMessageEventBase
+    public class RequestMessageEventBase : RequestMessageEvent, IRequestMessageEventBase
     {
+        /// <summary>
+        /// 企业应用的id，整型。可在应用的设置页面查看
+        /// </summary>
+        public int AgentID { get; set; }
+
         public override RequestMsgType MsgType
         {
             get { return RequestMsgType.Event; }
@@ -47,12 +52,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 事件类型
         /// </summary>
-        public virtual object EventType { get { return Event; } }
-
-        /// <summary>
-        /// 获取事件类型的字符串
-        /// </summary>
-        public string GetEventName { get { return EventType != null ? EventType.ToString() : null; } }
+        public override object EventType { get { return Event; } }
 
         ///// <summary>
         ///// 事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址

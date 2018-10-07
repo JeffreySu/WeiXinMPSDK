@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 请求消息的事件推送消息基类
     /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
+    public class RequestMessageEventBase : RequestMessageEvent, IRequestMessageEventBase
     {
         public override RequestMsgType MsgType
         {
@@ -68,5 +68,10 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return Event.ENTER; }
         }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public override object EventType { get { return Event; } }
     }
 }

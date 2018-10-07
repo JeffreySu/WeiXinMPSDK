@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>3.1.11</Version>
+		<Version>3.1.12</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -104,6 +104,7 @@
       v3.1.9 支持 Senparc.NeuChar v0.2.1
       v3.1.10 支持 Senparc.Weixin 6.1.4
       v3.1.11 菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
+      v3.1.12 Senparc.NeuChar v0.2.7
 
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -270,7 +271,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.2.5" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.2.7" />
 	</ItemGroup>
 
 	<ItemGroup>

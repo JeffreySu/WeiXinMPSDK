@@ -39,6 +39,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -572,24 +573,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        //todo 20180930请求参数
         /// <summary>
         /// 上传PDF 
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.SetPdf", true)]
-        public static SetPDFResultJson SetPdf(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static SetPDFResultJson SetPdf(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/platform/setpdf?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["pdf"] = file;
 
-                return CommonJsonSend.Send<SetPDFResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return Post.PostFileGetJson<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1242,19 +1242,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】上传PDF 
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.SetPdfAsync", true)]
-        public static async Task<SetPDFResultJson> SetPdfAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static async Task<SetPDFResultJson> SetPdfAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/platform/setpdf?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["pdf"] = file;
 
-                return await CommonJsonSend.SendAsync<SetPDFResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

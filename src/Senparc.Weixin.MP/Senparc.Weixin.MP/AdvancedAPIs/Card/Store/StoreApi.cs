@@ -35,8 +35,6 @@ using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.AdvancedAPIs.Media;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs

@@ -2131,7 +2131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count">查询订单的数量，如offset填写100，count填写10，则表示查询第100个到第110个订单</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetGiftCardOrderInfo", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetGiftCardOrderListInfo", true)]
         public static GiftCardOrderListResultJson GetGiftCardOrderListInfo(string accessTokenOrAppId, string beginTime, string endTime, SortType sortType, int offSet, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -4129,7 +4129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count">查询订单的数量，如offset填写100，count填写10，则表示查询第100个到第110个订单</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetGiftCardOrderInfo", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetGiftCardOrderListInfoAsync", true)]
         public static async Task<GiftCardOrderListResultJson> GetGiftCardOrderListInfoAsync(string accessTokenOrAppId, string beginTime, string endTime, SortType sortType, int offSet, int count, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -4156,7 +4156,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.UpdateUserGiftCard", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.UpdateUserGiftCardAsync", true)]
         public static async Task<UpdateUserGiftCardResultJson> UpdateUserGiftCardAsync(string accessTokenOrAppId, UpdateUserGiftCardData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -4175,7 +4175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.UpdateUserGiftCard", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.RefundAsync", true)]
         public static async Task<WxJsonResult> RefundAsync(string accessTokenOrAppId, string orderId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

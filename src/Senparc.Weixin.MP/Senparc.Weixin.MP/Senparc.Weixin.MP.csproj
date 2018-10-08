@@ -101,8 +101,15 @@
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
+    <Compile Include="AdvancedAPIs\Card\Giftcard\MktActivityResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Giftcard\MktActivityData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Giftcard\GiftCardResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Giftcard\GiftCardData.cs" />
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfCreateData.cs" />
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreApi.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\Submerchat\BatchGetCardMerchantJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\Submerchat\CheckQualificationJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\Submerchat\GetApplyProtocolJsonResult.cs" />
@@ -177,6 +184,7 @@
     <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\MerchantInfoGetResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\UpdateBrandData.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductCreateResultJson.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanApi.cs" />

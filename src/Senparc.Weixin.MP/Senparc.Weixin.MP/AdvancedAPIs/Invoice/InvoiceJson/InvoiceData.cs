@@ -13,6 +13,41 @@ using System.Collections.Generic;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
+    /// 获取授权页链接数据
+    /// </summary>
+    public class GetBillAuthUrlData
+    {
+        /// <summary>
+        /// 财政局id，需要找财政局提供
+        /// </summary>
+        public string s_pappid { get; set; }
+        /// <summary>
+        /// 订单id
+        /// </summary>
+        public string order_id { get; set; }
+        /// <summary>
+        /// 订单金额，以分为单位
+        /// </summary>
+        public int money { get; set; }
+        /// <summary>
+        /// 时间戳
+        /// </summary>
+        public int timestamp { get; set; }
+        /// <summary>
+        /// 开票来源，web：公众号开票，app：app开票
+        /// </summary>
+        public SourceType source { get; set; }
+        /// <summary>
+        /// 授权成功后跳转页面
+        /// </summary>
+        public string redirect_url { get; set; }
+        /// <summary>
+        /// Api_ticket，参考获取api_ticket接口获取
+        /// </summary>
+        public string ticket { get; set; }
+    }
+
+    /// <summary>
     /// 开票授权页字段
     /// </summary>
     public class PayMchInfoData

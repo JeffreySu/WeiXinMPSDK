@@ -189,4 +189,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         public string yfphm { get; set; }
     }
+
+    /// <summary>
+    /// 将发票抬头信息录入到用户微信中数据
+    /// </summary>
+    public class GetUserTitleUrlData
+    {
+        public string title { get; set; }
+        public string phone { get; set; }
+        public string tax_no { get; set; }
+        public string addr { get; set; }
+        public string bank_type { get; set; }
+        public string bank_no { get; set; }
+        public int user_fill { get; set; }
+        public string out_title_id { get; set; }
+    }
 }

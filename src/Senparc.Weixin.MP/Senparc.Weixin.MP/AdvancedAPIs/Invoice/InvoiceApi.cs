@@ -32,10 +32,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
               统一开票接口-开具蓝票,统一开票接口-发票冲红,统一开票接口-查询已开发票,设置商户联系方式,查询商户联系方式,获取自身的开票平台识别码
               创建发票卡券模板,上传PDF,查询已上传的PDF文件,将电子发票卡券插入用户卡包,更新发票卡券状态,查询报销发票信息,批量查询报销发票信息
               报销方更新发票状态，报销方批量更新发票状态
+
+    修改标识：Senparc - 20180930
+    修改描述：添加非税票据相关接口
 ----------------------------------------------------------------*/
 
 
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -284,6 +288,71 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 非税票据 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=21530623533CgUdj
 
         /// <summary>
+        /// 将财政电子票据添加到用户微信卡包 
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="info"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.InsertBill", true)]
+        public static InsertCardResultJson InsertBill(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/nontax/insertbill?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    info
+                };
+
+                return CommonJsonSend.Send<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 创建财政电子票据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="invoiceInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.CreateBillCard", true)]
+        public static CreateCardResultJson CreateBillCard(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "nontax/createbillcard?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    invoice_info = invoiceInfo
+                };
+
+                return CommonJsonSend.Send<CreateCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取授权页链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetBillAuthUrl", true)]
+        public static GetBillAuthUrlResultJson GetBillAuthUrl(string accessTokenOrAppId, GetBillAuthUrlData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/nontax/getbillauthurl?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<GetBillAuthUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 更新电子票据状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
@@ -310,7 +379,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-
 
         #endregion
 
@@ -344,7 +412,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 查询商户联系方式
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="phone"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetContact", true)]
@@ -392,7 +459,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="itemList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetInvoiceInfo", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetInvoiceListInfo", true)]
         public static GetInvoiceInfoResultJson GetInvoiceListInfo(string accessTokenOrAppId, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -465,7 +532,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 开票平台接口
 
         /// <summary>
-        /// 获取自身的开票平台识别码
+        /// 获取自身的开票平台识别码/获取财政局s_pappid
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
@@ -506,24 +573,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        //todo 20180930请求参数
         /// <summary>
         /// 上传PDF 
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.SetPdf", true)]
-        public static SetPDFResultJson SetPdf(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static SetPDFResultJson SetPdf(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/platform/setpdf?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["pdf"] = file;
 
-                return CommonJsonSend.Send<SetPDFResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return Post.PostFileGetJson<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -578,6 +644,75 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
         #region 微信极速开发票
+
+        /// <summary>
+        /// 将发票抬头信息录入到用户微信中
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetUserTitleUrl", true)]
+        public static GetUserTitleUrlResultJson GetUserTitleUrl(string accessTokenOrAppId, GetUserTitleUrlData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/biz/getusertitleurl?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取用户抬头（方式一）:获取商户专属二维码，立在收银台
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="attach"></param>
+        /// <param name="bizName"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetSelectTitleUrl", true)]
+        public static GetUserTitleUrlResultJson GetSelectTitleUrl(string accessTokenOrAppId, string attach, string bizName, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/biz/getselecttitleurl?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    attach = attach,
+                    biz_name = bizName
+                };
+
+                return CommonJsonSend.Send<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取用户抬头（方式二）:商户扫描用户的发票抬头二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="scanText"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.ScanTitle", true)]
+        public static ScanTitleResultJson ScanTitle(string accessTokenOrAppId, string scanText, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/scantitle?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    scan_text = scanText
+                };
+
+                return CommonJsonSend.Send<ScanTitleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -727,7 +862,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.RejectInsert", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.RejectInsertAsync", true)]
         public static async Task<WxJsonResult> RejectInsertAsync(string accessTokenOrAppId, string s_pappId, string orderId, string reason, string url, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -818,6 +953,71 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #region 非税票据 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=21530623533CgUdj
 
         /// <summary>
+        /// 【异步方法】将财政电子票据添加到用户微信卡包 
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="info"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.InsertBillAsync", true)]
+        public static async Task<InsertCardResultJson> InsertBillAsync(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/nontax/insertbill?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    info
+                };
+
+                return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建财政电子票据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="invoiceInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.CreateBillCardAsync", true)]
+        public static async Task<CreateCardResultJson> CreateBillCardAsync(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/nontax/createbillcard?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    invoice_info = invoiceInfo
+                };
+
+                return await CommonJsonSend.SendAsync<CreateCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取授权页链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetBillAuthUrlAsync", true)]
+        public static async Task<GetBillAuthUrlResultJson> GetBillAuthUrlAsync(string accessTokenOrAppId, GetBillAuthUrlData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/nontax/getbillauthurl?access_token={0}", accessToken.AsUrlData());
+
+                return await CommonJsonSend.SendAsync<GetBillAuthUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 【异步方法】更新电子票据状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
@@ -844,6 +1044,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
         #endregion
 
         /// <summary>
@@ -876,7 +1077,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】查询商户联系方式
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="phone"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetContactAsync", true)]
@@ -1042,19 +1242,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】上传PDF 
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.SetPdfAsync", true)]
-        public static async Task<SetPDFResultJson> SetPdfAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        public static async Task<SetPDFResultJson> SetPdfAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/platform/setpdf?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                };
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["pdf"] = file;
 
-                return await CommonJsonSend.SendAsync<SetPDFResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1102,6 +1302,78 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        #endregion
+
+        #region 微信极速开发票
+
+        /// <summary>
+        /// 【异步方法】将发票抬头信息录入到用户微信中
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetUserTitleUrlAsync", true)]
+        public static async Task<GetUserTitleUrlResultJson> GetUserTitleUrlAsync(string accessTokenOrAppId, GetUserTitleUrlData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/biz/getusertitleurl?access_token={0}", accessToken.AsUrlData());
+
+                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取用户抬头（方式一）:获取商户专属二维码，立在收银台
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="attach"></param>
+        /// <param name="bizName"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetSelectTitleUrlAsync", true)]
+        public static async Task<GetUserTitleUrlResultJson> GetSelectTitleUrlAsync(string accessTokenOrAppId, string attach, string bizName, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/biz/getselecttitleurl?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    attach = attach,
+                    biz_name = bizName
+                };
+
+                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取用户抬头（方式二）:商户扫描用户的发票抬头二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="scanText"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.ScanTitleAsync", true)]
+        public static async Task<ScanTitleResultJson> ScanTitleAsync(string accessTokenOrAppId, string scanText, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/scantitle?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    scan_text = scanText
+                };
+
+                return await CommonJsonSend.SendAsync<ScanTitleResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

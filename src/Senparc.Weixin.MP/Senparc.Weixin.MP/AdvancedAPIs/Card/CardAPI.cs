@@ -2174,10 +2174,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 退款接口
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="data"></param>
+        /// <param name="orderId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.UpdateUserGiftCard", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Refund", true)]
         public static WxJsonResult Refund(string accessTokenOrAppId, string orderId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -2188,6 +2188,234 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     order_id = orderId
                 };
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 设置支付后投放卡券接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AddCardAfterPay", true)]
+        public static AddCardAfterPayResultJson AddCardAfterPay(string accessTokenOrAppId, AddCardAfterPayData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/add?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<AddCardAfterPayResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除支付后投放卡券规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="ruleId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.DeleteAfterPayRule", true)]
+        public static WxJsonResult DeleteAfterPayRule(string accessTokenOrAppId, string ruleId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    rule_id = ruleId
+                };
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询支付后投放卡券规则详情接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="ruleId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AfterPay_GetById", true)]
+        public static AfterPay_GetByIdResultJson AfterPay_GetById(string accessTokenOrAppId, string ruleId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/getbyid?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    rule_id = ruleId
+                };
+                return CommonJsonSend.Send<AfterPay_GetByIdResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 批量查询支付后投放卡券规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AfterPay_BatchGet", true)]
+        public static AfterPay_BatchGetResultJson AfterPay_BatchGet(string accessTokenOrAppId, AfterPay_BatchGetData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/batchget?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<AfterPay_BatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 增加支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AddPayMemberRule", true)]
+        public static AddPayMemberRuleResultJson AddPayMemberRule(string accessTokenOrAppId, AddPayMemberRuleData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/add?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<AddPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.DeletePayMemberRule", true)]
+        public static DeletePayMemberRuleResultJson DeletePayMemberRule(string accessTokenOrAppId, DeletePayMemberRuleData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/delete?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<DeletePayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询商户号支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mchId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetPayMemberRule", true)]
+        public static GetPayMemberRuleResultJson GetPayMemberRule(string accessTokenOrAppId, string mchId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/get?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    mchid = mchId
+                };
+                return CommonJsonSend.Send<GetPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 创建支付后领取立减金活动接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.CreateActivity", true)]
+        public static CreateActivityResultJson CreateActivity(string accessTokenOrAppId, CreateActivityData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/mkt/activity/create?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<CreateActivityResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 使用授权码换取公众号的授权信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="componentAppid"></param>
+        /// <param name="authorizationCode"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiQueryAuth", true)]
+        public static ApiQueryAuthResultJson ApiQueryAuth(string accessTokenOrAppId, string componentAppid, string authorizationCode, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_query_auth?component_access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    component_appid = componentAppid,
+                    authorization_code = authorizationCode
+                };
+                return CommonJsonSend.Send<ApiQueryAuthResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 确认授权
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiConfirmAuthorization", true)]
+        public static WxJsonResult ApiConfirmAuthorization(string accessTokenOrAppId, ApiConfirmAuthorizationData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_confirm_authorization?component_access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取授权方的账户信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="componentAppid"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiGetAuthorizerInfo", true)]
+        public static ApiGetAuthorizerInfoResultJson ApiGetAuthorizerInfo(string accessTokenOrAppId, string componentAppid, string authorizerAppid, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_info?component_access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    component_appid = componentAppid,
+                    authorizer_appid = authorizerAppid
+                };
+                return CommonJsonSend.Send<ApiGetAuthorizerInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -4186,6 +4414,234 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     order_id = orderId
                 };
                 return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】设置支付后投放卡券接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AddCardAfterPayAsync", true)]
+        public static async Task<AddCardAfterPayResultJson> AddCardAfterPayAsync(string accessTokenOrAppId, AddCardAfterPayData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/add?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddCardAfterPayResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除支付后投放卡券规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="ruleId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.DeleteAfterPayRuleAsync", true)]
+        public static async Task<WxJsonResult> DeleteAfterPayRuleAsync(string accessTokenOrAppId, string ruleId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/delete?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    rule_id = ruleId
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询支付后投放卡券规则详情接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="ruleId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AfterPay_GetByIdAsync", true)]
+        public static async Task<AfterPay_GetByIdResultJson> AfterPay_GetByIdAsync(string accessTokenOrAppId, string ruleId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/getbyid?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    rule_id = ruleId
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_GetByIdResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】批量查询支付后投放卡券规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AfterPay_BatchGetAsync", true)]
+        public static async Task<AfterPay_BatchGetResultJson> AfterPay_BatchGetAsync(string accessTokenOrAppId, AfterPay_BatchGetData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/batchget?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_BatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】增加支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.AddPayMemberRuleAsync", true)]
+        public static async Task<AddPayMemberRuleResultJson> AddPayMemberRuleAsync(string accessTokenOrAppId, AddPayMemberRuleData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/add?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.DeletePayMemberRuleAsync", true)]
+        public static async Task<DeletePayMemberRuleResultJson> DeletePayMemberRuleAsync(string accessTokenOrAppId, DeletePayMemberRuleData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/delete?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeletePayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询商户号支付即会员规则接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mchId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.GetPayMemberRuleAsync", true)]
+        public static async Task<GetPayMemberRuleResultJson> GetPayMemberRuleAsync(string accessTokenOrAppId, string mchId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/get?access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    mchid = mchId
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建支付后领取立减金活动接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.CreateActivityAsync", true)]
+        public static async Task<CreateActivityResultJson> CreateActivityAsync(string accessTokenOrAppId, CreateActivityData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/mkt/activity/create?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateActivityResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】使用授权码换取公众号的授权信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="componentAppid"></param>
+        /// <param name="authorizationCode"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiQueryAuthAsync", true)]
+        public static async Task<ApiQueryAuthResultJson> ApiQueryAuthAsync(string accessTokenOrAppId, string componentAppid, string authorizationCode, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_query_auth?component_access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    component_appid = componentAppid,
+                    authorization_code = authorizationCode
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiQueryAuthResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】确认授权
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiConfirmAuthorizationAsync", true)]
+        public static async Task<WxJsonResult> ApiConfirmAuthorizationAsync(string accessTokenOrAppId, ApiConfirmAuthorizationData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_confirm_authorization?component_access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取授权方的账户信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="componentAppid"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.ApiGetAuthorizerInfoAsync", true)]
+        public static async Task<ApiGetAuthorizerInfoResultJson> ApiGetAuthorizerInfoAsync(string accessTokenOrAppId, string componentAppid, string authorizerAppid, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_info?component_access_token={0}", accessToken.AsUrlData());
+                var data = new
+                {
+                    component_appid = componentAppid,
+                    authorizer_appid = authorizerAppid
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiGetAuthorizerInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

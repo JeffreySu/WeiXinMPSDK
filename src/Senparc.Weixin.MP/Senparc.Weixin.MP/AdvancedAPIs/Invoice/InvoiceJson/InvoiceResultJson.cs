@@ -72,6 +72,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     }
 
     /// <summary>
+    /// 获取授权页链接返回结果
+    /// </summary>
+    public class GetBillAuthUrlResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 授权链接
+        /// </summary>
+        public string auth_url { get; set; }
+        /// <summary>
+        /// 过期时间，单位为秒，授权链接会在一段时间之后过期
+        /// </summary>
+        public int expire_time { get; set; }
+    }
+
+    /// <summary>
+    /// 将发票抬头信息录入到用户微信中返回结果
+    /// </summary>
+    public class GetUserTitleUrlResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 添加抬头卡链接
+        /// </summary>
+        public string url { get; set; }
+    }
+
+    /// <summary>
+    /// 获取用户抬头（方式二）:商户扫描用户的发票抬头二维码返回结果
+    /// </summary>
+    public class ScanTitleResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 抬头类型
+        /// </summary>
+        public int title_type { get; set; }
+        public string title { get; set; }
+        public string phone { get; set; }
+        public string tax_no { get; set; }
+        public string addr { get; set; }
+        public string bank_type { get; set; }
+        public string bank_no { get; set; }
+    }
+
+    /// <summary>
     /// 用户授权信息结构体
     /// </summary>
     public class UserAuthInfo

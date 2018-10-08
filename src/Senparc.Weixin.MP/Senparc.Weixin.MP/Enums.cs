@@ -97,30 +97,32 @@ using System.ComponentModel;
 
 namespace Senparc.Weixin.MP
 {
-    ///// <summary>
-    ///// 接收消息类型
-    ///// </summary>
-    //public enum RequestMsgType
-    //{
-    //    Unknown = -1,//未知类型
-    //    Text = 0, //文本
-    //    Location = 1, //地理位置
-    //    Image = 2, //图片
-    //    Voice = 3, //语音
-    //    Video = 4, //视频
-    //    Link = 5, //连接信息
-    //    ShortVideo = 6,//小视频
-    //    Event = 7, //事件推送
-    //    File = 8,//文件类型
-
-    //    NeuChar = 99//NeuChar请求
-    //}
 
 
-    /// <summary>
-    /// 当RequestMsgType类型为Event时，Event属性的类型
-    /// </summary>
-    public enum Event
+///// <summary>
+///// 接收消息类型
+///// </summary>
+//public enum RequestMsgType
+//{
+//    Unknown = -1,//未知类型
+//    Text = 0, //文本
+//    Location = 1, //地理位置
+//    Image = 2, //图片
+//    Voice = 3, //语音
+//    Video = 4, //视频
+//    Link = 5, //连接信息
+//    ShortVideo = 6,//小视频
+//    Event = 7, //事件推送
+//    File = 8,//文件类型
+
+//    NeuChar = 99//NeuChar请求
+//}
+
+
+/// <summary>
+/// 当RequestMsgType类型为Event时，Event属性的类型
+/// </summary>
+public enum Event
     {
         /// <summary>
         /// 进入会话（似乎已从官方API中移除）

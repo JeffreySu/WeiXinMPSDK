@@ -92,7 +92,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
               accessToken.AsUrlData(), mediaId.AsUrlData());
 
-                HttpUtility.Get.Download(url, stream);//todo 异常处理
+                CO2NET.HttpUtility.Get.Download(url, stream);//todo 异常处理
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);

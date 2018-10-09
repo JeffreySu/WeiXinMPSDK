@@ -114,6 +114,7 @@
     <Compile Include="V3\Universal\Entities\Result\PayBank\TenPayV3Results.PayBank.cs" />
     <Compile Include="V3\Universal\Entities\Result\SearchRedPackResult.cs" />
     <Compile Include="V3\Universal\Entities\Result\TenPayV3Results.cs" />
+    <Compile Include="V3\Universal\RedPackApi\ShakeRedPackApi.cs" />
     <Compile Include="V3\Universal\RedPackApi\RedPackApi.cs" />
     <Compile Include="V3\Universal\RedPackApi\RedPackApi.Via.cs" />
     <Compile Include="V3\Universal\TenPayV3.cs" />

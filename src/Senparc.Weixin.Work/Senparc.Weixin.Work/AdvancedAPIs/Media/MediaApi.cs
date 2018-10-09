@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut: timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -110,13 +110,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         public static string Get(string accessTokenOrAppKey, string mediaId, string dir)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
-           {
-               var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-               var fileName = HttpUtility.Get.Download(url, dir);
-               return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
-           }, accessTokenOrAppKey);
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var fileName = CO2NET.HttpUtility.Get.Download(url, dir);
+                return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
+            }, accessTokenOrAppKey);
             return result.errmsg;
         }
+
+        /// <summary>
+        /// 附录：高清语音素材获取接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="mediaId"></param>
+        /// <param name="stream"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MediaApi.GetJssdk", true)]
+        public static string GetJssdk(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
+        {
+            var result = ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/media/get/jssdk?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+
+                if (stream != null)
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    CO2NET.HttpUtility.Get.Download(urlFormat, stream);
+                }
+
+                return new WorkJsonResult() { errcode = ReturnCode_Work.不合法的媒体文件id, errmsg = "invalid media_id" };//错误情况下的返回
+
+            }, accessTokenOrAppId);
+            return result.errmsg;
+        }
+
         /// <summary>
         /// 上传永久图文素材
         /// </summary>

@@ -117,6 +117,7 @@
     <Compile Include="V3\Universal\RedPackApi\ShakeRedPackApi.cs" />
     <Compile Include="V3\Universal\RedPackApi\RedPackApi.cs" />
     <Compile Include="V3\Universal\RedPackApi\RedPackApi.Via.cs" />
+    <Compile Include="V3\Universal\RedPackApi\WorkRedPackApi.cs" />
     <Compile Include="V3\Universal\TenPayV3.cs" />
     <Compile Include="V3\Universal\TenpayV3.PayBank.cs" />
   </ItemGroup>

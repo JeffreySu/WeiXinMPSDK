@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
   
-    文件名：ShakeRedPackApi.cs
-    文件功能描述：微信摇一摇红包预下单接口
+    文件名：WorkRedPackApi.cs
+    文件功能描述：企业红包接口
     
     
     创建标识：Senparc - 20181009
@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -44,9 +45,9 @@ using System.Net.Http;
 namespace Senparc.Weixin.TenPay.V3
 {
     /// <summary>
-    /// 摇一摇红包预下单接口
+    /// 企业红包接口
     /// </summary>
-    public partial class ShakeRedPackApi
+    public partial class WorkRedPackApi
     {
         private static string GetNewBillNo(string mchId)
         {
@@ -80,7 +81,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         #endregion
 
         /// <summary>
-        /// 红包预下单接口
+        /// 发放企业红包接口
         /// </summary>
         /// <param name="appId">公众账号AppID</param>
         /// <param name="mchId">商户MchID</param>
@@ -104,9 +105,9 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
         /// <param name="consumeMchId">资金授权商户号，服务商替特约商户发放时使用（非必填），String(32)。示例：1222000096</param>
         /// <returns></returns>
-        public static NormalRedPackResult HbPreOrder(string appId, string mchId, string tenPayKey, string tenPayCertPath,
-            string senderName, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, string hbType, int totalNum, string amtType, string authMchid, string authAppid, string riskCntl,
+        public static NormalRedPackResult SendWorkRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
+            string senderName, int redPackAmount, string wishingWord, string actionName, string remark,int agentId,
+            out string nonceStr, out string paySign, out string WorkpaySign, string openId, string amtType,string SenderHeader,string sceneId,
             string mchBillNo)
         {
             mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
@@ -119,17 +120,18 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
             packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
-            packageReqHandler.SetParameter("send_name", senderName);                //红包发送者名称
-            packageReqHandler.SetParameter("hb_type", hbType);                //红包类型
+            packageReqHandler.SetParameter("sender_name", senderName);                //红包发送者名称
+            packageReqHandler.SetParameter("agentid", agentId.ToString());                //发送红包的应用id
+            packageReqHandler.SetParameter("sender_header_media_id", SenderHeader);                //发送者头像
+            packageReqHandler.SetParameter("re_openid", openId);                //用户openid
             packageReqHandler.SetParameter("total_amount", redPackAmount.ToString());                //付款金额，单位分
-            packageReqHandler.SetParameter("total_num", totalNum.ToString());               //红包发放总人数
-            packageReqHandler.SetParameter("amt_type", amtType);               //红包金额设置方式
             packageReqHandler.SetParameter("wishing", wishingWord);               //红包祝福语
             packageReqHandler.SetParameter("act_name", actionName);   //活动名称
             packageReqHandler.SetParameter("remark", remark);   //备注信息
-            packageReqHandler.SetParameter("auth_mchid", authMchid);   //授权商户号
-            packageReqHandler.SetParameter("auth_appid", authAppid);   //授权商户APPID
-            packageReqHandler.SetParameter("risk_cntl", riskCntl);   //授权商户APPID
+            packageReqHandler.SetParameter("scene_id", sceneId);   //场景
+
+            WorkpaySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
+            packageReqHandler.SetParameter("workwx_sign", WorkpaySign);   //企业微信签名
 
             paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
             packageReqHandler.SetParameter("sign", paySign);	                    //签名
@@ -144,7 +146,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/hbpreorder";
+            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendworkwxredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = tenPayCertPath;
             //私钥（在安装证书时设置）
@@ -228,6 +230,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
                     {
                         normalReturn.wxappid = doc.SelectSingleNode("/xml/wxappid").InnerText;
                     }
+                    if (doc.SelectSingleNode("/xml/re_openid") != null)
+                    {
+                        normalReturn.re_openid = doc.SelectSingleNode("/xml/re_openid").InnerText;
+                    }
                     if (doc.SelectSingleNode("/xml/total_amount") != null)
                     {
                         normalReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
@@ -255,17 +261,181 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
                     {
                         normalReturn.wxappid = doc.SelectSingleNode("/xml/wxappid").InnerText;
                     }
+                    if (doc.SelectSingleNode("/xml/re_openid") != null)
+                    {
+                        normalReturn.re_openid = doc.SelectSingleNode("/xml/re_openid").InnerText;
+                    }
                     if (doc.SelectSingleNode("/xml/total_amount") != null)
                     {
                         normalReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
                     }
-
+                    if (doc.SelectSingleNode("/xml/send_listid") != null)
+                    {
+                        normalReturn.send_listid = doc.SelectSingleNode("/xml/send_listid").InnerText;
+                    }
                 }
             }
 
             return normalReturn;
         }
 
+        /// <summary>
+        /// 查询红包记录
+        /// </summary>
+        /// <param name="appId">公众账号AppID</param>
+        /// <param name="mchId">商户MchID</param>
+        /// <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
+        /// <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
+        /// <param name="mchBillNo">商家订单号</param>
+        /// <returns></returns>
+        public static SearchRedPackResult SearchRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath, string mchBillNo)
+        {
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler();
+
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            packageReqHandler.SetParameter("appid", appId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
+            packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
+            string sign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+            //发红包需要post的数据
+            string data = packageReqHandler.ParseXML();
+
+            //发红包接口地址
+            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/queryworkwxredpack";
+            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            string cert = tenPayCertPath;
+            //私钥（在安装证书时设置）
+            string password = mchId;
+
+            //调用证书
+            //X509Certificate cer = new X509Certificate(cert, password);
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
+            #region 发起post请求，载入到doc中
+
+#if NET35 || NET40 || NET45 || NET461
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+
+            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webrequest.ClientCertificates.Add(cer);
+            webrequest.Method = "post";
+
+
+            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            webrequest.ContentLength = postdatabyte.Length;
+            Stream stream = webrequest.GetRequestStream();
+            stream.Write(postdatabyte, 0, postdatabyte.Length);
+            stream.Close();
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            string response = streamReader.ReadToEnd();
+            doc.LoadXml(response);
+#else
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cer);
+
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc = new StringContent(data);
+            var request = client.PostAsync(url, hc).Result;
+            var response = request.Content.ReadAsStreamAsync().Result;
+            doc.Load(response);
+
+#endif
+            #endregion
+
+
+
+
+            SearchRedPackResult searchReturn = new SearchRedPackResult
+            {
+                err_code = "",
+                err_code_des = ""
+            };
+            if (doc.SelectSingleNode("/xml/return_code") != null)
+            {
+                searchReturn.return_code = (doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
+            }
+            if (doc.SelectSingleNode("/xml/return_msg") != null)
+            {
+                searchReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
+            }
+
+            if (searchReturn.return_code == true)
+            {
+                //redReturn.sign = doc.SelectSingleNode("/xml/sign").InnerText;
+                if (doc.SelectSingleNode("/xml/result_code") != null)
+                {
+                    searchReturn.result_code = (doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
+                }
+
+                if (searchReturn.result_code == true)
+                {
+                    if (doc.SelectSingleNode("/xml/mch_billno") != null)
+                    {
+                        searchReturn.mch_billno = doc.SelectSingleNode("/xml/mch_billno").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/mch_id") != null)
+                    {
+                        searchReturn.mch_id = doc.SelectSingleNode("/xml/mch_id").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/detail_id") != null)
+                    {
+                        searchReturn.detail_id = doc.SelectSingleNode("/xml/detail_id").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/status") != null)
+                    {
+                        searchReturn.status = doc.SelectSingleNode("/xml/status").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/send_type") != null)
+                    {
+                        searchReturn.send_type = doc.SelectSingleNode("/xml/send_type").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/total_amount") != null)
+                    {
+                        searchReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
+                    }
+
+                    if (doc.SelectSingleNode("/xml/reason") != null)
+                    {
+                        searchReturn.reason = doc.SelectSingleNode("/xml/reason").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/send_time") != null)
+                    {
+                        searchReturn.send_time = doc.SelectSingleNode("/xml/send_time").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/wishing") != null)
+                    {
+                        searchReturn.wishing = doc.SelectSingleNode("/xml/wishing").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/remark") != null)
+                    {
+                        searchReturn.remark = doc.SelectSingleNode("/xml/remark").InnerText;
+                    }
+
+                    if (doc.SelectSingleNode("/xml/act_name") != null)
+                    {
+                        searchReturn.act_name = doc.SelectSingleNode("/xml/act_name").InnerText;
+                    }
+                }
+                else
+                {
+                    if (doc.SelectSingleNode("/xml/err_code") != null)
+                    {
+                        searchReturn.err_code = doc.SelectSingleNode("/xml/err_code").InnerText;
+                    }
+                    if (doc.SelectSingleNode("/xml/err_code_des") != null)
+                    {
+                        searchReturn.err_code_des = doc.SelectSingleNode("/xml/err_code_des").InnerText;
+                    }
+                }
+            }
+
+            return searchReturn;
+        }
 
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)

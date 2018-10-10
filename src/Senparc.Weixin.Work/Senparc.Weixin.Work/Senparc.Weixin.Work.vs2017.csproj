@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>3.1.12</Version>
+		<Version>3.1.13</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -271,7 +271,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.2.7" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.2.7.3" />
 	</ItemGroup>
 
 	<ItemGroup>

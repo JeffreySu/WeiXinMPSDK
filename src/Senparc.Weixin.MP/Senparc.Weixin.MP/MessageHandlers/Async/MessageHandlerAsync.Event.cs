@@ -49,6 +49,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IResponseMessageBase responseMessage = null;
+            var weixinAppId = this._postModel.AppId;
+
             switch (strongRequestMessage.Event)
             {
                 case Event.ENTER:
@@ -64,7 +66,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_UnsubscribeRequestAsync(RequestMessage as RequestMessageEvent_Unsubscribe);
                     break;
                 case Event.CLICK://菜单点击
-                    responseMessage = await OnEvent_ClickRequestAsync(RequestMessage as RequestMessageEvent_Click);
+                    responseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                                        await OnEvent_ClickRequestAsync(RequestMessage as RequestMessageEvent_Click);
                     break;
                 case Event.scan://二维码
                     responseMessage = await OnEvent_ScanRequestAsync(RequestMessage as RequestMessageEvent_Scan);

@@ -20,6 +20,7 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -42,6 +43,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentid">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LoginAuthApi.GetLoginUrl", true)]
         public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
                 string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_url?provider_access_token={0}";
@@ -69,6 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentid">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LoginAuthApi.GetLoginUrlAsync", true)]
         public static async Task<GetLoginUrlResult> GetLoginUrlAsync(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
                 string url = Config.ApiWorkHost + "/cgi-bin/service/get_login_url?provider_access_token={0}";

@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 */
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -53,6 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addProductData">提交到接口的数据（AddProductData）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.AddProduct", true)]
         public static AddProductResult AddProduct(string accessToken, AddProductData addProductData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/create?access_token={0}";
@@ -66,6 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.DeleteProduct", true)]
         public static WxJsonResult DeleteProduct(string accessToken, string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/del?access_token={0}";
@@ -86,6 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reviseProduct">修改商品的信息</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.UpDateProduct", true)]
         public static WxJsonResult UpDateProduct(string accessToken, UpdateProductData reviseProduct)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/update?access_token={0}";
@@ -99,6 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetProduct", true)]
         public static GetProductResult GetProduct(string accessToken, string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/get?access_token={0}";
@@ -117,6 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="status">商品状态(0-全部, 1-上架, 2-下架)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetByStatus", true)]
         public static GetByStatusResult GetByStatus(string accessToken, int status)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/getbystatus?access_token={0}";
@@ -136,6 +142,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="status">商品上下架标识(0-下架, 1-上架)</param>
         /// <param name="productId">商品ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.ModProductStatus", true)]
         public static WxJsonResult ModProductStatus(string accessToken, int status,string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/modproductstatus?access_token={0}";
@@ -155,6 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">大分类ID(根节点分类id为1)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetSub", true)]
         public static GetSubResult GetSub(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getsub?access_token={0}";
@@ -173,6 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">商品子分类ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetSku", true)]
         public static GetSkuResult GetSku(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getsku?access_token={0}";
@@ -191,6 +200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">分类ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetProperty", true)]
         public static GetPropertyResult GetProperty(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getproperty?access_token={0}";
@@ -212,6 +222,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addProductData">提交到接口的数据（AddProductData）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.AddProductAsync", true)]
         public static async Task<AddProductResult> AddProductAsync(string accessToken, AddProductData addProductData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/create?access_token={0}";
@@ -225,6 +236,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.DeleteProductAsync", true)]
         public static async Task<WxJsonResult> DeleteProductAsync(string accessToken, string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/del?access_token={0}";
@@ -245,6 +257,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reviseProduct">修改商品的信息</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.UpDateProductAsync", true)]
         public static async Task<WxJsonResult> UpDateProductAsync(string accessToken, UpdateProductData reviseProduct)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/update?access_token={0}";
@@ -258,6 +271,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetProductAsync", true)]
         public static async Task<GetProductResult> GetProductAsync(string accessToken, string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/get?access_token={0}";
@@ -276,6 +290,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="status">商品状态(0-全部, 1-上架, 2-下架)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetByStatusAsync", true)]
         public static async Task<GetByStatusResult> GetByStatusAsync(string accessToken, int status)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/getbystatus?access_token={0}";
@@ -295,6 +310,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="status">商品上下架标识(0-下架, 1-上架)</param>
         /// <param name="productId">商品ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.ModProductStatusAsync", true)]
         public static async Task<WxJsonResult> ModProductStatusAsync(string accessToken, int status, string productId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/modproductstatus?access_token={0}";
@@ -314,6 +330,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">大分类ID(根节点分类id为1)</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetSubAsync", true)]
         public static async Task<GetSubResult> GetSubAsync(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getsub?access_token={0}";
@@ -332,6 +349,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">商品子分类ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetSkuAsync", true)]
         public static async Task<GetSkuResult> GetSkuAsync(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getsku?access_token={0}";
@@ -350,6 +368,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="cateId">分类ID</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ProductApi.GetPropertyAsync", true)]
         public static async Task<GetPropertyResult> GetPropertyAsync(string accessToken, long cateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/category/getproperty?access_token={0}";

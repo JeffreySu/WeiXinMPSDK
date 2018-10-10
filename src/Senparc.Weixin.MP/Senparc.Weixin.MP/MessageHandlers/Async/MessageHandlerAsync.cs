@@ -99,13 +99,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
                 #region NeuChar 执行过程
-
-                //TODO:Neuchar：在这里先做一次NeuChar标准的判断
-
-                var neuralSystem = NeuralSystem.Instance;
-
-                //获取当前设置节点
-                var messageHandlerNode = (neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode) ?? new MessageHandlerNode();
+              
+                var weixinAppId = this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {
@@ -114,7 +109,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             try
                             {
                                 var requestMessage = RequestMessage as RequestMessageText;
-                                ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage, this, Config.SenparcWeixinSetting.WeixinAppId)
+                                ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId)
                                     ?? ((await (OnTextOrEventRequestAsync(requestMessage))
                                     ?? (await OnTextRequestAsync(requestMessage))));
                             }
@@ -131,9 +126,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         break;
                     case RequestMsgType.Image:
 
-                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{Config.SenparcWeixinSetting.WeixinAppId}");
+                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
 
-                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
@@ -159,8 +154,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = (await (OnTextOrEventRequestAsync(requestMessageText)))
-                                ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                                                await OnTextOrEventRequestAsync(requestMessageText) ??
+                                                    (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
                         }
                         break;
 

@@ -97,30 +97,32 @@ using System.ComponentModel;
 
 namespace Senparc.Weixin.MP
 {
-    ///// <summary>
-    ///// 接收消息类型
-    ///// </summary>
-    //public enum RequestMsgType
-    //{
-    //    Unknown = -1,//未知类型
-    //    Text = 0, //文本
-    //    Location = 1, //地理位置
-    //    Image = 2, //图片
-    //    Voice = 3, //语音
-    //    Video = 4, //视频
-    //    Link = 5, //连接信息
-    //    ShortVideo = 6,//小视频
-    //    Event = 7, //事件推送
-    //    File = 8,//文件类型
-
-    //    NeuChar = 99//NeuChar请求
-    //}
 
 
-    /// <summary>
-    /// 当RequestMsgType类型为Event时，Event属性的类型
-    /// </summary>
-    public enum Event
+///// <summary>
+///// 接收消息类型
+///// </summary>
+//public enum RequestMsgType
+//{
+//    Unknown = -1,//未知类型
+//    Text = 0, //文本
+//    Location = 1, //地理位置
+//    Image = 2, //图片
+//    Voice = 3, //语音
+//    Video = 4, //视频
+//    Link = 5, //连接信息
+//    ShortVideo = 6,//小视频
+//    Event = 7, //事件推送
+//    File = 8,//文件类型
+
+//    NeuChar = 99//NeuChar请求
+//}
+
+
+/// <summary>
+/// 当RequestMsgType类型为Event时，Event属性的类型
+/// </summary>
+public enum Event
     {
         /// <summary>
         /// 进入会话（似乎已从官方API中移除）
@@ -385,55 +387,6 @@ namespace Senparc.Weixin.MP
     //}
 
     /// <summary>
-    /// 菜单按钮类型
-    /// </summary>
-    public enum ButtonType
-    {
-        /// <summary>
-        /// 点击
-        /// </summary>
-        click,
-        /// <summary>
-        /// Url
-        /// </summary>
-        view,
-        /// <summary>
-        /// 小程序
-        /// </summary>
-        miniprogram,
-        /// <summary>
-        /// 扫码推事件
-        /// </summary>
-        scancode_push,
-        /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
-        /// </summary>
-        scancode_waitmsg,
-        /// <summary>
-        /// 弹出系统拍照发图
-        /// </summary>
-        pic_sysphoto,
-        /// <summary>
-        /// 弹出拍照或者相册发图
-        /// </summary>
-        pic_photo_or_album,
-        /// <summary>
-        /// 弹出微信相册发图器
-        /// </summary>
-        pic_weixin,
-        /// <summary>
-        /// 弹出地理位置选择器
-        /// </summary>
-        location_select,
-        /// <summary>
-        /// 下发消息（除文本消息）
-        /// </summary>
-        media_id,
-        /// <summary>
-        /// 跳转图文消息URL
-        /// </summary>
-        view_limited
-    }
 
     /// <summary>
     /// 上传媒体文件类型
@@ -1013,6 +966,48 @@ namespace Senparc.Weixin.MP
         MWEB
     }
 
+    /// <summary>
+    /// 排序类型
+    /// </summary>
+    public enum SortType
+    {
+        ASC,
+        DESC
+    }
+
+    /// <summary>
+    /// 开票来源
+    /// </summary>
+    public enum SourceType
+    {
+        /// <summary>
+        /// app：app开票，web：微信h5开票，wxa：小程序开发票，wap：普通网页开票
+        /// </summary>
+        app,
+        web,
+        wxa,
+        wap
+    }
+
+    /// <summary>
+    /// 授权类型
+    /// </summary>
+    public enum AuthType
+    {
+        开票授权,
+        填写字段开票授权,
+        领票授权
+    }
+
+    /// <summary>
+    /// 发票行性质
+    /// </summary>
+    public enum Fphxz
+    {
+        正常,
+        折扣,
+        被折扣
+    }
     #region 过期
 
     /// <summary>

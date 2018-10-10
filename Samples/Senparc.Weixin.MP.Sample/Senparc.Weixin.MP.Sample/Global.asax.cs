@@ -12,6 +12,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.Open;
@@ -177,27 +178,35 @@ namespace Senparc.Weixin.MP.Sample
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(Server.MapPath("~/App_Data/OpenTicket"));
-                        if (!Directory.Exists(dir))
+                        try
                         {
-                            Directory.CreateDirectory(dir);
-                        }
-
-                        var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
-                        using (var fs = new FileStream(file, FileMode.Open))
-                        {
-                            using (var sr = new StreamReader(fs))
+                            var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
+                            if (!Directory.Exists(dir))
                             {
-                                var ticket = sr.ReadToEnd();
-                                return ticket;
+                                Directory.CreateDirectory(dir);
+                            }
+
+                            var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
+                            using (var fs = new FileStream(file, FileMode.Open))
+                            {
+                                using (var sr = new StreamReader(fs))
+                                {
+                                    var ticket = sr.ReadToEnd();
+                                    return ticket;
+                                }
                             }
                         }
+                        catch (System.Exception ex)
+                        {
+                            throw new WeixinException(ex.Message+ "，~/App_Data/OpenTicket 无法访问",ex);
+                        }
+                        
                     },
 
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -220,7 +229,7 @@ namespace Senparc.Weixin.MP.Sample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);

@@ -48,7 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180407
     修改描述：v14.10.13 优化 Get.Download() 方法，完善对 FileName 的判断
-
+  
+    修改标识：Senparc - 20180928
+    修改描述：将 CO2NET 已经移植的方法标记为过期
 ----------------------------------------------------------------*/
 
 
@@ -117,6 +119,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="encoding"></param>
         /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.GetJson<T>() 方法")]
         public static T GetJson<T>(string url, Encoding encoding = null)
         {
             var result = CO2NET.HttpUtility.Get.GetJson<T>(url, encoding, AfterReturnText);
@@ -128,26 +131,10 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <param name="stream"></param>
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.Download() 方法")]
         public static void Download(string url, Stream stream)
         {
-#if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-
-            WebClient wc = new WebClient();
-            var data = wc.DownloadData(url);
-            stream.Write(data, 0, data.Length);
-            //foreach (var b in data)
-            //{
-            //    stream.WriteByte(b);
-            //}
-#else
-            HttpClient httpClient = new HttpClient();
-            var t = httpClient.GetByteArrayAsync(url);
-            t.Wait();
-            var data = t.Result;
-            stream.Write(data, 0, data.Length);
-#endif
+            CO2NET.HttpUtility.Get.Download(url, stream);
         }
 
         //#if !NET35 && !NET40
@@ -157,81 +144,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url">需要下载文件的Url</param>
         /// <param name="filePathName">保存文件的路径，如果下载文件包含文件名，按照文件名储存，否则将分配Ticks随机文件名</param>
         /// <returns></returns>
-        public static string Download(string url, string filePathName, int timeOut = 999)
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.Download() 方法")]
+        public static string Download(string url, string filePathName, int timeOut = Config.TIME_OUT)
         {
-            var dir = Path.GetDirectoryName(filePathName) ?? "/";
-            Directory.CreateDirectory(dir);
-
-#if NET35 || NET40
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.Timeout = timeOut;
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            using (Stream responseStream = response.GetResponseStream())
-            {
-                string responseFileName = null;
-                var contentDescriptionHeader = response.GetResponseHeader("Content-Disposition");
-                if (!string.IsNullOrEmpty(contentDescriptionHeader))
-                {
-                    var fileName = Regex.Match(contentDescriptionHeader, @"(?<=filename="")([\s\S]+)(?= "")", RegexOptions.IgnoreCase).Value;
-
-                    responseFileName = Path.Combine(dir, fileName);
-                }
-
-                var fullName = responseFileName ?? Path.Combine(dir, GetRandomFileName());
-
-                using (var fs = File.Open(filePathName, FileMode.OpenOrCreate))
-                {
-                    byte[] bArr = new byte[1024];
-                    int size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                    while (size > 0)
-                    {
-                        fs.Write(bArr, 0, size);
-                        fs.Flush();
-                        size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                    }
-
-                }
-
-                return fullName;
-            }
-
-#else
-            System.Net.Http.HttpClient httpClient = new HttpClient();
-            using (var responseMessage = httpClient.GetAsync(url).Result)
-            {
-                if (responseMessage.StatusCode == HttpStatusCode.OK)
-                {
-                    string responseFileName = null;
-                    //ContentDisposition可能会为Null
-                    if (responseMessage.Content.Headers.ContentDisposition != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != "\"\"")
-                    {
-                        responseFileName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
-                    }
-
-                    var fullName = responseFileName ?? Path.Combine(dir, GetRandomFileName());
-                    using (var fs = File.Open(fullName, FileMode.Create))
-                    {
-                        using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
-                        {
-                            responseStream.CopyTo(fs);
-                            fs.Flush();
-                        }
-                    }
-                    return fullName;
-
-                }
-                else
-                {
-                    return null;
-                }
-            }
-#endif
+            return CO2NET.HttpUtility.Get.Download(url, filePathName, timeOut);
         }
         //#endif
         #endregion
@@ -247,6 +163,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ErrorJsonResultException"></exception>
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.GetJsonAsync<T>() 方法")]
         public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null)
         {
             var result = await CO2NET.HttpUtility.Get.GetJsonAsync<T>(url, encoding, AfterReturnText);
@@ -259,25 +176,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="stream"></param>
         /// <returns></returns>
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.DownloadAsync() 方法")]
         public static async Task DownloadAsync(string url, Stream stream)
         {
-#if NET35 || NET40 || NET45
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-
-            WebClient wc = new WebClient();
-            var data = await wc.DownloadDataTaskAsync(url);
-            await stream.WriteAsync(data, 0, data.Length);
-            //foreach (var b in data)
-            //{
-            //    stream.WriteAsync(b);
-            //}
-#else
-            HttpClient httpClient = new HttpClient();
-            var data = await httpClient.GetByteArrayAsync(url);
-            await stream.WriteAsync(data, 0, data.Length);
-#endif
-
+            await CO2NET.HttpUtility.Get.DownloadAsync(url, stream);
         }
 
         /// <summary>
@@ -286,41 +188,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url">需要下载文件的Url</param>
         /// <param name="filePathName"></param>
         /// <returns></returns>
-        public static async Task<string> DownloadAsync(string url, string filePathName)
+        [Obsolete("请使用 CO2NET.HttpUtility.Get.DownloadAsync() 方法")]
+        public static async Task<string> DownloadAsync(string url, string filePathName, int timeOut = Config.TIME_OUT)
         {
-            var dir = Path.GetDirectoryName(filePathName) ?? "/";
-            Directory.CreateDirectory(dir);
-
-            System.Net.Http.HttpClient httpClient = new HttpClient();
-            using (var responseMessage = await httpClient.GetAsync(url))
-            {
-                if (responseMessage.StatusCode == HttpStatusCode.OK)
-                {
-                    string responseFileName = null;
-                    //ContentDisposition可能会为Null
-                    if (responseMessage.Content.Headers.ContentDisposition != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != null &&
-                        responseMessage.Content.Headers.ContentDisposition.FileName != "\"\"")
-                    {
-                        responseFileName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
-                    }
-
-                    var fullName = responseFileName ?? Path.Combine(dir, GetRandomFileName());
-                    using (var fs = File.Open(fullName, FileMode.Create))
-                    {
-                        using (var responseStream = await responseMessage.Content.ReadAsStreamAsync())
-                        {
-                            await responseStream.CopyToAsync(fs);
-                            await fs.FlushAsync();
-                        }
-                    }
-                    return fullName;
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            return await CO2NET.HttpUtility.Get.DownloadAsync(url, filePathName);//TODO：增加timeOut
         }
         #endregion
 #endif

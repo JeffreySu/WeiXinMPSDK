@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);
+            AccessTokenResult result = CO2NET.HttpUtility.Get.GetJson<AccessTokenResult>(url);
             return result;
         }
 
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                         accessToken.AsUrlData(), openId.AsUrlData());
-                WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
+                WeixinUserInfoResult result = CO2NET.HttpUtility.Get.GetJson<WeixinUserInfoResult>(url);
                 return result;
 
             }, accessTokenOrAppId);
@@ -141,7 +141,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+                JsApiTicketResult result = CO2NET.HttpUtility.Get.GetJson<JsApiTicketResult>(url);
                 return result;
 
             }, accessTokenOrAppId);
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-                return Get.GetJson<GetCallBackIpResult>(url);
+                return CO2NET.HttpUtility.Get.GetJson<GetCallBackIpResult>(url);
 
             }, accessTokenOrAppId);
         }
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);
+            AccessTokenResult result = await CO2NET.HttpUtility.Get.GetJsonAsync<AccessTokenResult>(url);
             return result;
         }
 
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
            {
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                        accessToken.AsUrlData(), openId.AsUrlData());
-               var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
+               var result = CO2NET.HttpUtility.Get.GetJsonAsync<WeixinUserInfoResult>(url);
                return await result;
 
            }, accessTokenOrAppId);
@@ -258,7 +258,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                var result = Get.GetJsonAsync<JsApiTicketResult>(url);
+                var result = CO2NET.HttpUtility.Get.GetJsonAsync<JsApiTicketResult>(url);
                 return await result;
 
             }, accessTokenOrAppId);
@@ -276,7 +276,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-                return await Get.GetJsonAsync<GetCallBackIpResult>(url);
+                return await CO2NET.HttpUtility.Get.GetJsonAsync<GetCallBackIpResult>(url);
 
             }, accessTokenOrAppId);
         }

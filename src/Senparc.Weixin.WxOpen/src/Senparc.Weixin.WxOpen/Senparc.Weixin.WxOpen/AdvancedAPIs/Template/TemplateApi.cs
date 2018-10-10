@@ -39,6 +39,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180712
     修改描述：v2.4.1 TemplateApi.LibraryGet() 方法修正 API 地址
 
+    修改标识：Senparc - 20181009
+    修改描述：添加下发小程序和公众号统一的服务消息接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -123,6 +126,25 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
               "emphasis_keyword": "keyword1.DATA" 
             }
           */
+        }
+
+        /// <summary>
+        /// 下发小程序和公众号统一的服务消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="msgData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSend", true)]
+        public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         #region 模板快速设置
@@ -267,8 +289,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                     data = data,
                     emphasis_keyword = emphasisKeyword,
                 };
-            
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】下发小程序和公众号统一的服务消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="msgData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSendAsync", true)]
+        public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

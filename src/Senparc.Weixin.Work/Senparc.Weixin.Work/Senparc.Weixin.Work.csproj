@@ -87,15 +87,31 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalApi.cs" />
+    <Compile Include="AdvancedAPIs\External\GetExternalContactResult.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\MakeOutInvoiceData.cs" />
+    <Compile Include="AdvancedAPIs\Mobile\MobileApi.cs" />
+    <Compile Include="AdvancedAPIs\Mobile\MobileApiResult.cs" />
     <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
     <Compile Include="AdvancedAPIs\KF\KFResult.cs" />
+    <Compile Include="AdvancedAPIs\Mass\LinkerCorp\LinkerCorpApi.cs" />
+    <Compile Include="AdvancedAPIs\Mass\LinkerCorp\LinkerCorpData.cs" />
+    <Compile Include="AdvancedAPIs\Mass\LinkerCorp\LinkerCorpResultJson.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginUrlResult.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberBase.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberCreateRequest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\InviteMemberRequest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberUpdateRequest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\MiniProgram\MiniResultJson.cs" />
+    <Compile Include="AdvancedAPIs\MiniProgram\MiniApi.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetOpenApprovalDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetDialRecordJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
@@ -248,6 +264,7 @@
   <ItemGroup>
     <Content Include="Tencent\Readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

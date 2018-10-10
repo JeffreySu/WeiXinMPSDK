@@ -91,6 +91,7 @@
     <Compile Include="AdvancedAPIs\WxApp\LineColor.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\PluginJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxOpenApiEnlightener.cs" />
     <Compile Include="CommonAPIs\WxOpenApiHandlerWapper.cs" />

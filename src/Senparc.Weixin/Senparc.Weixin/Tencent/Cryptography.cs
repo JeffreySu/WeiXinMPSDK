@@ -35,9 +35,9 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Tencent
+namespace Senparc.Weixin.Tencent
 {
-    class Cryptography
+    public class Cryptography
     {
         public static UInt32 HostToNetworkOrder(UInt32 inval)
         {

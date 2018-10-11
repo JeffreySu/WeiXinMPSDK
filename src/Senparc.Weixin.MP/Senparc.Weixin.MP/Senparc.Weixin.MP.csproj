@@ -369,8 +369,6 @@
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
-    <Compile Include="Tencent\Cryptography.cs" />
-    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\Entities\NormalRedPackParameters.cs" />
     <Compile Include="TenPayLibV3\Entities\Request\PayBank\TenPayV3GetPublicKeyRequestData.cs" />
     <Compile Include="TenPayLibV3\Entities\Request\PayBank\TenPayV3PayBankRequestData.cs" />

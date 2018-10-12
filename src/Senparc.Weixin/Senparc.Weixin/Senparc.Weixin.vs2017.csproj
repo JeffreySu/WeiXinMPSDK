@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>6.1.6</Version>
+    <Version>6.1.6.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -354,11 +354,18 @@
   <ItemGroup>
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Tencent\Sample.cs" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Remove="Tencent\Readme.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.15" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.2.16" />
     <PackageReference Include="Senparc.NeuChar" Version="0.2.7.3" />
   </ItemGroup>
 

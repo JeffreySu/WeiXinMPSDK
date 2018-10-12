@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
-            return Get.GetJson<GetUserInfoResult>(url);
+            return CO2NET.HttpUtility.Get.GetJson<GetUserInfoResult>(url);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
-            return await Get.GetJsonAsync<GetUserInfoResult>(url);
+            return await CO2NET.HttpUtility.Get.GetJsonAsync<GetUserInfoResult>(url);
         }
 
         /// <summary>

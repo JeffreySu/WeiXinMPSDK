@@ -37,13 +37,13 @@ using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.WxOpen.Tencent;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Tencent;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers

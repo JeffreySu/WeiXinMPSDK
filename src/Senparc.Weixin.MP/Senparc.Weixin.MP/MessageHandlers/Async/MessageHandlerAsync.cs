@@ -40,7 +40,6 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Tencent;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
 using System.Collections.Generic;

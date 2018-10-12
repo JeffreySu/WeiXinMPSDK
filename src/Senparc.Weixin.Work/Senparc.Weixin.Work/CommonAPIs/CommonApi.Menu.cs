@@ -444,7 +444,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         public static WorkJsonResult DeleteMenu(string accessToken, int agentId)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = Senparc.Weixin.HttpUtility.Get.GetJson<WorkJsonResult>(url);
+            var result = CO2NET.HttpUtility.Get.GetJson<WorkJsonResult>(url);
             return result;
         }
         #endregion

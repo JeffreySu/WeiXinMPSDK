@@ -443,4 +443,38 @@ namespace Senparc.Weixin.Work
         /// </summary>
         all
     }
+
+    /// <summary>
+    /// 开票来源
+    /// </summary>
+    public enum SourceType
+    {
+        /// <summary>
+        /// app：app开票，web：微信h5开票，wxa：小程序开发票，wap：普通网页开票
+        /// </summary>
+        app,
+        web,
+        wxa,
+        wap
+    }
+
+    /// <summary>
+    /// 授权类型
+    /// </summary>
+    public enum AuthType
+    {
+        开票授权,
+        填写字段开票授权,
+        领票授权
+    }
+
+    /// <summary>
+    /// 发票行性质
+    /// </summary>
+    public enum Fphxz
+    {
+        正常,
+        折扣,
+        被折扣
+    }
 }

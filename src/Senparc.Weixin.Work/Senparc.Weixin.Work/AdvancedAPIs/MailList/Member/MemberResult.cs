@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：DepartmentResult.cs
+    文件名：MemberResult.cs
     文件功能描述：成员接口返回结果
     
     
@@ -143,4 +143,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// </summary>
         public int type { get; set; }
     }
+
+    /// <summary>
+    /// 邀请成员返回结果
+    /// </summary>
+    public class InviteMemberListResultJson : WorkJsonResult
+    {
+        public string[] invaliduser { get; set; }
+        public string[] invalidparty { get; set; }
+        public string[] invalidtag { get; set; }
+    }
+
 }

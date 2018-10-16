@@ -462,7 +462,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 #endregion
 
-                var weixinAppId = this._postModel.AppId;
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {
@@ -478,7 +478,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
                     case RequestMsgType.Image:
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ?? 
+                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                             OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
@@ -506,7 +506,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
                             ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                                OnTextOrEventRequest(requestMessageText) ?? 
+                                                OnTextOrEventRequest(requestMessageText) ??
                                                     OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;

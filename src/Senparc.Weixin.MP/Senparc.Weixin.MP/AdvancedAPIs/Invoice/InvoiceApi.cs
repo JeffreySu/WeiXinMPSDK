@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180930
     修改描述：添加非税票据相关接口
+
+    修改标识：Senparc - 20181016
+    修改描述：修正批量查询报销发票信息接口返回值
+
 ----------------------------------------------------------------*/
 
 
@@ -460,7 +464,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetInvoiceListInfo", true)]
-        public static GetInvoiceInfoResultJson GetInvoiceListInfo(string accessTokenOrAppId, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
+        public static GetInvoiceListResultJson GetInvoiceListInfo(string accessTokenOrAppId, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -470,7 +474,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     item_list = itemList
                 };
 
-                return CommonJsonSend.Send<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetInvoiceListResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1125,7 +1129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "InvoiceApi.GetInvoiceListInfoAsync", true)]
-        public static async Task<GetInvoiceInfoResultJson> GetInvoiceListInfoAsync(string accessTokenOrAppId, List<InvoiceItem> itemList, string encryptCode, int timeOut = Config.TIME_OUT)
+        public static async Task<GetInvoiceListResultJson> GetInvoiceListInfoAsync(string accessTokenOrAppId, List<InvoiceItem> itemList, string encryptCode, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1135,7 +1139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     item_list = itemList
                 };
 
-                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetInvoiceListResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

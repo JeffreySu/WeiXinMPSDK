@@ -121,11 +121,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public InvoiceUserData user_info { get; set; }
     }
 
+    /// <summary>
+    /// 批量查询报销发票信息返回信息
+    /// </summary>
     public class GetInvoiceListResultJson:WxJsonResult
     {
+        /// <summary>
+        /// 发票信息列表
+        /// </summary>
         public List<InvoiceItemInfo> item_list { get; set; }
     }
 
+    /// <summary>
+    /// 发票信息
+    /// </summary>
     public class InvoiceItemInfo
     {
         /// <summary>

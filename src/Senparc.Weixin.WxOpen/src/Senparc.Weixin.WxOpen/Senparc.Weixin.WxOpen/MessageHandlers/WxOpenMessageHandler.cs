@@ -259,25 +259,26 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
                 #region NeuChar 执行过程
 
-                var neuralSystem = NeuralSystem.Instance;
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                //var neuralSystem = NeuralSystem.Instance;
+                //var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
 
-                messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+                //messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
 
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
                             //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId)??
                                     OnTextRequest(RequestMessage as RequestMessageText);
                             //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:
                         {
-                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                     OnImageRequest(RequestMessage as RequestMessageImage);
                         }
                         break;

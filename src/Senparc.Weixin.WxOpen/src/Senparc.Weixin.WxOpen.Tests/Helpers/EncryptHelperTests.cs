@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Helpers.Tests
 {
@@ -73,8 +74,9 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             var sessionId = "7f3f7489cb904d20bd4b5e9443f1bcab";
             var rawData = "{\"nickName\":\"苏震巍\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Suzhou\",\"province\":\"Jiangsu\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEKXyjX4N6I5Vx1aeiaBeJ2iaTLy15n0HgvjNbWEpKA3ZbdgXkOhWK7OH8iar3iaLxsZia5Ha4DnRPlMerw/0\"}";
             var sessionKey = "lEIWEBVlmAj/Ng0t54iahA==";
+            var unionId = "";
 
-            SessionContainer.UpdateSession(sessionId, "openId", sessionKey);
+            SessionContainer.UpdateSession(sessionId, "openId", sessionKey, unionId);
 
             var sessionBag = SessionContainer.GetSession(sessionId);
             Assert.IsNotNull(sessionBag);
@@ -115,16 +117,16 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             var encryptedData =
                 "CFcsIXmH2r0v9ehjEhS+uUpJkr8qGQyt+Za3YkhjVNNA+xGj2WB2QFxDXdKVSzc10LukeB2maCxZCqpPQrWQx6CKF/VkEx96hXpPuBMpWBnnLzupoJpkRW9gJGRz7dcXDnqzstf2etRumDeAFDyjEKZ6bqs+KTE7qHauMsctxg4TXPbzzvWQm783j9PoWsCm/0A+aGNWCfZSFuJgi5G+LjTVqcGqP+mlAnLIFmgGLTo3vWrekz0//2vCMhgcgwKjPMR+VZTB7UItvnWfF4h4oOajcMuEiwTifaFkyn7l4NtLroMYjOfId16B6XCTK0BvPhTw9GI3wPMDopwWF2q3Op8M2fYWJuVGFKbrAZvVY/ILeIxYLaHuwHAOYULLre5Mg1kQpURlQ6I6e6GjraJUoL1BqsM38DayY5xRRFJsehZgrWkOySWICuN20Bte7+2N8D6PvhsaNyQz+4Lp4XY/Nn+clNGoM1v6aKTCv7PY2wo=";
             var iv = "ASJ0whjRyLK1tvgb7bAVSw==";
+            var unionId = "";
 
-            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey);
+            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
 
             var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
                 encryptedData, iv);
             Assert.IsNotNull(userInfo);
             Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
-            SerializerHelper sh = new SerializerHelper();
-            Console.WriteLine(sh.GetJsonString(userInfo));
+            Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
         }
     }
 }

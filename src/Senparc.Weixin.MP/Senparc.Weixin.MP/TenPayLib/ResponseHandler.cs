@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170623
     修改描述：使用 ASCII 字典排序
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -40,8 +41,9 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Helpers;
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
 #else
@@ -64,6 +66,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     '============================================================================
     */
 
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class ResponseHandler
     {
         /// <summary>
@@ -146,7 +149,8 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
             if (this.HttpContext.Request.InputStream.Length > 0)
             {
-                XmlDocument xmlDoc = new XmlDocument();
+                XmlDocument xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
+                xmlDoc.XmlResolver = null;
                 xmlDoc.Load(this.HttpContext.Request.InputStream);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;
@@ -179,7 +183,8 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
             if (this.HttpContext.Request.Body.Length > 0)
             {
-                XmlDocument xmlDoc = new XmlDocument();
+                XmlDocument xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
+                xmlDoc.XmlResolver = null;
                 xmlDoc.Load(this.HttpContext.Request.Body);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;
@@ -263,7 +268,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
             this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
             //debug信息
             return GetParameter("sign").ToLower().Equals(sign);
@@ -304,7 +309,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 }
             }
 
-            string sign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            string sign = EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
             this.SetDebugInfo(sb.ToString() + " => SHA1 sign:" + sign);
 
@@ -347,7 +352,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 }
             }
 
-            string sign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            string sign = EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
             this.SetDebugInfo(sb.ToString() + " => SHA1 sign:" + sign);
 

@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Open.Tencent
 			{
 				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
 			}
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             XmlNode root;
             string sEncryptMsg;
             try

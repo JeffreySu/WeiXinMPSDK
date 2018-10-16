@@ -6,7 +6,7 @@
 |--------|--------|
 |Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET WebForms）|
-|Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（ASP.NET Core 2.0）|
+|Senparc.Weixin.MP.Sample.vs2017|可以直接发布使用的Demo（ASP.NET Core 2.0 + Core 2.1）|
 
 ## 帮你选择
 

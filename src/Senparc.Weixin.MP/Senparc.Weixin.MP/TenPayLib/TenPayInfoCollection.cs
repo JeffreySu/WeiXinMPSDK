@@ -29,10 +29,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20180707
+    修改描述：TenPayInfoCollection 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.TenPayLib
@@ -40,6 +45,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// 微信支付信息集合，Key为商户号（PartnerId）
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class TenPayInfoCollection : Dictionary<string, TenPayInfo>
     {
         /// <summary>
@@ -51,9 +57,20 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// 注册WeixinPayInfo信息
         /// </summary>
         /// <param name="weixinPayInfo"></param>
-        public static void Register(TenPayInfo weixinPayInfo)
+        /// <param name="name">公众号唯一标识（或名称）</param>
+        public static void Register(TenPayInfo weixinPayInfo, string name)
         {
             Data[weixinPayInfo.PartnerId] = weixinPayInfo;
+
+            //添加到全局变量
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinPay_PartnerId = weixinPayInfo.PartnerId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinPay_Key = weixinPayInfo.Key;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinPay_AppId = weixinPayInfo.AppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinPay_AppKey = weixinPayInfo.AppKey;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinPay_TenpayNotify = weixinPayInfo.TenPayNotify;
+            }
         }
 
         public new TenPayInfo this[string key]

@@ -55,6 +55,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
 
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
+    修改标识：Senparc - 20180707
+    修改描述：v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -65,9 +72,10 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -77,44 +85,44 @@ namespace Senparc.Weixin.MP.Containers
     [Serializable]
     public class JsApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
-        public string AppId
-        {
-            get { return _appId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-#else
-            set { this.SetContainerProperty(ref _appId, value); }
-#endif
-        }
-        public string AppSecret
-        {
-            get { return _appSecret; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-#else
-            set { this.SetContainerProperty(ref _appSecret, value); }
-#endif
-        }
+        public string AppId { get; set; }
+        //        {
+        //            get { return _appId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appId, value); }
+        //#endif
+        //        }
+        public string AppSecret { get; set; }
+        //        {
+        //            get { return _appSecret; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appSecret, value); }
+        //#endif
+        //        }
 
-        public JsApiTicketResult JsApiTicketResult
-        {
-            get { return _jsApiTicketResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-#else
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-#endif
-        }
+        public JsApiTicketResult JsApiTicketResult { get; set; }
+        //        {
+        //            get { return _jsApiTicketResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+        //#endif
+        //        }
 
-        public DateTime JsApiTicketExpireTime
-        {
-            get { return _jsApiTicketExpireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
-#endif
-        }
+        public DateTime JsApiTicketExpireTime { get; set; }
+        //        {
+        //            get { return _jsApiTicketExpireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 只针对这个AppId的锁
@@ -145,29 +153,34 @@ namespace Senparc.Weixin.MP.Containers
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         /*此接口不提供异步方法*/
         public static void Register(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             RegisterFunc = () =>
             {
-                using (FlushCache.CreateInstance())
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new JsApiTicketBag()
                 {
-                    var bag = new JsApiTicketBag()
-                    {
-                        Name = name,
-                        AppId = appId,
-                        AppSecret = appSecret,
-                        JsApiTicketExpireTime = DateTime.MinValue,
-                        JsApiTicketResult = new JsApiTicketResult()
-                    };
-                    Update(appId, bag);
-                    return bag;
-                }
+                    Name = name,
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    JsApiTicketExpireTime = DateTime.MinValue,
+                    JsApiTicketResult = new JsApiTicketResult()
+                };
+                Update(appId, bag, null);
+                return bag;
+                //}
             };
             RegisterFunc();
 
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
+            }
         }
 
 
@@ -221,6 +234,7 @@ namespace Senparc.Weixin.MP.Containers
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    Update(jsApiTicketBag, null);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;
@@ -285,6 +299,7 @@ namespace Senparc.Weixin.MP.Containers
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    Update(jsApiTicketBag, null);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

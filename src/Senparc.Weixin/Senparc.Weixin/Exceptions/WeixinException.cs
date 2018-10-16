@@ -42,6 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using Senparc.CO2NET.Exceptions;
 using System;
 
 namespace Senparc.Weixin.Exceptions
@@ -49,12 +50,7 @@ namespace Senparc.Weixin.Exceptions
     /// <summary>
     /// 微信自定义异常基类
     /// </summary>
-#if NET35 || NET40 || NET45
-    public class WeixinException :  ApplicationException
-#else
-    public class WeixinException : Exception
-#endif
-
+    public class WeixinException : BaseException
     {
         /// <summary>
         /// 当前正在请求的公众号AccessToken或AppId
@@ -78,11 +74,12 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="inner">内部异常信息</param>
         /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
         public WeixinException(string message, Exception inner, bool logged = false)
-            : base(message, inner)
+            : base(message, inner, true/* 标记为日志已记录 */)
         {
             if (!logged)
             {
                 //WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+
                 WeixinTrace.WeixinExceptionLog(this);
             }
         }

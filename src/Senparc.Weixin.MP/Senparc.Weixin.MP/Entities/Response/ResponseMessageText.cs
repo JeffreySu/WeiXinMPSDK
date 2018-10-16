@@ -31,11 +31,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+
 namespace Senparc.Weixin.MP.Entities
 {
-    public class ResponseMessageText : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageText : ResponseMessageBase, IResponseMessageText
     {
-        public new virtual ResponseMsgType MsgType
+        public override ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Text; }
         }

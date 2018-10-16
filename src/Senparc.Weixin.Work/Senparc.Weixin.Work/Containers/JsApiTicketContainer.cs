@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
 
     文件名：JsApiTicketContainer.cs
@@ -36,18 +56,27 @@
 
     修改标识：Senparc - 20161003
     修改描述：v4.1.11 修复GetTicketResult()方法中的CheckRegistered()参数错误（少了appSecret）
+
+    修改标识：Senparc - 20180614
+    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
+    修改标识：Senparc - 20180707
+    修改描述：v2.0.9  1、Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+                      2、AccessTokenBag 的 AppId 和 Secret 属性名称改为 CorpId 和 CorpSecret
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Senparc.Weixin.CacheUtility;
+using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -57,44 +86,45 @@ namespace Senparc.Weixin.Work.Containers
     [Serializable]
     public class JsApiTicketBag : BaseContainerBag
     {
-        public string AppId
-        {
-            get { return _appId; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-#else
-            set { this.SetContainerProperty(ref _appId, value); }
-#endif
-        }
-        public string AppSecret
-        {
-            get { return _appSecret; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-#else
-            set { this.SetContainerProperty(ref _appSecret, value); }
-#endif
-        }
+        public string CoprId { get; set; }
+        //        {
+        //            get { return _appId; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appId, value); }
+        //#endif
+        //        }
 
-        public JsApiTicketResult JsApiTicketResult
-        {
-            get { return _jsApiTicketResult; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-#else
-            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-#endif
-        }
+        public string CorpSecret { get; set; }
+        //        {
+        //            get { return _appSecret; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _appSecret, value); }
+        //#endif
+        //        }
 
-        public DateTime ExpireTime
-        {
-            get { return _expireTime; }
-#if NET35 || NET40
-            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
-#else
-            set { this.SetContainerProperty(ref _expireTime, value); }
-#endif
-        }
+        public JsApiTicketResult JsApiTicketResult { get; set; }
+        //        {
+        //            get { return _jsApiTicketResult; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
+        //#endif
+        //        }
+
+        public DateTime ExpireTime { get; set; }
+        //        {
+        //            get { return _expireTime; }
+        //#if NET35 || NET40
+        //            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+        //#else
+        //            set { this.SetContainerProperty(ref _expireTime, value); }
+        //#endif
+        //        }
 
         /// <summary>
         /// 只针对这个AppId的锁
@@ -119,32 +149,39 @@ namespace Senparc.Weixin.Work.Containers
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         /// 此接口无异步方法
         private static string BuildingKey(string corpId, string corpSecret)
         {
             return corpId + corpSecret;
         }
-        public static void Register(string appId, string appSecret, string name = null)
+
+        public static void Register(string corpId, string corpSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             RegisterFunc = () =>
             {
-                using (FlushCache.CreateInstance())
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new JsApiTicketBag()
                 {
-                    var bag = new JsApiTicketBag()
-                    {
-                        Name = name,
-                        AppId = appId,
-                        AppSecret = appSecret,
-                        ExpireTime = DateTime.MinValue,
-                        JsApiTicketResult = new JsApiTicketResult()
-                    };
-                    Update(BuildingKey(appId,appSecret), bag);
-                    return bag;
-                }
+                    Name = name,
+                    CoprId = corpId,
+                    CorpSecret = corpSecret,
+                    ExpireTime = DateTime.MinValue,
+                    JsApiTicketResult = new JsApiTicketResult()
+                };
+                Update(BuildingKey(corpId, corpSecret), bag,null);
+                return bag;
+                //}
             };
             RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpId = corpId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinCorpSecret = corpSecret;
+            }
         }
 
         #region 同步方法
@@ -163,7 +200,7 @@ namespace Senparc.Weixin.Work.Containers
             {
                 Register(appId, appSecret);
             }
-            return GetTicket(appId,appSecret,getNewTicket);
+            return GetTicket(appId, appSecret, getNewTicket);
         }
 
         /// <summary>
@@ -172,9 +209,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static string GetTicket(string appId,string appSecret, bool getNewTicket = false)
+        public static string GetTicket(string appId, string appSecret, bool getNewTicket = false)
         {
-            return GetTicketResult(appId,appSecret,getNewTicket).ticket;
+            return GetTicketResult(appId, appSecret, getNewTicket).ticket;
         }
 
         /// <summary>
@@ -183,7 +220,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketResult(string appId,string appSecret, bool getNewTicket = false)
+        public static JsApiTicketResult GetTicketResult(string appId, string appSecret, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
@@ -196,8 +233,9 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    Update(jsApiTicketBag, null);//更新到缓存
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;
@@ -231,7 +269,7 @@ namespace Senparc.Weixin.Work.Containers
             {
                 Register(appId, appSecret);
             }
-            return await GetTicketAsync(appId,appSecret,getNewTicket);
+            return await GetTicketAsync(appId, appSecret, getNewTicket);
         }
 
         /// <summary>
@@ -240,9 +278,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<string> GetTicketAsync(string appId,string appSecret, bool getNewTicket = false)
+        public static async Task<string> GetTicketAsync(string appId, string appSecret, bool getNewTicket = false)
         {
-            var result = await GetTicketResultAsync(appId, appSecret,getNewTicket);
+            var result = await GetTicketResultAsync(appId, appSecret, getNewTicket);
             return result.ticket;
         }
 
@@ -252,7 +290,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId,string appSecret,bool getNewTicket = false)
+        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
@@ -265,10 +303,11 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    Update(jsApiTicketBag, null);//更新到缓存
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

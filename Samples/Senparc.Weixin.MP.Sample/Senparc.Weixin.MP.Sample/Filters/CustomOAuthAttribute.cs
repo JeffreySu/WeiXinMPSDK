@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Sample.Filters
         public CustomOAuthAttribute(string appId, string oauthCallbackUrl)
             : base(appId, oauthCallbackUrl)
         {
-            base._appId = base._appId ?? System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
+            base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;
         }
 
         public override bool IsLogined(HttpContextBase httpContext)

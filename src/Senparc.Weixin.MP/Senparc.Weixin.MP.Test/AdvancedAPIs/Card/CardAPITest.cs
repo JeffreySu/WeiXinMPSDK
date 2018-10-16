@@ -31,7 +31,8 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.TenPayLib;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -87,9 +88,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 url = "https://weixin.senparc.com"
             };
 
-            SerializerHelper serializerHelper = new SerializerHelper();
             JsonSetting jsonSetting = new JsonSetting();
-            var jsonString = serializerHelper.GetJsonString(customField, jsonSetting);
+            var jsonString = SerializerHelper.GetJsonString(customField, jsonSetting);
             Console.WriteLine(jsonString);
             Assert.IsTrue(jsonString.Contains("FIELD_NAME_TYPE_ACHIEVEMEN"));
             Assert.IsTrue(jsonString.Contains("https://weixin.senparc.com"));

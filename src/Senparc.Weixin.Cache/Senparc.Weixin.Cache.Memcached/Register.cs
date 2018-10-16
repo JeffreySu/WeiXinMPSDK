@@ -2,43 +2,44 @@
     Copyright (C) 2018 Senparc
 
     文件名：Register.cs
-    文件功能描述：Senparc.Weixin.Memcached.Redis 快捷注册流程
+    文件功能描述：Senparc.Weixin.Cache.Memcached 注册类
 
 
-    创建标识：Senparc - 20180222
+    创建标识：Senparc - 20180609
+
+    修改标识：Senparc - 20180802
+    修改描述：当前类所有方法支持 .net standard 2.0
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using Senparc.Weixin.RegisterServices;
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+using Microsoft.AspNetCore.Builder;
+#endif
 
 namespace Senparc.Weixin.Cache.Memcached
 {
     public static class Register
     {
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+        /// <summary>
+        /// 注册 Senparc.Weixin.Cache.Memcached
+        /// </summary>
+        /// <param name="app"></param>
+        public static IApplicationBuilder UseSenparcWeixinCacheMemcached(this IApplicationBuilder app)
+        {
+            app.UseEnyimMemcached();
+            RegisterDomainCache();
+            return app;
+        }
+#endif
+
 
         /// <summary>
-        /// 注册 Memcached 缓存信息
+        /// 注册领域缓存
         /// </summary>
-        /// <param name="registerService">RegisterService</param>
-        /// <param name="memcachedConfig">memcached连接字符串列表</param>
-        /// <param name="memcachedObjectCacheStrategyInstance">缓存策略的委托，第一个参数为 memcachedConfig</param>
-        /// <returns></returns>
-        public static IRegisterService RegisterCacheMemcached(this IRegisterService registerService,
-            Dictionary<string, int> memcachedConfig,
-            Func<Dictionary<string, int>, IObjectCacheStrategy> memcachedObjectCacheStrategyInstance)
+        public static void RegisterDomainCache()
         {
-            MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
-
-            //此处先执行一次委托，直接在下方注册结果，提高每次调用的执行效率
-            IObjectCacheStrategy objectCacheStrategy = memcachedObjectCacheStrategyInstance(memcachedConfig);
-            if (objectCacheStrategy != null)
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => objectCacheStrategy);//Memcached
-            }
-
-            return registerService;
+            var cache = MemcachedContainerCacheStrategy.Instance;
         }
 
     }

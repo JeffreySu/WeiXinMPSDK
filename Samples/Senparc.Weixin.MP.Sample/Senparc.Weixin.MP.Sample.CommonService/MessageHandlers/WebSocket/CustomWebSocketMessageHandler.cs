@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             await webSocketHandler.SendMessage(result);
 
 #if NET45
-            var appId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+            var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 #else
             var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 #endif
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                     keyword3 = new TemplateDataItem("Name"),
                     keyword4 = new TemplateDataItem("Number"),
                     keyword5 = new TemplateDataItem(100.ToString("C")),
-                    keyword6 = new TemplateDataItem("400-9939-858"),
+                    keyword6 = new TemplateDataItem("400-031-8816"),
                 };
 
                 var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",

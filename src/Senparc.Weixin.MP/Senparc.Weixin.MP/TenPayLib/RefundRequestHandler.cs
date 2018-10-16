@@ -32,13 +32,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 #if NET35 || NET40 || NET45 || NET461
+using System;
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
+using System;
 #endif
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
+    /// <summary>
+    /// RefundRequestHandler
+    /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public class RefundRequestHandler : ClientRequestHandler
     {
         /// <summary>
@@ -49,6 +55,11 @@ namespace Senparc.Weixin.MP.TenPayLib
             : base(httpContext)
         {
             this.SetGateUrl("https://mch.tenpay.com/refundapi/gateway/refund.xml");
+        }
+
+        public void SetParameter(string v, object p)
+        {
+            throw new NotImplementedException();
         }
     }
 }

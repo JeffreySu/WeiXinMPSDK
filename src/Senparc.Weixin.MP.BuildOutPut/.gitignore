@@ -22,3 +22,6 @@ net461
 netstandard1.6
 chm
 *.nupkg
+
+netcoreapp2.0
+netcoreapp2.1

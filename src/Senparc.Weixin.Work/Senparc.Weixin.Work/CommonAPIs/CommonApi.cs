@@ -29,6 +29,8 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
@@ -49,6 +51,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetToken", true)]
         public static AccessTokenResult GetToken(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
@@ -84,6 +87,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetCallBackIp", true)]
         public static GetCallBackIpResult GetCallBackIp(string accessToken)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
@@ -97,6 +101,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTicket", true)]
         public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
         {
             var accessToken = AccessTokenContainer.TryGetToken(corpId, corpSecret);
@@ -119,6 +124,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToOpenId", true)]
         public static ConvertToOpenIdResult ConvertToOpenId(string accessToken, string userId, string agentId = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_openid?access_token={0}",
@@ -140,6 +146,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToUserId", true)]
         public static ConvertToUserIdResult ConvertToUserId(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_userid?access_token={0}",
@@ -161,6 +168,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTokenAsync", true)]
         public static async Task<AccessTokenResult> GetTokenAsync(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
@@ -196,6 +204,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetCallBackIpAsync", true)]
         public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessToken)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
@@ -209,6 +218,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.GetTicketAsync", true)]
         public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret)
         {
             var accessToken = await AccessTokenContainer.TryGetTokenAsync(corpId, corpSecret);
@@ -230,6 +240,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToOpenIdAsync", true)]
         public static async Task<ConvertToOpenIdResult> ConvertToOpenIdAsync(string accessToken, string userId, string agentId = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_openid?access_token={0}",
@@ -251,6 +262,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "CommonApi.ConvertToUserIdAsync", true)]
         public static async Task<ConvertToUserIdResult> ConvertToUserIdAsync(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/convert_to_userid?access_token={0}",

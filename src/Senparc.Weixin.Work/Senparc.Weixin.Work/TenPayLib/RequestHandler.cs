@@ -16,6 +16,7 @@ using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.Weixin.Work.Helpers;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45 || NET461
 using System.Web;
@@ -23,7 +24,7 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 #endif
 
-using Senparc.Weixin.Helpers.StringHelper;
+
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -42,6 +43,7 @@ namespace Senparc.Weixin.Work.TenPayLib
      * 
      * ============================================================================
      */
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
     public class RequestHandler
     {
 
@@ -153,7 +155,7 @@ namespace Senparc.Weixin.Work.TenPayLib
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             return sign;
         }

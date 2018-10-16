@@ -28,6 +28,7 @@ using Senparc.Weixin.Work.AdvancedAPIs.MailList;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Test.CommonApis;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList.Member;
 
 namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
@@ -48,7 +49,19 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.CreateMember(accessToken, userId, string.Format("单元测试生成-{0}", DateTime.Now.ToString("yyMMdd-HH:mm")), "13900000000", "english name", new long[] { 2 }, null, "1", null, null, null, extattr: extattr);
+
+            var memberCreateRequest = new  MemberCreateRequest()
+            {
+                userid = userId,
+                name= string.Format("单元测试生成-{0}", DateTime.Now.ToString("yyMMdd-HH:mm")),
+                english_name = "english name",
+                department = new long[] { 2 },
+                gender = "1",
+                email = "yyy@qq.com",
+                extattr = extattr
+            };
+
+            var result = MailListApi.CreateMember(accessToken, memberCreateRequest);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -57,7 +70,17 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.UpdateMember(accessToken, userId, null, null, "new english name", new long[] { 2 }, null, "1", email: "xxx@qq.com");
+
+            var memberUpdateRequest = new MemberUpdateRequest()
+            {
+                userid = userId,
+                english_name = "new english name",
+                department = new long[] { 2 },
+                gender = "1",
+                email = "xxx@qq.com"
+            };
+
+            var result = MailListApi.UpdateMember(accessToken, memberUpdateRequest);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -93,7 +116,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void GetDepartmentMemberTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0/*, 0*/);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -102,7 +125,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void GetDepartmentMemberInfoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0/*, 0*/);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }

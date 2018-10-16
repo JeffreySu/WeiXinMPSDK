@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.6.1</Version>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
+    <Version>2.2.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - Redis 模块
@@ -59,12 +59,24 @@
       v1.3.0 支持 .NET Core
 
       v1.4.0-beta1 支持.NET Core 2.0
-      
+
       v1.5.0 停止对 .net core 1.1 生成的独立版本
       v1.5.1 提供 RegisterServices 进行快捷注册
 
       v1.6.0 提供 .NET Core 下的完整二进制序列化支持（支持委托参数）
       v1.6.1 优化二进制序列化支持
+
+      v1.7.0-rc1 支持 .NET Core 2.1.0-rc1-final
+      v1.7.2-rc1 为 .net core 2.1 改进条件编译
+
+      v1.7.5 发布支持 .net core 2.1 的正式版
+
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      v2.0.6.1 支持 CO2NET v0.1.6.1
+      v2.0.9 支持 CO2NET v0.1.9
+      v2.1.0 支持 CO2NET v0.2.0
+      v2.2.1 支持 CO2NET v0.2.6，Senparc.CO2NET.Cache.Redis v3.1.1
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -91,22 +103,25 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Redis.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Cache.Redis.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
@@ -119,6 +134,15 @@
     <PackageReference Include="System.Threading.Thread" />
     <PackageReference Include="System.Xml.XmlSerializer" />-->
   </ItemGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
+    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />-->
+    <!--<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NETCore.App" Version="2.1.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Compile Remove="packages\**" />
@@ -138,18 +162,20 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>-->
   
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="protobuf-net" Version="2.1.0" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="RedisCacheLock.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.1.1" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 
@@ -159,7 +185,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
   </ItemGroup>
 
 </Project>

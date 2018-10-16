@@ -16,6 +16,7 @@
 using System;
 using System.IO;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Open.Tencent;
@@ -45,7 +46,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
             _postModel = postModel;
-            EcryptRequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
+            EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
             Init();
         }

@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
@@ -91,13 +94,13 @@ namespace Senparc.Weixin.MP
                     case ResponseMsgType.News:
                         responseMessage = new ResponseMessageNews();
                         break;
-					case ResponseMsgType.Transfer_Customer_Service:
-						responseMessage = new ResponseMessageTransfer_Customer_Service();
-						break;
+                    case ResponseMsgType.Transfer_Customer_Service:
+                        responseMessage = new ResponseMessageTransfer_Customer_Service();
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在ResponseMessageFactory中没有对应的处理程序！", msgType), new ArgumentOutOfRangeException());
                 }
-                EntityHelper.FillEntityWithXml(responseMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(responseMessage, doc);
             }
             catch (ArgumentException ex)
             {
@@ -124,7 +127,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static XDocument ConvertEntityToXml(ResponseMessageBase entity)
         {
-            return EntityHelper.ConvertEntityToXml(entity);
+            return Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(entity);
         }
     }
 }

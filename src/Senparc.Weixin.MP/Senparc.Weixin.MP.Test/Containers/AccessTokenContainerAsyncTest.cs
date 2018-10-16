@@ -28,6 +28,8 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
@@ -187,7 +189,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             var registeredAppId = base._appId;//已经注册的AppId
 
-            var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+            var appId = AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
             Assert.AreEqual(registeredAppId, appId);
 
             //注册多个AppId

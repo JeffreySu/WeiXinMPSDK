@@ -38,7 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
  */
 
+using System;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -47,11 +49,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 微信支付维权接口，官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
     /// </summary>
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
     public static class TenPayRights
     {
         #region 同步方法
-        
-        
+
+
         /// <summary>
         /// 标记客户的投诉处理状态
         /// </summary>
@@ -59,6 +62,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">支付该笔订单的用户 ID</param>
         /// <param name="feedBackId">投诉单号</param>
         /// <returns></returns>
+        [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
         public static WxJsonResult UpDateFeedBack(string accessToken, string openId, string feedBackId)
         {
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
@@ -78,6 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">支付该笔订单的用户 ID</param>
         /// <param name="feedBackId">投诉单号</param>
         /// <returns></returns>
+        [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V2 中的对应方法")]
         public static async Task<WxJsonResult> UpDateFeedBackAsync(string accessToken, string openId, string feedBackId)
         {
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";

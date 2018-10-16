@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 #if NET45
 using System.Web;
@@ -103,7 +105,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 Task.Factory.StartNew(async () =>
                 {
 #if NET45
-                    var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+                    var appId = Config.SenparcWeixinSetting.WeixinAppId;
 #else
                     var appId = "AppId";
 #endif

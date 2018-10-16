@@ -30,8 +30,8 @@ senparc.menu = {
             var ddlDetailsType = $('#buttonDetails_type');
             var txtDetailsUrl = $('#buttonDetails_url');
             var txtMediaId = $('#buttonDetails_mediaId');
-            var txtDetailsAppid = $('#buttonDetails_appid');
-            var txtDetailsPagepath = $('#buttonDetails_pagepath');
+            var txtDetailsAppid = $('#buttonDetails_miniprogram_appid');
+            var txtDetailsPagepath = $('#buttonDetails_miniprogram_pagepath');
 
             var hiddenButtonKey = $('#' + keyId);
             var hiddenButtonType = $('#' + typeId);
@@ -68,6 +68,7 @@ senparc.menu = {
             txtDetailsPagepath.unbind('blur').blur(function () {
                 hiddenButtonPagepath.val($(this).val());
             });
+
             //修改当前行列样式
             var row = parseInt($(this).attr('data-i'));
             var column = parseInt($(this).attr('data-j'));
@@ -175,7 +176,7 @@ senparc.menu = {
                 dataType: 'json',
                 success: function (json) {
                     if (json.Success) {
-                        menuState.html('上传成功');
+                        menuState.html('上传成功。' + json.Message);
                     } else {
                         menuState.html(json.Message);
                     }

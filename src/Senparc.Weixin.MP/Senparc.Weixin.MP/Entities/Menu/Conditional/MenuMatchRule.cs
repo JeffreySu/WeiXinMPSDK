@@ -31,7 +31,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v13.8.8 添加tag_id和language匹配项
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {

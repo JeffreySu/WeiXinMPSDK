@@ -104,12 +104,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //    throw new Exception(messageHandler.RequestDocument.ToString());
                 //}
 
-                if (messageHandler.ResponseDocument != null)
+                if (messageHandler.ResponseDocument != null && messageHandler.ResponseDocument.Root != null)
                 {
                     messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
-                if (messageHandler.UsingEcryptMessage)
+                if (messageHandler.UsingEcryptMessage &&
+                    messageHandler.FinalResponseDocument != null && messageHandler.FinalResponseDocument.Root != null)
                 {
                     //记录加密后的响应信息
                     messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));

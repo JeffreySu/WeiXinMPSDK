@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IResponseMessageBase responseMessage = null;
-            var weixinAppId = this._postModel.AppId;
+            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
             switch (strongRequestMessage.Event)
             {
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_Card_Pay_OrderRequestAsync(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
 
-                #region 微信认证事件推送
+#region 微信认证事件推送
 
                 case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
                     responseMessage = await OnEvent_QualificationVerifySuccessRequestAsync(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
@@ -180,9 +180,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.verify_expired://认证过期失效通知
                     responseMessage = await OnEvent_VerifyExpiredRequestAsync(RequestMessage as RequestMessageEvent_VerifyExpired);
                     break;
-                #endregion
+#endregion
 
-                #region 小程序审核事件推送
+#region 小程序审核事件推送
 
                 case Event.weapp_audit_success://
                     responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
@@ -190,9 +190,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.weapp_audit_fail://
                     responseMessage = await OnEvent_WeAppAuditFailRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                     break;
-                #endregion
+#endregion
 
-                #region 卡券回调
+#region 卡券回调
 
                 case Event.giftcard_pay_done:
                     responseMessage = await OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done);
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_User_Accept);
                     break;
 
-                #endregion
+#endregion
 
 
                 default:
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return responseMessage;
         }
 
-        #region Event下属分类，接收事件方法
+#region Event下属分类，接收事件方法
 
         /// <summary>
         /// 【异步方法】Event事件类型请求之ENTER
@@ -523,7 +523,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Pay_OrderRequest(requestMessage));
         }
 
-        #region 微信认证事件推送
+#region 微信认证事件推送
 
         /// <summary>
         /// 【异步方法】资质认证成功（此时立即获得接口权限）
@@ -586,9 +586,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_VerifyExpiredRequest(requestMessage));
         }
 
-        #endregion
+#endregion
 
-        #region 小程序审核事件推送
+#region 小程序审核事件推送
 
         /// <summary>
         /// 【异步方法】小程序审核失败通知
@@ -609,9 +609,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage));
         }
 
-        #endregion
+#endregion
 
-        #region 卡券回调
+#region 卡券回调
 
         /// <summary>
         /// 用户购买礼品卡付款成功
@@ -638,9 +638,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
 
-        #endregion
+#endregion
 
-        #endregion
+#endregion
     }
 }
 #endif

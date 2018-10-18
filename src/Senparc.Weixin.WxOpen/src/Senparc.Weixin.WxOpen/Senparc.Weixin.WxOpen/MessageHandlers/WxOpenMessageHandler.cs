@@ -274,6 +274,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                             ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                     OnTextRequest(RequestMessage as RequestMessageText);
                             //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
+                            //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:

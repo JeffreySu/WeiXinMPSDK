@@ -144,7 +144,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="developerInfo">开发者信息（非必填）</param>
+        ///// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount, postModel)
         {
@@ -271,7 +271,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId)??
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                     OnTextRequest(RequestMessage as RequestMessageText);
                             //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         }
@@ -282,7 +282,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                                     OnImageRequest(RequestMessage as RequestMessageImage);
                         }
                         break;
-
+                    case RequestMsgType.NeuChar:
+                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                        break;
                     case RequestMsgType.Event:
                         {
                             OnEventRequest(RequestMessage as IRequestMessageEventBase);

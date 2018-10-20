@@ -36,6 +36,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180502
     修改描述：v5.1.3 优化 UrlUtility.GenerateOAuthCallbackUrl() 方法
 
+    修改标识：Senparc - 20180909
+    修改描述：v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
+
+   修改标识：Senparc - 20180917
+    修改描述：v6.1.1 还原上一个版本 v6.0.4 的修改
 ----------------------------------------------------------------*/
 
 using System;
@@ -103,7 +108,7 @@ namespace Senparc.Weixin.HttpUtility
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
 #endif
-            if ( port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
+            if (port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
                 (schemeUpper == "HTTP" && port == 80) ||
                 (schemeUpper == "HTTPS" && port == 443))
             {

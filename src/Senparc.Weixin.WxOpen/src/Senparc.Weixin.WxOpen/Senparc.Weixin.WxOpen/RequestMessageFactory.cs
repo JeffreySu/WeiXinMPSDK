@@ -87,6 +87,9 @@ namespace Senparc.Weixin.WxOpen
                     case RequestMsgType.Image:
                         requestMessage = new RequestMessageImage();
                         break;
+                    case RequestMsgType.NeuChar:
+                        requestMessage = new RequestMessageNeuChar();
+                        break;
                     case RequestMsgType.Event:
                         //判断Event类型
                         switch (doc.Root.Element("Event").Value.ToUpper())

@@ -25,6 +25,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities.Menu;
@@ -48,7 +49,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 name = "单击测试",
                 key = "OneClick",
-                type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
+                type = MenuButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
             });
 
             //二级菜单

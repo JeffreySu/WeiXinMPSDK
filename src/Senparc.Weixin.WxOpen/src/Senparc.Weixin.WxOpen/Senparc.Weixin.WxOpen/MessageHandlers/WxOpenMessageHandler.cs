@@ -37,11 +37,13 @@ using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.WxOpen.Tencent;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
+using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Tencent;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -125,8 +127,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten MessageEntityEnlighten { get { return WxOpenMessageEntityEnlighten.Instance; } }
-        public override ApiEnlighten ApiEnlighten { get { return WxOpenApiEnlighten.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WxOpenMessageEntityEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener { get { return WxOpenApiEnlightener.Instance; } }
 
 
         #region 构造函数
@@ -142,7 +144,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="developerInfo">开发者信息（非必填）</param>
+        ///// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount, postModel)
         {
@@ -255,19 +257,35 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     return;
                 }
 
+                #region NeuChar 执行过程
+
+                //var neuralSystem = NeuralSystem.Instance;
+                //var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+
+                //messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
-                            ResponseMessage =  OnTextRequest(RequestMessage as RequestMessageText);
+                            //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                    OnTextRequest(RequestMessage as RequestMessageText);
+                            //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
+                            //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:
                         {
-                            ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                    OnImageRequest(RequestMessage as RequestMessageImage);
                         }
                         break;
-
+                    case RequestMsgType.NeuChar:
+                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                        break;
                     case RequestMsgType.Event:
                         {
                             OnEventRequest(RequestMessage as IRequestMessageEventBase);
@@ -276,6 +294,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
+
+
+                #endregion
 
                 //记录上下文
                 //此处修改

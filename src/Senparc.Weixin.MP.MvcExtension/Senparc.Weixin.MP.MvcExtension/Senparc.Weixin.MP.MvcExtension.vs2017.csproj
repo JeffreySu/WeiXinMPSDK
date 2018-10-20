@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>7.1.1</Version>
+    <Version>7.1.9</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -75,9 +75,14 @@
       v6.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
       v6.0.9 支持 CO2NET v0.1.9
       v6.0.10 支持 Senparc.Weixin v5.0.10
-      
+
       v7.0.0 支持 NeuChar 标准
       v7.1.0 支持 Senparc.NeuChar v0.0.5
+      v7.1.3 支持 Senparc.NeuChar v0.1.2
+      v7.1.5 支持 Senparc.NeuChar v0.1.4
+      v7.1.6 支持 Senparc.NeuChar v0.2.1
+      v7.1.7 支持 Senparc.Weixin 6.1.4
+      v7.1.8 Senparc.NeuChar v0.2.7
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -221,7 +226,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.0.6.9" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.2.10.3" />
   </ItemGroup>
 
   <ItemGroup>

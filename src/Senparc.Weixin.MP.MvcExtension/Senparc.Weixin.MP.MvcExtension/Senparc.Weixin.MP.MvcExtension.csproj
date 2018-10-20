@@ -59,16 +59,19 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.10\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.0.6.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.0.6.9\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.2.10.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.2.10.3\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>

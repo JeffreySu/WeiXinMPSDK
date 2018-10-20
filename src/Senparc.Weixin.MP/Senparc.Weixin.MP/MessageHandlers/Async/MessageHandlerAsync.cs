@@ -40,7 +40,6 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Tencent;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
 using System.Collections.Generic;
@@ -98,22 +97,27 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
 
 
-                #region NeuChar 执行过程
-
-                //TODO:Neuchar：在这里先做一次NeuChar标准的判断
-
-                var neuralSystem = NeuralSystem.Instance;
-
-                //获取当前设置节点
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+#region NeuChar 执行过程
+              
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
-                            var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await messageHandlerNode.ExecuteAsync(requestMessage,this, Config.SenparcWeixinSetting.WeixinAppId) ?? (await (OnTextOrEventRequestAsync(requestMessage))
-                                ?? (await OnTextRequestAsync(requestMessage)));
+                            try
+                            {
+                                var requestMessage = RequestMessage as RequestMessageText;
+                                ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId)
+                                    ?? ((await (OnTextOrEventRequestAsync(requestMessage))
+                                    ?? (await OnTextRequestAsync(requestMessage))));
+                            }
+                            catch (Exception ex)
+                            {
+                                SenparcTrace.SendCustomLog("mp-response error", ex.Message + "\r\n|||\r\n" + (ex.InnerException != null ? ex.InnerException.ToString() : ""));
+
+                            }
+
                         }
                         break;
                     case RequestMsgType.Location:
@@ -121,9 +125,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         break;
                     case RequestMsgType.Image:
 
-                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{Config.SenparcWeixinSetting.WeixinAppId}");
+                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
 
-                        ResponseMessage = await messageHandlerNode.ExecuteAsync(RequestMessage, this, Config.SenparcWeixinSetting.WeixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                         break;
                     case RequestMsgType.Voice:
                         ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
@@ -149,8 +153,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = (await (OnTextOrEventRequestAsync(requestMessageText)))
-                                ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                                                await OnTextOrEventRequestAsync(requestMessageText) ??
+                                                    (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
                         }
                         break;
 
@@ -160,7 +165,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         break;
                 }
 
-                #endregion
+#endregion
 
 
                 //记录上下文

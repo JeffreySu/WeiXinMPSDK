@@ -935,21 +935,21 @@ public enum Event
     public enum QrCode_ActionName
     {
         /// <summary>
-        /// 临时
+        /// 临时的整型参数值
         /// </summary>
         QR_SCENE,
         /// <summary>
-        /// 永久
+        /// 临时的字符串参数值
+        /// </summary>
+        QR_STR_SCENE,
+        /// <summary>
+        /// 永久的整型参数值
         /// </summary>
         QR_LIMIT_SCENE,
         /// <summary>
-        /// 永久的字符串
+        /// 永久的字符串参数值
         /// </summary>
-        QR_LIMIT_STR_SCENE,
-        /// <summary>
-        /// 临时的字符串参数值
-        /// </summary>
-        QR_STR_SCENE
+        QR_LIMIT_STR_SCENE
     }
 
 

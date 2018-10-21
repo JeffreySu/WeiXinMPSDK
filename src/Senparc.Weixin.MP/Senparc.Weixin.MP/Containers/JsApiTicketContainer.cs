@@ -129,10 +129,10 @@ namespace Senparc.Weixin.MP.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private DateTime _jsApiTicketExpireTime;
-        private JsApiTicketResult _jsApiTicketResult;
-        private string _appSecret;
-        private string _appId;
+        //private DateTime _jsApiTicketExpireTime;
+        //private JsApiTicketResult _jsApiTicketResult;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>

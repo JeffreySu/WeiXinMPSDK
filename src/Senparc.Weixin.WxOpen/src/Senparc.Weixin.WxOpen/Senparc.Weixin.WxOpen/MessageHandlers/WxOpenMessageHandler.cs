@@ -145,8 +145,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
-            : base(inputStream, maxRecordCount, postModel)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+            : base(inputStream, postModel, maxRecordCount)
         {
         }
 
@@ -156,8 +156,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestDocument, maxRecordCount, postModel)
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
+            : base(requestDocument, postModel, maxRecordCount)
         {
         }
 
@@ -167,8 +167,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestMessageBase, maxRecordCount, postModel)
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0)
+            : base(requestMessageBase, postModel, maxRecordCount)
         {
         }
 
@@ -180,12 +180,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// 初始化数据
         /// </summary>
         /// <param name="postDataDocument"></param>
-        /// <param name="postData"></param>
+        /// <param name="postModel"></param>
         /// <returns></returns>
-        public override XDocument Init(XDocument postDataDocument, object postData = null)
+        public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
             //进行加密判断并处理
-            _postModel = postData as PostModel;
+            _postModel = postModel as PostModel;
             var postDataStr = postDataDocument.ToString();
 
             XDocument decryptDoc = postDataDocument;

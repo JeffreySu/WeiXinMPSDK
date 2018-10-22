@@ -21,23 +21,35 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：IMessageHandler.cs
-    文件功能描述：MessageHandler接口
+    文件名：ResponseMessagetTransfer_Customer_Service.cs
+    文件功能描述：响应回复多客服消息
     
     
-    创建标识：Senparc - 20170106
+    创建标识：Senparc - 20150211
     
+    修改标识：Senparc - 20180924
+    修改描述：从 Senparc.Weixi.MP 移植并修改
+
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.MessageHandlers;
-using Senparc.Weixin.WxOpen.Entities;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 
-namespace Senparc.Weixin.WxOpen.MessageHandlers
+namespace Senparc.Weixin.WxOpen.Entities
 {
-
-    public interface IWxOpenMessageHandler : IMessageHandler<IRequestMessageBase, IResponseMessageBase>
+    /// <summary>
+    /// 响应回复多客服消息
+    /// </summary>
+	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageTransfer_Customer_Service
     {
-        new IRequestMessageBase RequestMessage { get; set; }
-        new IResponseMessageBase ResponseMessage { get; set; }
-    }
-}
+		public ResponseMessageTransfer_Customer_Service()
+		{
+		}
+
+		public override ResponseMsgType MsgType
+		{
+			get { return ResponseMsgType.Transfer_Customer_Service; }
+		}
+
+	}
+ }

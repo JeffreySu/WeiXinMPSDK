@@ -43,11 +43,15 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.Extensions;
+//using Senparc.Weixin.Helpers;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
+using System.Collections.Generic;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
@@ -73,12 +77,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">小程序码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCode", true)]
         public static WxJsonResult GetWxaCode(string accessTokenOrAppId, Stream stream, string path,
-            int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
+            int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -88,10 +94,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { path = path, width = width, line_color = lineColor };
+                var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -109,14 +114,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCode", true)]
         public static WxJsonResult GetWxaCode(string accessTokenOrAppId, string filePath, string path, int width = 430,
-            bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
+            bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.GetWxaCode(accessTokenOrAppId, ms, path, width, auto_color, lineColor, timeOut);
+                var result = WxAppApi.GetWxaCode(accessTokenOrAppId, ms, path, width, auto_color, lineColor, isHyaline, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -139,13 +146,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">小程序码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeUnlimit", true)]
         public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, Stream stream, string scene,
-            string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
+            string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -155,10 +164,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { scene = scene, page = page, width = width, line_color = lineColor };
-                SerializerHelper serializerHelper = new SerializerHelper();
+                var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -176,13 +184,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="page">必须是已经发布的小程序页面，例如 "pages/index/index" ,根路径前不要填加'/',不能携带参数（参数请放在scene字段里），如果不填写这个字段，默认跳主页面</param>
         /// <param name="width">二维码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeUnlimit", true)]
+        public static WxJsonResult GetWxaCodeUnlimit(string accessTokenOrAppId, string filePath, string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, timeOut);
+                var result = WxAppApi.GetWxaCodeUnlimit(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -204,16 +214,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CreateWxQrCode", true)]
         public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                SerializerHelper serializerHelper = new SerializerHelper();
-                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+                Post.Download(url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -231,6 +241,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CreateWxQrCode", true)]
         public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
@@ -257,12 +268,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="sessionKey">用户登录态签名</param>
         /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
         /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CheckSession", true)]
         public static WxJsonResult CheckSession(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
-                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var signature = EncryptHelper.GetHmacSha256("", sessionKey);
                 var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -280,16 +292,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoi", true)]
         public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
 
-                return CommonJsonSend.Send<AddNearbyPoiJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -302,16 +315,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="page_rows">每页展示个数（最多1000个）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetNearbyPoiList", true)]
         public static GetNearbyPoiListJsonResult GetNearbyPoiList(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { page = page, page_rows = page_rows };
 
-                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -323,16 +337,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="poi_id">附近地点ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.DelNearbyPoi", true)]
         public static WxJsonResult DelNearbyPoi(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { poi_id = poi_id };
 
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -345,20 +360,199 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="status">0：取消展示；1：展示</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.SetNearbyPoiShowStatus", true)]
         public static WxJsonResult SetNearbyPoiShowStatus(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { poi_id = poi_id, status = status };
 
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 检查一段文本是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.MsgSecCheck", true)]
+        public static WxJsonResult MsgSecCheck(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+                string url = string.Format(urlFormat, accessToken);
+                var data = new { content = content };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 校验一张图片是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="filePath">文件完整物理路径<para>格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px * 1334px</para></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.ImgSecCheck", true)]
+        public static WxJsonResult ImgSecCheck(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+                var fileDic = new Dictionary<string, string>();
+                fileDic["media"] = filePath;
+                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 向插件开发者发起使用插件的申请
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/applyPlugin.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="pluginAppid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.ApplyPlugin", true)]
+        public static WxJsonResult ApplyPlugin(string accessTokenOrAppId, string pluginAppid, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "apply",
+                    plugin_appid = pluginAppid
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取当前所有插件使用方（供插件开发者调用）
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/getPluginDevApplyList.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="page"></param>
+        /// <param name="num"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.DevPlugin", true)]
+        public static DevPluginResultJson DevPlugin(string accessTokenOrAppId, int page, int num, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/devplugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "dev_apply_list",
+                    page,
+                    num
+                };
+
+                return CommonJsonSend.Send<DevPluginResultJson>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 修改插件使用申请的状态（供插件开发者调用）
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/setDevPluginApplyStatus.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="action"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.SetDevPluginApplyStatus", true)]
+        public static WxJsonResult SetDevPluginApplyStatus(string accessTokenOrAppId, string action, string appId, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/devplugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action,
+                    appid = appId
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询已添加的插件
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/getPluginList.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPluginList", true)]
+        public static GetPluginListResultJson GetPluginList(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "list"
+                };
+
+                return CommonJsonSend.Send<GetPluginListResultJson>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除已添加的插件
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/unbindPlugin.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="appId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.UnbindPlugin", true)]
+        public static WxJsonResult UnbindPlugin(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "unbind",
+                    plugin_appid = appId
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -373,13 +567,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色</param>
+        /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, bool auto_color = false, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeAsync", true)]
+        public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, string filePath, string path,
+            int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeAsync(accessTokenOrAppId, ms, path, width);
+                var result = await WxAppApi.GetWxaCodeAsync(accessTokenOrAppId, ms, path, width, auto_color, lineColor, isHyaline, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -403,13 +601,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">小程序码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeUnlimitAsync", true)]
         public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, Stream stream,
-            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
+            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacodeunlimit?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -419,10 +619,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { scene = scene, page = page, width = width, line_color = lineColor };
+                var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data, jsonSetting), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -441,15 +640,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeUnlimitAsync", true)]
         public static async Task<WxJsonResult> GetWxaCodeUnlimitAsync(string accessTokenOrAppId, string filePath,
-            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null,
+            string scene, string page, int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false,
             int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, timeOut);
+                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -471,12 +672,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">小程序码的宽度</param>
         /// <param name="auto_color">自动配置线条颜色，如果颜色依然是黑色，则说明不建议配置主色调</param>
         /// <param name="lineColor">auth_color 为 false 时生效，使用 rgb 设置颜色 例如 {"r":"xxx","g":"xxx","b":"xxx"}</param>
+        /// <param name="isHyaline">是否需要透明底色， is_hyaline 为true时，生成透明底色的小程序码，默认为 false</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetWxaCodeAsync", true)]
         public static async Task<WxJsonResult> GetWxaCodeAsync(string accessTokenOrAppId, Stream stream, string path,
-            int width = 430, bool auto_color = false, LineColor lineColor = null, int timeOut = Config.TIME_OUT)
+            int width = 430, bool auto_color = false, LineColor lineColor = null, bool isHyaline = false, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getwxacode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
@@ -486,10 +689,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     lineColor = new LineColor();//提供默认值
                 }
 
-                var data = new { path = path, width = width, line_color = lineColor };
+                var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data,jsonSetting), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -507,17 +709,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream, 
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CreateWxQrCodeAsync", true)]
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream,
             string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                SerializerHelper serializerHelper = new SerializerHelper();
-                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -535,6 +737,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CreateWxQrCodeAsync", true)]
         public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
@@ -562,12 +765,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="sessionKey">用户登录态签名</param>
         /// <param name="buffer">托管数据，类型为字符串，长度不超过1000字节（官方文档没有提供说明，可留空）</param>
         /// <param name="sigMethod">用户登录态签名的哈希方法，默认为hmac_sha256</param>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.CheckSessionAsync", true)]
         public static async Task<WxJsonResult> CheckSessionAsync(string accessTokenOrAppId, string openId, string sessionKey, string buffer, string sigMethod = "hmac_sha256")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/checksession?access_token={0}&signature={1}&openid={2}&sig_method={3}";
-                var signature = Senparc.Weixin.Helpers.EncryptHelper.GetHmacSha256("", sessionKey);
+                var signature = EncryptHelper.GetHmacSha256("", sessionKey);
                 var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
 
                 return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -585,16 +789,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoiAsync", true)]
         public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
 
-                return await CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -607,16 +812,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="page_rows">每页展示个数（最多1000个）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetNearbyPoiListAsync", true)]
         public static async Task<GetNearbyPoiListJsonResult> GetNearbyPoiListAsync(string accessTokenOrAppId, int page = 1, int page_rows = 10, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { page = page, page_rows = page_rows };
 
-                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -628,16 +834,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="poi_id">附近地点ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.DelNearbyPoiAsync", true)]
         public static async Task<WxJsonResult> DelNearbyPoiAsync(string accessTokenOrAppId, string poi_id, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/delnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { poi_id = poi_id };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -650,19 +857,200 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="status">0：取消展示；1：展示</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.SetNearbyPoiListAsync", true)]
         public static async Task<WxJsonResult> SetNearbyPoiListAsync(string accessTokenOrAppId, string poi_id, int status, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/setnearbypoishowstatus?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
                 var data = new { poi_id = poi_id, status = status };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 检查一段文本是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/msgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="content">要检测的文本内容，长度不超过 500KB，编码格式为utf-8</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.MsgSecCheckAsync", true)]
+        public static async Task<WxJsonResult> MsgSecCheckAsync(string accessTokenOrAppId, string content, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/msg_sec_check?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+                var data = new { content = content };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】校验一张图片是否含有违法违规内容
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="filePath">文件完整物理路径<para>格式支持PNG、JPEG、JPG、GIF，图片尺寸不超过 750px * 1334px</para></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.ImgSecCheckAsync", true)]
+        public static async Task<WxJsonResult> ImgSecCheckAsync(string accessTokenOrAppId, string filePath, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/img_sec_check?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+                var fileDic = new Dictionary<string, string>();
+                fileDic["media"] = filePath;
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】向插件开发者发起使用插件的申请
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/applyPlugin.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="pluginAppid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.ApplyPluginAsync", true)]
+        public static async Task<WxJsonResult> ApplyPluginAsync(string accessTokenOrAppId, string pluginAppid, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "apply",
+                    plugin_appid = pluginAppid
+                };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取当前所有插件使用方（供插件开发者调用）
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/getPluginDevApplyList.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="page"></param>
+        /// <param name="num"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.DevPluginAsync", true)]
+        public static async Task<DevPluginResultJson> DevPluginAsync(string accessTokenOrAppId, int page, int num, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/devplugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "dev_apply_list",
+                    page,
+                    num
+                };
+
+                return await CommonJsonSend.SendAsync<DevPluginResultJson>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】修改插件使用申请的状态（供插件开发者调用）
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/setDevPluginApplyStatus.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="action"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.SetDevPluginApplyStatusAsync", true)]
+        public static async Task<WxJsonResult> SetDevPluginApplyStatusAsync(string accessTokenOrAppId, string action, string appId, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/devplugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action,
+                    appid = appId
+                };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询已添加的插件
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/getPluginList.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPluginListAsync", true)]
+        public static async Task<GetPluginListResultJson> GetPluginListAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "list"
+                };
+
+                return await CommonJsonSend.SendAsync<GetPluginListResultJson>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 删除已添加的插件
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api/open-api/plugin-management/unbindPlugin.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="appId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.UnbindPluginAsync", true)]
+        public static async Task<WxJsonResult> UnbindPluginAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/plugin?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                var data = new
+                {
+                    action = "unbind",
+                    plugin_appid = appId
+                };
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 #endif
     }

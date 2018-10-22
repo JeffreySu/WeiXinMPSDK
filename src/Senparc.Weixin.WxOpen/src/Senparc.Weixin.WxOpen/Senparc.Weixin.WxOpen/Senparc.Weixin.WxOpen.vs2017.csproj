@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.1.14</Version>
+    <Version>3.1.15-preview1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -267,7 +267,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.2.11" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.3.0-preview4" />
   </ItemGroup>
 
 

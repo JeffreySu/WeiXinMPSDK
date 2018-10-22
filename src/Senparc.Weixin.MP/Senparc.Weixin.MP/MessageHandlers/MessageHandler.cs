@@ -227,8 +227,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(inputStream, maxRecordCount, postModel)
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
         }
@@ -240,8 +240,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestDocument, maxRecordCount, postModel)
+        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
@@ -255,8 +255,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestMessageBase, maxRecordCount, postModel)
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(requestMessageBase, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
 
@@ -270,10 +270,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="postDataDocument"></param>
         /// <param name="postData"></param>
         /// <returns></returns>
-        public override XDocument Init(XDocument postDataDocument, object postData = null)
+        public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
             //进行加密判断并处理
-            _postModel = postData as PostModel;
+            _postModel = postModel as PostModel;
             var postDataStr = postDataDocument.ToString();
 
             XDocument decryptDoc = postDataDocument;

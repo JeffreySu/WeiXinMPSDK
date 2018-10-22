@@ -21,4 +21,5 @@ using Senparc.Weixin.Open.Exceptions;
 namespace Senparc.Weixin.Open.Containers
 {
     //TODO:计划于3.x中发布
+    //TODO：已经忘了为什么要支持了:P - Jeffrey 2018.10.21
 }

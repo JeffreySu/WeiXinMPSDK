@@ -217,15 +217,15 @@ namespace Senparc.Weixin.Open.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private string _componentAppId;
-        private string _componentAppSecret;
-        private string _componentVerifyTicket;
-        private DateTime _componentVerifyTicketExpireTime;
-        private ComponentAccessTokenResult _componentAccessTokenResult;
-        private DateTime _componentAccessTokenExpireTime;
-        private PreAuthCodeResult _preAuthCodeResult;
-        private DateTime _preAuthCodeExpireTime;
-        private string _authorizerAccessToken;
+        //private string _componentAppId;
+        //private string _componentAppSecret;
+        //private string _componentVerifyTicket;
+        //private DateTime _componentVerifyTicketExpireTime;
+        //private ComponentAccessTokenResult _componentAccessTokenResult;
+        //private DateTime _componentAccessTokenExpireTime;
+        //private PreAuthCodeResult _preAuthCodeResult;
+        //private DateTime _preAuthCodeExpireTime;
+        //private string _authorizerAccessToken;
 
         /// <summary>
         /// ComponentBag

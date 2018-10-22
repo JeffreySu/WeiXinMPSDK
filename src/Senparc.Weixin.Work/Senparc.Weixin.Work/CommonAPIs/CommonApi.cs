@@ -135,7 +135,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 userid = userId,
                 agentid = agentId
             };
-
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 

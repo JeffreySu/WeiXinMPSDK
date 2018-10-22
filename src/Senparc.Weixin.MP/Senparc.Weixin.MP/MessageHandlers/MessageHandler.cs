@@ -58,7 +58,6 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.Tencent;
 using System;
 using System.IO;
@@ -106,11 +105,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             get
             {
-                if (ResponseMessage == null)
-                {
-                    return null;
-                }
-                return Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase);
+                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
             }
         }
 
@@ -204,6 +199,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 请求和响应消息定义
         /// </summary>
         public override MessageEntityEnlightener MessageEntityEnlightener { get { return MpMessageEntityEnlightener.Instance; } }
+        /// <summary>
+        /// Api 接口定义
+        /// </summary>
         public override ApiEnlightener ApiEnlightener { get { return MpApiEnlightener.Instance; } }
 
 
@@ -268,7 +266,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 初始化
         /// </summary>
         /// <param name="postDataDocument"></param>
-        /// <param name="postData"></param>
+        /// <param name="postModel"></param>
         /// <returns></returns>
         public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {

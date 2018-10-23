@@ -118,7 +118,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceUserData user_info { get; set; }
+        public InvoiceReimburseUserData user_info { get; set; }
     }
 
     /// <summary>
@@ -168,6 +168,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceUserData user_info { get; set; }
+        public InvoiceReimburseUserData user_info { get; set; }
     }
 }

@@ -35,9 +35,9 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.WxOpen.Tencent
+namespace Senparc.Weixin.Tencent
 {
-    class Cryptography
+    public class Cryptography
     {
         public static UInt32 HostToNetworkOrder(UInt32 inval)
         {
@@ -76,11 +76,11 @@ namespace Senparc.Weixin.WxOpen.Tencent
             byte[] bMsg = new byte[len];
             byte[] bAppid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bAppid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bAppid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             appid = Encoding.UTF8.GetString(bAppid);
 
-            
+
             return oriMsg;
         }
 
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.WxOpen.Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bAppid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bAppid.Length);
-   
+
             return AES_encrypt(bMsg, Iv, Key);
 
         }
@@ -126,8 +126,11 @@ namespace Senparc.Weixin.WxOpen.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-            //RijndaelManaged aes = new RijndaelManaged();
-            SymmetricAlgorithm aes = Aes.Create();
+#if NET35 || NET40 || NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -155,8 +158,12 @@ namespace Senparc.Weixin.WxOpen.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-            //RijndaelManaged aes = new RijndaelManaged();
-            SymmetricAlgorithm aes = Aes.Create();
+#if NET35 || NET40 || NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
+
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -227,9 +234,12 @@ namespace Senparc.Weixin.WxOpen.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            //RijndaelManaged aes = new RijndaelManaged();
-            SymmetricAlgorithm aes = Aes.Create();
-            aes.KeySize = 256;
+#if NET35 || NET40 || NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
+            aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.None;

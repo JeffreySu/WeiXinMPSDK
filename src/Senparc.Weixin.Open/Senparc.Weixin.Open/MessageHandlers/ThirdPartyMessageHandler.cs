@@ -19,7 +19,7 @@ using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.Open.Tencent;
+using Senparc.Weixin.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {

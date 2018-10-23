@@ -51,7 +51,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 请求消息的事件推送消息基类
     /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
+    public class RequestMessageEventBase : RequestMessageEvent, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
     {
         public override RequestMsgType MsgType
         {
@@ -65,5 +65,10 @@ namespace Senparc.Weixin.WxOpen.Entities
         {
             get { return Event.user_enter_tempsession; }
         }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public override object EventType { get { return Event; } }
     }
 }

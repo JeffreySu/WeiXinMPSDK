@@ -84,4 +84,106 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         {
         }
     }
+
+    /// <summary>
+    /// 下发小程序和公众号统一的服务消息
+    /// </summary>
+    public class UniformSendData
+    {
+        public string touser { get; set; }
+        public Weapp_Template_Msg weapp_template_msg { get; set; }
+        public Mp_Template_Msg mp_template_msg { get; set; }
+    }
+
+    public class Weapp_Template_Msg
+    {
+        public string template_id { get; set; }
+        public string page { get; set; }
+        public string form_id { get; set; }
+        public Data data { get; set; }
+        public string emphasis_keyword { get; set; }
+    }
+
+    public class Data
+    {
+        public Keyword1 keyword1 { get; set; }
+        public Keyword2 keyword2 { get; set; }
+        public Keyword3 keyword3 { get; set; }
+        public Keyword4 keyword4 { get; set; }
+    }
+
+    public class Keyword1
+    {
+        public string value { get; set; }
+    }
+
+    public class Keyword2
+    {
+        public string value { get; set; }
+    }
+
+    public class Keyword3
+    {
+        public string value { get; set; }
+    }
+
+    public class Keyword4
+    {
+        public string value { get; set; }
+    }
+
+    public class Mp_Template_Msg
+    {
+        public string appid { get; set; }
+        public string template_id { get; set; }
+        public string url { get; set; }
+        public Miniprogram miniprogram { get; set; }
+        public Data1 data { get; set; }
+    }
+
+    public class Miniprogram
+    {
+        public string appid { get; set; }
+        public string pagepath { get; set; }
+    }
+
+    public class Data1
+    {
+        public First first { get; set; }
+        public Keyword11 keyword1 { get; set; }
+        public Keyword21 keyword2 { get; set; }
+        public Keyword31 keyword3 { get; set; }
+        public Remark remark { get; set; }
+    }
+
+    public class First
+    {
+        public string value { get; set; }
+        public string color { get; set; }
+    }
+
+    public class Keyword11
+    {
+        public string value { get; set; }
+        public string color { get; set; }
+    }
+
+    public class Keyword21
+    {
+        public string value { get; set; }
+        public string color { get; set; }
+    }
+
+    public class Keyword31
+    {
+        public string value { get; set; }
+        public string color { get; set; }
+    }
+
+    public class Remark
+    {
+        public string value { get; set; }
+        public string color { get; set; }
+    }
+
 }

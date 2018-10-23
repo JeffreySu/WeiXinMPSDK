@@ -37,13 +37,13 @@ using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.WxOpen.Tencent;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Tencent;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -144,9 +144,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
-            : base(inputStream, maxRecordCount, postModel)
+        ///// <param name="developerInfo">开发者信息（非必填）</param>
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+            : base(inputStream, postModel, maxRecordCount)
         {
         }
 
@@ -156,8 +156,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestDocument, maxRecordCount, postModel)
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
+            : base(requestDocument, postModel, maxRecordCount)
         {
         }
 
@@ -167,8 +167,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestMessageBase, maxRecordCount, postModel)
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0)
+            : base(requestMessageBase, postModel, maxRecordCount)
         {
         }
 
@@ -180,12 +180,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// 初始化数据
         /// </summary>
         /// <param name="postDataDocument"></param>
-        /// <param name="postData"></param>
+        /// <param name="postModel"></param>
         /// <returns></returns>
-        public override XDocument Init(XDocument postDataDocument, object postData = null)
+        public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
             //进行加密判断并处理
-            _postModel = postData as PostModel;
+            _postModel = postModel as PostModel;
             var postDataStr = postDataDocument.ToString();
 
             XDocument decryptDoc = postDataDocument;
@@ -259,29 +259,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
                 #region NeuChar 执行过程
 
-                var neuralSystem = NeuralSystem.Instance;
-                var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+                //var neuralSystem = NeuralSystem.Instance;
+                //var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
 
-                messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+                //messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
 
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
                         {
                             //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                     OnTextRequest(RequestMessage as RequestMessageText);
                             //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
+                            //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
                         }
                         break;
                     case RequestMsgType.Image:
                         {
-                            ResponseMessage = messageHandlerNode.Execute(RequestMessage, this, Config.SenparcWeixinSetting.WxOpenAppId) ??
+                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
                                     OnImageRequest(RequestMessage as RequestMessageImage);
                         }
                         break;
-
+                    case RequestMsgType.NeuChar:
+                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                        break;
                     case RequestMsgType.Event:
                         {
                             OnEventRequest(RequestMessage as IRequestMessageEventBase);

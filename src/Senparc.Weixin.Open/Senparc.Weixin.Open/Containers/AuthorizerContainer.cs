@@ -210,13 +210,13 @@ namespace Senparc.Weixin.Open.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private string _authorizerAppId;
-        private string _componentAppId;
-        private JsApiTicketResult _jsApiTicketResult;
-        private DateTime _jsApiTicketExpireTime;
-        private AuthorizationInfo _authorizationInfo;
-        private DateTime _authorizationInfoExpireTime;
-        private AuthorizerInfo _authorizerInfo;
+        //private string _authorizerAppId;
+        //private string _componentAppId;
+        //private JsApiTicketResult _jsApiTicketResult;
+        //private DateTime _jsApiTicketExpireTime;
+        //private AuthorizationInfo _authorizationInfo;
+        //private DateTime _authorizationInfoExpireTime;
+        //private AuthorizerInfo _authorizerInfo;
     }
 
     /// <summary>

@@ -83,6 +83,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class GiftCardPageData
     {
         /// <summary>
+        /// 货架id
+        /// </summary>
+        public int page_id { get; set; }
+        /// <summary>
         /// 礼品卡货架名称
         /// </summary>
         public string page_title { get; set; }
@@ -90,6 +94,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 是否支持一次购买多张及发送至群，填true或者false，若填true则支持，默认为false
         /// </summary>
         public bool support_multi { get; set; }
+        /// <summary>
+        /// 礼品卡货架是否支持买给自己
+        /// </summary>
+        public bool support_buy_for_self { get; set; }
         /// <summary>
         /// 礼品卡货架主题页顶部banner图片，须先将图片上传至CDN，建议尺寸为750px*630px
         /// </summary>
@@ -235,5 +243,67 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string default_gifting_msg { get; set; }
 
+    }
+
+    /// <summary>
+    /// 下架礼品卡货架数据
+    /// </summary>
+    public class DownGiftCardPage
+    {
+        /// <summary>
+        /// 需要下架的page_id
+        /// </summary>
+        public string page_id { get; set; }
+        /// <summary>
+        /// 是否下架所有货架
+        /// </summary>
+        public bool all { get; set; }
+        /// <summary>
+        /// 是否下架
+        /// </summary>
+        public bool maintain { get; set; }
+    }
+
+    /// <summary>
+    /// 更新用户礼品卡信息数据
+    /// </summary>
+    public class UpdateUserGiftCardData
+    {
+        /// <summary>
+        /// 卡券Code码
+        /// </summary>
+        public string code { get; set; }
+        /// <summary>
+        /// 卡券ID
+        /// </summary>
+        public string card_id { get; set; }
+        /// <summary>
+        /// 支持商家激活时针对单个礼品卡分配自定义的礼品卡背景
+        /// </summary>
+        public string background_pic_url { get; set; }
+        /// <summary>
+        /// 商家自定义金额消耗记录，不超过14个汉字
+        /// </summary>
+        public string record_bonus { get; set; }
+        /// <summary>
+        /// 需要设置的余额全量值，传入的数值会直接显示。
+        /// </summary>
+        public int bonus { get; set; }
+        /// <summary>
+        /// 创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节
+        /// </summary>
+        public string custom_field_value1 { get; set; }
+        /// <summary>
+        /// 创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节
+        /// </summary>
+        public string custom_field_value2 { get; set; }
+        /// <summary>
+        /// 创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节
+        /// </summary>
+        public string custom_field_value3 { get; set; }
+        /// <summary>
+        /// 控制本次积分变动后转赠入口是否出现
+        /// </summary>
+        public bool can_give_friend { get; set; }
     }
 }

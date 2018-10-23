@@ -60,17 +60,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.CommonAPIs;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
-using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.CO2NET.Helpers.Serializers;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

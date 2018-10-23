@@ -25,7 +25,7 @@
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.Work.CommonAPIs;
 
@@ -71,6 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// post数据格式：
         /// {
         ///    "media_id":"xxxxxx",
+        ///    "to_invite": true,
         ///    "callback":
         ///    {
         ///        "url": "xxx",
@@ -89,10 +90,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     media_id = mediaId,
+                    to_invite = true,
                     callback = callBack
                 };
 
-                return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return Weixin.CommonAPIs.CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -114,6 +116,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// post数据格式：
         /// {
         ///    "media_id":"xxxxxx",
+        ///    "to_invite": true,
         ///    "callback":
         ///    {
         ///        "url": "xxx",
@@ -132,10 +135,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     media_id = mediaId,
+                    to_invite = true,
                     callback = callBack
                 };
 
-                return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return Weixin.CommonAPIs.CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 

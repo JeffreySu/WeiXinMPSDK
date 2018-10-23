@@ -12,4 +12,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string invalidparty { get; set; }
         public string invalidtag { get; set; }
     }
+
+
+    public class SendMiniProgramNoticeData
+    {
+        public string touser { get; set; }
+        public string toparty { get; set; }
+        public string totag { get; set; }
+        public string msgtype { get; set; }
+        public Miniprogram_Notice miniprogram_notice { get; set; }
+    }
 }

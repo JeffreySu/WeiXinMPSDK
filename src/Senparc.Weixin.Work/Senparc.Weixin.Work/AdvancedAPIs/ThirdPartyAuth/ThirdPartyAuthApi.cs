@@ -29,6 +29,9 @@
 
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20181009
+    修改描述：添加接口
 ----------------------------------------------------------------*/
 
 /*
@@ -300,8 +303,156 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, suiteAccessToken);
 
+        }
+
+        /// <summary>
+        /// 获取应用的管理员列表
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="agentId">授权方安装的应用agentid</param>
+        /// <param name="authCorpId">授权方corpid</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAdminList", true)]
+        public static GetAdminListResult GetAdminList(string suiteAccessToken, string agentId, string authCorpId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", suiteAccessToken.AsUrlData());
+
+                var data = new
+                {
+                    auth_corpid = authCorpId,
+                    agentid = agentId,
+                };
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetAdminListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
 
         }
+
+        /// <summary>
+        /// 第三方根据code获取企业成员信息
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="code"></param>
+        /// <param name="agentId"></param>
+        /// <param name="authCorpId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetUserInfo", true)]
+        public static GetUserInfoResult GetUserInfo(string suiteAccessToken, string code, string agentId, string authCorpId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", suiteAccessToken.AsUrlData(), code);
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, suiteAccessToken);
+
+        }
+
+        /// <summary>
+        /// 第三方使用user_ticket获取成员详情
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetUserInfoByTicket", true)]
+        public static GetUserInfoByTicketResult GetUserInfoByTicket(string suiteAccessToken, string userTicket, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", suiteAccessToken.AsUrlData());
+                var data = new
+                {
+                    user_ticket = userTicket
+                };
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetUserInfoByTicketResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+        }
+
+        /// <summary>
+        /// 获取注册码
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetRegisterCode", true)]
+        public static GetRegisterCodeResult GetRegisterCode(string providerAccessToken, GetRegisterCodeData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", providerAccessToken.AsUrlData());
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+        }
+
+        /// <summary>
+        /// 查询注册状态
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetRegisterInfo", true)]
+        public static GetRegisterInfoResult GetRegisterInfo(string providerAccessToken, string registerCode, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var data = new
+                {
+                    register_code = registerCode
+                };
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetRegisterInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+        }
+
+        /// <summary>
+        /// 设置授权应用可见范围
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetScope", true)]
+        public static SetScopeResult SetScope(string AccessToken, SetScopeData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set_scope?access_token={0}", AccessToken.AsUrlData());
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<SetScopeResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+            }, AccessToken);
+
+        }
+
+        /// <summary>
+        /// 设置通讯录同步完成
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.ContactSyncSuccess", true)]
+        public static WorkJsonResult ContactSyncSuccess(string AccessToken, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/sync/contact_sync_success?access_token={0}", AccessToken.AsUrlData());
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, AccessToken);
+
+        }
+
         #endregion
 
 #if !NET35 && !NET40
@@ -558,6 +709,155 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
 
         }
+
+        /// <summary>
+        /// 【异步方法】获取应用的管理员列表
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="agentId">授权方安装的应用agentid</param>
+        /// <param name="authCorpId">授权方corpid</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetAdminListAsync", true)]
+        public static async Task<GetAdminListResult> GetAdminListAsync(string suiteAccessToken, string agentId, string authCorpId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_admin_list?suite_access_token={0}", suiteAccessToken.AsUrlData());
+
+                var data = new
+                {
+                    auth_corpid = authCorpId,
+                    agentid = agentId,
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAdminListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】第三方根据code获取企业成员信息
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="code"></param>
+        /// <param name="agentId"></param>
+        /// <param name="authCorpId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetUserInfoAsync", true)]
+        public static async Task<GetUserInfoResult> GetUserInfoAsync(string suiteAccessToken, string code, string agentId, string authCorpId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", suiteAccessToken.AsUrlData(), code);
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, suiteAccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】第三方使用user_ticket获取成员详情
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetUserInfoByTicketAsync", true)]
+        public static async Task<GetUserInfoByTicketResult> GetUserInfoByTicketAsync(string suiteAccessToken, string userTicket, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserdetail3rd?access_token={0}", suiteAccessToken.AsUrlData());
+                var data = new
+                {
+                    user_ticket = userTicket
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoByTicketResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】获取注册码
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetRegisterCodeAsync", true)]
+        public static async Task<GetRegisterCodeResult> GetRegisterCodeAsync(string providerAccessToken, GetRegisterCodeData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", providerAccessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】查询注册状态
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.GetRegisterInfoAsync", true)]
+        public static async Task<GetRegisterInfoResult> GetRegisterInfoAsync(string providerAccessToken, string registerCode, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_info?provider_access_token={0}", providerAccessToken.AsUrlData());
+                var data = new
+                {
+                    register_code = registerCode
+                };
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】设置授权应用可见范围
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.SetScopeAsync", true)]
+        public static async Task<SetScopeResult> SetScopeAsync(string AccessToken, SetScopeData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set_scope?access_token={0}", AccessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetScopeResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+            }, AccessToken);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】设置通讯录同步完成
+        /// </summary>
+        /// <param name="providerAccessToken"></param>
+        /// <param name="userTicket"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ThirdPartyAuthApi.ContactSyncSuccessAsync", true)]
+        public static async Task<WorkJsonResult> ContactSyncSuccessAsync(string AccessToken, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/sync/contact_sync_success?access_token={0}", AccessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, AccessToken);
+
+        }
+
         #endregion
 #endif
     }

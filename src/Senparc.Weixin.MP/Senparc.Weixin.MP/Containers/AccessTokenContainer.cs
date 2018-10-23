@@ -143,10 +143,10 @@ namespace Senparc.Weixin.MP.Containers
         //#endif
         //        }
 
-        private AccessTokenResult _accessTokenResult;
-        private DateTime _accessTokenExpireTime;
-        private string _appSecret;
-        private string _appId;
+        //private AccessTokenResult _accessTokenResult;
+        //private DateTime _accessTokenExpireTime;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>

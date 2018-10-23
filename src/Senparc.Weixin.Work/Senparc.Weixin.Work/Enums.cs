@@ -194,44 +194,7 @@ namespace Senparc.Weixin.Work
     //    SuccessResponse
     //}
 
-    /// <summary>
-    /// 菜单按钮类型
-    /// </summary>
-    public enum ButtonType
-    {
-        /// <summary>
-        /// 点击
-        /// </summary>
-        click,
-        /// <summary>
-        /// Url
-        /// </summary>
-        view,
-        /// <summary>
-        /// 扫码推事件
-        /// </summary>
-        scancode_push,
-        /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
-        /// </summary>
-        scancode_waitmsg,
-        /// <summary>
-        /// 弹出系统拍照发图
-        /// </summary>
-        pic_sysphoto,
-        /// <summary>
-        /// 弹出拍照或者相册发图
-        /// </summary>
-        pic_photo_or_album,
-        /// <summary>
-        /// 弹出微信相册发图器
-        /// </summary>
-        pic_weixin,
-        /// <summary>
-        /// 弹出地理位置选择器
-        /// </summary>
-        location_select
-    }
+
 
     /// <summary>
     /// 上传媒体文件类型（所有文件size必须大于5个字节）【QY移植修改】
@@ -479,5 +442,39 @@ namespace Senparc.Weixin.Work
         /// <summary>成员或管理员皆可登录
         /// </summary>
         all
+    }
+
+    /// <summary>
+    /// 开票来源
+    /// </summary>
+    public enum SourceType
+    {
+        /// <summary>
+        /// app：app开票，web：微信h5开票，wxa：小程序开发票，wap：普通网页开票
+        /// </summary>
+        app,
+        web,
+        wxa,
+        wap
+    }
+
+    /// <summary>
+    /// 授权类型
+    /// </summary>
+    public enum AuthType
+    {
+        开票授权,
+        填写字段开票授权,
+        领票授权
+    }
+
+    /// <summary>
+    /// 发票行性质
+    /// </summary>
+    public enum Fphxz
+    {
+        正常,
+        折扣,
+        被折扣
     }
 }

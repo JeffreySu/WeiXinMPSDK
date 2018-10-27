@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170730
     修改描述：v4.13.5 完善AppId未注册提示
+
+    修改标识：Senparc - 20181027
+    修改描述：v6.1.10 改进 TryCommonApiBase 方法
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -136,7 +139,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredFunc,
                                 accessTokenContainer_GetAccessTokenResultFunc,
                                 invalidCredentialValue,
-                                fun, appId, false);
+                                fun, accessToken, false);
                 }
                 else
                 {

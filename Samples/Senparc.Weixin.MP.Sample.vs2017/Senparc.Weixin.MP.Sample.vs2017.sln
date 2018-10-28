@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.vs2017", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.vs2017.csproj", "{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.Test.vs2017", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.Test\Senparc.Weixin.TenPay.Test.vs2017.csproj", "{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -376,6 +378,23 @@ Global
 		{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}.Test|x64.Build.0 = Release|Any CPU
 		{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}.Test|x86.ActiveCfg = Release|Any CPU
 		{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}.Test|x86.Build.0 = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|x64.Build.0 = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Debug|x86.Build.0 = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Release|x64.ActiveCfg = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Release|x64.Build.0 = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Release|x86.ActiveCfg = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Release|x86.Build.0 = Release|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|x64.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|x64.Build.0 = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|x86.ActiveCfg = Debug|Any CPU
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -400,6 +419,7 @@ Global
 		{7F104C20-FAB8-4EFD-A020-2BCF4C236D76} = {FC72CA5A-5DE9-4902-A5AA-00344FA68B37}
 		{6CF93018-06A8-46D3-B1A2-CC95CD9EE9F1} = {FC72CA5A-5DE9-4902-A5AA-00344FA68B37}
 		{1FE2AFF6-E651-441F-8F2D-6ABEE141040C} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
+		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3} = {FC72CA5A-5DE9-4902-A5AA-00344FA68B37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

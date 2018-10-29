@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "自定义菜单工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var domain = "https://neuchar.senparc.com";
 }
 @section HeaderContent
 {
@@ -231,24 +232,13 @@
                     color: #686868;
                     border-color: #f1efef;
                 }
-
-        #neucharGroup {
-            display: none;
-            text-align:center;
-        }
-
-        #neucharGroup img{width:300px;}
+       
     </style>
     <script>
         function openOldMenu() {
             $('#oldMenu').toggle();
         }
 
-        function addNeuCharGroup() {
-            $('#oldMenu').hide();
-            $('#neucharGroup').show();
-            location.href = "#neucharGroup";
-        }
     </script>
 }
 <div class="wrapper">
@@ -267,22 +257,21 @@
             </p>
         </div>
         <div>
-            <p class="goto-neuchar"><a href="javascript:void(0)" onclick="addNeuCharGroup()">开始使用</a></p>
+            <p class="goto-neuchar"><a href="@domain/User/WeixinMenu" target="_blank">开始使用</a></p>
 
             <p class="img-area">
-                <img class="neucharpic" src="~/images/neuchar_menu.png" />
+                <video controls="controls" style="margin-bottom:50px; width:100%">
+
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.wmv" type="video/x-ms-wmv">
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.mp4" type="video/mp4">
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.avi" type="video/avi">
+                    your browser does not support the video tag
+                </video>
+                @*<img class="neucharpic" src="~/images/neuchar_menu.png" />*@
             </p>
 
         </div>
 
-
-        <div id="neucharGroup" class="description">
-            <p><img src="~/Images/neuchar_group.jpg" /></p>
-            <p>
-                NeuChar 正在内测，仅提供限量名额，可直接通过扫描上面二维码加群。<br />
-                群超过100人后将无法自动加群，请发送邮件到 zsu@senparc.com 获得内测地址和使用介绍，邮件标题：NeuChar测试申请。
-            </p>
-        </div>
 
         <div>
             <p class="open-old-menu"><a href="javascript:void(0)" onclick="openOldMenu()">打开旧工具（不支持保存）</a></p>
@@ -310,7 +299,7 @@
                     </li>
                     <li>
                         <button class="control-btn" id="menuLogin_Submit">获取AccessToken</button>
-                    </li>
+                    </li>f
                     <li>
                         <p class="control-p">注：</p>
                         <p class="control-p">1.使用菜单需要成为“服务号”，或通过认证的“订阅号”。到微信后台【高级功能>开发模式】下获取信息</p>
@@ -341,7 +330,7 @@
                 <div class="up-experience">
                     <p>NeuChar 可以为您设置自定义菜单、管理素材及消息回复设置</p>
                     <img src="~/images/neuchar_menu.png" />
-                    <p><a href="javascript:void(0)" onclick="addNeuCharGroup()">点击这里开始体验</a></p>
+                    <p><a href="@domain/User/WeixinMenu" target="_blank">点击这里开始体验</a></p>
                 </div>
             </div>
         </div>

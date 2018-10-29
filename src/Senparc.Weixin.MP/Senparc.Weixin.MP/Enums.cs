@@ -90,6 +90,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180829
     修改描述：v15.4.0 RequestMsgType 枚举添加 NeuChar 类型
 
+    修改标识：Senparc - 20181018
+    修改描述：添加Reimburse_Status枚举【发票报销状态】
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -932,21 +935,21 @@ public enum Event
     public enum QrCode_ActionName
     {
         /// <summary>
-        /// 临时
+        /// 临时的整型参数值
         /// </summary>
         QR_SCENE,
         /// <summary>
-        /// 永久
+        /// 临时的字符串参数值
+        /// </summary>
+        QR_STR_SCENE,
+        /// <summary>
+        /// 永久的整型参数值
         /// </summary>
         QR_LIMIT_SCENE,
         /// <summary>
-        /// 永久的字符串
+        /// 永久的字符串参数值
         /// </summary>
-        QR_LIMIT_STR_SCENE,
-        /// <summary>
-        /// 临时的字符串参数值
-        /// </summary>
-        QR_STR_SCENE
+        QR_LIMIT_STR_SCENE
     }
 
 
@@ -1048,6 +1051,29 @@ public enum Event
         /// 税务刮奖
         /// </summary>
         PRODUCT_8
+    }
+
+    /// <summary>
+    /// 发票报销状态
+    /// </summary>
+    public enum Reimburse_Status
+    {
+        /// <summary>
+        /// 发票初始状态，未锁定
+        /// </summary>
+        INVOICE_REIMBURSE_INIT,
+        /// <summary>
+        /// 发票已锁定
+        /// </summary>
+        INVOICE_REIMBURSE_LOCK,
+        /// <summary>
+        /// 发票已核销
+        /// </summary>
+        INVOICE_REIMBURSE_CLOSURE,
+        /// <summary>
+        /// 发票被冲红
+        /// </summary>
+        INVOICE_REIMBURSE_CANCEL
     }
 
     #endregion

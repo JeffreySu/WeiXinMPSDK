@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     tw.WriteLine(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
-                    if (messageHandler.FinalResponseDocument != null)
+                    if (messageHandler.FinalResponseDocument != null && messageHandler.FinalResponseDocument.Root != null)
                     {
                         tw.WriteLine(messageHandler.FinalResponseDocument.ToString());
                     }

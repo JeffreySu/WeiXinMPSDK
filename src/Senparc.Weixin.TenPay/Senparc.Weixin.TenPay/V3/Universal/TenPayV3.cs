@@ -633,6 +633,22 @@ namespace Senparc.Weixin.TenPay.V3
             return new TransfersResult(responseContent);
         }
 
+        /// <summary>
+        /// 用于企业向向员工付款
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert"></param>
+        /// <param name="certPassword"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransfersResult PayToWorker(TenPayV3TransfersRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
+        {
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/paywwsptrans2pocket");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            string responseContent = CertPost(cert, certPassword, data, url);
+            return new TransfersResult(responseContent);
+        }
+
 
         /// <summary>
         /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
@@ -662,6 +678,23 @@ namespace Senparc.Weixin.TenPay.V3
         public static GetTransferInfoResult GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            string responseContent = CertPost(cert, certPassword, data, urlFormat);
+            return new GetTransferInfoResult(responseContent);
+        }
+
+        /// <summary>
+        /// 用于查询付款记录
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert"></param>
+        /// <param name="certPassword"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetTransferInfoResult QueryPayLog(TenPayV3GetTransferInfoRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/querywwsptrans2pocket");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();
             string responseContent = CertPost(cert, certPassword, data, urlFormat);

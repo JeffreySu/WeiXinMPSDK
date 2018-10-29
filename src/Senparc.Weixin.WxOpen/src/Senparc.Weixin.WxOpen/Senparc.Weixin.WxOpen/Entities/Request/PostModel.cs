@@ -34,6 +34,7 @@ namespace Senparc.Weixin.WxOpen.Entities.Request
 {
     /// <summary>
     /// 微信公众服务器Post过来的加密参数集合（不包括PostData）
+    /// <para>如需使用 NeuChar，需要在 MessageHandler 中提供 PostModel 并设置 AppId</para>
     /// </summary>
     public class PostModel : EncryptPostModel
     {

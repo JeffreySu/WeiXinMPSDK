@@ -40,7 +40,6 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Tencent;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
 using System.Collections.Generic;
@@ -99,8 +98,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
                 #region NeuChar 执行过程
-              
-                var weixinAppId = this._postModel.AppId;
+
+                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
 
                 switch (RequestMessage.MsgType)
                 {

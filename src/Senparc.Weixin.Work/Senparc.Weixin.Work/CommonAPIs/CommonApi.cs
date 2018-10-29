@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            var result = Get.GetJson<AccessTokenResult>(url);
+            var result = CO2NET.HttpUtility.Get.GetJson<AccessTokenResult>(url);
             return result;
         }
 
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-            return Get.GetJson<GetCallBackIpResult>(url);
+            return CO2NET.HttpUtility.Get.GetJson<GetCallBackIpResult>(url);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
                                     accessToken.AsUrlData());
 
-            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            JsApiTicketResult result = CO2NET.HttpUtility.Get.GetJson<JsApiTicketResult>(url);
             return result;
         }
 
@@ -135,7 +135,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 userid = userId,
                 agentid = agentId
             };
-
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
@@ -195,7 +194,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            var result = await Get.GetJsonAsync<AccessTokenResult>(url);
+            var result = await CO2NET.HttpUtility.Get.GetJsonAsync<AccessTokenResult>(url);
             return result;
         }
 
@@ -209,7 +208,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-            return await Get.GetJsonAsync<GetCallBackIpResult>(url);
+            return await CO2NET.HttpUtility.Get.GetJsonAsync<GetCallBackIpResult>(url);
         }
 
         /// <summary>
@@ -227,7 +226,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
                                     accessToken.AsUrlData());
 
-            JsApiTicketResult result = await Get.GetJsonAsync<JsApiTicketResult>(url);
+            JsApiTicketResult result = await CO2NET.HttpUtility.Get.GetJsonAsync<JsApiTicketResult>(url);
             return result;
         }
 

@@ -118,14 +118,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceUserData user_info { get; set; }
+        public InvoiceReimburseUserData user_info { get; set; }
     }
 
+    /// <summary>
+    /// 批量查询报销发票信息返回信息
+    /// </summary>
     public class GetInvoiceListResultJson:WxJsonResult
     {
+        /// <summary>
+        /// 发票信息列表
+        /// </summary>
         public List<InvoiceItemInfo> item_list { get; set; }
     }
 
+    /// <summary>
+    /// 发票信息
+    /// </summary>
     public class InvoiceItemInfo
     {
         /// <summary>
@@ -159,6 +168,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceUserData user_info { get; set; }
+        public InvoiceReimburseUserData user_info { get; set; }
     }
 }

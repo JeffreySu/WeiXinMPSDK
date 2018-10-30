@@ -229,6 +229,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
         }
 
         /// <summary>
@@ -242,6 +243,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
@@ -257,6 +259,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestMessageBase, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
 
             var postDataDocument = requestMessageBase.ConvertEntityToXml();
             base.CommonInitialize(postDataDocument, maxRecordCount, postModel);

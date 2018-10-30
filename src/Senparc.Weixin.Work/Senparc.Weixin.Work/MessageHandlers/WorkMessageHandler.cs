@@ -27,6 +27,10 @@
                      枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
                      OnThirdPartyEvent_Contact_Sync 改名为 OnThirdPartyEvent_Change_Contact()
 
+    修改标识：pekrr1e - 20180503
+    修改描述：v3.1.16 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -171,11 +175,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
+            postModel = postModel ?? new PostModel();
         }
 
         public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
             : base(requestDocument, postModel, maxRecordCount)
         {
+            postModel = postModel ?? new PostModel();
         }
 
 

@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170103
+
+    修改标识：Senparc - 20181030
+    修改描述：v3.1.16 优化 MessageHandler 构造函数，提供 PostModel 默认值
     
 ----------------------------------------------------------------*/
 

@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180318
     修改描述：v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断 - https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
 
+    修改标识：Senparc - 20181030
+    修改描述：v16.4.10 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;

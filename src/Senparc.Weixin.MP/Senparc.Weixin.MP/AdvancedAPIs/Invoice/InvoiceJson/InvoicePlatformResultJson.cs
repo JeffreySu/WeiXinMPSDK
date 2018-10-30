@@ -7,7 +7,9 @@
     
     创建标识：Senparc - 20180930
  
-   
+    修改标识：Senparc - 20181030
+    修改描述：更新User_Info
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -118,13 +120,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceReimburseUserData user_info { get; set; }
+        public User_Info user_info { get; set; }
     }
 
     /// <summary>
     /// 批量查询报销发票信息返回信息
     /// </summary>
-    public class GetInvoiceListResultJson:WxJsonResult
+    public class GetInvoiceListResultJson : WxJsonResult
     {
         /// <summary>
         /// 发票信息列表
@@ -168,6 +170,66 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 用户可在发票票面看到的主要信息
         /// </summary>
-        public InvoiceReimburseUserData user_info { get; set; }
+        public User_Info user_info { get; set; }
     }
+    
+
+    public class User_Info
+    {
+        public int fee { get; set; }
+        public string title { get; set; }
+        public int billing_time { get; set; }
+        public string billing_no { get; set; }
+        public string billing_code { get; set; }
+        public Info[] info { get; set; }
+        public bool accept { get; set; }
+        public int fee_without_tax { get; set; }
+        public int tax { get; set; }
+        public string pdf_url { get; set; }
+        public string trip_pdf_url { get; set; }
+        public Reimburse_Status reimburse_status { get; set; }
+        public string check_code { get; set; }
+        public string buyer_number { get; set; }
+        /// <summary>
+        /// 购买方地址、电话
+        /// </summary>
+        public string buyer_address_and_phone { get; set; }
+        /// <summary>
+        /// 购买方开户行及账号
+        /// </summary>
+        public string buyer_bank_account { get; set; }
+        /// <summary>
+        /// 销售方纳税人识别号
+        /// </summary>
+        public string seller_number { get; set; }
+        /// <summary>
+        /// 销售方地址、电话
+        /// </summary>
+        public string seller_address_and_phone { get; set; }
+        /// <summary>
+        /// 销售方开户行及账号
+        /// </summary>
+        public string seller_bank_account { get; set; }
+        /// <summary>
+        /// 备注，发票右下角处
+        /// </summary>
+        public string remarks { get; set; }
+        /// <summary>
+        /// 收款人，发票左下角处
+        /// </summary>
+        public string cashier { get; set; }
+        /// <summary>
+        /// 开票人，发票下方处
+        /// </summary>
+        public string maker { get; set; }
+    }
+
+    public class Info
+    {
+        public string name { get; set; }
+        public int num { get; set; }
+        public string unit { get; set; }
+        public int price { get; set; }
+    }
+
 }

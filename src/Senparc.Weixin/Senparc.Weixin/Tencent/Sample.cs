@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using Senparc.Weixin.MP.Tencent;
+using Senparc.Weixin.Tencent;
 
 namespace MsgCryptTest
 {

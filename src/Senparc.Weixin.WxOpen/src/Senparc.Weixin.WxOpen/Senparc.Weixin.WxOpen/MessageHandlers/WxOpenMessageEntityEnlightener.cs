@@ -84,7 +84,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         public override IResponseMessageText NewResponseMessageText()
         {
-            throw new MessageHandlerException("微信公众号不支持 IResponseMessageText 响应类型");
+            return new Senparc.Weixin.MP.Entities.ResponseMessageText();
+            //throw new MessageHandlerException("微信公众号不支持 IResponseMessageText 响应类型");
         }
 
         public override IResponseMessageTransfer_Customer_Service NewResponseMessageTransfer_Customer_Service()

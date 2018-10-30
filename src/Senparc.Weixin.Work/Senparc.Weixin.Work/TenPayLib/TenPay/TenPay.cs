@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.Transfers()")]
+        [Obsolete("请使用Senparc.Weixin.TenPay.V3.TenPayLibV3.Transfers()")]
         public static string Transfers(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.GetTransferInfo()")]
+        [Obsolete("请使用Senparc.Weixin.TenPay.V3.TenPayLibV3.GetTransferInfo()")]
         public static string GetTransferInfo(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.TransfersAsync()")]
+        [Obsolete("请使用Senparc.Weixin.TenPay.V3.TenPayLibV3.TransfersAsync()")]
         public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.GetTransferInfoAsync()")]
+        [Obsolete("请使用Senparc.Weixin.TenPay.V3.TenPayLibV3.GetTransferInfoAsync()")]
         public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";

@@ -28,7 +28,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Entities.Menu;
 using Senparc.CO2NET.HttpUtility;

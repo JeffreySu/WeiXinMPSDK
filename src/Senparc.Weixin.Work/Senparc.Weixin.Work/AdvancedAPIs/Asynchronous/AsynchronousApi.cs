@@ -25,7 +25,7 @@
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.Work.CommonAPIs;
 

@@ -108,10 +108,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
-        public CustomMessageHandler(RequestMessageBase requestMessage)
-            : base(requestMessage)
-        {
-        }
+        //public CustomMessageHandler(RequestMessageBase requestMessage, PostModel postModel)
+        //    : base(requestMessage, postModel)
+        //{
+        //}
 
         public override void OnExecuting()
         {

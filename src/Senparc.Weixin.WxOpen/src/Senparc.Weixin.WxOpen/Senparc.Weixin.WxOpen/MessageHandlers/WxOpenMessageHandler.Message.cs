@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.Entities;
 
@@ -68,8 +70,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
 
-
-        
         #endregion
 
     }

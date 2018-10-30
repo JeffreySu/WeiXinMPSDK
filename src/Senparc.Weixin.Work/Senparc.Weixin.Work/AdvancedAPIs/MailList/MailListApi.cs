@@ -53,7 +53,7 @@
 
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.MailList;
 using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;

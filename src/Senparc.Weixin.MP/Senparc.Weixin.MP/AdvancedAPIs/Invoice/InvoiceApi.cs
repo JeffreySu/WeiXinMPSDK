@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181018
     修改描述：【异步方法】批量查询报销发票信息接口去掉无意义参数，更新reimburseStatus为枚举值
 
+    修改标识：Senparc - 20181023
+    修改描述：修正发票信息实体，区分开票平台提交的发票信息实体与报销方获取的发票信息实体
+
 ----------------------------------------------------------------*/
 
 
@@ -379,7 +382,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     card_id = cardId,
                     code = code,
-                    reimburse_status = reimburseStatus
+                    reimburse_status = reimburseStatus.ToString()
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
@@ -501,7 +504,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     card_id = cardId,
                     encrypt_code = encryptCode,
-                    reimburse_status = reimburseStatus
+                    reimburse_status = reimburseStatus.ToString()
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
@@ -527,7 +530,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     openid = openId,
-                    reimburse_status = reimburseStatus,
+                    reimburse_status = reimburseStatus.ToString(),
                     invoice_list = itemList
                 };
 
@@ -1044,7 +1047,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     card_id = cardId,
                     code = code,
-                    reimburse_status = reimburseStatus
+                    reimburse_status = reimburseStatus.ToString()
                 };
 
                 return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
@@ -1165,7 +1168,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     card_id = cardId,
                     encrypt_code = encryptCode,
-                    reimburse_status = reimburseStatus
+                    reimburse_status = reimburseStatus.ToString()
                 };
 
                 return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
@@ -1191,7 +1194,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     openid = openId,
-                    reimburse_status = reimburseStatus,
+                    reimburse_status = reimburseStatus.ToString(),
                     invoice_list = itemList
                 };
 

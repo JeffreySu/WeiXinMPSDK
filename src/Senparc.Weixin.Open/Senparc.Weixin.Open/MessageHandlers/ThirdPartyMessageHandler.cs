@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160813
     修改描述：v2.3.0 添加authorized和updateauthorized两种通知类型的处理
 
+    修改标识：Senparc - 20181030
+    修改描述：v4.1.15 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
 ----------------------------------------------------------------*/
 
 
@@ -19,7 +22,7 @@ using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.Open.Tencent;
+using Senparc.Weixin.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
@@ -45,7 +48,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
-            _postModel = postModel;
+            _postModel = postModel ?? new PostModel();
             EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
             Init();
@@ -53,7 +56,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
         {
-            _postModel = postModel;
+            _postModel = postModel ?? new PostModel();
             EcryptRequestDocument = ecryptRequestDocument;//原始加密XML转成XDocument
 
             Init();

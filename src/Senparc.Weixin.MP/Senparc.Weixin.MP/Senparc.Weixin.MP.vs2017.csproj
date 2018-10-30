@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>16.4.0</Version>
+    <Version>16.4.10</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -438,6 +438,13 @@
       v16.3.4 支持 Senparc.NeuChar v0.1.4
       v16.3.5 支持 Senparc.NeuChar v0.2.1
       v16.4.0 支持电子发票等新接口
+      v16.4.1 菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
+      v16.4.2 Senparc.NeuChar v0.2.7
+      v16.4.5 支持 Senparc.NeuChar v0.2.9.1
+      v16.4.5 支持 Senparc.NeuChar v0.2.10，支持 NeuChar 连接检测
+      v16.4.7 Senparc.NeuChar v0.2.11，升级 MessageHandler
+      v16.4.9 修正发票接口问题
+      v16.4.10 优化 MessageHandler 构造函数，提供 PostModel 默认值
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -584,7 +591,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.2.1.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.3.1" />
   </ItemGroup>
 
   <ItemGroup>

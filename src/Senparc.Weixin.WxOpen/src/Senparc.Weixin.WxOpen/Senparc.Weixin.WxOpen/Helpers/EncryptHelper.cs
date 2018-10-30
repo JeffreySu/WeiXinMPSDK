@@ -135,6 +135,8 @@ namespace Senparc.Weixin.WxOpen.Helpers
                     //        cs.Close();
                     //        ms.Close();
 
+                    //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
+
                     byte[] xXml = Convert.FromBase64String(Input);
                     byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
                     Array.Copy(xXml, msg, xXml.Length);

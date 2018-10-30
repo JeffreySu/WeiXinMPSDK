@@ -87,9 +87,9 @@ namespace Senparc.Weixin.Work.Entities
             {
                 if (Department.IsNullOrEmpty())
                 {
-                    return new long[]();
+                    return new long[0];
                 }
-                return Department.Split(',').Select(z => int.Parse(z)).ToArray();
+                return Department.Split(',').Select(z => long.Parse(z)).ToArray();
             }
         }
 

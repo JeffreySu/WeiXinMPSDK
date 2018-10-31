@@ -188,7 +188,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
             //进行加密判断并处理
-            _postModel = postModel as PostModel;
+            _postModel = postModel as PostModel ?? new PostModel();
             var postDataStr = postDataDocument.ToString();
 
             XDocument decryptDoc = postDataDocument;

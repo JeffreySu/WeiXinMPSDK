@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.NeuChar.ApiHandlers;
-
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -33,6 +33,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <returns></returns>
         public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override ApiResult SendNews(string accessTokenOrAppId, string openId, List<Article> articleList)
         {
             throw new NotImplementedException();
         }

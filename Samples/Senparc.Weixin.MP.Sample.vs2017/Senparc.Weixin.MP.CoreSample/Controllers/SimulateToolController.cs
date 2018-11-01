@@ -16,7 +16,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Newtonsoft.Json;
@@ -25,6 +24,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
+using Senparc.NeuChar.Agents;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

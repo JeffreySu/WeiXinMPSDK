@@ -175,19 +175,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
-            postModel = postModel ?? new PostModel();
         }
 
         public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
             : base(requestDocument, postModel, maxRecordCount)
         {
-            postModel = postModel ?? new PostModel();
         }
 
 
         public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
-            _postModel = postModel as PostModel;
+            _postModel = postModel as PostModel ?? new PostModel();
 
             var postDataStr = postDataDocument.ToString();
             EncryptPostData = RequestMessageFactory.GetEncryptPostData(postDataStr);

@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Tencent;
@@ -48,22 +49,22 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
-            _postModel = postModel ?? new PostModel();
             EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
-            Init();
+            Init(postModel);
         }
 
         public ThirdPartyMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
         {
-            _postModel = postModel ?? new PostModel();
             EcryptRequestDocument = ecryptRequestDocument;//原始加密XML转成XDocument
 
-            Init();
+            Init(postModel);
         }
 
-        public XDocument Init()
+        public XDocument Init(IEncryptPostModel postModel)
         {
+            _postModel = postModel as PostModel ?? new PostModel();
+
             //解密XML信息
             var postDataStr = EcryptRequestDocument.ToString();
 

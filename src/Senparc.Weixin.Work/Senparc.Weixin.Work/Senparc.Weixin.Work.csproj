@@ -230,24 +230,6 @@
     <Compile Include="Signature.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
-    <Compile Include="TenPayLib\RequestHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TenPayLib\ResponseHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TenPayLib\TenPayInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TenPayLib\TenPayInfoCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TenPayLib\TenPayUtil.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TenPayLib\TenPay\TenPay.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

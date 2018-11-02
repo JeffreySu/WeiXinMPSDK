@@ -729,7 +729,10 @@ p.crowdfunding-note {
     }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -827,7 +830,10 @@ p.crowdfunding-note {
         }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -939,7 +945,10 @@ p.crowdfunding-note {
         }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -1087,6 +1096,8 @@ p.crowdfunding-note {
         margin-top: 26px;
         margin-bottom: 28px;
         margin-left: 110px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
     }
 
     .contatc-name {
@@ -1293,6 +1304,8 @@ p.crowdfunding-note {
     .contact {
         margin-top: 26px;
         margin-bottom: 28px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
         /*margin-left: 110px;*/
     }
 

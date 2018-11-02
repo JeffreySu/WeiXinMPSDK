@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>3.1.15</Version>
+		<Version>3.1.18</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -106,6 +106,8 @@
       v3.1.11 菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
       v3.1.12 Senparc.NeuChar v0.2.7
       v3.1.14 Senparc.NeuChar v0.2.11，升级 MessageHandler
+      v3.1.16 fix bug：RequestMessageEvent_Change_Contact_User_Create.Department 属性类型错误，添加 DepartmentList 自动转成 long[]
+      v3..1.18 移除微信支付相关类（已经迁移到 Senparc.Weixin.TenPay.dll 中）
 
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -272,7 +274,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.3.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.3.2" />
 	</ItemGroup>
 
 	<ItemGroup>

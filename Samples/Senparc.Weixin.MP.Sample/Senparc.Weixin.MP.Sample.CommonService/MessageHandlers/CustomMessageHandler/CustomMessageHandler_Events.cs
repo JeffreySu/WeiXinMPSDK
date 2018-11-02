@@ -12,7 +12,6 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.Agent;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Extensions;
@@ -24,6 +23,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Agents;
 
 
 #if NET45

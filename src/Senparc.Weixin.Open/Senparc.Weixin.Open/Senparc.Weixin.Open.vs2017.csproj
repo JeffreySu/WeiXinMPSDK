@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>4.1.14</Version>
+    <Version>4.1.16</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -142,7 +142,7 @@
       v4.1.10 支持 Senparc.Weixin 6.1.4
       v4.1.11 Senparc.NeuChar v0.2.7
       v4.1.13 Senparc.NeuChar v0.2.11，升级 MessageHandler
-
+      v4.1.15 优化 MessageHandler 构造函数，提供 PostModel 默认值
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -262,7 +262,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.3.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.3.2" />
   </ItemGroup>
 
   <ItemGroup>

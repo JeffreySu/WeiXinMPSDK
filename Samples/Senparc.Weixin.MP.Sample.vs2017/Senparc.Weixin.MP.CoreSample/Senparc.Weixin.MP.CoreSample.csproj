@@ -6,17 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\AppStore\**" />
-    <Compile Remove="Controllers\QY\**" />
-    <Content Remove="Controllers\AppStore\**" />
-    <Content Remove="Controllers\QY\**" />
-    <EmbeddedResource Remove="Controllers\AppStore\**" />
-    <EmbeddedResource Remove="Controllers\QY\**" />
-    <None Remove="Controllers\AppStore\**" />
-    <None Remove="Controllers\QY\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove=".dockerignore" />
     <None Remove="Dockerfile" />
   </ItemGroup>

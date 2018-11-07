@@ -8,7 +8,8 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
+//PDBMARK_FILE MP
+ System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;

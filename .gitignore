@@ -64,3 +64,4 @@ packages/
 *.nupkg
 /src/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML
 /Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/NeuChar/NeuCharRoot.config
+/Samples/Senparc.Weixin.MP.Sample.vs2017 - DPB

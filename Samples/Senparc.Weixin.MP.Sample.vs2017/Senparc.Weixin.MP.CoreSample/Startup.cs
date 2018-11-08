@@ -327,9 +327,9 @@ namespace Senparc.Weixin.MP.CoreSample
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
-                //发送模板消息给管理员
+                //发送模板消息给管理员                             -- PDBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
-                eventService.ConfigOnWeixinExceptionFunc(ex);
+                eventService.ConfigOnWeixinExceptionFunc(ex);      // PDBMARK_END
             };
         }
     }

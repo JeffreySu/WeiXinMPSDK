@@ -196,7 +196,6 @@
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\ForTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NeuChar\NeuCharController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
     <Compile Include="Controllers\SubscribeMsgController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />

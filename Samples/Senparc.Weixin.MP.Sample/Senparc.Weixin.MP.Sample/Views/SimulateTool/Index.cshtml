@@ -1,4 +1,5 @@
-﻿@{
+﻿@*PDBMARK_FILE MP*@
+@{
     ViewBag.Title = "微信消息模拟测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -327,8 +328,9 @@
             </li>
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
-                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                <label class="control-title send" id="loadResult_Result">
+                    模拟并发响应时间：<span id="loadTime"></span> ms<br />
+                    由于后台代理转发暂时没有使用异步请求，结果可能会受影响
                 </label>
             </li>
             <li></li>

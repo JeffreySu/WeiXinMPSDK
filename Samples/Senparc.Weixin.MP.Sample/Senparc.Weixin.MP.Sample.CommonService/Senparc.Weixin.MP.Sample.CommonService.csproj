@@ -95,9 +95,7 @@
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_ExceptionAlert.cs" />
-    <Compile Include="TemplateMessage\WxOpen\WxOpenTemplateMessage_PaySuccessNotice.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_PaySuccess.cs" />
-    <Compile Include="TemplateMessageService.cs" />
     <!-- PDBMARK_END -->
 
     <!-- PDBMARK Open -->
@@ -120,6 +118,8 @@
     <!-- PDBMARK MiniProgram -->
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
+    <Compile Include="TemplateMessage\WxOpen\WxOpenTemplateMessage_PaySuccessNotice.cs" />
+    <Compile Include="TemplateMessageService.cs" />
     <!-- PDBMARK_END -->
 
     <Compile Include="Download\CodeRecord.cs" />

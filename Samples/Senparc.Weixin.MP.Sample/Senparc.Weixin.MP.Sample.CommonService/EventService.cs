@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE MP
+
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -23,7 +23,9 @@ using Senparc.NeuChar.Helpers;
 #if NET45
 using System.Web;
 using System.Configuration;
+//PDBMARK MP
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+//PDBMARK_END
 #else
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
@@ -158,7 +160,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         message = ex.Message;
                     }
 
-                    if (sendTemplateMessage)
+                    
+                    if (sendTemplateMessage)    // PDBMARK MP
                     {
                         int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
@@ -170,7 +173,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                               url, data);
                         }
-                    }
+                    }                           // PDBMARK_END
                 });
             }
             catch (Exception e)

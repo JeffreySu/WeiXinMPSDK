@@ -14,7 +14,9 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService;
+//PDBMARK WebSocket
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+//PDBMARK_END
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.TenPay;
@@ -37,7 +39,10 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+            //PDBMARK WebSocket
             RegisterWebSocket();//微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
+            //PDBMARK_END
+
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -248,6 +253,7 @@ namespace Senparc.Weixin.MP.Sample
             /* 微信配置结束 */
         }
 
+        //PDBMARK WebSocket
         /// <summary>
         /// 注册WebSocket模块（可用于小程序或独立WebSocket应用）
         /// </summary>
@@ -256,6 +262,7 @@ namespace Senparc.Weixin.MP.Sample
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
             Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
         }
+        //PDBMARK_END
 
         /// <summary>
         /// 配置微信跟踪日志

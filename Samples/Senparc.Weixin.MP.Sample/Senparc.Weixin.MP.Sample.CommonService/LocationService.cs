@@ -8,7 +8,6 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE MP
 using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;
 using Senparc.CO2NET.Helpers.BaiduMap;

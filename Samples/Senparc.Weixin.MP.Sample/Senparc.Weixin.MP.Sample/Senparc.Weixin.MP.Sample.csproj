@@ -182,39 +182,57 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <!-- PDBMARK MP -->
+    <Compile Include="Controllers\AsyncMethodsController.cs" />
+    <Compile Include="Controllers\WeixinJSSDKController.cs" />
+    <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\WeixinAsyncController.cs" />
+    <Compile Include="Controllers\WeixinController.cs" />
+    <Compile Include="Controllers\WeixinController_OldPost.cs" />
+    <Compile Include="Controllers\SimulateToolController.cs" />
+    <Compile Include="Controllers\SubscribeMsgController.cs" />
+    <!-- PDBMARK_END -->
+
+    <!-- PDBMARK Work -->
+    <Compile Include="Controllers\Work\WorkController.cs" />
+    <!-- PDBMARK_END -->
+
+
+    <!-- PDBMARK MiniProgram -->
+    <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
+    <!-- PDBMARK_END -->
+
+    <!-- PDBMARK Open -->
+    <Compile Include="Controllers\Open\OpenController.cs" />
+    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
+    <!-- PDBMARK_END -->
+
+    <!-- PDBMARK TenPay -->
+    <Compile Include="Controllers\TenPayV3Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TenPayController.cs" />
+    <!-- PDBMARK_END -->
+
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnalysisController.cs" />
-    <Compile Include="Controllers\AsyncMethodsController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\ForTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NeuChar\NeuCharController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
-    <Compile Include="Controllers\SubscribeMsgController.cs" />
-    <Compile Include="Controllers\WeixinJSSDKController.cs" />
+
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\OAuth2Controller.cs" />
-    <Compile Include="Controllers\Open\OpenController.cs" />
-    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
-    <Compile Include="Controllers\SimulateToolController.cs" />
-    <Compile Include="Controllers\TenPayV3Controller.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\WeixinAsyncController.cs" />
-    <Compile Include="Controllers\WeixinController.cs" />
-    <Compile Include="Controllers\WeixinController_OldPost.cs" />
-    <Compile Include="Controllers\TenPayController.cs" />
-    <Compile Include="Controllers\Work\WorkController.cs" />
-    <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
+
     <Compile Include="Filters\CustomOAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -319,7 +337,6 @@
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Analysis\Index.cshtml" />
     <Content Include="Views\Plugins\Index.cshtml" />
-    <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -352,9 +369,22 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <!-- PDBMARK MP -->
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
+    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
+    <Content Include="Views\AsyncMethods\Index.cshtml" />
     <Content Include="Views\SimulateTool\Index.cshtml" />
+    <!-- PDBMARK_END -->
+
+    <!-- PDBMARK Open -->
+    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
+    <Content Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
+    <Content Include="Views\OpenOAuth\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <!-- PDBMARK_END -->
+
+    <!-- PDBMARK TenPay -->
     <Content Include="Views\TenPay\JsApi.cshtml" />
     <Content Include="Views\TenPay\FeedBack.cshtml" />
     <Content Include="Views\TenPay\Index.cshtml" />
@@ -368,20 +398,21 @@
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
     <Content Include="Views\TenPayV3\ProductList.cshtml" />
     <Content Include="Views\TenPayV3\ProductItem.cshtml" />
-    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
-    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
-    <Content Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
-    <Content Include="Views\OpenOAuth\Index.cshtml" />
-    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
-    <Content Include="Views\Cache\Test.cshtml" />
-    <Content Include="Views\Document\Index.cshtml" />
-    <Content Include="Views\AsyncMethods\Index.cshtml" />
     <Content Include="Views\TenPayV3\H5Pay.cshtml" />
     <Content Include="Views\TenPayV3\H5PaySuccess.cshtml" />
+    <Content Include="Views\TenPayV3\BankCode.cshtml" />
+    <!-- PDBMARK_END -->
+  
+  
+    <Content Include="Views\Cache\Test.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />
+    <!-- PDBMARK Open -->
     <Folder Include="App_Data\OpenTickets\" />
+    <!-- PDBMARK_END -->
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

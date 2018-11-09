@@ -14,7 +14,9 @@ using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService;
+//PDBMARK WebSocket
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+//PDBMARK_END
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.TenPay;
@@ -37,7 +39,10 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+            //PDBMARK WebSocket
             RegisterWebSocket();//微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
+            //PDBMARK_END
+
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -69,7 +74,7 @@ namespace Senparc.Weixin.MP.Sample
 
             #region  全局缓存配置（按需）
 
-            #region 配置和使用 Redis
+            #region 配置和使用 Redis          -- PDBMARK Redis
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
@@ -92,9 +97,9 @@ namespace Senparc.Weixin.MP.Sample
             }
             //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
-            #endregion
+            #endregion                        // PDBMARK_END
 
-            #region 配置和使用 Memcached
+            #region 配置和使用 Memcached      -- PDBMARK Memcached
 
             //配置Memcached缓存（按需，独立）
             var memcachedConfigurationStr = senparcSetting.Cache_Memcached_Configuration;
@@ -115,7 +120,7 @@ namespace Senparc.Weixin.MP.Sample
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
             }
 
-            #endregion
+            #endregion                        //  PDBMARK_END
 
             #endregion
 
@@ -143,25 +148,27 @@ namespace Senparc.Weixin.MP.Sample
 
             #region 注册公众号或小程序（按需）
 
-                //注册公众号（可注册多个）
-                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")
-                //注册多个公众号或小程序（可注册多个）
-                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")
+                //注册公众号（可注册多个）                                                -- PDBMARK MP
+                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")// PDBMARK_END
+
+
+                //注册多个公众号或小程序（可注册多个）                                        -- PDBMARK MiniProgram
+                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")// PDBMARK_END
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
             #endregion
 
-            #region 注册企业号（按需）
+            #region 注册企业号（按需）           -- PDBMARK Work
 
                 //注册企业微信（可注册多个）
                 .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
-            #endregion
+            #endregion                          // PDBMARK_END
 
-            #region 注册微信支付（按需）
+            #region 注册微信支付（按需）        -- PDBMARK TenPay
 
                 //注册旧微信支付版本（V2）（可注册多个）
                 .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
@@ -169,44 +176,36 @@ namespace Senparc.Weixin.MP.Sample
                 //注册最新微信支付版本（V3）（可注册多个）
                 .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
-            #endregion
+            #endregion                          // PDBMARK_END
 
-            #region 注册微信第三方平台（按需）
+            #region 注册微信第三方平台（按需）  -- PDBMARK Open
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting,
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        try
+                        var dir = Path.Combine(Server.MapPath("~/App_Data/OpenTicket"));
+                        if (!Directory.Exists(dir))
                         {
-                            var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
-                            if (!Directory.Exists(dir))
-                            {
-                                Directory.CreateDirectory(dir);
-                            }
+                            Directory.CreateDirectory(dir);
+                        }
 
-                            var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
-                            using (var fs = new FileStream(file, FileMode.Open))
+                        var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
+                        using (var fs = new FileStream(file, FileMode.Open))
+                        {
+                            using (var sr = new StreamReader(fs))
                             {
-                                using (var sr = new StreamReader(fs))
-                                {
-                                    var ticket = sr.ReadToEnd();
-                                    return ticket;
-                                }
+                                var ticket = sr.ReadToEnd();
+                                return ticket;
                             }
                         }
-                        catch (System.Exception ex)
-                        {
-                            throw new WeixinException(ex.Message+ "，~/App_Data/OpenTicket 无法访问",ex);
-                        }
-                        
                     },
 
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -229,7 +228,7 @@ namespace Senparc.Weixin.MP.Sample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Senparc.CO2NET.Utilities.ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -247,13 +246,14 @@ namespace Senparc.Weixin.MP.Sample
 
             //除此以外，仍然可以在程序任意地方注册开放平台：
             //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
-            #endregion
+            #endregion                          // PDBMARK_END
 
             ;
 
             /* 微信配置结束 */
         }
 
+        //PDBMARK WebSocket
         /// <summary>
         /// 注册WebSocket模块（可用于小程序或独立WebSocket应用）
         /// </summary>
@@ -262,6 +262,7 @@ namespace Senparc.Weixin.MP.Sample
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
             Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
         }
+        //PDBMARK_END
 
         /// <summary>
         /// 配置微信跟踪日志

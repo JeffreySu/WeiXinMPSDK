@@ -170,7 +170,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 资源
 ----------------
 1. 官网地址：http://weixin.senparc.com/
-2. Demo 地址：http://sdk.weixin.senparc.com/
+2. 在线 Demo 地址：http://sdk.weixin.senparc.com/
 3. 微信开发系列教程：http://www.cnblogs.com/szw/p/weixin-course-index.html
 4. 微信技术交流社区：http://weixin.senparc.com/QA
 5. 自定义菜单在线编辑工具：http://sdk.weixin.senparc.com/Menu

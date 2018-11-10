@@ -193,7 +193,7 @@ resources
 > 10th Group(Distributed Cache): 246860933<br>
 > 12th Group(Mini Program): 108830388<br>
 > 16h Group(Open Platform): 860626938<br>
-> *`the following group is full:`*<br>
+> *`the following groups are full:`*<br>
 > `1st group：300313885(full)，2nd group：293958349(full)，3rd group：342319110(full)`<br>
 > `4th group：372212092(full)，5th group: 377815480(full)，6th group：425898825(full)`<br>
 > `7th group：482942254(full)，8th group：106230270(full)，9th group：539061281(full)`<br>

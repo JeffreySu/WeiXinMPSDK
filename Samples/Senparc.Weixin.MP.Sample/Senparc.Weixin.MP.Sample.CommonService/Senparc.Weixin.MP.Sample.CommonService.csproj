@@ -107,8 +107,6 @@
     <!-- PDBMARK Work -->
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
-    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
     <!-- PDBMARK_END -->
 
     <!-- PDBMARK WebSocket -->

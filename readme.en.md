@@ -29,6 +29,7 @@ Index
 ----------------
 
 * [SDK Modules](#sdk-modules)
+* [Personalize your WeChat project Sample](#personalize-your-wechat-project-sample)
 * [Resources](#resources)
 * [:book: Senparc official tutorials](#senparc-official-tutorials)
 * [Contribute Code](#contribute-code)

@@ -149,13 +149,22 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [nuget-url-ws]: https://www.nuget.org/packages/Senparc.WebSocket
 
 
-
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。
 * 已经支持用户会话上下文（解决服务器无法使用 Session 处理用户信息的问题）。
 * 已经全面支持微信公众号、企业号、开放平台的最新 API。
 * 已经支持分布式缓存及缓存策略扩展。
 
 > 目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，[Release生成目录](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)，建议使用 [Nuget]() 进行更新。
+
+
+
+## 私人定制你的微信项目 Sample
+
+1. 方法：登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a>下载 WeChatSampleBuilder 工具，并查看使用说明；
+2. 打开 WeChatSampleBuilder.exe，在 `Source Path` 中选择克隆了本项目的本地文件夹（根目录），根据需要配置 Sample 项目类型、需要生成的类库 .NET 版本、所需使用的微信模块，以及支持缓存类型；
+3. 点击 Build 按钮，即可在同级目录下看到 `OutputSample` 开头的文件夹，并自动打开解决方案！
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png" />
 
 
 资源

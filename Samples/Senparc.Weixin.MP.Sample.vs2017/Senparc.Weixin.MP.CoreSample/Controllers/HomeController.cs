@@ -81,6 +81,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             return View();
         }
 
+        public ActionResult WeChatSampleBuilder()
+        {
+            return View();
+        }
+
         public ActionResult Book()
         {
             return Redirect("https://book.weixin.senparc.com");//《微信开发深度解析》图书对应的线上辅助阅读系统

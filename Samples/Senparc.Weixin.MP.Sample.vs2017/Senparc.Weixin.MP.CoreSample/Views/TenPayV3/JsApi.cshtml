@@ -1,8 +1,8 @@
 ﻿@using Senparc.Weixin.MP.CoreSample.Models
+@*PDBMARK_FILE TenPay*@
 @{
     Layout = null;
 }
-@*PDBMARK_FILE TenPay*@
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +85,7 @@
 
                     //alert(JSON.stringify(res));
 
-                    if (res.err_msg === "get_brand_wcpay_request:ok") {
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
                         if (confirm('支付成功！点击“确定”进入退款流程测试。')) {
                             location.href = '@Url.Action("Refund", "TenPayV3")';
                         }

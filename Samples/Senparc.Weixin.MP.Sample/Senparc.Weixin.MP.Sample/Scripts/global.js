@@ -9,7 +9,7 @@
 
     var noticeareaHeight = $('#noticearea').height();
     var noticeareaHeight_shrink = noticeareaHeight * 2 / 3;
-    $('#noticearea').height(noticeareaHeight_shrink);
+    $('#noticearea').animate({ height: noticeareaHeight_shrink }, 1000);
     $('#noticearea').hover(function () {
         $('#noticearea').animate({ height: noticeareaHeight });
         //$('#noticearea').css('position', 'absolute');

@@ -63,12 +63,12 @@
         line-height: 38px;
         color: #fff;
         padding: 0px 20px;
-        display:inline-block;
+        display: inline-block;
     }
 
         .nav-catalog a:hover {
             background: #306d94;
-            color:#fff;
+            color: #fff;
         }
 
     .nav-catalog .nav-sub-catalog {
@@ -81,24 +81,24 @@
         .nav-catalog .nav-sub-catalog li {
             clear: both;
             float: left;
-            overflow:hidden;
+            overflow: hidden;
             position: relative;
             line-height: 110%;
             width: 100%;
-            padding:0px;
+            padding: 0px;
         }
 
             .nav-catalog .nav-sub-catalog li a {
                 width: 100%;
-                display:inline-block;
+                display: inline-block;
                 padding: 10px 30px;
-                line-height:150%;
+                line-height: 150%;
             }
 
 
                 .nav-catalog .nav-sub-catalog li a:hover {
                     background: #306d94;
-                    color:#fff;
+                    color: #fff;
                 }
 
 .senparc-jumbotron {
@@ -112,7 +112,12 @@
     color: #4D4D4D;
     line-height: 30px;
     text-align: center;
+    overflow: hidden;
 }
+
+    #noticearea .wrapper, #noticearea .wrapper span {
+        overflow: hidden;
+    }
 
 .senparc-container {
 }

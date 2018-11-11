@@ -9,49 +9,49 @@
             padding: 50px;
         }
 
-        #downloadArea p {
-            line-height: 120%;
-        }
+            #downloadArea p {
+                line-height: 120%;
+            }
 
-        #downloadArea h2 {
-            font-size: 200%;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+            #downloadArea h2 {
+                font-size: 200%;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 20px;
+            }
 
-        #downloadArea img {
-            width: 200px;
-            margin: 20px;
-        }
+            #downloadArea img {
+                width: 200px;
+                margin: 20px;
+            }
 
-        #downloadArea .versionSelector-title {
-            font-weight: bold;
-            margin: 10px;
-        }
+            #downloadArea .versionSelector-title {
+                font-weight: bold;
+                margin: 10px;
+            }
 
-        #downloadArea .qrcode {
-            text-align: center;
-            font-size: 120%;
-        }
+            #downloadArea .qrcode {
+                text-align: center;
+                font-size: 120%;
+            }
 
-        #downloadArea .qrcode table thead td {
-            font-weight: bold;
-        }
+                #downloadArea .qrcode table thead td {
+                    font-weight: bold;
+                }
 
-        #downloadArea .qrcode table tbody {
-            text-align: left;
-        }
+                #downloadArea .qrcode table tbody {
+                    text-align: left;
+                }
 
 
-        #downloadArea .qrcode table {
-            margin: 0px auto;
-        }
+                #downloadArea .qrcode table {
+                    margin: 0px auto;
+                }
 
-        #downloadArea .qrcode table td {
-            vertical-align: top;
-            padding: 5px;
-        }
+                    #downloadArea .qrcode table td {
+                        vertical-align: top;
+                        padding: 5px;
+                    }
 
         #downloadTip {
             text-align: center;
@@ -123,31 +123,31 @@
 <div class="wrapper">
     <div id="downloadArea">
         @*<h2>
-            Senparc.Weixin SDK 官方微信开发教程<br />
-            <br />
-            《微信开发深度解析：公众号、小程序高效开发秘籍》
-        </h2>
+                Senparc.Weixin SDK 官方微信开发教程<br />
+                <br />
+                《微信开发深度解析：公众号、小程序高效开发秘籍》
+            </h2>
 
 
-        <div class="bookNote">
-            <p>
-                历经2年精心雕琢，难得的“理论 + 实战案例 + 趟坑经验”总结，
-            </p>
-            <p>
-                从需求分析、策划，到账号申请、验证，再到全面的 API 及开发工具，
-            </p>
-            <p>
-                覆盖所有开发微信公众号（含订阅号、服务号和小程序）所需关键技能！
-            </p>
-        </div>
+            <div class="bookNote">
+                <p>
+                    历经2年精心雕琢，难得的“理论 + 实战案例 + 趟坑经验”总结，
+                </p>
+                <p>
+                    从需求分析、策划，到账号申请、验证，再到全面的 API 及开发工具，
+                </p>
+                <p>
+                    覆盖所有开发微信公众号（含订阅号、服务号和小程序）所需关键技能！
+                </p>
+            </div>
 
-        <div class="bookNote">
-            <img src="/images/book-cover-front-small-3d.png"><br /><br />
-            <a href="https://book.weixin.senparc.com/book/link?code=sdk-doc-download" class="application" target="_blank">购买正版</a>
-        </div>
+            <div class="bookNote">
+                <img src="/images/book-cover-front-small-3d.png"><br /><br />
+                <a href="https://book.weixin.senparc.com/book/link?code=sdk-doc-download" class="application" target="_blank">购买正版</a>
+            </div>
 
-        <div class="line"></div>*@
-        <h2>下载DLL程序集说明文档</h2>
+            <div class="line"></div>*@
+        <h2 id="doc-download">下载DLL程序集说明文档</h2>
         <div class="qrcode">
             <div class="versionSelector-title">帮助文档已累计下载 @ViewData["DownloadCount"] 次</div>
             <p>&nbsp;</p>
@@ -200,12 +200,19 @@
                 <p>如果您需要重新下载，请刷新此页面。</p>
             </div>
         </div>
-        <div class="line"></div>
-        <h2>在线文档及源代码</h2>
+        <div id="doc-online" class="line"></div>
+        <h2>在线文档</h2>
         <div class="qrcode">
             <p>
                 <a href="http://doc.weixin.senparc.com" target="_blank" class="document_help application">查看在线帮助文档</a>
-                &nbsp; &nbsp; &nbsp; 
+            </p>
+        </div>
+
+
+        <div id="doc-online-source-code" class="line"></div>
+        <h2>在线文档源代码</h2>
+        <div class="qrcode">
+            <p>
                 <a href="https://github.com/JeffreySu/WeixinResource/tree/master/SDK%E6%96%87%E6%A1%A3/C%23" target="_blank" class="document_help application">查看在线文档源代码</a>
             </p>
         </div>

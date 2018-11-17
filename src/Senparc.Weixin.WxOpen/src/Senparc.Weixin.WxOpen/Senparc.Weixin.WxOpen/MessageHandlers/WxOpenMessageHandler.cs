@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181030
     修改描述：v3.1.16 优化 MessageHandler 构造函数，提供 PostModel 默认值
     
+    修改标识：Senparc - 20181117
+    修改描述：v3.2.0 Execute() 重写方法名称改为 BuildResponseMessage()
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -239,83 +242,48 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 执行微信请求
         /// </summary>
-        public override void Execute()
+        public override void BuildResponseMessage()
         {
-            if (CancelExcute)
+            #region NeuChar 执行过程
+
+            //var neuralSystem = NeuralSystem.Instance;
+            //var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
+
+            //messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
+
+            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+
+            switch (RequestMessage.MsgType)
             {
-                return;
+                case RequestMsgType.Text:
+                    {
+                        //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
+                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                OnTextRequest(RequestMessage as RequestMessageText);
+                        //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
+                        //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
+                    }
+                    break;
+                case RequestMsgType.Image:
+                    {
+                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                OnImageRequest(RequestMessage as RequestMessageImage);
+                    }
+                    break;
+                case RequestMsgType.NeuChar:
+                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    break;
+                case RequestMsgType.Event:
+                    {
+                        OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                    }
+                    break;
+                default:
+                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
             }
 
-            OnExecuting();
 
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            try
-            {
-                if (RequestMessage == null)
-                {
-                    return;
-                }
-
-                #region NeuChar 执行过程
-
-                //var neuralSystem = NeuralSystem.Instance;
-                //var messageHandlerNode = neuralSystem.GetNode("MessageHandlerNode") as MessageHandlerNode;
-
-                //messageHandlerNode = messageHandlerNode ?? new MessageHandlerNode();
-
-                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
-
-                switch (RequestMessage.MsgType)
-                {
-                    case RequestMsgType.Text:
-                        {
-                            //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                    OnTextRequest(RequestMessage as RequestMessageText);
-                            //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
-                            //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
-                        }
-                        break;
-                    case RequestMsgType.Image:
-                        {
-                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                    OnImageRequest(RequestMessage as RequestMessageImage);
-                        }
-                        break;
-                    case RequestMsgType.NeuChar:
-                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                        }
-                        break;
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                }
-
-
-                #endregion
-
-                //记录上下文
-                //此处修改
-                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
-                {
-                    GlobalMessageContext.InsertMessage(ResponseMessage);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new MessageHandlerException("MessageHandler中Execute()过程发生错误：" + ex.Message, ex);
-            }
-            finally
-            {
-                OnExecuted();
-            }
+            #endregion
         }
 
         public virtual void OnExecuting()

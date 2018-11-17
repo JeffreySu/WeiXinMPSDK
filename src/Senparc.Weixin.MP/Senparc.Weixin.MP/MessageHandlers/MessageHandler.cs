@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181030
     修改描述：v16.4.10 优化 MessageHandler 构造函数，提供 PostModel 默认值
 
+    修改标识：Senparc - 20181117
+    修改描述：v16.5.0 Execute() 重写方法名称改为 BuildResponseMessage()
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;

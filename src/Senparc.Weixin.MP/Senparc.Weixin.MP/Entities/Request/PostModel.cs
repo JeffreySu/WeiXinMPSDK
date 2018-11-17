@@ -30,9 +30,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
-    修改标识：Senparc - 20150321 v11.2.7
-    修改描述：添加SetSecretInfo()方法
+    修改标识：Senparc - 20150321
+    修改描述：v11.2.7 添加SetSecretInfo()方法
  
+    修改标识：Senparc - 20181117
+    修改描述：v16.5.0 添加 DomainId 属性
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -45,6 +48,8 @@ namespace Senparc.Weixin.MP.Entities.Request
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        public override string DomainId { get => AppId; set => AppId = value; }
+
         //以下信息不会出现在微信发过来的信息中，都是微信后台需要设置（获取的）的信息，用于扩展传参使用
 
         /// <summary>

@@ -370,7 +370,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Senparc.CO2NET" Version="0.2.18" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview4" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

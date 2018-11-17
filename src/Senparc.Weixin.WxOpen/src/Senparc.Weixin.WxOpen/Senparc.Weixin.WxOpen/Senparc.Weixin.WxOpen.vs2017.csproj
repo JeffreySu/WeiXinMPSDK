@@ -269,7 +269,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview4" />
   </ItemGroup>
 
 

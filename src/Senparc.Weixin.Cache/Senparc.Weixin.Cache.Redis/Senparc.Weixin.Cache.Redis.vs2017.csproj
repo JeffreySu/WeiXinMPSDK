@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.2.1</Version>
+    <Version>2.3.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -76,7 +76,7 @@
       v2.0.9 支持 CO2NET v0.1.9
       v2.1.0 支持 CO2NET v0.2.0
       v2.2.1 支持 CO2NET v0.2.6，Senparc.CO2NET.Cache.Redis v3.1.1
-
+      v2.3.0 支持 Senparc.CO2NET.Cache.Redis v3.2.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

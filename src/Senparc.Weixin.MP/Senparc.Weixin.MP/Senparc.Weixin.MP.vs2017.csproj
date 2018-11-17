@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>16.4.12.1</Version>
+    <Version>16.5.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -446,6 +446,7 @@
       v16.4.9 修正发票接口问题
       v16.4.10 优化 MessageHandler 构造函数，提供 PostModel 默认值
       v16.4.12 移除微信支付相关类（已经迁移到 Senparc.Weixin.TenPay.dll 中）
+      v16.5.0 使用 Senparc.CO2NET.APM
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -593,7 +594,7 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.1.2.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.4.1-preview3" />
   </ItemGroup>
 
   <ItemGroup>

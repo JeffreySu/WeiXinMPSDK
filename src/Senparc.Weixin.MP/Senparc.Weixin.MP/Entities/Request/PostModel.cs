@@ -34,7 +34,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v11.2.7 添加SetSecretInfo()方法
  
     修改标识：Senparc - 20181117
-    修改描述：v16.5.0 添加 Domain 属性
+    修改描述：v16.5.0 添加 DomainId 属性
 
 ----------------------------------------------------------------*/
 

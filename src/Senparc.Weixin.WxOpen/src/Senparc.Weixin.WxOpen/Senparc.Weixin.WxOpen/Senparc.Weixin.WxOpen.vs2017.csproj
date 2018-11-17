@@ -32,8 +32,7 @@
       v0.2.0
       1、添加WxOpenMessageHandler
       2、添加SuccessResponseMessage类型响应信息
-      v0.3.0
-      根据MP的架构重构框架
+      v0.3.0 根据MP的架构重构框架
 
       v1.0.0
       2017年1月9日，随小程序正式发布

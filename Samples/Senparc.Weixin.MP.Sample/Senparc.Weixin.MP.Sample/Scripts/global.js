@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿var noticeareaHeightChanging = false
+$(function () {
     loadQQGroups();
 
     $('.btn-top-menu').hover(function () {
@@ -11,10 +12,22 @@
     var noticeareaHeight_shrink = noticeareaHeight * 2 / 3;
     $('#noticearea').animate({ height: noticeareaHeight_shrink }, 1000);
     $('#noticearea').hover(function () {
-        $('#noticearea').animate({ height: noticeareaHeight });
+        if (noticeareaHeightChanging) {
+            return;
+        }
+        noticeareaHeightChanging = true;
+        $('#noticearea').animate({ height: noticeareaHeight }, function () {
+            noticeareaHeightChanging = false;
+        });
         //$('#noticearea').css('position', 'absolute');
     }, function () {
-        $('#noticearea').animate({ height: noticeareaHeight_shrink });
+        if (noticeareaHeightChanging) {
+            return;
+        }
+        noticeareaHeightChanging = true;
+        $('#noticearea').animate({ height: noticeareaHeight_shrink }, function () {
+            noticeareaHeightChanging = false;
+        });
     });
 });
 

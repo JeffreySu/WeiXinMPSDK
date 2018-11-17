@@ -5,9 +5,9 @@
 		<Version>3.2.0-preview1</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
-		<Description>
+    <Description>
 			微信公众账号 - 企业微信 模块
 
 			Senparc.Weixin SDK 开源项目：

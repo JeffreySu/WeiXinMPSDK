@@ -98,10 +98,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
+        ///// <summary>
+        ///// 原始的加密请求（如果不加密则为null）
+        ///// </summary>
+        //public XDocument EcryptRequestDocument { get; set; }
 
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument

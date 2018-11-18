@@ -10,6 +10,10 @@
     修改标识：Senparc - 20180901
     修改描述：支持 NeuChar
 
+    修改标识：Senparc - 20181117
+    修改描述：v4.2.0 添加 DomainId 属性
+
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -21,6 +25,8 @@ namespace Senparc.Weixin.Open.Entities.Request
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        public override string DomainId { get => AppId; set => AppId = value; }
+
         /// <summary>
         /// 开发平台“公众号第三方平台”的AppId
         /// </summary>

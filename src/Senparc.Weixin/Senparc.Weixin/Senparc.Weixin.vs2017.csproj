@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>6.1.11</Version>
+    <Version>6.2.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - Senparc.Weixin SDK 基础模块
@@ -280,6 +280,7 @@
       v6.1.7 支持 Senparc.NeuChar v0.2.9.1
       v6.1.8 Senparc.NeuChar v0.2.11，升级 MessageHandler
       v6.1.10 改进 TryCommonApiBase 方法
+      v6.2.0 升级 Senparc.NeuChar，支持 APM
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -368,8 +369,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.16" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.3.2" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.3.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.4.3" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

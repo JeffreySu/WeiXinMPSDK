@@ -83,39 +83,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
             try
             {
-                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                if (messageHandler.UsingEcryptMessage)
-                {
-                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
-
-                /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
+                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
                  * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
                 messageHandler.OmitRepeatedMessage = true;
 
+                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                //执行微信处理过程
-                messageHandler.Execute();
+                messageHandler.Execute();//执行微信处理过程（关键）
 
-                //测试时可开启，帮助跟踪数据
-
-                //if (messageHandler.ResponseDocument == null)
-                //{
-                //    throw new Exception(messageHandler.RequestDocument.ToString());
-                //}
-
-                if (messageHandler.ResponseDocument != null && messageHandler.ResponseDocument.Root != null)
-                {
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
-
-                if (messageHandler.UsingEcryptMessage &&
-                    messageHandler.FinalResponseDocument != null && messageHandler.FinalResponseDocument.Root != null)
-                {
-                    //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可

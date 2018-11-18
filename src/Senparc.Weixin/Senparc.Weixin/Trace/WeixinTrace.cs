@@ -80,7 +80,6 @@ namespace Senparc.Weixin
             SenparcTrace.Log(messageFormat.FormatWith(param));
         }
 
-
         #region WeixinException 相关日志
 
         /// <summary>

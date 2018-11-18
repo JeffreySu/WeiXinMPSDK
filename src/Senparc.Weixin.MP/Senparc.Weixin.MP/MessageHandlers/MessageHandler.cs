@@ -179,16 +179,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         private PostModel _postModel;
 
-        ///// <summary>
-        ///// 是否使用了加密信息
-        ///// </summary>
-        //public bool UsingEcryptMessage { get; set; }
-
-        ///// <summary>
-        ///// 是否使用了兼容模式加密信息
-        ///// </summary>
-        //public bool UsingCompatibilityModelEcryptMessage { get; set; }
-
         /// <summary>
         /// 微微嗨开发者信息
         /// </summary>

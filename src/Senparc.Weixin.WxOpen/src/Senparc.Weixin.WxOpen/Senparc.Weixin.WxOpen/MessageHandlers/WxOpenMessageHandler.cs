@@ -118,22 +118,14 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         private PostModel _postModel;
 
-        /// <summary>
-        /// 是否使用了加密信息
-        /// </summary>
-        public bool UsingEcryptMessage { get; set; }
-
-        /// <summary>
-        /// 是否使用了兼容模式加密信息
-        /// </summary>
-        public bool UsingCompatibilityModelEcryptMessage { get; set; }
-
-
 
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
         public override MessageEntityEnlightener MessageEntityEnlightener { get { return WxOpenMessageEntityEnlightener.Instance; } }
+        /// <summary>
+        /// Api 接口定义
+        /// </summary>
         public override ApiEnlightener ApiEnlightener { get { return WxOpenApiEnlightener.Instance; } }
 
 

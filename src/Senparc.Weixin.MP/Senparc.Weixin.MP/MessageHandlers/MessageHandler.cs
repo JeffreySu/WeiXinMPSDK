@@ -98,10 +98,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
+        ///// <summary>
+        ///// 原始的加密请求（如果不加密则为null）
+        ///// </summary>
+        //public XDocument EcryptRequestDocument { get; set; }
 
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
@@ -179,15 +179,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         private PostModel _postModel;
 
-        /// <summary>
-        /// 是否使用了加密信息
-        /// </summary>
-        public bool UsingEcryptMessage { get; set; }
+        ///// <summary>
+        ///// 是否使用了加密信息
+        ///// </summary>
+        //public bool UsingEcryptMessage { get; set; }
 
-        /// <summary>
-        /// 是否使用了兼容模式加密信息
-        /// </summary>
-        public bool UsingCompatibilityModelEcryptMessage { get; set; }
+        ///// <summary>
+        ///// 是否使用了兼容模式加密信息
+        ///// </summary>
+        //public bool UsingCompatibilityModelEcryptMessage { get; set; }
 
         /// <summary>
         /// 微微嗨开发者信息

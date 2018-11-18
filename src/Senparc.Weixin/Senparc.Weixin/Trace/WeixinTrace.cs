@@ -67,6 +67,8 @@ namespace Senparc.Weixin
         public static Action<WeixinException> OnWeixinExceptionFunc;
 
 
+        public static 
+
         #region WeixinException 相关日志
 
         /// <summary>

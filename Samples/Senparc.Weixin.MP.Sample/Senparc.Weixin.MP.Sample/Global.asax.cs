@@ -15,13 +15,16 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService;
 //DPBMARK WebSocket
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-//DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK_END
+//DPBMARK Open
 using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.TenPay;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
+//DPBMARK TenPay
+using Senparc.Weixin.TenPay;//DPBMARK_END
+//DPBMARK Work
+using Senparc.Weixin.Work;//DPBMARK_END
+//DPBMARK MiniProgram
+using Senparc.Weixin.WxOpen;//DPBMARK_END
 using System.IO;
 using System.Web.Http;
 using System.Web.Mvc;

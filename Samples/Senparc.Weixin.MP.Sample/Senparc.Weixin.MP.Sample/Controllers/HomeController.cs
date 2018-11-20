@@ -22,10 +22,12 @@ using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
+//DPBMARK MP
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Containers;//DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.Open.CommonAPIs;
+//DPBMARK Open
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

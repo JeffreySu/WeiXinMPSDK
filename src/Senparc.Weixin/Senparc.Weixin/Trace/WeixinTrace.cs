@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170304
     修改描述：Senparc.Wexin v4.11.3 日志中添加对线程的记录
 
+    修改标识：Senparc - 20181118
+    修改描述：v16.5.0 使用 CO2NET v0.3.0 新的 SenparcTrace 记录方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -51,6 +54,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using System.Threading;
 using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin
 {
@@ -66,6 +70,15 @@ namespace Senparc.Weixin
         /// </summary>
         public static Action<WeixinException> OnWeixinExceptionFunc;
 
+        /// <summary>
+        /// 记录系统日志
+        /// </summary>
+        /// <param name="messageFormat"></param>
+        /// <param name="param"></param>
+        public static void Log(string messageFormat, params object[] param)
+        {
+            SenparcTrace.Log(messageFormat.FormatWith(param));
+        }
 
         #region WeixinException 相关日志
 
@@ -79,16 +92,17 @@ namespace Senparc.Weixin
             {
                 return;
             }
-
-            LogBegin("[[WeixinException]]");
-            Log(ex.GetType().Name);
-            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId);
-            Log("Message：{0}", ex.Message);
-            Log("StackTrace：{0}", ex.StackTrace);
-            if (ex.InnerException != null)
+            using (var traceItem = new SenparcTraceItem(SenparcTrace._logEndActon, "WeixinException"))
             {
-                Log("InnerException：{0}", ex.InnerException.Message);
-                Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
+                traceItem.Log(ex.GetType().Name);
+                traceItem.Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId);
+                traceItem.Log("Message：{0}", ex.Message);
+                traceItem.Log("StackTrace：{0}", ex.StackTrace);
+                if (ex.InnerException != null)
+                {
+                    traceItem.Log("InnerException：{0}", ex.InnerException.Message);
+                    traceItem.Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
+                }
             }
 
             if (OnWeixinExceptionFunc != null)
@@ -101,9 +115,6 @@ namespace Senparc.Weixin
                 {
                 }
             }
-
-            LogEnd();
-
         }
 
         /// <summary>
@@ -117,12 +128,14 @@ namespace Senparc.Weixin
                 return;
             }
 
-            LogBegin("[[ErrorJsonResultException]]");
-            Log("ErrorJsonResultException");
-            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId ?? "null");
-            Log("URL：{0}", ex.Url);
-            Log("errcode：{0}", ex.JsonResult.errcode);
-            Log("errmsg：{0}", ex.JsonResult.errmsg);
+            using (var traceItem = new SenparcTraceItem(SenparcTrace._logEndActon, "ErrorJsonResultException"))
+            {
+                traceItem.Log("ErrorJsonResultException");
+                traceItem.Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId ?? "null");
+                traceItem.Log("URL：{0}", ex.Url);
+                traceItem.Log("errcode：{0}", ex.JsonResult.errcode);
+                traceItem.Log("errmsg：{0}", ex.JsonResult.errmsg);
+            }
 
             if (OnWeixinExceptionFunc != null)
             {
@@ -134,8 +147,6 @@ namespace Senparc.Weixin
                 {
                 }
             }
-
-            LogEnd();
         }
 
         #endregion

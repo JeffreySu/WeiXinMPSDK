@@ -75,114 +75,77 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 【异步方法】执行微信请求
         /// </summary>
-        public override async Task ExecuteAsync()
+        public override async Task BuildResponseMessageAsync()
         {
-            if (CancelExcute)
+            #region NeuChar 执行过程
+
+            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+
+            switch (RequestMessage.MsgType)
             {
-                return;
-            }
-
-            await OnExecutingAsync();
-
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            try
-            {
-                if (RequestMessage == null)
-                {
-                    return;
-                }
-
-
-                #region NeuChar 执行过程
-
-                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
-
-                switch (RequestMessage.MsgType)
-                {
-                    case RequestMsgType.Text:
+                case RequestMsgType.Text:
+                    {
+                        try
                         {
-                            try
-                            {
-                                var requestMessage = RequestMessage as RequestMessageText;
-                                ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId)
-                                    ?? ((await (OnTextOrEventRequestAsync(requestMessage))
-                                    ?? (await OnTextRequestAsync(requestMessage))));
-                            }
-                            catch (Exception ex)
-                            {
-                                SenparcTrace.SendCustomLog("mp-response error", ex.Message + "\r\n|||\r\n" + (ex.InnerException != null ? ex.InnerException.ToString() : ""));
-
-                            }
+                            var requestMessage = RequestMessage as RequestMessageText;
+                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId)
+                                ?? ((await (OnTextOrEventRequestAsync(requestMessage))
+                                ?? (await OnTextRequestAsync(requestMessage))));
+                        }
+                        catch (Exception ex)
+                        {
+                            SenparcTrace.SendCustomLog("mp-response error", ex.Message + "\r\n|||\r\n" + (ex.InnerException != null ? ex.InnerException.ToString() : ""));
 
                         }
-                        break;
-                    case RequestMsgType.Location:
-                        ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
-                        break;
-                    case RequestMsgType.Image:
 
-                        WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
+                    }
+                    break;
+                case RequestMsgType.Location:
+                    ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
+                    break;
+                case RequestMsgType.Image:
 
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
-                        break;
-                    case RequestMsgType.Voice:
-                        ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
-                        break;
-                    case RequestMsgType.Video:
-                        ResponseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo);
-                        break;
-                    case RequestMsgType.Link:
-                        ResponseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink);
-                        break;
-                    case RequestMsgType.ShortVideo:
-                        ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
-                        break;
-                    case RequestMsgType.File:
-                        ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
-                        break;
-                    case RequestMsgType.NeuChar:
-                        ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
-                        break;
-                    case RequestMsgType.Unknown:
-                        ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
-                                                await OnTextOrEventRequestAsync(requestMessageText) ??
-                                                    (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
-                        }
-                        break;
+                    WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
 
-                    default:
-                        Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型" + RequestMessage.MsgType);
-                        //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                        break;
-                }
+                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                    break;
+                case RequestMsgType.Voice:
+                    ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
+                    break;
+                case RequestMsgType.Video:
+                    ResponseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo);
+                    break;
+                case RequestMsgType.Link:
+                    ResponseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink);
+                    break;
+                case RequestMsgType.ShortVideo:
+                    ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
+                    break;
+                case RequestMsgType.File:
+                    ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
+                    break;
+                case RequestMsgType.NeuChar:
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                    break;
+                case RequestMsgType.Unknown:
+                    ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
+                    break;
+                case RequestMsgType.Event:
+                    {
+                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                                            await OnTextOrEventRequestAsync(requestMessageText) ??
+                                                (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                    }
+                    break;
 
-                #endregion
-
-
-                //记录上下文
-                //此处修改
-                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
-                {
-                    GlobalMessageContext.InsertMessage(ResponseMessage);
-                }
+                default:
+                    Weixin.WeixinTrace.SendCustomLog("NeuChar", "未知的MsgType请求类型" + RequestMessage.MsgType);
+                    //throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                    break;
             }
-            catch (Exception ex)
-            {
-                throw new MessageHandlerException("MessageHandler中Execute()过程发生错误：" + ex.Message, ex);
-            }
-            finally
-            {
-                await OnExecutedAsync();
-            }
+
+            #endregion
         }
 
         /// <summary>

@@ -54,15 +54,52 @@
 
     .nav-catalog li {
         color: #fff;
-        line-height: 58px;
         font-size: 16px;
         float: left;
         /*padding-left: 48px;*/
     }
 
     .nav-catalog a {
+        line-height: 38px;
         color: #fff;
+        padding: 0px 20px;
+        display: inline-block;
     }
+
+        .nav-catalog a:hover {
+            background: #306d94;
+            color: #fff;
+        }
+
+    .nav-catalog .nav-sub-catalog {
+        display: none;
+        position: absolute;
+        background: #034067;
+        box-shadow: #034067 0px 1px 10px 5px;
+    }
+
+        .nav-catalog .nav-sub-catalog li {
+            clear: both;
+            float: left;
+            overflow: hidden;
+            position: relative;
+            line-height: 110%;
+            width: 100%;
+            padding: 0px;
+        }
+
+            .nav-catalog .nav-sub-catalog li a {
+                width: 100%;
+                display: inline-block;
+                padding: 10px 30px;
+                line-height: 150%;
+            }
+
+
+                .nav-catalog .nav-sub-catalog li a:hover {
+                    background: #306d94;
+                    color: #fff;
+                }
 
 .senparc-jumbotron {
     background: url(/images/v2/background.png);
@@ -75,7 +112,12 @@
     color: #4D4D4D;
     line-height: 30px;
     text-align: center;
+    overflow: hidden;
 }
+
+    #noticearea .wrapper, #noticearea .wrapper span {
+        overflow: hidden;
+    }
 
 .senparc-container {
 }
@@ -681,7 +723,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 30px;
+        /*padding-left: 30px;*/
     }
 
         .nav-catalog li a:hover {
@@ -729,7 +771,10 @@ p.crowdfunding-note {
     }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -761,7 +806,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 45px;
+        /*padding-left: 45px;*/
     }
 
     .wrapper {
@@ -827,7 +872,10 @@ p.crowdfunding-note {
         }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -875,7 +923,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 30px;
+        /*padding-left: 30px;*/
     }
 
     .wrapper {
@@ -939,7 +987,10 @@ p.crowdfunding-note {
         }
 
     .contact {
-        margin-top: 100px;
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
     }
 
     .catalog a {
@@ -1001,7 +1052,7 @@ p.crowdfunding-note {
     }
 
     .nav-catalog li {
-        padding-left: 26px;
+        /*padding-left: 26px;*/
     }
 
     .wrapper {
@@ -1087,6 +1138,8 @@ p.crowdfunding-note {
         margin-top: 26px;
         margin-bottom: 28px;
         margin-left: 110px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
     }
 
     .contatc-name {
@@ -1293,6 +1346,8 @@ p.crowdfunding-note {
     .contact {
         margin-top: 26px;
         margin-bottom: 28px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
         /*margin-left: 110px;*/
     }
 

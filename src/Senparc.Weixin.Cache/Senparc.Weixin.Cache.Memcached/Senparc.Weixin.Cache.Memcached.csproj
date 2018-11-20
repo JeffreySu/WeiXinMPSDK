@@ -54,11 +54,11 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.3.0.2\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.1.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Memcached.3.1.3.2\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.1.4.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Memcached.3.1.4.2\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

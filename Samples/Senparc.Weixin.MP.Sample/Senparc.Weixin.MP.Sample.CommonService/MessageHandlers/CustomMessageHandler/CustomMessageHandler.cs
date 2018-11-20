@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+//PDBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using Senparc.Weixin.MP.Agent;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
@@ -34,6 +34,7 @@ using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Agents;
 
 #if NET45
 using System.Web;

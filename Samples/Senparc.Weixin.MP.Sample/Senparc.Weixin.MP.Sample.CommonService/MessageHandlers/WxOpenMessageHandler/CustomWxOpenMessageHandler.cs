@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//PDBMARK_FILE MiniProgram
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,8 +37,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
     {
         private string appId = Config.SenparcWeixinSetting.WxOpenAppId;
         private string appSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;
-
-
 
         public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)

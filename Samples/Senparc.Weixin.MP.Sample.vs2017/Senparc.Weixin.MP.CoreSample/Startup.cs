@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.IO;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.Cache.Redis;
+using Senparc.Weixin.RegisterServices;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.TenPay;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.WxOpen;
-using System.IO;
+using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.CO2NET.Cache.Redis;//DPBMARK Redis DPBMARK_END
+using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
+using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
+using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 
 namespace Senparc.Weixin.MP.CoreSample
 {

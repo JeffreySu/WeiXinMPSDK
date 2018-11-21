@@ -17,7 +17,7 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE TenPay
+//DPBMARK_FILE TenPay
 using System;
 using System.Drawing.Imaging;
 using System.IO;

@@ -92,32 +92,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <!-- PDBMARK MP -->
+    <!-- DPBMARK MP -->
     <Compile Include="MessageHandlers\CustomMessageHandler\Async\CustomMessageHandlerAsync_Events.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageContext.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_ExceptionAlert.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_PaySuccess.cs" />
-    <!-- PDBMARK_END -->
-    <!-- PDBMARK Open -->
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK Open -->
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomThirdPartyMessageHandlers\CustomThirdPartyMessageHandler.cs" />
     <Compile Include="OpenTicket\OpenTicketHelper.cs" />
-    <!-- PDBMARK_END -->
-    <!-- PDBMARK Work -->
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK Work -->
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
-    <!-- PDBMARK_END -->
-    <!-- PDBMARK WebSocket -->
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK WebSocket -->
     <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
-    <!-- PDBMARK_END -->
-    <!-- PDBMARK MiniProgram -->
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK MiniProgram -->
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
     <Compile Include="TemplateMessage\WxOpen\WxOpenTemplateMessage_PaySuccessNotice.cs" />
     <Compile Include="TemplateMessageService.cs" />
-    <!-- PDBMARK_END -->
+    <!-- DPBMARK_END -->
     <Compile Include="Download\CodeRecord.cs" />
     <Compile Include="Download\Config.cs" />
     <Compile Include="Download\ConfigHelper.cs" />

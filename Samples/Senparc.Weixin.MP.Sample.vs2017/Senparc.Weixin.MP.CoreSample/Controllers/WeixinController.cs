@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE MP
+//DPBMARK_FILE MP
 using System;
 using System.IO;
 

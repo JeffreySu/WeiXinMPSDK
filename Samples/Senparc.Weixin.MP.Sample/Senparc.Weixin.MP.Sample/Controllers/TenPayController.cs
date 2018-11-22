@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE TenPay
+//DPBMARK_FILE TenPay
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.TenPay.V2;

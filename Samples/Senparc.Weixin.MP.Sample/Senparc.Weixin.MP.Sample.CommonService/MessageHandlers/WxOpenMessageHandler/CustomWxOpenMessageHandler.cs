@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE MiniProgram
+//DPBMARK_FILE MiniProgram
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

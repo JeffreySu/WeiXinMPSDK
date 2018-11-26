@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-//PDBMARK_FILE TenPay
+//DPBMARK_FILE TenPay
 using System;
 using System.Collections.Generic;
 using System.Linq;

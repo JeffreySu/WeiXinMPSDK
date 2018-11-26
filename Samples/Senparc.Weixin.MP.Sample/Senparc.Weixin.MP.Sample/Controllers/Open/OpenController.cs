@@ -1,4 +1,4 @@
-﻿//PDBMARK_FILE Open
+﻿//DPBMARK_FILE Open
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;

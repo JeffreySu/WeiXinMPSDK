@@ -54,10 +54,10 @@
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.4.4.3\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin, Version=6.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.2.0-preview3\lib\net45\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.2.0\lib\net45\Senparc.Weixin.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.MP, Version=16.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.5.0-preview3\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.5.0\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

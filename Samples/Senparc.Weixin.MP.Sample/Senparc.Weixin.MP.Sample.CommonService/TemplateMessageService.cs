@@ -1,4 +1,4 @@
-//PDBMARK_FILE MiniProgram
+//DPBMARK_FILE MiniProgram
 
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;

@@ -23,9 +23,9 @@ using Senparc.NeuChar.Helpers;
 #if NET45
 using System.Web;
 using System.Configuration;
-//PDBMARK MP
+//DPBMARK MP
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-//PDBMARK_END
+//DPBMARK_END
 #else
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     }
 
                     
-                    if (sendTemplateMessage)    // PDBMARK MP
+                    if (sendTemplateMessage)    // DPBMARK MP
                     {
                         int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                               url, data);
                         }
-                    }                           // PDBMARK_END
+                    }                           // DPBMARK_END
                 });
             }
             catch (Exception e)

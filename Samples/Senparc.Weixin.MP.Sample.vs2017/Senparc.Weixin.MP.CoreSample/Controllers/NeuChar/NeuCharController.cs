@@ -10,45 +10,17 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.CoreSample.Controllers.NeuChar
 {
     /// <summary>
-    /// NeuChar 处理程序
+    /// NeuChar App 处理程序
     /// </summary>
-    public class NeuCharController : Controller
+    public class NeuCharController : Senparc.NeuChar.App.Controllers.NeuCharAppController
     {
-        [HttpPost]
-        public IActionResult Sync(/*string json*/)
-        {
-            //TODO:json可加密
+        protected override string Token => "Token";
 
-
-
-            var stream = Request.GetRequestMemoryStream();
-            var postSr = new StreamReader(stream);
-            string json = postSr.ReadToEnd();
-
-
-            //TODO：进行保存
-            var dir = Server.GetMapPath(string.Format("~/App_Data/NeuChar"));
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-
-            var fileName = Path.Combine(dir, "json.json");
-            if (System.IO.File.Exists(fileName))
-            {
-                System.IO.File.Delete(fileName);
-            }
-
-            using (var fs = new FileStream(fileName, FileMode.CreateNew))
-            {
-                using (var sr = new StreamWriter(fs))
-                {
-                    sr.Write(json);
-                    sr.Flush();
-                }
-            }
-
-            return Json(new { msg = "ok", json = json });
-        }
+        /* 基类 NeuCharAppController 已经提供了默认的响应实现，
+         * NeuChar 平台的开发者只需要实现这个 Controller 即可完成与 NeuChar 平台 App 的对接，
+         * 例如：运行状态监测、接口访问等。
+         * Senparc.NeuChar.App 所有行为完全透明开放，开源地址： 
+         * https://github.com/Senparc/NeuChar/tree/master/src/Senparc.NeuChar.App
+         */
     }
 }

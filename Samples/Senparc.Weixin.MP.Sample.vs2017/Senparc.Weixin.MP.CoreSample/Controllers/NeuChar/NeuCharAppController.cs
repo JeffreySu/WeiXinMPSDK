@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Senparc.Weixin.MP.CoreSample.Controllers.NeuChar
+﻿namespace Senparc.Weixin.MP.CoreSample.Controllers.NeuChar
 {
     /// <summary>
     /// NeuChar App 处理程序

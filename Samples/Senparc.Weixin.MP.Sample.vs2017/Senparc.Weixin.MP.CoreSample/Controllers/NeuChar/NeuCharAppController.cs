@@ -12,7 +12,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.NeuChar
     /// <summary>
     /// NeuChar App 处理程序
     /// </summary>
-    public class NeuCharController : Senparc.NeuChar.App.Controllers.NeuCharAppController
+    public class NeuCharAppController : Senparc.NeuChar.App.Controllers.NeuCharAppController
     {
         protected override string Token => "Token";
 

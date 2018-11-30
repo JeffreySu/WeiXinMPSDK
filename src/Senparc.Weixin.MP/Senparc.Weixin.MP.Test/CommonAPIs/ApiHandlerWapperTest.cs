@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //错误的AccessToken
             {
-                var appId = MP.Containers.AccessTokenContainer.GetFirstOrDefaultAppId();
+                var appId = MP.Containers.AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
                 var accessToken = MP.Containers.AccessTokenContainer.GetAccessToken(appId);
                 Console.WriteLine("当前AccessToken：" + accessToken);
 

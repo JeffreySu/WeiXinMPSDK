@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,8 +27,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         /// <summary>
         /// 

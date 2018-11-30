@@ -24,6 +24,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -43,6 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="addExpressData">增加邮费模板需要Post的数据</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.AddExpress", true)]
         public static AddExpressResult AddExpress(string accessToken, AddExpressData addExpressData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/add?access_token={0}";
@@ -56,6 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.DeleteExpress", true)]
         public static WxJsonResult DeleteExpress(string accessToken, int templateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/del?access_token={0}";
@@ -74,6 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="upDateExpressData">修改邮费模板需要Post的数据</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.UpDateExpress", true)]
         public static WxJsonResult UpDateExpress(string accessToken, UpDateExpressData upDateExpressData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/update?access_token={0}";
@@ -87,6 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.GetByIdExpress", true)]
         public static GetByIdExpressResult GetByIdExpress(string accessToken, int templateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/getbyid?access_token={0}";
@@ -104,6 +109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.GetAllExpress", true)]
         public static GetAllExpressResult GetAllExpress(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/getall?access_token={0}";
@@ -120,6 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="addExpressData">增加邮费模板需要Post的数据</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.AddExpressAsync", true)]
         public static async Task<AddExpressResult> AddExpressAsync(string accessToken, AddExpressData addExpressData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/add?access_token={0}";
@@ -133,6 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.DeleteExpressAsync", true)]
         public static async Task<WxJsonResult> DeleteExpressAsync(string accessToken, int templateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/del?access_token={0}";
@@ -151,6 +159,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="upDateExpressData">修改邮费模板需要Post的数据</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.UpDateExpressAsync", true)]
         public static async Task<WxJsonResult> UpDateExpressAsync(string accessToken, UpDateExpressData upDateExpressData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/update?access_token={0}";
@@ -164,6 +173,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.GetByIdExpressAsync", true)]
         public static async Task<GetByIdExpressResult> GetByIdExpressAsync(string accessToken, int templateId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/getbyid?access_token={0}";
@@ -181,6 +191,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ExpressApi.GetAllExpressAsync", true)]
         public static async Task<GetAllExpressResult> GetAllExpressAsync(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/express/getall?access_token={0}";

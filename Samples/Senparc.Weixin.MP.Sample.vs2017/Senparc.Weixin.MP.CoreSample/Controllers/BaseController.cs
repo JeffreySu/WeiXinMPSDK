@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             get
             {
-                return Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                return Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
             }
         }
     }

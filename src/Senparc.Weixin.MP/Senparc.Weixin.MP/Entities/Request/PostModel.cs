@@ -30,19 +30,32 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
-    修改标识：Senparc - 20150321 v11.2.7
-    修改描述：添加SetSecretInfo()方法
+    修改标识：Senparc - 20150321
+    修改描述：v11.2.7 添加SetSecretInfo()方法
  
+    修改标识：Senparc - 20181117
+    修改描述：v16.5.0 添加 DomainId 属性
+
 ----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.Entities.Request
 {
     /// <summary>
     /// 微信公众服务器Post过来的加密参数集合（不包括PostData）
+    /// <para>如需使用 NeuChar，需要在 MessageHandler 中提供 PostModel 并设置 AppId</para>
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        public override string DomainId { get => AppId; set => AppId = value; }
+
         //以下信息不会出现在微信发过来的信息中，都是微信后台需要设置（获取的）的信息，用于扩展传参使用
+
+        /// <summary>
+        /// 当前请求对应的微信 AppId
+        /// 如需在 MessageHandler 中使用 NeuChar 进行消息处理，请无比在此处提供 AppId，并对AppId-Secret进行注册，以便自动调用高级接口（如自动发送客服消息）
+        /// </summary>
         public string AppId { get; set; }
 
         /// <summary>

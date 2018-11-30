@@ -9,7 +9,11 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20181005
+    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
 ----------------------------------------------------------------*/
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities.Menu
 {
@@ -25,7 +29,7 @@ namespace Senparc.Weixin.Work.Entities.Menu
         public string key { get; set; }
 
         public SingleClickButton()
-            : base(ButtonType.click.ToString())
+            : base(MenuButtonType.click.ToString())
         {
         }
     }

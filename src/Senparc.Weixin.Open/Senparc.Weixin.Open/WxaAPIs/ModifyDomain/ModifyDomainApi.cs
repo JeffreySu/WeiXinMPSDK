@@ -33,6 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.WxaAPIs.ModifyDomain;
@@ -59,6 +60,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ModifyDomainApi.ModifyDomain", true)]
         public static ModifyDomainResultJson ModifyDomain(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,
@@ -109,6 +111,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ModifyDomainApi.ModifyDomainAsync", true)]
         public static async Task<ModifyDomainResultJson> ModifyDomainAsync(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,

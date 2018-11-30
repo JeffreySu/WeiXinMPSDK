@@ -21,18 +21,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>
+    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
     {
         public string RunStep { get; set; }
 
-        public CancelMessageHandlers(XDocument requestDoc)
-            : base(requestDoc)
+        public CancelMessageHandlers(XDocument requestDoc, PostModel postModel)
+            : base(requestDoc, postModel)
         {
         }
 
@@ -87,9 +89,10 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         [TestMethod]
         public void CancelTest()
         {
+            var postModel = new PostModel() { AppId = "appId" };
             {
                 //一开始就取消
-                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText));
+                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText), postModel);
                 messageHandler.CancelExcute = true;
                 messageHandler.Execute();
 
@@ -98,7 +101,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             {
                 //OnExecuting中途取消
-                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText));
+                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText), postModel);
                 messageHandler.Execute();
 
                 Assert.AreEqual("OnExecuting", messageHandler.RunStep);

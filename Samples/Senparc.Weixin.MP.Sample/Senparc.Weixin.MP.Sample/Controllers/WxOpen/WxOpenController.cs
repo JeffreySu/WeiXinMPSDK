@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE MiniProgram
+using System;
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -12,7 +13,10 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
-using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.TenPay.V3;
+using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -21,26 +25,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     /// </summary>
     public partial class WxOpenController : Controller
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string WxOpenAppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-        public static readonly string WxOpenAppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.WxOpenToken;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WxOpenEncodingAESKey;//与微信小程序后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string WxOpenAppId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string WxOpenAppSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
-        private static TenPayV3Info _tenPayV3Info;
-        public static TenPayV3Info TenPayV3Info
-        {
-            get
-            {
-                if (_tenPayV3Info == null)
-                {
-                    _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
-                }
-                return _tenPayV3Info;
-            }
-        }
 
         /// <summary>
         /// GET请求用于处理微信小程序后台的URL验证
@@ -92,42 +83,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
             try
             {
-                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                if (messageHandler.UsingEcryptMessage)
-                {
-                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
-
-                /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
+                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
                  * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
                 messageHandler.OmitRepeatedMessage = true;
 
+                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                //执行微信处理过程
-                messageHandler.Execute();
+                messageHandler.Execute();//执行微信处理过程（关键）
 
-                //测试时可开启，帮助跟踪数据
-
-                //if (messageHandler.ResponseDocument == null)
-                //{
-                //    throw new Exception(messageHandler.RequestDocument.ToString());
-                //}
-
-                if (messageHandler.ResponseDocument != null)
-                {
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
-
-                if (messageHandler.UsingEcryptMessage)
-                {
-                    //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                }
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
-                //return new WeixinResult(messageHandler);//v0.8+
+                                                                    //return new WeixinResult(messageHandler);//v0.8+
             }
             catch (Exception ex)
             {
@@ -182,7 +151,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
                 //使用SessionContainer管理登录信息（推荐）
                 var unionId = "";
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key,unionId);
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
 
                 //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
@@ -242,24 +211,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         [HttpPost]
         public ActionResult TemplateTest(string sessionId, string formId)
         {
-            var sessionBag = SessionContainer.GetSession(sessionId);
-            var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
-
-            var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                "在线购买（小程序Demo测试）", DateTime.Now, "图书众筹", "1234567890",
-                100, "400-031-8816", "https://sdk.senparc.weixin.com");
-
+            var templateMessageService = new TemplateMessageService();
             try
             {
-                Senparc.Weixin.WxOpen.AdvancedAPIs
-                    .Template.TemplateApi
-                    .SendTemplateMessage(
-                        WxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
+                var sessionBag = templateMessageService.RunTemplateTest(WxOpenAppId, sessionId, formId);
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
             catch (Exception ex)
             {
+                var sessionBag = SessionContainer.GetSession(sessionId);
+                var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
+
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
             }
         }
@@ -292,7 +255,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
 
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                var sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
 
                 var timeStamp = TenPayV3Util.GetTimestamp();
@@ -300,23 +263,31 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
                 var body = "小程序微信支付Demo";
                 var price = 1;//单位：分
-                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify,
-                    TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
+                    price, Request.UserHostAddress, Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
+                WeixinTrace.SendCustomLog("统一订单接口调用结束", "请求：" + xmlDataInfo.ToJson() + "\r\n\r\n返回结果：" + result.ToJson());
+
                 var packageStr = "prepay_id=" + result.prepay_id;
+
+                //记录到缓存
+
+                var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                cacheStrategy.Set($"WxOpenUnifiedorderRequestData-{openId}", xmlDataInfo, TimeSpan.FromDays(4));//3天内可以发送模板消息
+                cacheStrategy.Set($"WxOpenUnifiedorderResultData-{openId}", result, TimeSpan.FromDays(4));//3天内可以发送模板消息
 
                 return Json(new
                 {
                     success = true,
                     prepay_id = result.prepay_id,
-                    appId = TenPayV3Info.AppId,
+                    appId = Config.SenparcWeixinSetting.WxOpenAppId,
                     timeStamp,
                     nonceStr,
                     package = packageStr,
                     //signType = "MD5",
-                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, TenPayV3Info.Key)
+                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
                 });
             }
             catch (Exception ex)

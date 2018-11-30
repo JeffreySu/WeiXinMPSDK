@@ -346,4 +346,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         ///
         public bool send_check { get; set; }
     }
+
+    /// <summary>
+    /// 获取开卡插件参数
+    /// </summary>
+    public class Card_GetUrlResultJson:WxJsonResult
+    {
+        /// <summary>
+        /// 返回的url，内含调用开卡插件所需的参数
+        /// </summary>
+        public string url { get; set; }
+    }
 }

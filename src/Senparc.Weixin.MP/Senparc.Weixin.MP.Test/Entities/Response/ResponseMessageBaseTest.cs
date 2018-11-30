@@ -20,8 +20,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.Entities.Response
 {
@@ -37,6 +40,8 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                                                 //MsgType = RequestMsgType.Text,
                                                 Content = "This is a text message."
                                             };
+
+
 
         [TestMethod]
         public void CreateFromRequestMessageTest()
@@ -99,7 +104,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
   <Content><![CDATA[您点击了底部按钮。]]></Content>
   <FuncFlag>0</FuncFlag>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageText);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageText, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
                 var strongResponseMessage = responseMessage as ResponseMessageText;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
@@ -121,7 +126,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
     <MediaId><![CDATA[media_id]]></MediaId>
   </Image>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageImage));
                 var strongResponseMessage = responseMessage as ResponseMessageImage;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
@@ -142,7 +147,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
     <MediaId><![CDATA[media_id]]></MediaId>
   </Voice>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageVoice));
                 var strongResponseMessage = responseMessage as ResponseMessageVoice;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
@@ -165,7 +170,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
     <Description><![CDATA[description]]></Description>
   </Video> 
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageVideo));
                 var strongResponseMessage = responseMessage as ResponseMessageVideo;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
@@ -192,7 +197,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
   </Music>
   <FuncFlag>0</FuncFlag>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageMusic);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageMusic, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageMusic));
                 var strongResponseMessage = responseMessage as ResponseMessageMusic;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
@@ -223,7 +228,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
   </Articles>
   <FuncFlag>0</FuncFlag>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageNews);
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageNews, MpMessageEntityEnlightener.Instance);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageNews));
                 var strongResponseMessage = responseMessage as ResponseMessageNews;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);

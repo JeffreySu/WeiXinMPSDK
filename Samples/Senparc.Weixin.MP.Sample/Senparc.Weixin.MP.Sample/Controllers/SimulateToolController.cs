@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.CO2NET.Helpers;
-using Senparc.Weixin.MP.Agent;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 

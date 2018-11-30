@@ -47,10 +47,10 @@ namespace Senparc.Weixin.Cache
             CacheStrategyDomainWarehouse.RegisterCacheStrategyDomain(extensionCacheStrategy);
         }
 
-        public virtual void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
+        public virtual void UpdateContainerBag(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();
-            baseCacheStrategy.Update(key, bag, isFullKey);
+            baseCacheStrategy.Update(key, bag, expiry, isFullKey);
         }
 
         #endregion

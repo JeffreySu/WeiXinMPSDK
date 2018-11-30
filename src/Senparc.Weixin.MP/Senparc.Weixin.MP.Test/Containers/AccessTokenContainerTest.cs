@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             var registeredAppId = base._appId;//已经注册的AppId
 
-            var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+            var appId = AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
             Assert.AreEqual(registeredAppId, appId);
 
             //注册多个AppId
@@ -175,6 +175,18 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.IsNotNull(accessTokenResult);
             Assert.IsNotNull(accessTokenResult.access_token);
             Console.WriteLine(accessTokenResult.access_token);
+        }
+
+        [TestMethod]
+        public void RegisterToWeixinSettingTest()
+        {
+            var appId = Guid.NewGuid().ToString("n");
+            var appSecret = Guid.NewGuid().ToString("n");
+            var name = "公众号单元测试";
+            AccessTokenContainer.Register(appId, appSecret, name);
+
+            Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
+            Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
         }
     }
 }

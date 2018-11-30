@@ -13,7 +13,7 @@ using Senparc.CO2NET.Helpers;
 namespace Senparc.Weixin.Open.CommonAPIs.Tests
 {
     [TestClass()]
-    public class ComponentContainerTests : BaseTest
+    public class ComponentContainerTests : OpenBaseTest
     {
 
 

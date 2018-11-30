@@ -39,6 +39,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.NeuChar;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 
@@ -50,6 +51,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public static class PictureApi
     {
         #region 同步方法
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "PictureApi.UploadImg", true)]
         public static PictureResult UploadImg(string accessToken, string fileName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";
@@ -68,6 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
 #if !NET35 && !NET40
         #region 异步方法
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "PictureApi.UploadImgAsync", true)]
         public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";

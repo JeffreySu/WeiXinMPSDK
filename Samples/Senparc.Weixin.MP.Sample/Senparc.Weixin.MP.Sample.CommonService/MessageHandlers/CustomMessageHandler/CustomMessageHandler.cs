@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,8 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
@@ -30,8 +30,11 @@ using Senparc.Weixin.MP.Helpers;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities.Request;
+using Senparc.NeuChar.Entities.Request;
 using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar.Helpers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Agents;
 
 #if NET45
 using System.Web;
@@ -58,20 +61,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+#if !DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
 #else
         //下面的Url和Token可以用其他平台的消息，或者到www.weiweihi.com注册微信用户，将自动在“微信营销工具”下得到
-        private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.weiweihi.com微信自动托管平台
-        private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
-        private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
+        private string agentUrl = Config.SenparcWeixinSetting.AgentUrl;//这里使用了www.weiweihi.com微信自动托管平台
+        private string agentToken = Config.SenparcWeixinSetting.AgentToken;//Token
+        private string wiweihiKey = Config.SenparcWeixinSetting.SenparcWechatAgentKey;//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
 #if NET45
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 #else
         private string appId = "appId";
         private string appSecret = "appSecret";
@@ -86,8 +89,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             : base(inputStream, postModel, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
-            //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
-            WeixinContext.ExpireMinutes = 3;
+            //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
+            GlobalMessageContext.ExpireMinutes = 3;
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {
@@ -106,10 +109,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
-        public CustomMessageHandler(RequestMessageBase requestMessage)
-            : base(requestMessage)
-        {
-        }
+        //public CustomMessageHandler(RequestMessageBase requestMessage, PostModel postModel)
+        //    : base(requestMessage, postModel)
+        //{
+        //}
 
         public override void OnExecuting()
         {
@@ -237,7 +240,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     *
                     */
                     var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
-                    var agentResponseMessage = responseXml.CreateResponseMessage();
+                    var agentResponseMessage = responseXml.CreateResponseMessage(this.MessageEntityEnlightener);
                     if (agentResponseMessage is ResponseMessageText)
                     {
                         (agentResponseMessage as ResponseMessageText).Content += msg;
@@ -322,7 +325,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var openId = requestMessage.FromUserName;
                     var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
                     TemplateMessageCollection[checkCode] = openId;
-                    defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：http://sdk.weixin.senparc.com/AsyncMethods", checkCode);
+                    defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：https://sdk.weixin.senparc.com/AsyncMethods", checkCode);
                     return defaultResponseMessage;
                 })
                 .Keyword("OPENID", () =>
@@ -353,6 +356,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     //方案三：
                     base.TextResponseMessage = "success";
                     return null;
+
+                    //方案四：
+                    return null;//在 Action 中结合使用 return new FixWeixinBugWeixinResult(messageHandler);
                 })
                 .Keyword("JSSDK", () =>
                 {
@@ -384,7 +390,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     }
 
                     result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
-                        WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
+                        GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
                     result.AppendLine("\r\n");
                     result.AppendLine(
                         "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
@@ -435,7 +441,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //一隔一返回News或Image格式
-            if (base.WeixinContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
+            if (base.GlobalMessageContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {
                 var responseMessage = CreateResponseMessage<ResponseMessageNews>();
 
@@ -596,7 +602,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
              * 原始XML可以通过requestMessage.RequestDocument（或this.RequestDocument）获取到。
              * 如果不重写此方法，遇到未知的请求类型将会抛出异常（v14.8.3 之前的版本就是这么做的）
              */
-            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
+            var msgType = Senparc.NeuChar.Helpers.MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "未知消息类型：" + msgType;
 

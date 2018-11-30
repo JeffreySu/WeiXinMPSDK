@@ -31,6 +31,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Work.AdvancedAPIs.Mass;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -60,6 +62,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendText", true)]
         public static MassResult SendText(string accessTokenOrAppKey, string agentId, string content,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
@@ -100,6 +103,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendImage", true)]
         public static MassResult SendImage(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int timeOut = Config.TIME_OUT)
@@ -140,6 +144,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendVoice", true)]
         public static MassResult SendVoice(string accessTokenOrAppKey, string agentId, string mediaId,
              string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
@@ -182,6 +187,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendVideo", true)]
         public static MassResult SendVideo(string accessTokenOrAppKey, string agentId, string mediaId,
             string toUser = null, string toParty = null, string toTag = null,
             string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
@@ -224,6 +230,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendFile", true)]
         public static MassResult SendFile(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
@@ -264,6 +271,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendNews", true)]
         public static MassResult SendNews(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
@@ -310,6 +318,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendMpNews", true)]
         public static MassResult SendMpNews(string accessTokenOrAppKey, string agentId, List<MpNewsArticle> articles,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
@@ -361,6 +370,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="btntxt">按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTextCard", true)]
         public static MassResult SendTextCard(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null,
             string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
         {
@@ -387,6 +397,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+
+        /// <summary>
+        /// 发送小程序通知消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMiniNoticeCard", true)]
+        public static MassResult SendMiniNoticeCard(string accessTokenOrAppKey, SendMiniProgramNoticeData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
         #endregion
 
 #if !NET35 && !NET40
@@ -403,6 +432,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTextAsync", true)]
         public static async Task<MassResult> SendTextAsync(string accessTokenOrAppKey, string agentId, string content, string toUser = null, string toParty = null, string toTag = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -441,6 +471,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendImageAsync", true)]
         public static async Task<MassResult> SendImageAsync(string accessTokenOrAppKey, string agentId, string mediaId, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
         {
@@ -480,6 +511,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendVoiceAsync", true)]
         public static async Task<MassResult> SendVoiceAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int timeOut = Config.TIME_OUT)
@@ -522,6 +554,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendVideoAsync", true)]
         public static async Task<MassResult> SendVideoAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null,
                 string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
@@ -564,6 +597,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendFileAsync", true)]
         public static async Task<MassResult> SendFileAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
@@ -604,6 +638,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendNewsAsync", true)]
         public static async Task<MassResult> SendNewsAsync(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
@@ -650,6 +685,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendMpNewsAsync", true)]
         public static async Task<MassResult> SendMpNewsAsync(string accessTokenOrAppKey, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -696,6 +732,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="btntxt">按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTextCardAsync", true)]
         public static async Task<MassResult> SendTextCardAsync(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null,
             string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
         {
@@ -722,6 +759,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+
+        /// <summary>
+        /// 【异步方法】发送小程序通知消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LinkerCorpApi.SendMiniNoticeCardAsync", true)]
+        public static async Task<MassResult> SendMiniNoticeCardAsync(string accessTokenOrAppKey, SendMiniProgramNoticeData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
         #endregion
 #endif
     }

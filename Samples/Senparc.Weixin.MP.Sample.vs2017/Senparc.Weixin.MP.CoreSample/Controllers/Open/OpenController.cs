@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.Open.AccountAPIs;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -29,10 +31,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Appid;
-        private string component_Secret = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Secret;
-        private string component_Token = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_Token;
-        private string component_EncodingAESKey = Senparc.Weixin.Config.DefaultSenparcWeixinSetting.Component_EncodingAESKey;
+        private string component_AppId = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Secret;
+        private string component_Token = Senparc.Weixin.Config.SenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Senparc.Weixin.Config.SenparcWeixinSetting.Component_EncodingAESKey;
 
         /// <summary>
         /// 发起授权页的体验URL
@@ -45,6 +47,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            return Redirect(url);
+        }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth() {
+
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
             return Redirect(url);
         }
 
@@ -81,7 +94,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
 
                 var messageHandler = new CustomThirdPartyMessageHandler(Request.GetRequestMemoryStream(), postModel);//初始化
-                //注意：再进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
+                //注意：在进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
                 //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.GetRequestMemoryStream(),
                 //    postModel, 10);
 
@@ -145,26 +158,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
                 }
 
-                messageHandler.RequestDocument.Save(Path.Combine(logPath,
-                    string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
 
-                messageHandler.Execute(); //执行
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                if (messageHandler.ResponseDocument != null)
-                {
-                    var ticks = DateTime.Now.Ticks;
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath,
-                        string.Format("{0}_Response_{1}.txt", ticks,
-                            messageHandler.RequestMessage.FromUserName)));
+                messageHandler.Execute();//执行微信处理过程（关键）
 
-                    //记录加密后的日志
-                    //if (messageHandler.UsingEcryptMessage)
-                    //{
-                    //    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
-                    // string.Format("{0}_Response_Final_{1}.txt", ticks,
-                    //     messageHandler.RequestMessage.FromUserName)));
-                    //}
-                }
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
+
                 return new FixWeixinBugWeixinResult(messageHandler);
             }
             catch (Exception ex)

@@ -2,12 +2,12 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-		<Version>2.0.6.1</Version>
+		<Version>3.2.0</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
-		<Description>
+    <Description>
 			微信公众账号 - 企业微信 模块
 
 			Senparc.Weixin SDK 开源项目：
@@ -82,6 +82,33 @@
       v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
       v2.0.3 支持 Senparc.Weixin v5.0.3，EntityHelper支持更多
       v2.0.6.1  持 CO3NET v0.1.6.1 解决 XXE 漏洞
+      v2.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
+      v2.0.10 支持 Senparc.Weixin v5.0.10
+      v2.0.11 支持 Senparc.Weixin v5.0.11
+      v2.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v2.1.2
+      1、支持 Senparc.Weixin v5.1.4
+      2、整理高级接口命名空间及定义
+      3、更新 MailListApi.CreateMember() 和 UpdateMember() 接口输入参数，增加官方新增的 to_invite 参数
+      v2.2.0 实现 SenparcWeixinSetting 自动注册
+      v2.4.1 添加 GetUserInfoResult.CorpId 属性
+      v2.4.2 支持 Senparc.Weixin.MP v15.2.4
+
+      v3.0.0 支持 NeuChar 标准
+      v3.0.1 支持 Senparc.Weixin v6.0.1
+      v3.1.0 支持 Senparc.NeuChar v0.0.5
+      v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact；枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT
+      v3.1.5 添加 MemberUpdateRequest.new_userid 属性
+      v3.1.6 支持 Senparc.NeuChar v0.1.2
+      v3.1.8 支持 Senparc.NeuChar v0.1.4
+      v3.1.9 支持 Senparc.NeuChar v0.2.1
+      v3.1.10 支持 Senparc.Weixin 6.1.4
+      v3.1.11 菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
+      v3.1.12 Senparc.NeuChar v0.2.7
+      v3.1.14 Senparc.NeuChar v0.2.11，升级 MessageHandler
+      v3.1.16 fix bug：RequestMessageEvent_Change_Contact_User_Create.Department 属性类型错误，添加 DepartmentList 自动转成 long[]
+      v3.1.18 移除微信支付相关类（已经迁移到 Senparc.Weixin.TenPay.dll 中）
+      v3.2.0 使用 Senparc.CO2NET.APM
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -244,6 +271,10 @@
 
 	<ItemGroup>
 		<Folder Include="Properties\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Senparc.NeuChar" Version="0.4.4.3" />
 	</ItemGroup>
 
 	<ItemGroup>

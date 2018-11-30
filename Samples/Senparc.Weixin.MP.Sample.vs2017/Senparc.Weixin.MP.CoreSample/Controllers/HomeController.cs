@@ -21,10 +21,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
+//DPBMARK MP
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Containers;//DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.Open.CommonAPIs;
+//DPBMARK Open
+using Senparc.Weixin.Open;
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -42,27 +45,27 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult Index()
         {
-            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
+            Func<Version, string> getDisplayVersion = version =>
+                 Regex.Match(version.ToString(), @"\d+\.\d+\.\d+").Value;
+
+            Func<Type, string> getTypeVersionInfo = type =>
             {
-                var dllPath =
-                    Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.GetMapPath(
-                        System.IO.Path.Combine(AppContext.BaseDirectory, dllFileName)); //dll所在目录
-                return FileVersionInfo.GetVersionInfo(dllPath);
+                var version = System.Reflection.Assembly.GetAssembly(type).GetName().Version;
+                return getDisplayVersion(version);
             };
 
-            Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
-                 Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
-
-            TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
-            TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
-            TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
-            TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
+            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
+            TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
+            TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END
+            TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));//DPBMARK MP DPBMARK_END
+            TempData["ExtensionVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult));//DPBMARK MP DPBMARK_END
+            TempData["OpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Open.Register));//DPBMARK Open DPBMARK_END
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
-            TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
-            TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
-            TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
-            TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
-            TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
+            TempData["WorkVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Work.Register));//DPBMARK Work DPBMARK_END
+            TempData["RedisCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Redis.Register));//DPBMARK Redis DPBMARK_END
+            TempData["MemcachedCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Memcached.Register));//DPBMARK Memcached DPBMARK_END
+            TempData["WxOpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.WxOpen.Register));//DPBMARK MiniProgram DPBMARK_END
+            TempData["WebSocketVersion"] = getTypeVersionInfo(typeof(Senparc.WebSocket.WebSocketConfig));//DPBMARK WebSocket DPBMARK_END
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -78,6 +81,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
             //or use Header: REMOTE_ADDR
 
+            return View();
+        }
+
+        public ActionResult WeChatSampleBuilder()
+        {
             return View();
         }
 

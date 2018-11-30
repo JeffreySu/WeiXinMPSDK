@@ -33,9 +33,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 using System.Threading.Tasks;
 using System;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -48,6 +49,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IResponseMessageBase responseMessage = null;
+            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+
             switch (strongRequestMessage.Event)
             {
                 case Event.ENTER:
@@ -63,7 +66,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_UnsubscribeRequestAsync(RequestMessage as RequestMessageEvent_Unsubscribe);
                     break;
                 case Event.CLICK://菜单点击
-                    responseMessage = await OnEvent_ClickRequestAsync(RequestMessage as RequestMessageEvent_Click);
+                    responseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                                        await OnEvent_ClickRequestAsync(RequestMessage as RequestMessageEvent_Click);
                     break;
                 case Event.scan://二维码
                     responseMessage = await OnEvent_ScanRequestAsync(RequestMessage as RequestMessageEvent_Scan);
@@ -156,7 +160,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_Card_Pay_OrderRequestAsync(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
 
-                #region 微信认证事件推送
+#region 微信认证事件推送
 
                 case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
                     responseMessage = await OnEvent_QualificationVerifySuccessRequestAsync(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
@@ -176,9 +180,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.verify_expired://认证过期失效通知
                     responseMessage = await OnEvent_VerifyExpiredRequestAsync(RequestMessage as RequestMessageEvent_VerifyExpired);
                     break;
-                #endregion
+#endregion
 
-                #region 小程序审核事件推送
+#region 小程序审核事件推送
 
                 case Event.weapp_audit_success://
                     responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess);
@@ -186,14 +190,32 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.weapp_audit_fail://
                     responseMessage = await OnEvent_WeAppAuditFailRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                     break;
-                #endregion
+#endregion
+
+#region 卡券回调
+
+                case Event.giftcard_pay_done:
+                    responseMessage = await OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done);
+                    break;
+
+                case Event.giftcard_send_to_friend:
+                    responseMessage = await OnEvent_GiftCard_Send_To_FriendRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend);
+                    break;
+
+                case Event.giftcard_user_accept:
+                    responseMessage = await OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_User_Accept);
+                    break;
+
+#endregion
+
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }
 
-        #region Event下属分类，接收事件方法
+#region Event下属分类，接收事件方法
 
         /// <summary>
         /// 【异步方法】Event事件类型请求之ENTER
@@ -203,7 +225,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_EnterRequest(requestMessage));
         }
 
-   
+
         /// <summary>
         /// 【异步方法】Event事件类型请求之LOCATION
         /// </summary>
@@ -501,7 +523,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Pay_OrderRequest(requestMessage));
         }
 
-        #region 微信认证事件推送
+#region 微信认证事件推送
 
         /// <summary>
         /// 【异步方法】资质认证成功（此时立即获得接口权限）
@@ -564,9 +586,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_VerifyExpiredRequest(requestMessage));
         }
 
-        #endregion
+#endregion
 
-        #region 小程序审核事件推送
+#region 小程序审核事件推送
 
         /// <summary>
         /// 【异步方法】小程序审核失败通知
@@ -587,9 +609,38 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage));
         }
 
-        #endregion
+#endregion
 
-        #endregion
+#region 卡券回调
+
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_Pay_DoneRequest(requestMessage));
+        }
+
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_Send_To_FriendRequestAsync(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_Send_To_FriendRequest(requestMessage));
+        }
+
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_GiftCard_User_AcceptRequest(requestMessage));
+        }
+
+
+#endregion
+
+#endregion
     }
 }
 #endif

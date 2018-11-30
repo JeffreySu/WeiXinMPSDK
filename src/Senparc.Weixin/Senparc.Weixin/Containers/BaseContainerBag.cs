@@ -87,8 +87,8 @@ namespace Senparc.Weixin.Containers
     [Serializable]
     public class BaseContainerBag : /*BindableBase, */IBaseContainerBag
     {
-        private string _key;
-        private string _name;
+        //private string _key;
+        //private string _name;
 
         /// <summary>
         /// 用于标记，方便后台管理

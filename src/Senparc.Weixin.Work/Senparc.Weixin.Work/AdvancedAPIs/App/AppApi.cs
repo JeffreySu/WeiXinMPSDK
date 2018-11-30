@@ -36,10 +36,11 @@
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.App;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
@@ -58,6 +59,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.GetAppInfo", true)]
         public static GetAppInfoResult GetAppInfo(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -75,6 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.SetApp", true)]
         public static WorkJsonResult SetApp(string accessTokenOrAppKey, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -94,6 +97,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.GetAppList", true)]
         public static GetAppListResult GetAppList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -117,6 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.GetAppInfoAsync", true)]
         public static async Task<GetAppInfoResult> GetAppInfoAsync(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -135,6 +140,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.SetAppAsync", true)]
         public static async Task<WorkJsonResult> SetAppAsync(string accessTokenOrAppKey, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -157,6 +163,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AppApi.GetAppListAsync", true)]
         public static async Task<GetAppListResult> GetAppListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

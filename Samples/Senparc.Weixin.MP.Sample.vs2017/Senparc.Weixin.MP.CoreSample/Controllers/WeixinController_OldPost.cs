@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +22,8 @@ using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
+    using Senparc.NeuChar;
+    using Senparc.NeuChar.Entities;
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.Sample.CommonService.Utilities;
@@ -117,7 +120,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
+                var responseDoc = Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
                 responseDoc.Save(Server.GetMapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
 
                 return Content(responseDoc.ToString());

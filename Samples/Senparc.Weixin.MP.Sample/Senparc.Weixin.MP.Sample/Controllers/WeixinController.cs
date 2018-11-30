@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.IO;
 using System.Web.Configuration;
@@ -21,9 +22,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public partial class WeixinController : Controller
     {
-        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -89,54 +90,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
 
-                #region 记录 Request 日志
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
-                if (!Directory.Exists(logPath))
-                {
-                    Directory.CreateDirectory(logPath);
-                }
+                messageHandler.Execute();//执行微信处理过程（关键）
 
-                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(), 
-                    messageHandler.RequestMessage.FromUserName, 
-                    messageHandler.RequestMessage.MsgType)));
-                if (messageHandler.UsingEcryptMessage)
-                {
-                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(), 
-                        messageHandler.RequestMessage.FromUserName, 
-                        messageHandler.RequestMessage.MsgType)));
-                }
-
-                #endregion
-
-                //执行微信处理过程
-                messageHandler.Execute();
-
-                #region 记录 Response 日志
-
-                //测试时可开启，帮助跟踪数据
-
-                //if (messageHandler.ResponseDocument == null)
-                //{
-                //    throw new Exception(messageHandler.RequestDocument.ToString());
-                //}
-                if (messageHandler.ResponseDocument != null)
-                {
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}_{2}.txt", _getRandomFileName(), 
-                        messageHandler.ResponseMessage.ToUserName,
-                        messageHandler.ResponseMessage.MsgType)));
-                }
-
-                if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
-                {
-                    //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(), 
-                        messageHandler.ResponseMessage.ToUserName,
-                        messageHandler.ResponseMessage.MsgType)));
-                }
-
-                #endregion
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 //return new WeixinResult(messageHandler);//v0.8+

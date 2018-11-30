@@ -25,8 +25,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
+    using Senparc.NeuChar;
+    using Senparc.NeuChar.Entities;
     using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
+    using Senparc.NeuChar.Helpers;
 
     [TestClass]
     public class EntityHelperTest
@@ -56,7 +58,7 @@ namespace Senparc.Weixin.MP.Test
 
         #region 可为空对象测试
 
-        class NullableClass : RequestMessageBase, IResponseMessageBase
+        class NullableClass : ResponseMessageBase, IResponseMessageBase
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -82,7 +84,7 @@ namespace Senparc.Weixin.MP.Test
 </xml>";
             var doc = XDocument.Parse(nullableTestXml);
             var entity = new NullableClass();
-            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+            EntityHelper.FillEntityWithXml(entity as ResponseMessageBase, doc);
 
             Assert.AreEqual(10, entity.Id);
             Assert.AreEqual("Jeffrey Su", entity.Name);

@@ -38,6 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170123
     修改描述：v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
+
+    修改标识：Senparc - 20180917
+    修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -71,7 +75,7 @@ namespace Senparc.Weixin.Work
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
         {
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId();
+                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
 
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
                 appKey =>
@@ -121,7 +125,7 @@ namespace Senparc.Weixin.Work
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
         {
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId();
+                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
 
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
                 appKey =>

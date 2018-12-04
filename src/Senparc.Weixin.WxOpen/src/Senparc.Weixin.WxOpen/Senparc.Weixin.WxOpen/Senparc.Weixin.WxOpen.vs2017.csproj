@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>3.2.1</Version>
+    <Version>3.2.2.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -114,6 +114,7 @@
       v3.1.16 MessageHandler 构造函数，提供 PostModel 默认值
       v3.2.0 使用 Senparc.CO2NET.APM
       v3.2.1 支持 Senparc.NeuChar v0.4.4
+      v3.2.2 优化 APM 和 MessageHandler 消息解密过程
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -188,7 +188,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
             XDocument decryptDoc = postDataDocument;
 
-            if (_postModel != null && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
+            if (_postModel != null && _postModel.Token.IsNullOrWhiteSpace()
+                && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
             {
                 //使用了加密
                 UsingEcryptMessage = true;

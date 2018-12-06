@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -57,6 +58,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "SnsApi.JsCode2Json", true)]
         public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =
@@ -81,6 +83,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "SnsApi.JsCode2JsonAsync", true)]
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =

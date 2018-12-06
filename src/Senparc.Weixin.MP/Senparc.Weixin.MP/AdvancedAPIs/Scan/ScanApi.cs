@@ -47,6 +47,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
@@ -71,6 +72,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.MerchantInfoGet", true)]
         public static MerchantInfoGetResultJson MerchantInfoGet(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -89,6 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <pram name="baseInfo">商品的基本信息。</pram>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductCreate", true)]
         public static ProductCreateResultJson ProductCreate(string accessTokenOrAppId, string keyStandard, string keyStr, BrandInfo brandInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -115,6 +118,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="status">设置发布状态。on为提交审核，off为取消发布。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ModStatus", true)]
         public static WxJsonResult ModStatus(string accessTokenOrAppId, string keyStandard, string keyStr, string status, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -137,6 +141,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userName">测试人员的微信号列表。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.TestWhiteListSet", true)]
         public static WxJsonResult TestWhiteListSet(string accessTokenOrAppId, string openId, string userName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -181,6 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="status">商品编码内容。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductGetList", true)]
         public static ProductGetListJsonResult ProductGetList(string accessTokenOrAppId, int offset, int limit, string status, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -204,6 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductClear", true)]
         public static WxJsonResult ProductClear(string accessTokenOrAppId, int keyStandard, string keyStr, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -222,11 +229,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///检查wxticket参数
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-
         /// <param name="ticket">请求URL中带上的wxticket参数。</param>
-
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ScanTicketCheck", true)]
         public static ScanTicketCheckJsonResult ScanTicketCheck(string accessTokenOrAppId, string ticket, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -234,9 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format(Config.ApiMpHost + "/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
-
                     ticket = ticket
-
                 };
                 return CommonJsonSend.Send<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
@@ -253,6 +257,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="qrcode_size">二维码的尺寸（整型），数值代表边长像素数，默认为100</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.GetQrCode", true)]
         public static ProductGetQrCodeJsonResult GetQrCode(string accessTokenOrAppId, string keystr, string extinfo = null, string keystandard = "ean13", int qrcode_size = 100, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -270,6 +275,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 更新商品信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.UpdateBrand", true)]
+        public static UpdateBrandResultJson UpdateBrand(string accessTokenOrAppId, UpdateBrandData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/update?access_token={0}", accessToken.AsUrlData());
+
+                return CommonJsonSend.Send<UpdateBrandResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
 #if !NET35 && !NET40
@@ -280,6 +304,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.MerchantInfoGetAsync", true)]
         public static async Task<MerchantInfoGetResultJson> MerchantInfoGetAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -298,6 +323,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <pram name="baseInfo">商品的基本信息。</pram>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductCreateAsync", true)]
         public static async Task<ProductCreateResultJson> ProductCreateAsync(string accessTokenOrAppId, string keyStandard, string keyStr, BrandInfo brandInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -324,6 +350,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="status">设置发布状态。on为提交审核，off为取消发布。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ModStatusAsync", true)]
         public static async Task<WxJsonResult> ModStatusAsync(string accessTokenOrAppId, string keyStandard, string keyStr, string status, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -346,6 +373,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userName">测试人员的微信号列表。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.TestWhiteListSetAsync", true)]
         public static async Task<WxJsonResult> TestWhiteListSetAsync(string accessTokenOrAppId, string openId, string userName, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -390,6 +418,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="status">商品编码内容。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductGetListAsync", true)]
         public static async Task<ProductGetListJsonResult> ProductGetListAsync(string accessTokenOrAppId, int offset, int limit, string status, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -410,9 +439,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码标准。</param>
-
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ProductClearAsync", true)]
         public static async Task<WxJsonResult> ProductClearAsync(string accessTokenOrAppId, int keyStandard, string keyStr, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -431,11 +460,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///【异步方法】检查wxticket参数
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-
         /// <param name="ticket">请求URL中带上的wxticket参数。</param>
-
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.ScanTicketCheckAsync", true)]
         public static async Task<ScanTicketCheckJsonResult> ScanTicketCheckAsync(string accessTokenOrAppId, string ticket, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -462,6 +490,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="qrcode_size">二维码的尺寸（整型），数值代表边长像素数，默认为100</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.GetQrCodeAsync", true)]
         public static async Task<ProductGetQrCodeJsonResult> GetQrCodeAsync(string accessTokenOrAppId, string keystr, string extinfo = null, string keystandard = "ean13", int qrcode_size = 100, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -479,6 +508,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】更新商品信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "ScanApi.UpdateBrandAsync", true)]
+        public static async Task<UpdateBrandResultJson> UpdateBrandAsync(string accessTokenOrAppId, UpdateBrandData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/update?access_token={0}", accessToken.AsUrlData());
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateBrandResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 #endif
     }

@@ -1,4 +1,5 @@
-﻿using Senparc.Weixin.MP.MessageHandlers;
+﻿//DPBMARK_FILE Open
+using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;

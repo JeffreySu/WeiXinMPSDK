@@ -22,6 +22,17 @@
     修改标识：pekrr1e - 20180503
     修改描述：v1.4.1 增加“接收通讯录变更事件”
 
+    修改标识：Senparc - 20180909
+    修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact；
+                     枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
+                     OnThirdPartyEvent_Contact_Sync 改名为 OnThirdPartyEvent_Change_Contact()
+
+    修改标识：pekrr1e - 20180503
+    修改描述：v3.1.16 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
+    修改标识：Senparc - 20181117
+    修改描述：v3.2.0 Execute() 重写方法名称改为 BuildResponseMessage()
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -34,6 +45,8 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.Tencent;
 using Senparc.NeuChar;
+using Senparc.NeuChar.ApiHandlers;
+using Senparc.Weixin.Work.AdvancedAPIs;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -156,24 +169,28 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlighten Enlighten { get { return WorkMessageEntityEnlighten.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WorkMessageEntityEnlightener.Instance; } }
+
+        public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
         public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, maxRecordCount, postModel)
+            : base(inputStream, postModel, maxRecordCount)
         {
         }
 
         public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, maxRecordCount, postModel)
+            : base(requestDocument, postModel, maxRecordCount)
         {
         }
 
 
-        public override XDocument Init(XDocument postDataDocument, object postData)
+        public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
-            _postModel = postData as PostModel;
+            _postModel = postModel as PostModel ?? new PostModel();
 
+
+            UsingEcryptMessage = true;//Work中消息都是强制加密的
             var postDataStr = postDataDocument.ToString();
             EncryptPostData = RequestMessageFactory.GetEncryptPostData(postDataStr);
 
@@ -228,90 +245,57 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
 
-        public override void Execute()
+        public override void BuildResponseMessage()
         {
-            if (CancelExcute)
+
+            switch (RequestMessage.MsgType)
             {
-                return;
-            }
-
-            OnExecuting();
-
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            try
-            {
-                if (RequestMessage == null)
-                {
-                    return;
-                }
-
-                switch (RequestMessage.MsgType)
-                {
-                    case RequestMsgType.Unknown://第三方回调
+                case RequestMsgType.Unknown://第三方回调
+                    {
+                        if (RequestMessage is IThirdPartyInfoBase)
                         {
-                            if (RequestMessage is IThirdPartyInfoBase)
-                            {
-                                var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                                TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
-                            }
-                            else
-                            {
-                                throw new WeixinException("没有找到合适的消息类型。");
-                            }
+                            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                            TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
                         }
-                        break;
-                    //以下是普通信息
-                    case RequestMsgType.Text:
+                        else
                         {
-                            var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                            throw new WeixinException("没有找到合适的消息类型。");
                         }
-                        break;
-                    case RequestMsgType.Location:
-                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                        break;
-                    case RequestMsgType.Image:
-                        ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                        break;
-                    case RequestMsgType.Voice:
-                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                        break;
-                    case RequestMsgType.Video:
-                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                        break;
-                    case RequestMsgType.ShortVideo:
-                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                        break;
-                    case RequestMsgType.File:
-                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                        }
-                        break;
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                }
-
-                //记录上下文
-                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null)
-                {
-                    GlobalMessageContext.InsertMessage(ResponseMessage);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new MessageHandlerException("MessageHandler中Execute()过程发生错误：" + ex.Message, ex);
-            }
-            finally
-            {
-                OnExecuted();
+                    }
+                    break;
+                //以下是普通信息
+                case RequestMsgType.Text:
+                    {
+                        var requestMessage = RequestMessage as RequestMessageText;
+                        ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                    }
+                    break;
+                case RequestMsgType.Location:
+                    ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                    break;
+                case RequestMsgType.Image:
+                    ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                    break;
+                case RequestMsgType.Voice:
+                    ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                    break;
+                case RequestMsgType.Video:
+                    ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                    break;
+                case RequestMsgType.ShortVideo:
+                    ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                    break;
+                case RequestMsgType.File:
+                    ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                    break;
+                case RequestMsgType.Event:
+                    {
+                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                        ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                    }
+                    break;
+                default:
+                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
             }
         }
 
@@ -704,14 +688,14 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.CREATE_AUTH:
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
-                case ThirdPartyInfo.CONTACT_SYNC:
-                    return OnThirdPartyEvent_Contact_Sync((RequestMessageInfo_Contact_Sync)thirdPartyInfo);
+                case ThirdPartyInfo.CHANGE_CONTACT:
+                    return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
                 default:
                     throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
             }
         }
 
-        protected virtual string OnThirdPartyEvent_Contact_Sync(RequestMessageInfo_Contact_Sync thirdPartyInfo)
+        protected virtual string OnThirdPartyEvent_Change_Contact(RequestMessageInfo_Change_Contact thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }

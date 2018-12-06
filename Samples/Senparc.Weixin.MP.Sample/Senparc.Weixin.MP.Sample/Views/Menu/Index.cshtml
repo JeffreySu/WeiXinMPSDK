@@ -1,24 +1,31 @@
 ﻿@model Senparc.Weixin.MP.Entities.GetMenuResult
+@*DPBMARK_FILE MP*@
 @{
     ViewBag.Title = "自定义菜单工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var domain = "https://neuchar.senparc.com";
 }
 @section HeaderContent
 {
     <style>
-        .red{color:#ff0000}
-        .bold{font-weight:bold}
-
-         #menuNotice {
-             width: 100%;
-             padding: 5px;
-             margin-top: 5px;
-             background-color: #ececec;
-         }
-
-        #menuNotice ul {
-            margin-top: 10px;
+        .red {
+            color: #ff0000
         }
+
+        .bold {
+            font-weight: bold
+        }
+
+        #menuNotice {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            background-color: #ececec;
+        }
+
+            #menuNotice ul {
+                margin-top: 10px;
+            }
 
         #menuButtonArea {
             display: inline-block;
@@ -41,9 +48,9 @@
             padding: 5px;
         }
 
-        select.dllButtonDetails option {
-            padding: 5px;
-        }
+            select.dllButtonDetails option {
+                padding: 5px;
+            }
 
         .txtButtonDetails {
             width: 200px;
@@ -68,19 +75,19 @@
             border-right: 1px solid #d9d9d9;
         }
 
-        #addConditionalArea input {
-            width: 100px;
-        }
+            #addConditionalArea input {
+                width: 100px;
+            }
 
-        #addConditionalArea .conditionalTip {
-            display: block;
-            clear: both;
-        }
+            #addConditionalArea .conditionalTip {
+                display: block;
+                clear: both;
+            }
 
-        #addConditionalArea h3, #reveiveJSON h3 {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+            #addConditionalArea h3, #reveiveJSON h3 {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
 
         #reveiveJSON {
             margin: 0px 0px 40px 0px;
@@ -88,11 +95,11 @@
             float: left;
         }
 
-        #reveiveJSON textarea {
-            width: 96%;
-            height: 350px;
-            margin-top: 5px;
-        }
+            #reveiveJSON textarea {
+                width: 96%;
+                height: 350px;
+                margin-top: 5px;
+            }
 
         #menuEditor #submitJsonMenu.control-btn {
             width: 280px;
@@ -135,9 +142,9 @@
             border-color: #ebebeb;
         }
 
-        #menuTable .control-input.currentMenuInput {
-            border-color: #246ea2;
-        }
+            #menuTable .control-input.currentMenuInput {
+                border-color: #246ea2;
+            }
 
         #menuTable .menuRowTip {
             padding: 2px;
@@ -147,239 +154,363 @@
             color: #E65100;
             font-weight: bold;
         }
-    </style>
-}
-<div class="wrapper">
-    <div id="menuLogin">
-        <div class="form-control">
-            <ul>
-                <li>
-                    <div class="control-head">
-                        <label class="control-title">获取AccessToken</label>
-                    </div>
-                </li>
-                <li>
-                    <label class="control-label">AppId:</label>
-                    <input class="control-input" id="menuLogin_AppId" type="text" />
-                </li>
-                <li>
-                    <label class="control-label">AppSecret:</label>
-                    <input class="control-input" id="menuLogin_AppSecret" type="text" />
-                </li>
-                <li>
-                    <button class="control-btn" id="menuLogin_Submit">获取AccessToken</button>
-                </li>
-                <li>
-                    <p class="control-p">注：</p>
-                    <p class="control-p">1.使用菜单需要成为“服务号”，或通过认证的“订阅号”。到微信后台【高级功能>开发模式】下获取信息</p>
-                    <p class="control-p">2.这里的Token已经使用AccessTokenContainer管理起来，有效期内不会重复获取，过了有效期自动获取。也就是说如果已经在本网页上获取一次，接下去只需要提供AppId即可（直到服务器重启或队列过长被清理）</p>
-                    <p class="control-p">3.如果对应公众号后台已经启用IP白名单，请添加本服务器的IP至白名单本机IP：<span class="bold red">@ViewData["IP"]。</span></p>
-                </li>
-            </ul>
-            <p style="padding: 15px 20px; font-size: 16px;">或：</p>
-            <ul>
-                <li>
-                    <div class="control-head">
-                        <label class="control-title">我有当前可用 AccessToken</label>
-                    </div>
-                </li>
-                <li>
-                    <label class="control-label">Token:</label>
-                    <input class="control-input" id="menuLogin_OldToken" type="text" />
-                </li>
-                <li>
-                    <button class="control-btn" id="menuLogin_SubmitOldToken">直接使用</button>
-                </li>
-                <li>
-                    <p class="control-p">注：通过 AppId 和 AppSecret 得到的自动生成的 AccessToken。</p>
-                </li>
-            </ul>
-        </div>
-        <div class="form-control">
-            <div class="up-experience">
-                <p>微微嗨已全面支持二级菜单、点击事件和访问网页</p>
-                <p>让微微嗨为您的微信账号做一次全面升级，获得更多菜单功能！</p>
-                <img src="/images/v2/menu-up.png" />
-                <p><a href="http://www.weiweihi.com" target="_blank">点击这开始体验</a></p>
-            </div>
-        </div>
-    </div>
-    <div id="menuEditor">
-        <div id="menuNotice">
-            <h3>使用说明及规则，请仔细阅读</h3>
-            <ul>
-                <li>官方要求：一级菜单按钮个数为1-3个</li>
-                <li>官方要求：如果设置了二级菜单，子按钮个数为1-5个</li>
-                <li>官方要求：按钮描述，即按钮名字，不超过16个字节，子菜单不超过40个字节</li>
-                <li>如果name不填，此按钮将被忽略</li>
-                <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
-                <li>key仅在SingleButton（单击按钮，无下级菜单）的状态下设置，如果此按钮有下级菜单，key将被忽略</li>
-                <li>所有二级菜单都为SingleButton</li>
-                <li>如果要快速看到微信上的菜单最新状态，需要重新关注，否则需要静静等待N小时</li>
-            </ul>
-        </div>
-        <p></p>
-        <h3>编辑工具</h3>
-        @using (Html.BeginForm("CreateMenu", "Menu", FormMethod.Post, new { id = "form_Menu" }))
-        {
-            <p>
-                当前 AccessToken:
-                <input id="tokenStr" name="token" class="control-input" style="width: 400px;" type="text" readonly="readonly" />
-                <span id="menuButtonArea">
-                    <input id="btnResetAccessToken" class="control-btn" type="button" value="重设 Token" />
-                    <input id="btnGetMenu" class="control-btn" type="button" value="获取当前菜单" />
-                    <input type="button" class="control-btn" value="更新到服务器" id="submitMenu" />
-                </span>
-            </p>
-            <p class="menu-state">
-                操作状态：<strong id="menuState">-</strong>
-            </p>
-            <div class="float-left menu-list">
-                <table id="menuTable">
-                    <thead>
-                        <tr>
-                            <th style="width:102px;"></th>
-                            <th>第一列</th>
-                            <th>第二列</th>
-                            <th>第三列</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < 6; i++)
-                        {
-                            var isRootMenu = i == 5;
-                            <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                                <td class="menuRowTip @(isRootMenu?"rootMenu":"")">
-                                    @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
-                                </td>
-                                @for (int j = 0; j < 3; j++)
-                                {
-                                    var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
-                                    var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
-                                    <td>
-                                        <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
-                                        <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
-                                        <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
-                                        <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
-                                        <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
-                                        <input type="hidden" class="control-input" name="@(namePrefix).media_id" id="@(idPrefix)_mediaid" />
-                                        <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="float-left" id="buttonDetails">
-                <h3>按钮其他参数</h3>
-                <p>Name：<input type="text" id="buttonDetails_name" class="control-input txtButton" disabled="disabled" /></p>
-                <p>
-                    Type：
-                    <select id="buttonDetails_type" class="dllButtonDetails">
-                        <option value="click" selected="selected">点击事件（传回服务器）</option>
-                        <option value="view">访问网页（直接跳转）</option>
-                        <option value="miniprogram">小程序（直接跳转）</option>
-                        <option value="location_select">弹出地理位置选择器</option>
-                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
-                        <option value="pic_sysphoto">弹出系统拍照发图</option>
-                        <option value="pic_weixin">弹出微信相册发图器</option>
-                        <option value="scancode_push">扫码推事件</option>
-                        <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
-                        <option value="media_id">下发消息（除文本消息）</option>
-                        <option value="view_limited">跳转图文消息URL</option>
-                    </select>
-                </p>
-                <p id="buttonDetails_key_area">
-                    Key：<input id="buttonDetails_key" class="control-input txtButtonDetails" type="text" />
-                </p>
-                <p id="buttonDetails_url_area">
-                    Url：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
-                </p>
-                <p id="buttonDetails_miniprogram_appid_area">
-                    小程序AppId：<input id="buttonDetails_miniprogram_appid" class="control-input txtButtonDetails" type="text" />
-                </p>
-                <p id="buttonDetails_miniprogram_pagepath_area">
-                    小程序PagePath：<input id="buttonDetails_miniprogram_pagepath" class="control-input txtButtonDetails" type="text" />
-                </p>
-                <p id="buttonDetails_mediaId_area">
-                    MediaId：<input id="buttonDetails_mediaId" class="control-input txtButtonDetails" type="text" />
-                </p>
 
-                <p id="rootButtonNotice">
-                    如果还有下级菜单请忽略上述Type和Key、Url等参数。<br />
-                </p>
-            </div>
-
-            <div class="clear"></div>
-            <div class="segregate"></div>
-
-            <div id="addConditionalArea">
-                <p><h3>个性化菜单设置</h3></p>
-                <p><i>提示：如果所有字段都留空，则使用普通自定义菜单，如果任何一个条件有值，则使用个性化菜单接口</i></p>
-                <p>
-                    <table>
-                        <tr>
-                            <td>group_id</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.group_id" placeholder="用户分组id" class="control-input" />
-                                <span class="conditionalTip">用户分组id，可通过用户分组管理接口获取，不填则不做匹配</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>sex</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.sex" placeholder="性别" class="control-input" />
-                                <span class="conditionalTip">性别：男（1）女（2），不填则不做匹配</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>country</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.country" placeholder="国家信息" class="control-input" />
-                                <span class="conditionalTip">国家信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>province</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.province" placeholder="省份信息" class="control-input" />
-                                <span class="conditionalTip">省份信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>city</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.city" placeholder="城市信息" class="control-input" />
-                                <span class="conditionalTip">省城市信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>client_platform_type</td>
-                            <td>
-                                <input type="text" name="MenuMatchRule.client_platform_type" placeholder="客户端版本" class="control-input" />
-                                <span class="conditionalTip">客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配</span>
-                            </td>
-                        </tr>
-                    </table>
-                </p>
-
-            </div>
-            <div id="reveiveJSON">
-                <p><h3>接收菜单JSON</h3></p>
-                <p><textarea id="txtReveiceJSON"></textarea></p>
-                <p><input type="button" class="control-btn" value="使用此 JSON 直接更新到服务器" id="submitJsonMenu" /></p>
-            </div>
-            <div class="clear"></div>
-
-            <div id="submitArea">
-                <input id="btnDeleteMenu" class="control-btn" type="button" value="删除菜单" />
-
-            </div>
+        #oldMenu {
+            display: none;
         }
 
+            #oldMenu .line {
+                width: 96%;
+                margin: 0px auto;
+                border-bottom: 1px solid #585858;
+                height: 0px;
+                overflow: hidden;
+            }
 
+        #neucharMenu {
+            padding: 30px 10px;
+        }
+
+            #neucharMenu .description {
+                font-size: 20px;
+            }
+
+                #neucharMenu .description p {
+                    color: #585858;
+                    font-size: 20px;
+                    line-height: 30px;
+                    width: 100%;
+                    padding-left: 30px;
+                    letter-spacing: 1px;
+                }
+
+            #neucharMenu h2 {
+                text-align: center;
+                font-size: 30px;
+                padding-bottom: 30px;
+            }
+
+        .img-area {
+            text-align: center;
+            margin: 20px;
+        }
+
+            .img-area img {
+                width: 98%;
+            }
+
+        .goto-neuchar {
+            text-align: center;
+            margin-top: 30px;
+            clear: both;
+        }
+
+            .goto-neuchar a {
+                background: #0A9CD2;
+                letter-spacing: 2px;
+                color: #fff;
+                font-size: 18px;
+                padding: 10px 20px;
+            }
+
+                .goto-neuchar a:hover {
+                    background: #027eac;
+                }
+
+        .open-old-menu {
+            clear: both;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+            .open-old-menu a {
+                color: #585858;
+                border: 1px solid #d9d9d9;
+                padding: 10px;
+            }
+
+                .open-old-menu a:hover {
+                    color: #686868;
+                    border-color: #f1efef;
+                }
+    </style>
+    <script>
+        function openOldMenu() {
+            $('#oldMenu').toggle();
+        }
+
+    </script>
+}
+<div class="wrapper">
+    <div id="neucharMenu">
+        <h2>可视化自定义菜单编辑器</h2>
+        <div class="description">
+            <p>
+                &nbsp; &nbsp;  NeuChar 为开发者和运维人员提供了一站式的管理后台和一整套开放标准，
+                通过 NeuChar，您不仅可以可视化地设置自定义菜单、管理素材及消息回复设置，还可以一次设置多平台同步更新。
+            </p>
+            <p>
+                &nbsp; &nbsp; NeuChar 为微信菜单提供免费的设置、储存和素材管理服务，您可以尽情享用。
+            </p>
+            <p>
+                &nbsp; &nbsp; 目前 Senparc.Weixin 已经全面支持 NeuChar，您不需要编写任何额外代码即可享受 NeuChar 带来的便利！
+            </p>
+        </div>
+        <div>
+            <p class="goto-neuchar"><a href="@domain/User/WeixinMenu" target="_blank">开始使用</a></p>
+
+            <p class="img-area">
+                <video controls="controls" style="margin-bottom:50px; width:100%">
+
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.wmv" type="video/x-ms-wmv">
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.mp4" type="video/mp4">
+                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.avi" type="video/avi">
+                    your browser does not support the video tag
+                </video>
+                @*<img class="neucharpic" src="~/images/neuchar_menu.png" />*@
+            </p>
+
+        </div>
+
+
+        <div>
+            <p class="open-old-menu"><a href="javascript:void(0)" onclick="openOldMenu()">打开旧工具（不支持保存）</a></p>
+        </div>
+    </div>
+
+
+    <div id="oldMenu">
+        <div class="line"></div>
+        <div id="menuLogin">
+            <div class="form-control">
+                <ul>
+                    <li>
+                        <div class="control-head">
+                            <label class="control-title">获取AccessToken</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="control-label">AppId:</label>
+                        <input class="control-input" id="menuLogin_AppId" type="text" />
+                    </li>
+                    <li>
+                        <label class="control-label">AppSecret:</label>
+                        <input class="control-input" id="menuLogin_AppSecret" type="text" />
+                    </li>
+                    <li>
+                        <button class="control-btn" id="menuLogin_Submit">获取AccessToken</button>
+                    </li>
+                    <li>
+                        <p class="control-p">注：</p>
+                        <p class="control-p">1.使用菜单需要成为“服务号”，或通过认证的“订阅号”。到微信后台【高级功能>开发模式】下获取信息</p>
+                        <p class="control-p">2.这里的Token已经使用AccessTokenContainer管理起来，有效期内不会重复获取，过了有效期自动获取。也就是说如果已经在本网页上获取一次，接下去只需要提供AppId即可（直到服务器重启或队列过长被清理）</p>
+                        <p class="control-p">3.如果对应公众号后台已经启用IP白名单，请添加本服务器的IP至白名单本机IP：<span class="bold red">@ViewData["IP"]。</span></p>
+                    </li>
+                </ul>
+                <p style="padding: 15px 20px; font-size: 16px;">或：</p>
+                <ul>
+                    <li>
+                        <div class="control-head">
+                            <label class="control-title">我有当前可用 AccessToken</label>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="control-label">Token:</label>
+                        <input class="control-input" id="menuLogin_OldToken" type="text" />
+                    </li>
+                    <li>
+                        <button class="control-btn" id="menuLogin_SubmitOldToken">直接使用</button>
+                    </li>
+                    <li>
+                        <p class="control-p">注：通过 AppId 和 AppSecret 得到的自动生成的 AccessToken。</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-control">
+                <div class="up-experience">
+                    <p>NeuChar 可以为您设置自定义菜单、管理素材及消息回复设置</p>
+                    <img src="~/images/neuchar_menu.png" />
+                    <p><a href="@domain/User/WeixinMenu" target="_blank">点击这里开始体验</a></p>
+                </div>
+            </div>
+        </div>
+        <div id="menuEditor">
+            <div id="menuNotice">
+                <h3>使用说明及规则，请仔细阅读</h3>
+                <ul>
+                    <li>官方要求：一级菜单按钮个数为1-3个</li>
+                    <li>官方要求：如果设置了二级菜单，子按钮个数为1-5个</li>
+                    <li>官方要求：按钮描述，即按钮名字，不超过16个字节，子菜单不超过40个字节</li>
+                    <li>如果name不填，此按钮将被忽略</li>
+                    <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
+                    <li>key仅在SingleButton（单击按钮，无下级菜单）的状态下设置，如果此按钮有下级菜单，key将被忽略</li>
+                    <li>所有二级菜单都为SingleButton</li>
+                    <li>如果要快速看到微信上的菜单最新状态，需要重新关注，否则需要静静等待N小时</li>
+                </ul>
+            </div>
+            <p></p>
+            <h3>编辑工具</h3>
+            @using (Html.BeginForm("CreateMenu", "Menu", FormMethod.Post, new { id = "form_Menu" }))
+            {
+                <p>
+                    当前 AccessToken:
+                    <input id="tokenStr" name="token" class="control-input" style="width: 400px;" type="text" readonly="readonly" />
+                    <span id="menuButtonArea">
+                        <input id="btnResetAccessToken" class="control-btn" type="button" value="重设 Token" />
+                        <input id="btnGetMenu" class="control-btn" type="button" value="获取当前菜单" />
+                        <input type="button" class="control-btn" value="更新到服务器" id="submitMenu" />
+                    </span>
+                </p>
+                <p class="menu-state">
+                    操作状态：<strong id="menuState">-</strong>
+                </p>
+                <div class="float-left menu-list">
+                    <table id="menuTable">
+                        <thead>
+                            <tr>
+                                <th style="width:102px;"></th>
+                                <th>第一列</th>
+                                <th>第二列</th>
+                                <th>第三列</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                var isRootMenu = i == 5;
+                                <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
+                                    <td class="menuRowTip @(isRootMenu?"rootMenu":"")">
+                                        @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                                    </td>
+                                    @for (int j = 0; j < 3; j++)
+                                    {
+                                        var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
+                                        var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
+                                        <td>
+                                            <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
+                                            <input type="hidden" class="control-input" name="@(namePrefix).media_id" id="@(idPrefix)_mediaid" />
+                                            <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="float-left" id="buttonDetails">
+                    <h3>按钮其他参数</h3>
+                    <p>Name：<input type="text" id="buttonDetails_name" class="control-input txtButton" disabled="disabled" /></p>
+                    <p>
+                        Type：
+                        <select id="buttonDetails_type" class="dllButtonDetails">
+                            <option value="click" selected="selected">点击事件（传回服务器）</option>
+                            <option value="view">访问网页（直接跳转）</option>
+                            <option value="miniprogram">小程序（直接跳转）</option>
+                            <option value="location_select">弹出地理位置选择器</option>
+                            <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                            <option value="pic_sysphoto">弹出系统拍照发图</option>
+                            <option value="pic_weixin">弹出微信相册发图器</option>
+                            <option value="scancode_push">扫码推事件</option>
+                            <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
+                            <option value="media_id">下发消息（除文本消息）</option>
+                            <option value="view_limited">跳转图文消息URL</option>
+                        </select>
+                    </p>
+                    <p id="buttonDetails_key_area">
+                        Key：<input id="buttonDetails_key" class="control-input txtButtonDetails" type="text" />
+                    </p>
+                    <p id="buttonDetails_url_area">
+                        Url：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
+                    </p>
+                    <p id="buttonDetails_miniprogram_appid_area">
+                        小程序AppId：<input id="buttonDetails_miniprogram_appid" class="control-input txtButtonDetails" type="text" />
+                    </p>
+                    <p id="buttonDetails_miniprogram_pagepath_area">
+                        小程序PagePath：<input id="buttonDetails_miniprogram_pagepath" class="control-input txtButtonDetails" type="text" />
+                    </p>
+                    <p id="buttonDetails_mediaId_area">
+                        MediaId：<input id="buttonDetails_mediaId" class="control-input txtButtonDetails" type="text" />
+                    </p>
+
+                    <p id="rootButtonNotice">
+                        如果还有下级菜单请忽略上述Type和Key、Url等参数。<br />
+                    </p>
+                </div>
+
+                <div class="clear"></div>
+                <div class="segregate"></div>
+
+                <div id="addConditionalArea">
+                    <p><h3>个性化菜单设置</h3></p>
+                    <p><i>提示：如果所有字段都留空，则使用普通自定义菜单，如果任何一个条件有值，则使用个性化菜单接口</i></p>
+                    <p>
+                        <table>
+                            <tr>
+                                <td>group_id</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.group_id" placeholder="用户分组id" class="control-input" />
+                                    <span class="conditionalTip">用户分组id，可通过用户分组管理接口获取，不填则不做匹配</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>sex</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.sex" placeholder="性别" class="control-input" />
+                                    <span class="conditionalTip">性别：男（1）女（2），不填则不做匹配</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>country</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.country" placeholder="国家信息" class="control-input" />
+                                    <span class="conditionalTip">国家信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>province</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.province" placeholder="省份信息" class="control-input" />
+                                    <span class="conditionalTip">省份信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>city</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.city" placeholder="城市信息" class="control-input" />
+                                    <span class="conditionalTip">省城市信息，是用户在微信中设置的地区，具体请参考地区信息表</span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>client_platform_type</td>
+                                <td>
+                                    <input type="text" name="MenuMatchRule.client_platform_type" placeholder="客户端版本" class="control-input" />
+                                    <span class="conditionalTip">客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+
+                </div>
+                <div id="reveiveJSON">
+                    <p><h3>接收菜单JSON</h3></p>
+                    <p><textarea id="txtReveiceJSON"></textarea></p>
+                    <p><input type="button" class="control-btn" value="使用此 JSON 直接更新到服务器" id="submitJsonMenu" /></p>
+                </div>
+                <div class="clear"></div>
+
+                <div id="submitArea">
+                    <input id="btnDeleteMenu" class="control-btn" type="button" value="删除菜单" />
+
+                </div>
+            }
+
+
+        </div>
     </div>
 </div>
 <div class="clear"></div>

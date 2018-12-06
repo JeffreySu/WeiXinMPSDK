@@ -1,4 +1,5 @@
 ﻿@model Senparc.Weixin.MP.Entities.GetMenuResult
+@*DPBMARK_FILE TenPay*@
 @{
     ViewBag.Title = "银行编码对照表";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,23 +7,33 @@
 @section HeaderContent
 {
     <style>
-        .table-wrapper{margin: 30px auto; width:400px;}
-        .table-wrapper h1{ text-align:center;}
-        .table {width:90%; margin:20px;}
-
-         .table th, .table td {
-             padding: 8px;
-         }
-
-        .table thead th {
-            background: #cbcbcb;
-            font-weight: bold;
+        .table-wrapper {
+            margin: 30px auto;
+            width: 400px;
         }
+
+            .table-wrapper h1 {
+                text-align: center;
+            }
+
+        .table {
+            width: 90%;
+            margin: 20px;
+        }
+
+            .table th, .table td {
+                padding: 8px;
+            }
+
+            .table thead th {
+                background: #cbcbcb;
+                font-weight: bold;
+            }
     </style>
 }
 <div class="wrapper">
     <div class="table-wrapper">
-    <h1>银行编码对照表</h1>
+        <h1>银行编码对照表</h1>
         <table class="table">
             <thead>
                 <tr>

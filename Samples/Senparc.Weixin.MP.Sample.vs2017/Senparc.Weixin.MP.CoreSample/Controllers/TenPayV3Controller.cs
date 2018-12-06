@@ -17,6 +17,7 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE TenPay
 using System;
 using System.Drawing.Imaging;
 using System.IO;
@@ -1082,6 +1083,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return Content(msg);
             }
         }
+
+        #endregion
+
+        #region 付款到银行卡
+
+        //TODO：完善
+
+
+
 
         #endregion
     }

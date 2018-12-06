@@ -17,13 +17,18 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE TenPay
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
+//DPBMARK MP
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+//DPBMARK_END
+//DPBMARK MiniProgram
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
+//DPBMARK_END
 using Senparc.Weixin.MP.Sample.Filters;
 using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.TenPay.V3;
@@ -439,6 +444,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                         if (isWxOpenPay)
                         {
+                            //DPBMARK MiniProgram
                             var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                             var unifiedorderRequestData = cacheStrategy.Get<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
                             var unifedorderResult = cacheStrategy.Get<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
@@ -461,7 +467,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             {
                                 Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数（小程序）", "prepayId未记录：" + appId + " , " + openId);
                             }
-
+                            //DPBMARK_END
                         }
                         else
                         {

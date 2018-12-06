@@ -12,13 +12,19 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+//DPBMARK WebSocket
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK_END
+//DPBMARK Open
 using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.TenPay;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
+//DPBMARK TenPay
+using Senparc.Weixin.TenPay;//DPBMARK_END
+//DPBMARK Work
+using Senparc.Weixin.Work;//DPBMARK_END
+//DPBMARK MiniProgram
+using Senparc.Weixin.WxOpen;//DPBMARK_END
 using System.IO;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -36,7 +42,10 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+            //DPBMARK WebSocket
             RegisterWebSocket();//微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
+            //DPBMARK_END
+
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -68,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample
 
             #region  全局缓存配置（按需）
 
-            #region 配置和使用 Redis
+            #region 配置和使用 Redis          -- DPBMARK Redis
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
@@ -91,9 +100,9 @@ namespace Senparc.Weixin.MP.Sample
             }
             //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
-            #endregion
+            #endregion                        // DPBMARK_END
 
-            #region 配置和使用 Memcached
+            #region 配置和使用 Memcached      -- DPBMARK Memcached
 
             //配置Memcached缓存（按需，独立）
             var memcachedConfigurationStr = senparcSetting.Cache_Memcached_Configuration;
@@ -105,7 +114,7 @@ namespace Senparc.Weixin.MP.Sample
                 * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
                 */
-                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(redisConfigurationStr);
+                Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
                 //以下会立即将全局缓存设置为 Memcached
                 Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
@@ -114,7 +123,7 @@ namespace Senparc.Weixin.MP.Sample
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
             }
 
-            #endregion
+            #endregion                        //  DPBMARK_END
 
             #endregion
 
@@ -142,25 +151,27 @@ namespace Senparc.Weixin.MP.Sample
 
             #region 注册公众号或小程序（按需）
 
-                //注册公众号（可注册多个）
-                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")
-                //注册多个公众号或小程序（可注册多个）
-                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")
+                //注册公众号（可注册多个）                                                -- DPBMARK MP
+                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")// DPBMARK_END
+
+
+                //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
+                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")// DPBMARK_END
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
             #endregion
 
-            #region 注册企业号（按需）
+            #region 注册企业号（按需）           -- DPBMARK Work
 
                 //注册企业微信（可注册多个）
                 .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
-            #endregion
+            #endregion                          // DPBMARK_END
 
-            #region 注册微信支付（按需）
+            #region 注册微信支付（按需）        -- DPBMARK TenPay
 
                 //注册旧微信支付版本（V2）（可注册多个）
                 .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
@@ -168,9 +179,9 @@ namespace Senparc.Weixin.MP.Sample
                 //注册最新微信支付版本（V3）（可注册多个）
                 .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
-            #endregion
+            #endregion                          // DPBMARK_END
 
-            #region 注册微信第三方平台（按需）
+            #region 注册微信第三方平台（按需）  -- DPBMARK Open
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting,
@@ -238,13 +249,14 @@ namespace Senparc.Weixin.MP.Sample
 
             //除此以外，仍然可以在程序任意地方注册开放平台：
             //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
-            #endregion
+            #endregion                          // DPBMARK_END
 
             ;
 
             /* 微信配置结束 */
         }
 
+        //DPBMARK WebSocket
         /// <summary>
         /// 注册WebSocket模块（可用于小程序或独立WebSocket应用）
         /// </summary>
@@ -253,6 +265,7 @@ namespace Senparc.Weixin.MP.Sample
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
             Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
         }
+        //DPBMARK_END
 
         /// <summary>
         /// 配置微信跟踪日志

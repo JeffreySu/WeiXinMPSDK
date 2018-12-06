@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Config>
-  <QrCodeId>159915</QrCodeId>
-  <DownloadCount>37050</DownloadCount>
+  <QrCodeId>173344</QrCodeId>
+  <DownloadCount>38109</DownloadCount>
   <Versions>
+    <Version>16.5.0</Version>
     <Version>15.1.7</Version>
     <Version>15.1.1</Version>
     <Version>14.8.10</Version>
@@ -25,6 +26,7 @@
     <Version>13.6.2</Version>
   </Versions>
   <WebVersions>
+    <Version>16.5.0</Version>
     <Version>15.1.7</Version>
     <Version>15.1.1</Version>
     <Version>14.8.10</Version>

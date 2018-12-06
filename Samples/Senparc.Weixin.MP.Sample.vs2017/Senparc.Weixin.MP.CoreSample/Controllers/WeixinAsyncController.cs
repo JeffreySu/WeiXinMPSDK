@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ using System.IO;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
+using System.Xml.Linq;
+using System.Threading;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -96,55 +99,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             #endregion
 
-            #region 记录 Request 日志
+            messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
-            if (!Directory.Exists(logPath))
-            {
-                Directory.CreateDirectory(logPath);
-            }
+            await messageHandler.ExecuteAsync(); //执行微信处理过程（关键）
 
-            //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-            messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(),
-                messageHandler.RequestMessage.FromUserName,
-                messageHandler.RequestMessage.MsgType)));
-            if (messageHandler.UsingEcryptMessage)
-            {
-                messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.RequestMessage.FromUserName,
-                    messageHandler.RequestMessage.MsgType)));
-            }
+            messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
-            #endregion
-
-            await messageHandler.ExecuteAsync(); //执行微信处理过程
-
-            #region 记录 Response 日志
-
-            //测试时可开启，帮助跟踪数据
-
-            //if (messageHandler.ResponseDocument == null)
-            //{
-            //    throw new Exception(messageHandler.RequestDocument.ToString());
-            //}
-            if (messageHandler.ResponseDocument != null)
-            {
-                messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.ResponseMessage.ToUserName,
-                    messageHandler.ResponseMessage.MsgType)));
-            }
-
-            if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
-            {
-                //记录加密后的响应信息
-                messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.ResponseMessage.ToUserName,
-                    messageHandler.ResponseMessage.MsgType)));
-            }
-
-            #endregion
-
-            MessageHandler = messageHandler;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
+            MessageHandler = messageHandler;//开放出MessageHandler是为了做单元测试，实际使用过程中这一行不需要
 
             return new FixWeixinBugWeixinResult(messageHandler);
         }

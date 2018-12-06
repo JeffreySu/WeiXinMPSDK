@@ -1,11 +1,14 @@
-﻿@{
+﻿@*DPBMARK_FILE Open*@
+@{
     ViewBag.Title = "跳转到公众号授权页";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section HeaderContent{
     <style>
         h1 {
-            margin: 30px;
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
         }
 
         .enter {
@@ -13,21 +16,32 @@
             font-weight: bold;
             text-align: center;
         }
+
+        .wrapper p{
+            margin-bottom:20px;
+            line-height:130%;
+        }
+
+        .wrapper.center{text-align:center;}
+
+        strong{font-size:150%;}
     </style>
 }
 <div class="wrapper">
     <h1>跳转到公众号授权页</h1>
+
     <div>
-        <p class="enter">
-            【@Html.ActionLink("点击这里进入公众号授权页", "OAuth", "Open")】
+        <p class="center">
+            <strong>说明</strong><br />
+            1、授权页必须由合法（已经审核通过）的域名进入。<br />
+            2、直接打开，或者在外部网站链接过来都可能被拒绝。<br />
+            3、因此测试的时候必须有这样一个Referer页面存在。<br />    
         </p>
-        <p>&nbsp;</p>
     </div>
     <div>
-        <p>
-            注意：授权页必须由合法（已经审核通过）的域名进入。
-            直接打开，或者在外部网站链接过来都可能被拒绝。
-            因此测试的时候必须有这样一个Referer页面存在。
+        <p class="enter">
+            @Html.ActionLink("点击这里进入公众号授权页", "OAuth", "Open", null, new { @class = "application" })
         </p>
+        <p>&nbsp;</p>
     </div>
 </div>

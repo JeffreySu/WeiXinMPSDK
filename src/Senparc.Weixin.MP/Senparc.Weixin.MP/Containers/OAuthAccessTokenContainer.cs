@@ -118,10 +118,10 @@ namespace Senparc.Weixin.MP.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private DateTime _oAuthAccessTokenExpireTime;
-        private OAuthAccessTokenResult _oAuthAccessTokenResult;
-        private string _appSecret;
-        private string _appId;
+        //private DateTime _oAuthAccessTokenExpireTime;
+        //private OAuthAccessTokenResult _oAuthAccessTokenResult;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>

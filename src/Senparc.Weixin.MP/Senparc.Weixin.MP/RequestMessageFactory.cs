@@ -220,6 +220,18 @@ namespace Senparc.Weixin.MP
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
                                 break;
 
+                            #region 卡券回调
+                            case "GIFTCARD_PAY_DONE"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Pay_Done();
+                                break;
+                            case "GIFTCARD_SEND_TO_FRIEND"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Send_To_Friend();
+                                break;
+                            case "GIFTCARD_USER_ACCEPT"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_User_Accept();
+                                break;
+                            #endregion
+
                             #region 微信认证事件推送
                             case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
                                 requestMessage = new RequestMessageEvent_QualificationVerifySuccess();

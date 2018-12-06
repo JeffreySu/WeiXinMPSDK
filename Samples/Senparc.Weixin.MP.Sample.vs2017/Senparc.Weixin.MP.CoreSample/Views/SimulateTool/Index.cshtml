@@ -1,4 +1,5 @@
-﻿@{
+﻿@*DPBMARK_FILE MP*@
+@{
     ViewBag.Title = "微信消息模拟测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -10,6 +11,13 @@
 @section HeaderContent
 {
     <style>
+
+        .wrapper h2 {
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
+        }
+
         .param {
             display: none;
         }
@@ -161,6 +169,8 @@
 }
 
 <div class="wrapper">
+    <h2>消息模拟器</h2>
+
     <div class="form-control">
         <ul>
             <li>
@@ -168,7 +178,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host+":"+ Context.Request.Host.Port), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + ":" + Context.Request.Host.Port), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
@@ -327,8 +337,9 @@
             </li>
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
-                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                <label class="control-title send" id="loadResult_Result">
+                    模拟并发响应时间：<span id="loadTime"></span> ms<br />
+                    由于后台代理转发暂时没有使用异步请求，结果可能会受影响
                 </label>
             </li>
             <li></li>

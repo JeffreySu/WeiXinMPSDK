@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>6.0.1</Version>
+    <Version>6.2.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - Senparc.Weixin SDK 基础模块
@@ -266,9 +266,22 @@
       v5.1.6 支持 CO2NET v0.2.6
       v5.1.7 优化 SenparcWeixinSetting，分离不同模块接口
       v5.1.8 支持 CO2NET v0.2.8
-      
+
       v6.0.0 支持 NeuChar 标准，分离 MessageHandlers 和 WeixinContext
       v6.0.1 支持 CO2NET v0.2.10
+      v6.0.2 优化 NeuChar 标准
+      v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
+      v6.1.0 支持 Senparc.NeuChar v0.1.2，BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+      v6.1.1 还原 v6.0.4 的修改
+      v6.1.2 支持 Senparc.NeuChar v0.1.4
+      v6.1.3 支持 Senparc.NeuChar v0.2.1
+      v6.1.4 支持 Senparc.CO2NET v0.2.14，Senparc.NeuChar v0.2.5
+      v6.1.5 Senparc.NeuChar v0.2.7
+      v6.1.7 支持 Senparc.NeuChar v0.2.9.1
+      v6.1.8 Senparc.NeuChar v0.2.11，升级 MessageHandler
+      v6.1.10 改进 TryCommonApiBase 方法
+      v6.2.0 升级 Senparc.NeuChar，支持 APM
+      v6.2.1 支持 Senparc.NeuChar v0.4.4
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -346,11 +359,19 @@
   <ItemGroup>
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="Tencent\Sample.cs" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Remove="Tencent\Readme.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.10" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.3.0.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.4.4.4" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

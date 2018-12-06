@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 </xml>";
 
             var xml = MessageAgent.RequestXml(null, url, token, requestXml);
-            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlighten.Instance);
+            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;

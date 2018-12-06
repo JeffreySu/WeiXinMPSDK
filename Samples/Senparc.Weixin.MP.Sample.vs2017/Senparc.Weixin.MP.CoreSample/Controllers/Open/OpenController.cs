@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -157,26 +158,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
                 }
 
-                messageHandler.RequestDocument.Save(Path.Combine(logPath,
-                    string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
 
-                messageHandler.Execute(); //执行
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                if (messageHandler.ResponseDocument != null)
-                {
-                    var ticks = DateTime.Now.Ticks;
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath,
-                        string.Format("{0}_Response_{1}.txt", ticks,
-                            messageHandler.RequestMessage.FromUserName)));
+                messageHandler.Execute();//执行微信处理过程（关键）
 
-                    //记录加密后的日志
-                    //if (messageHandler.UsingEcryptMessage)
-                    //{
-                    //    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
-                    // string.Format("{0}_Response_Final_{1}.txt", ticks,
-                    //     messageHandler.RequestMessage.FromUserName)));
-                    //}
-                }
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
+
                 return new FixWeixinBugWeixinResult(messageHandler);
             }
             catch (Exception ex)

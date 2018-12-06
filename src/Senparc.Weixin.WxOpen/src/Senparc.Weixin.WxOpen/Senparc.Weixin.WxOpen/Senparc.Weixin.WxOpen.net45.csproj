@@ -32,14 +32,17 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.CO2NET, Version=0.2.8.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.2.8.2\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin, Version=5.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.5.1.8\lib\net45\Senparc.Weixin.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.NeuChar.0.3.2\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=15.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.15.3.0\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+    <Reference Include="Senparc.Weixin, Version=6.1.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.6.1.11\lib\net45\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP, Version=16.4.12.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.MP.16.4.12.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -55,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeApi.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\CommonGetWeAnalysisAppidRetainInfoResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidDailySummaryTrendResultJson.cs" />
@@ -76,37 +80,36 @@
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\GetNearbyPoiListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\WxAppJson\PluginJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WxOpenApiEnlightener.cs" />
+    <Compile Include="CommonAPIs\WxOpenApiHandlerWapper.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
-    <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UserEnterTempSession.cs" />
-    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
+    <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
     <Compile Include="Entities\Watermark.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
-    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
-    <Compile Include="MessageHandlers\IWxOpenMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.cs" />
-    <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.cs" />
     <Compile Include="RequestMessageFactory.cs" />
-    <Compile Include="Tencent\Cryptography.cs" />
-    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

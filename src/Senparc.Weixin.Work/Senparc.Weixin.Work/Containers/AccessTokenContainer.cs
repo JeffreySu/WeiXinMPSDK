@@ -141,10 +141,10 @@ namespace Senparc.Weixin.Work.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private string _corpId;
-        private string _corpSecret;
-        private DateTime _expireTime;
-        private AccessTokenResult _accessTokenResult;
+        //private string _corpId;
+        //private string _corpSecret;
+        //private DateTime _expireTime;
+        //private AccessTokenResult _accessTokenResult;
     }
 
     /// <summary>

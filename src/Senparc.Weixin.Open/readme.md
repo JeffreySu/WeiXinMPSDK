@@ -1,7 +1,3 @@
-# 微信企业号SDK （Senparc.Weixin.QY）
+# 微信开放平台SDK （Senparc.Weixin.Open）
 
-'注意：【企业微信】和【微信企业号】的接口有区别！企业微信SDK请看[这里](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.Work)！
-
-【企业微信】代号为：Work（Senparc.Weixin.Work）
-
-【微信企业号】代号为：QY（Senparc.Weixin.QY）
+官方地址：https://open.weixin.qq.com/

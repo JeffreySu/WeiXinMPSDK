@@ -72,13 +72,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string wiweihiKey = Config.SenparcWeixinSetting.SenparcWechatAgentKey;//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
-#if NET45
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
-#else
-        private string appId = "appId";
-        private string appSecret = "appSecret";
-#endif
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）

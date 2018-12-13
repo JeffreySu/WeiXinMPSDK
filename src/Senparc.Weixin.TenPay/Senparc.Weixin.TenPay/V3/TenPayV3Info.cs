@@ -68,7 +68,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
         /// <summary>
-        /// 小程序支付完成后的会掉处理页面
+        /// 小程序支付完成后的回调处理页面
         /// </summary>
         public string TenPayV3_WxOpenNotify { get; set; }
 

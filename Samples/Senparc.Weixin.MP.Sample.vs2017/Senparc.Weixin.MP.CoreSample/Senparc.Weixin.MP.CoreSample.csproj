@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.1" />
     <PackageReference Include="Senparc.CO2NET" Version="0.3.0.2" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.1.0-preview4" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
@@ -75,6 +77,12 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.vs2017.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.CoreSample.CommonService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App_Data\Document\Config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/commands" /></VisualStudio></ProjectExtensions>

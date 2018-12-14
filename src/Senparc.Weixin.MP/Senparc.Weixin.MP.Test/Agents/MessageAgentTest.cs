@@ -24,8 +24,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
-using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 

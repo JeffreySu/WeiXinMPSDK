@@ -19,6 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.TenPay.V3;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
             var list = new List<string>();
             for (int i = 0; i < 100; i++)
             {
-                var result = TenPayV3Util   .GetNoncestr();
+                var result = TenPayV3Util.GetNoncestr();
                 Assert.IsNotNull(result);
                 Console.WriteLine(result);
                 Assert.IsFalse(list.Contains(result));

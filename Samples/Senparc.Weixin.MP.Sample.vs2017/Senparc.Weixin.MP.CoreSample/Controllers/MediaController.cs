@@ -25,14 +25,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     public class MediaController : Controller
     {
         public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-        private readonly string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         public FileResult GetVoice(string mediaId)
         {
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
             MemoryStream ms = new MemoryStream();
-            AdvancedAPIs.MediaApi.Get(accessToken, mediaId, ms);
+            AdvancedAPIs.MediaApi.Get(appId, mediaId, ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "audio/amr","voice.amr");
         }

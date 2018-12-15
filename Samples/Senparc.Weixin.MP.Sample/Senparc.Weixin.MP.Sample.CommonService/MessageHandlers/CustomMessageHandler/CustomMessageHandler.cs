@@ -481,14 +481,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
             responseMessage.Music.Description = "播放您上传的语音";
-            responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
-            responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.MusicUrl = "https://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
 
             //推送一条客服消息
             try
             {
-                CustomApi.SendText(appId, WeixinOpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
+                CustomApi.SendText(appId, OpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
 
             }
             catch

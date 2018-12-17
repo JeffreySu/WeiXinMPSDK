@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-#if  NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 // || NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 // || NETSTANDARD2_0
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.Weixin.Entities;
@@ -16,8 +16,8 @@ namespace Senparc.Weixin.RegisterServices
     /// </summary>
     public static class RegisterServiceExtension
     {
-#if NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 // || NETSTANDARD2_0
-       /// <summary>
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 // || NETSTANDARD2_0
+        /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>
         /// <param name="serviceCollection">IServiceCollection</param>

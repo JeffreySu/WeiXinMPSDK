@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>2.3.1.1</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>2.4.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -112,38 +112,6 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>-->
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
-    <PackageReference Include="System.Dynamic.Runtime" />
-    <PackageReference Include="System.Threading.Thread" />
-    <PackageReference Include="System.Xml.XmlSerializer" />-->
-  </ItemGroup>
-
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />-->
-    <!--<PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />-->
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.0" />
-    <PackageReference Include="Microsoft.NETCore.App" Version="2.1.0" />
-  </ItemGroup>
-
-
   <ItemGroup>
     <Compile Remove="packages\**" />
     <Compile Remove="ServiceStack.Redis\**" />
@@ -152,19 +120,6 @@
     <None Remove="packages\**" />
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
-
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>-->
-  
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="protobuf-net" Version="2.1.0" />
-  </ItemGroup>-->
 
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
@@ -175,7 +130,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.2.1.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.3.0-preview2" />
   </ItemGroup>
 
 
@@ -183,16 +138,9 @@
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.1' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.513" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 

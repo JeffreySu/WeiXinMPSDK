@@ -24,14 +24,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class MediaController : Controller
     {
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
-        private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         public FileResult GetVoice(string mediaId)
         {
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
             MemoryStream ms = new MemoryStream();
-            AdvancedAPIs.MediaApi.Get(accessToken, mediaId, ms);
+            AdvancedAPIs.MediaApi.Get(appId, mediaId, ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "audio/amr","voice.amr");
         }

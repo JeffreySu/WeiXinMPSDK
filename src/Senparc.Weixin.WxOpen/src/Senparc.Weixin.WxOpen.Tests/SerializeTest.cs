@@ -48,7 +48,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
-#if !NETCOREAPP2_1
+#if !NETCOREAPP2_1 || NETCOREAPP2_2
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>

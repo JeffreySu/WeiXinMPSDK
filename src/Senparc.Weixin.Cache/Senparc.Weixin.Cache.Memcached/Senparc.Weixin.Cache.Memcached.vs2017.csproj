@@ -131,7 +131,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
-    <PackageReference Include="EnyimMemcachedCore" Version="2.0.2" />
+    <PackageReference Include="EnyimMemcachedCore" Version="2.1.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 

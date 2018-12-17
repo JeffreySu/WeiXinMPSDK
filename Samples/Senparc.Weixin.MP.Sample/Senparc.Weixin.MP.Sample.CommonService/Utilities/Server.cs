@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
             set
             {
                 _appDomainAppPath = value;
-#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD1_6 || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
                 if (!_appDomainAppPath.EndsWith("/"))
                 {
                     _appDomainAppPath += "/";

@@ -6,7 +6,7 @@
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
 
-    <GeneratePackageOnBuild  Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - WebSocket 模块
@@ -86,14 +86,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.WebSocket.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.WebSocket.xml</DocumentationFile>
   </PropertyGroup>
 
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.WebSocket.xml</DocumentationFile>
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.WebSocket.xml</DocumentationFile>
   </PropertyGroup>
 
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
@@ -179,11 +179,11 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard1.6\Senparc.WebSocket.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
+  </PropertyGroup>-->
 </Project>

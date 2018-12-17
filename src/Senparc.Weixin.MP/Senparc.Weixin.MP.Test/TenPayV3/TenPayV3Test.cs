@@ -28,7 +28,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.TenPay;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {

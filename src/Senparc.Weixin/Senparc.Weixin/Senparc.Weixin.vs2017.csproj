@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>6.3.0-preview3</Version>
+    <Version>6.3.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -282,6 +282,7 @@
       v6.1.10 改进 TryCommonApiBase 方法
       v6.2.0 升级 Senparc.NeuChar，支持 APM
       v6.2.1 支持 Senparc.NeuChar v0.4.4
+      v6.3.0 完善子账号 SubMchId 相关参数
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

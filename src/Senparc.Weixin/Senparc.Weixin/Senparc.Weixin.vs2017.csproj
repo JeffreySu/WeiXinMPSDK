@@ -282,7 +282,9 @@
       v6.1.10 改进 TryCommonApiBase 方法
       v6.2.0 升级 Senparc.NeuChar，支持 APM
       v6.2.1 支持 Senparc.NeuChar v0.4.4
-      v6.3.0 完善子账号 SubMchId 相关参数
+      v6.3.0
+      1、使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      2、完善子账号 SubMchId 相关参数
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

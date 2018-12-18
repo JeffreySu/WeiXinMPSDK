@@ -152,7 +152,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 WeixinTrace.SendCustomLog("download-path", filePath+" , "+ file.FileDownloadName);
 
-
                 return file;
             }
         }

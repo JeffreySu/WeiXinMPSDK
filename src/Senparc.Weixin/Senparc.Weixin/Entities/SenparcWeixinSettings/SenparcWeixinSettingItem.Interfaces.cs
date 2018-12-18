@@ -111,9 +111,13 @@ namespace Senparc.Weixin.Entities
     public interface ISenparcWeixinSettingForTenpayV3 : ISenparcWeixinSettingBase
     {
         /// <summary>
-        /// MchId
+        /// MchId（商户ID）
         /// </summary>
         string TenPayV3_MchId { get; set; }
+        /// <summary>
+        /// 子商户 MchId，没有可留空
+        /// </summary>
+        string TenPayV3_SubMchId { get; set; }
         /// <summary>
         /// MchKey
         /// </summary>

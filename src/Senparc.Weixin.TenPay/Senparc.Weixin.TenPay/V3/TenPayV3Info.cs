@@ -68,12 +68,21 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
         /// <summary>
-        /// 小程序支付完成后的会掉处理页面
+        /// 小程序支付完成后的回调处理页面
         /// </summary>
         public string TenPayV3_WxOpenNotify { get; set; }
 
         /// <summary>
-        /// 微信支付 V3 参数 构造函数
+        /// 服务商模式下，特约商户的开发配置中的AppId
+        /// </summary>
+        public string Sub_AppId { get; set; }
+        /// <summary>
+        /// 服务商模式下，特约商户的商户Id
+        /// </summary>
+        public string Sub_MchId { get; set; }
+
+        /// <summary>
+        /// 普通服务商 微信支付 V3 参数 构造函数
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
@@ -81,7 +90,22 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="key"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string tenPayV3Notify,string tenPayV3WxOpenNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string tenPayV3Notify,string tenPayV3WxOpenNotify):this(appId,appSecret,mchId,key,"","",tenPayV3Notify,tenPayV3WxOpenNotify)
+        {
+           
+        }
+        /// <summary>
+        /// 服务商户 微信支付 V3 参数 构造函数
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="mchId"></param>
+        /// <param name="key"></param>
+        /// <param name="subAppId"></param>
+        /// <param name="subMchId"></param>
+        /// <param name="tenPayV3Notify"></param>
+        /// <param name="tenPayV3WxOpenNotify"></param>
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string subAppId, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
         {
             AppId = appId;
             AppSecret = appSecret;
@@ -89,8 +113,9 @@ namespace Senparc.Weixin.TenPay.V3
             Key = key;
             TenPayV3Notify = tenPayV3Notify;
             TenPayV3_WxOpenNotify = tenPayV3WxOpenNotify;
+            Sub_AppId = subAppId;
+            Sub_MchId = subMchId;
         }
-
 
         /// <summary>
         /// 微信支付 V3 参数 构造函数

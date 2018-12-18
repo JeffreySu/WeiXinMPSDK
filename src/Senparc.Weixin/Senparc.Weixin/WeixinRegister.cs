@@ -30,7 +30,7 @@
 
 ----------------------------------------------------------------*/
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;

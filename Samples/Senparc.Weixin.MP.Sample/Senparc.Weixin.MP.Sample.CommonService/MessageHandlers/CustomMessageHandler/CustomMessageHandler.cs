@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if !DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+#if !DEBUG || NETSTANDARD1_6  || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -72,13 +72,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string wiweihiKey = Config.SenparcWeixinSetting.SenparcWechatAgentKey;//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
-#if NET45
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
-#else
-        private string appId = "appId";
-        private string appSecret = "appSecret";
-#endif
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
@@ -486,14 +481,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
             responseMessage.Music.Description = "播放您上传的语音";
-            responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
-            responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.MusicUrl = "https://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
 
             //推送一条客服消息
             try
             {
-                CustomApi.SendText(appId, WeixinOpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
+                CustomApi.SendText(appId, OpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
 
             }
             catch

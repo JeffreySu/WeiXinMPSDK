@@ -64,7 +64,7 @@ namespace Senparc.Weixin.Entities
             Items["Default"] = this;//储存第一个默认参数
         }
 
-#if !NETCOREAPP2_0 && !NETCOREAPP2_1 && !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1 || NETCOREAPP2_2 && !NETSTANDARD2_0
         /// <summary>
         /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
         /// </summary>

@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP2_0 || NETCOREAPP2_1
+﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +39,7 @@ namespace Senparc.WeixinTests
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             var mockEnv = new Mock<IHostingEnvironment>();
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
             register = RegisterService.Start(mockEnv.Object, senparcSetting);
@@ -65,7 +65,7 @@ namespace Senparc.WeixinTests
             register.UseSenparcWeixin(senparcWeixinSetting);
         }
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -85,7 +85,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             return @"..\..\..\";
 #else
             return @"..\..\";

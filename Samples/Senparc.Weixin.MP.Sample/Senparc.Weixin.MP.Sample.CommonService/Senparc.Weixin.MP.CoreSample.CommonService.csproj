@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <Version>1.0.0.0</Version>
     <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.4.4.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.5.0-preview3" />
     <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
   </ItemGroup>
 

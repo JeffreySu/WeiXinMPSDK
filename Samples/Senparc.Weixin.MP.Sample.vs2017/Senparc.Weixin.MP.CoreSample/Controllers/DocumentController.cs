@@ -58,14 +58,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (Exception e)
             {
-                WeixinTrace.SendCustomLog("Document发生appsecret错误！",e.ToString());
+                WeixinTrace.SendCustomLog("Document发生appsecret错误！", e.ToString());
                 var accessTokenBags = AccessTokenContainer.GetAllItems();
 
                 WeixinTrace.SendCustomLog("当前AccessToken信息", accessTokenBags.ToJson());
 
                 throw;
             }
-           
+
         }
 
         /// <summary>
@@ -102,9 +102,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public Task<FileResult> Download(string guid)
+        public Task<ActionResult> Download(string guid)
         {
-            return Task.Factory.StartNew<FileResult>(() =>
+            var task = Task.Factory.StartNew<ActionResult>(() =>
             {
                 var success = CheckCanDownload(guid);
                 if (!success)
@@ -139,13 +139,21 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     var filePath = configHelper.Download(codeRecord.Version, codeRecord.IsWebVersion);
                     var file = File(filePath, "application/octet-stream");
 
-
                     file.FileDownloadName = string.Format("Senparc.Weixin{0}-v{1}.rar",
                         codeRecord.IsWebVersion ? "-Web" : "",
                         codeRecord.Version);
                     return file;
                 }
             });
+
+            if (task.IsFaulted)
+            {
+                return Task.Factory.StartNew<ActionResult>(() => Content(task.Exception.ToString()));
+            }
+            else
+            {
+                return task;
+            }
         }
     }
 }

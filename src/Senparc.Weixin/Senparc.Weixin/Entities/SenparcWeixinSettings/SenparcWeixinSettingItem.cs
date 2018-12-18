@@ -139,7 +139,14 @@ namespace Senparc.Weixin.Entities
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
-
+        /// <summary>
+        /// 特约商户微信支付 子商户ID
+        /// </summary>
+        public virtual string TenPayV3_Sub_MchId { get; set; }
+        /// <summary>
+        /// 特约商户微信支付 子商户AppID
+        /// </summary>
+        public virtual string TenPayV3_Sub_AppId { get; set; }
         #endregion
 
         #endregion

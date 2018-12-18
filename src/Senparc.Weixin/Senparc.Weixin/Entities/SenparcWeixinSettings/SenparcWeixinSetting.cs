@@ -94,6 +94,7 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.WeixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
             //微信支付V3
             senparcWeixinSetting.TenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
+            senparcWeixinSetting.TenPayV3_SubMchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_SubMchId"];
             senparcWeixinSetting.TenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
             senparcWeixinSetting.TenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
             senparcWeixinSetting.TenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];

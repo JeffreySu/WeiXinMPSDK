@@ -69,11 +69,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
 #if NET45
                         var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
 #else
-                        var dllPath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
+                        //var dllPath = Server.GetMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
+                        var dllPath = Server.GetMapPath("~/Senparc.Weixin.MP.dll");//发布路径
 #endif
 
                         var fileVersionInfo = FileVersionInfo.GetVersionInfo(dllPath);
-
 
                         var version = fileVersionInfo.FileVersion;
                         strongResponseMessage.Content = string.Format(
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         message = ex.Message;
                     }
 
-                    
+
                     if (sendTemplateMessage)    // DPBMARK MP
                     {
                         int sleepSeconds = 3;

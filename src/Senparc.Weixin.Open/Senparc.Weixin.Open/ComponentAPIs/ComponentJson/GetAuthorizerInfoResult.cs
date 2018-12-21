@@ -129,7 +129,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// 小程序已设置的各个服务器域名
         /// </summary>
         public MiniProgramInfo_Network network { get; set; }
-        public MiniProgramInfo_Categories categories { get; set; }
+        public List<MiniProgramInfo_Categories> categories { get; set; }
         public int visit_status { get; set; }
     }
 

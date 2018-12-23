@@ -19,6 +19,9 @@
     修改标识：Senparc - 20180101
     修改描述：v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
 
+    修改标识：Senparc - 20181223
+    修改描述：v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -129,7 +132,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// 小程序已设置的各个服务器域名
         /// </summary>
         public MiniProgramInfo_Network network { get; set; }
-        public MiniProgramInfo_Categories categories { get; set; }
+        public List<MiniProgramInfo_Categories> categories { get; set; }
         public int visit_status { get; set; }
     }
 

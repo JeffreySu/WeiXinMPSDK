@@ -75,8 +75,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 if (_tenPayV3Info == null)
                 {
+                    var key = TenPayV3InfoCollection.GetKey(Config.SenparcWeixinSetting);
+
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
+                        TenPayV3InfoCollection.Data[key];
                 }
                 return _tenPayV3Info;
             }
@@ -109,31 +111,39 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
         public ActionResult OAuthCallback(string code, string state, string returnUrl)
         {
-            if (string.IsNullOrEmpty(code))
+            try
             {
-                return Content("您拒绝了授权！");
-            }
+                if (string.IsNullOrEmpty(code))
+                {
+                    return Content("您拒绝了授权！");
+                }
 
-            if (!state.Contains("|"))
+                if (!state.Contains("|"))
+                {
+                    //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
+                    //实际上可以存任何想传递的数据，比如用户ID
+                    return Content("验证失败！请从正规途径进入！1001");
+                }
+
+                //通过，用code换取access_token
+                var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
+                if (openIdResult.errcode != ReturnCode.请求成功)
+                {
+                    return Content("错误：" + openIdResult.errmsg);
+                }
+
+                HttpContext.Session.SetString("OpenId", openIdResult.openid);//进行登录
+
+                //也可以使用FormsAuthentication等其他方法记录登录信息，如：
+                //FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
+
+                return Redirect(returnUrl);
+            }
+            catch (Exception ex)
             {
-                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
-                //实际上可以存任何想传递的数据，比如用户ID
-                return Content("验证失败！请从正规途径进入！1001");
+                return Content(ex.ToString());
             }
-
-            //通过，用code换取access_token
-            var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
-            if (openIdResult.errcode != ReturnCode.请求成功)
-            {
-                return Content("错误：" + openIdResult.errmsg);
-            }
-
-            HttpContext.Session.SetString("OpenId", openIdResult.openid);//进行登录
-
-            //也可以使用FormsAuthentication等其他方法记录登录信息，如：
-            //FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
-
-            return Redirect(returnUrl);
+        
         }
 
         //需要OAuth登录

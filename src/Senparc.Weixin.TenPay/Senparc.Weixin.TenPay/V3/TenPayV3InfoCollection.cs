@@ -43,6 +43,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.TenPay.V3
@@ -58,13 +59,35 @@ namespace Senparc.Weixin.TenPay.V3
         public static TenPayV3InfoCollection Data = new TenPayV3InfoCollection();
 
         /// <summary>
+        /// 获取完整件
+        /// </summary>
+        /// <param name="mchId"></param>
+        /// <param name="subMchId"></param>
+        /// <returns></returns>
+        public static string GetKey(string mchId, string subMchId)
+        {
+            return mchId + "_" + subMchId;
+        }
+
+        /// <summary>
+        /// 获取完整件
+        /// </summary>
+        /// <param name="senparcWeixinSettingForTenpayV3">ISenparcWeixinSettingForTenpayV3，也可以直接传入 SenparcWeixinSetting</param>
+        /// <returns></returns>
+        public static string GetKey(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
+        {
+            return GetKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
+        }
+
+        /// <summary>
         /// 注册TenPayV3Info信息
         /// </summary>
         /// <param name="tenPayV3Info"></param>
         /// <param name="name">公众号唯一标识（或名称）</param>
         public static void Register(TenPayV3Info tenPayV3Info,string name)
         {
-            Data[tenPayV3Info.MchId] = tenPayV3Info;
+            var key = GetKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
+            Data[key] = tenPayV3Info;
 
             //添加到全局变量
             if (!name.IsNullOrEmpty())
@@ -75,6 +98,8 @@ namespace Senparc.Weixin.TenPay.V3
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Key = tenPayV3Info.Key;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_TenpayNotify = tenPayV3Info.TenPayV3Notify;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_WxOpenTenpayNotify = tenPayV3Info.TenPayV3_WxOpenNotify;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_MchId = tenPayV3Info.Sub_MchId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_AppId = tenPayV3Info.Sub_AppId;
             }
         }
 

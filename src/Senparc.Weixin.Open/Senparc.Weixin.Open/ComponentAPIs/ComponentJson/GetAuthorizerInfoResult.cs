@@ -19,6 +19,9 @@
     修改标识：Senparc - 20180101
     修改描述：v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
 
+    修改标识：Senparc - 20181223
+    修改描述：v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
+
 ----------------------------------------------------------------*/
 
 using System;

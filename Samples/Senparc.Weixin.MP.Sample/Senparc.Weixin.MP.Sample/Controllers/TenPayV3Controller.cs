@@ -73,8 +73,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 if (_tenPayV3Info == null)
                 {
+                    var key = TenPayV3InfoCollection.GetKey(Config.SenparcWeixinSetting);
+
                     _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[Config.SenparcWeixinSetting.TenPayV3_MchId];
+                        TenPayV3InfoCollection.Data[key];
                 }
                 return _tenPayV3Info;
             }

@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
         public override IWorkResponseMessageBase OnEvent_EnterAgentRequest(RequestMessageEvent_Enter_Agent requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "欢迎进入应用！现在时间是：" + DateTime.Now.ToString();
+            responseMessage.Content = "欢迎进入应用！现在时间是：" + SystemTime.Now.DateTime.ToString();
             return responseMessage;
         }
 

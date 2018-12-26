@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 //如果不需要记录requestDoc，只需要：
                 //var requestMessage = RequestMessageFactory.GetRequestEntity(Request.InputStream);
 
-                requestDoc.Save(Server.GetMapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
+                requestDoc.Save(Server.GetMapPath("~/App_Data/" + SystemTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                         throw new ArgumentOutOfRangeException();
                 }
                 var responseDoc = Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
-                responseDoc.Save(Server.GetMapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
+                responseDoc.Save(Server.GetMapPath("~/App_Data/" + SystemTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
 
                 return Content(responseDoc.ToString());
                 //如果不需要记录responseDoc，只需要：
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             catch (Exception ex)
             {
                 using (
-                    TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt")))
+                    TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine(ex.Message);
                     tw.WriteLine(ex.InnerException.Message);
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //根据MsgId去重结束
 
             string responseXml = null;//响应消息XML
-            var responseTime = (DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks) / 10000000 - 8 * 60 * 60;
+            var responseTime = (SystemTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks) / 10000000 - 8 * 60 * 60;
 
             switch (msgType)
             {

@@ -52,14 +52,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                 //Assert.AreEqual(ReturnCode.请求成功,result.errcode);
 
                 Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.ToString());
-
+                
                 //发送消息通知生成状态
                 var testData = new //TestTemplateData()
                 {
-                    first = new TemplateDataItem(string.Format("【测试-{0}】QrCode单元测试完成一个线程。", DateTime.Now.ToString("T"))),
+                    first = new TemplateDataItem(string.Format("【测试-{0}】QrCode单元测试完成一个线程。", SystemTime.Now.ToString("T"))),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("QrCode测试"),
-                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    keyword3 = new TemplateDataItem(SystemTime.Now.Ticks.ToString("O")),
                     remark = new TemplateDataItem("结果：" + result.errcode.ToString())
                 };
 
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                     try
                     {
 
-                        var fileName = Path.Combine(System.Environment.CurrentDirectory, "..\\", string.Format("qrcode-{0}.jpg", DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss")));
+                        var fileName = Path.Combine(System.Environment.CurrentDirectory, "..\\", string.Format("qrcode-{0}.jpg", SystemTime.Now.ToString("yyyy-MM-dd HH_mm_ss")));
                         using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
                         {
                             QrCodeApi.ShowQrCode(result.ticket, fs);//下载二维码

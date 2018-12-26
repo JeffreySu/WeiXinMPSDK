@@ -80,7 +80,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                     Assert.IsNotNull(result.agentid);
                     Assert.AreEqual(result.agentid, "2");
 
-                    Console.WriteLine("1.Ticket:" + DateTime.Now.Ticks);
+                    Console.WriteLine("1.Ticket:" + SystemTime.Now.Ticks);
                     Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
                     finishedCount++;
                 });
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                     Assert.IsNotNull(result.agentid);
                     Assert.AreEqual(result.agentid, "2");
 
-                    Console.WriteLine("2.Ticket:" + DateTime.Now.Ticks);
+                    Console.WriteLine("2.Ticket:" + SystemTime.Now.Ticks);
                     Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
                     finishedCount++;
                 });
@@ -120,10 +120,10 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 
             SetAppPostData date = new SetAppPostData()
             {
-                agentid = "2",//"100" + DateTime.Now.ToString("yyMMddHHMM"),
+                agentid = "2",//"100" + SystemTime.Now.ToString("yyMMddHHMM"),
                 report_location_flag = "1",
                 //logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
-                name = "单元测试添加" + DateTime.Now.ToString("yyMMddHHMM"),
+                name = "单元测试添加" + SystemTime.Now.ToString("yyMMddHHMM"),
                 description = "test",
                 redirect_domain = "https://sdk.weixin.senparc.com",
                 //isreportenter = 0,

@@ -33,6 +33,9 @@
     修改标识：Senparc - 20181117
     修改描述：v3.2.0 Execute() 重写方法名称改为 BuildResponseMessage()
 
+    修改标识：Senparc - 20181226
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -105,8 +108,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return null;
                 }
 
-                var timeStamp = DateTime.Now.Ticks.ToString();
-                var nonce = DateTime.Now.Ticks.ToString();
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
                 string finalResponseXml = null;

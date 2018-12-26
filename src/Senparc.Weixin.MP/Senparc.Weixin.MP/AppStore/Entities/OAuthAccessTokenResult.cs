@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20150319
+
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -73,11 +77,11 @@ namespace Senparc.Weixin.MP.AppStore
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime ExpireTime
+        public DateTimeOffset ExpireTime
         {
             get
             {
-                return new DateTime(ExpireTimeTicks);//如果高频次读取可以使用局部变量保存
+                return new DateTimeOffset(ExpireTimeTicks,TimeSpan.Zero);//如果高频次读取可以使用局部变量保存
             }
         }
     }

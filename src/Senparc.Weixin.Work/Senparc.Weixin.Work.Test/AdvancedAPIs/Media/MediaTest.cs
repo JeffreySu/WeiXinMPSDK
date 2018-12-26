@@ -84,7 +84,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件
-                var fileName = string.Format(@"E:\testpic_{0}.jpg", DateTime.Now.Ticks);
+                var fileName = string.Format(@"E:\testpic_{0}.jpg", SystemTime.Now.Ticks);
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     ms.Position = 0;

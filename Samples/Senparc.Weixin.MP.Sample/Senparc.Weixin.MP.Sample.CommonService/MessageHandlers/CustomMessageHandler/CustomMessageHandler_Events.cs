@@ -114,7 +114,7 @@ QQ群：289181996
 
 感谢您对盛派网络的支持！
 
-© {2} Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版", DateTime.Now.Year);
+© {2} Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版", SystemTime.Now.Year);
         }
 
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
@@ -175,7 +175,7 @@ QQ群：289181996
                         });
 
                         //随机添加一条图文，或只输出一条图文信息
-                        if (DateTime.Now.Second % 2 == 0)
+                        if (SystemTime.Now.Second % 2 == 0)
                         {
                             strongResponseMessage.Articles.Add(new Article()
                             {
@@ -220,11 +220,11 @@ QQ群：289181996
                 case "SubClickRoot_Agent"://代理消息
                     {
                         //获取返回的XML
-                        DateTime dt1 = DateTime.Now;
+                        var dt1 = SystemTime.Now;
                         reponseMessage = MessageAgent.RequestResponseMessage(this, agentUrl, agentToken, RequestDocument.ToString());
                         //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
-                        DateTime dt2 = DateTime.Now;
+                        var dt2 = SystemTime.Now;
 
                         if (reponseMessage is ResponseMessageNews)
                         {

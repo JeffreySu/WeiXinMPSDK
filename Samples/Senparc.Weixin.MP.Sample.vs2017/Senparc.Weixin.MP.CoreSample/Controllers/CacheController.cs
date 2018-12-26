@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
     {
-        private DateTimeOffset _dateTime;
+        //private DateTimeOffset _dateTime;
 
         public DateTimeOffset DateTime { get; set; }
         //{

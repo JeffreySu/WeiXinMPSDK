@@ -1,3 +1,9 @@
-*
-!obj/Docker/publish/*
-!obj/Docker/empty/
+.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+*/bin
+*/obj
+**/.toolstarget

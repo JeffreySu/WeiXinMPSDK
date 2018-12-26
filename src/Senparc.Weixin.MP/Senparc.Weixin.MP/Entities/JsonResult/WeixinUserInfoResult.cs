@@ -31,7 +31,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 
     修改标识：Senparc - 20180305
-    修改描述：
+    修改描述： v14.10.4 WeixinUserInfoResult添加tagid_list属性（用户被打上的标签ID列表） 感谢@zhouxin9
+
+    修改标识：Senparc - 20181226
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers;
@@ -111,7 +114,7 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public long subscribe_time { get; set; }
 
-        public DateTime GetSubscribeTime()
+        public DateTimeOffset GetSubscribeTime()
         {
             return DateTimeHelper.GetDateTimeFromXml(subscribe_time);
         }

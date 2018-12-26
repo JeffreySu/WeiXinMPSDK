@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20181009
 
+    修改标识：Senparc - 20181226
+    修改描述：v1.1.1 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -52,7 +54,7 @@ namespace Senparc.Weixin.TenPay.V3
         private static string GetNewBillNo(string mchId)
         {
             //return string.Format("{0}{1}{2}", mchId, DateTime.Now.ToString("yyyyMMdd"), TenPayV3Util.BuildRandomStr(10));
-            return string.Format("{0}{1}", DateTime.Now.ToString("yyyyMMddHHmmssfff"), TenPayV3Util.BuildRandomStr(3));
+            return string.Format("{0}{1}", SystemTime.Now.ToString("yyyyMMddHHmmssfff"), TenPayV3Util.BuildRandomStr(3));
         }
 
         #region 错误码

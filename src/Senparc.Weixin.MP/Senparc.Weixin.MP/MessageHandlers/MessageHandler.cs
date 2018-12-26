@@ -134,8 +134,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return ResponseDocument;
                 }
 
-                var timeStamp = DateTime.Now.Ticks.ToString();
-                var nonce = DateTime.Now.Ticks.ToString();
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string finalResponseXml = null;

@@ -73,7 +73,7 @@ namespace Senparc.Weixin
             var cache = LocalContainerCacheStrategy.Instance;//只要引用就可以被激活
             cacheTypes += typeof(LocalContainerCacheStrategy);
 
-            DateTime dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
 
             //官方扩展缓存注册
 
@@ -118,7 +118,7 @@ namespace Senparc.Weixin
                 }
             }
 
-            DateTime dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             var exCacheLog = "微信扩展缓存注册总用时：{0}ms\r\n扩展缓存：{1}".FormatWith((dt2 - dt1).TotalMilliseconds, cacheTypes);
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 

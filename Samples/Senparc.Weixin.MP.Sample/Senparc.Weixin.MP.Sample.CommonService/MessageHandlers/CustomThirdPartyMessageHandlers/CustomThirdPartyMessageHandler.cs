@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
                 Directory.CreateDirectory(openTicketPath);
             }
 
-            //RequestDocument.Save(Path.Combine(openTicketPath, string.Format("{0}_Doc.txt", DateTime.Now.Ticks)));
+            //RequestDocument.Save(Path.Combine(openTicketPath, string.Format("{0}_Doc.txt", SystemTime.Now.Ticks)));
 
             //记录ComponentVerifyTicket（也可以存入数据库或其他可以持久化的地方）
             using (FileStream fs = new FileStream(Path.Combine(openTicketPath, string.Format("{0}.txt", RequestMessage.AppId)),FileMode.OpenOrCreate,FileAccess.ReadWrite))

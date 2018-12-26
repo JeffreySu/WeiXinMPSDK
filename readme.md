@@ -24,7 +24,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
-> _Senparc.Weixin SDK 全系列将从 2018年12月24日起停止对 .NET Framework 3.5 的更新。历史稳定版本仍然可用。_
+> _Senparc.Weixin SDK 全系列从 2018年12月24日起停止对 .NET Framework 3.5 的更新。历史稳定版本仍然可用。_
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->

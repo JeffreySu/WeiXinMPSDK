@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -90,8 +93,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             var data = new
             {
                 status = status,
-                begintime = beginTime.HasValue ? DateTimeHelper.GetWeixinDateTime(beginTime.Value) : (long?)null,
-                endtime = endTime.HasValue ? DateTimeHelper.GetWeixinDateTime(endTime.Value) : (long?)null
+                begintime = beginTime.HasValue ? DateTimeHelper.GetUnixDateTime(beginTime.Value) : (long?)null,
+                endtime = endTime.HasValue ? DateTimeHelper.GetUnixDateTime(endTime.Value) : (long?)null
             };
 
             return CommonJsonSend.Send<GetByFilterResult>(accessToken, urlFormat, data,jsonSetting:new JsonSetting(true));
@@ -192,8 +195,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             var data = new
             {
                 status = status,
-                begintime = beginTime.HasValue ? DateTimeHelper.GetWeixinDateTime(beginTime.Value) : (long?)null,
-                endtime = endTime.HasValue ? DateTimeHelper.GetWeixinDateTime(endTime.Value) : (long?)null
+                begintime = beginTime.HasValue ? DateTimeHelper.GetUnixDateTime(beginTime.Value) : (long?)null,
+                endtime = endTime.HasValue ? DateTimeHelper.GetUnixDateTime(endTime.Value) : (long?)null
             };
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByFilterResult>(accessToken, urlFormat, data, jsonSetting: new JsonSetting(true));

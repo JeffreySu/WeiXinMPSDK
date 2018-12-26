@@ -564,7 +564,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var requestMessage = new RequestMessageText()
             {
                 Content = "Hi",
-                CreateTime = DateTime.Now,
+                CreateTime = SystemTime.Now,
                 FromUserName = "FromeUserName",
                 ToUserName = "ToUserName",
                 MsgId = 123,

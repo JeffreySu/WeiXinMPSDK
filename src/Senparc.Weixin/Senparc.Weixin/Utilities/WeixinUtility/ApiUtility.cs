@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170926
     修改描述：v4.16.4 在2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
+    
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
 
 ----------------------------------------------------------------*/
 
@@ -59,9 +62,9 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// </summary>
         /// <param name="expireInSeconds">有效时间（秒）</param>
         /// <returns></returns>
-        public static DateTime GetExpireTime(int expireInSeconds)
+        public static DateTimeOffset GetExpireTime(int expireInSeconds)
         {
-            return DateTime.Now.Add(GetExpiryTimeSpan(expireInSeconds));//提前x分钟重新获取
+            return SystemTime.Now.Add(GetExpiryTimeSpan(expireInSeconds));//提前x分钟重新获取
         }
 
         /// <summary>

@@ -167,7 +167,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 if (string.IsNullOrEmpty(sp_billno))
                 {
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                    sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                    sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
                 }
                 else
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string nonceStr = TenPayV3Util.GetNoncestr();
 
             //商品Id，用户自行定义
-            string productId = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
 
             nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
             nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //创建支付应答对象
             //RequestHandler packageReqHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);//最多32位
+            var sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);//最多32位
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             //创建请求统一订单接口参数
@@ -345,11 +345,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //创建支付应答对象
             //RequestHandler packageReqHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);
+            var sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             //商品Id，用户自行定义
-            string productId = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
 
             //创建请求统一订单接口参数
             //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
@@ -419,7 +419,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             RequestHandler payHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             payHandler.SetParameter("auth_code", authCode);//授权码
@@ -488,13 +488,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 #region 记录日志
 
-                var logDir = Server.GetMapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
+                var logDir = Server.GetMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);
                 }
 
-                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
+                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", SystemTime.Now.ToString("yyyyMMdd"), SystemTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
 
                 using (var fileStream = System.IO.File.OpenWrite(logPath))
                 {
@@ -587,7 +587,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string nonceStr = TenPayV3Util.GetNoncestr();
 
             string outTradeNo = HttpContext.Session.GetString("BillNo");
-            string outRefundNo = "OutRefunNo-" + DateTime.Now.Ticks;
+            string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
             int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
             int refundFee = totalFee;
             string opUserId = TenPayV3Info.MchId;
@@ -787,7 +787,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult SendGroupRedPack()
         {
-            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            string mchbillno = SystemTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
 
             string nonceStr = TenPayV3Util.GetNoncestr();
             RequestHandler packageReqHandler = new RequestHandler(null);
@@ -937,7 +937,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
-                product.GetHashCode(), DateTime.Now.Ticks);
+                product.GetHashCode(), SystemTime.Now.Ticks);
 
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
@@ -995,7 +995,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     if (string.IsNullOrEmpty(sp_billno))
                     {
                         //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                        sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                        sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                             TenPayV3Util.BuildRandomStr(6));
                     }
                     else

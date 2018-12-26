@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -106,8 +109,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //组装发送消息
                 var data = new
                 {
-                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     pagesize = pageSize,
                     pageindex = pageIndex
                 };
@@ -411,8 +414,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format(Config.ApiMpHost + "/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
-                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     msgid = msgId,
                     number = number
                 };
@@ -456,8 +459,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                //组装发送消息
                var data = new
                {
-                   starttime = DateTimeHelper.GetWeixinDateTime(startTime),
-                   endtime = DateTimeHelper.GetWeixinDateTime(endTime),
+                   starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                   endtime = DateTimeHelper.GetUnixDateTime(endTime),
                    pagesize = pageSize,
                    pageindex = pageIndex
                };
@@ -760,8 +763,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var urlFormat = string.Format(Config.ApiMpHost + "/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
                var data = new
                {
-                   starttime = DateTimeHelper.GetWeixinDateTime(startTime),
-                   endtime = DateTimeHelper.GetWeixinDateTime(endTime),
+                   starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                   endtime = DateTimeHelper.GetUnixDateTime(endTime),
                    msgid = msgId,
                    number = number
                };

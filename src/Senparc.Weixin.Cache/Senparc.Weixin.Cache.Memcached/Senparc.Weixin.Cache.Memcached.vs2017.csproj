@@ -152,7 +152,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.2.0" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.2.1-preview1" />
   </ItemGroup>
 
   <ItemGroup>

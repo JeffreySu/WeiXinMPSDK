@@ -252,7 +252,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             requestMessaage.MsgId = long.Parse(Request.Form["MsgId"]);
             requestMessaage.CreateTime = DateTime.Now;
-            requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName（OpenId）";//用于区别不同的请求用户
+            requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName(OpenId)";//用于区别不同的请求用户
             requestMessaage.ToUserName = "ToUserName";
 
             return requestMessaage.ConvertEntityToXml();

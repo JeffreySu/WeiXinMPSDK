@@ -84,6 +84,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
             //or use Header: REMOTE_ADDR
 
+            //编译时间
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString("yyyyMMdd.HH.mm");
+
+
             return View();
         }
 

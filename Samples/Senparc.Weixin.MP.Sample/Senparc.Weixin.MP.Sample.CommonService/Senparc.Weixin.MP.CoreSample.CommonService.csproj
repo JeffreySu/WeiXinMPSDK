@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.5.2-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.5.2-preview6" />
     <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
   </ItemGroup>
 

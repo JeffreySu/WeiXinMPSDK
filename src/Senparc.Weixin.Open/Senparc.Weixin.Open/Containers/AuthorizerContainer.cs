@@ -255,10 +255,10 @@ namespace Senparc.Weixin.Open.Containers
                     ComponentAppId = componentAppId,
 
                     AuthorizationInfo = new AuthorizationInfo(),
-                    AuthorizationInfoExpireTime = DateTime.MinValue,
+                    AuthorizationInfoExpireTime = DateTimeOffset.MinValue,
 
                     AuthorizerInfo = new AuthorizerInfo(),
-                    //AuthorizerInfoExpireTime = DateTime.MinValue,
+                    //AuthorizerInfoExpireTime = DateTimeOffset.MinValue,
 
                     JsApiTicketResult = new JsApiTicketResult(),
                     JsApiTicketExpireTime = DateTimeOffset.MinValue,

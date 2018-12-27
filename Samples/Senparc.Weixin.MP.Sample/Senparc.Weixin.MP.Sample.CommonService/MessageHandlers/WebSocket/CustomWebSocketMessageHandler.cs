@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 var data = new
                 {
                     keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息"),
-                    keyword2 = new TemplateDataItem(SystemTime.Now.DateTime.ToString()),
+                    keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
                     keyword3 = new TemplateDataItem("Name"),
                     keyword4 = new TemplateDataItem("Number"),
                     keyword5 = new TemplateDataItem(100.ToString("C")),

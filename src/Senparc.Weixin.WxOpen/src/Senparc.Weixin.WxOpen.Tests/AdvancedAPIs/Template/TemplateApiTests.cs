@@ -70,7 +70,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
                 */
 
             keyword1 = payAddress;
-            keyword2 = payTime.DateTime.ToString();
+            keyword2 = payTime.LocalDateTime.ToString();
             keyword3 = productName;
             keyword4 = orderNumber;
             keyword5 = orderPrice.ToString("C");

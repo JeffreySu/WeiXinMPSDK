@@ -82,7 +82,10 @@ namespace Senparc.Weixin
             //自动注册 Redis 和 Memcached
             //Redis
             var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
-            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            if (!string.IsNullOrEmpty(redisConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                redisConfiguration != "Redis配置" &&
+                redisConfiguration != "#{Cache_Redis_Configuration}#")
             {
                 try
                 {
@@ -101,7 +104,10 @@ namespace Senparc.Weixin
 
             //Memcached
             var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
-            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+            if (!string.IsNullOrEmpty(memcachedConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                memcachedConfiguration != "Memcached配置" &&
+                memcachedConfiguration != "#{Cache_Memcached_Configuration}#")
             {
                 try
                 {

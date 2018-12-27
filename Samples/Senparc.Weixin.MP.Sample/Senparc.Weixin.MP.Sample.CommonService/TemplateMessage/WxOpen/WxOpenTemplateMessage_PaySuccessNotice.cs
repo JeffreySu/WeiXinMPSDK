@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen
                 */
 
             keyword1 = new TemplateDataItem(payAddress);
-            keyword2 = new TemplateDataItem(payTime.DateTime.ToString());
+            keyword2 = new TemplateDataItem(payTime.LocalDateTime.ToString());
             keyword3 = new TemplateDataItem(productName);
             keyword4 = new TemplateDataItem(orderNumber);
             keyword5 = new TemplateDataItem(orderPrice.ToString("C"));

@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {
                 /* 说明：

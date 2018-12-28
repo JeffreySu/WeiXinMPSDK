@@ -55,7 +55,7 @@ Index
 * [Donate](#donate)
 * [License](#license)
 
-The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Core 2.0/2.1.
+The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
 
 * Use Visual Studio 2017 to open the Demo (support all versions)
 : [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)

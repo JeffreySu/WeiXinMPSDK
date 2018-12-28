@@ -13,17 +13,17 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void TestMethod1()
         {
-            var d1 = DateTime.Now;
+            var d1 = SystemTime.Now;
             Console.WriteLine("1. Start");
 
             bool finished = false;
             Thread thread = new Thread(()=> {
                 Task.Factory.StartNew(async () =>
                 {
-                    var d2 = DateTime.Now;
+                    var d2 = SystemTime.Now;
                     var tagJsonResult = await Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.GetAsync(base._appId);
                     Console.WriteLine("3. tagJsonResult 1：" + string.Join(",", tagJsonResult.tags.Select(z => z.name)));
-                    Console.WriteLine("4. 用时：" + (DateTime.Now-d2).TotalMilliseconds+" ms");
+                    Console.WriteLine("4. 用时：" + (SystemTime.Now-d2).TotalMilliseconds+" ms");
 
                     return tagJsonResult;
                 }).ContinueWith(async task =>
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 Thread.Sleep(5);
             }
 
-            Console.WriteLine("6. End："+(DateTime.Now -d1).TotalMilliseconds+" ms");
+            Console.WriteLine("6. End："+(SystemTime.Now -d1).TotalMilliseconds+" ms");
 
         }
     }

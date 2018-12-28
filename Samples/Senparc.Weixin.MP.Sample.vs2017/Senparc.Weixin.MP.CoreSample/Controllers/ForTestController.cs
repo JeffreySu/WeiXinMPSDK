@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var isAjax = Request.IsAjaxRequest();
 
-            Response.Cookies.Append("TestCookie", DateTime.Now.ToString());
+            Response.Cookies.Append("TestCookie", SystemTime.Now.ToString());
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }

@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
         RequestMessageText requestMessage = new RequestMessageText()
                                             {
                                                 MsgId = 1,
-                                                CreateTime = DateTime.Now,
+                                                CreateTime = SystemTime.Now,
                                                 FromUserName = "TNT2",
                                                 ToUserName = "Senparc",
                                                 //MsgType = RequestMsgType.Text,

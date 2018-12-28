@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180917
     修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
 
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 
@@ -319,7 +322,7 @@ namespace Senparc.Weixin.Containers
             }
             //var containerCacheKey = GetContainerCacheKey();
 
-            bag.CacheTime = DateTime.Now;
+            bag.CacheTime = SystemTime.Now;
 
             Cache.Update(cacheKey, bag, expiry);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }

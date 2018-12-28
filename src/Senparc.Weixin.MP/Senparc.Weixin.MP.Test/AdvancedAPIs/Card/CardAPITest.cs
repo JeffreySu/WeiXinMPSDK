@@ -18,6 +18,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+/*----------------------------------------------------------------
+    Copyright (C) 2018 Senparc
+
+    文件名：CardTest.cs
+    文件功能描述：卡券单元测试
+
+
+    创建标识：Senparc - 20180602
+
+    修改标识：Senparc - 20181226
+    修改描述：修改 DateTime 为 DateTimeOffset
+
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,8 +69,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             date_info = new Card_BaseInfo_DateInfo()
             {
                 type = Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE.ToString(),
-                begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
-                end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
+                begin_timestamp = DateTimeHelper.GetUnixDateTime(SystemTime.Now),
+                end_timestamp = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddDays(10)),
             },
             sku = new Card_BaseInfo_Sku()
             {

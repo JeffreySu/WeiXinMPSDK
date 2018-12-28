@@ -54,7 +54,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return getDisplayVersion(version);
             };
 
-            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
+            TempData["SampleVersion"] = getTypeVersionInfo(this.GetType());//当前Demo的版本号
+            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));//CO2NET版本号
+            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.ApiBindInfo));//NeuChar版本号
+
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
             TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END
             TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));//DPBMARK MP DPBMARK_END
@@ -80,6 +83,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             Weixin.WeixinTrace.SendCustomLog("首页被访问",
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
             //or use Header: REMOTE_ADDR
+
+            //编译时间
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString("yyyyMMdd.HH.mm");
+
 
             return View();
         }

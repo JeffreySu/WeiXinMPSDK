@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 first = new TemplateDataItem("【测试】您好，审核通过。"),
                 keyword1 = new TemplateDataItem(openId),
                 keyword2 = new TemplateDataItem("单元测试"),
-                keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+                keyword3 = new TemplateDataItem(SystemTime.Now.DateTime.ToString()),
                 remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
             };
             var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", testData);
@@ -282,10 +282,10 @@ Task.Factory.StartNew(async () =>
                 */
                 var testData = new //TestTemplateData()
                 {
-                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", DateTime.Now.ToString("T"))),
+                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", SystemTime.Now.ToString("T"))),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("单元测试"),
-                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    keyword3 = new TemplateDataItem(SystemTime.Now.Ticks.ToString("O")),
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n运行线程：" + Thread.CurrentThread.GetHashCode())
                 };
 

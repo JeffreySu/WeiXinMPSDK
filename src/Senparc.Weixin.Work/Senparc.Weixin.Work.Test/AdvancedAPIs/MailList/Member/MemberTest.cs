@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             var memberCreateRequest = new  MemberCreateRequest()
             {
                 userid = userId,
-                name= string.Format("单元测试生成-{0}", DateTime.Now.ToString("yyMMdd-HH:mm")),
+                name= string.Format("单元测试生成-{0}", SystemTime.Now.ToString("yyMMdd-HH:mm")),
                 english_name = "english name",
                 department = new long[] { 2 },
                 gender = "1",

@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.Test
     public class DateTimeHelperTest
     {
         long timeStamp = 1358061152;
-        DateTime expect = new DateTime(2013, 1, 13, 15, 12, 32);
+        DateTimeOffset expect = new DateTimeOffset(2013, 1, 13, 15, 12, 32,TimeSpan.Zero);
 
         /// <summary>
         /// 测试Unix时间（基本方法）
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.Test
          [TestMethod]
         public void GetWeixinDateTimeTest()
         {
-            var result = DateTimeHelper.GetWeixinDateTime(expect);
+            var result = DateTimeHelper.GetUnixDateTime(expect);
             Assert.AreEqual(timeStamp, result);
         }
     }

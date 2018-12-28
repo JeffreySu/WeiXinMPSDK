@@ -34,6 +34,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180701
     修改描述：V2.0.3 SessionBag 添加 UnionId 属性
 
+    修改标识：Senparc - 20170522
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 
@@ -99,7 +102,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime ExpireTime { get; set; }
+        public DateTimeOffset ExpireTime { get; set; }
         //        {
         //            get { return _expireTime; }
         //#if NET35 || NET40
@@ -112,7 +115,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         //private string _key;
         //private string _openId;
         //private string _sessionKey;
-        //private DateTime _expireTime;
+        //private DateTimeOffset _expireTime;
 
         /// <summary>
         /// ComponentBag
@@ -152,7 +155,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 return null;
             }
 
-            if (bag.ExpireTime < DateTime.Now)
+            if (bag.ExpireTime < SystemTime.Now)
             {
                 //已经过期
                 Cache.RemoveFromCache(key);
@@ -161,7 +164,7 @@ namespace Senparc.Weixin.WxOpen.Containers
 
             //using (FlushCache.CreateInstance())
             //{
-            bag.ExpireTime = DateTime.Now.Add(GetExpireTime());//滚动过期时间
+            bag.ExpireTime = SystemTime.Now.Add(GetExpireTime());//滚动过期时间
             Update(key, bag, GetExpireTime());
             //}
             return bag;
@@ -187,7 +190,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 OpenId = openId,
                 UnionId = uniondId,
                 SessionKey = sessionKey,
-                ExpireTime = DateTime.Now.Add(GetExpireTime())
+                ExpireTime = SystemTime.Now.Add(GetExpireTime())
             };
             Update(key, sessionBag, GetExpireTime());
             return sessionBag;

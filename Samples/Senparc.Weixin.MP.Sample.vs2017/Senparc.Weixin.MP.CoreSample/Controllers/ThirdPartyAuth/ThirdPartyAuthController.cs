@@ -83,24 +83,24 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                messageHandler.RequestDocument.Save(Server.GetMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
                 //执行微信处理过程
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
 
                 if (!string.IsNullOrEmpty(messageHandler.TextResponseMessage))
                 {
-                    //messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    //messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
                     var responseText = messageHandler.TextResponseMessage;
-                    using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
+                    using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                     {
                         sw.Write(responseText);
                     }
 
                     if (messageHandler.FinalResponseDocument != null)
                     {
-                        //messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                        using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
+                        //messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + SystemTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                        using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                         {
                             sw.Write(messageHandler.FinalResponseDocument.ToString());
                         }
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

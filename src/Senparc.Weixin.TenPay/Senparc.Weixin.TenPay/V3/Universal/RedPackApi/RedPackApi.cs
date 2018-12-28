@@ -76,8 +76,8 @@ namespace Senparc.Weixin.TenPay.V3
     {
         private static string GetNewBillNo(string mchId)
         {
-            //return string.Format("{0}{1}{2}", mchId, DateTime.Now.ToString("yyyyMMdd"), TenPayV3Util.BuildRandomStr(10));
-            return string.Format("{0}{1}", DateTime.Now.ToString("yyyyMMddHHmmssfff"), TenPayV3Util.BuildRandomStr(3));
+            //return string.Format("{0}{1}{2}", mchId, SystemTime.Now.ToString("yyyyMMdd"), TenPayV3Util.BuildRandomStr(10));
+            return string.Format("{0}{1}", SystemTime.Now.ToString("yyyyMMddHHmmssfff"), TenPayV3Util.BuildRandomStr(3));
         }
 
         #region 错误码

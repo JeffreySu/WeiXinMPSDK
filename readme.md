@@ -57,7 +57,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [捐助](#捐助)
 * [License](#license)
 
-本库为包含了 .NET 3.5/4.0/4.5/.NET Framework 2.0/2.2 多个版本的源代码（核心逻辑完全一致）：
+本库为包含了 .NET 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2 多个版本的源代码（核心逻辑完全一致）：
 
 * 使用 Visual Studio 2017 打开 Demo（支持所有版本）：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
 * 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)

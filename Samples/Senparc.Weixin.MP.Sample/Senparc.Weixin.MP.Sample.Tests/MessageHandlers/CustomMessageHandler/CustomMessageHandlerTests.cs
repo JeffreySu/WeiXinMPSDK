@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.Tests
             var requestMessage = new RequestMessageText()
             {
                 Content = "代理",
-                CreateTime = DateTime.Now,
+                CreateTime = SystemTime.Now,
                 FromUserName = "FromeUserName",
                 ToUserName = "ToUserName",
                 MsgId = 123,

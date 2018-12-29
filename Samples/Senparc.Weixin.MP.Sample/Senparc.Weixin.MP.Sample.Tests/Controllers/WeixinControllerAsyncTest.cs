@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         protected void InitAsync(Controller targetAsync, Stream inputStreamAsync, string xmlFormat)
         {
             //target = StructureMap.ObjectFactory.GetInstance<WeixinController>();//使用IoC的在这里必须注入，不要直接实例化
-            var xml = string.Format(xmlFormat, DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(xmlFormat, DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             var bytes = System.Text.Encoding.UTF8.GetBytes(xml);
 
             inputStreamAsync.Write(bytes, 0, bytes.Length);
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var repeatedMessageCount = 0;//确定去重的消息数量
             var repeatedRequestMessage = new List<IRequestMessageBase>();//被去重的请求消息记录
 
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
 
             //每个线程的测试过程
             ParameterizedThreadStart task = async p =>
@@ -141,13 +141,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 string openId = dt1.Ticks.ToString();//对每一轮测试进行分组，防止串数据
                 if (testRepeatOmit)
                 {
-                    msgId = DateTime.Today.Ticks.ToString();
+                    msgId = SystemTime.Today.Ticks.ToString();
                     openId += "0";
                 }
                 else
                 {
                     //MsgId，保证每次时间不一样
-                    msgId = (DateTime.Today.Ticks + index).ToString();
+                    msgId = (SystemTime.Today.Ticks + index).ToString();
                     //OpenId后缀，可以模拟不同人发送，也可以模拟对人多发：i%10
                     //如果需要测试去重功能，可以将index改为固定值，并且将MsgId设为固定值
                     openId += index.ToString();
@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 //按钮测试
                 var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Text"),
                     ////确保每次时间戳不同
-                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddHours(index)),
+                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddHours(index)),
                     msgId, openId);
 
                 var timestamp = "itsafaketimestamp";
@@ -173,10 +173,10 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 Stream streamAsync = new MemoryStream();
                 InitAsync(targetAsync, streamAsync, xml);//初始化
 
-                var dtt1 = DateTime.Now;
+                var dtt1 = SystemTime.Now;
                 var actual = await targetAsync.Post(postModel) as FixWeixinBugWeixinResult;
 
-                var dtt2 = DateTime.Now;
+                var dtt2 = SystemTime.Now;
 
                 Assert.IsNotNull(actual);
 
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             {
 
             }
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
 
             Console.WriteLine("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("Empty Content Count：" + emptyContentCount);

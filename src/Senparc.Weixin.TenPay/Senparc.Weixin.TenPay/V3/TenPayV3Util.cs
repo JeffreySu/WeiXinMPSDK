@@ -157,11 +157,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-#if NET35 || NET40 || NET45 || NET461
-            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-#else
+//#if NET35 || NET40 || NET45 || NET461
+//            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+//#else
             TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
-#endif
+//#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 

@@ -8,6 +8,7 @@ using Senparc.Weixin.Open.MessageHandlers;
 using System.IO;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Open.Entities.Request;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 {

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers

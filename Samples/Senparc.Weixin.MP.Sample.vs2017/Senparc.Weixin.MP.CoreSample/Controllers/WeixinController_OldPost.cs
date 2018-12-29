@@ -22,6 +22,7 @@ using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
+    using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar;
     using Senparc.NeuChar.Entities;
     using Senparc.Weixin.MP.Entities;

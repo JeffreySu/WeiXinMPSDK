@@ -17,6 +17,7 @@ using System;
 using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {

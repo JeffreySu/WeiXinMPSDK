@@ -20,6 +20,7 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Entities;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web.Configuration;

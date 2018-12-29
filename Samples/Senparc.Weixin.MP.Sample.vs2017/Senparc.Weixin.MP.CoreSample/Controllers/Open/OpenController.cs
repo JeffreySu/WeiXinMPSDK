@@ -23,6 +23,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Open.AccountAPIs;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

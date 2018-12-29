@@ -17,6 +17,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
@@ -80,7 +81,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //var sr = new StreamReader(ms);
             //var xml = sr.ReadToEnd();
             //var doc = XDocument.Parse(xml);
-            //doc.Save(Server.MapPath("~/App_Data/TestWork.log"));
+            //doc.Save(ServerUtility.ContentRootMapPath("~/App_Data/TestWork.log"));
             //return null;
             #endregion
 
@@ -106,7 +107,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

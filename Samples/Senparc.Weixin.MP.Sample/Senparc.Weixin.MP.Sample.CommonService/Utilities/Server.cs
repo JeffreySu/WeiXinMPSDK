@@ -9,7 +9,6 @@ using System.Text;
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
-using Senparc.CO2NET.Utilities;
 #endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.Utilities

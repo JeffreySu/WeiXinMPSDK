@@ -24,30 +24,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
         public static object Lock = new object();
 
 
-#if NET45
-        private HttpContextBase _context;
-
-        public ConfigHelper(HttpContextBase context)
+        public ConfigHelper()
         {
-            _context = context;
         }
-#else
-        private HttpContext _context;
-
-        public ConfigHelper(HttpContext context)
-        {
-            _context = context;
-        }
-#endif
 
         private string GetDatabaseFilePath()
         {
-#if NET45
-            return _context.Server.MapPath("~/App_Data/Document/Config.xml");
-#else
             return ServerUtility.ContentRootMapPath("~/App_Data/Document/Config.xml");
-
-#endif
         }
 
         private XDocument GetXDocument()
@@ -119,7 +102,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             }
 
             //打包下载文件
-            //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
+            //FileStream fs = new FileStream(_context.ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
 
             return ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));

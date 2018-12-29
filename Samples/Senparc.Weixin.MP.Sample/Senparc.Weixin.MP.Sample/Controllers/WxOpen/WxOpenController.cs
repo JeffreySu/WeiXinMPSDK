@@ -17,6 +17,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -71,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/WxOpen/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/WxOpen/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -100,7 +101,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

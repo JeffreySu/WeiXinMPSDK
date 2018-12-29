@@ -21,6 +21,7 @@
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
 //DPBMARK MP
@@ -500,7 +501,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 #region 记录日志
 
-                var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
+                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);

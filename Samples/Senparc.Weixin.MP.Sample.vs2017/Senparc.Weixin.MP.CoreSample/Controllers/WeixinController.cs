@@ -19,6 +19,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     using Microsoft.Extensions.Options;
     using Senparc.CO2NET.HttpUtility;
+    using Senparc.CO2NET.Utilities;
     using Senparc.Weixin.Entities;
     using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP.MvcExtension;
@@ -111,7 +112,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 #region 异常处理
                 WeixinTrace.Log("MessageHandler错误：{0}", ex.Message);
 
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

@@ -25,6 +25,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
+using Senparc.CO2NET.Utilities;
 
 
 #if NET45
@@ -45,12 +46,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
 #if NET45
-             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Server.GetMapPath("~/bin/Senparc.Weixin.MP.dll"));
+            var filePath = ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll");//发布路径
 #else
-            //var filePath = Server.GetMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
-            var filePath = Server.GetMapPath("~/Senparc.Weixin.MP.dll");//发布路径
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
+            //var filePath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
+            var filePath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
 #endif
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 
             string version = fileVersionInfo == null
                 ? "-"
@@ -192,7 +193,7 @@ QQ群：289181996
                         //上传缩略图
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
-                                                                     Server.GetMapPath("~/Images/Logo.thumb.jpg"));
+                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.thumb.jpg"));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
                         //设置音乐信息
@@ -210,7 +211,7 @@ QQ群：289181996
                         //上传图片
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
-                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
@@ -313,7 +314,7 @@ QQ群：289181996
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = AdvancedAPIs.MediaApi.UploadForeverMedia(appId, Server.GetMapPath("~/Images/logo.jpg"));
+                            var result = AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
                             strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)

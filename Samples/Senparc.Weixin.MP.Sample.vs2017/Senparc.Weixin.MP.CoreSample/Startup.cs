@@ -20,6 +20,7 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -77,14 +78,6 @@ namespace Senparc.Weixin.MP.CoreSample
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
-            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
-            }
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-            #endregion
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
@@ -235,7 +228,7 @@ namespace Senparc.Weixin.MP.CoreSample
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(Server.GetMapPath("~/App_Data/OpenTicket"));
+                        var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -255,7 +248,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -278,7 +271,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);

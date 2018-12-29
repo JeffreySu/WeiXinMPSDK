@@ -1,4 +1,5 @@
 ﻿//DPBMARK_FILE Open
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
@@ -57,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult Notice(PostModel postModel)
         {
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -120,7 +121,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -171,7 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 using (
                     TextWriter tw =
-                        new StreamWriter(Server.MapPath("~/App_Data/Open/Error_" + SystemTime.Now.Ticks + ".txt")))
+                        new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Open/Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

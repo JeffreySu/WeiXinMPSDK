@@ -46,6 +46,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -488,7 +489,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 #region 记录日志
 
-                var logDir = Server.GetMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
+                var logDir = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/TenPayNotify/{0}", SystemTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);

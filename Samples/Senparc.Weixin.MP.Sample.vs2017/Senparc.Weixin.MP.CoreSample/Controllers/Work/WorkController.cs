@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //var sr = new StreamReader(ms);
             //var xml = sr.ReadToEnd();
             //var doc = XDocument.Parse(xml);
-            //doc.Save(Server.GetMapPath("~/App_Data/TestWork.log"));
+            //doc.Save(ServerUtility.ContentRootMapPath("~/App_Data/TestWork.log"));
             //return null;
             #endregion
 
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

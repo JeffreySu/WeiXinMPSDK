@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;
@@ -44,7 +45,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
 #if NET45
             return _context.Server.MapPath("~/App_Data/Document/Config.xml");
 #else
-            return Server.GetMapPath("~/App_Data/Document/Config.xml");
+            return ServerUtility.ContentRootMapPath("~/App_Data/Document/Config.xml");
 
 #endif
         }
@@ -101,14 +102,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
 #if NET45
             doc.Save(GetDatabaseFilePath());
 #else
-            using (FileStream fs = new FileStream(GetDatabaseFilePath(),FileMode.OpenOrCreate,FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(GetDatabaseFilePath(), FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 doc.Save(fs);
             }
 #endif
         }
 
-        public string Download(string version,bool isWebVersion)
+        public string Download(string version, bool isWebVersion)
         {
             lock (Lock)
             {
@@ -121,13 +122,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
 
-#if NET45
-            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar",isWebVersion?"-Web":"", version));
-#else
-            return Server.GetMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
-#endif
-
-
+            return ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
         }
     }
 }

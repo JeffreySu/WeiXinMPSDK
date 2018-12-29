@@ -476,7 +476,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
-                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+                                                         ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
@@ -512,7 +512,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             Task.Factory.StartNew(async () =>
              {
                  //上传素材
-                 var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                  var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                  var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                  await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");

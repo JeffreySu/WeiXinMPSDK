@@ -15,23 +15,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
 {
     public static class Server
     {
-        public static string GetMapPath(string virtualPath)
-        {
-            //if (virtualPath == null)
-            //{
-            //    return "";
-            //}
-            //else if (virtualPath.StartsWith("~/"))
-            //{
-            //    return virtualPath.Replace("~/", AppDomainAppPath);
-            //}
-            //else
-            //{
-            //    return Path.Combine(AppDomainAppPath, virtualPath);
-            //}
-            return ServerUtility.ContentRootMapPath(virtualPath);
-        }
-
         public static HttpContext HttpContext
         {
             get

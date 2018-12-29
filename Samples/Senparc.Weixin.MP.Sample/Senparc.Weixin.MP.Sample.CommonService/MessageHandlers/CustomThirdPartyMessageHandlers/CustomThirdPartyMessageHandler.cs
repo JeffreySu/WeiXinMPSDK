@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 
         public override string OnComponentVerifyTicketRequest(RequestMessageComponentVerifyTicket requestMessage)
         {
-            var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
+            var openTicketPath = ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket");
             if (!Directory.Exists(openTicketPath))
             {
                 Directory.CreateDirectory(openTicketPath);

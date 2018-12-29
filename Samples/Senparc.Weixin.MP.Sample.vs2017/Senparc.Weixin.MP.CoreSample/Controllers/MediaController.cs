@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             //储存文件，对比是否上传成功
-            using (FileStream ms = new FileStream(Server.GetMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
+            using (FileStream ms = new FileStream(ServerUtility.ContentRootMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
             {
                 inputStream.CopyTo(ms, 256);
             }

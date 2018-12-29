@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample.net45", "Sample.net45", "{AA3BD43D-1CAB-472E-AAA7-90D7A68AAD09}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.vs2017", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.vs2017.csproj", "{0F0FC7C9-E9DF-4814-BFC3-9F781A6E12FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WeixinTests.vs2017", "..\..\src\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.vs2017.csproj", "{2F7A938D-0D5A-44A2-B933-07F0D45F7050}"

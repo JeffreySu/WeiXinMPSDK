@@ -29,6 +29,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
 using System.Xml.Linq;
 using System.Threading;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
 
-            messageHandler.DefaultMessageHandlerAsyncEvent = Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            messageHandler.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
             #region 设置消息去重
 

@@ -102,7 +102,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            await messageHandler.ExecuteAsync(); //执行微信处理过程（关键）
+            var cancellationToken = new CancellationToken();
+            await messageHandler.ExecuteAsync(cancellationToken); //执行微信处理过程（关键）
 
             messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 

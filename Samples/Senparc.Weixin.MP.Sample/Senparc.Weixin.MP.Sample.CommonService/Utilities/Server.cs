@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.CO2NET.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

@@ -188,7 +188,7 @@ namespace Senparc.Weixin.MP.Sample
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(Server.MapPath("~/App_Data/OpenTicket"));
+                        var dir = Path.Combine(CommonService.Utilities.Server.GetMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.Sample
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(CommonService.Utilities.Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.Sample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.MapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(CommonService.Utilities.Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);

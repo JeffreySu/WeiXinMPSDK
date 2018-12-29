@@ -78,14 +78,6 @@ namespace Senparc.Weixin.MP.CoreSample
             });
 
 
-            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
-            }
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-            #endregion
-
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
                                                         //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs

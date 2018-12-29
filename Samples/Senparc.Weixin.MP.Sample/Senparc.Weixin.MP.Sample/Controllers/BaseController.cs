@@ -28,5 +28,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
             }
         }
+
+        protected override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            ViewData["CacheType"] = CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType().Name;
+            base.OnResultExecuting(filterContext);
+        }
     }
 }

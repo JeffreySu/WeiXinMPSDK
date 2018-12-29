@@ -25,6 +25,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
+using Senparc.CO2NET.Utilities;
 
 
 #if NET45
@@ -45,12 +46,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
 #if NET45
-             var fileVersionInfo = FileVersionInfo.GetVersionInfo(ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll"));
+            var filePath = ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll");//发布路径
 #else
             //var filePath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
             var filePath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 #endif
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 
             string version = fileVersionInfo == null
                 ? "-"

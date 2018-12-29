@@ -35,6 +35,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;

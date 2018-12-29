@@ -17,6 +17,7 @@ using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    using Senparc.CO2NET.Utilities;
     using Senparc.Weixin.MP.MvcExtension;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 

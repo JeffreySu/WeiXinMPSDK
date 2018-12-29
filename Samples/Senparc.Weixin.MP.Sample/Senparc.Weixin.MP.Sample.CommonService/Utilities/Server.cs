@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.CO2NET.Utilities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,18 +65,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
 
         public static string GetMapPath(string virtualPath)
         {
-            if (virtualPath == null)
-            {
-                return "";
-            }
-            else if (virtualPath.StartsWith("~/"))
-            {
-                return virtualPath.Replace("~/", AppDomainAppPath);
-            }
-            else
-            {
-                return Path.Combine(AppDomainAppPath, virtualPath);
-            }
+            //if (virtualPath == null)
+            //{
+            //    return "";
+            //}
+            //else if (virtualPath.StartsWith("~/"))
+            //{
+            //    return virtualPath.Replace("~/", AppDomainAppPath);
+            //}
+            //else
+            //{
+            //    return Path.Combine(AppDomainAppPath, virtualPath);
+            //}
+            return ServerUtility.ContentRootMapPath(virtualPath);
         }
 
         public static HttpContext HttpContext

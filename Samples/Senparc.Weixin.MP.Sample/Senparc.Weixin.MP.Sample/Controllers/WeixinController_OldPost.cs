@@ -184,7 +184,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //根据MsgId去重结束
 
             string responseXml = null;//响应消息XML
-            var responseTime = (SystemTime.Now.Ticks - new DateTimeOffset(1970, 1, 1, 0, 0,, TimeSpan.Zero).Ticks) / 10000000 - 8 * 60 * 60;
+            var responseTime = (SystemTime.Now.Ticks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks) / 10000000 - 8 * 60 * 60;
 
             switch (msgType)
             {

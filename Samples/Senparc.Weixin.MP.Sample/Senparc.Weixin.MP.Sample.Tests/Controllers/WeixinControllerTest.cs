@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             inputStream = new MemoryStream();
 
-            var xml = string.Format(xmlFormat, DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(xmlFormat, DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             var bytes = System.Text.Encoding.UTF8.GetBytes(xml);
 
             inputStream.Write(bytes, 0, bytes.Length);
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var nonce = "whateveryouwant";
             var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
 
-            DateTime st = DateTime.Now;
+            var st = SystemTime.Now;
             //这里使用MiniPost，绕过日志记录
 
             var postModel = new PostModel()
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 Nonce = nonce,
             };
             var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult;
-            DateTime et = DateTime.Now;
+            var et = SystemTime.Now;
 
             Assert.IsNotNull(actual);
             Assert.IsNotNull(actual.Content);
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void MessageAgent_TextTest()
         {
             //文字测试
-            var xml = string.Format(string.Format(xmlTextFormat, "托管"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(string.Format(xmlTextFormat, "托管"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             Init(xml);//初始化
 
             var timestamp = "itsafaketimestamp";
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void MessageAgent_NewsTest()
         {
             //按钮测试-图文
-            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Agent"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Agent"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             Init(xml);//初始化
 
             var timestamp = "itsafaketimestamp";
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void MessageAgent_MemberTest()
         {
             //按钮测试-会员
-            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "Member"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "Member"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             Init(xml);//初始化
 
             var timestamp = "itsafaketimestamp";
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void MessageContextRecordLimtTest()
         {
             //测试MessageContext的数量限制
-            var xml = string.Format(string.Format(xmlTextFormat, "测试限制"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(string.Format(xmlTextFormat, "测试限制"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             for (int i = 0; i < 100; i++)
             {
                 Init(xml);//初始化
@@ -271,7 +271,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void TextMuteTest()
         {
             //测试无返回消息
-            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "mute"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "mute"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
             Init(xml);//初始化
 
             PostTest(string.Format(xmlTextFormat, "mute"));

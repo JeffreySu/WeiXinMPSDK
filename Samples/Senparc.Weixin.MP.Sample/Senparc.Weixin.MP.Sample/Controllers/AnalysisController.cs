@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             Analysis_IndexVD vd = new Analysis_IndexVD()
             {
-                StartDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+                StartDate = SystemTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
                 EndDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
             };
 

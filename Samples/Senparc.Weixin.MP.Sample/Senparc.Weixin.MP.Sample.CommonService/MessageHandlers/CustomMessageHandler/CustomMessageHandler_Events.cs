@@ -450,13 +450,13 @@ QQ群：289181996
                 {
                     if (codeRecord.AllowDownload)
                     {
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
                     }
                     else
                     {
                         //确认可以下载
                         codeRecord.AllowDownload = true;
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, GetDownloadInfo(codeRecord)));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord)));
                     }
                 }
             }
@@ -582,7 +582,7 @@ QQ群：289181996
 状态：{0}
 MsgId：{1}
 （这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
-                CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
+                CustomApi.SendText(appId, OpenId, msg);//发送客服消息
             }
             catch (Exception e)
             {

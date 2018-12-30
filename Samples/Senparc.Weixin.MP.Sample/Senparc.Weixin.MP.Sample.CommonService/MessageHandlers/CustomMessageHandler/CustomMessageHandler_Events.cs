@@ -150,7 +150,7 @@ QQ群：289181996
             {
                 case "OneClick":
                     {
-                        //这个过程实际已经在OnTextOrEventRequest中完成，这里不会执行到。
+                        //这个过程实际已经在OnTextOrEventRequest中命中“OneClick”关键字，并完成回复，这里不会执行到。
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";

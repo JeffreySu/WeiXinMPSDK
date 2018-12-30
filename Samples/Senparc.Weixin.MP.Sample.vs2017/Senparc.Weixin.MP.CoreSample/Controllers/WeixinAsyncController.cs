@@ -88,9 +88,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
+            var cancellationToken = new CancellationToken();//给异步方法使用
 
-            messageHandler.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10)
+            {
+                DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            };
 
             #region 设置消息去重
 
@@ -102,7 +105,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            var cancellationToken = new CancellationToken();
             await messageHandler.ExecuteAsync(cancellationToken); //执行微信处理过程（关键）
 
             messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）

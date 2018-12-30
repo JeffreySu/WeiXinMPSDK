@@ -9,30 +9,22 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Agents;
-using Senparc.CO2NET.Utilities;
 
-
-#if NET45
-using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
+//#if NET45
+//using System.Web;
+//#endif
 
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -192,8 +184,15 @@ QQ群：289181996
                     {
                         //上传缩略图
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+
+#if NET45
+                        var filePath = "~/Images/Logo.thumb.jpg";
+#else   
+                        var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
+#endif
+
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
-                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.thumb.jpg"));
+                                                                    ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
                         //设置音乐信息
@@ -210,8 +209,15 @@ QQ群：289181996
                     {
                         //上传图片
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+
+#if NET45
+                        var filePath = "~/Images/Logo.jpg";
+#else
+                        var filePath = "~/wwwroot/Images/Logo.jpg";
+#endif
+
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
-                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
+                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;

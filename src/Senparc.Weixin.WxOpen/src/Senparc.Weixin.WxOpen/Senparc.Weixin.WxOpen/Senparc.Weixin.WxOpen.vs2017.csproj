@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>3.3.3.1-preview2</Version>
+    <Version>3.3.4-preview2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -116,6 +116,7 @@
       v3.2.1 支持 Senparc.NeuChar v0.4.4
       v3.2.2 优化 APM 和 MessageHandler 消息解密过程
       v3.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v3.3.4 该场景 id 访问 uv	添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -25,7 +25,6 @@ using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.Entities;
 
-
 #if NET45
 using System.Web;
 #else

@@ -125,7 +125,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //配置Memcached缓存（按需，独立）
             var memcachedConfigurationStr = senparcSetting.Value.Cache_Memcached_Configuration;
-            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "Memcached配置";
+            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
 
             if (useMemcached) //这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {

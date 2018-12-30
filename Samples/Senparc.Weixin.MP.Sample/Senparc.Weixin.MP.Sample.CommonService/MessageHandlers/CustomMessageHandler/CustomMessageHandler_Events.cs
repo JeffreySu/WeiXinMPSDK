@@ -9,30 +9,22 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Agents;
-using Senparc.CO2NET.Utilities;
 
-
-#if NET45
-using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
+//#if NET45
+//using System.Web;
+//#endif
 
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -150,7 +142,7 @@ QQ群：289181996
             {
                 case "OneClick":
                     {
-                        //这个过程实际已经在OnTextOrEventRequest中完成，这里不会执行到。
+                        //这个过程实际已经在OnTextOrEventRequest中命中“OneClick”关键字，并完成回复，这里不会执行到。
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
@@ -192,8 +184,15 @@ QQ群：289181996
                     {
                         //上传缩略图
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+
+#if NET45
+                        var filePath = "~/Images/Logo.thumb.jpg";
+#else   
+                        var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
+#endif
+
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
-                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.thumb.jpg"));
+                                                                    ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
                         //设置音乐信息
@@ -210,8 +209,15 @@ QQ群：289181996
                     {
                         //上传图片
                         var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+
+#if NET45
+                        var filePath = "~/Images/Logo.jpg";
+#else
+                        var filePath = "~/wwwroot/Images/Logo.jpg";
+#endif
+
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
-                                                                     ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
+                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
@@ -444,13 +450,13 @@ QQ群：289181996
                 {
                     if (codeRecord.AllowDownload)
                     {
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
                     }
                     else
                     {
                         //确认可以下载
                         codeRecord.AllowDownload = true;
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, GetDownloadInfo(codeRecord)));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord)));
                     }
                 }
             }
@@ -576,7 +582,7 @@ QQ群：289181996
 状态：{0}
 MsgId：{1}
 （这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
-                CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
+                CustomApi.SendText(appId, OpenId, msg);//发送客服消息
             }
             catch (Exception e)
             {

@@ -43,8 +43,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var version = System.Reflection.Assembly.GetAssembly(type).GetName().Version;
                 return getDisplayVersion(version);
             };
+            TempData["SampleVersion"] = getTypeVersionInfo(this.GetType());//当前Demo的版本号
+            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));//CO2NET版本号
+            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.ApiBindInfo));//NeuChar版本号
 
-            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
             TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END
             TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));//DPBMARK MP DPBMARK_END
@@ -59,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
@@ -68,6 +70,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
             Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
+
+            //获取编译时间
+            //因为官方在线 Demo CI 自动生成使用的服务器为 UTC-0，所以北京时间需要+8小时
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).AddHours(8).ToString("yyyyMMdd.HH.mm");
 
             return View();
         }

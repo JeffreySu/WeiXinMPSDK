@@ -17,6 +17,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         public static readonly string WxOpenAppId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
         public static readonly string WxOpenAppSecret = Config.SenparcWeixinSetting.WxOpenAppSecret;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/WxOpen/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -100,7 +101,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -132,7 +133,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         {
             var data = new
             {
-                msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
+                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now, nickName)
             };
             return Json(data);
         }
@@ -255,7 +256,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 
 
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                var sp_billno = string.Format("{0}{1}{2}", Config.SenparcWeixinSetting.TenPayV3_MchId /*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
 
                 var timeStamp = TenPayV3Util.GetTimestamp();

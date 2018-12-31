@@ -14,11 +14,11 @@ Senparc.Weixin —— Wechat .NET SDK
 
 By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Mini Game,  Enterprise Account, Open Platform, Wechat Pay, JS-SDK, Wechat IoT/Bluetooth, etc. 
 
-Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 2.0 / .NET Core 2.1](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
+Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than five years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than six years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
@@ -55,7 +55,7 @@ Index
 * [Donate](#donate)
 * [License](#license)
 
-The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Core 2.0/2.1.
+The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
 
 * Use Visual Studio 2017 to open the Demo (support all versions)
 : [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)

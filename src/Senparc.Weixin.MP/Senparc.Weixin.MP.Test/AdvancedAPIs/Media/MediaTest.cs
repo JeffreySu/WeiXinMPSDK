@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetVoiceTest()
         {
             string serverId = "IT41QWoGSnkt5fj01mK2ByhgRACBgvRW6fGP3bt9QAjH8vwqsra9qYJkj8LCXzNS";
-            var file = SystemTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".speex"; //Server.GetMapPath("~/../")
+            var file = SystemTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".speex"; //ServerUtility.ContentRootMapPath("~/../")
 
             using (MemoryStream ms = new MemoryStream())
             {

@@ -103,7 +103,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
         private async Task Run(string url)
         {
-            Console.WriteLine("Start Task.CurrentId：{0}，Time：{1}", Task.CurrentId, DateTime.Now.Ticks);
+            Console.WriteLine("Start Task.CurrentId：{0}，Time：{1}", Task.CurrentId, SystemTime.Now.Ticks);
 
             try
             {
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 //实际返回的信息（错误信息）
                 Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.不合法的APPID);
 
-                Console.WriteLine("End Task.CurrentId：{0}，Time：{1}", Task.CurrentId, DateTime.Now.Ticks);
+                Console.WriteLine("End Task.CurrentId：{0}，Time：{1}", Task.CurrentId, SystemTime.Now.Ticks);
             }
         }
     }

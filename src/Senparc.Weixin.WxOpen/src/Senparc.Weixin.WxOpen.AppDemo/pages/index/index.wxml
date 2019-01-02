@@ -1,6 +1,10 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+    
+    <view  bindtap="bindViewTap" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}</text>
   </view>
@@ -15,10 +19,11 @@
 
   
   <!-- WebSocket -->
+  <view id="websocket_buttons">
   <button type="devalut" bindtap="bindWebsocketTap">
   WebSocket
   </button>
-
+  </view>
   <!-- 进入客服 -->
    <view class="btn-contact">
       <contact-button 
@@ -68,4 +73,10 @@
       <button bindtap="wxPay" class="btn-DoRequest"  hover-class="other-button-hover">微信支付(1分钱)</button>
     </view>
 </view>
+
+    </block>
+  </view>
+
+
+  
 </view>

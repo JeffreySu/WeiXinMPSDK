@@ -1,0 +1,2 @@
+<!--pages/Login/Login.wxml-->
+<button open-type='getUserInfo'>点击这里登录</button>

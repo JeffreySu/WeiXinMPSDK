@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/websocket/websocket",
-    "pages/LivePusher/LivePusher"
+    "pages/LivePusher/LivePusher",
+    "pages/Login/Login"
   ],
   "window": {
     "backgroundTextStyle": "light",

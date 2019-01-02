@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult RequestData(string nickName)
+        public ActionResult RequestData([FromBody]string nickName)
         {
             var data = new
             {
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// <param name="code"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult OnLogin(string code)
+        public ActionResult OnLogin([FromBody]string code)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
+        public ActionResult CheckWxOpenSignature([FromBody]string sessionId, [FromBody]string rawData, [FromBody]string signature)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+        public ActionResult DecodeEncryptedData([FromBody]string type, [FromBody]string sessionId, [FromBody]string encryptedData, [FromBody]string iv)
         {
             DecodeEntityBase decodedEntity = null;
             switch (type.ToUpper())
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult TemplateTest(string sessionId, string formId)
+        public ActionResult TemplateTest([FromBody]string sessionId, [FromBody]string formId)
         {
             var templateMessageService = new TemplateMessageService();
             try
@@ -238,7 +238,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        public ActionResult DecryptPhoneNumber([FromBody]string sessionId, [FromBody]string encryptedData, [FromBody]string iv)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
             try
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        public ActionResult GetPrepayid(string sessionId)
+        public ActionResult GetPrepayid([FromBody]string sessionId)
         {
             try
             {

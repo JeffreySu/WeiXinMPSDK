@@ -84,15 +84,17 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var videoFilePath = ServerUtility.ContentRootMapPath("video-test.mp4");
             Console.WriteLine("Video Path:" + videoFilePath);
+
             //上传视频
             var uploadResult = MediaApi.UploadTemporaryMedia(_appId, UploadMediaFileType.video, videoFilePath);
-            Console.WriteLine("Video Upload Result" + uploadResult);
+            Console.WriteLine("Video Upload Result:" + uploadResult);
 
             string mediaId = uploadResult.media_id;//也可以通过对公众号发送视频获得
 
             var result = GroupMessageApi.GetVideoMediaIdResult(_appId, mediaId, "test", "test");
             Assert.IsNotNull(result);
             Console.WriteLine("GetVideoMediaIdResult" + result.ToJson());
+            Assert.IsNotNull(result.media_id);
             Assert.IsTrue(result.media_id.Length > 0);
             return result;
         }

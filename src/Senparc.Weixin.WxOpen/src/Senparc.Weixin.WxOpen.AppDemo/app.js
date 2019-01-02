@@ -15,8 +15,8 @@ App({
     else 
     {
     //本地测试域名
-      wx.setStorageSync('domainName', "http://localhost:8080")
-      wx.setStorageSync('wssDomainName', "ws://localhost:8080")
+      wx.setStorageSync('domainName', "http://localhost:8099")
+      wx.setStorageSync('wssDomainName', "ws://localhost:8099")
     }
 
     // 打开调试

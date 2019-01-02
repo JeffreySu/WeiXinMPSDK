@@ -148,21 +148,29 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         [HttpPost]
         public ActionResult OnLogin(string code)
         {
-            var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
-            if (jsonResult.errcode == ReturnCode.请求成功)
+            try
             {
-                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
-                //使用SessionContainer管理登录信息（推荐）
-                var unionId = "";
-                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
+                var jsonResult = SnsApi.JsCode2Json(WxOpenAppId, WxOpenAppSecret, code);
+                if (jsonResult.errcode == ReturnCode.请求成功)
+                {
+                    //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+                    //使用SessionContainer管理登录信息（推荐）
+                    var unionId = "";
+                    var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key, unionId);
 
-                //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
-                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
+                    //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
+                    return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
+                }
+                else
+                {
+                    return Json(new { success = false, msg = jsonResult.errmsg });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false, msg = jsonResult.errmsg });
+                return Json(new { success = false, msg = ex.Message });
             }
+           
         }
 
         [HttpPost]

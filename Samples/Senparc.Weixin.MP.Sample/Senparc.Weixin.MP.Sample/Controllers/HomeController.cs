@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
-            var configHelper = new ConfigHelper(this.HttpContext);
+            var configHelper = new ConfigHelper();
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 

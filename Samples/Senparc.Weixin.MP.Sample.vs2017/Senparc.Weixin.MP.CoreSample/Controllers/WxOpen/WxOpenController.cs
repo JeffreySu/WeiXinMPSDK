@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         {
             var data = new
             {
-                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now, nickName)
+                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
             };
             return Json(data);
         }

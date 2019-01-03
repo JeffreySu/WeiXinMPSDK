@@ -6,11 +6,11 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    var isDebug = true;//调试状态使用本地服务器，非调试状态使用远程服务器
+    var isDebug = false;//调试状态使用本地服务器，非调试状态使用远程服务器
     if(!isDebug){
     //远程域名
       wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")
-      wx.setStorageSync('wssDomainName', "wss://sdk.weixin.senparc.com")   
+      wx.setStorageSync('wssDomainName', "wss://sdk.weixin.senparc.com")
     }
     else 
     {
@@ -34,7 +34,7 @@ App({
         success: function (res) {
           //换取openid & session_key
           wx.request({
-            url: wx.getStorageSync('domainName')+ '/WxOpen/OnLogin',
+            url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
             method: 'POST',
             header: { 'content-type': 'application/x-www-form-urlencoded' },
             data: {

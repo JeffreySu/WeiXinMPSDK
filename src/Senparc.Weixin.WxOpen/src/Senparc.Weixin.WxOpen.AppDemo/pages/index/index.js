@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2.0',
+    motto: 'Senparc.Weixin SDK Demo v2019.1.3.2',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -55,10 +55,10 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
-       var submitData = JSON.stringify({
+       var submitData = {
           sessionId:wx.getStorageSync("sessionId"),
           formId:e.detail.formId
-        });
+        };
 
         wx.request({
           url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',

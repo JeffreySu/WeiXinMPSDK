@@ -1,25 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+    <!--<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>-->
+    
+    <Version>3.2.0</Version>
     <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".dockerignore" />
-    <None Remove="Dockerfile" />
+    <!--<None Remove=".dockerignore" />-->
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.2.16" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.4.4-preview2" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.2.3.2-preview2" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>
 
   <ItemGroup>
     <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />-->
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="2.1.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,8 +85,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\AppStore\" />
-    <Folder Include="Controllers\QY\" />
+    <None Update="App_Data\Document\Config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/commands" /></VisualStudio></ProjectExtensions>

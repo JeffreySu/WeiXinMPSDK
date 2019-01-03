@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -18,11 +19,14 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;
 using System.Configuration;
+//DPBMARK MP
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+//DPBMARK_END
 #else
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
@@ -66,11 +70,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
 #if NET45
                         var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
 #else
-                        var dllPath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
+                        //var dllPath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
+                        var dllPath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
 #endif
 
                         var fileVersionInfo = FileVersionInfo.GetVersionInfo(dllPath);
-
 
                         var version = fileVersionInfo.FileVersion;
                         strongResponseMessage.Content = string.Format(
@@ -157,7 +161,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         message = ex.Message;
                     }
 
-                    if (sendTemplateMessage)
+
+                    if (sendTemplateMessage)    // DPBMARK MP
                     {
                         int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
@@ -169,7 +174,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                               url, data);
                         }
-                    }
+                    }                           // DPBMARK_END
                 });
             }
             catch (Exception e)

@@ -4,22 +4,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.IO;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Memcached;
-using Senparc.CO2NET.Cache.Redis;
+using Senparc.Weixin.RegisterServices;
 using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;
-using Senparc.Weixin.RegisterServices;
-using Senparc.Weixin.TenPay;
-using Senparc.Weixin.Work;
-using Senparc.Weixin.WxOpen;
-using System.IO;
+using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.CO2NET.Cache.Redis;//DPBMARK Redis DPBMARK_END
+using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
+using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
+using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -78,14 +79,6 @@ namespace Senparc.Weixin.MP.CoreSample
             });
 
 
-            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
-            }
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-            #endregion
-
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
                                                         //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
@@ -103,11 +96,11 @@ namespace Senparc.Weixin.MP.CoreSample
             //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
             register.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
 
-            #region 配置和使用 Redis
+            #region 配置和使用 Redis          -- DPBMARK Redis
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {
                 /* 说明：
@@ -126,13 +119,13 @@ namespace Senparc.Weixin.MP.CoreSample
             }
             //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
-            #endregion
+            #endregion                        // DPBMARK_END
 
-            #region 配置和使用 Memcached
+            #region 配置和使用 Memcached      -- DPBMARK Memcached
 
             //配置Memcached缓存（按需，独立）
             var memcachedConfigurationStr = senparcSetting.Value.Cache_Memcached_Configuration;
-            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "Memcached配置";
+            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
 
             if (useMemcached) //这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {
@@ -151,7 +144,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
             }
 
-            #endregion
+            #endregion                        //  DPBMARK_END
 
             #endregion
 
@@ -175,17 +168,19 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 微信缓存（按需，必须在 register.UseSenparcWeixin() 之前）
 
-            // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
-            if (useMemcached)
-            {
-                app.UseSenparcWeixinCacheMemcached();
-            }
-
-            //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）
+            //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
             if (useRedis)
             {
                 app.UseSenparcWeixinCacheRedis();
-            }
+            }                                                                                     // DPBMARK_END
+
+
+            // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached
+            if (useMemcached)
+            {
+                app.UseSenparcWeixinCacheMemcached();
+            }                                                                                      // DPBMARK_END
+
 
             #endregion
 
@@ -196,25 +191,27 @@ namespace Senparc.Weixin.MP.CoreSample
 
             #region 注册公众号或小程序（按需）
 
-                //注册公众号（可注册多个）
-                .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")
-                //注册多个公众号或小程序（可注册多个）
-                .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")
+                //注册公众号（可注册多个）                                                -- DPBMARK MP
+                .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
+
+
+                //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
+                .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
             #endregion
 
-            #region 注册企业号（按需）
+            #region 注册企业号（按需）           -- DPBMARK Work
 
                 //注册企业微信（可注册多个）
                 .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
-            #endregion
+            #endregion                          // DPBMARK_END
 
-            #region 注册微信支付（按需）
+            #region 注册微信支付（按需）        -- DPBMARK TenPay
 
                 //注册旧微信支付版本（V2）（可注册多个）
                 .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
@@ -222,16 +219,16 @@ namespace Senparc.Weixin.MP.CoreSample
                 //注册最新微信支付版本（V3）（可注册多个）
                 .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
-            #endregion
+            #endregion                          // DPBMARK_END
 
-            #region 注册微信第三方平台（按需）
+            #region 注册微信第三方平台（按需）  -- DPBMARK Open
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting.Value,
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(Server.GetMapPath("~/App_Data/OpenTicket"));
+                        var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -251,7 +248,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -274,7 +271,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -292,7 +289,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //除此以外，仍然可以在程序任意地方注册开放平台：
             //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
-            #endregion
+            #endregion                          // DPBMARK_END
 
             ;
 
@@ -323,9 +320,9 @@ namespace Senparc.Weixin.MP.CoreSample
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
-                //发送模板消息给管理员
+                //发送模板消息给管理员                             -- DPBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
-                eventService.ConfigOnWeixinExceptionFunc(ex);
+                eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
     }

@@ -50,6 +50,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180223
     修改描述：v15.2.0 TenPayV3UnifiedorderRequestData 提供不带参数的构造函数
 
+    -- 独立 Senparc.Weixin.TenPay --
+
+    修改标识：Senparc - 20181226
+    修改描述：v1.1.1 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPay;
@@ -227,7 +231,7 @@ namespace Senparc.Weixin.TenPay.V3
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
-            string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
+            string deviceInfo = null, DateTimeOffset? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false,
             TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
@@ -277,7 +281,7 @@ namespace Senparc.Weixin.TenPay.V3
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string subOpenid, string key, string nonceStr,
-            string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
+            string deviceInfo = null, DateTimeOffset? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false,
             TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
@@ -295,7 +299,7 @@ namespace Senparc.Weixin.TenPay.V3
             FeeType = feeType;
             TotalFee = totalFee;
             SpbillCreateIP = spbillCreateIp;
-            TimeStart = (timeStart ?? DateTime.Now).ToString("yyyyMMddHHmmss");
+            TimeStart = (timeStart ?? SystemTime.Now).ToString("yyyyMMddHHmmss");
             TimeExpire = timeExpire.HasValue ? timeExpire.Value.ToString("yyyyMMddHHmmss") : null;
             GoodsTag = goodsTag;
             NotifyUrl = notifyUrl;

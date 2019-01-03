@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -43,7 +45,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 echostr);
             if (verifyUrl != null)
             {
-                var fileStream = System.IO.File.OpenWrite(Server.GetMapPath("~/1.txt"));
+                var fileStream = System.IO.File.OpenWrite(ServerUtility.ContentRootMapPath("~/1.txt"));
                 fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
                 fileStream.Close();
                 //return Content(verifyUrl); //返回解密后的随机字符串则表示验证通过
@@ -51,7 +53,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             else
             {
-                var fileStream = System.IO.File.OpenWrite(Server.GetMapPath("~/1.txt"));
+                var fileStream = System.IO.File.OpenWrite(ServerUtility.ContentRootMapPath("~/1.txt"));
                 fileStream.Write(Encoding.Default.GetBytes("asd"), 0, Encoding.Default.GetByteCount("asd"));
                 fileStream.Close();
                 return Content("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
@@ -82,24 +84,24 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                messageHandler.RequestDocument.Save(ServerUtility.ContentRootMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
                 //执行微信处理过程
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
 
                 if (!string.IsNullOrEmpty(messageHandler.TextResponseMessage))
                 {
-                    //messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    //messageHandler.ResponseDocument.Save(ServerUtility.ContentRootMapPath("~/App_Data/Qy/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
                     var responseText = messageHandler.TextResponseMessage;
-                    using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
+                    using (StreamWriter sw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                     {
                         sw.Write(responseText);
                     }
 
                     if (messageHandler.FinalResponseDocument != null)
                     {
-                        //messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                        using (StreamWriter sw = new StreamWriter(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
+                        //messageHandler.FinalResponseDocument.Save(ServerUtility.ContentRootMapPath("~/App_Data/Qy/" + SystemTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                        using (StreamWriter sw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work/" + SystemTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"), true))
                         {
                             sw.Write(messageHandler.FinalResponseDocument.ToString());
                         }
@@ -111,7 +113,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

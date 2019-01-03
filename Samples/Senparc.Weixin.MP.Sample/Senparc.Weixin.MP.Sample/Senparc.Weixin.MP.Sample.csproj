@@ -74,27 +74,33 @@
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.4.4-preview2\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.1.3.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.1.3.2\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.APM, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.APM.0.2.2-preview2\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.1.1\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.2.2-preview2\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.1.0.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.3.2-preview2\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.2.10.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.0.2.10.3\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.0.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.NeuChar, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.NeuChar.0.5.3-preview2\lib\net45\Senparc.NeuChar.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.NeuChar.App, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.NeuChar.App.0.2.3-preview2\lib\net45\Senparc.NeuChar.App.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -122,7 +128,7 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
@@ -130,25 +136,25 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -182,39 +188,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <!-- DPBMARK MP -->
+    <Compile Include="Controllers\AsyncMethodsController.cs" />
+    <Compile Include="Controllers\NeuChar\NeuCharAppController.cs" />
+    <Compile Include="Controllers\WeixinJSSDKController.cs" />
+    <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\WeixinAsyncController.cs" />
+    <Compile Include="Controllers\WeixinController.cs" />
+    <Compile Include="Controllers\WeixinController_OldPost.cs" />
+    <Compile Include="Controllers\SimulateToolController.cs" />
+    <Compile Include="Controllers\SubscribeMsgController.cs" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK Work -->
+    <Compile Include="Controllers\Work\WorkController.cs" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK MiniProgram -->
+    <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK Open -->
+    <Compile Include="Controllers\Open\OpenController.cs" />
+    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK TenPay -->
+    <Compile Include="Controllers\TenPayV3Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\TenPayController.cs" />
+    <!-- DPBMARK_END -->
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnalysisController.cs" />
-    <Compile Include="Controllers\AsyncMethodsController.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\ForTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NeuChar\NeuCharController.cs" />
     <Compile Include="Controllers\PluginsController.cs" />
-    <Compile Include="Controllers\SubscribeMsgController.cs" />
-    <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\OAuth2Controller.cs" />
-    <Compile Include="Controllers\Open\OpenController.cs" />
-    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
-    <Compile Include="Controllers\SimulateToolController.cs" />
-    <Compile Include="Controllers\TenPayV3Controller.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controllers\WeixinAsyncController.cs" />
-    <Compile Include="Controllers\WeixinController.cs" />
-    <Compile Include="Controllers\WeixinController_OldPost.cs" />
-    <Compile Include="Controllers\TenPayController.cs" />
-    <Compile Include="Controllers\Work\WorkController.cs" />
-    <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
     <Compile Include="Filters\CustomOAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -319,7 +335,6 @@
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Analysis\Index.cshtml" />
     <Content Include="Views\Plugins\Index.cshtml" />
-    <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -352,9 +367,20 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <!-- DPBMARK MP -->
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
+    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
+    <Content Include="Views\AsyncMethods\Index.cshtml" />
     <Content Include="Views\SimulateTool\Index.cshtml" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK Open -->
+    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
+    <Content Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
+    <Content Include="Views\OpenOAuth\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <!-- DPBMARK_END -->
+    <!-- DPBMARK TenPay -->
     <Content Include="Views\TenPay\JsApi.cshtml" />
     <Content Include="Views\TenPay\FeedBack.cshtml" />
     <Content Include="Views\TenPay\Index.cshtml" />
@@ -368,20 +394,20 @@
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
     <Content Include="Views\TenPayV3\ProductList.cshtml" />
     <Content Include="Views\TenPayV3\ProductItem.cshtml" />
-    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
-    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
-    <Content Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
-    <Content Include="Views\OpenOAuth\Index.cshtml" />
-    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
-    <Content Include="Views\Cache\Test.cshtml" />
-    <Content Include="Views\Document\Index.cshtml" />
-    <Content Include="Views\AsyncMethods\Index.cshtml" />
     <Content Include="Views\TenPayV3\H5Pay.cshtml" />
     <Content Include="Views\TenPayV3\H5PaySuccess.cshtml" />
+    <Content Include="Views\TenPayV3\BankCode.cshtml" />
+    <!-- DPBMARK_END -->
+    <Content Include="Views\Cache\Test.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Home\WeChatSampleBuilder.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <!-- DPBMARK Open -->
+    <!-- DPBMARK_END -->
     <Folder Include="App_Data\Document\Files\" />
     <Folder Include="App_Data\OpenTickets\" />
+    <Folder Include="Views\NeuCharApp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

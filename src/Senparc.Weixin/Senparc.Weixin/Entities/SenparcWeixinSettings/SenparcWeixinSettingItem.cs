@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// Senparc.Weixin SDK 中单个公众号配置信息
     /// </summary>
-    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay, 
+    public class SenparcWeixinSettingItem : ISenparcWeixinSettingForMP, ISenparcWeixinSettingForWxOpen, ISenparcWeixinSettingForWork, ISenparcWeixinSettingForOldTenpay,
                                             ISenparcWeixinSettingForTenpayV3, ISenparcWeixinSettingForOpen, ISenparcWeixinSettingForExtension
     {
         /// <summary>
@@ -116,9 +116,13 @@ namespace Senparc.Weixin.Entities
         #region 微信支付V3（新版）
 
         /// <summary>
-        /// MchId
+        /// MchId（商户ID）
         /// </summary>
         public virtual string TenPayV3_MchId { get; set; }
+        /// <summary>
+        /// 子商户 MchId，没有可留空
+        /// </summary>
+        public string TenPayV3_SubMchId { get; set; }
         /// <summary>
         /// MchKey
         /// </summary>
@@ -139,7 +143,14 @@ namespace Senparc.Weixin.Entities
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
-
+        /// <summary>
+        /// 特约商户微信支付 子商户ID
+        /// </summary>
+        public virtual string TenPayV3_Sub_MchId { get; set; }
+        /// <summary>
+        /// 特约商户微信支付 子商户AppID
+        /// </summary>
+        public virtual string TenPayV3_Sub_AppId { get; set; }
         #endregion
 
         #endregion

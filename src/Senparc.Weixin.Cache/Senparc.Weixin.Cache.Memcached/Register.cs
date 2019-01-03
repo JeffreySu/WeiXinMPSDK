@@ -12,7 +12,7 @@
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
 using Microsoft.AspNetCore.Builder;
 #endif
 
@@ -20,7 +20,7 @@ namespace Senparc.Weixin.Cache.Memcached
 {
     public static class Register
     {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
         /// <summary>
         /// 注册 Senparc.Weixin.Cache.Memcached
         /// </summary>

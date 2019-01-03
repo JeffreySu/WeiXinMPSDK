@@ -78,6 +78,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180707
     修改描述：v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
 
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -123,7 +126,7 @@ namespace Senparc.Weixin.MP.Containers
         //#endif
         //        }
 
-        public DateTime AccessTokenExpireTime { get; set; }
+        public DateTimeOffset AccessTokenExpireTime { get; set; }
         //        {
         //            get { return _accessTokenExpireTime; }
         //#if NET35 || NET40
@@ -143,10 +146,10 @@ namespace Senparc.Weixin.MP.Containers
         //#endif
         //        }
 
-        private AccessTokenResult _accessTokenResult;
-        private DateTime _accessTokenExpireTime;
-        private string _appSecret;
-        private string _appId;
+        //private AccessTokenResult _accessTokenResult;
+        //private DateTimeOffset _accessTokenExpireTime;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>
@@ -175,7 +178,7 @@ namespace Senparc.Weixin.MP.Containers
                     Name = name,
                     AppId = appId,
                     AppSecret = appSecret,
-                    AccessTokenExpireTime = DateTime.MinValue,
+                    AccessTokenExpireTime = DateTimeOffset.MinValue,
                     AccessTokenResult = new AccessTokenResult()
                 };
                 Update(appId, bag, null);//第一次添加，此处已经立即更新
@@ -246,7 +249,7 @@ namespace Senparc.Weixin.MP.Containers
 
             using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
@@ -311,7 +314,7 @@ namespace Senparc.Weixin.MP.Containers
 
             using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);

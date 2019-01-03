@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Newtonsoft.Json;
@@ -25,6 +25,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
+using Senparc.NeuChar.Agents;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -250,8 +251,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             requestMessaage.MsgId = long.Parse(Request.Form["MsgId"]);
-            requestMessaage.CreateTime = DateTime.Now;
-            requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName（OpenId）";//用于区别不同的请求用户
+            requestMessaage.CreateTime = SystemTime.Now;
+            requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName(OpenId)";//用于区别不同的请求用户
             requestMessaage.ToUserName = "ToUserName";
 
             return requestMessaage.ConvertEntityToXml();
@@ -270,7 +271,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
                 requestMessaageDoc.Root.Element("MsgId").Value =
-                    DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
+                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
             }
 
             var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);
@@ -310,7 +311,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 try
                 {
-                    DateTime dt1 = DateTime.Now;
+                    var dt1 = SystemTime.Now;
                     if (testConcurrence)
                     {
                         testConcurrenceCount = testConcurrenceCount > 30 ? 30 : testConcurrenceCount;//设定最高限额
@@ -324,7 +325,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                         }
                         Task.WaitAll(taskList.ToArray(), 1000 * 10);
                     }
-                    DateTime dt2 = DateTime.Now;
+                    var dt2 = SystemTime.Now;
 
                     var data =new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds.ToString("##.####"), Result = responseMessageXml } ;
                     return Json(data, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });

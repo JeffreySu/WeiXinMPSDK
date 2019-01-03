@@ -14,11 +14,11 @@ Senparc.Weixin —— Wechat .NET SDK
 
 By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Mini Game,  Enterprise Account, Open Platform, Wechat Pay, JS-SDK, Wechat IoT/Bluetooth, etc. 
 
-Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Core 2.0 / .NET Core 2.1](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
+Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than five years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than six years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
@@ -29,6 +29,7 @@ Index
 ----------------
 
 * [SDK Modules](#sdk-modules)
+* [Personalize your WeChat project Sample](#personalize-your-wechat-project-sample)
 * [Resources](#resources)
 * [:book: Senparc official tutorials](#senparc-official-tutorials)
 * [Contribute Code](#contribute-code)
@@ -54,7 +55,7 @@ Index
 * [Donate](#donate)
 * [License](#license)
 
-The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Core 2.0/2.1.
+The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
 
 * Use Visual Studio 2017 to open the Demo (support all versions)
 : [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
@@ -159,10 +160,19 @@ SDK Modules
 
 > All updates will ensure downward compatibility unless otherwise specified. So you can cover new DLLs directly or use Nuget to manage packages(highly recommend).
 
+## Personalize your WeChat project Sample
+
+1. Methods: login <a href = "https://weixin.senparc.com/User" target ="_blank"> https://weixin.senparc.com/User </a> to download WeChatSampleBuilder tool, and view the instructions;
+2. Open the WeChatSampleBuilder.exe file, then choose the root directory path of this cloned project for the `Source Peoject Path'.  According to the need to configure the Sample project type, .NET versions, WeChat modules, and the cache types;
+3. Click the Build button, then in the same directory you can see ` OutputSample ` folder, and automatically open the solution!
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png" width="700" alt="WeChatSampleBuilder" />
+
+
 resources
 ----------------
 1. Senparc.Weixin SDK Official Site: http://weixin.senparc.com/
-2. Demo Site：http://sdk.weixin.senparc.com/
+2. Online Demo Site：http://sdk.weixin.senparc.com/
 3. Blog tutorial: http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 4. WeChat technology exchange community: http://weixin.senparc.com/QA
 5. Online editing tool for Customize menu: http://sdk.weixin.senparc.com/Menu
@@ -179,16 +189,16 @@ resources
 
 * Technical communication QQ group:
 
-> `14th Group(Video Course Student Group)：588231256`<br>
-> `15th Group(Official Account): 289181996`<br>
-> `10th Group(Distributed Cache): 246860933`<br>
-> `12th Group(Mini Program): 108830388`<br>
-> `13th Group(Open Platform): 183424136`<br>
-> *`the following group is full:`*<br>
-> 1st group：300313885(full)，2nd group：293958349(full)，3rd group：342319110(full)<br>
-> 4th group：372212092(full)，5th group: 377815480(full)，6th group：425898825(full)<br>
-> 7th group：482942254(full)，8th group：106230270(full)，9th group：539061281(full)<br>
-> 11th group：553198593(full)
+> 14th Group(Video Course Student Group)：588231256<br>
+> 15th Group(Official Account): 289181996<br>
+> 10th Group(Distributed Cache): 246860933<br>
+> 12th Group(Mini Program): 108830388<br>
+> 16h Group(Open Platform): 860626938<br>
+> *`the following groups are full:`*<br>
+> `1st group：300313885(full)，2nd group：293958349(full)，3rd group：342319110(full)`<br>
+> `4th group：372212092(full)，5th group: 377815480(full)，6th group：425898825(full)`<br>
+> `7th group：482942254(full)，8th group：106230270(full)，9th group：539061281(full)`<br>
+> `11th group：553198593(full)，13th group: 183424136(full)`
 
 * Business contact QQ：498977166
 

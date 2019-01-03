@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -138,7 +139,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", SystemTime.Now.ToString());
             HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
@@ -185,7 +186,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", SystemTime.Now.ToString());
             HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
 

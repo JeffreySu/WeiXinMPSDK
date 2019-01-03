@@ -33,7 +33,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180707
     修改描述：v15.0.9 Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
 
-
+    修改标识：Senparc - 20181226
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -103,7 +104,7 @@ namespace Senparc.Weixin.MP.Containers
         //#endif
         //        }
 
-        public DateTime WxCardApiTicketExpireTime { get; set; }
+        public DateTimeOffset WxCardApiTicketExpireTime { get; set; }
         //        {
         //            get
         //            {
@@ -124,10 +125,10 @@ namespace Senparc.Weixin.MP.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private DateTime _WxCardApiTicketExpireTime;
-        private JsApiTicketResult _WxCardApiTicketResult;
-        private string _appSecret;
-        private string _appId;
+        //private DateTimeOffset _WxCardApiTicketExpireTime;
+        //private JsApiTicketResult _WxCardApiTicketResult;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>
@@ -162,7 +163,7 @@ namespace Senparc.Weixin.MP.Containers
                     Name = name,
                     AppId = appId,
                     AppSecret = appSecret,
-                    WxCardApiTicketExpireTime = DateTime.MinValue,
+                    WxCardApiTicketExpireTime = DateTimeOffset.MinValue,
                     WxCardApiTicketResult = new JsApiTicketResult()
                 };
                 Update(appId, bag, null);
@@ -225,7 +226,7 @@ namespace Senparc.Weixin.MP.Containers
             WxCardApiTicketBag wxCardApiTicketBag = TryGetItem(appId);
             using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     wxCardApiTicketBag.WxCardApiTicketResult = CommonApi.GetTicket(wxCardApiTicketBag.AppId,
@@ -293,14 +294,14 @@ namespace Senparc.Weixin.MP.Containers
             WxCardApiTicketBag wxCardApiTicketBag = TryGetItem(appId);
             using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
-                if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     JsApiTicketResult wxCardApiTicketResult = await CommonApi.GetTicketAsync(wxCardApiTicketBag.AppId,
                                                                                              wxCardApiTicketBag.AppSecret);
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
-                    wxCardApiTicketBag.WxCardApiTicketExpireTime = DateTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
+                    wxCardApiTicketBag.WxCardApiTicketExpireTime = SystemTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
                     Update(wxCardApiTicketBag, null);
                 }
             }

@@ -72,6 +72,8 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 
+    修改标识：Senparc - 20181226
+    修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -150,7 +152,7 @@ namespace Senparc.Weixin.Open.Containers
         //#endif
         //        }
 
-        public DateTime JsApiTicketExpireTime { get; set; }
+        public DateTimeOffset JsApiTicketExpireTime { get; set; }
         //        {
         //            get { return _jsApiTicketExpireTime; }
         //#if NET35 || NET40
@@ -179,7 +181,7 @@ namespace Senparc.Weixin.Open.Containers
 
         //        }
 
-        public DateTime AuthorizationInfoExpireTime { get; set; }
+        public DateTimeOffset AuthorizationInfoExpireTime { get; set; }
         //        {
         //            get { return _authorizationInfoExpireTime; }
         //#if NET35 || NET40
@@ -202,7 +204,7 @@ namespace Senparc.Weixin.Open.Containers
         //#endif
         //        }
 
-        //public DateTime AuthorizerInfoExpireTime { get; set; }
+        //public DateTimeOffset AuthorizerInfoExpireTime { get; set; }
 
 
         /// <summary>
@@ -210,13 +212,13 @@ namespace Senparc.Weixin.Open.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private string _authorizerAppId;
-        private string _componentAppId;
-        private JsApiTicketResult _jsApiTicketResult;
-        private DateTime _jsApiTicketExpireTime;
-        private AuthorizationInfo _authorizationInfo;
-        private DateTime _authorizationInfoExpireTime;
-        private AuthorizerInfo _authorizerInfo;
+        //private string _authorizerAppId;
+        //private string _componentAppId;
+        //private JsApiTicketResult _jsApiTicketResult;
+        //private DateTimeOffset _jsApiTicketExpireTime;
+        //private AuthorizationInfo _authorizationInfo;
+        //private DateTimeOffset _authorizationInfoExpireTime;
+        //private AuthorizerInfo _authorizerInfo;
     }
 
     /// <summary>
@@ -253,13 +255,13 @@ namespace Senparc.Weixin.Open.Containers
                     ComponentAppId = componentAppId,
 
                     AuthorizationInfo = new AuthorizationInfo(),
-                    AuthorizationInfoExpireTime = DateTime.MinValue,
+                    AuthorizationInfoExpireTime = DateTimeOffset.MinValue,
 
                     AuthorizerInfo = new AuthorizerInfo(),
-                    //AuthorizerInfoExpireTime = DateTime.MinValue,
+                    //AuthorizerInfoExpireTime = DateTimeOffset.MinValue,
 
                     JsApiTicketResult = new JsApiTicketResult(),
-                    JsApiTicketExpireTime = DateTime.MinValue,
+                    JsApiTicketExpireTime = DateTimeOffset.MinValue,
                 };
                 Update(authorizerAppId, bag, null);
                 return bag;
@@ -307,7 +309,7 @@ namespace Senparc.Weixin.Open.Containers
             using (Cache.BeginCacheLock(LockResourceName + ".GetAuthorizationInfo", authorizerAppid))//同步锁
             {
                 //更新Authorization
-                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= SystemTime.Now)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
@@ -534,7 +536,7 @@ namespace Senparc.Weixin.Open.Containers
             var accessTicketBag = TryGetItem(authorizerAppid);
             using (Cache.BeginCacheLock(LockResourceName + ".GetJsApiTicketResult", authorizerAppid))//同步锁
             {
-                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     var authorizerAccessToken = TryGetAuthorizerAccessToken(componentAppId, authorizerAppid);
@@ -575,7 +577,7 @@ namespace Senparc.Weixin.Open.Containers
             using (Cache.BeginCacheLock(LockResourceName + ".GetAuthorizationInfo", authorizerAppid))//同步锁
             {
                 //更新Authorization
-                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= SystemTime.Now)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
@@ -728,7 +730,7 @@ namespace Senparc.Weixin.Open.Containers
             var accessTicketBag = TryGetItem(authorizerAppid);
             using (Cache.BeginCacheLock(LockResourceName + ".GetJsApiTicketResult", authorizerAppid))//同步锁
             {
-                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     var authorizerAccessToken = await TryGetAuthorizerAccessTokenAsync(componentAppId, authorizerAppid);

@@ -79,19 +79,19 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
-    
-       // [TestMethod]
-       // public void DeviceListTest()
-       // {
-           // var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-           // var date = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Today);
-           // var result = ShakeAroundApi.GroupUpdate(accessToken, date, "1");
-            //Assert.AreEqual(ReturnCode.请求成功, result.errcode);
-           // Assert.IsNotNull(result.devices);
-           // Assert.AreEqual("10097", result.devices[0].device_id);
 
-       // }
-        
+        // [TestMethod]
+        // public void DeviceListTest()
+        // {
+        // var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+        // var date = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(SystemTime.Today);
+        // var result = ShakeAroundApi.GroupUpdate(accessToken, date, "1");
+        //Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+        // Assert.IsNotNull(result.devices);
+        // Assert.AreEqual("10097", result.devices[0].device_id);
+
+        // }
+
 
     }
 }

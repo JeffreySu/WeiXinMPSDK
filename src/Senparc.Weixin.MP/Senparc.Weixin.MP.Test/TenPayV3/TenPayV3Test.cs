@@ -28,7 +28,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.TenPay;
+using Senparc.Weixin.TenPay.V3;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var deviceInfo = "Senparc POS 1";
             var body = "Senparc.Weixin SDK";
             var totalFee = 1;//金额必须符合用例要求
-            var outTradeNo = DateTime.Now.Ticks.ToString();
+            var outTradeNo = SystemTime.Now.Ticks.ToString();
 
             string detail =
             @"{
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         private void DownloadBillTest(string sandBoxKey, string nonceStr)
         {
             var dataInfo = new TenPayV3DownloadBillRequestData(base._appId, base._mchId, nonceStr, "Senparc POS 1",
-                DateTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
+                SystemTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
 
 
             var result = TenPayV3.DownloadBill(dataInfo);

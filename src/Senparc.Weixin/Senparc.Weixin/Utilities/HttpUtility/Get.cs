@@ -83,7 +83,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         private static string GetRandomFileName()
         {
-            return DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
+            return SystemTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
         }
 
         /// <summary>

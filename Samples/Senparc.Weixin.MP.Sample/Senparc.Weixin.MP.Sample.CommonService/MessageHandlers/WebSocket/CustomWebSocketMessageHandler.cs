@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE WebSocket
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.WebSocket;
@@ -76,13 +77,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 }
 
                 //var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                //    "在线购买", DateTime.Now, "图书众筹", "1234567890",
+                //    "在线购买", SystemTime.Now, "图书众筹", "1234567890",
                 //    100, "400-9939-858", "http://sdk.senparc.weixin.com");
 
                 var data = new
                 {
                     keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息"),
-                    keyword2 = new TemplateDataItem(DateTime.Now.ToString()),
+                    keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
                     keyword3 = new TemplateDataItem("Name"),
                     keyword4 = new TemplateDataItem("Number"),
                     keyword5 = new TemplateDataItem(100.ToString("C")),

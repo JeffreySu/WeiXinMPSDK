@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE MP
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public async Task<RedirectResult> QrCodeTest()
         {
-            var ticks = DateTime.Now.Ticks.ToString();
+            var ticks = SystemTime.Now.Ticks.ToString();
             var sceneId = int.Parse(ticks.Substring(ticks.Length - 7, 7));
 
             var qrResult = await QrCodeApi.CreateAsync(appId, 100, sceneId, QrCode_ActionName.QR_SCENE, "QrTest");
@@ -66,7 +67,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     first = new TemplateDataItem("【异步模板消息测试】"),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("网页测试"),
-                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    keyword3 = new TemplateDataItem(SystemTime.Now.ToString("O")),
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
@@ -114,7 +115,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             await Task.Run(() =>
                {
                    Task.Delay(1000);
-                   result = "hi " + DateTime.Now.ToString();
+                   result = "hi " + SystemTime.Now.ToString();
                });
             return result;
         }
@@ -152,7 +153,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             await Task.Run(() =>
             {
                 Task.Delay(1000);
-                result = "hi " + DateTime.Now.ToString();
+                result = "hi " + SystemTime.Now.ToString();
             }).ConfigureAwait(false);
             return result;
         }

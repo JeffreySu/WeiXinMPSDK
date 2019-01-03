@@ -114,13 +114,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class UserCard
     {
-        public InvoiceUserData invoice_user_data { get; set; }
+        public InvoicePlatformUserData invoice_user_data { get; set; }
     }
 
     /// <summary>
-    /// 
+    /// 发票信息基础公用信息（开票平台，报销方）
     /// </summary>
-    public class InvoiceUserData
+    public abstract class InvoiceBaseUseData
     {
         /// <summary>
         /// 发票的金额，以分为单位
@@ -154,14 +154,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 税额，以分为单位
         /// </summary>
         public int tax { get; set; }
-        /// <summary>
-        /// 发票pdf文件上传到微信发票平台后，会生成一个发票
-        /// </summary>
-        public string s_pdf_media_id { get; set; }
-        /// <summary>
-        /// 其它消费附件的PDF
-        /// </summary>
-        public string s_trip_pdf_media_id { get; set; }
         /// <summary>
         /// 校验码，发票pdf右上角，开票日期下的校验码
         /// </summary>
@@ -202,6 +194,61 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 开票人，发票下方处
         /// </summary>
         public string maker { get; set; }
+    }
+
+    /// <summary>
+    /// 开票平台将电子发票卡券插入用户卡包时的发票信息
+    /// </summary>
+    public class InvoicePlatformUserData: InvoiceBaseUseData
+    {
+        /// <summary>
+        /// 发票pdf文件上传到微信发票平台后，会生成一个发票
+        /// </summary>
+        public string s_pdf_media_id { get; set; }
+        /// <summary>
+        /// 其它消费附件的PDF
+        /// </summary>
+        public string s_trip_pdf_media_id { get; set; }
+    }
+    /// <summary>
+    /// 报销方查询报销发票时的发票信息
+    /// </summary>
+    public class InvoiceReimburseUserData : InvoiceBaseUseData
+    {
+        /// <summary>
+        /// 这张发票对应的PDF_URL
+        /// </summary>
+        public string pdf_url { get; set; }
+        /// <summary>
+        /// 其它消费凭证附件对应的URL，如行程单、水单等
+        /// </summary>
+        public string trip_pdf_url { get; set; }
+        /// <summary>
+        /// 发票报销状态，与<see cref="Reimburse_Status"/>对应
+        /// </summary>
+        public string reimburse_status { get; set; }
+        /// <summary>
+        /// 尝试转换<see cref="reimburse_status"/>为对应枚举，如果转换失败，则返回null
+        /// </summary>
+        public Reimburse_Status? Status
+        {
+            get
+            {
+#if !NET35
+                if (System.Enum.TryParse(this.reimburse_status, out Reimburse_Status status))
+                {
+                    return status;
+                }
+#else
+                try
+                {
+                    return (Reimburse_Status)System.Enum.Parse(typeof(Reimburse_Status), this.reimburse_status);
+                }
+                catch { }
+#endif
+                return null;
+            }
+        }
     }
 
     /// <summary>

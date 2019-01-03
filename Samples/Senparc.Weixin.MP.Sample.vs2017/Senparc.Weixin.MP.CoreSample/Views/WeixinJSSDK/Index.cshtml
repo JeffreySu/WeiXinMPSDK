@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
-
+@*DPBMARK_FILE MP*@
 @{
     Layout = null;
 }
@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>公众号JSSDK演示</title>
     <!--jQuery非JS-SDK必须-->
-    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="@(this.Context.Request.Scheme)://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         wx.config({

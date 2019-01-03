@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -112,10 +112,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 //保存到文件
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
-                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
 #else
-                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(DateTime.Now.ToString("yyyyMMddHHmmss")));
+                var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
 #endif
 
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             UploadTemporaryMediaTest();//上传
 
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetVoiceTest()
         {
             string serverId = "IT41QWoGSnkt5fj01mK2ByhgRACBgvRW6fGP3bt9QAjH8vwqsra9qYJkj8LCXzNS";
-            var file = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".speex"; //Server.GetMapPath("~/../")
+            var file = SystemTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".speex"; //ServerUtility.ContentRootMapPath("~/../")
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 MediaApi.GetForeverMedia(accessToken, mediaId, stream);
                 Assert.IsTrue(stream.Length > 0);
 
-                var fileName = GetParentRootRelativePath() + @"AdvancedAPIs\Media\test.download." + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".jpg";
+                var fileName = GetParentRootRelativePath() + @"AdvancedAPIs\Media\test.download." + SystemTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".jpg";
                 using (var fs = new FileStream(fileName, FileMode.CreateNew))
                 {
                     stream.Seek(0, SeekOrigin.Begin);
@@ -402,7 +402,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.IsNotNull(result1.media_id);
 
-            var clientMsgId = DateTime.Now.Ticks.ToString();
+            var clientMsgId = SystemTime.Now.Ticks.ToString();
             GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, clientMsgId, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
             //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
 

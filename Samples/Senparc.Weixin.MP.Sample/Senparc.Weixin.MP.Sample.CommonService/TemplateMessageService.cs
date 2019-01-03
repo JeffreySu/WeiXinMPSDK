@@ -1,3 +1,5 @@
+//DPBMARK_FILE MiniProgram
+
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.TenPay.V3;
@@ -48,7 +50,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 orderNumber = "9876543210";
             }
 
-            var data = new WxOpenTemplateMessage_PaySuccessNotice(title, DateTime.Now, productName, orderNumber, price,
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(title, SystemTime.Now, productName, orderNumber, price,
                             "400-031-8816", "https://sdk.senparc.weixin.com");
 
             Senparc.Weixin.WxOpen.AdvancedAPIs

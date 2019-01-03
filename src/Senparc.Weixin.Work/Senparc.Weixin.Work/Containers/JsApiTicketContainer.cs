@@ -64,6 +64,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v2.0.9  1、Container 的 Register() 的微信参数自动添加到 Config.SenparcWeixinSetting.Items 下
                       2、AccessTokenBag 的 AppId 和 Secret 属性名称改为 CorpId 和 CorpSecret
 
+    修改标识：Senparc - 20181226
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -116,7 +120,7 @@ namespace Senparc.Weixin.Work.Containers
         //#endif
         //        }
 
-        public DateTime ExpireTime { get; set; }
+        public DateTimeOffset ExpireTime { get; set; }
         //        {
         //            get { return _expireTime; }
         //#if NET35 || NET40
@@ -131,10 +135,10 @@ namespace Senparc.Weixin.Work.Containers
         /// </summary>
         internal object Lock = new object();
 
-        private DateTime _expireTime;
-        private JsApiTicketResult _jsApiTicketResult;
-        private string _appSecret;
-        private string _appId;
+        //private DateTime _expireTime;
+        //private JsApiTicketResult _jsApiTicketResult;
+        //private string _appSecret;
+        //private string _appId;
     }
 
     /// <summary>
@@ -168,7 +172,7 @@ namespace Senparc.Weixin.Work.Containers
                     Name = name,
                     CoprId = corpId,
                     CorpSecret = corpSecret,
-                    ExpireTime = DateTime.MinValue,
+                    ExpireTime = DateTimeOffset.MinValue,
                     JsApiTicketResult = new JsApiTicketResult()
                 };
                 Update(BuildingKey(corpId, corpSecret), bag,null);
@@ -230,7 +234,7 @@ namespace Senparc.Weixin.Work.Containers
             var jsApiTicketBag = TryGetItem(BuildingKey(appId, appSecret));
             lock (jsApiTicketBag.Lock)
             {
-                if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
+                if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
@@ -300,7 +304,7 @@ namespace Senparc.Weixin.Work.Containers
             var jsApiTicketBag = TryGetItem(BuildingKey(appId, appSecret));
             //lock (jsApiTicketBag.Lock)
             {
-                if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
+                if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);

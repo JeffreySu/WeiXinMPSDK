@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE TenPay
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,12 +87,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -157,12 +158,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -198,14 +199,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
             //订单号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-            string out_trade_no = "" + DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+            string out_trade_no = "" + SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -431,12 +432,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {

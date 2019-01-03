@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 first = new TemplateDataItem("【测试】您好，审核通过。"),
                 keyword1 = new TemplateDataItem(openId),
                 keyword2 = new TemplateDataItem("单元测试"),
-                keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+                keyword3 = new TemplateDataItem(SystemTime.Now.DateTime.ToString()),
                 remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
             };
             var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", testData);
@@ -165,27 +165,27 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public void AsyncSendTemplateMessageTestForBookOptmize()
         {
             WxJsonResult finalResult = null;
-Task.Factory.StartNew(async () =>
-{
-    var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+            Task.Factory.StartNew(async () =>
+            {
+                var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
 
-    //实际生产环境中，用户信息应该从数据库或缓存中读取
-    var userInfo = await UserApi.InfoAsync(_appId, openId);
+                //实际生产环境中，用户信息应该从数据库或缓存中读取
+                var userInfo = await UserApi.InfoAsync(_appId, openId);
 
-    var data = new TemplateMessage_PaySuccessNotice(
-        "您的订单已经支付", userInfo.nickname,
-        "1234567890", 88.ToString("c"),
-        "模板消息测试商品",
-        "更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n这条消息使用的是优化过的方法，且不带Url参数。使用异步方法。");
+                var data = new TemplateMessage_PaySuccessNotice(
+                    "您的订单已经支付", userInfo.nickname,
+                    "1234567890", 88.ToString("c"),
+                    "模板消息测试商品",
+                    "更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n这条消息使用的是优化过的方法，且不带Url参数。使用异步方法。");
 
-    var  result = await TemplateApi.SendTemplateMessageAsync(_appId, openId, data);
+                var result = await TemplateApi.SendTemplateMessageAsync(_appId, openId, data);
 
-    //调用客服接口显示msgId
-    finalResult = await CustomApi.SendTextAsync(_appId, openId, "上一条模板消息的MsgID：" + result.msgid);
+                //调用客服接口显示msgId
+                finalResult = await CustomApi.SendTextAsync(_appId, openId, "上一条模板消息的MsgID：" + result.msgid);
 
-    Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+                Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
-});
+            });
             while (finalResult == null)
             {
 
@@ -282,10 +282,10 @@ Task.Factory.StartNew(async () =>
                 */
                 var testData = new //TestTemplateData()
                 {
-                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", DateTime.Now.ToString("T"))),
+                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", SystemTime.Now.ToString("T"))),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("单元测试"),
-                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    keyword3 = new TemplateDataItem(SystemTime.Now.Ticks.ToString("O")),
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n运行线程：" + Thread.CurrentThread.GetHashCode())
                 };
 

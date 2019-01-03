@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170131
+
+    修改标识：Senparc - 20170522
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -53,7 +57,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         public string appid { get; set; }
         public long timestamp { get; set; }
 
-        public DateTime DateTimeStamp
+        public DateTimeOffset DateTimeStamp
         {
             get { return DateTimeHelper.GetDateTimeFromXml(timestamp); }
         }

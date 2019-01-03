@@ -1,15 +1,24 @@
-﻿@{
+﻿@*DPBMARK_FILE MP*@
+@{
     ViewBag.Title = "微信消息模拟测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var nonce = "JeffreySu";
-    var timestamp = DateTime.Now.Ticks.ToString();
-    var echostr = DateTime.Now.Ticks.ToString();
+    var timestamp = SystemTime.Now.Ticks.ToString();
+    var echostr = SystemTime.Now.Ticks.ToString();
     var token = ViewData["Token"] as string;
+    var portString = Context.Request.Host.Port.HasValue ? $":{Context.Request.Host.Port.Value}" : null;
 }
 @section HeaderContent
 {
     <style>
+
+        .wrapper h2 {
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
+        }
+
         .param {
             display: none;
         }
@@ -144,9 +153,9 @@
 
         function switchAsyncController() {
             if ($('#UseAsyncController:checked').length > 0) {
-                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + ":" + Context.Request.Host.Port)');
+                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString)');
             } else {
-                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Context.Request.Host.Host + ":" + Context.Request.Host.Port)');
+                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Context.Request.Host.Host + portString)');
             }
         }
 
@@ -161,6 +170,8 @@
 }
 
 <div class="wrapper">
+    <h2>消息模拟器</h2>
+
     <div class="form-control">
         <ul>
             <li>
@@ -168,7 +179,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host+":"+ Context.Request.Host.Port), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
@@ -213,7 +224,7 @@
                     <label class="control-label">Recognition：</label><input name="Recognition" class="control-input" /><br />
                 </div>
                 <div id="paramVideo" class="param">
-                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@SystemTime.Now.Ticks" step="1" /><br />
                     <label class="control-label">ThumbMediaId：</label><input name="ThumbMediaId" class="control-input" /><br />
                 </div>
                 @*<div id="paramLink" class="param"></div>*@
@@ -304,7 +315,7 @@
             </li>
             <li>
                 <label class="control-label">MsgId:</label>
-                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
+                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@SystemTime.Now.Ticks" />
             </li>
             <li>
                 <label class="checkbox checkbox_test">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>
@@ -327,8 +338,9 @@
             </li>
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
-                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                <label class="control-title send" id="loadResult_Result">
+                    模拟并发响应时间：<span id="loadTime"></span> ms<br />
+                    由于后台代理转发暂时没有使用异步请求，结果可能会受影响
                 </label>
             </li>
             <li></li>

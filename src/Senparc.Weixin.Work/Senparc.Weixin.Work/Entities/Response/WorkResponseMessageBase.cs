@@ -51,6 +51,8 @@ namespace Senparc.Weixin.Work.Entities
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
 		private static WorkResponseMessageBase CreateFromRequestMessage(IWorkRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
+            //注意：SDK 内部此方法仍然是重要的最终执行的方法，只是提供了简化的重写方法，不建议外部直接调用。
+
 			WorkResponseMessageBase responseMessage = null;
 			try
 			{
@@ -83,7 +85,7 @@ namespace Senparc.Weixin.Work.Entities
 
 				responseMessage.ToUserName = requestMessage.FromUserName;
 				responseMessage.FromUserName = requestMessage.ToUserName;
-				responseMessage.CreateTime = DateTime.Now; //使用当前最新时间
+				responseMessage.CreateTime = SystemTime.Now; //使用当前最新时间
 
 			}
 			catch (Exception ex)

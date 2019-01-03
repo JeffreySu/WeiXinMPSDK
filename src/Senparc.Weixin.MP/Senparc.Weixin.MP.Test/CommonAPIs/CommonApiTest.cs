@@ -40,7 +40,7 @@ using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
 using Microsoft.AspNetCore.Hosting;
 #endif
 using Moq;
@@ -59,14 +59,14 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 if (_appConfig == null)
                 {
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
                     var filePath = "../../../Config/test.config";
 #else
                     var filePath = "../../Config/test.config";
 #endif
                     if (File.Exists(filePath))
                     {
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
                         var stream = new FileStream(filePath, FileMode.Open);
                         var doc = XDocument.Load(stream);
                         stream.Dispose();
@@ -161,7 +161,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         */
         private string _access_token = null;
 
-        protected string _testOpenId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成实际关注者的OpenId
+        //protected string _testOpenId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成实际关注者的OpenId
+        protected string _testOpenId = "oxRg0uLsnpHjb8o93uVnwMK_WAVw";//换成实际关注者的OpenId
 
         /// <summary>
         /// 自动获取Openid

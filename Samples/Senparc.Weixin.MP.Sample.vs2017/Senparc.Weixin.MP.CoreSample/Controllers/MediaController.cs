@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
@@ -25,14 +26,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     public class MediaController : Controller
     {
         public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
-        private readonly string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         public FileResult GetVoice(string mediaId)
         {
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
             MemoryStream ms = new MemoryStream();
-            AdvancedAPIs.MediaApi.Get(accessToken, mediaId, ms);
+            AdvancedAPIs.MediaApi.Get(appId, mediaId, ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "audio/amr","voice.amr");
         }
@@ -64,7 +62,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             //储存文件，对比是否上传成功
-            using (FileStream ms = new FileStream(Server.GetMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
+            using (FileStream ms = new FileStream(ServerUtility.ContentRootMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
             {
                 inputStream.CopyTo(ms, 256);
             }

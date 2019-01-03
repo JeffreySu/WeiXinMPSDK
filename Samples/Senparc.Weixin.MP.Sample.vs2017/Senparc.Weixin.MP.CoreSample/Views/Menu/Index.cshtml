@@ -1,11 +1,12 @@
 ﻿@model Senparc.Weixin.MP.Entities.GetMenuResult
+@*DPBMARK_FILE MP*@
 @{
     ViewBag.Title = "自定义菜单工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var domain = "https://neuchar.senparc.com";
 }
 @section HeaderContent
-    {
+{
     <style>
         .red {
             color: #ff0000
@@ -259,11 +260,11 @@
             <p class="goto-neuchar"><a href="@domain/User/WeixinMenu" target="_blank">开始使用</a></p>
 
             <p class="img-area">
-                <video controls="controls" style="margin-bottom:50px; width:100%">
+                <video controls="controls" style="margin-bottom: 50px;" width="60%">
 
-                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.wmv" type="video/x-ms-wmv">
-                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.mp4" type="video/mp4">
-                    <source src="http://pgddpklyx.bkt.clouddn.com/menuShow.avi" type="video/avi">
+                    <source src="https://file.senparc.com/menuShow.wmv" type="video/x-ms-wmv">
+                    <source src="https://file.senparc.com/menuShow.mp4" type="video/mp4">
+                    <source src="https://file.senparc.com/menuShow.avi" type="video/avi">
                     your browser does not support the video tag
                 </video>
                 @*<img class="neucharpic" src="~/images/neuchar_menu.png" />*@
@@ -298,7 +299,7 @@
                     </li>
                     <li>
                         <button class="control-btn" id="menuLogin_Submit">获取AccessToken</button>
-                    </li>f
+                    </li>
                     <li>
                         <p class="control-p">注：</p>
                         <p class="control-p">1.使用菜单需要成为“服务号”，或通过认证的“订阅号”。到微信后台【高级功能>开发模式】下获取信息</p>
@@ -514,7 +515,6 @@
 </div>
 <div class="clear"></div>
 
-<script src="~/Scripts/jquery.form.js"></script>
 <script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
 <script>
     $(function () {

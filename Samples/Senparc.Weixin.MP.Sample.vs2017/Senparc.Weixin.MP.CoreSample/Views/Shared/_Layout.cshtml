@@ -41,6 +41,8 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     <script src="~/Content/danktooltip/js/jquery.darktooltip.min.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
     @RenderSection("HeaderContent", false)
 </head>
 <body>
@@ -58,15 +60,47 @@
                 <div class="navbar-collapse">
                     <ul class="nav-catalog">
                         <li><a href="@Url.Action("Index", "Home")">首页</a></li>
-                        <li><a href="@Url.Action("Index", "Menu")">菜单</a></li>
-                        <li><a href="@Url.Action("Index", "Plugins")">插件</a></li>
-                        <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟</a></li>
-                        <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台</a></li>
-                        <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
-                        <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a></li>
-                        <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">教程</a></li>
-                        <li><a href="https://weixin.senparc.com/QA" target="_blank">问答社区</a></li>
-                        <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">更多开发资源</a></li>
+                        <li class="btn-top-menu">
+                            <a href="javascript:;">工具箱</a>
+                            <ul class="nav-sub-catalog">
+                                <li><a href="@Url.Action("WeChatSampleBuilder", "Home")">微信 Sample 项目自动生成器 （新）</a></li>
+                                <li><a href="@Url.Action("Index", "Menu")">自定义菜单设置</a></li>
+                                <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟器</a></li>
+                                <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
+                                <li><a href="@Url.Action("Index", "AsyncMethods")">异步方法/模板消息测试</a></li>
+                                <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台授权测试</a></li>
+                                <li><a href="@Url.Action("Index", "Plugins")">扩展插件</a></li>
+                                <li><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a></li>
+                            </ul>
+                        </li>
+                        <li class="btn-top-menu">
+                            <a href="https://weixin.senparc.com/QA" target="_blank">问答社区</a>
+                            <ul class="nav-sub-catalog">
+                                <li><a href="https://weixin.senparc.com/QA?catalog=1" target="_blank">微信开发</a></li>
+                                <li><a href="https://weixin.senparc.com/QA?catalog=2" target="_blank">NeuChar 纽插</a></li>
+                                <li><a href="https://weixin.senparc.com/" target="_blank">全部</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="btn-top-menu">
+                            <a href="javascript:;">官方教程</a>
+                            <ul class="nav-sub-catalog">
+                                <li><a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-top-menu" target="_blank">官方视频教程</a></li>
+                                <li><a href="https://book.weixin.senparc.com/book/link?code=sdk-top-menu" target="_blank">官方正版图书</a></li>
+                                <li><a href="https://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">博客系列教程</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="btn-top-menu">
+                            <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
+                            <ul class="nav-sub-catalog">
+                                <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-download">离线帮助文档下载</a></li>
+                                <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-online">在线文档</a></li>
+                                <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-online-source-code">查看在线文档源代码</a></li>
+                                <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">更多开发资源</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="https://www.neuchar.com" target="_blank">NeuChar 纽插</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -80,8 +114,10 @@
                 @*<span>2017年6月16日已发布新版本，改进诸多功能，并发布企业微信（Senparc.Weixin.Work）测试版，支持 .net core / .net 4.5。<a href="http://mp.weixin.qq.com/s/G77RaeYnVuk9zciNrop9aA" target="_blank">点击这里查看</a>。</span>*@
                 @*<span>Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版，<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">点击这里购买正版</a>。</span>*@
                 <span>
-                Senparc 官方微信开发视频教程《微信公众号+小程序快速开发》已经上线，陆续更新中，<a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-banner" target="_blank">【点击这开始学习】</a>。<br />
-                    Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版（第3次印刷），<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">【点击这里购买正版】</a>。<br /></span>
+                    Sample 项目自动生成工具测试版已发布。<a href="@Url.Action("WeChatSampleBuilder","Home")">【点击这里查看】</a>。<br />
+                    Senparc 官方微信开发视频教程《微信公众号+小程序快速开发》已经上线，陆续更新中，<a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-banner" target="_blank">【点击这开始学习】</a>。<br />
+                    Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版（第3次印刷），<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">【点击这里购买正版】</a>。<br />
+                </span>
             </div>
         </div>
         @if (ViewData["HideBanner"] == null)
@@ -118,13 +154,15 @@
                         @*<span class="container-p">公众号+微信支付 SDK：Senparc.Weixin.MP.dll</span>
                             <span class="container-p">企业号 SDK：Senparc.Weixin.QY.dll</span>
                             <span class="container-p">开放平台 SDK：Senparc.Weixin.Open.dll</span>*@
-                        <span class="container-p">Senaprc.Weixin SDK 是目前使用率最高的微信 .NET SDK，</span>
+                        <span class="container-p">Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，</span>
                         <span class="container-p">也是最受欢迎的 .NET 开源项目之一。</span>
                         <span class="container-p">快来使用 Senparc.Weixin SDK 轻松打造微信各平台的扩展应用吧！</span>
+                        <span class="container-p"> &nbsp; </span>
+                        <span class="container-p">现在起您还可以使用 NeuChar 帮您轻松跨平台开发和配置！ <a href="https://neuchar.com" target="_blank" class="application">立即开始</a></span>
                         <div class="contact">
-                            <div class="contatc-name">400客服热线：400-031-8816</div>
                             <div class="clear"></div>
                             <div id="qqGroups">QQ群载入中……</div>
+                            <div class="contatc-name">400客服热线：400-031-8816</div>
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -133,17 +171,17 @@
             </div>
         }
 
-        @if (!IsSectionDefined("catalog"))
+        @*@if (!IsSectionDefined("catalog"))
         {
             <div class="catalog">
-                <a href="@Url.Action("Index", "Menu")">@*自定义*@菜单设置工具</a>
+                <a href="@Url.Action("Index", "Menu")">菜单设置工具</a>
                 <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
                 <a href="@Url.Action("Test", "Cache")">缓存测试</a>
                 <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
                 <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
                 <a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a>
             </div>
-        }
+        }*@
         @RenderBody()
         <div class="feedback">
             <div class="wrapper">
@@ -154,8 +192,8 @@
 
                         @*<p class="crowdfunding-note center">
 
-                        </p>*@
-                        
+                            </p>*@
+
                     </div>
                 </div>
                 @*<div class="feedback-action">
@@ -165,10 +203,10 @@
                     </div>*@
                 <div class="feedback-action">
                     <p class="crowdfunding-note">
-                        &nbsp; &nbsp; &nbsp; 为了将我们积累的经验更多、更系统地与开发者分享，由 Senparc.Weixin SDK 作者耗时 2 年，亲自整理编写的《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版。<br/>
+                        &nbsp; &nbsp; &nbsp; 为了将我们积累的经验更多、更系统地与开发者分享，由 Senparc.Weixin SDK 作者耗时 2 年，亲自整理编写的《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版。<br />
                         &nbsp; &nbsp; &nbsp;全书涵盖从微信的基础接口介绍、Senparc.Weixin SDK 的深入剖析，以及我们在研究过程中发现的许多微信开发“坑”，都一一向读者介绍，旨在将更多关于微信开发的精华以及架构思想分享给开发者。<br />
                         &nbsp; &nbsp; &nbsp; 感谢您对 Senparc 的支持！<br /><br />
-                       
+
                     </p>
                     <p class="center">
                         <a href="https://book.weixin.senparc.com/book/link?code=sdk-footer" class="application" target="_blank">购买正版 Senparc 官方教程</a><br /><br />
@@ -176,7 +214,7 @@
 
 
                     @*<img src="/images/crowdfunding-qrcode.png"/>
-                    <p>购买或查看公告（微信扫一扫）</p>*@
+                        <p>购买或查看公告（微信扫一扫）</p>*@
                 </div>
             </div>
             <div class="segregate"></div>
@@ -197,12 +235,12 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共计60课时，配有番外篇，目前视频已在网易云课堂上线。<br />
                     </p>
                     <p class="center textTop">
-                        <a href="http://study.163.com/course/introduction/1004873017.htm" class="application" target="_blank">点击观看</a><br /><br />
+                        <a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-footer" class="application" target="_blank">点击观看</a><br /><br />
                     </p>
 
 
                     @*<img src="/images/crowdfunding-qrcode.png"/>
-                <p>购买或查看公告（微信扫一扫）</p>*@
+                        <p>购买或查看公告（微信扫一扫）</p>*@
                 </div>
             </div>
             <div class="segregate"></div>
@@ -224,12 +262,12 @@
             <p class="footer-contact">
                 &nbsp;
                 @*新浪微博：
-                    <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
+        <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
                 @*QQ:<a href="javascript:;">498977166</a>*@
 
-                当前框架：.NET Core 2.1
+                当前框架：<a href="https://dotnet.microsoft.com/download" target="_blank">.NET Core 2.2</a> | 当前缓存策略：@ViewData["CacheType"]
             </p>
-            <p class="footer-icon">&copy; 2006-@DateTime.Now.Year Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
+            <p class="footer-icon">&copy; 2006-@SystemTime.Now.Year Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
         </div>
         @RenderSection("scripts", required: false)
         <div style="display: none;">
@@ -242,29 +280,7 @@
                     s.parentNode.insertBefore(hm, s);
                 })();
 
-                $(function () {
-                    loadQQGroups();
-                });
 
-                function loadQQGroups() {
-                    $.ajax({
-                        type: "get",
-                        async: false,
-                        url: "https://weixin.senparc.com/WeixinSdk/GetSdkQqGroupListJson",
-                        dataType: "jsonp",
-                        jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数
-                        jsonpCallback: "success_jsonpCallback", //callback的function名称
-                        success: function (json) {
-                            $('#qqGroups').html(json[0].html);
-                            $('#contact-content li.contact-qq').darkTooltip({
-                                theme: 'light'
-                            });
-                        },
-                        error: function () {
-                            //alert('fail');
-                        }
-                    });
-                }
             </script>
         </div>
     </div>

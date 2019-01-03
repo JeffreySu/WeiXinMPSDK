@@ -10,6 +10,8 @@
     修改标识：Senparc - 20170509
     修改描述：v4.5.0 添加SenparcOAuthAttribute，自动进行OAuth授权
     
+    修改标识：Senparc - 20181226
+    修改描述：v7.2.2 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -136,7 +138,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                 else
                 {
                     var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext, _oauthCallbackUrl);
-                    var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
+                    var state = string.Format("{0}|{1}", "FromSenparc", SystemTime.Now.Ticks);
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     filterContext.Result = new RedirectResult(url);
                 }

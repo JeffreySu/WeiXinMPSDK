@@ -30,7 +30,7 @@
 
 ----------------------------------------------------------------*/
 
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;
@@ -73,7 +73,7 @@ namespace Senparc.Weixin
             var cache = LocalContainerCacheStrategy.Instance;//只要引用就可以被激活
             cacheTypes += typeof(LocalContainerCacheStrategy);
 
-            DateTime dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
 
             //官方扩展缓存注册
 
@@ -82,7 +82,10 @@ namespace Senparc.Weixin
             //自动注册 Redis 和 Memcached
             //Redis
             var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
-            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            if (!string.IsNullOrEmpty(redisConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                redisConfiguration != "Redis配置" &&
+                redisConfiguration != "#{Cache_Redis_Configuration}#")
             {
                 try
                 {
@@ -101,7 +104,10 @@ namespace Senparc.Weixin
 
             //Memcached
             var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
-            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+            if (!string.IsNullOrEmpty(memcachedConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                memcachedConfiguration != "Memcached配置" &&
+                memcachedConfiguration != "#{Cache_Memcached_Configuration}#")
             {
                 try
                 {
@@ -118,7 +124,7 @@ namespace Senparc.Weixin
                 }
             }
 
-            DateTime dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             var exCacheLog = "微信扩展缓存注册总用时：{0}ms\r\n扩展缓存：{1}".FormatWith((dt2 - dt1).TotalMilliseconds, cacheTypes);
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 

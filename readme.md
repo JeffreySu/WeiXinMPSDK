@@ -4,6 +4,7 @@ Senparc.Weixin —— 微信 .NET SDK
 =================
 <!-- [![Build Status](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)-->
 <!-- [![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master) -->
+[![Build status](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_apis/build/status/Senparc.Weixin%20SDK-ASP.NET%20Core-CI)](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_build/latest?definitionId=7)
 [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
@@ -14,17 +15,16 @@ Senparc.Weixin —— 微信 .NET SDK
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持 
-[.NET 3.5 / 4.0 / 4.5 / .NET Core 2.0 / .NET Core 2.1](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架。
+[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架。
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
-立项五年多来，我们一直保持着项目的持续更新，将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
+立项六年多来，我们一直保持着项目的持续更新，将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
-> _Senparc.CO2NET 项目（持续高密度更新中，请关注）：https://github.com/Senparc/Senparc.CO2NET_<br><br>
-> _Senparc.Weixin SDK 全系列将从 2018年12月24日起停止对 .NET Framework 3.5 的更新。历史稳定版本仍然可用。_
+> _Senparc.Weixin SDK 全系列从 2018年12月24日起停止对 .NET Framework 3.5 的更新。历史稳定版本仍然可用。_
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
@@ -37,6 +37,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 ----------------
 
 * [各模块类库](#各模块类库)
+* [私人定制你的微信项目 Sample](#私人定制你的微信项目-sample)
 * [资源](#资源)
 * [:book: Senparc 官方图书教程](#senparc-官方图书教程)
 * [:computer: Senparc 官方视频教程](#senparc-官方视频教程)
@@ -56,7 +57,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [捐助](#捐助)
 * [License](#license)
 
-本库为包含了 .NET 3.5/4.0/4.5/.NET Core 2.0/2.1 多个版本的源代码（核心逻辑完全一致）：
+本库为包含了 .NET 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2 多个版本的源代码（核心逻辑完全一致）：
 
 * 使用 Visual Studio 2017 打开 Demo（支持所有版本）：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
 * 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
@@ -150,19 +151,28 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [nuget-url-ws]: https://www.nuget.org/packages/Senparc.WebSocket
 
 
-
-* 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。
+* 已经支持大部分微信 7.x API，包括微信支付、自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口、发票接口等等。
 * 已经支持用户会话上下文（解决服务器无法使用 Session 处理用户信息的问题）。
-* 已经全面支持微信公众号、企业号、开放平台的最新 API。
-* 已经支持分布式缓存及缓存策略扩展。
+* 已经全面支持微信公众号、小程序、企业号（企业微信）、微信支付、开放平台的最新 API。
+* 已经支持分布式缓存及缓存策略扩展（默认支持：本地缓存、Redis、Memcached，可自由扩展）。
 
-> 目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，[Release生成目录](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)，建议使用 [Nuget]() 进行更新。
+> 目前官方的 API 都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的 dll，[Release生成目录](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)，建议使用 [Nuget](https://www.nuget.org/) 进行更新。
+
+
+
+## 私人定制你的微信项目 Sample
+
+1. 方法：登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a>下载 WeChatSampleBuilder 工具，并查看使用说明；
+2. 打开 WeChatSampleBuilder.exe，在 `Source Peoject Path` 中选择克隆了本项目的本地文件夹（根目录），根据需要配置 Sample 项目类型、需要生成的类库 .NET 版本、所需使用的微信模块，以及支持缓存类型；
+3. 点击 Build 按钮，即可在同级目录下看到 `OutputSample` 开头的文件夹，并自动打开解决方案！
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png?t=1" width="700" alt="WeChatSampleBuilder" />
 
 
 资源
 ----------------
 1. 官网地址：http://weixin.senparc.com/
-2. Demo 地址：http://sdk.weixin.senparc.com/
+2. 在线 Demo 地址：http://sdk.weixin.senparc.com/
 3. 微信开发系列教程：http://www.cnblogs.com/szw/p/weixin-course-index.html
 4. 微信技术交流社区：http://weixin.senparc.com/QA
 5. 自定义菜单在线编辑工具：http://sdk.weixin.senparc.com/Menu
@@ -177,17 +187,16 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 * 技术交流QQ群：
 
-> `14群（视频课程学员群）：588231256`<br>
-> `15群（公众号）：289181996`<br>
-> `10群（分布式缓存群）：246860933`<br>
-> `12群（微信小程序）：108830388`<br>
-> `13群（开放平台）：183424136`<br>
-> `16群（开放平台）：860626938`<br>
+> 14群（视频课程学员群）：588231256<br>
+> 15群（公众号）：289181996<br>
+> 10群（分布式缓存群）：246860933<br>
+> 12群（微信小程序）：108830388<br>
+> 16群（开放平台）：860626938<br>
 > *`以下群已满：`*<br>
-> 1群：300313885（已满），2群：293958349（已满），3群：342319110（已满）<br>
-> 4群：372212092（已满），5群：377815480（已满），6群：425898825（已满）<br>
-> 7群：482942254（已满），8群：106230270（已满），9群：539061281（已满）<br>
-> 11群：553198593（已满），13群：183424136（开放平台，已满）
+> `1群：300313885（已满），2群：293958349（已满），3群：342319110（已满）`<br>
+> `4群：372212092（已满），5群：377815480（已满），6群：425898825（已满）`<br>
+> `7群：482942254（已满），8群：106230270（已满），9群：539061281（已满）`<br>
+> `11群：553198593（已满），13群：183424136（开放平台，已满）`
 
 * 业务联系QQ：498977166
 

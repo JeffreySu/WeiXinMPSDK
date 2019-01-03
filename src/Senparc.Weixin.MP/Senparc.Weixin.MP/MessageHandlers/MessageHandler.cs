@@ -45,8 +45,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180318
     修改描述：v14.10.7 MessageHandler消息去重增加对“领取事件推送”的特殊判断 - https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
 
+    修改标识：Senparc - 20181030
+    修改描述：v16.4.10 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
+    修改标识：Senparc - 20181117
+    修改描述：v16.5.0 Execute() 重写方法名称改为 BuildResponseMessage()
+
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.NeuChar.Context;
@@ -58,7 +65,6 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.Tencent;
 using System;
 using System.IO;
@@ -93,10 +99,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
+        ///// <summary>
+        ///// 原始的加密请求（如果不加密则为null）
+        ///// </summary>
+        //public XDocument EcryptRequestDocument { get; set; }
 
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
@@ -106,11 +112,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             get
             {
-                if (ResponseMessage == null)
-                {
-                    return null;
-                }
-                return Senparc.NeuChar.Helpers.EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase);
+                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
             }
         }
 
@@ -132,8 +134,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return ResponseDocument;
                 }
 
-                var timeStamp = DateTime.Now.Ticks.ToString();
-                var nonce = DateTime.Now.Ticks.ToString();
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string finalResponseXml = null;
@@ -179,16 +181,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         private PostModel _postModel;
 
         /// <summary>
-        /// 是否使用了加密信息
-        /// </summary>
-        public bool UsingEcryptMessage { get; set; }
-
-        /// <summary>
-        /// 是否使用了兼容模式加密信息
-        /// </summary>
-        public bool UsingCompatibilityModelEcryptMessage { get; set; }
-
-        /// <summary>
         /// 微微嗨开发者信息
         /// </summary>
         public DeveloperInfo DeveloperInfo { get; set; }
@@ -204,6 +196,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 请求和响应消息定义
         /// </summary>
         public override MessageEntityEnlightener MessageEntityEnlightener { get { return MpMessageEntityEnlightener.Instance; } }
+        /// <summary>
+        /// Api 接口定义
+        /// </summary>
         public override ApiEnlightener ApiEnlightener { get { return MpApiEnlightener.Instance; } }
 
 
@@ -227,10 +222,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(inputStream, maxRecordCount, postModel)
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
         }
 
         /// <summary>
@@ -240,10 +236,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestDocument, maxRecordCount, postModel)
+        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
@@ -255,10 +252,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestMessageBase, maxRecordCount, postModel)
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(requestMessageBase, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
+            postModel = postModel ?? new PostModel();
 
             var postDataDocument = requestMessageBase.ConvertEntityToXml();
             base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
@@ -268,17 +266,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 初始化
         /// </summary>
         /// <param name="postDataDocument"></param>
-        /// <param name="postData"></param>
+        /// <param name="postModel"></param>
         /// <returns></returns>
-        public override XDocument Init(XDocument postDataDocument, object postData = null)
+        public override XDocument Init(XDocument postDataDocument, IEncryptPostModel postModel)
         {
             //进行加密判断并处理
-            _postModel = postData as PostModel;
+            _postModel = postModel as PostModel;
             var postDataStr = postDataDocument.ToString();
 
             XDocument decryptDoc = postDataDocument;
 
-            if (_postModel != null && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
+            if (_postModel != null && !_postModel.Token.IsNullOrWhiteSpace()
+                && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
             {
                 //使用了加密
                 UsingEcryptMessage = true;
@@ -405,132 +404,98 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         #endregion
 
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
-        public override void Execute()
+        public override void BuildResponseMessage()
         {
-            if (CancelExcute)
+            #region NeuChar 执行过程
+
+            #region 添加模拟数据
+
+            //var fakeMessageHandlerNode = new MessageHandlerNode()
+            //{
+            //    Name = "MessageHandlerNode",
+            //};
+
+            //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+            //{
+            //    Request = new Request
+            //    {
+            //        Type = RequestMsgType.Text,
+            //        Keywords = new List<string>() { "nc", "neuchar" }
+            //    },
+            //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
+            //});
+
+            //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
+            //{
+            //    Request = new Request
+            //    {
+            //        Type = RequestMsgType.Text,
+            //        Keywords = new List<string>() { "senparc", "s" }
+            //    },
+            //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
+            //});
+
+            //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
+
+            #endregion
+
+            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+
+            switch (RequestMessage.MsgType)
             {
-                return;
-            }
+                case RequestMsgType.Text:
+                    {
+                        var requestMessage = RequestMessage as RequestMessageText;
 
-            OnExecuting();
-
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            try
-            {
-                if (RequestMessage == null)
-                {
-                    return;
-                }
-
-                #region NeuChar 执行过程
-
-                #region 添加模拟数据
-
-                //var fakeMessageHandlerNode = new MessageHandlerNode()
-                //{
-                //    Name = "MessageHandlerNode",
-                //};
-
-                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-                //{
-                //    Request = new Request
-                //    {
-                //        Type = RequestMsgType.Text,
-                //        Keywords = new List<string>() { "nc", "neuchar" }
-                //    },
-                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
-                //});
-
-                //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-                //{
-                //    Request = new Request
-                //    {
-                //        Type = RequestMsgType.Text,
-                //        Keywords = new List<string>() { "senparc", "s" }
-                //    },
-                //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
-                //});
-
-                //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
-
-                #endregion
-
-                var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
-
-                switch (RequestMessage.MsgType)
-                {
-                    case RequestMsgType.Text:
-                        {
-                            var requestMessage = RequestMessage as RequestMessageText;
-
-                            ResponseMessage = CurrentMessageHandlerNode.Execute(requestMessage, this, weixinAppId) ??
-                                                (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
-                        }
-                        break;
-                    case RequestMsgType.Location:
-                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                        break;
-                    case RequestMsgType.Image:
+                        ResponseMessage = CurrentMessageHandlerNode.Execute(requestMessage, this, weixinAppId) ??
+                                            (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
+                    }
+                    break;
+                case RequestMsgType.Location:
+                    ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                    break;
+                case RequestMsgType.Image:
+                    ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                        OnImageRequest(RequestMessage as RequestMessageImage);
+                    break;
+                case RequestMsgType.Voice:
+                    ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                    break;
+                case RequestMsgType.Video:
+                    ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                    break;
+                case RequestMsgType.Link:
+                    ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
+                    break;
+                case RequestMsgType.ShortVideo:
+                    ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                    break;
+                case RequestMsgType.File:
+                    ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
+                    break;
+                case RequestMsgType.NeuChar:
+                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    break;
+                case RequestMsgType.Unknown:
+                    ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
+                    break;
+                case RequestMsgType.Event:
+                    {
+                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
                         ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                            OnImageRequest(RequestMessage as RequestMessageImage);
-                        break;
-                    case RequestMsgType.Voice:
-                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                        break;
-                    case RequestMsgType.Video:
-                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                        break;
-                    case RequestMsgType.Link:
-                        ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
-                        break;
-                    case RequestMsgType.ShortVideo:
-                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                        break;
-                    case RequestMsgType.File:
-                        ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                        break;
-                    case RequestMsgType.NeuChar:
-                        ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
-                        break;
-                    case RequestMsgType.Unknown:
-                        ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
-                        break;
-                    case RequestMsgType.Event:
-                        {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                                OnTextOrEventRequest(requestMessageText) ??
-                                                    OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                        }
-                        break;
-                    default:
-                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-                }
+                                            OnTextOrEventRequest(requestMessageText) ??
+                                                OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                    }
+                    break;
+                default:
+                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+            }
 
-                #endregion
-
-                //记录上下文
-                //此处修改
-                if (MessageContextGlobalConfig.UseMessageContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
-                {
-                    GlobalMessageContext.InsertMessage(ResponseMessage);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new MessageHandlerException("MessageHandler中Execute()过程发生错误：" + ex.Message, ex);
-            }
-            finally
-            {
-                OnExecuted();
-            }
+            #endregion
         }
 
         /// <summary>

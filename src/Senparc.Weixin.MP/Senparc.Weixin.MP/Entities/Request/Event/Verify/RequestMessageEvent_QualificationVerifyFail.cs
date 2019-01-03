@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170826
 
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -49,7 +52,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 有效期 (整形)，指的是时间戳，将于该时间戳认证过期
         /// </summary>
-        public DateTime FailTime { get; set; }
+        public DateTimeOffset FailTime { get; set; }
         /// <summary>
         /// 失败发生时间 (整形)，时间戳
         /// </summary>

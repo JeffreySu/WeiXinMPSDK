@@ -28,7 +28,7 @@ Page({
       url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
       data: { nickName : that.data.userInfo.nickName},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      header: { 'content-type':'application/x-www-form-urlencoded'}, 
       success: function(res){
         // success
         var json = res.data;
@@ -64,6 +64,7 @@ Page({
           url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
           data: submitData,
           method: 'POST', 
+          header: { 'content-type': 'application/x-www-form-urlencoded' }, 
           success: function(res){
             // success
             var json = res.data;
@@ -91,7 +92,8 @@ Page({
         encryptedData:e.detail.encryptedData 
         },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -129,7 +131,8 @@ Page({
         sessionId: wx.getStorageSync('sessionId')
       },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -163,7 +166,8 @@ Page({
                   formId: json.package
                 },
                 method: 'POST',
-                success: function (templateMsgRes) {
+                  header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+                  success: function (templateMsgRes) {
                   if (templateMsgRes.data.success){
                     wx.showModal({
                       title: '模板消息发送成功！',

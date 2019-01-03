@@ -47,6 +47,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -189,6 +190,22 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
+        }
+
+       /// <summary>
+       /// 测试枚举输出字符串
+       /// </summary>
+        [TestMethod]
+        public void EnumStringTest()
+        {
+            var obj = new Card_BaseInfoBase() {
+                 code_type = Card_CodeType.CODE_TYPE_BARCODE
+            };
+
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("CODE_TYPE_BARCODE"));
+
         }
 
         //protected Store_Location _StoreLocation = new Store_Location()

@@ -95,6 +95,7 @@
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\RequestMessageThirdFasteRegister.cs" />
     <Compile Include="Entities\Request\RequestMessageUpdateAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageAuthorized.cs" />

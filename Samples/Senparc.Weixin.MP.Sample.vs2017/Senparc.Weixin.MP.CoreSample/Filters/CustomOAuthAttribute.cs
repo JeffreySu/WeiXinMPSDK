@@ -23,16 +23,24 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
             var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
             base._appId = httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
         }
 
         public override bool IsLogined(HttpContext httpContext)
         {
+            var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
+
             return httpContext != null && httpContext.Session.GetString("OpenId") != null;
 
             //也可以使用其他方法如Session验证用户登录

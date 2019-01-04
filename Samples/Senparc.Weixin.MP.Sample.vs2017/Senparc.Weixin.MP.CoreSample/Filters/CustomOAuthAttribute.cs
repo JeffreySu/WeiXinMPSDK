@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET;
-using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.MP.MvcExtension;
 

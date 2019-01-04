@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Trace;
@@ -18,12 +19,13 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
 
             //如果是多租户，也可以这样写，通过 URL 参数来区分：
             var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
-            base._appId = httpContextAccessor.HttpContext.Request.Query["appId"];//appId也可以是数据库存储的Id，避免暴露真实的AppId
+            base._appId = httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试11", httpContextAccessor.HttpContext.Request.Query["appId"]);
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"]);
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试33", httpContextAccessor.HttpContext.Request.Query["productId"]);
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试44", httpContextAccessor.HttpContext.Request.Query["hc"]);
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
         }
 
         public override bool IsLogined(HttpContext httpContext)

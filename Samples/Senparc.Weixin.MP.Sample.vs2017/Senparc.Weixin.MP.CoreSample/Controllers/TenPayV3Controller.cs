@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 return Content(ex.ToString());
             }
-        
+
         }
 
         //需要OAuth登录
@@ -914,7 +914,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("JsApi", new { productId = productId, hc = hc });
+                return RedirectToAction("JsApi", new { productId = productId, hc = hc, appId = "1234" });
             }
             else
             {
@@ -959,6 +959,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     {
                         bitmap.UnlockBits(bitmapData);
                     }
+                    
+                    ms.Flush();//.net core 必须要加
+                    ms.Position = 0;//.net core 必须要加
+                    
                     bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
                     return File(ms, "image/png");

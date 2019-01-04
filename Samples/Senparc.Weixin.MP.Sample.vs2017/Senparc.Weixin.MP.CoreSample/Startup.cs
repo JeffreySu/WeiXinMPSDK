@@ -21,6 +21,8 @@ using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.CO2NET.Utilities;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -38,8 +40,9 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
-            services.AddHttpContextAccessor();
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddHttpContextAccessor();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
             services.AddSession();//使用Session
 

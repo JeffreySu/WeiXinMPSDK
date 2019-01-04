@@ -22,7 +22,8 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
 
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试11", httpContextAccessor.HttpContext.Request.Query["appId"]);
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"]);
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"]);
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试33", httpContextAccessor.HttpContext.Request.Query["productId"]);
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute2 测试44", httpContextAccessor.HttpContext.Request.Query["hc"]);
         }
 
         public override bool IsLogined(HttpContext httpContext)

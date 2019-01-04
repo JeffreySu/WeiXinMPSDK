@@ -15,29 +15,14 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
         public CustomOAuthAttribute(string appId, string oauthCallbackUrl)
             : base(appId, oauthCallbackUrl)
         {
-            base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;
-
-            //如果是多租户，也可以这样写，通过 URL 参数来区分：
-            var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
-            base._appId = httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
-
-            //SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
+            //如果是多租户，appId 可以传入 null，并且忽略下一行，使用 IsLogined() 方法中的动态赋值语句
+            base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;//填写公众号AppId（适用于公众号、微信支付、JsApi等）
         }
 
         public override bool IsLogined(HttpContext httpContext)
         {
-            var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
-            //SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试33", httpContextAccessor.HttpContext.Request.Query["productId"].FirstOrDefault());
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试44", httpContextAccessor.HttpContext.Request.Query["hc"].FirstOrDefault());
+            //如果是多租户，也可以这样写，通过 URL 参数来区分：
+            //base._appId = httpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
             return httpContext != null && httpContext.Session.GetString("OpenId") != null;
 

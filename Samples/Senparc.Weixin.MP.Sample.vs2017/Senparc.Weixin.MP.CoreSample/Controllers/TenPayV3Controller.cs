@@ -959,6 +959,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     {
                         bitmap.UnlockBits(bitmapData);
                     }
+                    
+                    ms.Flush();//.net core 必须要加
+                    ms.Position = 0;//.net core 必须要加
+                    
                     bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
                     return File(ms, "image/png");

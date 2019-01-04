@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.Sample.Filters
         public override bool IsLogined(HttpContextBase httpContext)
         {
             //如果是多租户，也可以这样写，通过 URL 参数来区分：
-            base._appId = HttpContext.Current.Request.QueryString["appId"];//appId也可以是数据库存储的Id，避免暴露真实的AppId
+            //base._appId = HttpContext.Current.Request.QueryString["appId"];//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
             return httpContext != null && httpContext.Session["OpenId"] != null;
 

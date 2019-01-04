@@ -16,16 +16,12 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
         {
             base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;
 
-            //如果是多租户，也可以这样写：
-#if NETCOREAPP2_2
+            //如果是多租户，也可以这样写，通过 URL 参数来区分：
             var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
-            base._appId = httpContextAccessor.HttpContext.Request.Query["appId"];
+            base._appId = httpContextAccessor.HttpContext.Request.Query["appId"];//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute 测试", httpContextAccessor.HttpContext.Request.Query["appId"]);
-#else
-            base._appId = HttpContext.Current.Request.QueryString["appId"];
-#endif
-
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute 测试1", httpContextAccessor.HttpContext.Request.Query["appId"]);
+            SenparcTrace.SendCustomLog("SenparcOAuthAttribute 测试2", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"]);
         }
 
         public override bool IsLogined(HttpContext httpContext)

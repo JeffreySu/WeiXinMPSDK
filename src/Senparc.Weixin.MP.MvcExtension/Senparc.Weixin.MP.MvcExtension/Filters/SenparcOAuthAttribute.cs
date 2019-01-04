@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             {
                 if (IsLogined(filterContext.HttpContext))
                 {
-
+                    //已经登录
                 }
                 else
                 {

@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
             var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
             base._appId = httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
 
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
+            //SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute3 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());
@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.CoreSample.Filters
         public override bool IsLogined(HttpContext httpContext)
         {
             var httpContextAccessor = SenparcDI.GetService<IHttpContextAccessor>();
-            SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
+            //SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.ToJson(true));
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试00", httpContextAccessor.HttpContext.Request.AbsoluteUri());
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试11", httpContextAccessor.HttpContext.Request.Query["appId"].FirstOrDefault());
             SenparcTrace.SendCustomLog("SenparcOAuthAttribute4 测试22", httpContextAccessor.HttpContext.Request.Query["oauthCallbackUrl"].FirstOrDefault());

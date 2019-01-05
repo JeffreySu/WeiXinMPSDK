@@ -84,7 +84,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 | ![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.5][net45Y] | ![.NET Core 2.x][core20Y] |
 |--|--|--|--|
-| .NET 3.5            | .NET 4.0            | .NET 4.5            |  .NET Core 2.0 + 2.1       |
+| .NET 3.5            | .NET 4.0            | .NET 4.5            |  同时兼容 .NET Standard 2.0+ 及 Core 2.2+       |
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -121,11 +121,11 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [net45N-]: https://img.shields.io/badge/4.5----lightgrey.svg
 [net461Y]: https://img.shields.io/badge/4.6.1-Y-brightgreen.svg
 [net461N]: https://img.shields.io/badge/4.6.1-N-lightgrey.svg
-[coreY]: https://img.shields.io/badge/core-Y-brightgreen.svg
-[coreN]: https://img.shields.io/badge/core-N-lightgrey.svg
-[coreN-]: https://img.shields.io/badge/core----lightgrey.svg
-[core20Y]: https://img.shields.io/badge/core2.x-Y-brightgreen.svg
-[core20N]: https://img.shields.io/badge/core2.x-N-lightgrey.svg
+[coreY]: https://img.shields.io/badge/standard2.0-Y-brightgreen.svg
+[coreN]: https://img.shields.io/badge/standard2.0-N-lightgrey.svg
+[coreN-]: https://img.shields.io/badge/standard2.0----lightgrey.svg
+[core20Y]: https://img.shields.io/badge/standard2.0-Y-brightgreen.svg
+[core20N]: https://img.shields.io/badge/standard2.0-N-lightgrey.svg
 
 [nuget-img-base]: https://img.shields.io/nuget/dt/Senparc.Weixin.svg
 [nuget-url-base]: https://www.nuget.org/packages/Senparc.Weixin

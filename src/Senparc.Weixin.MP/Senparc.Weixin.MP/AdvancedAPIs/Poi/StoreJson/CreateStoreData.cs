@@ -28,6 +28,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20150513
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
+
 namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
 {
     /// <summary>
@@ -63,6 +65,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
     {
         /// <summary>
         /// 微信的门店ID，微信内门店唯一标示ID
+        /// </summary>
+        public string poi_id { get; set; }
+    }
+
+    public class CreateStoreJsonResult : WxJsonResult
+    {
+        /// <summary>
+        /// 微信门店ID, 微信内门店唯一标示ID
         /// </summary>
         public string poi_id { get; set; }
     }

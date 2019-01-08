@@ -49,10 +49,12 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             var senparcWeixinSetting = new SenparcWeixinSetting();
 
             config.GetSection("SenparcSetting").Bind(senparcSetting);
-            config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting.ToJson());
+            config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting);
 
-            Console.WriteLine($"SenparcSetting:{senparcSetting}");
-            Console.WriteLine($"SenparcWeixinSetting:{senparcWeixinSetting.ToJson()}");
+            //输出 JSON 校验
+            //var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
+            //Console.WriteLine($"SenparcSetting:{senparcSetting.ToJson(true, jsonSerializerSettings)}");
+            //Console.WriteLine($"SenparcWeixinSetting:{senparcWeixinSetting.ToJson(true,jsonSerializerSettings)}");
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(senparcSetting)

@@ -208,6 +208,23 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         }
 
+        /// <summary>
+        /// 测试值为false时也序列化出来
+        /// </summary>
+        [TestMethod]
+        public void FalseValueSerializeTest()
+        {
+            var obj = new Card_MemberCardData()
+            {
+                supply_balance = false,
+                supply_bonus = false,
+            };
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("supply_balance"));
+            Assert.IsTrue(str.Contains("supply_bonus"));
+        }
+
         //protected Store_Location _StoreLocation = new Store_Location()
         //{
         //    business_name = "TIT 创意园1 号店",

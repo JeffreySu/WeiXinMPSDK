@@ -26,13 +26,14 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             var dt1 = SystemTime.Now;
             var services = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();
-            configBuilder.AddJsonFile("appsettings.json");
+            configBuilder.AddJsonFile("appsettings.json", false, false);
             Console.WriteLine("完成 appsettings.json 添加");
 
             var config = configBuilder.Build();
             Console.WriteLine("完成 ServiceCollection 和 ConfigurationBuilder 初始化");
 
             services.AddMemoryCache();//使用本地缓存必须添加
+     
 
             /*
             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化，稳定可靠。
@@ -43,20 +44,15 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             services.AddSenparcGlobalServices(config);//Senparc.CO2NET 全局注册
             Console.WriteLine("完成 AddSenparcGlobalServices 注册");
 
+            //更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
+            var senparcSetting = new SenparcSetting();
+            var senparcWeixinSetting = new SenparcWeixinSetting();
 
-            SenparcSetting senparcSetting = new SenparcSetting()
-            {
-                IsDebug = true,
-                DefaultCacheNamespace = "DefaultCache",
-                //Cache_Redis_Configuration = "localhost:6379"//Redis 连接字符串
-                //Cache_Redis_Configuration = "localhost:6379,password=senparc,connectTimeout=1000,connectRetry=2,syncTimeout=10000,defaultDatabase=3",//密码及其他配置
-                SenparcUnionAgentKey = "SenparcUnionAgentKey"//无需修改
-            };
+            config.GetSection("SenparcSetting").Bind(senparcSetting);
+            config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting.ToJson());
 
-            var senparcWeixinSetting = SenparcDI.GetService<IOptions<SenparcWeixinSetting>>();
-
-            var cc = config["WeixinAppId"];
-            Console.WriteLine($"SenparcWeixinSetting: {senparcWeixinSetting.Value.ToJson(true)}");
+            Console.WriteLine($"SenparcSetting:{senparcSetting}");
+            Console.WriteLine($"SenparcWeixinSetting:{senparcWeixinSetting.ToJson()}");
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(senparcSetting)
@@ -152,17 +148,17 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             //注册开始
 
             //开始注册微信信息，必须！
-            register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting)
+            register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting)
                 //注意：上一行没有 ; 下面可接着写 .RegisterXX()
 
             #region 注册公众号或小程序（按需）
 
                 //注册公众号（可注册多个）                                                -- DPBMARK MP
-                .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
+                .RegisterMpAccount(senparcWeixinSetting, "【盛派网络小助手】公众号")// DPBMARK_END
 
 
                 //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
-                .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
+                .RegisterWxOpenAccount(senparcWeixinSetting, "【盛派网络小助手】小程序")// DPBMARK_END
 
                 //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                 //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
@@ -171,7 +167,7 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             #region 注册企业号（按需）           -- DPBMARK Work
 
                 //注册企业微信（可注册多个）
-                .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
+                .RegisterWorkAccount(senparcWeixinSetting, "【盛派网络】企业微信")
 
                 //除此以外，仍然可以在程序任意地方注册企业微信：
                 //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
@@ -180,17 +176,17 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             #region 注册微信支付（按需）        -- DPBMARK TenPay
 
                 //注册旧微信支付版本（V2）（可注册多个）
-                .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                .RegisterTenpayOld(senparcWeixinSetting, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
                 //注册最新微信支付版本（V3）（可注册多个）
-                .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                .RegisterTenpayV3(senparcWeixinSetting, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
             #endregion                          // DPBMARK_END
 
             #region 注册微信第三方平台（按需）  -- DPBMARK Open
 
                 //注册第三方平台（可注册多个）
-                .RegisterOpenComponent(senparcWeixinSetting.Value,
+                .RegisterOpenComponent(senparcWeixinSetting,
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {

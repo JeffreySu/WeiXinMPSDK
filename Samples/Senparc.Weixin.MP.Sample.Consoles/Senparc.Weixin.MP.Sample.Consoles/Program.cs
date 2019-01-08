@@ -3,10 +3,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Memcached;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.Work;
+using Senparc.Weixin.TenPay;
+using Senparc.Weixin.Open;
 using System;
+using Senparc.CO2NET.Utilities;
+using System.IO;
+using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Sample.Consoles
 {
@@ -46,6 +55,8 @@ namespace Senparc.Weixin.MP.Sample.Consoles
 
             var senparcWeixinSetting = SenparcDI.GetService<IOptions<SenparcWeixinSetting>>();
 
+            var cc = config["WeixinAppId"];
+            Console.WriteLine($"SenparcWeixinSetting: {senparcWeixinSetting.Value.ToJson(true)}");
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(senparcSetting)

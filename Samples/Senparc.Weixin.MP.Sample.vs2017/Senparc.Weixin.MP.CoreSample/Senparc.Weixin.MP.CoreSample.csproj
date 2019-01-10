@@ -5,7 +5,7 @@
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
     <!--<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>-->
     
-    <Version>3.2.2</Version>
+    <Version>3.2.3</Version>
     <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

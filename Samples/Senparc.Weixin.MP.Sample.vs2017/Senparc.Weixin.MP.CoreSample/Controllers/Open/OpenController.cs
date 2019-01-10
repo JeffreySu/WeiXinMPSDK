@@ -23,6 +23,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Open.AccountAPIs;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -68,13 +69,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [HttpPost]
         public ActionResult Notice(PostModel postModel)
         {
-            var logPath = Server.GetMapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
             }
 
-            //using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_RequestStream.txt", DateTime.Now.Ticks))))
+            //using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_RequestStream.txt", SystemTime.Now.Ticks))))
             //{
             //    using (var sr = new StreamReader(Request.InputStream))
             //    {
@@ -99,13 +100,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 //    postModel, 10);
 
                 //记录RequestMessage日志（可选）
-                //messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request.txt", DateTime.Now.Ticks)));
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
+                //messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request.txt", SystemTime.Now.Ticks)));
+                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", SystemTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
 
                 messageHandler.Execute();//执行
 
                 //记录ResponseMessage日志（可选）
-                using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId))))
+                using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", SystemTime.Now.Ticks, messageHandler.RequestMessage.AppId))))
                 {
                     tw.WriteLine(messageHandler.ResponseMessageText);
                     tw.Flush();
@@ -133,7 +134,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            var logPath = Server.GetMapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -171,7 +172,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 using (
                     TextWriter tw =
-                        new StreamWriter(Server.GetMapPath("~/App_Data/Open/Error_" + DateTime.Now.Ticks + ".txt")))
+                        new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Open/Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

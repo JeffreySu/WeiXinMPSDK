@@ -10,13 +10,13 @@ App({
     if(!isDebug){
     //远程域名
       wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")
-      wx.setStorageSync('wssDomainName', "wss://sdk.weixin.senparc.com")   
+      wx.setStorageSync('wssDomainName', "wss://sdk.weixin.senparc.com")
     }
     else 
     {
     //本地测试域名
-      wx.setStorageSync('domainName', "http://localhost:8080")
-      wx.setStorageSync('wssDomainName', "ws://localhost:8080")
+      wx.setStorageSync('domainName', "http://localhost:58936")
+      wx.setStorageSync('wssDomainName', "ws://localhost:58936")
     }
 
     // 打开调试
@@ -34,8 +34,9 @@ App({
         success: function (res) {
           //换取openid & session_key
           wx.request({
-            url: wx.getStorageSync('domainName')+ '/WxOpen/OnLogin',
+            url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
             method: 'POST',
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
             data: {
               code: res.code
             },
@@ -56,6 +57,7 @@ App({
                     wx.request({
                       url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
                       method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
                       data: {
                         sessionId: wx.getStorageSync('sessionId'),
                         rawData:userInfoRes.rawData,
@@ -70,6 +72,7 @@ App({
                     wx.request({
                       url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
                       method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
                       data: {
                         'type':"userInfo",
                         sessionId: wx.getStorageSync('sessionId'),

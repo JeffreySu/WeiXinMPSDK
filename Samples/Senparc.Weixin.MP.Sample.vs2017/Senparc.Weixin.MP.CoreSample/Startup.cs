@@ -20,6 +20,7 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -37,6 +38,7 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             services.AddMvc();
 
+            //services.AddHttpContextAccessor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
             services.AddSession();//使用Session
@@ -78,14 +80,6 @@ namespace Senparc.Weixin.MP.CoreSample
             });
 
 
-            #region 提供网站根目录（当前 Sample 用到，和 SDK 无关）
-            if (env.ContentRootPath != null)
-            {
-                Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.AppDomainAppPath = env.ContentRootPath;// env.ContentRootPath;
-            }
-            Senparc.Weixin.MP.Sample.CommonService.Utilities.Server.WebRootPath = env.WebRootPath;// env.ContentRootPath;
-            #endregion
-
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
                                                         //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
@@ -107,7 +101,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //配置全局使用Redis缓存（按需，独立）
             var redisConfigurationStr = senparcSetting.Value.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "Redis配置";
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
             if (useRedis)//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {
                 /* 说明：
@@ -132,7 +126,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             //配置Memcached缓存（按需，独立）
             var memcachedConfigurationStr = senparcSetting.Value.Cache_Memcached_Configuration;
-            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "Memcached配置";
+            var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
 
             if (useMemcached) //这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
             {
@@ -235,7 +229,7 @@ namespace Senparc.Weixin.MP.CoreSample
                     //getComponentVerifyTicketFunc
                     componentAppId =>
                     {
-                        var dir = Path.Combine(Server.GetMapPath("~/App_Data/OpenTicket"));
+                        var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
                         {
                             Directory.CreateDirectory(dir);
@@ -255,7 +249,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //getAuthorizerRefreshTokenFunc
                      (componentAppId, auhtorizerId) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);
@@ -278,7 +272,7 @@ namespace Senparc.Weixin.MP.CoreSample
                      //authorizerTokenRefreshedFunc
                      (componentAppId, auhtorizerId, refreshResult) =>
                      {
-                         var dir = Path.Combine(Server.GetMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
                          {
                              Directory.CreateDirectory(dir);

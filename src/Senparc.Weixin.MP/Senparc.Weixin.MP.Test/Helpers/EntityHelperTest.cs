@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Test
 
             public string ToUserName { get; set; }
             public string FromUserName { get; set; }
-            public DateTime CreateTime { get; set; }
+            public DateTimeOffset CreateTime { get; set; }
             public ResponseMsgType MsgType { get; }
         }
         [TestMethod]

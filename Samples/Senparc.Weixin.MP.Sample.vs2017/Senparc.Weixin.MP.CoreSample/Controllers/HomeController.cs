@@ -54,7 +54,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 return getDisplayVersion(version);
             };
 
-            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));
+            TempData["SampleVersion"] = getTypeVersionInfo(this.GetType());//当前Demo的版本号
+            TempData["CO2NETVersion"] = getTypeVersionInfo(typeof(CO2NET.Config));//CO2NET版本号
+            TempData["NeuCharVersion"] = getTypeVersionInfo(typeof(Senparc.NeuChar.ApiBindInfo));//NeuChar版本号
+
             TempData["WeixinVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Config));
             TempData["TenPayVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.TenPay.Register));//DPBMARK TenPay DPBMARK_END
             TempData["MpVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.MP.Register));//DPBMARK MP DPBMARK_END
@@ -73,13 +76,17 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
-            var configHelper = new ConfigHelper(this.HttpContext);
+            var configHelper = new ConfigHelper();
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
             Weixin.WeixinTrace.SendCustomLog("首页被访问",
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
             //or use Header: REMOTE_ADDR
+
+            //获取编译时间
+            //因为官方在线 Demo CI 自动生成使用的服务器为 UTC-0，所以北京时间需要+8小时
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).AddHours(8).ToString("yyyyMMdd.HH.mm");
 
             return View();
         }

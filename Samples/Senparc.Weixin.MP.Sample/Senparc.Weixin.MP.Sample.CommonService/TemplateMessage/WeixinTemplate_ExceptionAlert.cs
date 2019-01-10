@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
             : base(templateId, url, "系统异常告警通知")
         {
             first = new TemplateDataItem(_first);
-            keyword1 = new TemplateDataItem(DateTime.Now.ToString());
+            keyword1 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString());
             keyword2 = new TemplateDataItem(host);
             keyword3 = new TemplateDataItem(service);
             keyword4 = new TemplateDataItem(status);

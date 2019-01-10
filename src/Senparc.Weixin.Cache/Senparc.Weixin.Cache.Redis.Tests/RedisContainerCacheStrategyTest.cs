@@ -28,9 +28,9 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
     {
-        private DateTime _dateTime;
+        //private DateTimeOffset _dateTime;
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         //{
         //    get { return _dateTime; }
         //    set { this.SetContainerProperty(ref _dateTime, value); }
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
 
             baseCache.Set(key, new TestContainerBag1()
             {
-                DateTime = DateTime.Now,
+                DateTime = SystemTime.Now,
                 Name = "Jeffrey"
             });
 

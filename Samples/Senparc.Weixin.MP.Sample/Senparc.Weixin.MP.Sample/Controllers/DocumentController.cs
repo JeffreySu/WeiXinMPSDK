@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var guid = Guid.NewGuid().ToString("n");
             ViewData["Guid"] = guid;
 
-            var configHelper = new ConfigHelper(this.HttpContext);
+            var configHelper = new ConfigHelper();
 
             try
             {
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     var codeRecord = ConfigHelper.CodeCollection[guid];
                     codeRecord.Used = true;
                     //codeRecord.AllowDownload = false;//这里如果只允许一次下载，有的浏览器插件或者防护软件会自动访问页面上的链接，导致用户真实的下载时效
-                    var configHelper = new ConfigHelper(this.HttpContext);
+                    var configHelper = new ConfigHelper();
                     var filePath = configHelper.Download(codeRecord.Version, codeRecord.IsWebVersion);
                     var file = File(filePath, "application/octet-stream");
 

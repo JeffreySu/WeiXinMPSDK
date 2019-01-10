@@ -19,6 +19,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;
@@ -69,8 +70,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
 #if NET45
                         var dllPath = HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll");
 #else
-                        //var dllPath = Server.GetMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
-                        var dllPath = Server.GetMapPath("~/Senparc.Weixin.MP.dll");//发布路径
+                        //var dllPath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
+                        var dllPath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
 #endif
 
                         var fileVersionInfo = FileVersionInfo.GetVersionInfo(dllPath);

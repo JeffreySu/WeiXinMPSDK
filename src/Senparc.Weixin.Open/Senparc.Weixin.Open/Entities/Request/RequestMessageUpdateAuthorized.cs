@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20160813
+
+    修改标识：Senparc - 20181226
+    修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +36,6 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime AuthorizationCodeExpiredTime { get; set; }
+        public DateTimeOffset AuthorizationCodeExpiredTime { get; set; }
     }
 }

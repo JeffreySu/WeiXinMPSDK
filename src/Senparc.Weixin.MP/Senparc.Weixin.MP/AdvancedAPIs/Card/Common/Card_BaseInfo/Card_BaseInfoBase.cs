@@ -42,6 +42,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Senparc.CO2NET.Helpers.Serializers;
 using System.Collections.Generic;
 
@@ -67,6 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// code 码展示类型
         /// 必填
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Card_CodeType code_type { get; set; }
         /// <summary>
         /// 商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）

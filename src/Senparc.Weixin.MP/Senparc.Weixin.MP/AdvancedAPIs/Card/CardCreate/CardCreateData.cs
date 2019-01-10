@@ -152,16 +152,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class Card_MemberCardData : BaseCardInfo
     {
         /// <summary>
-        /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。填写false，积分字段无需填写。储值字段处理方式相同。
+        /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_bonus { get; set; }
         /// <summary>
         /// 是否支持储值，填写true 或false。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_balance { get; set; }
         /// <summary>
         /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。

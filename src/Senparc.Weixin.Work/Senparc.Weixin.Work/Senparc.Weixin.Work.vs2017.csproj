@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-		<Version>3.3.0</Version>
+		<Version>3.3.3.2</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -27,7 +27,7 @@
 		<PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
 		<PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
 		<PackageReleaseNotes>
-      v0.1.0 完成从Senaprc.Weixin.Work.dll的初步移植，添加Work（企业微信）中的新接口
+      v0.1.0 完成从Senparc.Weixin.Work.dll的初步移植，添加Work（企业微信）中的新接口
 
       v0.2.0 1、整理类名，MessageHandler跑通
       2、整理类名，MessageHandler跑通
@@ -222,7 +222,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.5.0" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.6.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

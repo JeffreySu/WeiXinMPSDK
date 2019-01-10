@@ -35,6 +35,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;
@@ -199,7 +200,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                     //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
 
-                    DateTime dt1 = DateTime.Now; //计时开始
+                    var dt1 = SystemTime.Now; //计时开始
 
                     var agentXml = RequestDocument.ToString();
 
@@ -211,7 +212,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     //修改内容，防止死循环
                     var agentDoc = XDocument.Parse(agentXml);
                     agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
-                    agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetWeixinDateTime(DateTime.Now));//修改时间，防止去重
+                    agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetUnixDateTime(SystemTime.Now));//修改时间，防止去重
                     agentDoc.Root.Element("MsgId").SetValue("123");//防止去重
                     agentXml = agentDoc.ToString();
 
@@ -226,7 +227,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     */
                     //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
 
-                    DateTime dt2 = DateTime.Now; //计时结束
+                    var dt2 = SystemTime.Now; //计时结束
 
                     //转成实体。
                     /* 如果要写成一行，可以直接用：
@@ -268,12 +269,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     //异步并发测试（提供给单元测试使用）
 #if NET45
-                    DateTime begin = DateTime.Now;
+                    var begin = SystemTime.Now;
                     int t1, t2, t3;
                     System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
                     System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
                     System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
-                    DateTime end = DateTime.Now;
+                    var end = SystemTime.Now;
                     var thread = System.Threading.Thread.CurrentThread;
                     defaultResponseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                             thread.ManagedThreadId,
@@ -312,7 +313,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
                     var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                     faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
-                        DateTime.Now.Ticks);
+                        SystemTime.Now.Ticks);
                     return faultTolerantResponseMessage;
                 })
                 .Keyword("TM", () =>
@@ -336,7 +337,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Keyword("EX", () =>
                 {
                     var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
-                    defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
+                    defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + SystemTime.Now.ToString();
                     return defaultResponseMessage;
                 })
                 .Keyword("MUTE", () => //不回复任何消息
@@ -476,7 +477,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
-                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+                                                         ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
@@ -512,7 +513,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             Task.Factory.StartNew(async () =>
              {
                  //上传素材
-                 var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                  var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                  var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                  await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");

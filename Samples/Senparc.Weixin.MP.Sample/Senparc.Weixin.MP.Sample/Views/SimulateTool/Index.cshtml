@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var nonce = "JeffreySu";
-    var timestamp = DateTime.Now.Ticks.ToString();
-    var echostr = DateTime.Now.Ticks.ToString();
+    var timestamp = SystemTime.Now.Ticks.ToString();
+    var echostr = SystemTime.Now.Ticks.ToString();
     var token = ViewData["Token"] as string;
 }
 @section HeaderContent
@@ -223,7 +223,7 @@
                     <label class="control-label">Recognition：</label><input name="Recognition" class="control-input" /><br />
                 </div>
                 <div id="paramVideo" class="param">
-                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@SystemTime.Now.Ticks" step="1" /><br />
                     <label class="control-label">ThumbMediaId：</label><input name="ThumbMediaId" class="control-input" /><br />
                 </div>
                 @*<div id="paramLink" class="param"></div>*@
@@ -314,7 +314,7 @@
             </li>
             <li>
                 <label class="control-label">MsgId:</label>
-                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
+                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@SystemTime.Now.Ticks" />
             </li>
             <li>
                 <label class="checkbox checkbox_test">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>

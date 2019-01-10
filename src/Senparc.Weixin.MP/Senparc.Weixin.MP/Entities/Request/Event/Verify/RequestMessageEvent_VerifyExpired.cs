@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170826
 
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -49,6 +52,6 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 有效期 (整形)，指的是时间戳，表示已于该时间戳认证过期，需要重新发起微信认证
         /// </summary>
-        public DateTime ExpiredTime { get; set; }
+        public DateTimeOffset ExpiredTime { get; set; }
     }
 }

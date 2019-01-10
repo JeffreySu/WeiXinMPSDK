@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -115,7 +119,7 @@ namespace Senparc.Weixin.Tencent
             string[] arr = codeSerial.Split(',');
             string code = "";
             int randValue = -1;
-            Random rand = new Random(unchecked((int)DateTime.Now.Ticks));
+            Random rand = new Random(unchecked((int)SystemTime.Now.Ticks));
             for (int i = 0; i < codeLen; i++)
             {
                 randValue = rand.Next(0, arr.Length - 1);

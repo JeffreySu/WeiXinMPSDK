@@ -75,7 +75,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static string GetTimestamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
 
@@ -157,11 +157,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-#if NET35 || NET40 || NET45 || NET461
-            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-#else
-            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
-#endif
+//#if NET35 || NET40 || NET45 || NET461
+//            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+//#else
+            TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
+//#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <returns></returns>
         public static string BuildDailyRandomStr(int length)
         {
-            var stringFormat = DateTime.Now.ToString("HHmmss0000");//共10位
+            var stringFormat = SystemTime.Now.ToString("HHmmss0000");//共10位
 
             return stringFormat;
         }

@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20150319
+
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,7 +49,7 @@ namespace Senparc.Weixin.MP.AppStore
         /// </summary>
         public string ApiUrl { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         /// <summary>
         /// 供微微嗨服务器记录唯一开发人员ID

@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
         public void DownloadToDirTest()
         {
             ////下载图片   
-            //var file = string.Format("qr-{0}.jpg", DateTime.Now.Ticks);
+            //var file = string.Format("qr-{0}.jpg", SystemTime.Now.Ticks);
             //using (FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
             //{
             //    Get.Download(url, fs);//下载

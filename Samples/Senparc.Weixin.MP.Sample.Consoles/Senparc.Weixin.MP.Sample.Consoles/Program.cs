@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Sample.Consoles
         static void Main(string[] args)
         {
             var dt1 = SystemTime.Now;
-            var services = new ServiceCollection();
+
             var configBuilder = new ConfigurationBuilder();
             configBuilder.AddJsonFile("appsettings.json", false, false);
             Console.WriteLine("完成 appsettings.json 添加");
@@ -32,9 +32,16 @@ namespace Senparc.Weixin.MP.Sample.Consoles
             var config = configBuilder.Build();
             Console.WriteLine("完成 ServiceCollection 和 ConfigurationBuilder 初始化");
 
+            //更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
+            var senparcSetting = new SenparcSetting();
+            var senparcWeixinSetting = new SenparcWeixinSetting();
+
+            config.GetSection("SenparcSetting").Bind(senparcSetting);
+            config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting);
+
+            var services = new ServiceCollection();
             services.AddMemoryCache();//使用本地缓存必须添加
      
-
             /*
             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化，稳定可靠。
             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
@@ -43,13 +50,6 @@ namespace Senparc.Weixin.MP.Sample.Consoles
 
             services.AddSenparcGlobalServices(config);//Senparc.CO2NET 全局注册
             Console.WriteLine("完成 AddSenparcGlobalServices 注册");
-
-            //更多绑定操作参见：https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
-            var senparcSetting = new SenparcSetting();
-            var senparcWeixinSetting = new SenparcWeixinSetting();
-
-            config.GetSection("SenparcSetting").Bind(senparcSetting);
-            config.GetSection("SenparcWeixinSetting").Bind(senparcWeixinSetting);
 
             //输出 JSON 校验
             //var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings() { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };

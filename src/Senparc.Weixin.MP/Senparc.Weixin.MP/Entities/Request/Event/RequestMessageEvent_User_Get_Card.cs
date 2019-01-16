@@ -88,8 +88,16 @@ namespace Senparc.Weixin.MP.Entities
         /// 领取场景值，用于领取渠道数据统计
         /// </summary>
         public string OuterStr { get; set; }
+        /// <summary>
+        /// 用户删除会员卡后可重新找回，当用户本次操作为找回时，该值为1，否则为0
+        /// </summary>
+        public int IsRecommendByFriend { get; set; }
+        /// <summary>
+        /// 领取者UnionId
+        /// </summary>
+        public string UnionId { get; set; }
         ///以下两个待验证
-        //public int IsRecommendByFriend { get; set; }
+        //
         //public string SourceScene { get; set;}
     }
 }

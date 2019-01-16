@@ -23,9 +23,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.CO2NET.Helpers;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Test
 {
@@ -458,6 +456,55 @@ namespace Senparc.Weixin.MP.Test
     </AroundBeacons>
 </xml>";
 
+        private string xmlEvent_Modify_Store_Audit_Info = @"<xml>
+<ToUserName><![CDATA[gh_4346ac1514d8]]></ToUserName>
+<FromUserName><![CDATA[od1P50M-fNQI5Gcq-trm4a7apsU8]]></FromUserName>
+<CreateTime>1488856741</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[modify_store_audit_info]]></Event>
+<audit_id>11111</audit_id>
+<status>3</status>
+<reason><![CDATA[xxx]]></reason>
+</xml>";
+
+        private string xmlEvent_Add_Store_Audit_Info = @"<xml>
+<ToUserName><![CDATA[gh_4346ac1514d8]]></ToUserName>
+<FromUserName><![CDATA[od1P50M-fNQI5Gcq-trm4a7apsU8]]></FromUserName>
+<CreateTime>1488856741</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[add_store_audit_info]]></Event>
+<audit_id>11111</audit_id>
+<status>3</status>
+<reason><![CDATA[xxx]]></reason>
+<is_upgrade>3</is_upgrade>
+<poiid>12344</poiid>
+</xml>";
+        private string xmlEvent_Create_Map_Poi_Audit_Info = @"<xml>
+<ToUserName><![CDATA[gh_4346ac1514d8]]></ToUserName>
+<FromUserName><![CDATA[od1P50M-fNQI5Gcq-trm4a7apsU8]]></FromUserName>
+<CreateTime>1488856741</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[create_map_poi_audit_info]]></Event>
+<audit_id>11111</audit_id>
+<status>1</status>
+<map_poi_id><![CDATA[xxx]]></map_poi_id>
+<name><![CDATA[xxx]]></name>
+<address><![CDATA[xxx]]></address>
+<latitude><![CDATA[134]]></latitude>
+<longitude><![CDATA[30]]></longitude>
+<sh_remark><![CDATA[xxx]]></sh_remark>
+</xml>";
+        private string xmlEvent_Apply_Merchant_Audit_InfoRequest = @"<xml>
+    <ToUserName><![CDATA[gh_4346ac1514d8]]></ToUserName>
+    <FromUserName><![CDATA[od1P50M-fNQI5Gcq-trm4a7apsU8]]></FromUserName>
+    <CreateTime>1488856741</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[apply_merchant_audit_info]]></Event>
+    <audit_id>11111</audit_id>
+    <status>3</status>
+    <reason><![CDATA[xxx]]></reason>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -837,6 +884,61 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(54321, result.ChosenBeacon.Minor);
                 Assert.AreEqual(2, result.AroundBeacons.Count);
                 Assert.AreEqual(15.013, result.AroundBeacons.ElementAt(1).Distance);
+            }
+
+            {
+                //Event-Apply_Merchant_Audit_InfoRequest
+                var doc = XDocument.Parse(xmlEvent_Apply_Merchant_Audit_InfoRequest);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_ApplyMerchantAuditInfo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
+                Assert.AreEqual(Event.apply_merchant_audit_info, result.Event);
+                Assert.AreEqual(11111, result.audit_id);
+                Assert.AreEqual(3, result.status);
+                Assert.AreEqual("xxx", result.reason);
+            }
+
+            {
+                //Event-Apply_CreateMapPoiAuditInfo
+                var doc = XDocument.Parse(xmlEvent_Create_Map_Poi_Audit_Info);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_CreateMapPoiAuditInfo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
+                Assert.AreEqual(Event.create_map_poi_audit_info, result.Event);
+                Assert.AreEqual(11111, result.audit_id);
+                Assert.AreEqual(1, result.status);
+                Assert.AreEqual("xxx", result.map_poi_id);
+                Assert.AreEqual("xxx", result.name);
+                Assert.AreEqual("xxx", result.address);
+                Assert.AreEqual(134, result.latitude);
+                Assert.AreEqual(30, result.longitude);
+                Assert.AreEqual("xxx", result.sh_remark);
+            }
+
+            {
+                //Event-Apply_AddStoreAuditInfo
+                var doc = XDocument.Parse(xmlEvent_Add_Store_Audit_Info);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_AddStoreAuditInfo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
+                Assert.AreEqual(Event.add_store_audit_info, result.Event);
+                Assert.AreEqual(11111, result.audit_id);
+                Assert.AreEqual(3, result.is_upgrade);
+                Assert.AreEqual("12344", result.poiid);
+                Assert.AreEqual(3, result.status);
+                Assert.AreEqual("xxx", result.reason);
+            }
+
+            {
+                //Event-Apply_AddStoreAuditInfo
+                var doc = XDocument.Parse(xmlEvent_Modify_Store_Audit_Info);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_ModifyStoreAuditInfo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
+                Assert.AreEqual(Event.modify_store_audit_info, result.Event);
+                Assert.AreEqual(11111, result.audit_id);
+                Assert.AreEqual(3, result.status);
+                Assert.AreEqual("xxx", result.reason);
             }
         }
     }

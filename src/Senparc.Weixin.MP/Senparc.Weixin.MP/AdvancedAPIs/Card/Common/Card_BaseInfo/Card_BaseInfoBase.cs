@@ -176,6 +176,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string custom_url_sub_title { get; set; }
         /// <summary>
+        /// 自定义使用入口跳转小程序的user_name，格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string custom_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义使用入口小程序页面地址
+        /// </summary>
+        public string custom_app_brand_pass { get; set; }
+        /// <summary>
         /// 营销场景的自定义入口名称
         /// 非必填
         /// </summary>
@@ -190,6 +198,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string promotion_url_sub_title { get; set; }
+        /// <summary>
+        /// 小程序的user_name 格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string promotion_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义营销入口小程序页面地址
+        /// </summary>
+        public string promotion_app_brand_pass { get; set; }
         /// <summary>
         /// 积分余额变动消息类型
         /// </summary>

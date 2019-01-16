@@ -296,8 +296,22 @@ namespace Senparc.Weixin.MP
         /// 券点流水详情事件：当商户朋友的券券点发生变动时
         /// </summary>
         card_pay_order,
-
-
+        /// <summary>
+        /// 创建门店小程序审核事件
+        /// </summary>
+        apply_merchant_audit_info,
+        /// <summary>
+        /// 从腾讯地图中创建门店审核事件
+        /// </summary>
+        create_map_poi_audit_info,
+        /// <summary>
+        /// 门店小程序中创建门店审核事件
+        /// </summary>
+        add_store_audit_info,
+        /// <summary>
+        /// 修改门店图片审核事件
+        /// </summary>
+        modify_store_audit_info,
         #region 微信认证事件推送
 
         /// <summary>

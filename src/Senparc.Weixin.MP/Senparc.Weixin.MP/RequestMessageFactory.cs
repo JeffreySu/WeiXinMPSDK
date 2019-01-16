@@ -219,6 +219,19 @@ namespace Senparc.Weixin.MP
                             case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
                                 break;
+                            case "APPLY_MERCHANT_AUDIT_INFO"://创建门店小程序审核事件
+                                requestMessage = new RequestMessageEvent_ApplyMerchantAuditInfo();
+                                break;
+                            case "CREATE_MAP_POI_AUDIT_INFO"://从腾讯地图中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_CreateMapPoiAuditInfo();
+                                break;
+                            case "ADD_STORE_AUDIT_INFO"://门店小程序中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_AddStoreAuditInfo();
+                                break;
+                            case "MODIFY_STORE_AUDIT_INFO"://修改门店图片审核事件
+                                requestMessage = new RequestMessageEvent_ModifyStoreAuditInfo();
+                                break;
+
 
                             #region 卡券回调
                             case "GIFTCARD_PAY_DONE"://券点流水详情事件：当商户朋友的券券点发生变动时

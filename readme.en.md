@@ -1,4 +1,4 @@
-<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" alt="Senparc.Weixin SDK"  />
 
 Senparc.Weixin —— Wechat .NET SDK
 =================

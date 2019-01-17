@@ -114,14 +114,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "PoiApi.AddPoi", true)]
-        public static CreateStoreJsonResult AddPoi(string accessTokenOrAppId, CreateStoreData createStoreData,
+        public static WxJsonResult AddPoi(string accessTokenOrAppId, CreateStoreData createStoreData,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
-                return CommonJsonSend.Send<CreateStoreJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -271,14 +271,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "PoiApi.AddPoiAsync", true)]
-        public static async Task<CreateStoreJsonResult> AddPoiAsync(string accessTokenOrAppId, CreateStoreData createStoreData,
+        public static async Task<WxJsonResult> AddPoiAsync(string accessTokenOrAppId, CreateStoreData createStoreData,
             int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateStoreJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }

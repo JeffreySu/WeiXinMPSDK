@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>16.6.7</Version>
+    <Version>16.6.9-preview1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -454,6 +454,7 @@
       v16.6.5 修复会员卡创建时supply_balance字段和supply_bonus字段为false不序列化
       v16.6.6 添加卡券跳转小程序参数
       v16.6.7 RequestMessageEvent_User_Get_Card 添加 UnionId 属性
+      v16.6.8 添加微信门店小程序接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -550,8 +551,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.3.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.0.2" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.4-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.1-preview1" />
   </ItemGroup>
 
   <ItemGroup>

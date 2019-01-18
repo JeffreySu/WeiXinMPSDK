@@ -159,6 +159,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
                     responseMessage = await OnEvent_Card_Pay_OrderRequestAsync(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
+                
 
 #region 微信认证事件推送
 
@@ -522,7 +523,42 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Card_Pay_OrderRequest(requestMessage));
         }
-
+        /// <summary>
+        /// 【异步方法】创建门店小程序审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Apply_Merchant_Audit_InfoRequestAsync(RequestMessageEvent_ApplyMerchantAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Apply_Merchant_Audit_InfoRequest(requestMessage));
+        }
+        /// <summary>
+        /// 【异步方法】从腾讯地图中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Create_Map_Poi_Audit_InfoAsync(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Create_Map_Poi_Audit_Info(requestMessage));
+        }
+        /// <summary>
+        /// 【异步方法】门店小程序中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Add_Store_Audit_InfoAsync(RequestMessageEvent_AddStoreAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Add_Store_Audit_Info(requestMessage));
+        }
+        /// <summary>
+        /// 【异步方法】修改门店图片审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_Modify_Store_Audit_InfoAsync(RequestMessageEvent_ModifyStoreAuditInfo requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_Modify_Store_Audit_Info(requestMessage));
+        }
 #region 微信认证事件推送
 
         /// <summary>

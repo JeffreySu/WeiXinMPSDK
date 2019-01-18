@@ -159,16 +159,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
                     responseMessage = OnEvent_Card_Pay_OrderRequest(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
-                case Event.apply_merchant_audit_info:
+                case Event.apply_merchant_audit_info://创建门店小程序审核事件
                     responseMessage = OnEvent_Apply_Merchant_Audit_InfoRequest(RequestMessage as RequestMessageEvent_ApplyMerchantAuditInfo);
                     break;
-                case Event.add_store_audit_info:
+                case Event.add_store_audit_info://门店小程序中创建门店审核事件
                     responseMessage = OnEvent_Add_Store_Audit_Info(RequestMessage as RequestMessageEvent_AddStoreAuditInfo);
                     break;
-                case Event.create_map_poi_audit_info:
+                case Event.create_map_poi_audit_info://从腾讯地图中创建门店审核事件
                     responseMessage = OnEvent_Create_Map_Poi_Audit_Info(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
                     break;
-                case Event.modify_store_audit_info:
+                case Event.modify_store_audit_info://修改门店图片审核事件
                     responseMessage = OnEvent_Modify_Store_Audit_Info(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo);
                     break;
 

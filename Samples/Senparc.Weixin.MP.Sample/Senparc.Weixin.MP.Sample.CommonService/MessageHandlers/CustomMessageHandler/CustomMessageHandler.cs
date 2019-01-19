@@ -292,7 +292,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
                     openResponseMessage.Articles.Add(new Article()
                     {
-                        Title = "开放平台微信授权测试",
+                        Title = "开放平台微信授权测试！",
                         Description = @"点击进入Open授权页面。
 
 授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。

@@ -227,7 +227,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     public class GetCardInfoResultJson : WxJsonResult
     {
-        public List<GetCardInfoItem> GetCardInfo { get; set; }
+        public List<GetCardInfoItem> list { get; set; }
     }
 
     public class GetCardInfoItem

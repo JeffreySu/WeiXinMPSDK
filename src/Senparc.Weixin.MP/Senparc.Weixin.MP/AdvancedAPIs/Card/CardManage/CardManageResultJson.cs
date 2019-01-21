@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171127
     修改描述：v14.8.7 完善CardGetResultJson字段
 
+    修改标识：Senparc - 20190121
+    修改描述：v16.6.9 修复：GetCardInfoResultJson 返回结果参数
+
 ----------------------------------------------------------------*/
 
 
@@ -227,7 +230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     public class GetCardInfoResultJson : WxJsonResult
     {
-        public List<GetCardInfoItem> GetCardInfo { get; set; }
+        public List<GetCardInfoItem> list { get; set; }
     }
 
     public class GetCardInfoItem

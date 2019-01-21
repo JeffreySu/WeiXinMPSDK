@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171208
     修改描述：v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题
 
+    修改标识：Senparc - 20190121
+    修改描述：v16.6.9 修复：裂变红包 url 及参数不正确
+
 ----------------------------------------------------------------*/
 
 using System;

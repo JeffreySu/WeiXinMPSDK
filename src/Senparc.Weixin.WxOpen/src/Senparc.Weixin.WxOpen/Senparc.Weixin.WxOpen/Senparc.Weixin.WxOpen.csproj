@@ -44,20 +44,20 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.5.1\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.5.2\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.2.3.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.2.3.1\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.APM, Version=0.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.2.4\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.6.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.6.0.1\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.6.1\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin, Version=6.3.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.3.4.1\lib\net45\Senparc.Weixin.dll</HintPath>
+    <Reference Include="Senparc.Weixin, Version=6.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.6.3.5\lib\net45\Senparc.Weixin.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=16.6.5.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.6.5.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
+    <Reference Include="Senparc.Weixin.MP, Version=16.6.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.MP.16.6.9\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

@@ -29,37 +29,39 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 return httpContextBase;
             };
 #else
-            Func<string, string, HttpContext> getHttpContextBase = (url, queryString) =>
-            {
-                var uri = new Uri(url);
+            Func<string, string, string, HttpContext> getHttpContextBase = (url, queryString, baseUrl) =>
+             {
+                 var uri = new Uri(url);
 
-                var scheme = uri.Scheme;
-                var path = uri.LocalPath;
+                 var scheme = uri.Scheme;
+                 var path = uri.LocalPath;
 
-                var httpContext = new DefaultHttpContext();
-                httpContext.Request.Path = path;
-                httpContext.Request.Host = new HostString(uri.Host,uri.Port);
-                httpContext.Request.Scheme = scheme;
-                httpContext.Request.QueryString = new QueryString(uri.Query);
-
-                return httpContext;
-            };
+                 var httpContext = new DefaultHttpContext();
+                 httpContext.Request.Path = path;
+                 httpContext.Request.Host = new HostString(uri.Host, uri.Port);
+                 httpContext.Request.Scheme = scheme;
+                 httpContext.Request.QueryString = new QueryString(uri.Query);
+                 httpContext.Request.PathBase = baseUrl ?? "/";
+                 return httpContext;
+             };
 #endif
 
+            string virtualPath =null;//虚拟路径
+
             {
-                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com/Home/Index", "");
+                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com/Home/Index", "", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("普通 HTTP Url：" + callbackUrl);
+                Console.WriteLine("\r\n普通 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex",
-    callbackUrl,true);
+    callbackUrl, true);
             }
 
 
             {
-                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1");
+                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("带参数 HTTP Url：" + callbackUrl);
+                Console.WriteLine("\r\n带参数 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
     callbackUrl, true);
@@ -67,38 +69,49 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
 
             {
-                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com:8080/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1");
+                var httpContext = getHttpContextBase("http://sdk.weixin.senparc.com:8080/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("带参数、带端口 HTTP Url：" + callbackUrl);
+                Console.WriteLine("\r\n带参数、带端口 HTTP Url：" + callbackUrl);
                 Assert.AreEqual(
     "http://sdk.weixin.senparc.com:8080/TenpayV3/OAuthCallback?returnUrl=http%3a%2f%2fsdk.weixin.senparc.com%3a8080%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
     callbackUrl, true);
             }
 
             {
-                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com/Home/Index", "");
+                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com/Home/Index", "", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("普通 HTTPS Url：" + callbackUrl);
+                Console.WriteLine("\r\n普通 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex",
     callbackUrl, true);
             }
 
             {
-                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1");
+                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("带参数 HTTPS Url：" + callbackUrl);
+                Console.WriteLine("\r\n带参数 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
     callbackUrl, true);
             }
 
             {
-                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com:1433/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1");
+                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com:1433/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1", virtualPath);
                 var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
-                Console.WriteLine("带参数、带端口 HTTPS Url：" + callbackUrl);
+                Console.WriteLine("\r\n带参数、带端口 HTTPS Url：" + callbackUrl);
                 Assert.AreEqual(
     "https://sdk.weixin.senparc.com:1433/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%3a1433%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
+    callbackUrl, true);
+            }
+
+            //虚拟路径
+            {
+                virtualPath = "/VirtualPath";
+                var httpContext = getHttpContextBase("https://sdk.weixin.senparc.com:1433/Home/Index?a=1&b=2&c=3-1", "a=1&b=2&c=3-1", virtualPath);
+                var callbackUrl = UrlUtility.GenerateOAuthCallbackUrl(httpContext, "/TenpayV3/OAuthCallback");
+                Console.WriteLine("\r\n带参数、带端口 HTTPS Url：" + callbackUrl);
+                Assert.AreEqual(
+    "https://sdk.weixin.senparc.com:1433/VirtualPath/TenpayV3/OAuthCallback?returnUrl=https%3a%2f%2fsdk.weixin.senparc.com%3a1433%2fHome%2fIndex%3fa%3d1%26b%3d2%26c%3d3-1",
     callbackUrl, true);
             }
         }

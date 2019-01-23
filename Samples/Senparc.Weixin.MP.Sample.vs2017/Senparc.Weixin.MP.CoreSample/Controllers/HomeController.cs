@@ -143,5 +143,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var accessTokenBags = AccessTokenContainer.GetAllItems();
             return Json(accessTokenBags);
         }
+
+        public ActionResult TestPath()
+        {
+            return Content(HttpContext.Request.PathBase);
+        }
     }
 }

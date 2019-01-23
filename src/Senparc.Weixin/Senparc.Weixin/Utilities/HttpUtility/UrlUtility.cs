@@ -124,11 +124,6 @@ namespace Senparc.Weixin.HttpUtility
                 portSetting = ":" + port;//添加端口
             }
 
-            if (baseUrl == "/")
-            {
-                baseUrl = null;
-            }
-
             //授权回调字符串
             var callbackUrl = string.Format("{0}://{1}{2}{6}{3}{4}returnUrl={5}",
                 scheme,

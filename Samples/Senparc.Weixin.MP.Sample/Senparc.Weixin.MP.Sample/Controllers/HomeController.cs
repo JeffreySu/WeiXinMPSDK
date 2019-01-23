@@ -72,8 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}", Request.Url, Request.UserHostName));
 
             //获取编译时间
-            //因为官方在线 Demo CI 自动生成使用的服务器为 UTC-0，所以北京时间需要+8小时
-            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).AddHours(8).ToString("yyyyMMdd.HH.mm");
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString("yyyyMMdd.HH.mm");
 
             return View();
         }

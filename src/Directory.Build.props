@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <DebugType Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">full</DebugType>
-    <DebugType Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">portable</DebugType>
+    <DebugType Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">portable</DebugType>
     <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 

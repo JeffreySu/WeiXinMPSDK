@@ -157,7 +157,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, jsonSetting: jsonSetting);
-                //return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
 
             }, accessTokenOrAppKey);
         }

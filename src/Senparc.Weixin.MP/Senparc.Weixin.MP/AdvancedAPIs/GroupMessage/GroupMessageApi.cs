@@ -65,9 +65,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

@@ -416,7 +416,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken.AsUrlData(), mediaId.AsUrlData());
-                await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
+                await CO2NET.HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);
 

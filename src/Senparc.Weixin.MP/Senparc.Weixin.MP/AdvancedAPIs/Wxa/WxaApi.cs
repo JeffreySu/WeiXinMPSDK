@@ -1,5 +1,6 @@
 ﻿using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson;
 using Senparc.Weixin.MP.CommonAPIs;

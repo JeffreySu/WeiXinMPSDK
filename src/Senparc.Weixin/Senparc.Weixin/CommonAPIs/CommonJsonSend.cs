@@ -29,7 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
            
     修改标识：Senparc - 20170606
     修改描述：v14.4.11 完善CommonJsonSend.SendAsync()方法参数
-        
+  
+    修改标识：Senparc - 20190129
+    修改描述：v6.3.8 修复 CommonJsonSend.Send() 方法中的异常请求结果自动抛出 
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -47,7 +50,7 @@ using Senparc.CO2NET.HttpUtility;
 namespace Senparc.Weixin.CommonAPIs
 {
     /// <summary>
-    /// CommonJsonSend
+    /// 所有高级接口共用的向微信服务器发送 API 请求的方法
     /// </summary>
     public static class CommonJsonSend
     {
@@ -92,8 +95,44 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return Get.GetJson<T>(url);
+                        //设定条件，当API结果没有返回成功信息时抛出异常
+                        Action<string, string> getFailAction = (apiUrl, returnText) =>
+                        {
+                            WeixinTrace.SendApiLog(apiUrl, returnText);
+
+                            if (returnText.Contains("errcode"))
+                            {
+                                //可能发生错误
+                                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                                if (errorResult.errcode != ReturnCode.请求成功)
+                                {
+                                    //发生错误
+                                    throw new ErrorJsonResultException(
+                                        string.Format("微信 GET 请求发生错误！错误代码：{0}，说明：{1}",
+                                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, apiUrl);
+                                }
+                            }
+                        };
+                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
+                        //设定条件，当API结果没有返回成功信息时抛出异常
+                        Action<string, string> postFailAction = (apiUrl, returnText) =>
+                        {
+                            if (returnText.Contains("errcode"))
+                            {
+                                //可能发生错误
+                                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                                if (errorResult.errcode != ReturnCode.请求成功)
+                                {
+                                    //发生错误
+                                    throw new ErrorJsonResultException(
+                                        string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
+                                                      (int)errorResult.errcode,
+                                                      errorResult.errmsg),
+                                        null, errorResult, apiUrl);
+                                }
+                            }
+                        };
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
@@ -104,7 +143,10 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
+                            return Post.PostGetJson<T>(url, null, ms,
+                                timeOut: timeOut,
+                                afterReturnText: postFailAction,
+                                checkValidationResult: checkValidationResult);
                         }
 
                     //TODO:对于特定的错误类型自动进行一次重试，如40001（目前的问题是同样40001会出现在不同的情况下面）

@@ -126,7 +126,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             catch (ErrorJsonResultException ex)
             {
                 if (retryIfFaild
-                    && appId != null
+                    && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
                     //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {

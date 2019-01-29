@@ -458,7 +458,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-                var result = CO2NET.HttpUtility.Get.GetJson<WorkJsonResult>(url);
+                var result = CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
                 return result;
             }, accessTokenOrAppId);
         }

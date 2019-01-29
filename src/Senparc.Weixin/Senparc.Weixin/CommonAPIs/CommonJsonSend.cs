@@ -137,7 +137,6 @@ namespace Senparc.Weixin.CommonAPIs
             {
                 var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
 
-
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:

@@ -300,7 +300,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
 
-                //return HttpUtility.Get.GetJson<SelfMenuConfigResult>(url);
                 return CommonJsonSend.Send<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);

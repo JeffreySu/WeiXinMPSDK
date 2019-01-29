@@ -907,7 +907,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
-               return await CO2NET.HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
+               return await CommonJsonSend.SendAsync<GetMediaCountResultJson>(null, url, null, CommonJsonSendType.GET);
 
            }, accessTokenOrAppId);
         }
@@ -934,7 +934,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
 
@@ -964,7 +964,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -986,7 +986,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1017,7 +1017,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice_id = voiceId,
                     lang = lang
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1043,7 +1043,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice_id = voiceId,
                     lang = lang
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<QueryRecoResultResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<QueryRecoResultResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1068,7 +1068,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     Ifrom,
                     Ito
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<TranslateContentResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<TranslateContentResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

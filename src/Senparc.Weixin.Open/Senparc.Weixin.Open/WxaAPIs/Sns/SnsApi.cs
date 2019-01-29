@@ -32,6 +32,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -61,7 +62,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
                 Config.ApiMpHost + "/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
 
             var url = string.Format(urlFormat, appId, jsCode, grantType, componentAppId, componentAccessToken);
-            var result = Get.GetJson<JsCode2JsonResult>(url);
+            var result = CommonJsonSend.Send<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET);
             return result;
         }
 
@@ -87,7 +88,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
                 Config.ApiMpHost + "/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
 
             var url = string.Format(urlFormat, appId, jsCode, grantType, componentAppId, componentAccessToken);
-            var result = await Get.GetJsonAsync<JsCode2JsonResult>(url);
+            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET);
             return result;
         }
 

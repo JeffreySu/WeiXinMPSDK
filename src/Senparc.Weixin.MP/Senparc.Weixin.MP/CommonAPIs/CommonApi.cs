@@ -61,6 +61,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = CO2NET.HttpUtility.Get.GetJson<AccessTokenResult>(url);
+            AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
             return result;
         }
 
@@ -106,7 +107,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                         accessToken.AsUrlData(), openId.AsUrlData());
-                WeixinUserInfoResult result = CO2NET.HttpUtility.Get.GetJson<WeixinUserInfoResult>(url);
+                WeixinUserInfoResult result = CommonJsonSend.Send<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
                 return result;
 
             }, accessTokenOrAppId);
@@ -141,7 +142,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                JsApiTicketResult result = CO2NET.HttpUtility.Get.GetJson<JsApiTicketResult>(url);
+                JsApiTicketResult result = CommonJsonSend.Send<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
                 return result;
 
             }, accessTokenOrAppId);
@@ -159,7 +160,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-                return CO2NET.HttpUtility.Get.GetJson<GetCallBackIpResult>(url);
+                return CommonJsonSend.Send<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -206,7 +207,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = await CO2NET.HttpUtility.Get.GetJsonAsync<AccessTokenResult>(url);
+            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
             return result;
         }
 
@@ -223,7 +224,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
            {
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                        accessToken.AsUrlData(), openId.AsUrlData());
-               var result = CO2NET.HttpUtility.Get.GetJsonAsync<WeixinUserInfoResult>(url);
+               var result = CommonJsonSend.SendAsync<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
                return await result;
 
            }, accessTokenOrAppId);
@@ -258,7 +259,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                var result = CO2NET.HttpUtility.Get.GetJsonAsync<JsApiTicketResult>(url);
+                var result = CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
                 return await result;
 
             }, accessTokenOrAppId);
@@ -276,7 +277,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-                return await CO2NET.HttpUtility.Get.GetJsonAsync<GetCallBackIpResult>(url);
+                return await CommonJsonSend.SendAsync<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -299,7 +300,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     appid = appId
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

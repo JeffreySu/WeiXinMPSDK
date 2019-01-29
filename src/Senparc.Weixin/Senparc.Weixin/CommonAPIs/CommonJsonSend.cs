@@ -214,7 +214,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url);
+                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -226,7 +226,10 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return await Post.PostGetJsonAsync<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
+                            return await Post.PostGetJsonAsync<T>(url, null, ms,
+                                timeOut: timeOut,
+                                afterReturnText: postFailAction,
+                                checkValidationResult: checkValidationResult);
                         }
                     default:
                         throw new ArgumentOutOfRangeException("sendType");

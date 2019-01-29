@@ -57,6 +57,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180424
     修改描述：v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -363,7 +366,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -408,7 +410,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
-                return CO2NET.HttpUtility.Get.GetJson<GetMediaCountResultJson>(url);
+                return CommonJsonSend.Send<GetMediaCountResultJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }

@@ -54,6 +54,52 @@ namespace Senparc.Weixin.CommonAPIs
     /// </summary>
     public static class CommonJsonSend
     {
+        #region 公共私有方法
+
+        /// <summary>
+        /// 设定条件，当API结果没有返回成功信息时抛出异常
+        /// </summary>
+        static Action<string, string> getFailAction = (apiUrl, returnText) =>
+         {
+             WeixinTrace.SendApiLog(apiUrl, returnText);
+
+             if (returnText.Contains("errcode"))
+             {
+                 //可能发生错误
+                 WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                 if (errorResult.errcode != ReturnCode.请求成功)
+                 {
+                     //发生错误
+                     throw new ErrorJsonResultException(
+                          string.Format("微信 GET 请求发生错误！错误代码：{0}，说明：{1}",
+                                          (int)errorResult.errcode, errorResult.errmsg), null, errorResult, apiUrl);
+                 }
+             }
+         };
+
+        /// <summary>
+        /// 设定条件，当API结果没有返回成功信息时抛出异常
+        /// </summary>
+        static Action<string, string> postFailAction = (apiUrl, returnText) =>
+         {
+             if (returnText.Contains("errcode"))
+             {
+                 //可能发生错误
+                 WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                 if (errorResult.errcode != ReturnCode.请求成功)
+                 {
+                     //发生错误
+                     throw new ErrorJsonResultException(
+                          string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
+                                        (int)errorResult.errcode,
+                                        errorResult.errmsg),
+                          null, errorResult, apiUrl);
+                 }
+             }
+         };
+
+        #endregion
+
         #region 同步方法
 
         /// <summary>
@@ -95,44 +141,8 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        //设定条件，当API结果没有返回成功信息时抛出异常
-                        Action<string, string> getFailAction = (apiUrl, returnText) =>
-                        {
-                            WeixinTrace.SendApiLog(apiUrl, returnText);
-
-                            if (returnText.Contains("errcode"))
-                            {
-                                //可能发生错误
-                                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
-                                if (errorResult.errcode != ReturnCode.请求成功)
-                                {
-                                    //发生错误
-                                    throw new ErrorJsonResultException(
-                                        string.Format("微信 GET 请求发生错误！错误代码：{0}，说明：{1}",
-                                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, apiUrl);
-                                }
-                            }
-                        };
                         return Get.GetJson<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
-                        //设定条件，当API结果没有返回成功信息时抛出异常
-                        Action<string, string> postFailAction = (apiUrl, returnText) =>
-                        {
-                            if (returnText.Contains("errcode"))
-                            {
-                                //可能发生错误
-                                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
-                                if (errorResult.errcode != ReturnCode.请求成功)
-                                {
-                                    //发生错误
-                                    throw new ErrorJsonResultException(
-                                        string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
-                                                      (int)errorResult.errcode,
-                                                      errorResult.errmsg),
-                                        null, errorResult, apiUrl);
-                                }
-                            }
-                        };
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {

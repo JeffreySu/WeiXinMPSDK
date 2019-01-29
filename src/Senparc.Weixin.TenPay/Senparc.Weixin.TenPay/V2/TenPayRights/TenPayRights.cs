@@ -65,7 +65,7 @@ namespace Senparc.Weixin.TenPay.V2
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
-            return Get.GetJson<WxJsonResult>(url);
+            return CommonJsonSend.Send<WxJsonResult>(url);
         }
         #endregion
 
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.TenPay.V2
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
-            return await Get.GetJsonAsync<WxJsonResult>(url);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(url);
         }
         #endregion
 #endif

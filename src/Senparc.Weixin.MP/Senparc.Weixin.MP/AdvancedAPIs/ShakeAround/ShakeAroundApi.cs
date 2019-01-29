@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
-                return Get.GetJson<GetAuditStatusResultJson>(url);
+                return CommonJsonSend.Send<GetAuditStatusResultJson>(url);
 
             }, accessTokenOrAppId);
         }
@@ -1157,7 +1157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
-                return await Get.GetJsonAsync<GetAuditStatusResultJson>(url);
+                return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(url);
 
             }, accessTokenOrAppId);
         }

@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             switch (sendType)
             {
                 case CommonJsonSendType.GET:
-                    return await Get.GetJsonAsync<T>(url);
+                    return await CommonJsonSend.SendAsync<T>(url);
                 case CommonJsonSendType.POST:
                     var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                     using (MemoryStream ms = new MemoryStream())

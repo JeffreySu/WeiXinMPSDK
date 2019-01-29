@@ -140,7 +140,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
+                        return CommonJsonSend.Send<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction);
+                        return await CommonJsonSend.SendAsync<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())

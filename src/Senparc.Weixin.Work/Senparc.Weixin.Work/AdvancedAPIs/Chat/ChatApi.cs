@@ -19,6 +19,9 @@
     修改标识：lishewen - 20180531
     修改描述：v1.6.1 创建会话返回结果
  
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -89,7 +92,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(_urlFormatGet, accessToken.AsUrlData(), chatId.AsUrlData());
 
-                return Get.GetJson<GetChatResult>(url);
+                return CommonJsonSend.Send<GetChatResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
         }
 
@@ -364,8 +367,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(_urlFormatGet, accessToken.AsUrlData(), chatId.AsUrlData());
-
-                return await Get.GetJsonAsync<GetChatResult>(url);
+                return await CommonJsonSend.SendAsync<GetChatResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
         }
 
@@ -535,7 +537,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     op_user = opUser,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -566,7 +568,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -604,7 +606,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     user_mute_list = userMuteList
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
         #endregion

@@ -45,7 +45,7 @@ using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 //using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
@@ -691,7 +691,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                await CO2NET.HttpUtility.Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {

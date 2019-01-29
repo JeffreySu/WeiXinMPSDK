@@ -54,7 +54,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         [TestMethod]
         public void GetJsonTest()
         {
-            return; //已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+            return; //已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。 TODO：迁移到 CO2NET
 
             {
                 var url = "http://apistore.baidu.com/microservice/cityinfo?cityname=苏州";

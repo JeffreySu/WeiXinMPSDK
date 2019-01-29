@@ -58,6 +58,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180522
     修改描述：v14.5.1 完善异步方法async/await
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -74,6 +77,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using System.Linq;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -117,7 +121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
-                return CommonJsonSend.Send<GetAuditStatusResultJson>(url);
+                return CommonJsonSend.Send<GetAuditStatusResultJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -1157,7 +1161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(url);
+                return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }

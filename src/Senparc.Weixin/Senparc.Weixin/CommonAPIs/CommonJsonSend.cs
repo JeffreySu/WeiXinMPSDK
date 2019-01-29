@@ -44,7 +44,6 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.CommonAPIs
@@ -140,7 +139,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return CommonJsonSend.Send<T>(url, afterReturnText: getFailAction);
+                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -213,7 +212,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await CommonJsonSend.SendAsync<T>(url, afterReturnText: getFailAction);
+                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())

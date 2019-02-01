@@ -299,7 +299,7 @@ img.official-img {
 
 .readmore {
     margin-top: 40px;
-    margin-left: 60px;
+    margin-left: 20px;
     background-color: #e0f3fe;
     float: left;
 }
@@ -757,7 +757,7 @@ p.crowdfunding-note {
     }
 
     .content-weixin {
-        width: 900px;
+        width: 905px;
         margin: 0px auto;
         clear: both;
     }

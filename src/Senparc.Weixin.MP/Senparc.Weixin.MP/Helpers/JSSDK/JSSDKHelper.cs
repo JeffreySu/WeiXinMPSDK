@@ -54,7 +54,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181226
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
-
+    测试提交贡献
 ----------------------------------------------------------------*/
 
 using System;

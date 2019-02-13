@@ -1,4 +1,5 @@
 ﻿@using Senparc.Weixin.MP.Sample.Models
+@*DPBMARK_FILE TenPay*@
 @{
     Layout = null;
 }
@@ -106,20 +107,20 @@
     </script>
 </head>
 <body>
-<div class="WCPay">
-    <h1>支付成功！</h1>
-    <a id="getBrandWCPayRequest" href="javascript:void(0);">
-        @if (ViewData["product"] is ProductModel)
-        {
-            var product = (ProductModel)ViewData["product"];
-            <div class="product">
-                您已选中产品：@product.Name<br />
-                单价：@product.Price.ToString("c")
-            </div>
-        }
-        <h1 class="title">支付成功！进入退款流程测试。</h1>
-    </a>
-</div>
+    <div class="WCPay">
+        <h1>支付成功！</h1>
+        <a id="getBrandWCPayRequest" href="javascript:void(0);">
+            @if (ViewData["product"] is ProductModel)
+            {
+                var product = (ProductModel)ViewData["product"];
+                <div class="product">
+                    您已选中产品：@product.Name<br />
+                    单价：@product.Price.ToString("c")
+                </div>
+            }
+            <h1 class="title">支付成功！进入退款流程测试。</h1>
+        </a>
+    </div>
     <div>注意：此页面只是展示一下返回结果（都会显示支付成功），实际使用过程中需要校验是否真的已经支付成功</div>
 
 </body>

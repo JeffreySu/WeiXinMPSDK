@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE Work
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +22,8 @@ using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -81,7 +84,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //var sr = new StreamReader(ms);
             //var xml = sr.ReadToEnd();
             //var doc = XDocument.Parse(xml);
-            //doc.Save(Server.GetMapPath("~/App_Data/TestWork.log"));
+            //doc.Save(ServerUtility.ContentRootMapPath("~/App_Data/TestWork.log"));
             //return null;
             #endregion
 
@@ -96,26 +99,25 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
-                //执行微信处理过程
-                messageHandler.Execute();
-                //测试时可开启，帮助跟踪数据
-                messageHandler.ResponseDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                messageHandler.FinalResponseDocument.Save(Server.GetMapPath("~/App_Data/Work/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
+
+                messageHandler.Execute();//执行微信处理过程（关键）
+
+                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 //自动返回加密后结果
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
                     tw.WriteLine(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
-                    if (messageHandler.FinalResponseDocument != null)
+                    if (messageHandler.FinalResponseDocument != null && messageHandler.FinalResponseDocument.Root != null)
                     {
                         tw.WriteLine(messageHandler.FinalResponseDocument.ToString());
                     }

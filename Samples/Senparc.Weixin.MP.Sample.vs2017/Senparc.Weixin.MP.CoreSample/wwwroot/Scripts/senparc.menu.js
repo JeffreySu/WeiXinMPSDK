@@ -30,8 +30,8 @@ senparc.menu = {
             var ddlDetailsType = $('#buttonDetails_type');
             var txtDetailsUrl = $('#buttonDetails_url');
             var txtMediaId = $('#buttonDetails_mediaId');
-            var txtDetailsAppid = $('#buttonDetails_appid');
-            var txtDetailsPagepath = $('#buttonDetails_pagepath');
+            var txtDetailsAppid = $('#buttonDetails_miniprogram_appid');
+            var txtDetailsPagepath = $('#buttonDetails_miniprogram_pagepath');
 
             var hiddenButtonKey = $('#' + keyId);
             var hiddenButtonType = $('#' + typeId);
@@ -80,7 +80,7 @@ senparc.menu = {
             $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
 
             //一级菜单提示
-            if (row == 5) {
+            if (row === 5) {
                 $('#rootButtonNotice').show();
             } else {
                 $('#rootButtonNotice').hide();

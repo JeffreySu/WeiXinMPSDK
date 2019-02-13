@@ -42,9 +42,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Redlock.CSharp;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
 
 
@@ -53,11 +56,29 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : RedisObjectCacheStrategy, IContainerCacheStrategy
+    public sealed class RedisContainerCacheStrategy : BaseContainerCacheStrategy
     {
+        #region IDomainExtensionCacheStrategy 成员
+        public override ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
+        #endregion
 
         #region 单例
+
+        /// <summary>
+        /// Redis 缓存策略
+        /// </summary>
+        RedisContainerCacheStrategy() /*: base()*/
+        {
+            //base.ChildNamespace = "WeixinContainer";
+
+            //使用底层缓存策略
+            BaseCacheStrategy = () => RedisObjectCacheStrategy.Instance;
+
+            //向底层缓存注册当前缓存策略
+            base.RegisterCacheStrategyDomain(this);
+        }
+
 
         //静态SearchCache
         public static RedisContainerCacheStrategy Instance
@@ -84,13 +105,6 @@ namespace Senparc.Weixin.Cache.Redis
         }
 
         /// <summary>
-        /// Redis 缓存策略
-        /// </summary>
-        public RedisContainerCacheStrategy()
-        {
-        }
-
-        /// <summary>
         /// Redis 缓存策略析构函数，用于 _client 资源回收
         /// </summary>
         ~RedisContainerCacheStrategy()
@@ -99,32 +113,11 @@ namespace Senparc.Weixin.Cache.Redis
 
         #region 实现 IContainerCacheStrategy 接口
 
-        //public string CacheSetKey { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="isFullKey">是否已经是完整的Key</param>
-        /// <returns></returns>
-        public bool CheckExisted(string key, bool isFullKey = false)
+        public override IDictionary<string, TBag> GetAll<TBag>()
         {
-            return base.CheckExisted(key, isFullKey);
-        }
 
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            var value =base.Get(key, isFullKey);
-            if (value == null)
-            {
-                return null;
-            }
 
-            return StackExchangeRedisExtensions.Deserialize<IBaseContainerBag>((RedisValue)value);
-        }
-
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
-        {
             #region 旧方法（没有使用Hash之前）
 
             //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
@@ -149,61 +142,26 @@ namespace Senparc.Weixin.Cache.Redis
 
             #endregion
 
+            var baseCacheStrategy = BaseCacheStrategy();
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
-            key = GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
-            var list = _cache.HashGetAll(key);
+            key = baseCacheStrategy.GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
+            var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAllByPrefix<TBag>(key);
+
+            //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
             var dic = new Dictionary<string, TBag>();
 
-            foreach (var hashEntry in list)
+            foreach (var item in list)
             {
-                var fullKey = key + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
-                dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                var fullKey = key + ":" + item.Key;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                dic[fullKey] = item;
             }
 
             return dic;
         }
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
-        {
-            //尽量不要用此方法！
-            return GetAll<IBaseContainerBag>();
-        }
-
-
-        public long GetCount()
-        {
-            return base.GetCount();
-        }
-
-        public void InsertToCache(string key, IBaseContainerBag value)
-        {
-            base.InsertToCache(key, value);
-        }
-
-        public void RemoveFromCache(string key, bool isFullKey = false)
-        {
-            base.RemoveFromCache(key, isFullKey);
-        }
-
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
-        {
-            base.Update(key, value, isFullKey);
-        }
-
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
-        {
-            if (this.CheckExisted(key, isFullKey))
-            {
-                Update(key, containerBag, isFullKey);
-            }
-        }
-
         #endregion
 
-        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
-        {
-            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay);
-        }
     }
 }

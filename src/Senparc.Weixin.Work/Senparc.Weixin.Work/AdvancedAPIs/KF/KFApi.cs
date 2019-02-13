@@ -12,6 +12,10 @@
 
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
  
 ----------------------------------------------------------------*/
 
@@ -22,6 +26,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.AdvancedAPIs.KF;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -50,6 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendText", true)]
         public static WorkJsonResult SendText(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
@@ -90,6 +97,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendImage", true)]
         public static WorkJsonResult SendImage(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -130,6 +138,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendFile", true)]
         public static WorkJsonResult SendFile(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -170,6 +179,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendVoice", true)]
         public static WorkJsonResult SendVoice(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -206,6 +216,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.GetKFList", true)]
         public static GetKFListResult GetKFList(string accessTokenOrAppKey, KF_Type? type = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -232,6 +243,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendTextAsync", true)]
         public static async Task<WorkJsonResult> SendTextAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
@@ -272,6 +284,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendImageAsync", true)]
         public static async Task<WorkJsonResult> SendImageAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -312,6 +325,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendFileAsync", true)]
         public static async Task<WorkJsonResult> SendFileAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -352,6 +366,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.SendVoiceAsync", true)]
         public static async Task<WorkJsonResult> SendVoiceAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -388,6 +403,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "KFApi.GetKFListAsync", true)]
         public static async Task<GetKFListResult> GetKFListAsync(string accessTokenOrAppKey, KF_Type? type = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

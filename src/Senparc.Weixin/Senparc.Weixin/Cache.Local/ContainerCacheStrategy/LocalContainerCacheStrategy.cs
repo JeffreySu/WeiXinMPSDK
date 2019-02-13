@@ -38,6 +38,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System.Collections.Generic;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Cache;
+using Senparc.CO2NET.Cache;
+using System;
 
 namespace Senparc.Weixin.Cache
 {
@@ -53,19 +55,17 @@ namespace Senparc.Weixin.Cache
 
     //    static LocalContainerCacheHelper()
     //    {
-    //        LocalContainerCache = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
+    //        LocalContainerBaseCacheStrategy() = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
     //    }
     //}
 
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IContainerCacheStrategy
-    //where TContainerBag : class, IBaseContainerBag, new()
+    public sealed class LocalContainerCacheStrategy : BaseContainerCacheStrategy
     {
-        #region 数据源
-
-        private IDictionary<string, object> _cache = LocalObjectCacheHelper.LocalObjectCache;
+        #region IDomainExtensionCacheStrategy 成员
+        public override ICacheStrategyDomain CacheStrategyDomain { get { return ContainerCacheStrategyDomain.Instance; } }
 
         #endregion
 
@@ -74,8 +74,13 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        LocalContainerCacheStrategy():base()
+        private LocalContainerCacheStrategy() /*: base()*/
         {
+            //使用底层缓存策略
+            BaseCacheStrategy = () => LocalObjectCacheStrategy.Instance;
+
+            //向底层缓存注册当前缓存策略
+            base.RegisterCacheStrategyDomain(this);
         }
 
         //静态LocalCacheStrategy
@@ -98,28 +103,14 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
-        #region ILocalCacheStrategy 成员
-
-        public void InsertToCache(string key, IBaseContainerBag value)
-        {
-            base.InsertToCache(key, value);
-        }
-
-        public void RemoveFromCache(string key, bool isFullKey = false)
-        {
-            base.RemoveFromCache(key, isFullKey);
-        }
-
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            return base.Get(key,isFullKey) as IBaseContainerBag;
-        }
+        #region BaseContainerCacheStrategy 成员
 
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        public override IDictionary<string, TBag> GetAll<TBag>()
         {
             var dic = new Dictionary<string, TBag>();
-            var cacheList = GetAll();
+            var baseCacheStrategy = BaseCacheStrategy();
+            var cacheList = baseCacheStrategy.GetAll();
             foreach (var baseContainerBag in cacheList)
             {
                 if (baseContainerBag.Value is TBag)
@@ -130,40 +121,28 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
-        {
-            var dic = new Dictionary<string, IBaseContainerBag>();
-            foreach (var item in _cache)
-            {
-                if (item.Value is IBaseContainerBag)
-                {
-                    dic[item.Key] = (IBaseContainerBag)item.Value;
-                }
-            }
-            return dic;
-        }
-
-        public bool CheckExisted(string key, bool isFullKey = false)
-        {
-            var cacheKey = GetFinalKey(key, isFullKey);
-            return _cache.ContainsKey(cacheKey);
-        }
-
-        public long GetCount()
-        {
-            return GetAll().Count;
-        }
-
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
-        {
-            base.Update(key, value, isFullKey);
-        }
-
-        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
-        {
-            Update(key, bag, isFullKey);
-        }
 
         #endregion
+
+
+        //public IDictionary<string, IBaseContainerBag> GetAll()
+        //{
+        //    var dic = new Dictionary<string, IBaseContainerBag>();
+        //    foreach (var item in BaseCacheStrategy().GetAll())
+        //    {
+        //        if (item.Value is IBaseContainerBag)
+        //        {
+        //            dic[item.Key] = (IBaseContainerBag)item.Value;
+        //        }
+        //    }
+        //    return dic;
+        //}
+
+
+        //public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = default(TimeSpan))
+        //{
+        //    return new LocalCacheLock(BaseCacheStrategy() as LocalObjectCacheStrategy, resourceName, key, retryCount, retryDelay);
+        //    //return BaseCacheStrategy().BeginCacheLock(resourceName, key, retryCount, retryDelay);
+        //}
     }
 }

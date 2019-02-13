@@ -1,4 +1,5 @@
-﻿@{
+﻿@*DPBMARK_FILE MP*@
+@{
     Layout = null;
 }
 
@@ -28,7 +29,7 @@
                 <strong>不带returnUrl</strong>。
             </span><br />
             <span class="green">使用不带returnUrl的页面会停留在Callback页面，此页面如果刷新（或后退到此页面），会导致code过期的错误，只建议在测试阶段使用。</span>
-            <br/>
+            <br />
             <span>
                 测试带returnUrl@(Html.ActionLink("点击这里", "Index", new { returnUrl = Url.Action("TestReturnUrl") }))。
             </span>

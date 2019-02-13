@@ -77,6 +77,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 当前用户的会员卡状态
         /// </summary>
         public UserCardStatus user_card_status { get; set; }
+        /// <summary>
+        /// 该卡是否已经被激活，true表示已经被激活，false表示未被激活
+        /// </summary>
+        public bool has_active { get; set; }
     }
 
     public class UserinfoGetResult_UserInfo
@@ -92,6 +96,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public List<UserinfoGetResult_UserInfo_Item> custom_field_list { get; set; }
     }
 
+    /// <summary>
+    /// 获取用户开卡时提交的信息
+    /// </summary>
+    public class GetActivateTempInfoResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 会员信息
+        /// </summary>
+        public UserinfoGetResult_UserInfo info { get; set; }
+    }
+
     public class UserinfoGetResult_UserInfo_Item
     {
         /// <summary>
@@ -102,5 +117,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 会员卡信息类目值，比如等级值等
         /// </summary>
         public string value { get; set; }
+        /// <summary>
+        /// 填写项目为多选时的返回
+        /// </summary>
+        public List<string> value_list { get; set; }
     }
 }

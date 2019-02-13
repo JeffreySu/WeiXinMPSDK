@@ -36,9 +36,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170927
     修改描述：v4.16.5 添加Card_BaseInfoBase下的sub_merchant_info属性
 
+    修改标识：Senparc - 20180618
+    修改描述：Modify_Msg_Operation modify_msg_operationg 添加  [JsonSetting.IgnoreNull] 特性
+
 ----------------------------------------------------------------*/
 
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Senparc.CO2NET.Helpers.Serializers;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -63,6 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// code 码展示类型
         /// 必填
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Card_CodeType code_type { get; set; }
         /// <summary>
         /// 商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
@@ -169,6 +176,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string custom_url_sub_title { get; set; }
         /// <summary>
+        /// 自定义使用入口跳转小程序的user_name，格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string custom_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义使用入口小程序页面地址
+        /// </summary>
+        public string custom_app_brand_pass { get; set; }
+        /// <summary>
         /// 营销场景的自定义入口名称
         /// 非必填
         /// </summary>
@@ -184,8 +199,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string promotion_url_sub_title { get; set; }
         /// <summary>
+        /// 小程序的user_name 格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string promotion_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义营销入口小程序页面地址
+        /// </summary>
+        public string promotion_app_brand_pass { get; set; }
+        /// <summary>
         /// 积分余额变动消息类型
         /// </summary>
+        [JsonSetting.IgnoreNull]
         public Modify_Msg_Operation modify_msg_operation { get; set; }
 
         //public Card_BaseInfoBase()
@@ -197,7 +221,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 设置本卡券支持全部门店
         /// </summary>
-        public bool use_all_locations { get; set;}
+        public bool use_all_locations { get; set; }
         /// <summary>
         ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
         /// </summary>
@@ -205,7 +229,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 会员卡支持微信支付刷卡
         /// </summary>
-        public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set; }
     }
 
     public class Card_BaseInfoBase_SubMerchantInfo

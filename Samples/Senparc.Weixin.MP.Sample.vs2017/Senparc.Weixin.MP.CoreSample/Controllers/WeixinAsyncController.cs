@@ -12,6 +12,7 @@
 
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,10 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.IO;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.CO2NET.HttpUtility;
+using System.Xml.Linq;
+using System.Threading;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -35,11 +40,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class WeixinAsyncController : Controller
     {
-        public static readonly string Token = Config.DefaultSenparcWeixinSetting.Token ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = Config.DefaultSenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.Token ?? CheckSignature.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
 
 
         public WeixinAsyncController()
@@ -83,9 +88,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
+            var cancellationToken = new CancellationToken();//给异步方法使用
 
-            messageHandler.DefaultMessageHandlerAsyncEvent = Weixin.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10)
+            {
+                DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            };
 
             #region 设置消息去重
 
@@ -95,55 +103,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             #endregion
 
-            #region 记录 Request 日志
+            messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            var logPath = Server.GetMapPath(string.Format("~/App_Data/MP/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
-            if (!Directory.Exists(logPath))
-            {
-                Directory.CreateDirectory(logPath);
-            }
+            await messageHandler.ExecuteAsync(cancellationToken); //执行微信处理过程（关键）
 
-            //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-            messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}_{2}.txt", _getRandomFileName(),
-                messageHandler.RequestMessage.FromUserName,
-                messageHandler.RequestMessage.MsgType)));
-            if (messageHandler.UsingEcryptMessage)
-            {
-                messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.RequestMessage.FromUserName,
-                    messageHandler.RequestMessage.MsgType)));
-            }
+            messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
-            #endregion
-
-            await messageHandler.ExecuteAsync(); //执行微信处理过程
-
-            #region 记录 Response 日志
-
-            //测试时可开启，帮助跟踪数据
-
-            //if (messageHandler.ResponseDocument == null)
-            //{
-            //    throw new Exception(messageHandler.RequestDocument.ToString());
-            //}
-            if (messageHandler.ResponseDocument != null)
-            {
-                messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.ResponseMessage.ToUserName,
-                    messageHandler.ResponseMessage.MsgType)));
-            }
-
-            if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
-            {
-                //记录加密后的响应信息
-                messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}_{2}.txt", _getRandomFileName(),
-                    messageHandler.ResponseMessage.ToUserName,
-                    messageHandler.ResponseMessage.MsgType)));
-            }
-
-            #endregion
-
-            MessageHandler = messageHandler;//开放出MessageHandler是为了做单元测试，实际使用过程中不需要
+            MessageHandler = messageHandler;//开放出MessageHandler是为了做单元测试，实际使用过程中这一行不需要
 
             return new FixWeixinBugWeixinResult(messageHandler);
         }
@@ -157,12 +123,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //异步并发测试（提供给单元测试使用）
             return Task.Factory.StartNew<ActionResult>(() =>
             {
-                DateTime begin = DateTime.Now;
+                var begin = SystemTime.Now;
                 int t1, t2, t3;
                 System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
                 System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.1));
-                DateTime end = DateTime.Now;
+                var end = SystemTime.Now;
                 var thread = System.Threading.Thread.CurrentThread;
                 var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,

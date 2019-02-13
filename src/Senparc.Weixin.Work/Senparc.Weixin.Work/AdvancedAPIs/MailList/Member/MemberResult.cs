@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2018 Senparc
     
-    文件名：DepartmentResult.cs
+    文件名：MemberResult.cs
     文件功能描述：成员接口返回结果
     
     
@@ -19,6 +19,7 @@
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList.Member;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
@@ -123,19 +124,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public long[] department { get; set; }
     }
 
-    /// <summary>
-    /// 扩展属性
-    /// </summary>
-    public class Extattr
-    {
-        public List<Attr> attrs { get; set; }
-    }
-
-    public class Attr
-    {
-        public string name { get; set; }
-        public string value { get; set; }
-    }
 
     /// <summary>
     /// 获取部门成员(详情)返回结果
@@ -155,4 +143,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// </summary>
         public int type { get; set; }
     }
+
+    /// <summary>
+    /// 邀请成员返回结果
+    /// </summary>
+    public class InviteMemberListResultJson : WorkJsonResult
+    {
+        public string[] invaliduser { get; set; }
+        public string[] invalidparty { get; set; }
+        public string[] invalidtag { get; set; }
+    }
+
 }

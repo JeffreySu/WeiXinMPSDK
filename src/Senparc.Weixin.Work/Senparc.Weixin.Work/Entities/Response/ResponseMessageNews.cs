@@ -11,11 +11,13 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
 using System.Collections.Generic;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageNews : WorkResponseMessageBase, IResponseMessageNews
     {
         public new virtual ResponseMsgType MsgType
         {

@@ -12,7 +12,7 @@ using Senparc.Weixin.Open.Test;
 namespace Senparc.Weixin.Open.ComponentAPIs.Tests
 {
     [TestClass()]
-    public class ComponentApiTests : BaseTest
+    public class ComponentApiTests : OpenBaseTest
     {
         [TestMethod()]
         public void RefreshAuthorizerTokenTest()

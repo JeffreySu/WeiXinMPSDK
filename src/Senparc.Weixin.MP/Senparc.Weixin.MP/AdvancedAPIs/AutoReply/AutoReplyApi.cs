@@ -41,6 +41,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using System.Threading.Tasks;
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.AutoReply;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -58,6 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "AutoReplyApi.GetCurrentAutoreplyInfo", true)]
         public static GetCurrentAutoreplyInfoResult GetCurrentAutoreplyInfo(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -78,13 +81,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "AutoReplyApi.GetCurrentAutoreplyInfoAsync", true)]
         public static async Task<GetCurrentAutoreplyInfoResult> GetCurrentAutoreplyInfoAsync(string accessTokenOrAppId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/get_current_autoreply_info?access_token={0}";
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
+                return await CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }

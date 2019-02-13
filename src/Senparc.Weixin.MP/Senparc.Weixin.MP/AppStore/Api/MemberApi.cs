@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.AppStore.Api
             formData["openid"] = openId;
             formData["weixinId"] = weixinId.ToString();
 
-            var result = Post.PostGetJson<GetMemberResult>(url, formData: formData);
+            var result = CO2NET.HttpUtility.Post.PostGetJson<GetMemberResult>(url, formData: formData);
             return result;
         }
 

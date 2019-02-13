@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -25,8 +26,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             get
             {
-                return Config.DefaultSenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+                return Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
             }
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            ViewData["CacheType"] = CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType().Name;
+            base.OnActionExecuting(context);
         }
     }
 }

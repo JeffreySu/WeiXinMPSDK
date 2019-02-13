@@ -32,6 +32,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
@@ -47,6 +49,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IResponseMessageBase responseMessage = null;
+            var weixinAppId = _postModel.AppId;
+
             switch (strongRequestMessage.Event)
             {
                 case Event.ENTER:
@@ -62,7 +66,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_UnsubscribeRequest(RequestMessage as RequestMessageEvent_Unsubscribe);
                     break;
                 case Event.CLICK://菜单点击
-                    responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
+                    responseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                                        OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
                     break;
                 case Event.scan://二维码
                     responseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
@@ -154,6 +159,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
                     responseMessage = OnEvent_Card_Pay_OrderRequest(RequestMessage as RequestMessageEvent_Card_Pay_Order);
                     break;
+                case Event.apply_merchant_audit_info://创建门店小程序审核事件
+                    responseMessage = OnEvent_Apply_Merchant_Audit_InfoRequest(RequestMessage as RequestMessageEvent_ApplyMerchantAuditInfo);
+                    break;
+                case Event.add_store_audit_info://门店小程序中创建门店审核事件
+                    responseMessage = OnEvent_Add_Store_Audit_Info(RequestMessage as RequestMessageEvent_AddStoreAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info://从腾讯地图中创建门店审核事件
+                    responseMessage = OnEvent_Create_Map_Poi_Audit_Info(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
+                    break;
+                case Event.modify_store_audit_info://修改门店图片审核事件
+                    responseMessage = OnEvent_Modify_Store_Audit_Info(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo);
+                    break;
+
+
+                #region 卡券回调
+
+                case Event.giftcard_pay_done:
+                    responseMessage = OnEvent_GiftCard_Pay_DoneRequest(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done);
+                    break;
+
+                case Event.giftcard_send_to_friend:
+                    responseMessage = OnEvent_GiftCard_Send_To_FriendRequest(RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend);
+                    break;
+
+                case Event.giftcard_user_accept:
+                    responseMessage = OnEvent_GiftCard_User_AcceptRequest(RequestMessage as RequestMessageEvent_GiftCard_User_Accept);
+                    break;
+
+                #endregion
 
                 #region 微信认证事件推送
 
@@ -497,7 +531,42 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
+        /// <summary>
+        /// 创建门店小程序审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Apply_Merchant_Audit_InfoRequest(RequestMessageEvent_ApplyMerchantAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 从腾讯地图中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Create_Map_Poi_Audit_Info(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 门店小程序中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Add_Store_Audit_Info(RequestMessageEvent_AddStoreAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 修改门店图片审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Modify_Store_Audit_Info(RequestMessageEvent_ModifyStoreAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #region 微信认证事件推送
 
         /// <summary>
@@ -583,6 +652,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        #endregion
+
+        #region 卡券回调
+
+        /// <summary>
+        /// 用户购买礼品卡付款成功
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_Pay_DoneRequest(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户购买后赠送
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_Send_To_FriendRequest(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户领取礼品卡成功
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_GiftCard_User_AcceptRequest(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
         #endregion
 

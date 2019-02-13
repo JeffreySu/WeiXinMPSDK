@@ -15,6 +15,8 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar;
 using Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen.OaDataOpenJson;
 using System;
 using System.Collections.Generic;
@@ -51,6 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetCheckinData", true)]
         public static GetCheckinDataJsonResult GetCheckinData(string accessTokenOrAppKey, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -60,8 +63,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 var data = new
                 {
                     opencheckindatatype = (int)openCheckinDataType,
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     useridlist = userIdList
                 };
 
@@ -77,6 +80,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="userIdList">需要获取打卡规则的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetCheckinOption", true)]
         public static GetCheckinOptionJsonResult GetCheckinOption(string accessTokenOrAppKey, DateTime datetime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -85,7 +89,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    datetime = DateTimeHelper.GetUnixDateTime(datetime),
                     useridlist = userIdList
                 };
 
@@ -101,6 +105,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetApprovalData", true)]
         public static GetApprovalDataJsonResult GetApprovalData(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -109,18 +114,68 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     next_spnum = next_spnum
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
+        }
+
+        /// <summary>
+        /// 获取公费电话拨打记录
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">获取打卡记录的开始时间</param>
+        /// <param name="endTime">获取打卡记录的结束时间</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetDialRecord", true)]
+        public static GetDialRecordJsonResult GetDialRecord(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, int offset, int limit, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/dial/get_dial_record?access_token={0}";
+
+                var data = new
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    offset = offset,
+                    limit = limit
+                };
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetDialRecordJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
 
         }
 
+        /// <summary>
+        /// 查询自建应用审批单当前状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">获取打卡记录的开始时间</param>
+        /// <param name="endTime">获取打卡记录的结束时间</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetOpenApprovalData", true)]
+        public static GetOpenApprovalDataJsonResult GetOpenApprovalData(string accessTokenOrAppKey, string thirdId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getopenapprovaldata?access_token={0}";
 
+                var data = new
+                {
+                    thirdId
+                };
+
+                return Weixin.CommonAPIs.CommonJsonSend.Send<GetOpenApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+        }
 
         #endregion
 
@@ -135,6 +190,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="userIdList">需要获取打卡规则的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetCheckinOptionAsync", true)]
         public static async Task<GetCheckinOptionJsonResult> GetCheckinOptionAsync(string accessTokenOrAppKey, DateTime datetime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -143,7 +199,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    datetime = Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(datetime),
+                    datetime = DateTimeHelper.GetUnixDateTime(datetime),
                     useridlist = userIdList
                 };
 
@@ -161,6 +217,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetCheckinDataAsync", true)]
         public static async Task<GetCheckinDataJsonResult> GetCheckinDataAsync(string accessTokenOrAppKey, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -170,8 +227,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 var data = new
                 {
                     opencheckindatatype = (int)openCheckinDataType,
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     useridlist = userIdList
                 };
 
@@ -190,6 +247,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetApprovalDataAsync", true)]
         public static async Task<GetApprovalDataJsonResult> GetApprovalDataAsync(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -198,14 +256,67 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
                 var data = new
                 {
-                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
                     next_spnum = next_spnum
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
+
+        }
+
+        /// <summary>
+        /// 【异步方法】获取公费电话拨打记录
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">获取打卡记录的开始时间</param>
+        /// <param name="endTime">获取打卡记录的结束时间</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetDialRecordAsync", true)]
+        public static async Task<GetDialRecordJsonResult> GetDialRecordAsync(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, int offset, int limit, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/dial/get_dial_record?access_token={0}";
+
+                var data = new
+                {
+                    starttime = DateTimeHelper.GetUnixDateTime(startTime),
+                    endtime = DateTimeHelper.GetUnixDateTime(endTime),
+                    offset = offset,
+                    limit = limit
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDialRecordJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+        }
+
+        /// <summary>
+        /// 【异步方法】查询自建应用审批单当前状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="startTime">获取打卡记录的开始时间</param>
+        /// <param name="endTime">获取打卡记录的结束时间</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "OaDataOpenApi.GetOpenApprovalDataAsync", true)]
+        public static async Task<GetOpenApprovalDataJsonResult> GetOpenApprovalDataAsync(string accessTokenOrAppKey, string thirdId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = Config.ApiWorkHost + "/cgi-bin/corp/getopenapprovaldata?access_token={0}";
+
+                var data = new
+                {
+                    thirdId
+                };
+
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetOpenApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
 
         }
 

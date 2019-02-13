@@ -1,4 +1,5 @@
-﻿@{
+﻿@*DPBMARK_FILE TenPay*@
+@{
     Layout = null;
 }
 
@@ -7,8 +8,7 @@
 <head>
     <title>公众号jsapi支付测试网页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-    <script language="javascript" src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-    <script language="javascript" src="/Scripts/lazyloadv3.js" type="text/javascript"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <style type="text/css">
         body {
@@ -252,7 +252,7 @@
                         "signType": "SHA1", //微信签名方式:1.sha1
                         "paySign": "@ViewData["paySign"]" //微信签名
                     }, function (res) {
-                        
+
                         if (res.err_msg == "get_brand_wcpay_request:ok") {
                         }
                         // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。

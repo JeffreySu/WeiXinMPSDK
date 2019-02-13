@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             var isAjax = Request.IsAjaxRequest();
 
-            Response.Cookies.Append("TestCookie", DateTime.Now.ToString());
+            Response.Cookies.Append("TestCookie", SystemTime.Now.ToString());
 
             return Content(data + " Ajax:" + isAjax + " Server Time:" + DateTime.Now);
         }

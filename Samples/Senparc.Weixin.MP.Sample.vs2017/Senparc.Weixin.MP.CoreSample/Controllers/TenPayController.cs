@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE TenPay
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ using System.Text;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.TenPayLib;
+using Senparc.Weixin.TenPay.V2;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -38,7 +41,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 if (_tenPayInfo == null)
                 {
                     _tenPayInfo = 
-                        TenPayInfoCollection.Data[Config.DefaultSenparcWeixinSetting.WeixinPay_PartnerId];
+                        TenPayInfoCollection.Data[Config.SenparcWeixinSetting.WeixinPay_PartnerId];
                 }
                 return _tenPayInfo;
             }
@@ -84,12 +87,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -155,12 +158,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             string sign = Params.CreateSHA1Sign();
             Params.SetParameter("sign", sign);
 
-            var parm = TenPay.NativePay(TenPayInfo.AppId, timeStamp, nonceStr, productid, sign);
+            var parm = TenPay.V2.TenPay.NativePay(TenPayInfo.AppId, timeStamp, nonceStr, productid, sign);
             parm = QRCode.QRfromGoogle(parm);
             ViewData["parm"] = parm;
             return View();
@@ -196,14 +199,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
             //订单号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-            string out_trade_no = "" + DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+            string out_trade_no = "" + SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -360,7 +363,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             reqHandler.SetParameter("refund_fee", "1");
             reqHandler.SetParameter("refund_fee", "1");
             reqHandler.SetParameter("op_user_id", "1900000109");
-            reqHandler.SetParameter("op_user_passwd", MD5UtilHelper.GetMD5("111111", "GBK"));
+            reqHandler.SetParameter("op_user_passwd", EncryptHelper.GetMD5("111111", "GBK"));
             reqHandler.SetParameter("service_version", "1.1");
 
             string requestUrl = reqHandler.GetRequestURL();
@@ -429,12 +432,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
             string sp_billno = Request.Form["order_no"];
             //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
+            string date = SystemTime.Now.ToString("yyyyMMdd");
 
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+                sp_billno = SystemTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -456,7 +459,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             paySignReqHandler.SetParameter("deliver_Status", "1");
             paySignReqHandler.SetParameter("deliver_Msg", "ok");
             appSignature = paySignReqHandler.CreateSHA1Sign();
-            var result = TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
+            var result = TenPay.V2.TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
                                  timeStamp, "1", "ok", appSignature, "sha1");
 
             ViewData["message"] = result.errcode;

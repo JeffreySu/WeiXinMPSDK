@@ -76,8 +76,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// <returns></returns>
         public static string GetSignature(string rawData, string sessionKey)
         {
-            var signature =
-                Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(rawData + sessionKey);
+            var signature = Senparc.CO2NET.Helpers.EncryptHelper.GetSha1(rawData + sessionKey);
             //Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + sessionKey);
             return signature;
         }
@@ -135,6 +134,8 @@ namespace Senparc.Weixin.WxOpen.Helpers
                     //        cs.Read(decryptBytes, 0, decryptBytes.Length);
                     //        cs.Close();
                     //        ms.Close();
+
+                    //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
 
                     byte[] xXml = Convert.FromBase64String(Input);
                     byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];

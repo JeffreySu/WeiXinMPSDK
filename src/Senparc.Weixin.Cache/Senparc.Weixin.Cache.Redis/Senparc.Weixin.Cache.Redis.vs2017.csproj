@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
-    <Version>1.7.5</Version>
+    <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
+    <Version>2.5.1</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - Redis 模块
@@ -70,6 +70,15 @@
       v1.7.2-rc1 为 .net core 2.1 改进条件编译
 
       v1.7.5 发布支持 .net core 2.1 的正式版
+
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      v2.0.6.1 支持 CO2NET v0.1.6.1
+      v2.0.9 支持 CO2NET v0.1.9
+      v2.1.0 支持 CO2NET v0.2.0
+      v2.2.1 支持 CO2NET v0.2.6，Senparc.CO2NET.Cache.Redis v3.1.1
+      v2.3.0 支持 Senparc.CO2NET.Cache.Redis v3.2.0
+      v2.4.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v2.5.0 支持 .net 4.6.1
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -105,29 +114,6 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.0|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.0\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp2.1\Senparc.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>-->
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
-    <PackageReference Include="System.Dynamic.Runtime" />
-    <PackageReference Include="System.Threading.Thread" />
-    <PackageReference Include="System.Xml.XmlSerializer" />-->
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="packages\**" />
     <Compile Remove="ServiceStack.Redis\**" />
@@ -137,37 +123,34 @@
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
 
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>-->
-  
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="protobuf-net" Version="2.1.0" />
-  </ItemGroup>-->
-
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
+    <Compile Remove="RedisCacheLock.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.4.2" />
   </ItemGroup>
 
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.vs2017.csproj" />
   </ItemGroup>
 
 </Project>

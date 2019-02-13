@@ -28,6 +28,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 

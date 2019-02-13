@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180101
     
+    添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -98,6 +100,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// value 场景下的值（均为整数型）
         /// </summary>
         public int value { get; set; }
+        /// <summary>
+        /// 该场景 id 访问 uv	
+        /// </summary>
+        public int access_source_visit_uv { get; set; }
 
         /*
          key对应关系如下：

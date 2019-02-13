@@ -26,8 +26,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170824
+
+    修改标识：Senparc - 20181005
+    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
     
 ----------------------------------------------------------------*/
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
@@ -42,7 +46,7 @@ namespace Senparc.Weixin.MP.Entities.Menu
         public string media_id { get; set; }
 
         public SingleMediaIdButton()
-            : base(ButtonType.media_id.ToString())
+            : base(MenuButtonType.media_id.ToString())
         {
         }
     }

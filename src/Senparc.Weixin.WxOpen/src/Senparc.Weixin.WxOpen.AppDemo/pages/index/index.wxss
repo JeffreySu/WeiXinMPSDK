@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.user-motto{
+  margin-bottom: 10px;
+}
+
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
@@ -17,7 +21,7 @@
 }
 
 .usermotto {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 #clientTime{
@@ -35,3 +39,14 @@
 .btn-DoRequest{
   margin-top:8px;
 }
+
+.page-section{
+  margin-bottom: 20rpx;
+}
+
+.flex-wrp {display: flex;}
+.flex-item{margin: 0px 10px;}
+
+.hide {display: none;}
+
+#websocket_buttons{margin: 10px 0 0 0;}

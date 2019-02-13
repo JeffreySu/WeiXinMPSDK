@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE MiniProgram
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen
         /// <param name="url"></param>
         /// <param name="templateId"></param>
         public WxOpenTemplateMessage_PaySuccessNotice(
-            string payAddress, DateTime payTime, string productName,
+            string payAddress, DateTimeOffset payTime, string productName,
             string orderNumber, decimal orderPrice, string hotLine,
             string url,
             //根据实际的“模板ID”进行修改
@@ -48,7 +49,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen
                 */
 
             keyword1 = new TemplateDataItem(payAddress);
-            keyword2 = new TemplateDataItem(payTime.ToString());
+            keyword2 = new TemplateDataItem(payTime.LocalDateTime.ToString());
             keyword3 = new TemplateDataItem(productName);
             keyword4 = new TemplateDataItem(orderNumber);
             keyword5 = new TemplateDataItem(orderPrice.ToString("C"));

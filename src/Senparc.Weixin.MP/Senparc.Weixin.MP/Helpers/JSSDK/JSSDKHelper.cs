@@ -52,6 +52,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171010
     修改描述：v14.8.1 修复几处GetNoncestr还在使用GBK编码
 
+    修改标识：Senparc - 20181226
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -60,9 +63,10 @@ using System.Collections;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Helpers.StringHelper;
+
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -88,7 +92,7 @@ namespace Senparc.Weixin.MP.Helpers
         {
             //var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             //return Convert.ToInt64(ts.TotalSeconds).ToString();
-            var ts = DateTimeHelper.GetWeixinDateTime(DateTime.Now);
+            var ts = DateTimeHelper.GetUnixDateTime(SystemTime.Now);
             return ts.ToString();
         }
 

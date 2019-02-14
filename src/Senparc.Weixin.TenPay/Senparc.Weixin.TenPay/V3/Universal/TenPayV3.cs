@@ -641,7 +641,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static TransfersResult PayToWorker(TenPayV3TransfersRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
+        public static TransfersResult PayToWorker(TenPayV3PayToWorkerRequestData dataInfo, string cert, string certPassword, int timeOut = Config.TIME_OUT)
         {
             var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/paywwsptrans2pocket");
             var data = dataInfo.PackageRequestHandler.ParseXML();

@@ -58,4 +58,24 @@ namespace Senparc.Weixin.TenPay
         /// </summary>
         PRODUCT_8
     }
+
+
+    /// <summary>
+    /// 企业支付签名（workwx_sign）类型
+    /// </summary>
+    public enum WorkPaySignType
+    {
+        /// <summary>
+        /// 非企业支付签名
+        /// </summary>
+        None=0,
+        /// <summary>
+        /// 企业发红包 API
+        /// </summary>
+        WorkSendRedPackage = 1,
+        /// <summary>
+        /// 企业付款 API
+        /// </summary>
+        WorkPayApi=2
+    }
 }

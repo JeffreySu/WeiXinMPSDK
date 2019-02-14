@@ -111,6 +111,10 @@
       v3.2.0 使用 Senparc.CO2NET.APM
       v3.2.1 支持 Senparc.NeuChar v0.4.4
       v3.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v3.3.7
+      1、添加 MemberCreateRequest.alias 属性
+      2、MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
+      3、修复 IsLeader 参数大小写问题
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

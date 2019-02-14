@@ -14,7 +14,7 @@
     修改描述：v3.1.16 fix bug：RequestMessageEvent_Change_Contact_User_Create.Department 属性类型错误，添加 DepartmentList 自动转成 long[]
 
     修改标识：Senparc - 20190214
-    修改描述：c
+    修改描述：v3.3.7 修复 IsLeader 参数大小写问题
 
 ----------------------------------------------------------------*/
 

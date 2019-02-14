@@ -49,7 +49,13 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
     {
         //微信文档写的参数名称是  category_list，实际上是 categories_list
         //public IList<Category> categories { get; set; }
-        public IList<Category> categories_list { get; set; }
+
+        public CategoriesList categories_list { get; set; }
+    }
+
+    public class CategoriesList
+    {
+        public IList<Category> categories { get; set; }
     }
 
     public class Category

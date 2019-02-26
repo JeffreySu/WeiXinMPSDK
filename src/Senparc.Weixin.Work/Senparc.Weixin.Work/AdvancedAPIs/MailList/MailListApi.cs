@@ -593,6 +593,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
+        
+        /// <summary>
+        /// 让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static WorkJsonResult AuthSucc(string accessTokenOrAppKey, string userId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
 
 #if !NET35 && !NET40
         #region 异步方法

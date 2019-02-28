@@ -69,8 +69,8 @@ namespace Senparc.Weixin.MP
         public static IRequestMessageBase GetRequestEntity(XDocument doc, PostModel postModel = null)
         {
             RequestMessageBase requestMessage = null;
-            RequestMsgType msgType;
-            //RequestMsgType msgType = RequestMsgType.Text;
+            //RequestMsgType msgType;
+            RequestMsgType msgType = RequestMsgType.Text;
 
             try
             {

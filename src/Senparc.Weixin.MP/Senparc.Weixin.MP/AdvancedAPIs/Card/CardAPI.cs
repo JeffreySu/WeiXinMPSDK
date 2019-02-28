@@ -102,6 +102,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

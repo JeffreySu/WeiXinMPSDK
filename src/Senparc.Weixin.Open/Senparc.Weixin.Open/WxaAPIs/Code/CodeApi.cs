@@ -37,7 +37,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using System.IO;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;

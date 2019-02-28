@@ -13,6 +13,9 @@
     修改标识：Senparc - 20181030
     修改描述：v3.1.16 fix bug：RequestMessageEvent_Change_Contact_User_Create.Department 属性类型错误，添加 DepartmentList 自动转成 long[]
 
+    修改标识：Senparc - 20190214
+    修改描述：v3.3.7 修复 IsLeader 参数大小写问题
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Extensions;
@@ -113,7 +116,7 @@ namespace Senparc.Weixin.Work.Entities
         /// <summary>
         /// 上级字段，标识是否为上级。第三方暂不支持
         /// </summary>
-        public int Isleader { get; set; }
+        public int IsLeader { get; set; }
         /// <summary>
         /// 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
         /// </summary>

@@ -32,6 +32,10 @@
 
     修改标识：Senparc - 20181009
     修改描述：添加接口
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -47,6 +51,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {

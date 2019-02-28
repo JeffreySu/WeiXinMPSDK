@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.AppStore
             var formData = new Dictionary<string, string>();
             formData["appKey"] = passportBag.AppKey;
             formData["secret"] = passportBag.AppSecret;
-            var result = Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
+            var result = CO2NET.HttpUtility.Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
             if (result.Result != AppResultKind.成功)
             {
                 throw new WeixinException("获取Passort失败！错误信息：" + result.Result, null);

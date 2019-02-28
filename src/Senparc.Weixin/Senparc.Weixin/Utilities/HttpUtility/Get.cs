@@ -51,6 +51,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20180928
     修改描述：将 CO2NET 已经移植的方法标记为过期
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 
@@ -91,6 +95,7 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         internal static Action<string, string> AfterReturnText = (_url, returnText) =>
         {
+            //TODO：已经在 CommonJsonSend 中单独实现
             WeixinTrace.SendApiLog(_url, returnText);
 
             if (returnText.Contains("errcode"))
@@ -107,94 +112,6 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
         };
-
-
-        #region 同步方法
-
-        /// <summary>
-        /// GET方式请求URL，并返回T类型
-        /// </summary>
-        /// <typeparam name="T">接收JSON的数据类型</typeparam>
-        /// <param name="url"></param>
-        /// <param name="encoding"></param>
-        /// <param name="maxJsonLength">允许最大JSON长度</param>
-        /// <returns></returns>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.GetJson<T>() 方法")]
-        public static T GetJson<T>(string url, Encoding encoding = null)
-        {
-            var result = CO2NET.HttpUtility.Get.GetJson<T>(url, encoding, AfterReturnText);
-            return result;
-        }
-
-        /// <summary>
-        /// 从Url下载
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="stream"></param>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.Download() 方法")]
-        public static void Download(string url, Stream stream)
-        {
-            CO2NET.HttpUtility.Get.Download(url, stream);
-        }
-
-        //#if !NET35 && !NET40
-        /// <summary>
-        /// 从Url下载，并保存到指定目录
-        /// </summary>
-        /// <param name="url">需要下载文件的Url</param>
-        /// <param name="filePathName">保存文件的路径，如果下载文件包含文件名，按照文件名储存，否则将分配Ticks随机文件名</param>
-        /// <returns></returns>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.Download() 方法")]
-        public static string Download(string url, string filePathName, int timeOut = Config.TIME_OUT)
-        {
-            return CO2NET.HttpUtility.Get.Download(url, filePathName, timeOut);
-        }
-        //#endif
-        #endregion
-
-#if !NET35 && !NET40
-        #region 异步方法
-
-        /// <summary>
-        /// 【异步方法】异步GetJson
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="encoding"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ErrorJsonResultException"></exception>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.GetJsonAsync<T>() 方法")]
-        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null)
-        {
-            var result = await CO2NET.HttpUtility.Get.GetJsonAsync<T>(url, encoding, AfterReturnText);
-            return result;
-        }
-
-        /// <summary>
-        /// 【异步方法】异步从Url下载
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="stream"></param>
-        /// <returns></returns>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.DownloadAsync() 方法")]
-        public static async Task DownloadAsync(string url, Stream stream)
-        {
-            await CO2NET.HttpUtility.Get.DownloadAsync(url, stream);
-        }
-
-        /// <summary>
-        /// 【异步方法】从Url下载，并保存到指定目录
-        /// </summary>
-        /// <param name="url">需要下载文件的Url</param>
-        /// <param name="filePathName"></param>
-        /// <returns></returns>
-        [Obsolete("请使用 CO2NET.HttpUtility.Get.DownloadAsync() 方法")]
-        public static async Task<string> DownloadAsync(string url, string filePathName, int timeOut = Config.TIME_OUT)
-        {
-            return await CO2NET.HttpUtility.Get.DownloadAsync(url, filePathName);//TODO：增加timeOut
-        }
-        #endregion
-#endif
 
     }
 }

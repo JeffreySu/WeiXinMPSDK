@@ -9,11 +9,14 @@
     
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.Open.OAuthAPIs
 {
     /// <summary>
     /// 通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
     /// </summary>
+    [Serializable]
     public class OAuthUserInfo
     {
         public string openid { get; set; }

@@ -43,8 +43,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     public static class ComponentApi
     {
         #region 同步方法
-        
-      
+
+
         /// <summary>
         /// 获取第三方平台access_token
         /// </summary>
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             if (authType != LoginAuthType.默认)
                 url = string.Format("{0}&auth_type={1}", url, authType);
 
-            if(!string.IsNullOrEmpty(bizAppId))
+            if (!string.IsNullOrEmpty(bizAppId))
                 url = string.Format("{0}&biz_appid={1}", url, bizAppId);
 
             return url;
@@ -299,7 +299,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     authorizerAccessToken.AsUrlData(), type.AsUrlData());
 
-            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            JsApiTicketResult result = CommonJsonSend.Send<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
             return result;
         }
 
@@ -318,7 +318,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.FastRegisterWeApp", true)]
-        public static WxJsonResult FastRegisterWeApp(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action ="create", string entCode="", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult FastRegisterWeApp(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/cgi-bin/component/fastregisterweapp?action={0}&component_access_token={1}",
@@ -329,7 +329,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             object data;
             if (action == "create")
             {
-               data = new
+                data = new
                 {
                     name = entName,
                     code = entCode,
@@ -341,7 +341,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
             else
             {
-               data = new
+                data = new
                 {
                     name = entName,
                     legal_persona_wechat = legalPersonaWechat,
@@ -356,7 +356,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
 #if !NET35 && !NET40
         #region 异步方法
-         /// <summary>
+        /// <summary>
         /// 【异步方法】获取第三方平台access_token
         /// </summary>
         /// <param name="componentAppId">第三方平台appid</param>
@@ -376,7 +376,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_verify_ticket = componentVerifyTicket
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -399,11 +399,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_appid = componentAppId
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 
-      
+
 
         /// <summary>
         /// 【异步方法】使用授权码换取公众号的授权信息
@@ -426,7 +426,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorization_code = authorizationCode
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -482,7 +482,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_refresh_token = authorizerRefreshToken
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -508,7 +508,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppId,
             };
 
-            return await Senparc.Weixin .CommonAPIs.CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -535,7 +535,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_name = optionName
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_value = optionValue
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -582,7 +582,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     authorizerAccessToken.AsUrlData(), type.AsUrlData());
 
-            JsApiTicketResult result = await Get.GetJsonAsync<JsApiTicketResult>(url);
+            JsApiTicketResult result = await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
             return result;
         }
 
@@ -600,7 +600,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.FastRegisterWeAppAsync", true)]
-        public static async Task<WxJsonResult> FastRegisterWeAppAsync(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action ="create", string entCode="", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> FastRegisterWeAppAsync(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
                 Config.ApiMpHost + "/cgi-bin/component/fastregisterweapp?action={0}&component_access_token={1}",
@@ -611,7 +611,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             object data;
             if (action == "create")
             {
-               data = new
+                data = new
                 {
                     name = entName,
                     code = entCode,
@@ -623,7 +623,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             }
             else
             {
-               data = new
+                data = new
                 {
                     name = entName,
                     legal_persona_wechat = legalPersonaWechat,
@@ -631,7 +631,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 };
             }
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         #endregion

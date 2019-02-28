@@ -61,6 +61,8 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.NeuChar;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.CO2NET.Helpers;
 
 #if NET35 || NET40 || NET45
 using System.Web.Script.Serialization;
@@ -166,14 +168,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             try
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
-                object jsonResult = null;
-
-#if NET35 || NET40 || NET45
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                jsonResult = js.Deserialize<object>(jsonString);
-#else
-                jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(jsonString);
-#endif
+                object jsonResult = SerializerHelper.GetObject<object>(jsonString);
 
                 var fullResult = jsonResult as Dictionary<string, object>;
                 if (fullResult != null && fullResult.ContainsKey("menu"))
@@ -285,7 +280,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
-                return HttpUtility.Get.GetJson<WxJsonResult>(url);
+                return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
 
@@ -305,7 +300,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
 
-                //return HttpUtility.Get.GetJson<SelfMenuConfigResult>(url);
                 return CommonJsonSend.Send<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -331,7 +325,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
                 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
 

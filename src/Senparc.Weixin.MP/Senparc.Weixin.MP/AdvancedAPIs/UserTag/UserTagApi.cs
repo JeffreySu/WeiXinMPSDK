@@ -41,6 +41,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -86,7 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                return HttpUtility.Get.GetJson<TagJson>(url);
+                return CommonJsonSend.Send<TagJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -254,7 +255,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -269,7 +270,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                return await HttpUtility.Get.GetJsonAsync<TagJson>(url);
+                return await CommonJsonSend.SendAsync<TagJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -295,7 +296,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -321,7 +322,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -344,7 +345,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     tagid = tagid,
                     next_openid = nextOpenid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -366,7 +367,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -389,7 +390,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -410,7 +411,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid = openid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppid);
         }
         #endregion

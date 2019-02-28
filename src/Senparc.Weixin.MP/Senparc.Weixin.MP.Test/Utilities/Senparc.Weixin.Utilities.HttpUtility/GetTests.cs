@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
 #endif
 
-            var downloadResult = Senparc.Weixin.HttpUtility.Get.Download(url, filePath);
+            var downloadResult = Senparc.CO2NET.HttpUtility.Get.Download(url, filePath);
             Console.WriteLine(downloadResult);
 
             Assert.IsTrue(File.Exists(downloadResult));

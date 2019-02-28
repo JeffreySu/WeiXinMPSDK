@@ -52,6 +52,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：增加GetTypingStatus
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -64,6 +68,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using System.Collections.Generic;

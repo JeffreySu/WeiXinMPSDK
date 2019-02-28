@@ -52,6 +52,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.CommonAPIs;
 

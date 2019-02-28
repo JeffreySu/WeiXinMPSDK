@@ -42,6 +42,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.AutoReply;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -87,7 +88,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/get_current_autoreply_info?access_token={0}";
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
+                return await CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }

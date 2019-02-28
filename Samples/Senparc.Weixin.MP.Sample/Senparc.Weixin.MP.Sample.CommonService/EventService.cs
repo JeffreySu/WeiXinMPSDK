@@ -104,15 +104,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService
 
         public void ConfigOnWeixinExceptionFunc(WeixinException ex)
         {
+            Senparc.Weixin.WeixinTrace.SendCustomLog("进入 ConfigOnWeixinExceptionFunc() 方法", ex.Message);
             try
             {
                 Task.Factory.StartNew(async () =>
                 {
-#if NET45
                     var appId = Config.SenparcWeixinSetting.WeixinAppId;
-#else
-                    var appId = "AppId";
-#endif
 
                     string openId = "";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
@@ -181,6 +178,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误", e.Message);
             }
-        }
+       }
     }
 }

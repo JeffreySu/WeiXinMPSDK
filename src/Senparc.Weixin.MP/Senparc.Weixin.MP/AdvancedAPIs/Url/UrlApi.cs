@@ -39,6 +39,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Url;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

@@ -14,6 +14,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// </summary>
         public IEnumerable<District>[] result { get; set; }
     }
+
     /// <summary>
     /// 地区信息
     /// </summary>

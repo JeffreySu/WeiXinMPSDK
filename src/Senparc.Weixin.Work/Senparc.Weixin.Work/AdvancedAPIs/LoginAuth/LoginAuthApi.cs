@@ -13,6 +13,10 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -21,6 +25,7 @@
 
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.Work.CommonAPIs;

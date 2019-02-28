@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171208
     修改描述：v14.8.10 修复红包接口 RedPackApi.SendNormalRedPack() 在.NET 4.6 下的XML解析问题
 
+    修改标识：Senparc - 20190121
+    修改描述：v16.6.9 修复：裂变红包 url 及参数不正确
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -364,7 +367,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNGroupRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType = "ALL_RAND")
+            out string nonceStr, out string paySign, string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType = "ALL_RAND", int total_num = 3)
         {
             mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
 
@@ -376,28 +379,25 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             RequestHandler packageReqHandler = new RequestHandler();
             //设置package订单参数
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
+
             packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
+            packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
+            packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
             packageReqHandler.SetParameter("send_name", senderName);                //红包发送者名称
             packageReqHandler.SetParameter("re_openid", openId);                 //接受收红包的用户的openId
             packageReqHandler.SetParameter("total_amount", redPackAmount.ToString());                //付款金额，单位分
-            packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
+            packageReqHandler.SetParameter("amt_type", amtType);	                    //签名
+            packageReqHandler.SetParameter("total_num", total_num.ToString());               //红包发放总人数
             packageReqHandler.SetParameter("wishing", wishingWord);               //红包祝福语
-            packageReqHandler.SetParameter("client_ip", iP);               //调用接口的机器Ip地址
             packageReqHandler.SetParameter("act_name", actionName);   //活动名称
             packageReqHandler.SetParameter("remark", remark);   //备注信息
-            paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
-            packageReqHandler.SetParameter("sign", paySign);	                    //签名
-
+            
             //比普通红包多的部分
-            packageReqHandler.SetParameter("amt_type", amtType);	                    //签名
-
             if (scene.HasValue)
             {
                 packageReqHandler.SetParameter("scene_id", scene.Value.ToString());//场景id
             }
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
             if (riskInfo != null)
             {
                 packageReqHandler.SetParameter("risk_info", riskInfo);//活动信息	
@@ -407,6 +407,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
                 packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息	
             }
 
+            paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
+            packageReqHandler.SetParameter("sign", paySign);	                    //签名
             //最新的官方文档中将以下三个字段去除了
             //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
             //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
@@ -416,7 +418,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+            //string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = tenPayCertPath;
             //私钥（在安装证书时设置）

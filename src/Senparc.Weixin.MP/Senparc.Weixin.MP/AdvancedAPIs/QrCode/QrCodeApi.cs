@@ -59,7 +59,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
-using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
 

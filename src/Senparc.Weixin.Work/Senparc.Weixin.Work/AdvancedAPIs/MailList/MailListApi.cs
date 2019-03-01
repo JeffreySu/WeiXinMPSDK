@@ -1140,6 +1140,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
+
+        /// <summary>
+        /// 【异步方法】让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> AuthSuccAsync(string accessTokenOrAppKey, string userId)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
+
         #endregion
 #endif
     }

@@ -189,9 +189,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     defaultResponseMessage.Content =
                     @"您正在进行微信内置浏览器约束判断测试。您可以：
-<a href=""http://sdk.weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
+<a href=""https://sdk.weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：https://sdk.weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
 或：
-<a href=""http://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
+<a href=""https://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：https://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
                     return defaultResponseMessage;
                 }).
                 //匹配任一关键字
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     #region 暂时转发到SDK线上Demo
 
-                    agentUrl = "http://sdk.weixin.senparc.com/weixin";
+                    agentUrl = "https://sdk.weixin.senparc.com/weixin";
                     //agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                     //修改内容，防止死循环
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。
 
 测试完成后，您可以登陆公众号后台取消授权。",
-                        Url = "http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
+                        Url = "https://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
                     });
                     return openResponseMessage;
                 })
@@ -358,7 +358,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 })
                 .Keyword("JSSDK", () =>
                 {
-                    defaultResponseMessage.Content = "点击打开：http://sdk.weixin.senparc.com/WeixinJsSdk";
+                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
                 //Default不一定要在最后一个
@@ -389,7 +389,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
                     result.AppendLine("\r\n");
                     result.AppendLine(
-                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
+                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
 
                     defaultResponseMessage.Content = result.ToString();
                     return defaultResponseMessage;
@@ -446,14 +446,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Title = "您刚才发送了图片信息",
                     Description = "您发送的图片将会显示在边上",
                     PicUrl = requestMessage.PicUrl,
-                    Url = "http://sdk.weixin.senparc.com"
+                    Url = "https://sdk.weixin.senparc.com"
                 });
                 responseMessage.Articles.Add(new Article()
                 {
                     Title = "第二条",
                     Description = "第二条带连接的内容",
                     PicUrl = requestMessage.PicUrl,
-                    Url = "http://sdk.weixin.senparc.com"
+                    Url = "https://sdk.weixin.senparc.com"
                 });
 
                 return responseMessage;

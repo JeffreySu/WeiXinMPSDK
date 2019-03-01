@@ -84,8 +84,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 Title = "微信公众平台SDK 官网链接",
                 Description = "Senparc.Weixin.MK SDK地址",
-                PicUrl = "http://sdk.weixin.senparc.com/images/logo.jpg",
-                Url = "http://sdk.weixin.senparc.com"
+                PicUrl = "https://sdk.weixin.senparc.com/images/logo.jpg",
+                Url = "https://sdk.weixin.senparc.com"
             });
 
             return responseMessage;

@@ -173,7 +173,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quota", true)]
-        public static WxJsonResult Clear_quota(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult Clear_quota(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -290,7 +290,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quotaAsync", true)]
-        public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

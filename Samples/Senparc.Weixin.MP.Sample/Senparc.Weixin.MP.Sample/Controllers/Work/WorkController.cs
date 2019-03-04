@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Get），企业微信后台应用的“修改配置”的Url填写如：http://sdk.weixin.senparc.com/work
+        /// 微信后台验证地址（使用Get），企业微信后台应用的“修改配置”的Url填写如：https://sdk.weixin.senparc.com/work
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Post），企业微信后台应用的“修改配置”的Url填写如：http://sdk.weixin.senparc.com/work
+        /// 微信后台验证地址（使用Post），企业微信后台应用的“修改配置”的Url填写如：https://sdk.weixin.senparc.com/work
         /// </summary>
         [HttpPost]
         [ActionName("Index")]

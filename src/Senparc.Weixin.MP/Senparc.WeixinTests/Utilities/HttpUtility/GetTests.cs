@@ -35,7 +35,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
         [TestMethod]
         public void DownloadTest()
         {
-            var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
+            var url = "https://sdk.weixin.senparc.com/images/v2/ewm_01.png";
             using (FileStream fs = new FileStream(string.Format("qr-{0}.jpg", SystemTime.Now.Ticks), FileMode.OpenOrCreate))
             {
                 Senparc.CO2NET.HttpUtility.Get.Download(url, fs);//下载

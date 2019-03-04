@@ -102,15 +102,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             {
                 Title = "测试标题",
                 Description = "测试描述",
-                Url = "http://sdk.weixin.senparc.com",
-                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                Url = "https://sdk.weixin.senparc.com",
+                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
             articles.Add(new Article()
             {
                 Title = "测试更多标题",
                 Description = "测试更多描述",
-                Url = "http://sdk.weixin.senparc.com",
-                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                Url = "https://sdk.weixin.senparc.com",
+                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
 
             var result = CustomApi.SendNews(accessToken, openId, articles);

@@ -532,6 +532,42 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="listMenu">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
+        /// <returns></returns>
+        public static WxJsonResult SendMenu(string accessTokenOrAppId, string openId,
+        string head, Dictionary<string, string> listMenu, string tail,
+         int timeOut = Config.TIME_OUT)
+        {
+            List<object> list = new List<object>();
+            foreach (var item in listMenu)
+            {
+                list.Add(new { id = item.Key, content = item.Value });
+            }
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = list,
+                    tail_content = tail
+                }
+            };
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+             {
+                 return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+             }, accessTokenOrAppId);
+        }
         #endregion
 
 #if !NET35 && !NET40
@@ -982,6 +1018,45 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 异步发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="head"></param>
+        /// <param name="listMenu"></param>
+        /// <param name="tail"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SendMenuAsync(string accessTokenOrAppId, string openId,
+       string head, Dictionary<string, string> listMenu, string tail,
+        int timeOut = Config.TIME_OUT)
+        {
+            List<object> list = new List<object>();
+            foreach (var item in listMenu)
+            {
+                list.Add(new { id = item.Key, content = item.Value });
+            }
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = list,
+                    tail_content = tail
+                }
+            };
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+              {
+
+                  return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+
+              }, accessTokenOrAppId);
+
+        }
+
         #endregion
 #endif
 
@@ -990,4 +1065,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /////
 
     }
+
+
 }

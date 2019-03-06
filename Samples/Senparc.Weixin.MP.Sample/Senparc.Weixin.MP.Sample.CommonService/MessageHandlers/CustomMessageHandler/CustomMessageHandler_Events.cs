@@ -18,6 +18,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -183,7 +184,6 @@ QQ群：289181996
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
 
 #if NET45
                         var filePath = "~/Images/Logo.thumb.jpg";
@@ -191,7 +191,7 @@ QQ群：289181996
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
@@ -208,20 +208,31 @@ QQ群：289181996
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
 #if NET45
                         var filePath = "~/Images/Logo.jpg";
 #else
                         var filePath = "~/wwwroot/Images/Logo.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                                      ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Image.MediaId = uploadResult.media_id;
+                    }
+                    break;
+                case "SendMenu":
+                    {
+                        var menuContentList = new List<SendMenuContent>(){
+                            new SendMenuContent("101","满意"),
+                            new SendMenuContent("102","一般"),
+                            new SendMenuContent("103","不满意")
+                        };
+                        //使用异步接口
+                        CustomApi.SendMenu(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
+
+                        reponseMessage = new ResponseMessageNoResponse();//不返回任何消息
                     }
                     break;
                 case "SubClickRoot_Agent"://代理消息

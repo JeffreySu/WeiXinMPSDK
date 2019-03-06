@@ -36,6 +36,7 @@ using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Extensions;
 
 #if NET45
 using System.Web;
@@ -364,34 +365,52 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
-                    var result = new StringBuilder();
-                    result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
-
-                    if (CurrentMessageContext.RequestMessages.Count > 1)
+                    //判断菜单定义
+                    switch (requestMessage.bizmsgmenuid)
                     {
-                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                            CurrentMessageContext.StorageData);
-                        for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
-                        {
-                            var historyMessage = CurrentMessageContext.RequestMessages[i];
-                            result.AppendFormat("{0} 【{1}】{2}\r\n",
-                                historyMessage.CreateTime.ToString("HH:mm:ss"),
-                                historyMessage.MsgType.ToString(),
-                                (historyMessage is RequestMessageText)
-                                    ? (historyMessage as RequestMessageText).Content
-                                    : "[非文字类型]"
-                                );
-                        }
-                        result.AppendLine("\r\n");
+                        case "101"://满意
+                            defaultResponseMessage.Content = "感谢您的评价！我们会一如既往为提高企业和开发者生产力而努力！";
+                            break;
+                        case "102"://一般
+                            defaultResponseMessage.Content = "感谢您的评价！希望我们的服务能让您越来越满意！";
+                            break;
+                        case "103"://满意
+                            defaultResponseMessage.Content = "感谢您的评价！我知道你不是故意要这么做的！\r\n\r\nPS：有任何意见建议欢迎反馈：zsu@senparc.com";
+                            break;
+                        default:
+                            {
+                                var result = new StringBuilder();
+                                result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
+
+                                if (CurrentMessageContext.RequestMessages.Count > 1)
+                                {
+                                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                                        CurrentMessageContext.StorageData);
+                                    for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                                    {
+                                        var historyMessage = CurrentMessageContext.RequestMessages[i];
+                                        result.AppendFormat("{0} 【{1}】{2}\r\n",
+                                            historyMessage.CreateTime.ToString("HH:mm:ss"),
+                                            historyMessage.MsgType.ToString(),
+                                            (historyMessage is RequestMessageText)
+                                                ? (historyMessage as RequestMessageText).Content
+                                                : "[非文字类型]"
+                                            );
+                                    }
+                                    result.AppendLine("\r\n");
+                                }
+
+                                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
+                                    GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
+                                result.AppendLine("\r\n");
+                                result.AppendLine(
+                                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
+
+                                defaultResponseMessage.Content = result.ToString();
+                            }
+                            break;
                     }
 
-                    result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
-                        GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
-                    result.AppendLine("\r\n");
-                    result.AppendLine(
-                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
-
-                    defaultResponseMessage.Content = result.ToString();
                     return defaultResponseMessage;
                 })
                 //“一次订阅消息”接口测试

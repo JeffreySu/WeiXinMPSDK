@@ -366,16 +366,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Default(() =>
                 {
                     //判断菜单定义
-                    switch (requestMessage.bizmsgmenuid)
+                    switch (requestMessage.bizmsgmenuid)//TODO: 把sendMenu的菜单判断放到requestHandler的扩展中
                     {
                         case "101"://满意
-                            defaultResponseMessage.Content = "感谢您的评价！我们会一如既往为提高企业和开发者生产力而努力！";
+                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
                             break;
                         case "102"://一般
-                            defaultResponseMessage.Content = "感谢您的评价！希望我们的服务能让您越来越满意！";
+                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
                             break;
                         case "103"://满意
-                            defaultResponseMessage.Content = "感谢您的评价！我知道你不是故意要这么做的！\r\n\r\nPS：有任何意见建议欢迎反馈：zsu@senparc.com";
+                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我知道你不是故意要这么做的！\r\n\r\nPS：有任何意见建议欢迎反馈：zsu@senparc.com";
                             break;
                         default:
                             {

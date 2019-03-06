@@ -60,6 +60,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /* 
    API地址：http://mp.weixin.qq.com/wiki/1/70a29afed17f56d537c833f89be979c9.html
+   新地址（2019年3月）：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140547
 */
 
 
@@ -539,19 +540,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId">接受人员OPenid</param>
         /// <param name="head">标题</param>
-        /// <param name="listMenu">内容</param>
+        /// <param name="menuList">内容</param>
         /// <param name="tail">结尾内容</param>
         /// <param name="timeOut">超时时间</param>     
         /// <returns></returns>
         public static WxJsonResult SendMenu(string accessTokenOrAppId, string openId,
-        string head, Dictionary<string, string> listMenu, string tail,
+        string head, List<SendMenuContent> menuList, string tail,
          int timeOut = Config.TIME_OUT)
         {
-            List<object> list = new List<object>();
-            foreach (var item in listMenu)
-            {
-                list.Add(new { id = item.Key, content = item.Value });
-            }
             var data = new
             {
                 touser = openId,
@@ -559,7 +555,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 msgmenu = new
                 {
                     head_content = head,
-                    list = list,
+                    list = menuList,
                     tail_content = tail
                 }
             };
@@ -1019,24 +1015,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 异步发送客户菜单消息
+        /// 【异步方法】发送客户菜单消息
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="openId"></param>
-        /// <param name="head"></param>
-        /// <param name="listMenu"></param>
-        /// <param name="tail"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="menuList">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
         /// <returns></returns>
         public static async Task<WxJsonResult> SendMenuAsync(string accessTokenOrAppId, string openId,
-       string head, Dictionary<string, string> listMenu, string tail,
+       string head, List<SendMenuContent> menuList, string tail,
         int timeOut = Config.TIME_OUT)
         {
-            List<object> list = new List<object>();
-            foreach (var item in listMenu)
-            {
-                list.Add(new { id = item.Key, content = item.Value });
-            }
             var data = new
             {
                 touser = openId,
@@ -1044,13 +1036,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 msgmenu = new
                 {
                     head_content = head,
-                    list = list,
+                    list = menuList,
                     tail_content = tail
                 }
             };
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
               {
-
                   return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
 
               }, accessTokenOrAppId);

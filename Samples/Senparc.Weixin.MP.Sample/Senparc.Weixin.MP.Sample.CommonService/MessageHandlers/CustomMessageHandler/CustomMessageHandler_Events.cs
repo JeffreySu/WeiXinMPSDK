@@ -224,6 +224,7 @@ QQ群：289181996
                     break;
                 case "SendMenu":
                     {
+                        //注意：此接口可以在任意地方调用（包括后台线程），此处演示为通过
                         var menuContentList = new List<SendMenuContent>(){
                             new SendMenuContent("101","满意"),
                             new SendMenuContent("102","一般"),

@@ -362,6 +362,28 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
+
+
+                //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
+                .SelectMenuKeyword("101",()=> {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：102（微信服务器端最终格式：id="s:102",content="一般"）
+                .SelectMenuKeyword("102", () => {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：103（微信服务器端最终格式：id="s:103",content="不满意"）
+                .SelectMenuKeyword("103", () => {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
+                    return defaultResponseMessage;
+                })
+                .SelectMenuKeywords(new[] { "110", "111" }, () => {
+                    defaultResponseMessage.Content = $"这里只是演示，可以同时支持多个选择菜单";
+                    return defaultResponseMessage;
+                })
+
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
@@ -369,10 +391,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     switch (requestMessage.bizmsgmenuid)//TODO: 把sendMenu的菜单判断放到requestHandler的扩展中
                     {
                         case "101"://满意
-                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
                             break;
                         case "102"://一般
-                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
                             break;
                         case "103"://满意
                             defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我知道你不是故意要这么做的！\r\n\r\nPS：有任何意见建议欢迎反馈：zsu@senparc.com";

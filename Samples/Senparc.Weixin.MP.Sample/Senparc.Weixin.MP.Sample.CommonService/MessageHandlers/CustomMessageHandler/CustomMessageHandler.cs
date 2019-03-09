@@ -130,6 +130,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <summary>
         /// 处理文字请求
         /// </summary>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -365,21 +366,25 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
 
                 //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
-                .SelectMenuKeyword("101",()=> {
+                .SelectMenuKeyword("101", () =>
+                {
                     defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
                     return defaultResponseMessage;
                 })
                 //选择菜单，关键字：102（微信服务器端最终格式：id="s:102",content="一般"）
-                .SelectMenuKeyword("102", () => {
+                .SelectMenuKeyword("102", () =>
+                {
                     defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
                     return defaultResponseMessage;
                 })
                 //选择菜单，关键字：103（微信服务器端最终格式：id="s:103",content="不满意"）
-                .SelectMenuKeyword("103", () => {
+                .SelectMenuKeyword("103", () =>
+                {
                     defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
                     return defaultResponseMessage;
                 })
-                .SelectMenuKeywords(new[] { "110", "111" }, () => {
+                .SelectMenuKeywords(new[] { "110", "111" }, () =>
+                {
                     defaultResponseMessage.Content = $"这里只是演示，可以同时支持多个选择菜单";
                     return defaultResponseMessage;
                 })
@@ -387,49 +392,35 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
-                    //判断菜单定义
-                    switch (requestMessage.bizmsgmenuid)//TODO: 把sendMenu的菜单判断放到requestHandler的扩展中
+
+                    var result = new StringBuilder();
+                    result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
+
+                    if (CurrentMessageContext.RequestMessages.Count > 1)
                     {
-                        case "101"://满意
-                            break;
-                        case "102"://一般
-                            break;
-                        case "103"://满意
-                            defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我知道你不是故意要这么做的！\r\n\r\nPS：有任何意见建议欢迎反馈：zsu@senparc.com";
-                            break;
-                        default:
-                            {
-                                var result = new StringBuilder();
-                                result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
-
-                                if (CurrentMessageContext.RequestMessages.Count > 1)
-                                {
-                                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                                        CurrentMessageContext.StorageData);
-                                    for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
-                                    {
-                                        var historyMessage = CurrentMessageContext.RequestMessages[i];
-                                        result.AppendFormat("{0} 【{1}】{2}\r\n",
-                                            historyMessage.CreateTime.ToString("HH:mm:ss"),
-                                            historyMessage.MsgType.ToString(),
-                                            (historyMessage is RequestMessageText)
-                                                ? (historyMessage as RequestMessageText).Content
-                                                : "[非文字类型]"
-                                            );
-                                    }
-                                    result.AppendLine("\r\n");
-                                }
-
-                                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
-                                    GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
-                                result.AppendLine("\r\n");
-                                result.AppendLine(
-                                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
-
-                                defaultResponseMessage.Content = result.ToString();
-                            }
-                            break;
+                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                            CurrentMessageContext.StorageData);
+                        for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                        {
+                            var historyMessage = CurrentMessageContext.RequestMessages[i];
+                            result.AppendFormat("{0} 【{1}】{2}\r\n",
+                                historyMessage.CreateTime.ToString("HH:mm:ss"),
+                                historyMessage.MsgType.ToString(),
+                                (historyMessage is RequestMessageText)
+                                    ? (historyMessage as RequestMessageText).Content
+                                    : "[非文字类型]"
+                                );
+                        }
+                        result.AppendLine("\r\n");
                     }
+
+                    result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
+                        GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
+                    result.AppendLine("\r\n");
+                    result.AppendLine(
+                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
+
+                    defaultResponseMessage.Content = result.ToString();
 
                     return defaultResponseMessage;
                 })
@@ -551,8 +542,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             Task.Factory.StartNew(async () =>
              {
-                 //上传素材
-                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
+             //上传素材
+             var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                  var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                  var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                  await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
@@ -611,7 +602,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
         {
             var eventResponseMessage = base.OnEventRequest(requestMessage);//对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
-            //TODO: 对Event信息进行统一操作
+                                                                           //TODO: 对Event信息进行统一操作
             return eventResponseMessage;
         }
 

@@ -224,11 +224,14 @@ QQ群：289181996
                     break;
                 case "SendMenu":
                     {
-                        //注意：此接口可以在任意地方调用（包括后台线程），此处演示为通过
+                        //注意：
+                        //1、此接口可以在任意地方调用（包括后台线程），此处演示为通过
+                        //2、一下"s:"前缀只是 Senparc.Weixin 的内部约定，可以使用 OnTextRequest事件中的 requestHandler.SelectMenuKeyword() 方法自动匹配到后缀（如101）
+
                         var menuContentList = new List<SendMenuContent>(){
-                            new SendMenuContent("101","满意"),
-                            new SendMenuContent("102","一般"),
-                            new SendMenuContent("103","不满意")
+                            new SendMenuContent("s:101","满意"),
+                            new SendMenuContent("s:102","一般"),
+                            new SendMenuContent("s:103","不满意")
                         };
                         //使用异步接口
                         CustomApi.SendMenu(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");

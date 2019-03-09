@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetWaitCaseResultJson.cs
     文件功能描述：获取未接入会话列表返回结果

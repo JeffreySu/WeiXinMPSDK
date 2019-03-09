@@ -47,9 +47,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 </xml>";
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml));
             messageHandler.Execute();
-
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
-            Assert.AreEqual("选择菜单：满意", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+            Assert.AreEqual("选择菜单：s:101，文字：满意", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
     }
 }

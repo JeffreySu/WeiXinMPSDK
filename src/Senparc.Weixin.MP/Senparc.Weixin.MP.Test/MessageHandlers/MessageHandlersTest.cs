@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 })
                 .SelectMenuKeyword("101", () =>
                 {
-                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}";
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
                     return responseMessage;
                 })
                 .Default(() =>

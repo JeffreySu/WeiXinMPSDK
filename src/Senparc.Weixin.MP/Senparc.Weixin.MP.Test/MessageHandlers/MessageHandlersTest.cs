@@ -33,6 +33,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.WeixinTests;
+using Senparc.NeuChar.Entities.Request;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -54,14 +55,25 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
-            if (requestMessage.Content == "代理")
-            {
-            }
-            else
-            {
-                responseMessage.Content = "文字信息";
-            }
-            return responseMessage;
+
+            var requestHandler = requestMessage.StartHandler();
+            requestHandler.Keyword("代理", () =>
+                {
+                    responseMessage.Content = "收到关键字：代理";
+                    return responseMessage;
+                })
+                .SelectMenuKeyword("101", () =>
+                {
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}";
+                    return responseMessage;
+                })
+                .Default(() =>
+                {
+                    responseMessage.Content = "文字信息";
+                    return responseMessage;
+                });
+
+            return requestHandler.ResponseMessage;
         }
 
         public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
@@ -220,7 +232,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public partial class MessageHandlersTest:BaseTest
+    public partial class MessageHandlersTest : BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -615,7 +627,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
-         
+
             messageHandler.Execute();
 
             Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageFile));
@@ -625,7 +637,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
-               
+
         }
 
         #endregion

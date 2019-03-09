@@ -132,7 +132,7 @@ QQ群：289181996
         /// <summary>
         /// 点击事件
         /// </summary>
-        /// <param name="requestMessage"></param>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
@@ -222,7 +222,7 @@ QQ群：289181996
                         strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
-                case "SendMenu":
+                case "SendMenu"://菜单消息
                     {
                         //注意：
                         //1、此接口可以在任意地方调用（包括后台线程），此处演示为通过
@@ -234,7 +234,7 @@ QQ群：289181996
                             new SendMenuContent("s:103","不满意")
                         };
                         //使用异步接口
-                        CustomApi.SendMenu(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
+                        CustomApi.SendMenuAsync(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
 
                         reponseMessage = new ResponseMessageNoResponse();//不返回任何消息
                     }

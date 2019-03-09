@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：InvoiceResultJson.cs
     文件功能描述：查询报销发票信息返回信息返回结果

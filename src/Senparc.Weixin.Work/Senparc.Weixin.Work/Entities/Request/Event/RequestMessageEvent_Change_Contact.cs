@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEvent_Change_Contact.cs
     文件功能描述：事件之上报通讯录变更事件

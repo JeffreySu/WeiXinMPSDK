@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：MemcachedServiceCollectionExtensions.cs
     文件功能描述：Memcached 依赖注入设置。

@@ -229,9 +229,9 @@ QQ群：289181996
                         //2、一下"s:"前缀只是 Senparc.Weixin 的内部约定，可以使用 OnTextRequest事件中的 requestHandler.SelectMenuKeyword() 方法自动匹配到后缀（如101）
 
                         var menuContentList = new List<SendMenuContent>(){
-                            new SendMenuContent("s:101","满意"),
-                            new SendMenuContent("s:102","一般"),
-                            new SendMenuContent("s:103","不满意")
+                            new SendMenuContent("101","满意"),
+                            new SendMenuContent("102","一般"),
+                            new SendMenuContent("103","不满意")
                         };
                         //使用异步接口
                         CustomApi.SendMenuAsync(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");

@@ -43,12 +43,12 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
   <MsgType><![CDATA[text]]></MsgType>
   <Content><![CDATA[满意]]></Content>
   <MsgId>22220946756594166</MsgId>
-  <bizmsgmenuid>s:101</bizmsgmenuid>
+  <bizmsgmenuid>101</bizmsgmenuid>
 </xml>";
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(xml));
             messageHandler.Execute();
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
-            Assert.AreEqual("选择菜单：s:101，文字：满意", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+            Assert.AreEqual("选择菜单：101，文字：满意", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
     }
 }

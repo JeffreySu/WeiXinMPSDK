@@ -380,7 +380,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //选择菜单，关键字：103（微信服务器端最终格式：id="s:103",content="不满意"）
                 .SelectMenuKeyword("103", () =>
                 {
-                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们需要您的意见或建议，欢迎向我们反馈！ <a href=\"https://github.com/JeffreySu/WeiXinMPSDK/issues/new\">点击这里</a>";
                     return defaultResponseMessage;
                 })
                 .SelectMenuKeywords(new[] { "110", "111" }, () =>

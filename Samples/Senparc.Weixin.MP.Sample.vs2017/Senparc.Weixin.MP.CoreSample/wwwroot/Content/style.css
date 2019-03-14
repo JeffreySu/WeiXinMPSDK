@@ -180,17 +180,30 @@
     float: left;
     line-height: 26px;
     clear: left;
+    min-width: 110px;
 }
 
 .contatc-img {
     float: left;
     margin-right: 7px;
+    margin-bottom:5px;
     display: inline;
 }
 
     .contatc-img a {
         display: block;
     }
+
+/*#qqGroups li.contatc-img:nth-child(2) {
+    text-indent: 8em;
+    clear: left;
+}*/
+
+/*#qqGroups li.contatc-img:nth-child(11) {
+
+    text-indent: 8em;
+    clear: left;
+}*/
 
 .catalog {
     background: #E7EEF1;

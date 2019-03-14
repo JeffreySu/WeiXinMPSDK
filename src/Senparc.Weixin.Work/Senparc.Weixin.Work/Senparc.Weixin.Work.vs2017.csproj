@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-		<Version>3.3.7</Version>
+		<Version>3.3.9.1</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -115,6 +115,8 @@
       1、添加 MemberCreateRequest.alias 属性
       2、MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
       3、修复 IsLeader 参数大小写问题
+      v3.3.8.1 添加“让成员成功加入企业”接口
+      v3.3.9 支持最新版本 Senparc.Weixin
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -226,7 +228,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>

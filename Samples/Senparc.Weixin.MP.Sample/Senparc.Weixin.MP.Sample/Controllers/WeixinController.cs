@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
+        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：https://sdk.weixin.senparc.com/weixin
         /// </summary>
         [HttpGet]
         [ActionName("Index")]

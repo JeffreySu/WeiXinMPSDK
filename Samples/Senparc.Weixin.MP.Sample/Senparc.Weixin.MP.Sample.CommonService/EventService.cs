@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：EventService.cs
     文件功能描述：事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
 
                         var version = fileVersionInfo.FileVersion;
                         strongResponseMessage.Content = string.Format(
-                            "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com",
+                            "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com",
                             version);
                         responseMessage = strongResponseMessage;
                         break;

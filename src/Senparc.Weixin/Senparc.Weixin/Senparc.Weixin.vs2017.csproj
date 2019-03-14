@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>6.3.8.2</Version>
+    <Version>6.3.10.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -287,6 +287,8 @@
       2、完善子账号 SubMchId 相关参数
       v6.3.4 添加快速创建小程序接口
       v6.3.6 支持在子程序环境下获取 OAuth 回调地址
+      v6.3.9 支持最新版本 Senparc.NeuChar
+      v6.3.10 支持最新版本 Senparc.NeuChar
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -347,7 +349,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="0.5.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

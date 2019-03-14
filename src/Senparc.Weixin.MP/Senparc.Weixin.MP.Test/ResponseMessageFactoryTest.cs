@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -56,13 +56,13 @@ namespace Senparc.Weixin.MP.Test
       <Title><![CDATA[您刚才发送了图片信息]]></Title>
       <Description><![CDATA[您发送的图片将会显示在边上]]></Description>
       <PicUrl><![CDATA[http://mmsns.qpic.cn/mmsns/ZxBXNzgHyUrDziagRXm6xU54o2gzuaLvibZOMWvgcpSCuYsic2xicVcoCA/0]]></PicUrl>
-      <Url><![CDATA[http://sdk.weixin.senparc.com]]></Url>
+      <Url><![CDATA[https://sdk.weixin.senparc.com]]></Url>
     </item>
     <item>
       <Title><![CDATA[第二条]]></Title>
       <Description><![CDATA[第二条带连接的内容]]></Description>
       <PicUrl><![CDATA[http://mmsns.qpic.cn/mmsns/ZxBXNzgHyUrDziagRXm6xU54o2gzuaLvibZOMWvgcpSCuYsic2xicVcoCA/0]]></PicUrl>
-      <Url><![CDATA[http://sdk.weixin.senparc.com]]></Url>
+      <Url><![CDATA[https://sdk.weixin.senparc.com]]></Url>
     </item>
   </Articles>
   <FuncFlag>0</FuncFlag>
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Test
   <Music>
     <Title><![CDATA[标题]]></Title>
     <Description><![CDATA[说明]]></Description>
-    <MusicUrl><![CDATA[http://sdk.weixin.senparc.com/Content/music1.mp3]]></MusicUrl>
+    <MusicUrl><![CDATA[https://sdk.weixin.senparc.com/Content/music1.mp3]]></MusicUrl>
     <HQMusicUrl><![CDATA[]]></HQMusicUrl>
   </Music>
  <FuncFlag>0</FuncFlag>
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Test
                                                                         {
                                                                             Title = "标题",
                                                                             Description = "说明",
-                                                                            MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3",
+                                                                            MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3",
                                                                             HQMusicUrl = ""
                                                                         },
                                                             CreateTime = DateTimeHelper.GetDateTimeFromXml(63497823450),

@@ -44,6 +44,11 @@ function loadQQGroups() {
         jsonpCallback: "success_jsonpCallback", //callback的function名称
         success: function (json) {
             $('#qqGroups').html(json[0].html);
+
+            $('<li>').addClass('contatc-name').html('&nbsp; ').insertAfter($('#qqGroups li.contatc-img').eq(8));//在第9个元素后追加
+
+
+
             $('#contact-content li.contact-qq').darkTooltip({
                 theme: 'light'
             });

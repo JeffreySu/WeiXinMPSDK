@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.Test
 <MsgType><![CDATA[link]]></MsgType>
 <Title><![CDATA[公众平台官网链接]]></Title>
 <Description><![CDATA[Senparc.Weixin.MP SDK公众平台官网链接]]></Description>
-<Url><![CDATA[http://sdk.weixin.senparc.com]]></Url>
+<Url><![CDATA[https://sdk.weixin.senparc.com]]></Url>
 <MsgId>1234567890123456</MsgId>
 </xml>";
 
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.MP.Test
   <CreateTime>1394805110</CreateTime>
   <MsgType><![CDATA[event]]></MsgType>
   <Event><![CDATA[VIEW]]></Event>
-  <EventKey><![CDATA[http://sdk.weixin.senparc.com]]></EventKey>
+  <EventKey><![CDATA[https://sdk.weixin.senparc.com]]></EventKey>
 </xml>
 ";
 
@@ -574,7 +574,7 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("公众平台官网链接", result.Title);
                 Assert.AreEqual("Senparc.Weixin.MP SDK公众平台官网链接", result.Description);
-                Assert.AreEqual("http://sdk.weixin.senparc.com", result.Url);
+                Assert.AreEqual("https://sdk.weixin.senparc.com", result.Url);
             }
 
             {
@@ -650,7 +650,7 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.VIEW, result.Event);
                 Assert.AreEqual(new DateTime(2014, 3, 14), result.CreateTime.Date);
-                Assert.AreEqual("http://sdk.weixin.senparc.com", result.EventKey);
+                Assert.AreEqual("https://sdk.weixin.senparc.com", result.EventKey);
             }
             
             {

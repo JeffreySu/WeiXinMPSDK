@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quota", true)]
-        public static WxJsonResult Clear_quota(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult Clear_quota(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -290,7 +290,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CardApi.Clear_quotaAsync", true)]
-        public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> Clear_quotaAsync(string accessTokenOrAppId, string appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

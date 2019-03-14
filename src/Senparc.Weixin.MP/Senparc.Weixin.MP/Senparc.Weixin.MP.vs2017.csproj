@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>16.6.11</Version>
+    <Version>16.6.14.2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -455,9 +455,10 @@
       v16.6.6 添加卡券跳转小程序参数
       v16.6.7 RequestMessageEvent_User_Get_Card 添加 UnionId 属性
       v16.6.8 添加微信门店小程序接口
-      v16.6.9 
+      v16.6.9
       1、修复：裂变红包 url 及参数不正确
-
+      v16.6.13 添加 SendMenu 相关接口，并打通消息回复响应
+      v16.6.14 支持最新版本 Senparc.Weixin
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -555,7 +556,7 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.5" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
   </ItemGroup>
 
   <ItemGroup>

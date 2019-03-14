@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -279,8 +279,8 @@ namespace Senparc.Weixin.MP.Test
 
             responseMusic.Music.Title = "测试Music";
             responseMusic.Music.Description = "测试Music的说明";
-            responseMusic.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
-            responseMusic.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Content/music2.mp3";
+            responseMusic.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
+            responseMusic.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Content/music2.mp3";
 
             var responseDoc = EntityHelper.ConvertEntityToXml(responseMusic);
             Console.WriteLine(responseDoc.ToString());

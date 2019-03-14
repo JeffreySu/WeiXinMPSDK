@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
                             strongresponseMessage.Content =
                                 string.Format(
-                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com",
+                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com",
                                     strongRequestMessage.Content);
                             responseMessage = strongresponseMessage;
                             break;
@@ -89,14 +89,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 Title = "您刚才发送了图片信息",
                                 Description = "您发送的图片将会显示在边上",
                                 PicUrl = strongRequestMessage.PicUrl,
-                                Url = "http://sdk.weixin.senparc.com"
+                                Url = "https://sdk.weixin.senparc.com"
                             });
                             strongresponseMessage.Articles.Add(new Article()
                             {
                                 Title = "第二条",
                                 Description = "第二条带连接的内容",
                                 PicUrl = strongRequestMessage.PicUrl,
-                                Url = "http://sdk.weixin.senparc.com"
+                                Url = "https://sdk.weixin.senparc.com"
                             });
                             responseMessage = strongresponseMessage;
                             break;
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             var strongRequestMessage = requestMessage as RequestMessageVoice;
                             var strongresponseMessage =
                                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageMusic>(requestMessage);
-                            strongresponseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
+                            strongresponseMessage.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
                             responseMessage = strongresponseMessage;
                             break;
                         }

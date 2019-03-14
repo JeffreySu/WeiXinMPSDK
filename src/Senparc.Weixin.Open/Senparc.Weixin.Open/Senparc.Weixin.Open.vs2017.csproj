@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>4.4.3.2</Version>
+    <Version>4.4.5.1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -149,6 +149,8 @@
       v4.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
       v4.4.0 添加快速创建小程序接口
+      v4.4.5 支持最新版本 Senparc.Weixin
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -215,7 +217,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
   </ItemGroup>
 
   <ItemGroup>

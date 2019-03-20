@@ -117,7 +117,7 @@
       3、修复 IsLeader 参数大小写问题
       v3.3.8.1 添加“让成员成功加入企业”接口
       v3.3.9 支持最新版本 Senparc.Weixin
-      v3.3.10 修改 Copr 错别字，修正为 Crop
+      v3.3.10 修改 Copr 错别字，修正为 Corp
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

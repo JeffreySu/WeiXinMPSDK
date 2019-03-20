@@ -67,7 +67,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181226
     修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
 
-
+    修改标识：Senparc - 20190320
+    修改描述：v3.3.10 修改 Copr 错别字，修正为 Corp
 ----------------------------------------------------------------*/
 
 using System;
@@ -90,7 +91,13 @@ namespace Senparc.Weixin.Work.Containers
     [Serializable]
     public class JsApiTicketBag : BaseContainerBag
     {
-        public string CoprId { get; set; }
+        /// <summary>
+        /// CorpId
+        /// </summary>
+        public string CorpId { get; set; }
+
+        [Obsolete("请使用 CorpId 属性")]
+        public string CoprId { get { return CorpId; } set { CorpId = value; } }
         //        {
         //            get { return _appId; }
         //#if NET35 || NET40
@@ -170,7 +177,7 @@ namespace Senparc.Weixin.Work.Containers
                 var bag = new JsApiTicketBag()
                 {
                     Name = name,
-                    CoprId = corpId,
+                    CorpId = corpId,
                     CorpSecret = corpSecret,
                     ExpireTime = DateTimeOffset.MinValue,
                     JsApiTicketResult = new JsApiTicketResult()
@@ -237,7 +244,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
                     Update(jsApiTicketBag, null);//更新到缓存
                 }
@@ -307,7 +314,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CoprId, jsApiTicketBag.CorpSecret);
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.CorpId, jsApiTicketBag.CorpSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);

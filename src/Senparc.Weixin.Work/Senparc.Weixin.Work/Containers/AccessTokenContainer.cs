@@ -67,6 +67,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181226
     修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20190320
+    修改描述：v3.3.10 修改 Copr 错别字，修正为 Corp
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -91,6 +94,9 @@ namespace Senparc.Weixin.Work.Containers
         /// CorpId
         /// </summary>
         public string CorpId { get; set; }
+
+        [Obsolete("请使用 CorpId 属性")]
+        public string CoprId { get { return CorpId; } set { CorpId = value; } }
         //        {
         //            get { return _corpId; }
         //#if NET35 || NET40
@@ -175,11 +181,23 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appKey">由BuildingKey()方法生成的Key</param>
         /// <param name="corpId">corpId</param>
         /// <param name="corpSecret">corpSecret</param>
-        public static void GetCoprIdAndSecretFromKey(string appKey, out string corpId, out string corpSecret)
+        public static void GetCorpIdAndSecretFromKey(string appKey, out string corpId, out string corpSecret)
         {
             var keyArr = appKey.Split('@');
             corpId = keyArr[0];
             corpSecret = keyArr[1];
+        }
+
+        /// <summary>
+        /// 根据Key获取corpId和corpSecret
+        /// </summary>
+        /// <param name="appKey">由BuildingKey()方法生成的Key</param>
+        /// <param name="corpId">corpId</param>
+        /// <param name="corpSecret">corpSecret</param>
+        [Obsolete("请使用 GetCorpIdAndSecretFromKey() 方法")]
+        public static void GetCoprIdAndSecretFromKey(string appKey, out string corpId, out string corpSecret)
+        {
+            GetCorpIdAndSecretFromKey(appKey, out corpId, out corpSecret);
         }
 
         /// <summary>

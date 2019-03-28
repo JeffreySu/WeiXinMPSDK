@@ -1,0 +1,2 @@
+language: csharp
+solution: ./src/Senparc.WebSocket/Senparc.WebSocket.sln

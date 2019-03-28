@@ -1,0 +1,21 @@
+# Senparc.Weixin.MP.Sample.vs2017 项目说明
+
+本项目为 同时支持 .NET 3.5/4.0/4.5/.NET Core 2.x 的 Demo，可以直接编译并发布运行。
+
+> Senparc.Weixin.MP.Sample.vs2017.sln 为包含单元测试的完整解决方案（推荐，Senparc 团队一般在这个解决方案下开发和测试）<br>
+> Senparc.Weixin.MP.Sample.vs2017.without-tests.sln 为不包含单元测试的解决方案
+
+运行本解决方案需要安装 .NET Core 2.2 以上：https://dotnet.microsoft.com/download
+
+## 使用 .NET Framwork 4.5 Demo
+
+返回上一级后见：[Senparc.Weixin.MP.Sample](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)。
+
+使用 .NET Framework 4.5 Sample 部署的 Senparc 官方在线 Demo：https://sdk.weixin.senparc.com/。
+
+
+## 其他说明
+
+Senparc.Weixin.MP.Sample.CommonService 里面包含了CustomMessageHandler及原Senparc.Weixin.MP.Sample/Service目录的代码。
+
+分离这些文件是为了在WebForms项目中重用。

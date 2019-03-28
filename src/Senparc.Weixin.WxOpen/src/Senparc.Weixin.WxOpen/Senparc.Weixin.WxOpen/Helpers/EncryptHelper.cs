@@ -40,6 +40,7 @@ using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.Weixin.WxOpen.Entities;
 
@@ -243,7 +244,24 @@ namespace Senparc.Weixin.WxOpen.Helpers
             return phoneNumber;
 
         }
-
+       /// <summary>
+       /// 解密微信运动步数
+       /// </summary>
+       /// <param name="sessionId"></param>
+       /// <param name="encryptedData"></param>
+       /// <param name="iv"></param>
+       /// <returns></returns>
+        public static DecodedRunData DecodedRunDataBySessionid(string sessionId, string encryptedData, string iv)
+        {
+            var jsonStr = EncryptHelper.DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+#if NET45
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var rundateInfo = js.Deserialize<DecodedRunData>(jsonStr);
+#else
+            var rundateInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedRunData>(jsonStr);
+#endif
+            return rundateInfo;
+        }
         /// <summary>
         /// 检查解密消息水印
         /// </summary>

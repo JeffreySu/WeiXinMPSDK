@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>16.6.14.2</Version>
+    <Version>16.6.15</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -459,6 +459,7 @@
       1、修复：裂变红包 url 及参数不正确
       v16.6.13 添加 SendMenu 相关接口，并打通消息回复响应
       v16.6.14 支持最新版本 Senparc.Weixin
+      v16.6.15 Card_BaseInfoBase 添加 get_custom_code_mode 属性
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -556,7 +557,7 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.5" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.4" />
   </ItemGroup>
 
   <ItemGroup>

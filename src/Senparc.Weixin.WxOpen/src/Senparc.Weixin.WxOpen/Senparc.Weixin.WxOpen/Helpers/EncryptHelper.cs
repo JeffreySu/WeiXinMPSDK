@@ -243,6 +243,25 @@ namespace Senparc.Weixin.WxOpen.Helpers
             return phoneNumber;
 
         }
+        /// <summary>
+        /// 解密微信小程序运动步数
+        /// 2019-04-02
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedRunData DecryptRunData(string sessionId, string encryptedData, string iv)
+        {
+            var jsonStr = EncryptHelper.DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+#if NET45
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var rundataInfo = js.Deserialize<DecodedRunData>(jsonStr);
+#else
+            var rundataInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedRunData>(jsonStr);
+#endif
+            return rundataInfo;
+        }
 
         /// <summary>
         /// 检查解密消息水印

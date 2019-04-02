@@ -212,6 +212,15 @@ Page({
       }
       });
   },
+  getRunData:function(){
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData;
+
+        
+      }
+    })
+  },
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'

@@ -230,7 +230,7 @@ Page({
             if (runDataRes.data.success) {
               wx.showModal({
                 title: '成功获得步数信息！',
-                content: runDataRes.data.runData,
+                content: JSON.stringify(runDataRes.data.runData),
                 showCancel: false
               });
             } else {

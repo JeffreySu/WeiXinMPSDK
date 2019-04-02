@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             {
                 return Json(new { success = false, msg = ex.Message });
             }
-           
+
         }
 
         [HttpPost]
@@ -238,6 +238,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
+        /// <summary>
+        /// 解密电话号码
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
         public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
@@ -248,6 +255,30 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
 
                 return Json(new { success = true, phoneNumber = phoneNumber });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 解密运动步数
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public ActionResult DecryptRunData(string sessionId, string encryptedData, string iv)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            try
+            {
+                var runData = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptRunData(sessionId, encryptedData, iv);
+
+                //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
+
+                return Json(new { success = true, runData = runData });
             }
             catch (Exception ex)
             {

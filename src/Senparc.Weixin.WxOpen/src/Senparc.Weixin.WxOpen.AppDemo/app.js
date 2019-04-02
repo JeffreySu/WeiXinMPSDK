@@ -6,7 +6,7 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    var isDebug = false;//调试状态使用本地服务器，非调试状态使用远程服务器
+    var isDebug = true;//调试状态使用本地服务器，非调试状态使用远程服务器
     if(!isDebug){
     //远程域名
       wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")
@@ -15,8 +15,11 @@ App({
     else 
     {
     //本地测试域名
-      wx.setStorageSync('domainName', "http://localhost:58936")
-      wx.setStorageSync('wssDomainName', "ws://localhost:58936")
+      // wx.setStorageSync('domainName', "http://localhost:58936")
+      // wx.setStorageSync('wssDomainName', "ws://localhost:58936")
+
+      wx.setStorageSync('domainName', "http://localhost:58936/VirtualPath")
+      wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
     }
 
     // 打开调试

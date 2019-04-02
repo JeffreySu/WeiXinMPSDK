@@ -217,7 +217,32 @@ Page({
       success(res) {
         const encryptedData = res.encryptedData;
 
-        
+        wx.request({
+          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
+          data: {
+            sessionId: wx.getStorageSync('sessionId'),
+            encryptedData: encryptedData,
+            iv: res.iv, 
+          },
+          method: 'POST',
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (runDataRes) {
+            if (runDataRes.data.success) {
+              wx.showModal({
+                title: '成功获得步数信息！',
+                content: runDataRes.data.runData,
+                showCancel: false
+              });
+            } else {
+              wx.showModal({
+                title: '获取步数信息失败！',
+                content: runDataRes.data.msg,
+                showCancel: false
+              });
+            }
+          }
+        });
+
       }
     })
   },

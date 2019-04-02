@@ -40,7 +40,7 @@
     修改描述：v1.2.9 为OAuth Url添加agendId参数（可选）
 
     修改标识：Senparc - 20190214
-    修改描述：
+    修改描述：v3.3.7 MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
 
 ----------------------------------------------------------------*/
 

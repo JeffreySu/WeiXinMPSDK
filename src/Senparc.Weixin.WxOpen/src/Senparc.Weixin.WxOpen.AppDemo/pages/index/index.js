@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.1.3.2',
+    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -230,7 +230,7 @@ Page({
             if (runDataRes.data.success) {
               wx.showModal({
                 title: '成功获得步数信息！',
-                content: runDataRes.data.runData,
+                content: JSON.stringify(runDataRes.data.runData),
                 showCancel: false
               });
             } else {

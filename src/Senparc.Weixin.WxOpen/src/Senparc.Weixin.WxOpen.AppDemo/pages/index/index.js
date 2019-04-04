@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.1.3.2',
+    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -211,6 +211,40 @@ Page({
         }
       }
       });
+  },
+  getRunData:function(){
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData;
+
+        wx.request({
+          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
+          data: {
+            sessionId: wx.getStorageSync('sessionId'),
+            encryptedData: encryptedData,
+            iv: res.iv, 
+          },
+          method: 'POST',
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (runDataRes) {
+            if (runDataRes.data.success) {
+              wx.showModal({
+                title: '成功获得步数信息！',
+                content: JSON.stringify(runDataRes.data.runData),
+                showCancel: false
+              });
+            } else {
+              wx.showModal({
+                title: '获取步数信息失败！',
+                content: runDataRes.data.msg,
+                showCancel: false
+              });
+            }
+          }
+        });
+
+      }
+    })
   },
   openLivePusher:function(){
     wx.navigateTo({

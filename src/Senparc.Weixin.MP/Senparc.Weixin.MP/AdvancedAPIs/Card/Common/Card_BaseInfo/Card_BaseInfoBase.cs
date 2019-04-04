@@ -39,6 +39,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180618
     修改描述：Modify_Msg_Operation modify_msg_operationg 添加  [JsonSetting.IgnoreNull] 特性
 
+    修改标识：Senparc - 20190330
+    修改描述：v16.6.15 Card_BaseInfoBase 添加 get_custom_code_mode 属性
+
 ----------------------------------------------------------------*/
 
 
@@ -126,6 +129,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public bool use_custom_code { get; set; }
+        /// <summary>
+        /// 填入该字段后，自定义code卡券方可进行导入code并投放的动作。
+        /// </summary>
+        public string get_custom_code_mode { get; set; }
         /// <summary>
         /// 是否指定用户领取，填写true或false。不填代表默认为否。
         /// 非必填

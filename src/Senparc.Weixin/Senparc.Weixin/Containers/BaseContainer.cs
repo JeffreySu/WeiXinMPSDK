@@ -198,7 +198,7 @@ namespace Senparc.Weixin.Containers
                     appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
                     break;
                 case PlatformType.Open:
-                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
                     break;
                 case PlatformType.WxOpen:
                     appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;

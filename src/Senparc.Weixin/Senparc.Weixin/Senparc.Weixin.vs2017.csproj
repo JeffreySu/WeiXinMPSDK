@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>6.3.10.2</Version>
+    <Version>6.3.11</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -289,6 +289,7 @@
       v6.3.6 支持在子程序环境下获取 OAuth 回调地址
       v6.3.9 支持最新版本 Senparc.NeuChar
       v6.3.10 支持最新版本 Senparc.NeuChar
+      v6.3.11 优化 BaseContainer
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

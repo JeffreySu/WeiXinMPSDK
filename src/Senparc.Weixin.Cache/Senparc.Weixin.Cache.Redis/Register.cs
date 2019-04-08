@@ -42,7 +42,9 @@ namespace Senparc.Weixin.Cache.Redis
         /// </summary>
         public static void RegisterDomainCache()
         {
+            //通过调用 ContainerCacheStrategy，激活领域模型注册过程
             var cache = RedisContainerCacheStrategy.Instance;
+            var cacheHashSet = RedisHashSetContainerCacheStrategy.Instance;
         }
     }
 }

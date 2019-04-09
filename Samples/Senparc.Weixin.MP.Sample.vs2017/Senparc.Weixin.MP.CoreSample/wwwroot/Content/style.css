@@ -205,6 +205,10 @@
     clear: left;
 }*/
 
+a.qqGroup_tip {
+   text-decoration: underline;
+}
+
 .catalog {
     background: #E7EEF1;
     text-align: center;

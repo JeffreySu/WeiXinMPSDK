@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                     var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext, _oauthCallbackUrl);
                     var state = string.Format("{0}|{1}", "FromSenparc", SystemTime.Now.Ticks);
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
-                    filterContext.Result = new RedirectResult(url);
+                    filterContext.Result = new RedirectResult(url, true);
                 }
             }
         }

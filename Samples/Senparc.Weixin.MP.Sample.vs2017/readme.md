@@ -11,7 +11,7 @@ https://sdk.weixin.senparc.com 官方在线示例已经使用此完整 Sample �
 
 ## 使用 .NET Framework 4.5 Demo
 
-返回上一级后见：[Senparc.Weixin.MP.Sample](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)。
+返回上一级后见：[Senparc.Weixin.MP.Sample](..//Senparc.Weixin.MP.Sample)。
 
 > 注意： .NET Framework 4.5 Sample 将于 2019 年 5 月 1 日起停止小版本更新。
 

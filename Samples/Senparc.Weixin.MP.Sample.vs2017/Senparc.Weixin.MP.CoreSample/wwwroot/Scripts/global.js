@@ -47,10 +47,16 @@ function loadQQGroups() {
 
             $('<li>').addClass('contatc-name').html('&nbsp; ').insertAfter($('#qqGroups li.contatc-img').eq(8));//在第9个元素后追加
 
-
-
             $('#contact-content li.contact-qq').darkTooltip({
                 theme: 'light'
+            });
+
+            $('ins div:contains(SCF)').each(function (i, item) {
+                $(this).html($(this).html().replace('SCF', '<a href="https://github.com/SenparcCoreFramework/SCF" target="_blank" class="qqGroup_tip">SCF<a>'));
+            });
+
+            $('ins div:contains(NeuChar)').each(function (i, item) {
+                $(this).html($(this).html().replace('NeuChar', '<a href="https://github.com/Senparc/NeuChar" target="_blank" class="qqGroup_tip">NeuChar<a>'));
             });
         },
         error: function () {

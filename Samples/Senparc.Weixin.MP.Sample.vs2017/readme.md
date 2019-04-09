@@ -9,7 +9,7 @@
 
 https://sdk.weixin.senparc.com 官方在线示例已经使用此完整 Sample 项目。
 
-## 使用 .NET Framwork 4.5 Demo
+## 使用 .NET Framework 4.5 Demo
 
 返回上一级后见：[Senparc.Weixin.MP.Sample](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)。
 

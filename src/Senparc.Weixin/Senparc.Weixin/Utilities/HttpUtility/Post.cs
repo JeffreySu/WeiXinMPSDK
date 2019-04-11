@@ -55,18 +55,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET40 || NET45
 using System.Web.Script.Serialization;
 using Senparc.Weixin.HttpUtility;
 #endif

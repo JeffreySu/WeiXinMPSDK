@@ -59,20 +59,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 #if !NET35 && !NET40
 using System.Net.Http;
 using System.Threading.Tasks;
 #endif
-using System.Text;
-#if NET35 || NET40 || NET45
+#if NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using System.Text.RegularExpressions;
 
 namespace Senparc.Weixin.HttpUtility
 {

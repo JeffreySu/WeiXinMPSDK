@@ -67,7 +67,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 #endif
 using System.Text;
-#if NET35 || NET40 || NET45
+#if NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Entities;

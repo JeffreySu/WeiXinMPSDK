@@ -64,7 +64,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET40 || NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET35 || NET40 || NET45
+#if NET40 || NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else

@@ -3,9 +3,10 @@ image:
   - Visual Studio 2017
 pull_requests:
   do_not_increment_build_number: true
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
+#    - Developer
 skip_branch_with_pr: true
 configuration: Release
 before_build:

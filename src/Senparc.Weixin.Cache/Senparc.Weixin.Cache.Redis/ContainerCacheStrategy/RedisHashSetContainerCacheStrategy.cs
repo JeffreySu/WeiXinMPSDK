@@ -30,6 +30,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.Weixin.Helpers;
@@ -144,6 +145,39 @@ namespace Senparc.Weixin.Cache.Redis
 
             return dic;
         }
+
+
+        #region 异步方法
+#if !NET35 && !NET40
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            var baseCacheStrategy = BaseCacheStrategy() as RedisHashSetObjectCacheStrategy;
+            var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
+            key = key.Substring(0, key.Length - 1);//去掉:号
+            key = baseCacheStrategy.GetFinalKey(key);//获取带 SenparcWeixin:DefaultCache: 前缀的Key（[DefaultCache]可配置）
+
+            var allHashEntry = await baseCacheStrategy.HashGetAllAsync(key);
+            //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
+            var dic = new Dictionary<string, TBag>();
+
+            foreach (var item in allHashEntry)
+            {
+                var fullKey = key + ":" + item.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                dic[fullKey] = item.Value.ToString().DeserializeFromCache<TBag>();
+            }
+
+            return dic;
+        }
+
+#endif
+        #endregion
 
         #endregion
 

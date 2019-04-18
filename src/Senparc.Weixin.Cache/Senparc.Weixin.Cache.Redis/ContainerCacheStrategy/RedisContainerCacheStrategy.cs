@@ -179,7 +179,7 @@ namespace Senparc.Weixin.Cache.Redis
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
             key = baseCacheStrategy.GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
-            var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAllByPrefix<TBag>(key);
+            var list =  await (baseCacheStrategy as RedisObjectCacheStrategy).GetAllByPrefixAsync<TBag>(key);
 
             //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
             var dic = new Dictionary<string, TBag>();

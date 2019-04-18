@@ -56,7 +56,6 @@ namespace Senparc.Weixin.Cache
         }
 
 
-
         public virtual void UpdateContainerBag(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();

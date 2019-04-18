@@ -27,6 +27,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20190404
 
+
+    修改标识：Senparc - 20190418
+    修改描述：v2.5.5 提供  GetAllAsync() 异步方法
+
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

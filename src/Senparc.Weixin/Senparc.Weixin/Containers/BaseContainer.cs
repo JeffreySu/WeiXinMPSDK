@@ -178,7 +178,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 进行注册过程的委托
         /// </summary>
-        protected static Func<Task<TBag>> RegisterFunc { get; set; }
+        protected static Func<Task<TBag>> RegisterFunc { get; set; } //TODO：这里可以不使用Task
 
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。

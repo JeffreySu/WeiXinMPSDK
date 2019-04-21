@@ -74,6 +74,10 @@ Copyright(C) 2018 Senparc
 
     修改标识：Senparc - 20181226
     修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
+    
+    修改标识：Senparc - 20190422
+    修改描述：v4.5.0 支持异步 Container
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -712,7 +716,7 @@ namespace Senparc.Weixin.Open.Containers
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
-                Update(authorizerBag, null);//立即更新
+                await UpdateAsync(authorizerBag, null);//立即更新
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -754,7 +758,7 @@ namespace Senparc.Weixin.Open.Containers
                     authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                     authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
 
-                    Update(authorizerBag, null);//立即更新
+                    await UpdateAsync(authorizerBag, null);//立即更新
 
                     //通知变更
                     if (refreshTokenChanged)
@@ -826,7 +830,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             await TryRegisterAsync(componentAppId, authorizerAppid);
 
-            var accessTicketBag = TryGetItem(authorizerAppid);
+            var accessTicketBag = await TryGetItemAsync(authorizerAppid);
             using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetJsApiTicketResult", authorizerAppid))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= SystemTime.Now)

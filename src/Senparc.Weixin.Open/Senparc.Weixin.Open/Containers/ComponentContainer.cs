@@ -68,10 +68,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
 
     修改标识：Senparc - 20180614
-    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+    修改描述：支持 CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 
     修改标识：Senparc - 20181226
     修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
+
+    修改标识：Senparc - 20190422
+    修改描述：v4.5.0 支持异步 Container
+
 ----------------------------------------------------------------*/
 
 using System;

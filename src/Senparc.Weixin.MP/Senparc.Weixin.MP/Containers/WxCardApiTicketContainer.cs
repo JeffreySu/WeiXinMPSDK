@@ -271,7 +271,7 @@ namespace Senparc.Weixin.MP.Containers
                                                                     string appSecret,
                                                                     bool getNewTicket = false)
         {
-            if (!CheckRegistered(appId) || getNewTicket)
+            if (!await CheckRegisteredAsync(appId) || getNewTicket)
             {
                 await RegisterAsync(appId, appSecret);
             }
@@ -299,13 +299,13 @@ namespace Senparc.Weixin.MP.Containers
         public static async Task<JsApiTicketResult> GetWxCardApiTicketResultAsync(string appId,
                                                                                   bool getNewTicket = false)
         {
-            if (!CheckRegistered(appId))
+            if (!await CheckRegisteredAsync(appId))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用WxCardApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            WxCardApiTicketBag wxCardApiTicketBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            WxCardApiTicketBag wxCardApiTicketBag = await TryGetItemAsync(appId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
             {
                 if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= SystemTime.Now)
                 {
@@ -315,7 +315,7 @@ namespace Senparc.Weixin.MP.Containers
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = SystemTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
-                    Update(wxCardApiTicketBag, null);
+                    await UpdateAsync(wxCardApiTicketBag, null);
                 }
             }
             return wxCardApiTicketBag.WxCardApiTicketResult;

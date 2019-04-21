@@ -140,10 +140,6 @@ namespace Senparc.Weixin.MP.Containers
 
         #region 同步方法
 
-
-        //static Dictionary<string,WxCardApiTicketBag> WxCardApiTicketCollection =
-        //   new Dictionary<string, WxCardApiTicketBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
@@ -151,35 +147,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         /*此接口不提供异步方法*/
+        [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-            RegisterFunc = () =>
-            {
-                //using(FlushCache.CreateInstance())
-                //{
-                WxCardApiTicketBag bag = new WxCardApiTicketBag()
-                {
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    WxCardApiTicketExpireTime = DateTimeOffset.MinValue,
-                    WxCardApiTicketResult = new JsApiTicketResult()
-                };
-                Update(appId, bag, null);
-                return bag;
-                //}
-            };
-            RegisterFunc();
-
-            if (!name.IsNullOrEmpty())
-            {
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
-            }
-
+            RegisterAsync(appId, appSecret, name).Wait();
         }
-
 
         #region WxCardApiTicket
 
@@ -245,6 +217,43 @@ namespace Senparc.Weixin.MP.Containers
 
 #if !NET35 && !NET40
         #region 异步方法
+
+        /// <summary>
+        /// 【异步方法】注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
+        /*此接口不提供异步方法*/
+        public static async Task RegisterAsync(string appId, string appSecret, string name = null)
+        {
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = async () =>
+            {
+                //using(FlushCache.CreateInstance())
+                //{
+                WxCardApiTicketBag bag = new WxCardApiTicketBag()
+                {
+                    Name = name,
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    WxCardApiTicketExpireTime = DateTimeOffset.MinValue,
+                    WxCardApiTicketResult = new JsApiTicketResult()
+                };
+                await UpdateAsync(appId, bag, null);
+                return bag;
+                //}
+            };
+
+            await RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
+            }
+        }
+
         #region WxCardApiTicket
 
         /// <summary>
@@ -260,7 +269,7 @@ namespace Senparc.Weixin.MP.Containers
         {
             if (!CheckRegistered(appId) || getNewTicket)
             {
-                Register(appId, appSecret);
+                await RegisterAsync(appId, appSecret);
             }
             return await GetWxCardApiTicketAsync(appId, getNewTicket);
         }

@@ -264,9 +264,9 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetOAuthAccessTokenAsync(string appId, string appSecret, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId) || getNewToken)
+            if (!await CheckRegisteredAsync(appId) || getNewToken)
             {
-                Register(appId, appSecret);
+                await RegisterAsync(appId, appSecret);
             }
             return await GetOAuthAccessTokenAsync(appId, code, getNewToken);
         }
@@ -293,13 +293,13 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<OAuthAccessTokenResult> GetOAuthAccessTokenResultAsync(string appId, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId))
+            if (!await CheckRegisteredAsync(appId))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            var oAuthAccessTokenBag = await TryGetItemAsync(appId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= SystemTime.Now)
                 {
@@ -309,7 +309,7 @@ namespace Senparc.Weixin.MP.Containers
                     //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                    Update(oAuthAccessTokenBag, null);
+                    await UpdateAsync(oAuthAccessTokenBag, null);
                 }
             }
             return oAuthAccessTokenBag.OAuthAccessTokenResult;

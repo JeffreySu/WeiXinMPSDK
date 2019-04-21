@@ -159,7 +159,6 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
-        /*此接口不提供异步方法*/
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
@@ -172,7 +171,6 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
-        /*此接口不提供异步方法*/
         public static async Task RegisterAsync(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
@@ -276,9 +274,9 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetJsApiTicketAsync(string appId, string appSecret, bool getNewTicket = false)
         {
-            if (!CheckRegistered(appId) || getNewTicket)
+            if (!await CheckRegisteredAsync(appId) || getNewTicket)
             {
-                Register(appId, appSecret);
+                await RegisterAsync(appId, appSecret);
             }
             return await GetJsApiTicketAsync(appId, getNewTicket);
         }
@@ -308,8 +306,8 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            var jsApiTicketBag = await TryGetItemAsync(appId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= SystemTime.Now)
                 {
@@ -318,7 +316,7 @@ namespace Senparc.Weixin.MP.Containers
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     jsApiTicketBag.JsApiTicketExpireTime = SystemTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    Update(jsApiTicketBag, null);
+                    await UpdateAsync(jsApiTicketBag, null);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

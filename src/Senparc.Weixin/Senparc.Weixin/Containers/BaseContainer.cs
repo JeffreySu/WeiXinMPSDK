@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170522
     修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20190418
+    修改描述：v17.0.0 支持异步 Container
+
 ----------------------------------------------------------------*/
 
 
@@ -175,14 +178,14 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 进行注册过程的委托
         /// </summary>
-        protected static Func<TBag> RegisterFunc { get; set; }
+        protected static Func<Task<TBag>> RegisterFunc { get; set; } //TODO：这里可以不使用Task
 
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
         /// </summary>
-        private static TBag TryReRegister()
+        private static async Task<TBag> TryReRegister()
         {
-            return RegisterFunc();
+            return await RegisterFunc();
             //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
         }
 

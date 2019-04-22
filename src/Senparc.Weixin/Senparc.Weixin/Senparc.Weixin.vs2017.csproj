@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>6.3.11</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>6.4.0-preview1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -290,6 +290,10 @@
       v6.3.9 支持最新版本 Senparc.NeuChar
       v6.3.10 支持最新版本 Senparc.NeuChar
       v6.3.11 优化 BaseContainer
+      v6.4.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

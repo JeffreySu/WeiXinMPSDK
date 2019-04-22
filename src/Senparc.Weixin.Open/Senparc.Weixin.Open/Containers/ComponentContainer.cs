@@ -68,10 +68,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
 
     修改标识：Senparc - 20180614
-    修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+    修改描述：支持 CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
 
     修改标识：Senparc - 20181226
     修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
+
+    修改标识：Senparc - 20190422
+    修改描述：v4.5.0 支持异步 Container
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -256,7 +260,44 @@ namespace Senparc.Weixin.Open.Containers
         const string LockResourceName = "Open.ComponentContainer";
 
 
+        /// <summary>
+        /// 获取ComponentVerifyTicket的方法
+        /// </summary>
+        public static Func<string, Task<string>> GetComponentVerifyTicketFunc { get; set; }
+
+        /// <summary>
+        /// 从数据库中获取已存的AuthorizerAccessToken的方法
+        /// </summary>
+        public static Func<string, string, Task<string>> GetAuthorizerRefreshTokenFunc { get; set; }
+
+        /// <summary>
+        /// AuthorizerAccessToken更新后的回调
+        /// </summary>
+        public static Action<string, string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
+
         #region 同步方法
+
+
+
+        /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="componentAppSecret"></param>
+        /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
+        /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
+        /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
+        /// <param name="name">标记名称（如开放平台名称），帮助管理员识别</param>
+        [Obsolete("请使用 RegisterAsync() 方法")]
+        public static void Register(string componentAppId, string componentAppSecret,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
+            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
+            string name = null)
+        {
+            RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).Wait();
+        }
+
 
         /// <summary>
         /// 检查AppId是否已经注册，如果没有，则创建
@@ -270,69 +311,6 @@ namespace Senparc.Weixin.Open.Containers
             if (!CheckRegistered(componentAppId) || getNewToken)
             {
                 Register(componentAppId, componentAppSecret, null, null, null, name);
-            }
-        }
-
-        /// <summary>
-        /// 获取ComponentVerifyTicket的方法
-        /// </summary>
-        public static Func<string, string> GetComponentVerifyTicketFunc { get; set; }
-
-        /// <summary>
-        /// 从数据库中获取已存的AuthorizerAccessToken的方法
-        /// </summary>
-        public static Func<string, string, string> GetAuthorizerRefreshTokenFunc { get; set; }
-
-        /// <summary>
-        /// AuthorizerAccessToken更新后的回调
-        /// </summary>
-        public static Action<string, string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
-
-
-        /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="componentAppSecret"></param>
-        /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
-        /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
-        /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
-        /// <param name="name">标记名称（如开放平台名称），帮助管理员识别</param>
-        public static void Register(string componentAppId, string componentAppSecret,
-            Func<string, string> getComponentVerifyTicketFunc,
-            Func<string, string, string> getAuthorizerRefreshTokenFunc,
-            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
-            string name = null)
-        {
-            //激活消息队列线程
-
-            if (GetComponentVerifyTicketFunc == null)
-            {
-                GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;
-                GetAuthorizerRefreshTokenFunc = getAuthorizerRefreshTokenFunc;
-                AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
-            }
-
-            RegisterFunc = () =>
-            {
-                //using (FlushCache.CreateInstance())
-                //{
-                var bag = new ComponentBag()
-                {
-                    Name = name,
-                    ComponentAppId = componentAppId,
-                    ComponentAppSecret = componentAppSecret,
-                };
-                Update(componentAppId, bag, null);
-                return bag;
-                //}
-            };
-            RegisterFunc();
-
-            if (!name.IsNullOrEmpty())
-            {
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Appid = componentAppId;
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Secret = componentAppSecret;
             }
         }
 
@@ -359,7 +337,7 @@ namespace Senparc.Weixin.Open.Containers
                 {
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", bag);
                 }
-                componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
+                componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId).GetAwaiter().GetResult(); //获取最新的componentVerifyTicket
                 bag.ComponentVerifyTicket = componentVerifyTicket;
                 bag.ComponentVerifyTicketExpireTime = ApiUtility.GetExpireTime(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES * 60);
                 Update(bag, null);//更新到缓存
@@ -551,6 +529,116 @@ namespace Senparc.Weixin.Open.Containers
 
 #if !NET35 && !NET40
         #region 异步方法
+
+        /// <summary>
+        /// 【异步方法】册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="componentAppSecret"></param>
+        /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
+        /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
+        /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
+        /// <param name="name">标记名称（如开放平台名称），帮助管理员识别</param>
+        public static async Task RegisterAsync(string componentAppId, string componentAppSecret,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
+            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
+            string name = null)
+        {
+            //激活消息队列线程
+
+            if (GetComponentVerifyTicketFunc == null)
+            {
+                GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;
+                GetAuthorizerRefreshTokenFunc = getAuthorizerRefreshTokenFunc;
+                AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
+            }
+
+            RegisterFunc = async () =>
+            {
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new ComponentBag()
+                {
+                    Name = name,
+                    ComponentAppId = componentAppId,
+                    ComponentAppSecret = componentAppSecret,
+                };
+                await UpdateAsync(componentAppId, bag, null);
+                return bag;
+                //}
+            };
+            await RegisterFunc();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Appid = componentAppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].Component_Secret = componentAppSecret;
+            }
+        }
+
+        /// <summary>
+        /// 【异步方法】检查AppId是否已经注册，如果没有，则创建
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="componentAppSecret"></param>
+        /// <param name="getNewToken"></param>
+        /// <param name="name">标记Component名称（如微信公众号名称），帮助管理员识别</param>
+        private static async Task TryRegisterAsync(string componentAppId, string componentAppSecret, bool getNewToken = false, string name = null)
+        {
+            if (!await CheckRegisteredAsync(componentAppId) || getNewToken)
+            {
+                await RegisterAsync(componentAppId, componentAppSecret, null, null, null, name);
+            }
+        }
+
+        #region component_verify_ticket
+
+        /// <summary>
+        /// 获取ComponentVerifyTicket
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="getNewToken"></param>
+        /// <returns>如果不存在，则返回null</returns>
+        public static async Task<string> TryGetComponentVerifyTicketAsync(string componentAppId, bool getNewToken = false)
+        {
+            if (!await CheckRegisteredAsync(componentAppId))
+            {
+                throw new WeixinOpenException(UN_REGISTER_ALERT);
+            }
+
+            var bag = await TryGetItemAsync(componentAppId);
+            var componentVerifyTicket = bag.ComponentVerifyTicket;
+            if (getNewToken || componentVerifyTicket == default(string) || bag.ComponentVerifyTicketExpireTime < SystemTime.Now)
+            {
+                if (GetComponentVerifyTicketFunc == null)
+                {
+                    throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", bag);
+                }
+                componentVerifyTicket = await GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
+                bag.ComponentVerifyTicket = componentVerifyTicket;
+                bag.ComponentVerifyTicketExpireTime = ApiUtility.GetExpireTime(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES * 60);
+                await UpdateAsync(bag, null);//更新到缓存
+            }
+            return componentVerifyTicket;
+        }
+
+        /// <summary>
+        /// 更新ComponentVerifyTicket信息
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="componentVerifyTicket"></param>
+        public static async Task UpdateComponentVerifyTicketAsync(string componentAppId, string componentVerifyTicket)
+        {
+            await UpdateAsync(componentAppId, async bag =>
+            {
+                bag.ComponentVerifyTicket = componentVerifyTicket;
+                await UpdateAsync(bag, null);//更新到缓存
+            }, null);
+        }
+
+        #endregion
+
         #region component_access_token
 
         /// <summary>
@@ -563,7 +651,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<string> TryGetComponentAccessTokenAsync(string componentAppId, string componentAppSecret, string componentVerifyTicket = null, bool getNewToken = false)
         {
-            TryRegister(componentAppId, componentAppSecret, getNewToken);
+            await TryRegisterAsync(componentAppId, componentAppSecret, getNewToken);
             return await GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket, getNewToken);
         }
 
@@ -590,24 +678,24 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<ComponentAccessTokenResult> GetComponentAccessTokenResultAsync(string componentAppId, string componentVerifyTicket = null, bool getNewToken = false)
         {
-            if (!CheckRegistered(componentAppId))
+            if (!await CheckRegisteredAsync(componentAppId))
             {
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetComponentAccessTokenResult", componentAppId))//同步锁
+            var accessTokenBag = await TryGetItemAsync(componentAppId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetComponentAccessTokenResult", componentAppId))//同步锁
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    componentVerifyTicket = componentVerifyTicket ?? TryGetComponentVerifyTicket(componentAppId);
+                    componentVerifyTicket = componentVerifyTicket ?? await TryGetComponentVerifyTicketAsync(componentAppId);
 
                     var componentAccessTokenResult = await ComponentApi.GetComponentAccessTokenAsync(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
                     accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
-                    Update(accessTokenBag, null);//更新到缓存
+                    await UpdateAsync(accessTokenBag, null);//更新到缓存
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;
@@ -625,7 +713,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<string> TryGetPreAuthCodeAsync(string componentAppId, string componentAppSecret, bool getNewToken = false)
         {
-            TryRegister(componentAppId, componentAppSecret, getNewToken);
+            await TryRegisterAsync(componentAppId, componentAppSecret, getNewToken);
             return await GetPreAuthCodeAsync(componentAppId, getNewToken);
         }
 
@@ -649,28 +737,27 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<PreAuthCodeResult> GetPreAuthCodeResultAsync(string componentAppId, bool getNewToken = false)
         {
-            if (!CheckRegistered(componentAppId))
+            if (!await CheckRegisteredAsync(componentAppId))
             {
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetPreAuthCodeResult", componentAppId))//同步锁
+            var componentBag = await TryGetItemAsync(componentAppId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetPreAuthCodeResult", componentAppId))//同步锁
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
+                    var componentVerifyTicket = await TryGetComponentVerifyTicketAsync(componentAppId);
 
-                    var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
+                    var accessToken = await TryGetComponentAccessTokenAsync(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
 
                     var preAuthCodeResult = await ComponentApi.GetPreAuthCodeAsync(componentBag.ComponentAppId, accessToken);
                     componentBag.PreAuthCodeExpireTime = ApiUtility.GetExpireTime(preAuthCodeResult.expires_in);
 
-
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
 
-                    Update(componentBag, null);//更新到缓存
+                    await UpdateAsync(componentBag, null);//更新到缓存
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
                     //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
@@ -696,21 +783,21 @@ namespace Senparc.Weixin.Open.Containers
         /// <exception cref="WeixinOpenException"></exception>
         public static async Task<QueryAuthResult> GetQueryAuthResultAsync(string componentAppId, string authorizationCode, bool updateToAuthorizerContanier = true, bool getNewToken = false)
         {
-            if (!CheckRegistered(componentAppId))
+            if (!await CheckRegisteredAsync(componentAppId))
             {
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetQueryAuthResult", componentAppId))//同步锁
+            var componentBag = await TryGetItemAsync(componentAppId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetQueryAuthResult", componentAppId))//同步锁
             {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, null, getNewToken);
+                var accessToken = await TryGetComponentAccessTokenAsync(componentAppId, componentBag.ComponentAppSecret, null, getNewToken);
                 var queryAuthResult = await ComponentApi.QueryAuthAsync(accessToken, componentAppId, authorizationCode);
 
                 if (updateToAuthorizerContanier)
                 {
                     //更新到AuthorizerContainer
-                    AuthorizerContainer.TryUpdateAuthorizationInfo(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
+                    await AuthorizerContainer.TryUpdateAuthorizationInfoAsync(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
                 }
 
                 return queryAuthResult;

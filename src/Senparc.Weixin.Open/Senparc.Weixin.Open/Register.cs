@@ -40,6 +40,7 @@ using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.CO2NET.RegisterServices;
 using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open
 {
@@ -60,17 +61,17 @@ namespace Senparc.Weixin.Open
         /// <returns></returns>
         public static IRegisterService RegisterOpenComponent(this IRegisterService registerService,
             string componentAppId, string componentAppSecret,
-            Func<string, string> getComponentVerifyTicketFunc,
-            Func<string, string, string> getAuthorizerRefreshTokenFunc,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
-            ComponentContainer.Register(
-                            componentAppId, componentAppSecret,
-                            getComponentVerifyTicketFunc,
-                            getAuthorizerRefreshTokenFunc,
-                            authorizerTokenRefreshedFunc,
-                            name);
+            ComponentContainer.RegisterAsync(
+                             componentAppId, componentAppSecret,
+                             getComponentVerifyTicketFunc,
+                             getAuthorizerRefreshTokenFunc,
+                             authorizerTokenRefreshedFunc,
+                             name).GetAwaiter();
             return registerService;
         }
 
@@ -81,8 +82,9 @@ namespace Senparc.Weixin.Open
         /// <param name="ISenparcWeixinSettingForOpen">SenparcWeixinSetting</param>
         /// <param name="name">统一标识，如果为null，则使用 SenparcWeixinSetting.ItemKey </param>
         /// <returns></returns>
-        public static IRegisterService RegisterOpenComponent(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForOpen weixinSettingForOpen, Func<string, string> getComponentVerifyTicketFunc,
-            Func<string, string, string> getAuthorizerRefreshTokenFunc,
+        public static IRegisterService RegisterOpenComponent(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForOpen weixinSettingForOpen,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {

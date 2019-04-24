@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
     <!--<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>-->
-    
-    <Version>3.2.11</Version>
+
+    <Version>3.2.14</Version>
     <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -93,5 +93,9 @@
     </None>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/commands" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/commands" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

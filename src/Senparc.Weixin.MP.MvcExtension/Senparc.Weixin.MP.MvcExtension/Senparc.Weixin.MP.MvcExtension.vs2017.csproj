@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>7.2.7.2</Version>
+    <Version>7.2.8-preview1</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -84,6 +84,7 @@
       v7.1.13 支持 Senparc.NeuChar v0.4.4
       v7.2.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v7.2.7 支持最新版本 Senparc.Weixin
+      v7.2.8 升级 OAuth 重定向功能，改为永久重定向（301)
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.MVC</PackageId>

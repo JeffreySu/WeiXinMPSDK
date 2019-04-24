@@ -36,6 +36,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170522
     修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+    
+    修改标识：Senparc - 20190422
+    修改描述：v3.4.0 
+             1、支持异步 Container
+             2、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
 
 ----------------------------------------------------------------*/
 
@@ -137,7 +142,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <returns></returns>
         private static TimeSpan GetExpireTime()
         {
-            return TimeSpan.FromDays(2);//有效期2天
+            return TimeSpan.FromDays(5);//有效期5天
         }
 
         #region 同步方法
@@ -178,7 +183,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <param name="sessionKey">SessionKey</param>
         /// <param name="uniondId">UnionId</param>
         /// <returns></returns>
-        public static SessionBag UpdateSession(string key, string openId, string sessionKey, string uniondId)
+        public static SessionBag UpdateSession(string key, string openId, string sessionKey, string uniondId, TimeSpan? expireTime = null)
         {
             key = key ?? SessionHelper.GetNewThirdSessionName();
 
@@ -190,14 +195,72 @@ namespace Senparc.Weixin.WxOpen.Containers
                 OpenId = openId,
                 UnionId = uniondId,
                 SessionKey = sessionKey,
-                ExpireTime = SystemTime.Now.Add(GetExpireTime())
+                ExpireTime = SystemTime.Now.Add(expireTime ?? GetExpireTime())
             };
-            Update(key, sessionBag, GetExpireTime());
+            Update(key, sessionBag, expireTime ?? GetExpireTime());
             return sessionBag;
             //}
         }
 
         #endregion
 
+        #region 异步方法
+
+        /// <summary>
+        /// 获取Session
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<SessionBag> GetSessionAsync(string key)
+        {
+            var bag = await TryGetItemAsync(key);
+            if (bag == null)
+            {
+                return null;
+            }
+
+            if (bag.ExpireTime < SystemTime.Now)
+            {
+                //已经过期
+                await Cache.RemoveFromCacheAsync(key);
+                return null;
+            }
+
+            //using (FlushCache.CreateInstance())
+            //{
+            bag.ExpireTime = SystemTime.Now.Add(GetExpireTime());//滚动过期时间
+            await UpdateAsync(key, bag, GetExpireTime());
+            //}
+            return bag;
+        }
+
+        /// <summary>
+        /// 更新或插入SessionBag
+        /// </summary>
+        /// <param name="key">如果留空，则新建一条记录</param>
+        /// <param name="openId">OpenId</param>
+        /// <param name="sessionKey">SessionKey</param>
+        /// <param name="uniondId">UnionId</param>
+        /// <returns></returns>
+        public static async Task<SessionBag> UpdateSessionAsync(string key, string openId, string sessionKey, string uniondId, TimeSpan? expireTime = null)
+        {
+            key = key ?? SessionHelper.GetNewThirdSessionName();
+
+            //using (FlushCache.CreateInstance())
+            //{
+            var sessionBag = new SessionBag()
+            {
+                Key = key,
+                OpenId = openId,
+                UnionId = uniondId,
+                SessionKey = sessionKey,
+                ExpireTime = SystemTime.Now.Add(expireTime ?? GetExpireTime())
+            };
+            await UpdateAsync(key, sessionBag, expireTime ?? GetExpireTime());
+            return sessionBag;
+            //}
+        }
+
+        #endregion
     }
 }

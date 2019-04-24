@@ -914,7 +914,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("JsApi", new { productId = productId, hc = hc, appId = "1234" });
+                return RedirectToAction("JsApi", new { productId = productId, hc = hc });
             }
             else
             {

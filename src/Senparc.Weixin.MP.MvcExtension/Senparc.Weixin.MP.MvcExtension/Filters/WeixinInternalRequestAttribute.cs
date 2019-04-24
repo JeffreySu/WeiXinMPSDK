@@ -25,7 +25,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 #endif
-using Senparc.Weixin.MP.MvcExtension.BrowserUtility;
 //using Senparc.Weixin.BrowserUtility;
 
 namespace Senparc.Weixin.MP.MvcExtension
@@ -65,7 +64,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             {
 
                 //if (!filterContext.HttpContext.SideInWeixinBrowser())
-                if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
+                if (!Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     ActionResult actionResult = null;

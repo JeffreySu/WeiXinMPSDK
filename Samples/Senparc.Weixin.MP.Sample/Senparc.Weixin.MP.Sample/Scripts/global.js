@@ -9,7 +9,7 @@ $(function () {
     });
 
     var noticeareaHeight = $('#noticearea').height();
-    var noticeareaHeight_shrink = noticeareaHeight * 2 / 3;
+    var noticeareaHeight_shrink = noticeareaHeight * 2 / 4;
     $('#noticearea').animate({ height: noticeareaHeight_shrink }, 1000);
     $('#noticearea').hover(function () {
         if (noticeareaHeightChanging) {

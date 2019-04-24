@@ -39,8 +39,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Index(string returnUrl)
         {
-            return Content("测试：returnUrl=" + returnUrl);
-
             var state = "JeffreySu-" + SystemTime.Now.Millisecond;//随机数，用于识别请求可靠性
             HttpContext.Session.SetString("State", state);//储存随机数到Session
 

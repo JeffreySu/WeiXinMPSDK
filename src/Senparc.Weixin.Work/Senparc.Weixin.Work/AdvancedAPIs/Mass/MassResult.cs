@@ -22,4 +22,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public string msgtype { get; set; }
         public Miniprogram_Notice miniprogram_notice { get; set; }
     }
+
+    public class SendTaskcardNoticeData
+    {
+        public string touser { get; set; }
+        public string toparty { get; set; }
+        public string totag { get; set; }
+        public string msgtype { get; set; }
+        public int agentid { get; set; }
+        public Taskcard_Notice taskcard { get; set; }
+    }
 }

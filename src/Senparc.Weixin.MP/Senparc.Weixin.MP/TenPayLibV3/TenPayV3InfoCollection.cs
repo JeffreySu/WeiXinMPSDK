@@ -50,14 +50,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public static TenPayV3InfoCollection Data = new TenPayV3InfoCollection();
 
         /// <summary>
-        /// 注册TenPayV3Info信息
+        /// 注册TenPayV3Info信息 ,以商户号以键
         /// </summary>
         /// <param name="tenPayV3Info"></param>
         public static void Register(TenPayV3Info tenPayV3Info)
         {
             Data[tenPayV3Info.MchId] = tenPayV3Info;
         }
-
+        /// <summary>
+        /// 注册TenPayV3Info信息 ,以AppId为键，同一个商户号可能供多个AppId使用
+        /// </summary>
+        /// <param name="tenPayV3Info"></param>
+        public static void RegisterByAppId(TenPayV3Info tenPayV3Info)
+        {
+            Data[tenPayV3Info.AppId] = tenPayV3Info;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public new TenPayV3Info this[string key]
         {
             get

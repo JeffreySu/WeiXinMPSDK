@@ -791,7 +791,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static RegisterResultJson GroupUpdate(string accessTokenOrAppId, string groupid, string groupName, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupUpdate(string accessTokenOrAppId, long groupid, string groupName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -817,7 +817,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
 
         /// <returns></returns>
-        public static RegisterResultJson GroupDelete(string accessTokenOrAppId, string groupId, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupDelete(string accessTokenOrAppId, long groupId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -863,7 +863,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="begin">分组列表的起始索引值</param>
         /// <param name="count">待查询的分组数量，不能超过1000个</param>
         /// <returns></returns>
-        public static GroupGetDetailResultJson GroupGetDetail(string accessTokenOrAppId, string groupId, int begin, int count, int timeOut = Config.TIME_OUT)
+        public static GroupGetDetailResultJson GroupGetDetail(string accessTokenOrAppId, long groupId, int begin, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -888,7 +888,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="deviceIdentifier">分组列表的起始索引值</param>
 
         /// <returns></returns>
-        public static RegisterResultJson GroupGetAdddevice(string accessTokenOrAppId, string groupId, List<DeviceApply_Data_Device_Identifiers> deviceIdentifiers, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupGetAdddevice(string accessTokenOrAppId, long groupId, List<DeviceApply_Data_Device_Identifiers> deviceIdentifiers, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -934,34 +934,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="groupId">分组唯一标识，全局唯一</param>
-        /// <param name="deviceIdentifier">分组列表的起始索引值</param>
+        /// <param name="deviceIdentifier">设备id列表,从分组中移除设备，每次删除操作的上限为1000。</param>
 
         /// <returns></returns>
-        public static RegisterResultJson GroupDeleteDevice(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupDeleteDevice(string accessTokenOrAppId, long groupId, List<DeviceApply_Data_Device_Identifiers> deviceIdentifier, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiMpHost + "/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
-                var data = new object();
-                if (!deviceIdentifier.device_id.HasValue)
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
+                var data = new
                 {
-                    data = new
-                    {
-                        group_id = groupId,
-                        uuid = deviceIdentifier.uuid,
-                        major = deviceIdentifier.major,
-                        minor = deviceIdentifier.minor
-
-                    };
-                }
-                else
-                {
-                    data = new
-                    {
-                        group_id = groupId,
-                        device_id = deviceIdentifier.device_id.Value
-                    };
-                }
+                    group_id = groupId,
+                    device_identifiers = deviceIdentifier
+                };
 
 
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -1798,7 +1783,7 @@ int timeOut = Config.TIME_OUT)
         /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<RegisterResultJson> GroupUpdateAsync(string accessTokenOrAppId, string groupid, string groupName, int timeOut = Config.TIME_OUT)
+        public static async Task<RegisterResultJson> GroupUpdateAsync(string accessTokenOrAppId, long groupId, string groupName, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1806,7 +1791,7 @@ int timeOut = Config.TIME_OUT)
 
                 var data = new
                 {
-                    group_id = groupid,
+                    group_id = groupId,
                     group_name = groupName
 
 
@@ -1824,7 +1809,7 @@ int timeOut = Config.TIME_OUT)
         /// <param name="timeOut"></param>
 
         /// <returns></returns>
-        public static async Task<RegisterResultJson> GroupDeleteAsync(string accessTokenOrAppId, string groupId, int timeOut = Config.TIME_OUT)
+        public static async Task<RegisterResultJson> GroupDeleteAsync(string accessTokenOrAppId, long groupId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1870,7 +1855,7 @@ int timeOut = Config.TIME_OUT)
         /// <param name="begin">分组列表的起始索引值</param>
         /// <param name="count">待查询的分组数量，不能超过1000个</param>
         /// <returns></returns>
-        public static async Task<GroupGetDetailResultJson> GroupGetDetailAsync(string accessTokenOrAppId, string groupId, int begin, int count, int timeOut = Config.TIME_OUT)
+        public static async Task<GroupGetDetailResultJson> GroupGetDetailAsync(string accessTokenOrAppId, long groupId, int begin, int count, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1894,7 +1879,7 @@ int timeOut = Config.TIME_OUT)
         /// <param name="groupId">分组唯一标识，全局唯一</param>
         /// <param name="deviceIdentifiers">分组列表的起始索引值</param>
         /// <returns></returns>
-        public static async Task<RegisterResultJson> GroupGetAdddeviceAsync(string accessTokenOrAppId, string groupId, List<DeviceApply_Data_Device_Identifiers> deviceIdentifiers, int timeOut = Config.TIME_OUT)
+        public static async Task<RegisterResultJson> GroupGetAdddeviceAsync(string accessTokenOrAppId, long groupId, List<DeviceApply_Data_Device_Identifiers> deviceIdentifiers, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
@@ -1943,7 +1928,7 @@ int timeOut = Config.TIME_OUT)
         /// <param name="deviceIdentifier">分组列表的起始索引值</param>
 
         /// <returns></returns>
-        public static async Task<RegisterResultJson> GroupDeleteDeviceAsync(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
+        public static async Task<RegisterResultJson> GroupDeleteDeviceAsync(string accessTokenOrAppId, long groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {

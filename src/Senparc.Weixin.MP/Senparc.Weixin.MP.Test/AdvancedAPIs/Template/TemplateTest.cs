@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -120,26 +121,40 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         [TestMethod]
         public void SendTemplateMessageTestForBook()
         {
-            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
-            var templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs";
 
-            //实际生产环境中，用户信息应该从数据库或缓存中读取
-            var userInfo = UserApi.Info(_appId, openId);
+            AccessTokenContainer.Register("wxc84584cbbbdf049a", "2b3536a414d59fb26dc654b2b8629c33", "系统微信公众号");
 
-            var data = new
-            {
-                first = new TemplateDataItem("您的订单已经支付"),
-                keyword1 = new TemplateDataItem(userInfo.nickname),
-                keyword2 = new TemplateDataItem("1234567890"),
-                keyword3 = new TemplateDataItem(88.ToString("c"), "#ff0000"),//显示为红色
-                keyword4 = new TemplateDataItem("模板消息测试商品"),
-                remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
-            };
+            JObject SendData1 = new JObject();
+            SendData1.Add("first", new JObject()
+                {
+                    {"value","来测试" },
+                    {"color","#FF0000"}
+                });
+            SendData1.Add("keyword1", new JObject()
+                {
+                    {"value","1000元" },
+                    {"color","#026e0e"}
+                });
+            var result1 = TemplateApi.SendTemplateMessage("wxc84584cbbbdf049a", "oOXwAxAvw4V3nD2hqBjbTWUzKArQ", "bkj4rzy-MvnbXVkf0-69KxgM_ywtTnGTPc7OAZ6iaTU", "http://sdk.weixin.senparc.com", SendData1);
 
 
-            var result = TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", data);
 
-            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+            //var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+            //var templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs";
+            //var data = new
+            //{
+            //    first = new TemplateDataItem("您的订单已经支付"),
+            //    keyword1 = new TemplateDataItem(userInfo.nickname),
+            //    keyword2 = new TemplateDataItem("1234567890"),
+            //    keyword3 = new TemplateDataItem(88.ToString("c"), "#ff0000"),//显示为红色
+            //    keyword4 = new TemplateDataItem("模板消息测试商品"),
+            //    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+            //};
+
+
+            //var result = TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", data);
+
+            //Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
 
         [TestMethod]

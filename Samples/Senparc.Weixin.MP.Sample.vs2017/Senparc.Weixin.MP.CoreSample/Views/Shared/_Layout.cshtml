@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    @if (!string.IsNullOrWhiteSpace(this.Context.Request.PathBase))
+    {
+        <base href="@this.Context.Request.PathBase" />
+    }
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - 微信公众平台 小程序 企业号 开放平台 微信支付 JSSDK Senparc.Weixin SDK</title>
     <meta name="keywords" content="微信SDK,微信公众账号,小程序,SDK,微信公众平台,企业号,服务号,订阅号,微信支付,开放平台,Senparc.Weixin,,Senparc.Weixin.MP,JSSDK,开发者,第三方工具,说明,文档,AppStore,微微嗨,盛派网络,Senparc,.net,c#,小程序开发" />
     <meta name="description" content="Senparc.Weixin SDK，是目前使用率超过 90% 的微信 C# SDK，包含完整的公众账号、小程序、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。目前包含了Senparc.Weixin.MP（微信公众号SDK）、Senparc.Weixin.Work（微信企业号/企业微信SDK）、Senparc.Weixin.Open（微信开放平台SDK），以及Senparc.Weixin.TenPay（微信支付）、微信JSSDK的完整SDK和案例。" />
     @*    @Styles.Render("~/Content/css")*@
 
-
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
     <link href="~/Content/danktooltip/css/darktooltip.min.css" rel="stylesheet" />
 
     <link href="~/Content/reset.css" rel="stylesheet" />
@@ -51,7 +55,7 @@
             <div class="wrapper">
                 <div class="logo">
                     <a href="http://www.senparc.com">
-                        <img src="/images/v2/logo .png" alt="微信SDK" />
+                        <img src="~/images/v2/logo .png" alt="微信SDK" />
                     </a>
                 </div>
                 <div class="header-title">
@@ -69,6 +73,7 @@
                                 <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
                                 <li><a href="@Url.Action("Index", "AsyncMethods")">异步方法/模板消息测试</a></li>
                                 <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台授权测试</a></li>
+                                <li><a href="@Url.Action("Index", "TenPayV3")">微信支付测试（PC端）</a></li>
                                 <li><a href="@Url.Action("Index", "Plugins")">扩展插件</a></li>
                                 <li><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a></li>
                             </ul>
@@ -101,6 +106,7 @@
                             </ul>
                         </li>
                         <li><a href="https://www.neuchar.com" target="_blank">NeuChar 纽插</a></li>
+                        <li><a href="https://github.com/SenparcCoreFramework/SCF" target="_blank">SCF</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -116,7 +122,7 @@
                 <span>
                     Sample 项目自动生成工具测试版已发布。<a href="@Url.Action("WeChatSampleBuilder","Home")">【点击这里查看】</a>。<br />
                     Senparc 官方微信开发视频教程《微信公众号+小程序快速开发》已经上线，陆续更新中，<a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-banner" target="_blank">【点击这开始学习】</a>。<br />
-                    Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版（第3次印刷），<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">【点击这里购买正版】</a>。<br />
+                    Senparc 官方微信开发教程《微信开发深度解析：公众号、小程序高效开发秘籍》已经出版（已第 4 次印刷），<a href="https://book.weixin.senparc.com/book/link?code=sdk-banner" target="_blank">【点击这里购买正版】</a>。<br />
                 </span>
             </div>
         </div>
@@ -132,11 +138,10 @@
                             <li><a href="https://weixin.senparc.com/QA" target="_blank">微信技术交流社区</a></li>
                             @* <li><a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">更多使用说明</a></li>*@
                             <li><a href="https://book.weixin.senparc.com/book/link?code=sdk-common-banner" target="_blank">购买官方教程图书</a></li>
-                            <li><a href="http://study.163.com/course/introduction/1004873017.htm" target="_blank">观看官方视频教程</a></li>
                             @*<li><a href="/#nuget-versions">Nuget项目</a></li>*@
-                            <li><a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-top-side" target="_blank">购买官方视频教程</a></li>
+                            <li><a href="https://book.weixin.senparc.com/book/videolinknetease?code=sdk-top-side" target="_blank">观看官方视频教程</a></li>
+                            <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">博客简易入门教程</a></li>
                             <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">下载帮助文档</a></li>
-                            <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">简易入门教程</a></li>
                             <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">微信开发资源汇总</a></li>
                         </ul>
                     </div>
@@ -158,7 +163,7 @@
                         <span class="container-p">也是最受欢迎的 .NET 开源项目之一。</span>
                         <span class="container-p">快来使用 Senparc.Weixin SDK 轻松打造微信各平台的扩展应用吧！</span>
                         <span class="container-p"> &nbsp; </span>
-                        <span class="container-p">现在起您还可以使用 NeuChar 帮您轻松跨平台开发和配置！ <a href="https://neuchar.com" target="_blank" class="application">立即开始</a></span>
+                        <span class="container-p">现在起您还可以使用 NeuChar 帮您轻松跨平台开发和配置！ <a href="https://www.neuchar.com" target="_blank" class="application">立即开始</a></span>
                         <div class="contact">
                             <div class="clear"></div>
                             <div id="qqGroups">QQ群载入中……</div>
@@ -252,7 +257,7 @@
                     <p>谢谢！</p>
                 </div>
                 <div class="feedback-action contentTop">
-                    <img src="/images/v2/ewm_03.png" />
+                    <img src="~/images/v2/ewm_03.png" />
                     <p>资金捐助（支付宝钱包扫一扫）</p>
                 </div>
             </div>

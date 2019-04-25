@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomAPI.cs
     文件功能描述：客服接口
@@ -60,6 +60,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /* 
    API地址：http://mp.weixin.qq.com/wiki/1/70a29afed17f56d537c833f89be979c9.html
+   新地址（2019年3月）：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140547
 */
 
 
@@ -532,6 +533,37 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="menuList">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
+        /// <returns></returns>
+        public static WxJsonResult SendMenu(string accessTokenOrAppId, string openId,
+        string head, List<SendMenuContent> menuList, string tail,
+         int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = menuList,
+                    tail_content = tail
+                }
+            };
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+             {
+                 return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+             }, accessTokenOrAppId);
+        }
         #endregion
 
 #if !NET35 && !NET40
@@ -982,6 +1014,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 【异步方法】发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="menuList">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SendMenuAsync(string accessTokenOrAppId, string openId,
+       string head, List<SendMenuContent> menuList, string tail,
+        int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = menuList,
+                    tail_content = tail
+                }
+            };
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+              {
+                  return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+
+              }, accessTokenOrAppId);
+
+        }
+
         #endregion
 #endif
 
@@ -990,4 +1056,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /////
 
     }
+
+
 }

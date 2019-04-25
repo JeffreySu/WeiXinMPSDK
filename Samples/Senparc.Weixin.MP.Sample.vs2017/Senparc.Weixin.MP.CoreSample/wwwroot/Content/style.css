@@ -102,7 +102,7 @@
                 }
 
 .senparc-jumbotron {
-    background: url(/images/v2/background.png);
+    background: url(../images/v2/background.png);
     width: 100%;
     padding: 28px 0 0 0;
 }
@@ -180,17 +180,34 @@
     float: left;
     line-height: 26px;
     clear: left;
+    min-width: 110px;
 }
 
 .contatc-img {
     float: left;
     margin-right: 7px;
+    margin-bottom:5px;
     display: inline;
 }
 
     .contatc-img a {
         display: block;
     }
+
+/*#qqGroups li.contatc-img:nth-child(2) {
+    text-indent: 8em;
+    clear: left;
+}*/
+
+/*#qqGroups li.contatc-img:nth-child(11) {
+
+    text-indent: 8em;
+    clear: left;
+}*/
+
+a.qqGroup_tip {
+   text-decoration: underline;
+}
 
 .catalog {
     background: #E7EEF1;

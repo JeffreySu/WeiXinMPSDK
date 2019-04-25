@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,10 +19,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：TenPayV3TransfersRequestData.cs
-    文件功能描述：微信支付企业付款请求参数
+    文件功能描述：微信支付企业付款请求参数 https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2
     
     创建标识：Senparc - 20170215
       
@@ -146,6 +146,7 @@ namespace Senparc.Weixin.TenPay.V3
             //设置package订单参数
             PackageRequestHandler.SetParameter("mch_appid", this.MchAppId); //公众账号appid
             PackageRequestHandler.SetParameter("mchid", this.MchId); //商户号
+            //https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2
             PackageRequestHandler.SetParameter("device_info", this.DeviceInfo); //终端设备号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("partner_trade_no", this.OutTradeNo); //商户订单号

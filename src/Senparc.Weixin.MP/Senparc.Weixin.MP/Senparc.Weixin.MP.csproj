@@ -63,9 +63,6 @@
     <Reference Include="Senparc.CO2NET.APM, Version=0.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.2.5\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.6.2\lib\net45\Senparc.NeuChar.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -134,6 +131,7 @@
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
     <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\Custom\SendMenuContent.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
@@ -483,6 +481,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NeuChar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar">
+      <Version>0.6.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

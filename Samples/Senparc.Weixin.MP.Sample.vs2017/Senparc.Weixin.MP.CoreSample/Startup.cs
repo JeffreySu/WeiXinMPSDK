@@ -10,7 +10,6 @@ using Senparc.CO2NET.Cache;
 using Senparc.Weixin.RegisterServices;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Cache.Redis;//DPBMARK Redis DPBMARK_END

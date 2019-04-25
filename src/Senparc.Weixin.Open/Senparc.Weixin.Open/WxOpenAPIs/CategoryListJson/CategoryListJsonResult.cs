@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：Register.cs
     文件功能描述：注册小程序信息
@@ -49,7 +49,13 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
     {
         //微信文档写的参数名称是  category_list，实际上是 categories_list
         //public IList<Category> categories { get; set; }
-        public IList<Category> categories_list { get; set; }
+
+        public CategoriesList categories_list { get; set; }
+    }
+
+    public class CategoriesList
+    {
+        public IList<Category> categories { get; set; }
     }
 
     public class Category

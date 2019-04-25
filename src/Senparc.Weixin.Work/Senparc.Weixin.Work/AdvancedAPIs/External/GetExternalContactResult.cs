@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetExternalContactResult.cs
     文件功能描述：获取外部联系人详情返回结果

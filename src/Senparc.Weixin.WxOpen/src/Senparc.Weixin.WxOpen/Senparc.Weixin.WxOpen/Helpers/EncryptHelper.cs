@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：EncryptHelper.cs
     文件功能描述：加密、解密处理类
     
     
     创建标识：Senparc - 20170130
+
+    修改标识：Senparc - 20190402
+    修改描述：v3.3.10 添加“微信小程序运动步数解密”功能：EncryptHelper.DecryptRunData()
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,6 +40,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Helpers;
 #if NET45
 using System.Web.Script.Serialization;
 #endif
@@ -159,6 +165,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
             return res;
         }
 
+
         #endregion
 
         /// <summary>
@@ -204,45 +211,6 @@ namespace Senparc.Weixin.WxOpen.Helpers
             return resultStr;
         }
 
-        /// <summary>
-        /// 解密UserInfo消息（通过SessionId获取）
-        /// </summary>
-        /// <param name="sessionId"></param>
-        /// <param name="encryptedData"></param>
-        /// <param name="iv"></param>
-        /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
-        /// <returns></returns>
-        public static DecodedUserInfo DecodeUserInfoBySessionId(string sessionId, string encryptedData, string iv)
-        {
-            var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
-#if NET45
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var userInfo = js.Deserialize<DecodedUserInfo>(jsonStr);
-#else
-            var userInfo = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedUserInfo>(jsonStr);
-#endif
-            return userInfo;
-        }
-
-        /// <summary>
-        /// 解密手机号
-        /// </summary>
-        /// <param name="encryptedData"></param>
-        /// <param name="iv"></param>
-        /// <returns></returns>
-        public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
-        {
-            var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
-
-#if NET45
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var phoneNumber = js.Deserialize<DecodedPhoneNumber>(jsonStr);
-#else
-            var phoneNumber = Newtonsoft.Json.JsonConvert.DeserializeObject<DecodedPhoneNumber>(jsonStr);
-#endif
-            return phoneNumber;
-
-        }
 
         /// <summary>
         /// 检查解密消息水印
@@ -258,6 +226,64 @@ namespace Senparc.Weixin.WxOpen.Helpers
             }
             return entity.watermark.appid == appId;
         }
+
+        #region 解密实例信息
+
+        /// <summary>
+        /// 解密到实例信息
+        /// </summary>
+        /// <typeparam name="T">DecodeEntityBase</typeparam>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static T DecodeEncryptedDataToEntity<T>(string sessionId, string encryptedData, string iv)
+        where T : DecodeEntityBase
+        {
+            var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+            var entity = SerializerHelper.GetObject<T>(jsonStr);
+            return entity;
+        }
+
+        /// <summary>
+        /// 解密UserInfo消息（通过SessionId获取）
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
+        /// <returns></returns>
+        public static DecodedUserInfo DecodeUserInfoBySessionId(string sessionId, string encryptedData, string iv)
+        {
+            return DecodeEncryptedDataToEntity<DecodedUserInfo>(sessionId, encryptedData, iv);
+        }
+
+        /// <summary>
+        /// 解密手机号
+        /// </summary>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
+        {
+            return DecodeEncryptedDataToEntity<DecodedPhoneNumber>(sessionId, encryptedData, iv);
+        }
+
+        /// <summary>
+        /// 解密微信小程序运动步数
+        /// 2019-04-02
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedRunData DecryptRunData(string sessionId, string encryptedData, string iv)
+        {
+            return DecodeEncryptedDataToEntity<DecodedRunData>(sessionId, encryptedData, iv);
+        }
+
+
+        #endregion
 
         #endregion
     }

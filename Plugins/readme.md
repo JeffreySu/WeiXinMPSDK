@@ -1,3 +1,5 @@
+> 看上去 Plugins 的贡献者并不多，我们正在考虑创作更多的 Demo 和接口让大家了解 Plugins 的好处。其中 [NeuChar.com](https://www.neuchar.com) 已经实现了部分扩展的功能。
+
 # 基于 Senparc.Weixin SDK 的插件
 
 > `Senparc.Weixin.Plugins` 是为 Senparc.Weixin SDK 进行通用性功能扩展插件的计划。<br>

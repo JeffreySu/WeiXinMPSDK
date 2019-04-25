@@ -107,6 +107,7 @@
     <Compile Include="V3\Universal\Entities\Request\TenPayV3GetTransferInfoRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3MicroPayRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3OrderQueryRequestData.cs" />
+    <Compile Include="V3\Universal\Entities\Request\TenPayV3PayToWorkerRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3RefundQueryRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3RefundRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3RequestData.cs" />

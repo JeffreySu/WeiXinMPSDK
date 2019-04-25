@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -81,11 +81,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
 */
             #endregion
 
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-                return CommonJsonSend.Send<AccessTokenResult>(null, url, null, CommonJsonSendType.GET);
-            }, AccessTokenContainer.BuildingKey(corpId, corpSecret));
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
+            return CommonJsonSend.Send<AccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -199,11 +196,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
 */
             #endregion
 
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-                return await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST);
-            }, AccessTokenContainer.BuildingKey(corpId, corpSecret));
+            var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
+            return await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST);
         }
 
         /// <summary>

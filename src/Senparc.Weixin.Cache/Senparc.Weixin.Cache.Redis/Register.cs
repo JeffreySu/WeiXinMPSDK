@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.Cache.Redis 注册类
@@ -42,7 +42,9 @@ namespace Senparc.Weixin.Cache.Redis
         /// </summary>
         public static void RegisterDomainCache()
         {
+            //通过调用 ContainerCacheStrategy，激活领域模型注册过程
             var cache = RedisContainerCacheStrategy.Instance;
+            var cacheHashSet = RedisHashSetContainerCacheStrategy.Instance;
         }
     }
 }

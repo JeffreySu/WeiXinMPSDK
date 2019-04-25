@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class MassApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
-
+        private static string _taskUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/update_taskcard?access_token={0}";
         #region 同步方法
 
 
@@ -466,6 +466,23 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+        /// <summary>
+        /// 更新任务卡片消息状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCard", true)]
+        public static MassResult UpdateTaskCard(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
         #endregion
 
 #if !NET35 && !NET40
@@ -877,6 +894,24 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】更新任务卡片消息状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCardAsync", true)]
+        public static async Task<MassResult> UpdateTaskCardAsync(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
         #endregion

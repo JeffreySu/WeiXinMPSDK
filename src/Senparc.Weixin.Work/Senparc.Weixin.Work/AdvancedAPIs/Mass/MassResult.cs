@@ -32,4 +32,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public int agentid { get; set; }
         public Taskcard_Notice taskcard { get; set; }
     }
+
+
+    public class UpdateTaskcardData
+    {
+        public string[] userids { get; set; }
+        public int agentid { get; set; }
+        public string task_id { get; set; }
+        public string clicked_key { get; set; }
+    }
 }

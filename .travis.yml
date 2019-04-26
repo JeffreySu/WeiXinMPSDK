@@ -1,9 +1,0 @@
-language: csharp
-solution:  ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
-scripts:
-  - xbuild /p:Configuration=Release ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
-  
-install:
- - nuget install Newtonsoft.Json -Version 11.0.2
-# - nuget restore  ./src/Senparc.Weixin/Senparc.Weixin.Libraries.sln 
- -  nuget restore ./Samples/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln

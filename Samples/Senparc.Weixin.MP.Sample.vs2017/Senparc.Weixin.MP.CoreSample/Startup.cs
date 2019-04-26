@@ -19,7 +19,7 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
-using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Utilities; 
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -225,8 +225,8 @@ namespace Senparc.Weixin.MP.CoreSample
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting.Value,
-                    //getComponentVerifyTicketFunc
-                    componentAppId =>
+                   //getComponentVerifyTicketFunc
+                   async componentAppId =>
                     {
                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
@@ -239,14 +239,14 @@ namespace Senparc.Weixin.MP.CoreSample
                         {
                             using (var sr = new StreamReader(fs))
                             {
-                                var ticket = sr.ReadToEnd();
+                                var ticket = await sr.ReadToEndAsync();
                                 return ticket;
                             }
                         }
                     },
 
-                     //getAuthorizerRefreshTokenFunc
-                     (componentAppId, auhtorizerId) =>
+                  //getAuthorizerRefreshTokenFunc
+                  async (componentAppId, auhtorizerId) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))

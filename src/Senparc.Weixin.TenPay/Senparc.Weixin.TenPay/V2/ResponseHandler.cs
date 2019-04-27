@@ -95,7 +95,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// </summary>
         protected string Content;
 
-#if NET35 || NET40 || NET45
+#if NET45
         private string Charset = "gb2312";
 #else
         private int Charset = 936;

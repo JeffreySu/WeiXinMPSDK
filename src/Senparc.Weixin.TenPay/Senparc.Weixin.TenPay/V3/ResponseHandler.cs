@@ -281,7 +281,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         protected virtual string GetCharset()
         {
-#if NET35 || NET40 || NET45
+#if NET45
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

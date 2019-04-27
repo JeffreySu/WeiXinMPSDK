@@ -51,7 +51,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.CO2NET.Extensions;
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.HttpUtility
 #endif
         {
 
-#if NET35 || NET40 || NET45
+#if NET45
 
             if (httpContext.Request.Url == null)
             {

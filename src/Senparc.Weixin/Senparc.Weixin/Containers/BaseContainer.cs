@@ -409,7 +409,7 @@ namespace Senparc.Weixin.Containers
         #endregion
 
         #region 异步方法
-#if !NET35 && !NET40
+
 
         /// <summary>
         /// 返回已经注册的第一个AppId
@@ -615,7 +615,6 @@ namespace Senparc.Weixin.Containers
             await Cache.RemoveFromCacheAsync(cacheKey);
         }
 
-#endif
         #endregion
 
     }

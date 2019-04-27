@@ -234,18 +234,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             get
             {
-#if !NET35
                 if (System.Enum.TryParse(this.reimburse_status, out Reimburse_Status status))
                 {
                     return status;
                 }
-#else
-                try
-                {
-                    return (Reimburse_Status)System.Enum.Parse(typeof(Reimburse_Status), this.reimburse_status);
-                }
-                catch { }
-#endif
                 return null;
             }
         }

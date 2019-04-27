@@ -318,7 +318,7 @@ namespace Senparc.Weixin.Work.Containers
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -439,6 +439,5 @@ namespace Senparc.Weixin.Work.Containers
             return accessTokenBag.AccessTokenResult;
         }
         #endregion
-#endif
     }
 }

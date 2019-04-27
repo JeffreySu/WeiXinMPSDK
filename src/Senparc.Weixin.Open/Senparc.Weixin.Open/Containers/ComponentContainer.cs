@@ -527,7 +527,7 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -805,6 +805,5 @@ namespace Senparc.Weixin.Open.Containers
         }
         #endregion
         #endregion
-#endif
     }
 }

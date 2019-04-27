@@ -250,7 +250,7 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         #region OAuthAccessToken
 
@@ -317,6 +317,5 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
         #endregion
-#endif
     }
 }

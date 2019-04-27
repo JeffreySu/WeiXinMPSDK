@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         private void DownloadBillTest(string sandBoxKey, string nonceStr)
         {
             var dataInfo = new TenPayV3DownloadBillRequestData(base._appId, base._mchId, nonceStr, "Senparc POS 1",
-                SystemTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
+                SystemTime.Now.ToString("yyyyMMdd"), "ALL", sandBoxKey);
 
 
             var result = TenPayV3.DownloadBill(dataInfo);

@@ -123,7 +123,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 获取草稿箱内的所有临时代码草稿
@@ -197,6 +197,5 @@ namespace Senparc.Weixin.Open.WxaAPIs
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
-#endif
     }
 }

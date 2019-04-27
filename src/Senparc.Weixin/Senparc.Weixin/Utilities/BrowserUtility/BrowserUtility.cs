@@ -68,7 +68,7 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
-#if NET40 || NET45
+#if NET45
         public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
 #else
         public static bool SideInWeixinBrowser(this HttpContext httpContext)
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpContext">HttpContextBase对象</param>
         /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
-#if NET40 || NET45
+#if NET45
         public static bool SideInWeixinMiniProgram(this HttpContextBase httpContext)
 #else
         public static bool SideInWeixinMiniProgram(this HttpContext httpContext)

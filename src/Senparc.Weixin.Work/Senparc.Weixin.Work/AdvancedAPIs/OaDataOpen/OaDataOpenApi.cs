@@ -179,7 +179,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -321,6 +321,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         #endregion
-#endif
     }
 }

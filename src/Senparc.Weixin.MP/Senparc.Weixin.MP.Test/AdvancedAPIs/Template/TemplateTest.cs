@@ -263,7 +263,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 
-#if !NET35 && !NET40
         #region 异步方法测试
         [TestMethod()]
         public void SendTemplateMessageAsyncTest()
@@ -296,6 +295,5 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             });
         }
         #endregion
-#endif
     }
 }

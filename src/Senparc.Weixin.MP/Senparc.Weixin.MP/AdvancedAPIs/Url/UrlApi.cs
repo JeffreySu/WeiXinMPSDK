@@ -80,7 +80,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
          ///  <summary>
         /// 将一条长链接转成短链接。
@@ -105,6 +104,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
-#endif
     }
 }

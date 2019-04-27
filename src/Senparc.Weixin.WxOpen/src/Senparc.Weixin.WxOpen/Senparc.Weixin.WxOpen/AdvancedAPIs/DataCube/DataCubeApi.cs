@@ -285,7 +285,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 概况趋势
@@ -517,6 +517,5 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         #endregion
 
         #endregion
-#endif
     }
 }

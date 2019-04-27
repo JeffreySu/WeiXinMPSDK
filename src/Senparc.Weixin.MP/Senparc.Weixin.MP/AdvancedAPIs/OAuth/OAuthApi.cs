@@ -142,7 +142,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取AccessToken（OAuth专用）
@@ -206,6 +205,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
-#endif
     }
 }

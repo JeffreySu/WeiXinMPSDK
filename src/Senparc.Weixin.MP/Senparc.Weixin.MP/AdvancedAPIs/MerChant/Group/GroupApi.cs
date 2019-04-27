@@ -146,7 +146,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】增加分组
@@ -241,6 +240,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdGroup>(accessToken, urlFormat, data);
         }
         #endregion
-#endif
     }
 }

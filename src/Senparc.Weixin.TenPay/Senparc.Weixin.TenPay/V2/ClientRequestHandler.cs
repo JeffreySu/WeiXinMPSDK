@@ -23,7 +23,7 @@ using System.Collections;
 using System.Text;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.TenPay.V2
         {
             Parameters = new Hashtable();
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
@@ -232,7 +232,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected virtual string GetCharset()
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

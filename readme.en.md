@@ -85,11 +85,13 @@ SDK Modules
 | 11| [WebSocket <br>(indep. proj.)](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core 2.x][core20Y]
 
 
+#### Legend
+
 | ![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.5][net45Y] | ![.NET Core 2.x][core20Y] |
 |--|--|--|--|
 | .NET 3.5            | .NET 4.0            | .NET 4.5            |  .NET Core 2.0 + 2.1       |
 
-
+Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15), since May 1, 2019 to stop updating.
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -116,9 +118,9 @@ SDK Modules
 [12.1]: https://img.shields.io/nuget/v/Senparc.Weixin.TenPay.svg?style=flat
 [12.2]: https://www.nuget.org/packages/Senparc.Weixin.TenPay
 
-[net35Y]: https://img.shields.io/badge/3.5-Y-brightgreen.svg
+[net35Y]: https://img.shields.io/badge/3.5-Y-yellowgreen.svg
 [net35N]: https://img.shields.io/badge/3.5-N-lightgrey.svg
-[net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
+[net40Y]: https://img.shields.io/badge/4.0-Y-yellowgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg
 [net40N-]: https://img.shields.io/badge/4.0----lightgrey.svg
 [net45Y]: https://img.shields.io/badge/4.5-Y-brightgreen.svg
@@ -155,10 +157,14 @@ SDK Modules
 [nuget-img-ws]: https://img.shields.io/nuget/dt/Senparc.WebSocket.svg
 [nuget-url-ws]: https://www.nuget.org/packages/Senparc.WebSocket
 
-* Supported all Wechat 6 APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
+
+## Functional Support
+* Supported all Wechat 7.x APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
+* Supported Wechat Official Account, MiniProgram, MiniProgram-Game, Enterpaise Account, Open Platform modules.
 * Supported user dialogue context, to solve application service can not use Session to handle users' dialogues.
 * Fully supported latest APIs for Wechat Official Account, Corporate Account(Corporate Wechat), Open Platform.
 * Supported Distributed Cache Strategy with high scalability.
+* 
 
 > All updates will ensure downward compatibility unless otherwise specified. So you can cover new DLLs directly or use Nuget to manage packages(highly recommend).
 

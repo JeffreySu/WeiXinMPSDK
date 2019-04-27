@@ -66,7 +66,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.TenPay;
 
-#if !NET35 && !NET40 && !NET45
+#if !NET45
 using System.Net.Http;
 #endif
 

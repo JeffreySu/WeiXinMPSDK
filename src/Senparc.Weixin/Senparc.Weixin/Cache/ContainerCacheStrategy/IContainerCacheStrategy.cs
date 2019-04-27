@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Cache
 
 
         #region 异步方法
-#if !NET35 && !NET40
+
 
         /// <summary>
         /// 【异步方法】获取所有ContainerBag
@@ -104,7 +104,6 @@ namespace Senparc.Weixin.Cache
         Task UpdateContainerBagAsync(string key, IBaseContainerBag containerBag, TimeSpan? expiry = null, bool isFullKey = false);
 
 
-#endif
         #endregion
 
     }

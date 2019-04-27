@@ -546,7 +546,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         #region 图文分析数据接口
@@ -1033,6 +1032,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
         #endregion
-#endif
     }
 }

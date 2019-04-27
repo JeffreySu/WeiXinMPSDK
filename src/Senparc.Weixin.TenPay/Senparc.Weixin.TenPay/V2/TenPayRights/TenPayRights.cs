@@ -74,7 +74,7 @@ namespace Senparc.Weixin.TenPay.V2
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
          
         /// <summary>
@@ -92,6 +92,5 @@ namespace Senparc.Weixin.TenPay.V2
             return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
-#endif
     }
 }

@@ -566,7 +566,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -1049,7 +1048,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
-#endif
 
         /////
         ///// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 

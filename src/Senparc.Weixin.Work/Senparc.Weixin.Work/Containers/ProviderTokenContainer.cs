@@ -251,7 +251,7 @@ namespace Senparc.Weixin.Work.Containers
         //}
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -346,6 +346,5 @@ namespace Senparc.Weixin.Work.Containers
             return providerTokenBag.ProviderTokenResult;
         }
         #endregion
-#endif
     }
 }

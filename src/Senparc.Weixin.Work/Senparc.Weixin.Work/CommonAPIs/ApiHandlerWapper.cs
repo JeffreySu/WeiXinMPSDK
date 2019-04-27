@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Work
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
@@ -158,6 +158,5 @@ namespace Senparc.Weixin.Work
             return await result;
         }
         #endregion
-#endif
     }
 }

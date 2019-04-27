@@ -40,7 +40,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 
-#if !NET35 && !NET40 && !NET45
+#if !NET45
 using System.Net.Http;
 #endif
 

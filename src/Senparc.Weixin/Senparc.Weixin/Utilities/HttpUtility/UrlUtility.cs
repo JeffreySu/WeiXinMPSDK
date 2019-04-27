@@ -73,7 +73,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
-#if NET40 || NET45
+#if NET45
         public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
 #else
         public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)

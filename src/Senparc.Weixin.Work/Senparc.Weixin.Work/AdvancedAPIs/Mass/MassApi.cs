@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class MassApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
-
+        private static string _taskUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/update_taskcard?access_token={0}";
         #region 同步方法
 
 
@@ -397,7 +397,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+        /// <summary>
+        /// 发送textcard消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
+        /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+        /// <param name="content">markdown内容，最长不超过2048个字节，必须是utf8编码</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendMarkdown", true)]
+        public static MassResult SendMarkdown(string accessTokenOrAppKey, string agentId, string content,
+            string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = toUser,
+                    toparty = toParty,
+                    totag = toTag,
+                    msgtype = "markdown",
+                    agentid = agentId,
+                    markdown = new
+                    {
+                        content
+                    }
+                };
 
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
         /// <summary>
         /// 发送小程序通知消息
         /// </summary>
@@ -415,7 +449,40 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
+        /// <summary>
+        /// 发送任务卡片消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTaskCard", true)]
+        public static MassResult SendTaskCard(string accessTokenOrAppKey, SendTaskcardNoticeData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
 
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 更新任务卡片消息状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCard", true)]
+        public static MassResult UpdateTaskCard(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
         #endregion
 
 
@@ -759,7 +826,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
+        /// <summary>
+        /// 【异步方法】发送Markdown消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
+        /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
+        /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+        /// <param name="content">markdown内容，最长不超过2048个字节，必须是utf8编码</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendMarkdownAsync", true)]
+        public static async Task<MassResult> SendMarkdownAsync(string accessTokenOrAppKey, string agentId, string content,
+            string toUser = null, string toParty = null, string toTag = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new
+                {
+                    touser = toUser,
+                    toparty = toParty,
+                    totag = toTag,
+                    msgtype = "markdown",
+                    agentid = agentId,
+                    markdown = new
+                    {
+                        content
+                    }
+                };
 
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
         /// <summary>
         /// 【异步方法】发送小程序通知消息
         /// </summary>
@@ -778,6 +879,41 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
+        /// <summary>
+        /// 【异步方法】发送任务卡片消息
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTaskCardAsync", true)]
+        public static async Task<MassResult> SendTaskCardAsync(string accessTokenOrAppKey, SendTaskcardNoticeData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 【异步方法】更新任务卡片消息状态
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCardAsync", true)]
+        public static async Task<MassResult> UpdateTaskCardAsync(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                JsonSetting jsonSetting = new JsonSetting(true);
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            }, accessTokenOrAppKey);
+        }
         #endregion
     }
 }

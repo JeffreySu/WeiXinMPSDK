@@ -20,7 +20,10 @@
     修改描述：v0.3.2 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题 
 
     修改标识：Senparc - 20170712
-    修改描述：v14.5.1 AccessToken HandlerWaper改造
+    修改描述：MP 14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：lishewen - 20190427
+    修改描述：v3.5.0 发送Markdown消息和任务卡片消息
 ----------------------------------------------------------------*/
 
 /*
@@ -47,6 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
         private static string _taskUrlFormat = Config.ApiWorkHost + "/cgi-bin/message/update_taskcard?access_token={0}";
+
         #region 同步方法
 
 
@@ -484,7 +488,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
         #endregion
-
 
         #region 异步方法
         /// <summary>

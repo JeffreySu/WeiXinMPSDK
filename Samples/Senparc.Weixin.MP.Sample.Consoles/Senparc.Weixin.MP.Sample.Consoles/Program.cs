@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Sample.Consoles
 
             var services = new ServiceCollection();
             services.AddMemoryCache();//使用本地缓存必须添加
-     
+
             /*
             * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化，稳定可靠。
             * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
@@ -189,8 +189,8 @@ namespace Senparc.Weixin.MP.Sample.Consoles
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting,
-                    //getComponentVerifyTicketFunc
-                    componentAppId =>
+                 //getComponentVerifyTicketFunc
+                 async componentAppId =>
                     {
                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
@@ -203,14 +203,14 @@ namespace Senparc.Weixin.MP.Sample.Consoles
                         {
                             using (var sr = new StreamReader(fs))
                             {
-                                var ticket = sr.ReadToEnd();
+                                var ticket = await sr.ReadToEndAsync();
                                 return ticket;
                             }
                         }
                     },
 
-                     //getAuthorizerRefreshTokenFunc
-                     (componentAppId, auhtorizerId) =>
+                   //getAuthorizerRefreshTokenFunc
+                   async (componentAppId, auhtorizerId) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))

@@ -98,6 +98,30 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
+        #region 异步方法
+#if !NET35 && !NET40
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task UpdateContainerBagAsync(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
+        {
+            //Memcached 组件没有提供对应 TryGet() 的异步方法
+            await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey));
+        }
+
+#endif
+        #endregion
+
+
+
 
         #endregion
 

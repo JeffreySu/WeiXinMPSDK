@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>4.4.5.2</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>4.5.0-preview1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -151,6 +150,9 @@
       v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
       v4.4.0 添加快速创建小程序接口
       v4.4.5 支持最新版本 Senparc.Weixin
+      v4.5.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

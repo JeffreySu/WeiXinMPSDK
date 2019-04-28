@@ -65,6 +65,7 @@ The library contains the source code (the Core logic is exactly the same) that i
 [Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
 * Open Demo with Visual Studio 2010 SP1 (support.net 4.5 only) :
 [Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/Senparc.Weixin.MP.Sample.Consoles)
 
 
 SDK Modules
@@ -281,7 +282,7 @@ Senparc official tutorials
 |[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
 |[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		  |Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
 |[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			  |Demo, can be released directly(.NET Core 2.0 + MVC)|
-
+|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			| Console Demo（.NET Core）|
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

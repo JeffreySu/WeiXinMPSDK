@@ -55,6 +55,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         }
 
+
         /// <summary>
         /// 并发测试
         /// </summary>
@@ -77,6 +78,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             //先获取一次AccessToken（避免并发过程中获取）        ——无效
             var accessToken = AccessTokenContainer.GetAccessTokenResult(base._appId).access_token;
 
+            object objLock = new object();
+
             for (int i = 0; i < threadCount; i++)
             {
                 var index = i;
@@ -85,10 +88,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     try
                     {
                         var dt0 = SystemTime.Now;
-                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t{Thread.CurrentThread.Name} START");
+                        var threadName = Thread.CurrentThread.Name;
+                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t[{threadName}] START");
                         var result = await MP.AdvancedAPIs.QrCodeApi.CreateAsync(base._appId, 300, 100000 * 10 + index, QrCode_ActionName.QR_SCENE);
                         var apiRunTime = (SystemTime.Now - dt0).TotalMilliseconds;
-                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t{Thread.CurrentThread.Name} RESULT - 耗时 {apiRunTime:###,###}ms - {result.url}");
+                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t[{threadName}] RESULT - 耗时 {apiRunTime:###,###}ms - {result.url}");
                         apiTotalTime += apiRunTime;
                     }
                     catch (Exception ex)
@@ -97,7 +101,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     }
                     finally
                     {
-                        finishedCount++;
+                        lock (objLock)
+                        {
+                            finishedCount++;
+                        }
                     }
                 });
                 thread.Name = "T" + index.ToString("00");

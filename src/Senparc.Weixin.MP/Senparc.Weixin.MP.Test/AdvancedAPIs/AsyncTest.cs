@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ConcurrentTesting()
         {
-            var threadCount = 100;//同时运行线程数
+            var threadCount = 500;//同时运行线程数
             var finishedCount = 0;
             var threads = new List<Thread>();
 
@@ -89,10 +89,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     {
                         var dt0 = SystemTime.Now;
                         var threadName = Thread.CurrentThread.Name;
+
                         Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t[{threadName}] START");
+
+                        //执行异步API
                         var result = await MP.AdvancedAPIs.QrCodeApi.CreateAsync(base._appId, 300, 100000 * 10 + index, QrCode_ActionName.QR_SCENE);
+
                         var apiRunTime = (SystemTime.Now - dt0).TotalMilliseconds;
                         Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t[{threadName}] RESULT - 耗时 {apiRunTime:###,###}ms - {result.url}");
+
                         apiTotalTime += apiRunTime;
                     }
                     catch (Exception ex)

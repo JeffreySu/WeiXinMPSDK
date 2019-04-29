@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -60,7 +61,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ConcurrentTesting()
         {
-            var threadCount = 30;//同时运行线程数
+            var threadCount = 100;//同时运行线程数
             var finishedCount = 0;
             var threads = new List<Thread>();
 
@@ -73,6 +74,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
             Console.WriteLine($"== 开始，缓存：{cacheStrategy.GetType()} ==");
 
+            //先获取一次AccessToken（避免并发过程中获取）        ——无效
+            var accessToken = AccessTokenContainer.GetAccessTokenResult(base._appId).access_token;
+
             for (int i = 0; i < threadCount; i++)
             {
                 var index = i;
@@ -84,7 +88,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                         Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t{Thread.CurrentThread.Name} START");
                         var result = await MP.AdvancedAPIs.QrCodeApi.CreateAsync(base._appId, 300, 100000 * 10 + index, QrCode_ActionName.QR_SCENE);
                         var apiRunTime = (SystemTime.Now - dt0).TotalMilliseconds;
-                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t{Thread.CurrentThread.Name} RESULT - 耗时 {apiRunTime:###,###}ms - {result.ticket} - {result.url}");
+                        Console.WriteLine($"{SystemTime.Now.ToString("HH:mm:ss.ffffff")}\t{Thread.CurrentThread.Name} RESULT - 耗时 {apiRunTime:###,###}ms - {result.url}");
                         apiTotalTime += apiRunTime;
                     }
                     catch (Exception ex)
@@ -105,6 +109,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             foreach (var thread in threads)
             {
                 thread.Start();//尽量在相近的时间开始
+                //Thread.Sleep(500);//TODO：如果Sleep，则可以快速完成（没有阻塞）
             }
 
             while (finishedCount < threadCount)

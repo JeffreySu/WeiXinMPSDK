@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190429
     修改描述：v3.4.1 重构异步 ApiHandlerWapper
+
+    修改标识：Senparc - 20190429
+    修改描述：v3.4.2 修正调用 TryCommonApiBase() 方法中的 PlatformType.WxOpen 参数
 ----------------------------------------------------------------*/
 
 using System;
@@ -71,7 +74,7 @@ namespace Senparc.Weixin.WxOpen
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
-                    PlatformType.MP,
+                    PlatformType.WxOpen,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
@@ -215,7 +218,7 @@ namespace Senparc.Weixin.WxOpen
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
-                    PlatformType.MP,
+                    PlatformType.WxOpen,
                     accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,

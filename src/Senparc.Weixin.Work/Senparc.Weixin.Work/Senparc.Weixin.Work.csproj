@@ -241,7 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.6.5-preview1</Version>
+      <Version>0.6.6-preview3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

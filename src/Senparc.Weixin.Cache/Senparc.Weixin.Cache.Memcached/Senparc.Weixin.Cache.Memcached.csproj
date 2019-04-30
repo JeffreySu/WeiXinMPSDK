@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.Cache.Memcached">
-      <Version>3.3.0-preview1</Version>
+      <Version>3.3.0-preview3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

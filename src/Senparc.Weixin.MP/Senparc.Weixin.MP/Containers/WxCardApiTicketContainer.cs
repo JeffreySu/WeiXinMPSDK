@@ -232,7 +232,7 @@ namespace Senparc.Weixin.MP.Containers
         public static async Task RegisterAsync(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-            RegisterFunc = async () =>
+            RegisterFuncCollection[appId] = async () =>
             {
                 //using(FlushCache.CreateInstance())
                 //{
@@ -249,7 +249,7 @@ namespace Senparc.Weixin.MP.Containers
                 //}
             };
 
-            await RegisterFunc();
+            await RegisterFuncCollection[appId]();
 
             if (!name.IsNullOrEmpty())
             {

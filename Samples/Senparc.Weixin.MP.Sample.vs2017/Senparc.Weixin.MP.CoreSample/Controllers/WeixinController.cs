@@ -218,9 +218,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             if (!Request.IsLocal() && await cache.CheckExistedAsync(cacheKey))
             {
                 var lastMultiAccountTest = await cache.GetAsync<DateTimeOffset>("LastMultiAccountTestTime");
-                if ((SystemTime.Now - lastMultiAccountTest).TotalSeconds < 300)
+                if ((SystemTime.Now - lastMultiAccountTest).TotalSeconds < 30)
                 {
-                    return Content("访问频次过快！");
+                    return Content("访问频次过快，请稍后再试！");
                 }
             }
             //储存当前访问时间，用于限制刷新频次
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             sb.Append($"Result 1:{result1}<br>");
             sb.Append($"Result 2:{result2}<br><br>");
 
-            return Content(sb.ToString(), "text/html");
+            return Content(sb.ToString(), "text/html",Encoding.UTF8 );
         }
     }
 }

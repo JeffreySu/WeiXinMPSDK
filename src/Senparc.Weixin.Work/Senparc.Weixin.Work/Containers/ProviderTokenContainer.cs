@@ -68,6 +68,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190422
     修改描述：v3.4.0 支持异步 Container
+        
+    修改标识：Senparc - 20190504
+    修改描述：v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -261,23 +265,24 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         public static async Task RegisterAsync(string corpId, string corpSecret, string name = null)
         {
-            RegisterFunc = async () =>
-             {
-                 //using (FlushCache.CreateInstance())
-                 //{
-                 var bag = new ProviderTokenBag()
-                 {
-                     Name = name,
-                     CorpId = corpId,
-                     CorpSecret = corpSecret,
-                     ExpireTime = DateTimeOffset.MinValue,
-                     ProviderTokenResult = new ProviderTokenResult()
-                 };
-                 await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null);
-                 return bag;
-                 //}
-             };
-            await RegisterFunc();
+            var shortKey = BuildingKey(corpId, corpSecret);
+            RegisterFuncCollection[shortKey] = async () =>
+            {
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new ProviderTokenBag()
+                {
+                    Name = name,
+                    CorpId = corpId,
+                    CorpSecret = corpSecret,
+                    ExpireTime = DateTimeOffset.MinValue,
+                    ProviderTokenResult = new ProviderTokenResult()
+                };
+                await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null);
+                return bag;
+                //}
+            };
+            await RegisterFuncCollection[shortKey]();
 
             if (!name.IsNullOrEmpty())
             {

@@ -247,8 +247,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //使用高级接口返回消息
             var result1 = await MP.AdvancedAPIs.UrlApi.ShortUrlAsync(setting1.WeixinAppId, "long2short", "https://sdk.weixin.senparc.com");
             var result2 = await MP.AdvancedAPIs.UrlApi.ShortUrlAsync(setting2.WeixinAppId, "long2short", "https://weixin.senparc.com");
-            sb.Append($"Result 1:{result1}<br>");
-            sb.Append($"Result 2:{result2}<br><br>");
+            sb.Append($"Result 1:{result1.short_url}<br>");
+            sb.Append($"Result 2:{result2.short_url}<br><br>");
 
             return Content(sb.ToString(), "text/html",Encoding.UTF8 );
         }

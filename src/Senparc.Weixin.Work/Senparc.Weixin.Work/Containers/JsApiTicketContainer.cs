@@ -72,6 +72,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190422
     修改描述：v3.4.0 支持异步 Container
+    
+    修改标识：Senparc - 20190504
+    修改描述：v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+        
+    修改标识：Senparc - 20190504
+    修改描述：v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
 
 ----------------------------------------------------------------*/
 
@@ -266,7 +272,8 @@ namespace Senparc.Weixin.Work.Containers
         public static async Task RegisterAsync(string corpId, string corpSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-            RegisterFunc = async () =>
+            var shortKey = BuildingKey(corpId, corpSecret);
+            RegisterFuncCollection[shortKey] = async () =>
             {
                 //using (FlushCache.CreateInstance())
                 //{
@@ -282,7 +289,7 @@ namespace Senparc.Weixin.Work.Containers
                 return bag;
                 //}
             };
-            await RegisterFunc();
+            await RegisterFuncCollection[shortKey]();
 
             if (!name.IsNullOrEmpty())
             {

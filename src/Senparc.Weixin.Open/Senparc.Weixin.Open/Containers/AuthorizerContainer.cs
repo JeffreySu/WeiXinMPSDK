@@ -78,6 +78,9 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20190422
     修改描述：v4.5.0 支持异步 Container
 
+    修改标识：Senparc - 20190504
+    修改描述：v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -544,7 +547,7 @@ namespace Senparc.Weixin.Open.Containers
                 throw new WeixinOpenException(string.Format("注册AuthorizerContainer之前，必须先注册对应的ComponentContainer！ComponentAppId：{0},AuthorizerAppId:{1}", componentAppId, authorizerAppId));
             }
 
-            RegisterFunc = async () =>
+            RegisterFuncCollection[authorizerAppId] = async () =>
              {
                  //using (FlushCache.CreateInstance())
                  //{
@@ -568,7 +571,7 @@ namespace Senparc.Weixin.Open.Containers
                  return bag;
                  //}
              };
-            await RegisterFunc();
+            await RegisterFuncCollection[authorizerAppId]();
 
             //TODO：这里也可以考虑尝试进行授权（会影响速度）
         }

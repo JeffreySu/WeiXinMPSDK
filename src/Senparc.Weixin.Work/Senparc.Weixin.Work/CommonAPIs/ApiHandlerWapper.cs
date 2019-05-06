@@ -34,13 +34,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：添加TryCommonApi()方法
  
     修改标识：Senparc - 20170102
-    修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
+    修改描述：MP v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
 
     修改标识：Senparc - 20170123
-    修改描述：v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
+    修改描述：MP v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
 
     修改标识：Senparc - 20180917
     修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
+
+    修改标识：Senparc - 20190429
+    修改描述：v3.5.1 重构异步 ApiHandlerWapper
 
 ----------------------------------------------------------------*/
 
@@ -111,7 +114,7 @@ namespace Senparc.Weixin.Work
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
@@ -124,16 +127,16 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
         {
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
+            Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.Work);
 
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
-                appKey =>
+            Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
+              async appKey =>
                 {
                     /*
                      * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
                      */
-                    return AccessTokenContainer.CheckRegistered(appKey);
+                    return await AccessTokenContainer.CheckRegisteredAsync(appKey);
                 };
 
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
@@ -150,14 +153,13 @@ namespace Senparc.Weixin.Work
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.Work,
-                    accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                    accessTokenContainer_CheckRegisteredFunc,
+                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result;
         }
         #endregion
-#endif
     }
 }

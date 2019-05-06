@@ -41,7 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180917
     修改描述：BaseContainer.GetFirstOrDefaultAppId() 方法添加 PlatformType 属性
-
+    
+    修改标识：Senparc - 20190429
+    修改描述：v16.7.1 重构异步 ApiHandlerWapper
 ----------------------------------------------------------------*/
 
 using System;
@@ -205,7 +207,7 @@ namespace Senparc.Weixin.MP
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -219,11 +221,11 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.MP);
+            Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.MP);
 
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
-                appId => AccessTokenContainer.CheckRegistered(appId);
+            Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
+             async appId => await AccessTokenContainer.CheckRegisteredAsync(appId);
 
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
@@ -233,8 +235,8 @@ namespace Senparc.Weixin.MP
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.MP,
-                    accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                    accessTokenContainer_CheckRegisteredFunc,
+                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
@@ -275,6 +277,5 @@ namespace Senparc.Weixin.MP
         #endregion
 
         #endregion
-#endif
     }
 }

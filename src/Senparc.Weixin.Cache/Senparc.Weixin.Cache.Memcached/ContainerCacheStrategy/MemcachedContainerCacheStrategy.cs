@@ -99,7 +99,6 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         #region 异步方法
-#if !NET35 && !NET40
 
         /// <summary>
         ///  【异步方法】获取所有 Bag 对象
@@ -117,11 +116,7 @@ namespace Senparc.Weixin.Cache.Memcached
             await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey));
         }
 
-#endif
         #endregion
-
-
-
 
         #endregion
 

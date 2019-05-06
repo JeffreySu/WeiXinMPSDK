@@ -119,7 +119,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】增加邮费模板
@@ -200,6 +199,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
         #endregion
-#endif
     }
 }

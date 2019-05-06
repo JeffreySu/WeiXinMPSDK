@@ -284,7 +284,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -308,7 +308,6 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         #endregion
-#endif
     }
 }
 

@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取设备及用户信息
@@ -82,6 +82,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
-#endif
     }
 }

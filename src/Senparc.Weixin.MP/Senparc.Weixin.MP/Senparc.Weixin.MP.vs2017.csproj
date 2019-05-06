@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.0-preview1</Version>
+    <Version>16.7.2-preview3</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -463,6 +463,7 @@
       v16.7.0
       1、支持异步 Container
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -482,18 +483,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
@@ -559,8 +548,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.5" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.4" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.3.0.1-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
   </ItemGroup>
 
   <ItemGroup>

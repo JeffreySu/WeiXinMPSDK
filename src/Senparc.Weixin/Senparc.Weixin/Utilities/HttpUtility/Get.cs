@@ -62,12 +62,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-#if !NET35 && !NET40
+
 using System.Net.Http;
 using System.Threading.Tasks;
-#endif
 using System.Text;
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web.Script.Serialization;
 #endif
 using Senparc.Weixin.Entities;

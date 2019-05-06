@@ -166,7 +166,6 @@ namespace Senparc.Weixin.Cache.Redis
 
 
         #region 异步方法
-#if !NET35 && !NET40
 
         /// <summary>
         ///  【异步方法】获取所有 Bag 对象
@@ -193,8 +192,7 @@ namespace Senparc.Weixin.Cache.Redis
 
             return dic;
         }
-
-#endif
+      
         #endregion
 
         #endregion

@@ -66,11 +66,10 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web.Script.Serialization;
 using Senparc.Weixin.HttpUtility;
-#endif
-#if !NET35 && !NET40
+#else
 using System.Net.Http;
 #endif
 

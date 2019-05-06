@@ -42,7 +42,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 
-#if !NET35 && !NET40 && !NET45
+#if !NET45
 using System.Net.Http;
 # endif
 
@@ -156,7 +156,7 @@ namespace Senparc.Weixin.TenPay.V3
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             #region 发起post请求，载入到doc中
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -287,7 +287,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
 
@@ -298,6 +298,5 @@ namespace Senparc.Weixin.TenPay.V3
         #endregion
 
         #endregion
-#endif
     }
 }

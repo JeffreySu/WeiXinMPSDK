@@ -75,7 +75,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190422
     修改描述：v4.5.0 支持异步 Container
-
+    
+    修改标识：Senparc - 20190504
+    修改描述：v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
 ----------------------------------------------------------------*/
 
 using System;
@@ -527,7 +529,7 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -554,7 +556,7 @@ namespace Senparc.Weixin.Open.Containers
                 AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
             }
 
-            RegisterFunc = async () =>
+            RegisterFuncCollection[componentAppId] = async () =>
             {
                 //using (FlushCache.CreateInstance())
                 //{
@@ -568,7 +570,7 @@ namespace Senparc.Weixin.Open.Containers
                 return bag;
                 //}
             };
-            await RegisterFunc();
+            await RegisterFuncCollection[componentAppId]();
 
             if (!name.IsNullOrEmpty())
             {
@@ -805,6 +807,5 @@ namespace Senparc.Weixin.Open.Containers
         }
         #endregion
         #endregion
-#endif
     }
 }

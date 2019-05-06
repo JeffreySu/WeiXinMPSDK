@@ -60,7 +60,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -81,6 +81,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
-#endif
     }
 }

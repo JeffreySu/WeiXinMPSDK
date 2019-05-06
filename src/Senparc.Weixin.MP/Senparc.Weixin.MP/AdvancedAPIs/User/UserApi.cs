@@ -20,19 +20,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
-    
+
     文件名：UserAPI.cs
     文件功能描述：用户接口
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：jsionr - 20150322
     修改描述：添加修改关注者备注信息接口
-    
+
     修改标识：Senparc - 20150325
     修改描述：修改关注者备注信息开放代理请求超时时间
 
@@ -93,10 +93,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取关注者OpenId信息
+        /// 获取关注者OpenId信息 .
+        /// 一次拉取调用最多拉取10000个关注者的OpenID，可通过填写next_openid的值，从而多次拉取列表的方式来满足需求。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="nextOpenId"></param>
+        /// <param name="nextOpenId">第一个拉取的OPENID，不填默认从头开始拉取</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.Get", true)]
         public static OpenIdResultJson Get(string accessTokenOrAppId, string nextOpenId)
@@ -222,7 +223,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取用户信息
@@ -375,6 +375,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId, true);
         }
         #endregion
-#endif
     }
 }

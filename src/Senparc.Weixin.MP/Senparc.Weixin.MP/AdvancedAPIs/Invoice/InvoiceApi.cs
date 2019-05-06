@@ -728,7 +728,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         #region 支付相关
@@ -1390,7 +1389,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
         #endregion
-#endif
 
     }
 }

@@ -128,7 +128,7 @@ namespace Senparc.Weixin.TenPay.V3
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -207,6 +207,5 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         #endregion
-#endif
     }
 }

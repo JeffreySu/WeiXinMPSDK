@@ -41,6 +41,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Redlock.CSharp;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
@@ -113,11 +114,13 @@ namespace Senparc.Weixin.Cache.Redis
 
         #region 实现 IContainerCacheStrategy 接口
 
-
+        /// <summary>
+        ///  获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
         public override IDictionary<string, TBag> GetAll<TBag>()
         {
-
-
             #region 旧方法（没有使用Hash之前）
 
             //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
@@ -160,6 +163,37 @@ namespace Senparc.Weixin.Cache.Redis
 
             return dic;
         }
+
+
+        #region 异步方法
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            var baseCacheStrategy = BaseCacheStrategy();
+            var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
+            key = key.Substring(0, key.Length - 1);//去掉:号
+            key = baseCacheStrategy.GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
+            var list =  await (baseCacheStrategy as RedisObjectCacheStrategy).GetAllByPrefixAsync<TBag>(key);
+
+            //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
+            var dic = new Dictionary<string, TBag>();
+
+            foreach (var item in list)
+            {
+                var fullKey = key + ":" + item.Key;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
+                dic[fullKey] = item;
+            }
+
+            return dic;
+        }
+      
+        #endregion
 
         #endregion
 

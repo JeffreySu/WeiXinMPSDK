@@ -264,5 +264,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
 
 
     #endregion
+
+    #region 任务卡片消息
+    public class Taskcard_Notice
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
+        public string task_id { get; set; }
+        public TaskcardBtn[] btn { get; set; }
+    }
+
+    public class TaskcardBtn
+    {
+        public string key { get; set; }
+        public string name { get; set; }
+        public string replace_name { get; set; }
+        public string color { get; set; }
+        public bool is_bold { get; set; }
+    }
+    #endregion
 }
 

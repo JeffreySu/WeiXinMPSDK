@@ -40,6 +40,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
 using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache
 {
@@ -105,7 +106,11 @@ namespace Senparc.Weixin.Cache
 
         #region BaseContainerCacheStrategy 成员
 
-
+        /// <summary>
+        ///  获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
         public override IDictionary<string, TBag> GetAll<TBag>()
         {
             var dic = new Dictionary<string, TBag>();
@@ -121,6 +126,30 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
+        #region 异步方法
+
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            var dic = new Dictionary<string, TBag>();
+            var baseCacheStrategy = BaseCacheStrategy();
+            var cacheList =  await baseCacheStrategy.GetAllAsync();
+            foreach (var baseContainerBag in cacheList)
+            {
+                if (baseContainerBag.Value is TBag)
+                {
+                    dic[baseContainerBag.Key] = (TBag)baseContainerBag.Value;
+                }
+            }
+            return dic;
+        }
+
+        #endregion
 
         #endregion
 

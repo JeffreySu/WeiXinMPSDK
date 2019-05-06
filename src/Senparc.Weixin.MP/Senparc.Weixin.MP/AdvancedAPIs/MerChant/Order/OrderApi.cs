@@ -159,7 +159,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】根据订单ID获取订单详情
@@ -260,6 +259,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
         #endregion
-#endif
     }
 }

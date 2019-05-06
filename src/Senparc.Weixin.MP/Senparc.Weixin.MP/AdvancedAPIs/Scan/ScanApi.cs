@@ -297,7 +297,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取商户信息
@@ -529,6 +528,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
-#endif
     }
 }

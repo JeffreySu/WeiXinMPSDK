@@ -140,7 +140,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         //}
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         
         /// <summary>
@@ -222,6 +222,5 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         //    return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         //}
         #endregion
-#endif
     }
 }

@@ -68,11 +68,11 @@ namespace Senparc.Weixin.Open.Test
 
         public OpenBaseTest()
         {
-            Func<string, string> getComponentVerifyTicketFunc = s =>
-            {
+            Func<string, Task<string>> getComponentVerifyTicketFunc = async s =>
+             {
                 //do something
                 return _ticket;
-            };
+             };
 
             if (_userRedis)
             {

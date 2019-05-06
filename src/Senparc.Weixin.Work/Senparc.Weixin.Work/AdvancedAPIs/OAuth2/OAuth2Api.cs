@@ -120,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
@@ -173,6 +173,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
         }
         #endregion
-#endif
     }
 }

@@ -464,7 +464,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -484,6 +484,5 @@ namespace Senparc.Weixin.Work.CommonAPIs
             }, accessTokenOrAppId);
         }
         #endregion
-#endif
     }
 }

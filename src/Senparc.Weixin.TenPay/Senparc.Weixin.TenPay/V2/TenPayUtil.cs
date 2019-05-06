@@ -84,7 +84,7 @@ namespace Senparc.Weixin.TenPay.V2
 
                 try
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.TenPay.V2
                 }
                 catch (Exception ex)
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.TenPay.V2
 
                 try
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlDecode(instr);
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.TenPay.V2
                 }
                 catch (Exception ex)
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlDecode(instr);
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-//#if NET35 || NET40 || NET45 || NET461
+//#if NET45
 //            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
 //#else
             TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);

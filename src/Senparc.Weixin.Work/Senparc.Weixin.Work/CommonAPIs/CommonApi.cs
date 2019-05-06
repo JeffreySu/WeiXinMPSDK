@@ -163,7 +163,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// 【异步方法】<summary>
         /// 获取AccessToken
@@ -276,6 +276,5 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return await CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
-#endif
     }
 }

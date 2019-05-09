@@ -1058,7 +1058,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="kfAccount"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPage", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPageAsync", true)]
         public static async Task<WxJsonResult> SendMiniProgramPageAsync(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
         {
 

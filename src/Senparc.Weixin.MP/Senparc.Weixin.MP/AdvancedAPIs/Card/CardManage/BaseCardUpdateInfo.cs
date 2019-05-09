@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：BaseCardUpdateInfo.cs
     文件功能描述：更新卡券的信息部分
@@ -176,6 +176,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string custom_url_sub_title { get; set; }
 
         /// <summary>
+        /// 自定义使用入口跳转小程序的user_name，格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string custom_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义使用入口小程序页面地址
+        /// </summary>
+        public string custom_app_brand_pass { get; set; }
+
+        /// <summary>
         /// 营销场景的自定义入口名称 string（16）不需提审
         /// </summary>
         public string promotion_url_name { get; set; }
@@ -189,6 +198,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 显示在营销入口右侧的提示语。 不需提审
         /// </summary>
         public string promotion_url_sub_title { get; set; }
+
+        /// <summary>
+        /// 小程序的user_name 格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string promotion_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义营销入口小程序页面地址
+        /// </summary>
+        public string promotion_app_brand_pass { get; set; }
 
         /// <summary>
         /// 顶部居中的自定义cell入口名称
@@ -205,6 +223,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string center_url { get; set; }
+
+        /// <summary>
+        /// 显示在顶部居中的自定义跳转小程序的user_name 格式为原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string center_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义居中使用入口小程序页面地址
+        /// </summary>
+        public string center_app_brand_pass { get; set; }
         /// <summary>
         /// 指定会员卡支持动态码
         /// </summary>

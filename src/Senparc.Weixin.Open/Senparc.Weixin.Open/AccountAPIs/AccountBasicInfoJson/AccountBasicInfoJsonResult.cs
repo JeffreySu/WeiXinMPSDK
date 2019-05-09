@@ -1,4 +1,38 @@
-﻿using Senparc.Weixin.Entities;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+  
+    文件名：AccountBasicInfoJsonResult.cs
+    文件功能描述：AccountBasicInfoJsonResult
+    
+    
+    创建标识：Senparc - 20180716
+
+    修改标识：Senparc - 20190214
+    修改描述：v4.4.3.2 修改 WxVerifyInfo 返回数据的 int 类型为 bool 类型（实际返回结果和文档不一致）
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
 {
@@ -88,17 +122,17 @@ namespace Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson
     public class WxVerifyInfo
     {
         /// <summary>
-        /// 是否资质认证 （1：是，0：否）若是，拥有微信认证相关的权限。
+        /// 是否资质认证。若是，拥有微信认证相关的权限。
         /// </summary>
-        public int qualification_verify { get; set; }
+        public bool qualification_verify { get; set; }
         /// <summary>
-        /// 是否名称认证 （1：是，0：否） 对于公众号（订阅号、服务号），是名称认证，微信客户端才会有微信认证打勾的标识
+        /// 是否名称认证。对于公众号（订阅号、服务号），是名称认证，微信客户端才会有微信认证打勾的标识
         /// </summary>
-        public int naming_verify { get; set; }
+        public bool naming_verify { get; set; }
         /// <summary>
-        /// 是否需要年审 （1：是，0：否）（qualification_verify = true时才有该字段）
+        /// 是否需要年审（qualification_verify = true时才有该字段）
         /// </summary>
-        public int annual_review { get; set; }
+        public bool annual_review { get; set; }
         /// <summary>
         /// 年审开始时间 时间戳（qualification_verify = true时才有该字段）
         /// </summary>

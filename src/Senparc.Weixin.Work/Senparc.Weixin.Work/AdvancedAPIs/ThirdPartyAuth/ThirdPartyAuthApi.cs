@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
@@ -32,6 +32,10 @@
 
     修改标识：Senparc - 20181009
     修改描述：添加接口
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -47,6 +51,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -455,7 +460,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -859,6 +864,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-#endif
     }
 }

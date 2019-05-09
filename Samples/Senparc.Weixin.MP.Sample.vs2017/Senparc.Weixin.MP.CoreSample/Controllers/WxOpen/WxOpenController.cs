@@ -131,11 +131,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult RequestData([FromBody]string nickName)
+        public ActionResult RequestData(string nickName)
         {
             var data = new
             {
-                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now, nickName)
+                msg = string.Format("服务器时间：{0}，昵称：{1}", SystemTime.Now.LocalDateTime, nickName)
             };
             return Json(data);
         }
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// <param name="code"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult OnLogin([FromBody]string code)
+        public ActionResult OnLogin(string code)
         {
             try
             {
@@ -170,11 +170,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             {
                 return Json(new { success = false, msg = ex.Message });
             }
-           
+
         }
 
         [HttpPost]
-        public ActionResult CheckWxOpenSignature([FromBody]string sessionId, [FromBody]string rawData, [FromBody]string signature)
+        public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData([FromBody]string type, [FromBody]string sessionId, [FromBody]string encryptedData, [FromBody]string iv)
+        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
             switch (type.ToUpper())
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult TemplateTest([FromBody]string sessionId, [FromBody]string formId)
+        public ActionResult TemplateTest(string sessionId, string formId)
         {
             var templateMessageService = new TemplateMessageService();
             try
@@ -238,7 +238,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        public ActionResult DecryptPhoneNumber([FromBody]string sessionId, [FromBody]string encryptedData, [FromBody]string iv)
+        /// <summary>
+        /// 解密电话号码
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public ActionResult DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
             try
@@ -252,11 +259,35 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             catch (Exception ex)
             {
                 return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 解密运动步数
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public ActionResult DecryptRunData(string sessionId, string encryptedData, string iv)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            try
+            {
+                var runData = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecryptRunData(sessionId, encryptedData, iv);
+
+                //throw new WeixinException("解密PhoneNumber异常测试");//启用这一句，查看客户端返回的异常信息
+
+                return Json(new { success = true, runData = runData });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
 
             }
         }
 
-        public ActionResult GetPrepayid([FromBody]string sessionId)
+        public ActionResult GetPrepayid(string sessionId)
         {
             try
             {

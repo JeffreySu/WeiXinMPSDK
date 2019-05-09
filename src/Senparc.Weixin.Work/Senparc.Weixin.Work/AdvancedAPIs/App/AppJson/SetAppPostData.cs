@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SetAppPostData.cs
     文件功能描述：设置企业号应用需要Post的数据

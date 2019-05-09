@@ -186,8 +186,8 @@ namespace Senparc.Weixin.MP.Sample
 
                 //注册第三方平台（可注册多个）
                 .RegisterOpenComponent(senparcWeixinSetting,
-                    //getComponentVerifyTicketFunc
-                    componentAppId =>
+                 //getComponentVerifyTicketFunc
+                 async componentAppId =>
                     {
                         var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
                         if (!Directory.Exists(dir))
@@ -206,8 +206,8 @@ namespace Senparc.Weixin.MP.Sample
                         }
                     },
 
-                     //getAuthorizerRefreshTokenFunc
-                     (componentAppId, auhtorizerId) =>
+                 //getAuthorizerRefreshTokenFunc
+                 async (componentAppId, auhtorizerId) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))
@@ -229,8 +229,8 @@ namespace Senparc.Weixin.MP.Sample
                          }
                      },
 
-                     //authorizerTokenRefreshedFunc
-                     (componentAppId, auhtorizerId, refreshResult) =>
+                //authorizerTokenRefreshedFunc
+                async (componentAppId, auhtorizerId, refreshResult) =>
                      {
                          var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                          if (!Directory.Exists(dir))

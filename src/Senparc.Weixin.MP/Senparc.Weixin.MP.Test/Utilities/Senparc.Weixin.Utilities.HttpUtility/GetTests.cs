@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             Console.WriteLine("MediaId：" + result.media_id);
 
             //下载
-            var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
+            var url = "https://sdk.weixin.senparc.com/images/v2/ewm_01.png";
 
 
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
 #endif
 
-            var downloadResult = Senparc.Weixin.HttpUtility.Get.Download(url, filePath);
+            var downloadResult = Senparc.CO2NET.HttpUtility.Get.Download(url, filePath);
             Console.WriteLine(downloadResult);
 
             Assert.IsTrue(File.Exists(downloadResult));

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SsoApi.cs
     文件功能描述：OA数据开放接口（Work中新增）
@@ -179,7 +179,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -321,6 +321,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         }
 
         #endregion
-#endif
     }
 }

@@ -135,7 +135,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 类目相关接口
@@ -223,6 +223,5 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         #endregion
 
         #endregion
-#endif
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEvent_Batch_Job_Result.cs
     文件功能描述：异步任务完成事件推送(batch_job_result)

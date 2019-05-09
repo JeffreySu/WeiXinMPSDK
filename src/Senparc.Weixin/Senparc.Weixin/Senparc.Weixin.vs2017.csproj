@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>6.3.3.1-preview2</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
+    <Version>6.4.2-preview3</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -285,6 +286,15 @@
       v6.3.0
       1、使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       2、完善子账号 SubMchId 相关参数
+      v6.3.4 添加快速创建小程序接口
+      v6.3.6 支持在子程序环境下获取 OAuth 回调地址
+      v6.3.9 支持最新版本 Senparc.NeuChar
+      v6.3.10 支持最新版本 Senparc.NeuChar
+      v6.3.11 优化 BaseContainer
+      v6.4.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v6.4.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -344,8 +354,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.4.4-preview2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.5.5.2-preview2" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.7.0-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

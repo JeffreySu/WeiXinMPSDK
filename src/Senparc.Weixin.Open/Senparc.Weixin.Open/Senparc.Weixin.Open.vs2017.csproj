@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>4.3.4.1-preview2</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>4.5.1-preview3</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -148,6 +148,13 @@
       v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
       v4.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
+      v4.4.0 添加快速创建小程序接口
+      v4.4.5 支持最新版本 Senparc.Weixin
+      v4.5.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -164,16 +171,6 @@
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.Open.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
@@ -214,7 +211,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.5.5.2-preview2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
   </ItemGroup>
 
   <ItemGroup>

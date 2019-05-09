@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：MediaAPI.cs
     文件功能描述：素材管理接口（原多媒体文件接口）
@@ -57,6 +57,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180424
     修改描述：v14.12.2 修正 MediaApi.GetForeverMedia() 方法永久视频的文件下载过程。
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -68,6 +71,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
@@ -362,7 +366,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -407,7 +410,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
-                return CO2NET.HttpUtility.Get.GetJson<GetMediaCountResultJson>(url);
+                return CommonJsonSend.Send<GetMediaCountResultJson>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -576,7 +579,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         #region 临时素材
@@ -904,7 +906,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                string url = string.Format(Config.ApiMpHost + "/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
-               return await CO2NET.HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
+               return await CommonJsonSend.SendAsync<GetMediaCountResultJson>(null, url, null, CommonJsonSendType.GET);
 
            }, accessTokenOrAppId);
         }
@@ -931,7 +933,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
 
@@ -961,7 +963,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    count = count
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -983,7 +985,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1014,7 +1016,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice_id = voiceId,
                     lang = lang
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1040,7 +1042,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice_id = voiceId,
                     lang = lang
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<QueryRecoResultResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<QueryRecoResultResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1065,7 +1067,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     Ifrom,
                     Ito
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<TranslateContentResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<TranslateContentResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1073,7 +1075,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
         #endregion
-#endif
-
     }
 }

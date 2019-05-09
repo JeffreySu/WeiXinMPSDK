@@ -1,9 +1,10 @@
-<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" />
+<img src="https://sdk.weixin.senparc.com/images/senparc-logo-500.jpg" alt="Senparc.Weixin SDK"  />
 
 Senparc.Weixin —— Wechat .NET SDK
 =================
-[![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master)
-[![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+<!-- [![Build Status](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)-->
+<!-- [![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master) -->
+[![Build status](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_apis/build/status/Senparc.Weixin%20SDK-ASP.NET%20Core-CI)](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_build/latest?definitionId=7)<!-- [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)-->
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -53,6 +54,7 @@ Index
 * [Branch Description](#branch-description)
 * [Thanks for Contributors](#thanks-for-contributors)
 * [Donate](#donate)
+* [Stargazers over time](#stargazers-over-time)
 * [License](#license)
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
@@ -63,6 +65,7 @@ The library contains the source code (the Core logic is exactly the same) that i
 [Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
 * Open Demo with Visual Studio 2010 SP1 (support.net 4.5 only) :
 [Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/Senparc.Weixin.MP.Sample.Consoles)
 
 
 SDK Modules
@@ -83,11 +86,13 @@ SDK Modules
 | 11| [WebSocket <br>(indep. proj.)](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll | [![Senparc.WebSocket][10.1]][10.2]   ![.NET 3.5][net35N]    ![.NET 4.0][net40N]   ![.NET 4.5][net45Y]    ![.NET Core 2.x][core20Y]
 
 
+#### Legend
+
 | ![.NET 3.5][net35Y] | ![.NET 4.0][net40Y] | ![.NET 4.5][net45Y] | ![.NET Core 2.x][core20Y] |
 |--|--|--|--|
 | .NET 3.5            | .NET 4.0            | .NET 4.5            |  .NET Core 2.0 + 2.1       |
 
-
+Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](https://github.com/JeffreySu/WeiXinMPSDK/releases/tag/v16.6.15), since May 1, 2019 to stop updating.
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -114,9 +119,9 @@ SDK Modules
 [12.1]: https://img.shields.io/nuget/v/Senparc.Weixin.TenPay.svg?style=flat
 [12.2]: https://www.nuget.org/packages/Senparc.Weixin.TenPay
 
-[net35Y]: https://img.shields.io/badge/3.5-Y-brightgreen.svg
+[net35Y]: https://img.shields.io/badge/3.5-Y-yellowgreen.svg
 [net35N]: https://img.shields.io/badge/3.5-N-lightgrey.svg
-[net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
+[net40Y]: https://img.shields.io/badge/4.0-Y-yellowgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg
 [net40N-]: https://img.shields.io/badge/4.0----lightgrey.svg
 [net45Y]: https://img.shields.io/badge/4.5-Y-brightgreen.svg
@@ -153,10 +158,14 @@ SDK Modules
 [nuget-img-ws]: https://img.shields.io/nuget/dt/Senparc.WebSocket.svg
 [nuget-url-ws]: https://www.nuget.org/packages/Senparc.WebSocket
 
-* Supported all Wechat 6 APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
+
+## Functional Support
+* Supported all Wechat 7.x APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
+* Supported Wechat Official Account, MiniProgram, MiniProgram-Game, Enterpaise Account, Open Platform modules.
 * Supported user dialogue context, to solve application service can not use Session to handle users' dialogues.
 * Fully supported latest APIs for Wechat Official Account, Corporate Account(Corporate Wechat), Open Platform.
 * Supported Distributed Cache Strategy with high scalability.
+* 
 
 > All updates will ensure downward compatibility unless otherwise specified. So you can cover new DLLs directly or use Nuget to manage packages(highly recommend).
 
@@ -273,7 +282,7 @@ Senparc official tutorials
 |[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
 |[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		  |Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
 |[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			  |Demo, can be released directly(.NET Core 2.0 + MVC)|
-
+|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			| Console Demo（.NET Core）|
 
 Senparc.Weixin.MP.Sample Key Code
 --------------
@@ -626,13 +635,17 @@ Donate:
 [![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
 
+## Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK.svg)](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK)
+
 
 License
 --------------
 Apache License Version 2.0
 
 ```
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

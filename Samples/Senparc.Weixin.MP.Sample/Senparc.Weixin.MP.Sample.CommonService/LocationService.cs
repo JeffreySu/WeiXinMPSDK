@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：LocationService.cs
     文件功能描述：地理位置信息处理
@@ -84,8 +84,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 Title = "微信公众平台SDK 官网链接",
                 Description = "Senparc.Weixin.MK SDK地址",
-                PicUrl = "http://sdk.weixin.senparc.com/images/logo.jpg",
-                Url = "http://sdk.weixin.senparc.com"
+                PicUrl = "https://sdk.weixin.senparc.com/images/logo.jpg",
+                Url = "https://sdk.weixin.senparc.com"
             });
 
             return responseMessage;

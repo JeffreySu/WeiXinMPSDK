@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>16.6.3.1-preview2</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>16.7.2-preview3</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -450,6 +450,20 @@
       v16.5.1 支持 Senparc.NeuChar v0.4.4
       v16.5.2 优化 APM 和 MessageHandler 消息解密过程
       v16.6.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v16.6.4 修复会员卡接口的枚举序列化字符串问题
+      v16.6.5 修复会员卡创建时supply_balance字段和supply_bonus字段为false不序列化
+      v16.6.6 添加卡券跳转小程序参数
+      v16.6.7 RequestMessageEvent_User_Get_Card 添加 UnionId 属性
+      v16.6.8 添加微信门店小程序接口
+      v16.6.9
+      1、修复：裂变红包 url 及参数不正确
+      v16.6.13 添加 SendMenu 相关接口，并打通消息回复响应
+      v16.6.14 支持最新版本 Senparc.Weixin
+      v16.6.15 Card_BaseInfoBase 添加 get_custom_code_mode 属性
+      v16.7.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -469,18 +483,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
@@ -546,8 +548,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.2-preview2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.5.5.2-preview2" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.3.0.1-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
   </ItemGroup>
 
   <ItemGroup>

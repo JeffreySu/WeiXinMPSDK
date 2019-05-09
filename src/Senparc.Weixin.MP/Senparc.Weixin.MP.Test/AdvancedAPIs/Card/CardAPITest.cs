@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：CardTest.cs
     文件功能描述：卡券单元测试
@@ -47,6 +47,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -189,6 +190,39 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
+        }
+
+       /// <summary>
+       /// 测试枚举输出字符串
+       /// </summary>
+        [TestMethod]
+        public void EnumStringTest()
+        {
+            var obj = new Card_BaseInfoBase() {
+                 code_type = Card_CodeType.CODE_TYPE_BARCODE
+            };
+
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("CODE_TYPE_BARCODE"));
+
+        }
+
+        /// <summary>
+        /// 测试值为false时也序列化出来
+        /// </summary>
+        [TestMethod]
+        public void FalseValueSerializeTest()
+        {
+            var obj = new Card_MemberCardData()
+            {
+                supply_balance = false,
+                supply_bonus = false,
+            };
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("supply_balance"));
+            Assert.IsTrue(str.Contains("supply_bonus"));
         }
 
         //protected Store_Location _StoreLocation = new Store_Location()

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MediaApi.cs
     文件功能描述：多媒体文件接口
@@ -379,7 +379,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】上传临时媒体文件【QY移植修改】
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken.AsUrlData(), mediaId.AsUrlData());
-                await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
+                await CO2NET.HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);
 
@@ -657,6 +657,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
-#endif
     }
 }

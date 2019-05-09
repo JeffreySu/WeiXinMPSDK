@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2.0',
+    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -28,7 +28,7 @@ Page({
       url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
       data: { nickName : that.data.userInfo.nickName},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      header: { 'content-type':'application/x-www-form-urlencoded'}, 
       success: function(res){
         // success
         var json = res.data;
@@ -55,15 +55,16 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
-       var submitData = JSON.stringify({
+       var submitData = {
           sessionId:wx.getStorageSync("sessionId"),
           formId:e.detail.formId
-        });
+        };
 
         wx.request({
           url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
           data: submitData,
           method: 'POST', 
+          header: { 'content-type': 'application/x-www-form-urlencoded' }, 
           success: function(res){
             // success
             var json = res.data;
@@ -91,7 +92,8 @@ Page({
         encryptedData:e.detail.encryptedData 
         },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -129,7 +131,8 @@ Page({
         sessionId: wx.getStorageSync('sessionId')
       },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -163,7 +166,8 @@ Page({
                   formId: json.package
                 },
                 method: 'POST',
-                success: function (templateMsgRes) {
+                  header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+                  success: function (templateMsgRes) {
                   if (templateMsgRes.data.success){
                     wx.showModal({
                       title: '模板消息发送成功！',
@@ -207,6 +211,40 @@ Page({
         }
       }
       });
+  },
+  getRunData:function(){
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData;
+
+        wx.request({
+          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
+          data: {
+            sessionId: wx.getStorageSync('sessionId'),
+            encryptedData: encryptedData,
+            iv: res.iv, 
+          },
+          method: 'POST',
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (runDataRes) {
+            if (runDataRes.data.success) {
+              wx.showModal({
+                title: '成功获得步数信息！',
+                content: JSON.stringify(runDataRes.data.runData),
+                showCancel: false
+              });
+            } else {
+              wx.showModal({
+                title: '获取步数信息失败！',
+                content: runDataRes.data.msg,
+                showCancel: false
+              });
+            }
+          }
+        });
+
+      }
+    })
   },
   openLivePusher:function(){
     wx.navigateTo({

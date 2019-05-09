@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -45,7 +45,7 @@ using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 //using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
@@ -556,7 +556,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -691,7 +691,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                await CO2NET.HttpUtility.Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -1052,6 +1052,5 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         #endregion
-#endif
     }
 }

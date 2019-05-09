@@ -57,15 +57,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.4.4-preview2\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.2.2-preview2\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.5.3-preview2\lib\net45\Senparc.NeuChar.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -134,6 +125,7 @@
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
     <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\Custom\SendMenuContent.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
@@ -353,6 +345,10 @@
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_AddStoreAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_ApplyMerchantAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_CreateMapPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_ModifyStoreAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
@@ -375,7 +371,6 @@
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
-    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\GetMenuResultFull.cs" />
@@ -480,6 +475,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NeuChar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET.APM">
+      <Version>0.3.0.1-preview3</Version>
+    </PackageReference>
+    <PackageReference Include="Senparc.NeuChar">
+      <Version>0.6.6-preview3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

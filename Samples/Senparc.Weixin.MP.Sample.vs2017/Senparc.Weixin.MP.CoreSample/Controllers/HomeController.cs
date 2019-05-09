@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -85,8 +85,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //or use Header: REMOTE_ADDR
 
             //获取编译时间
-            //因为官方在线 Demo CI 自动生成使用的服务器为 UTC-0，所以北京时间需要+8小时
-            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).AddHours(8).ToString("yyyyMMdd.HH.mm");
+            TempData["BuildTime"] = System.IO.File.GetLastWriteTime(this.GetType().Assembly.Location).ToString("yyyyMMdd.HH.mm");
 
             return View();
         }
@@ -143,6 +142,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             var accessTokenBags = AccessTokenContainer.GetAllItems();
             return Json(accessTokenBags);
+        }
+
+        public ActionResult TestPath()
+        {
+            return Content(HttpContext.Request.PathBase);
         }
     }
 }

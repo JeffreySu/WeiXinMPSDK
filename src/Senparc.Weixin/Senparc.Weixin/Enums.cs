@@ -63,6 +63,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170901
     修改描述：删除 AppStoreState 枚举，移植到 Senparc.NeuChar
 
+    修改标识：Senparc - 20190512
+    修改描述：v6.4.3 丰富 ReturnCode 枚举类型
+
 ----------------------------------------------------------------*/
 
 

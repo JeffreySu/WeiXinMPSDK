@@ -508,6 +508,65 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 发送小程序卡片（要求小程序与公众号已关联）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="title">小程序卡片的标题</param>
+        /// <param name="appid">小程序的appid，要求小程序的appid需要与公众号有关联关系</param>
+        /// <param name="pagepath">小程序的页面路径，跟app.json对齐，支持参数，比如pages/index/index?foo=bar</param>
+        /// <param name="thumb_media_id">小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416</param>
+        /// <param name="kfAccount"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPage", true)]
+        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount="", int timeOut = Config.TIME_OUT)
+        {
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid=appid,
+                        pagepath= pagepath,
+                        thumb_media_id = thumb_media_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    },
+                    customservice = new
+                    {
+                        kf_account = kfAccount
+                    }
+
+                };
+            }
+
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 客服输入状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
@@ -986,6 +1045,68 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】发送小程序卡片（要求小程序与公众号已关联）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="title">小程序卡片的标题</param>
+        /// <param name="appid">小程序的appid，要求小程序的appid需要与公众号有关联关系</param>
+        /// <param name="pagepath">小程序的页面路径，跟app.json对齐，支持参数，比如pages/index/index?foo=bar</param>
+        /// <param name="thumb_media_id">小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416</param>
+        /// <param name="kfAccount"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPageAsync", true)]
+        public static async Task<WxJsonResult> SendMiniProgramPageAsync(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
+        {
+
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    },
+                    customservice = new
+                    {
+                        kf_account = kfAccount
+                    }
+
+                };
+            }
+
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
 
         /// <summary>
         /// 【异步方法】客服输入状态

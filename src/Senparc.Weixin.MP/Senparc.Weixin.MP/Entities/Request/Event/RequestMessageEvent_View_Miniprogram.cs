@@ -36,7 +36,7 @@ using Senparc.NeuChar.Entities;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之URL跳转视图（View）
+    /// 点击菜单跳转小程序的事件推送（view_miniprogram）
     /// </summary>
     public class RequestMessageEvent_View_Miniprogram : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {

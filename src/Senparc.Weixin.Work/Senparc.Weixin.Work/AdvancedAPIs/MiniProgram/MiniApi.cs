@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MiniApi.cs
     文件功能描述：小程序接口
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
 
@@ -115,6 +115,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-#endif
     }
 }

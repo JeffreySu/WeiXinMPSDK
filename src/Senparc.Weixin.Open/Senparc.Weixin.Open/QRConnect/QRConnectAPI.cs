@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：QRConnectAPI.cs
     文件功能描述：微信扫码登录
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Open.QRConnect
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
          /// <summary>
         /// 【异步方法】获取AccessToken
@@ -223,6 +223,5 @@ namespace Senparc.Weixin.Open.QRConnect
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
-#endif
     }
 }

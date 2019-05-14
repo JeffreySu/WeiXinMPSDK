@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取设备及用户信息
@@ -82,6 +82,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
-#endif
     }
 }

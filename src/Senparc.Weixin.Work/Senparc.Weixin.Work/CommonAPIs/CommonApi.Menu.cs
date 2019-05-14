@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -464,7 +464,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -484,6 +484,5 @@ namespace Senparc.Weixin.Work.CommonAPIs
             }, accessTokenOrAppId);
         }
         #endregion
-#endif
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 通讯录更新
@@ -426,6 +426,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
         #endregion
-#endif
     }
 }

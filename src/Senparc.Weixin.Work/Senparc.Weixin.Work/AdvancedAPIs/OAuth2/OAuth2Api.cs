@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：OAuth2Api.cs
     文件功能描述：OAuth2接口
@@ -120,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
@@ -173,6 +173,5 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
         }
         #endregion
-#endif
     }
 }

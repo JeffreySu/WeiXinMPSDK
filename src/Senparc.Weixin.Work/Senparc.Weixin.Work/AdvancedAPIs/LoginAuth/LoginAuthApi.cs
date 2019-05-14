@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：LoginAuthApi.cs
     文件功能描述：企业号登录授权接口
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -93,7 +93,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
         #endregion
-#endif
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         private void DownloadBillTest(string sandBoxKey, string nonceStr)
         {
             var dataInfo = new TenPayV3DownloadBillRequestData(base._appId, base._mchId, nonceStr, "Senparc POS 1",
-                SystemTime.Now.ToString("yyyy-MM-dd"), "ALL", sandBoxKey);
+                SystemTime.Now.ToString("yyyyMMdd"), "ALL", sandBoxKey);
 
 
             var result = TenPayV3.DownloadBill(dataInfo);

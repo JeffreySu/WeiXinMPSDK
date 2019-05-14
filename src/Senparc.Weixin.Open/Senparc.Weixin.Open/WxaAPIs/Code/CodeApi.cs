@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CodeApi.cs
     文件功能描述：代码管理
@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170726
 
+    修改标识：Senparc - 20190511
+    修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
 
 ----------------------------------------------------------------*/
 
@@ -218,9 +220,104 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+        /// <summary>
+        /// 小程序版本回退（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertCodeRelease", true)]
+        public static CodeResultJson RevertCodeRelease(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/revertcoderelease?access_token={0}", accessToken.AsUrlData());
+
+            return CommonJsonSend.Send<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
+
+        /// <summary>
+        /// 查询当前设置的最低基础库版本及各版本用户占比（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetWeappSupportVersion", true)]
+        public static GetWeappSupportVersionResultJson GetWeappSupportVersion(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/getweappsupportversion?access_token={0}", accessToken.AsUrlData());
+
+            return CommonJsonSend.Send<GetWeappSupportVersionResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 设置最低基础库版本（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="version">版本</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SetWeappSupportVersion", true)]
+        public static CodeResultJson SetWeappSupportVersion(string accessToken, string version, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/setweappsupportversion?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                version = version.ToString()
+            };
+
+            return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 小程序分阶段发布接口
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="gray_percentage">灰度的百分比，1到100的整数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GrayRelease", true)]
+        public static CodeResultJson GrayRelease(string accessToken, int gray_percentage, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/grayrelease?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                gray_percentage = gray_percentage
+            };
+
+            return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 小程序取消分阶段发布
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertGrayRelease", true)]
+        public static CodeResultJson RevertGrayRelease(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/revertgrayrelease?access_token={0}", accessToken.AsUrlData());
+
+            return CommonJsonSend.Send<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
+        /// <summary>
+        /// 小程序查询当前分阶段发布详情
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetGrayReleasePlan", true)]
+        public static GetGrayReleasePlanResultJson GetGrayReleasePlan(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
+
+            return CommonJsonSend.Send<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 为授权的小程序帐号上传小程序代码
@@ -401,7 +498,100 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+        /// <summary>
+        /// 小程序版本回退（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertCodeReleaseAsync", true)]
+        public static async Task<CodeResultJson> RevertCodeReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/revertcoderelease?access_token={0}", accessToken.AsUrlData());
+
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
+        /// <summary>
+        /// 查询当前设置的最低基础库版本及各版本用户占比（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetWeappSupportVersionAsync", true)]
+        public static async Task<GetWeappSupportVersionResultJson> GetWeappSupportVersionAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/getweappsupportversion?access_token={0}", accessToken.AsUrlData());
+
+            return await CommonJsonSend.SendAsync<GetWeappSupportVersionResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 设置最低基础库版本（仅供第三方代小程序调用）
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="version">版本</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SetWeappSupportVersionAsync", true)]
+        public static async Task<CodeResultJson> SetWeappSupportVersionAsync(string accessToken, string version, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/setweappsupportversion?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                version = version.ToString()
+            };
+
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 小程序分阶段发布接口
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="gray_percentage">灰度的百分比，1到100的整数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GrayReleaseAsync", true)]
+        public static async Task<CodeResultJson> GrayReleaseAsync(string accessToken, int gray_percentage, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/grayrelease?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                gray_percentage = gray_percentage
+            };
+
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 小程序取消分阶段发布
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertGrayReleaseAsync", true)]
+        public static async Task<CodeResultJson> RevertGrayReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/revertgrayrelease?access_token={0}", accessToken.AsUrlData());
+
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
+        /// <summary>
+        /// 小程序查询当前分阶段发布详情
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetGrayReleasePlanAsync", true)]
+        public static async Task<GetGrayReleasePlanResultJson> GetGrayReleasePlanAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
+
+            return await CommonJsonSend.SendAsync<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+        }
         #endregion
-#endif
     }
 }

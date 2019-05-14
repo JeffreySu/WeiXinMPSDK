@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：通讯录同步接口
@@ -40,7 +40,7 @@
     修改描述：v1.2.9 为OAuth Url添加agendId参数（可选）
 
     修改标识：Senparc - 20190214
-    修改描述：c
+    修改描述：v3.3.7 MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
 
 ----------------------------------------------------------------*/
 
@@ -593,8 +593,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
+        
+        /// <summary>
+        /// 让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static WorkJsonResult AuthSucc(string accessTokenOrAppKey, string userId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
 
-#if !NET35 && !NET40
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
+
+
         #region 异步方法
 
         #region 成员管理
@@ -1116,7 +1140,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         }
 
+
+        /// <summary>
+        /// 【异步方法】让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> AuthSuccAsync(string accessTokenOrAppKey, string userId)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
+
         #endregion
-#endif
     }
 }

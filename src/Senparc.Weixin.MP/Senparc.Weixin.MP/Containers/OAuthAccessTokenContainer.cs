@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：OAuthContainer.cs
     文件功能描述：用户OAuth容器，用于自动管理OAuth的AccessToken，如果过期会重新获取
@@ -50,6 +50,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181226
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
+    修改标识：Senparc - 20190421
+    修改描述：v17.0.0 支持异步 Container
+
+    修改标识：Senparc - 20190503
+    修改描述：v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
 ----------------------------------------------------------------*/
 
 using System;
@@ -134,10 +140,6 @@ namespace Senparc.Weixin.MP.Containers
 
         #region 同步方法
 
-
-        //static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
-        //   new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
@@ -145,9 +147,22 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
         /// 此接口不提供异步方法
+        [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            RegisterFunc = () =>
+            RegisterAsync(appId, appSecret, name).Wait();
+        }
+
+        /// <summary>
+        /// 【异步方法】注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
+        /// 此接口不提供异步方法
+        public static async Task RegisterAsync(string appId, string appSecret, string name = null)
+        {
+            RegisterFuncCollection[appId] = async () =>
             {
                 //using (FlushCache.CreateInstance())
                 //{
@@ -159,11 +174,12 @@ namespace Senparc.Weixin.MP.Containers
                     OAuthAccessTokenExpireTime = DateTimeOffset.MinValue,
                     OAuthAccessTokenResult = new OAuthAccessTokenResult()
                 };
-                Update(appId, bag, null);
+                await UpdateAsync(appId, bag, null);
                 return bag;
                 //}
             };
-            RegisterFunc();
+
+            await RegisterFuncCollection[appId]();
 
             if (!name.IsNullOrEmpty())
             {
@@ -171,6 +187,7 @@ namespace Senparc.Weixin.MP.Containers
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
             }
         }
+
 
         #region OAuthAccessToken
 
@@ -235,7 +252,7 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         #region OAuthAccessToken
 
@@ -249,9 +266,9 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetOAuthAccessTokenAsync(string appId, string appSecret, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId) || getNewToken)
+            if (!await CheckRegisteredAsync(appId) || getNewToken)
             {
-                Register(appId, appSecret);
+                await RegisterAsync(appId, appSecret);
             }
             return await GetOAuthAccessTokenAsync(appId, code, getNewToken);
         }
@@ -278,13 +295,13 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<OAuthAccessTokenResult> GetOAuthAccessTokenResultAsync(string appId, string code, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId))
+            if (!await CheckRegisteredAsync(appId))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            var oAuthAccessTokenBag = await TryGetItemAsync(appId);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= SystemTime.Now)
                 {
@@ -294,7 +311,7 @@ namespace Senparc.Weixin.MP.Containers
                     //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                    Update(oAuthAccessTokenBag, null);
+                    await UpdateAsync(oAuthAccessTokenBag, null);
                 }
             }
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
@@ -302,6 +319,5 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
         #endregion
-#endif
     }
 }

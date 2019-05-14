@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-		<Version>3.3.7</Version>
+		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
+		<Version>3.5.2.1</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -115,6 +116,14 @@
       1、添加 MemberCreateRequest.alias 属性
       2、MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
       3、修复 IsLeader 参数大小写问题
+      v3.3.8.1 添加“让成员成功加入企业”接口
+      v3.3.9 支持最新版本 Senparc.Weixin
+      v3.3.10 修改 Copr 错别字，修正为 Corp
+      v3.4.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v3.5.0 发送Markdown消息和任务卡片消息
+      v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -132,17 +141,6 @@
 		<DebugType>pdbonly</DebugType>
 		<ErrorReport>prompt</ErrorReport>
 		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	</PropertyGroup>
-
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.Work.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.Work.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
@@ -226,7 +224,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.6.2" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.6.8" />
 	</ItemGroup>
 
 	<ItemGroup>

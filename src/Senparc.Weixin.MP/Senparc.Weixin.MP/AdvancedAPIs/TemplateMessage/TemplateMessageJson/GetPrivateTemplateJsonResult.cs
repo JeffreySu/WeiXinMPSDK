@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -68,21 +68,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
                 deputy_industry.Replace("|", "_").Replace("/", "_"));
 
             IndustryCode code;
-#if NET35
-            try
-            {
-                code = (IndustryCode)Enum.Parse(typeof(IndustryCode), enumName, true);
-            }
-            catch
-            {
-                return IndustryCode.其它_其它;//没有成功，此处也可以抛出异常
-            }
-#else
+
             if (!Enum.TryParse(enumName,true,out code))
             {
                 return IndustryCode.其它_其它;//没有成功，此处也可以抛出异常
             }
-#endif
             return code;
         }
        

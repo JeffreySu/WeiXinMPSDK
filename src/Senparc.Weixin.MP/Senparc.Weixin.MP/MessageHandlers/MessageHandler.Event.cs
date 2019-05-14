@@ -171,7 +171,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.modify_store_audit_info://修改门店图片审核事件
                     responseMessage = OnEvent_Modify_Store_Audit_Info(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo);
                     break;
-
+                case Event.view_miniprogram://点击菜单跳转小程序的事件推送
+                    responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
+                    break;
 
                 #region 卡券回调
 
@@ -567,6 +569,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        /// <summary>
+        /// 点击菜单跳转小程序的事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #region 微信认证事件推送
 
         /// <summary>

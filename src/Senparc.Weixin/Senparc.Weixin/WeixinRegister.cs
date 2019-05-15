@@ -151,7 +151,7 @@ namespace Senparc.Weixin
             /* 扩展缓存注册结束 */
 
             //ApiBind 自动扫描
-            Senparc.NeuChar.Register.RegisterApiBind(false);
+            Senparc.NeuChar.Register.RegisterApiBind();//false
 
             return registerService;
         }

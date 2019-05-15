@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180122
     
+    修改标识：Senparc - 20190515
+    修改描述：v16.7.4 添加“微信认证事件推送”功能
+
 ----------------------------------------------------------------*/
 
 

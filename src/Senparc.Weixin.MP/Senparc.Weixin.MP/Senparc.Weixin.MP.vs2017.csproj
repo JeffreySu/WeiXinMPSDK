@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.3</Version>
+    <Version>16.7.4</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -463,6 +463,7 @@
       1、支持异步 Container
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+      v16.7.4 添加 MessageHandler 的“点击菜单跳转小程序的事件推送”功能
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

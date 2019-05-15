@@ -29,7 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170114
     修改描述：v14.3.119 OnEvent_ShakearoundUserShake接口默认返回ResponseMessageNoResponse信息
-    
+
+    修改标识：Senparc - 20190515
+    修改描述：v16.7.4 添加“微信认证事件推送”功能
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

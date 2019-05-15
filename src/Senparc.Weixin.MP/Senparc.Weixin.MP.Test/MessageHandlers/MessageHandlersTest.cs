@@ -234,6 +234,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         #endregion
+
+
+        public override IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
+            return responseMessage;
+        }
     }
 
     [TestClass]

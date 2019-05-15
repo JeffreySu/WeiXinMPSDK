@@ -178,7 +178,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        private PostModel _postModel;
+        private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
 
         /// <summary>
         /// 微微嗨开发者信息
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }

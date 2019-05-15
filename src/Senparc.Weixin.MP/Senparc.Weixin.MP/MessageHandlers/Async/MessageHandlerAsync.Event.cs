@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180122
     
+    修改标识：Senparc - 20190515
+    修改描述：v16.7.4 添加“微信认证事件推送”功能
+
 ----------------------------------------------------------------*/
 
 
@@ -171,9 +174,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.modify_store_audit_info://修改门店图片审核事件
                     responseMessage = await OnEvent_Modify_Store_Audit_InfoAsync(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo);
                     break;
+                case Event.view_miniprogram://点击菜单跳转小程序的事件推送
+                    responseMessage =await OnEvent_View_MiniprogramAsync(RequestMessage as RequestMessageEvent_View_Miniprogram);
+                    break;
 
 
-#region 微信认证事件推送
+                #region 微信认证事件推送
 
                 case Event.qualification_verify_success://资质认证成功（此时立即获得接口权限）
                     responseMessage = await OnEvent_QualificationVerifySuccessRequestAsync(RequestMessage as RequestMessageEvent_QualificationVerifySuccess);
@@ -571,7 +577,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_Modify_Store_Audit_Info(requestMessage));
         }
-#region 微信认证事件推送
+
+
+        /// <summary>
+        /// 【异步方法】点击菜单跳转小程序的事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual async Task<IResponseMessageBase> OnEvent_View_MiniprogramAsync(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_View_Miniprogram(requestMessage));
+        }
+        #region 微信认证事件推送
 
         /// <summary>
         /// 【异步方法】资质认证成功（此时立即获得接口权限）

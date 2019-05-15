@@ -324,7 +324,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 res.SetParameter("err_code_des", "OK");
 
                 string nativeReqSign = res.CreateMd5Sign("key", TenPayV3Info.Key);
-                res.SetParameter("sign", result.sign);
+                res.SetParameter("sign", nativeReqSign);
             }
             catch (Exception)
             {

@@ -312,6 +312,10 @@ namespace Senparc.Weixin.MP
         /// 修改门店图片审核事件
         /// </summary>
         modify_store_audit_info,
+        /// <summary>
+        /// 点击菜单跳转小程序的事件推送
+        /// </summary>
+        view_miniprogram,
         #region 微信认证事件推送
 
         /// <summary>

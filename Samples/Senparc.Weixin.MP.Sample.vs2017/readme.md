@@ -1,6 +1,8 @@
 # Senparc.Weixin.MP.Sample.vs2017 项目说明
 
-本项目为 同时支持 .NET 3.5/4.0/4.5/.NET Standard 2.0（兼容 .NET Core） 的 Demo，可以直接编译并发布运行。
+1. 本项目为 同时支持 .NET 3.5/4.0/4.5/.NET Standard 2.0（兼容 .NET Core） 的 Demo，可以直接编译并发布运行。
+2. 本项目支持 VS2017/2019
+
 
 > Senparc.Weixin.MP.Sample.vs2017.sln 为包含单元测试的完整解决方案（推荐，Senparc 团队一般在这个解决方案下开发和测试）<br>
 > Senparc.Weixin.MP.Sample.vs2017.without-tests.sln 为不包含单元测试的解决方案

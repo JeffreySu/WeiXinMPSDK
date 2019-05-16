@@ -270,6 +270,14 @@
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\AddStoreJsonData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\ApplyMerchantData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\DistrictResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\MerchantAuditInfo.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\MerchatResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\PoiInMap.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\StoreData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\WxaApi.cs" />
     <Compile Include="AppStore\Api.cs" />
     <Compile Include="AppStore\Api\ApiConnection.cs" />
     <Compile Include="AppStore\Api\ApiContainer.cs" />
@@ -314,6 +322,7 @@
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Pay_Done.cs" />
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Send_To_Friend.cs" />
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_User_Accept.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_View_Miniprogram.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />

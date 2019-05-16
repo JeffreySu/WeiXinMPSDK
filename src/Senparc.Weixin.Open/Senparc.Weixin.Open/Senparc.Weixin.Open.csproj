@@ -117,6 +117,8 @@
     <Compile Include="WxaAPIs\Code\CodeApi.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\CodeResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetGrayReleasePlanResultJson.cs" />
+    <Compile Include="WxaAPIs\Code\CodeJson\GetWeappSupportVersionResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\SubmitAuditResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\GetPageResultJson.cs" />
     <Compile Include="WxaAPIs\Code\CodeJson\GetCategoryResultJson.cs" />
@@ -152,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.6.6-preview3</Version>
+      <Version>0.6.8</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

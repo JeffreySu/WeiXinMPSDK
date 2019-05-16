@@ -81,26 +81,26 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.7.0-preview3\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.7.1\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.APM.0.3.0.1-preview3\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.APM, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.APM.0.3.0.2\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.3.0-preview3\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.3.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.3.0.1\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.5.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.5.0.2-preview1\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.5.0.2\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.2.0-preview3\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.RedLock.2.2.0\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.6.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.0.6.6-preview3\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Senparc.NeuChar, Version=0.6.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.NeuChar.0.6.8\lib\net45\Senparc.NeuChar.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.NeuChar.App, Version=0.3.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.App.0.3.6-preview3\lib\net45\Senparc.NeuChar.App.dll</HintPath>
+    <Reference Include="Senparc.NeuChar.App, Version=0.3.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.NeuChar.App.0.3.7\lib\net45\Senparc.NeuChar.App.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>

@@ -176,16 +176,27 @@ namespace Senparc.Weixin.Containers
 
 
         /// <summary>
-        /// 进行注册过程的委托
+        /// 进行注册过程的委托集合
         /// </summary>
-        protected static Func<Task<TBag>> RegisterFunc { get; set; } //TODO：这里可以不使用Task
+        protected static Dictionary<string, Func<Task<TBag>>> RegisterFuncCollection { get; set; } = new Dictionary<string, Func<Task<TBag>>>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
         /// </summary>
-        private static async Task<TBag> TryReRegister()
+        private static async Task<TBag> TryReRegister(string shortKey)
         {
-            return await RegisterFunc();
+            if (shortKey == null)
+            {
+                throw new ArgumentNullException(nameof(shortKey));
+            }
+
+            if (RegisterFuncCollection.TryGetValue(shortKey, out var registerFunc))
+            {
+                return await registerFunc();
+            }
+
+            return null;
             //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
         }
 
@@ -387,10 +398,10 @@ namespace Senparc.Weixin.Containers
         {
             var cacheKey = GetBagCacheKey(shortKey);
             var registered = Cache.CheckExisted(cacheKey);
-            if (!registered && RegisterFunc != null)
+            if (!registered && RegisterFuncCollection.ContainsKey(shortKey))
             {
                 //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
-                TryReRegister();
+                RegisterFuncCollection[shortKey]().GetAwaiter().GetResult();//使用同步方法返回
             }
 
             return Cache.CheckExisted(cacheKey);
@@ -596,10 +607,11 @@ namespace Senparc.Weixin.Containers
         {
             var cacheKey = GetBagCacheKey(shortKey);
             var registered = await Cache.CheckExistedAsync(cacheKey);
-            if (!registered && RegisterFunc != null)
+
+            if (!registered && RegisterFuncCollection.ContainsKey(shortKey))
             {
                 //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
-                TryReRegister();
+                await RegisterFuncCollection[shortKey]();//使用异步方法返回
             }
 
             return await Cache.CheckExistedAsync(cacheKey);

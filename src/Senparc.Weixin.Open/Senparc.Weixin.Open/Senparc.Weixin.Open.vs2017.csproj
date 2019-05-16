@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>4.5.0.2-preview3</Version>
+    <Version>4.5.2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -153,7 +153,12 @@
       v4.5.0
       1、支持异步 Container
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
-
+      v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+      v4.5.2 添加 CodeApi 接口：
+      1) 查询当前设置的最低基础库版本及各版本用户占比
+      2) 设置最低基础库版本
+      3) 小程序分阶段发布
+      4) 小程序版本回退
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -210,7 +215,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.6-preview3" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.6.8" />
   </ItemGroup>
 
   <ItemGroup>

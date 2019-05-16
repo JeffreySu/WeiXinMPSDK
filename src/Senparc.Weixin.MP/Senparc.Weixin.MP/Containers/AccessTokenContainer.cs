@@ -82,7 +82,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 
     修改标识：Senparc - 20190418
-    修改描述：v17.0.0 支持异步 Container
+    修改描述：v16.7.0 支持异步 Container
+
+    修改标识：Senparc - 20190503
+    修改描述：v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
 
 ----------------------------------------------------------------*/
 
@@ -253,7 +256,7 @@ namespace Senparc.Weixin.MP.Containers
         public static async Task RegisterAsync(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-            RegisterFunc = async () =>
+            RegisterFuncCollection[appId] = async () =>
             {
                 //using (FlushCache.CreateInstance())
                 //{
@@ -271,7 +274,7 @@ namespace Senparc.Weixin.MP.Containers
                 //}
             };
 
-            var registerTask = RegisterFunc();
+            var registerTask = RegisterFuncCollection[appId]();
 
             if (!name.IsNullOrEmpty())
             {

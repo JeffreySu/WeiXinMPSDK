@@ -7,7 +7,7 @@
 > Senparc.Weixin.MP.Sample.vs2017.sln 为包含单元测试的完整解决方案（推荐，Senparc 团队一般在这个解决方案下开发和测试）<br>
 > Senparc.Weixin.MP.Sample.vs2017.without-tests.sln 为不包含单元测试的解决方案
 
-运行本解决方案建议安装 .NET Core 2.2 以上：https://dotnet.microsoft.com/download
+运行本解决方案建议安装 .NET Core（建议 2.2 以上)：https://dotnet.microsoft.com/download
 
 https://sdk.weixin.senparc.com 官方在线示例已经使用此完整 Sample 项目。
 

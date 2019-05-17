@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public async Task<IActionResult> OAuth()
         {
             //获取预授权码
-            var preAuthCode =await ComponentContainer.TryGetPreAuthCodeAsync(component_AppId, component_Secret, true);
+            var preAuthCode = await ComponentContainer.TryGetPreAuthCodeAsync(component_AppId, component_Secret, true);
 
             var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
@@ -57,8 +57,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// 发起小程序快速注册授权
         /// </summary>
         /// <returns></returns>
-        public ActionResult FastRegisterAuth() {
-
+        public ActionResult FastRegisterAuth()
+        {
             var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
             return Redirect(url);
         }

@@ -285,6 +285,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }, accessTokenOrAppId);
 
         }
+
         #region 同步方法
 
         /// <summary>

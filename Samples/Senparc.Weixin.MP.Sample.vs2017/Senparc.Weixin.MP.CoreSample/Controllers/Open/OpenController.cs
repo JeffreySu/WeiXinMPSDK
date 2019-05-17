@@ -24,6 +24,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.CO2NET.Utilities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -41,10 +42,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// 发起授权页的体验URL
         /// </summary>
         /// <returns></returns>
-        public ActionResult OAuth()
+        public async Task<IActionResult> OAuth()
         {
             //获取预授权码
-            var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId, component_Secret, true);
+            var preAuthCode =await ComponentContainer.TryGetPreAuthCodeAsync(component_AppId, component_Secret, true);
 
             var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);

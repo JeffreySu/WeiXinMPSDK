@@ -238,7 +238,7 @@
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreBaseInfo.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\PoiUploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\AddtemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetIndustryJsonResult.cs" />

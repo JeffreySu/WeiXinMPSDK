@@ -585,31 +585,41 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Refund()
         {
-            WeixinTrace.SendCustomLog("进入退款流程","1");
+            try
+            {
+                WeixinTrace.SendCustomLog("进入退款流程", "1");
 
-            string nonceStr = TenPayV3Util.GetNoncestr();
+                string nonceStr = TenPayV3Util.GetNoncestr();
 
-            string outTradeNo = HttpContext.Session.GetString("BillNo");
+                string outTradeNo = HttpContext.Session.GetString("BillNo");
 
-            WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
-
-
-            string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
-            int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
-            int refundFee = totalFee;
-            string opUserId = TenPayV3Info.MchId;
-            var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
-            var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
-                null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
-            var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
-            var password = TenPayV3Info.MchId;//默认为商户号，建议修改
-            var result = TenPayV3.Refund(dataInfo, cert, password);
-
-            WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
+                WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
 
 
-            return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
-            //return Json(result, JsonRequestBehavior.AllowGet);
+                string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
+                int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
+                int refundFee = totalFee;
+                string opUserId = TenPayV3Info.MchId;
+                var notifyUrl = "https://sdk.weixin.senparc.com/TenPayV3/RefundNotifyUrl";
+                var dataInfo = new TenPayV3RefundRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
+                    null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
+                var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
+                var password = TenPayV3Info.MchId;//默认为商户号，建议修改
+                var result = TenPayV3.Refund(dataInfo, cert, password);
+
+                WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
+
+
+                return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
+                //return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                WeixinTrace.WeixinExceptionLog(new WeixinException(ex.Message, ex));
+
+                throw;
+            }
+
 
             #region 原始方法
 

@@ -585,9 +585,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Refund()
         {
+            WeixinTrace.SendCustomLog("进入退款流程","1");
+
             string nonceStr = TenPayV3Util.GetNoncestr();
 
             string outTradeNo = HttpContext.Session.GetString("BillNo");
+
+            WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
+
+
             string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
             int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
             int refundFee = totalFee;
@@ -598,6 +604,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
             var password = TenPayV3Info.MchId;//默认为商户号，建议修改
             var result = TenPayV3.Refund(dataInfo, cert, password);
+
+            WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
+
+
             return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
             //return Json(result, JsonRequestBehavior.AllowGet);
 

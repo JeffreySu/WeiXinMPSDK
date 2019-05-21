@@ -166,7 +166,7 @@ namespace Senparc.Weixin.Cache.Redis
             key = key.Substring(0, key.Length - 1);//去掉:号
             key = baseCacheStrategy.GetFinalKey(key);//获取带 SenparcWeixin:DefaultCache: 前缀的Key（[DefaultCache]可配置）
 
-            var allHashEntry = await baseCacheStrategy.HashGetAllAsync(key);
+            var allHashEntry = await baseCacheStrategy.HashGetAllAsync(key).ConfigureAwait(false);
             //var list = (baseCacheStrategy as RedisObjectCacheStrategy).GetAll(key);
             var dic = new Dictionary<string, TBag>();
 

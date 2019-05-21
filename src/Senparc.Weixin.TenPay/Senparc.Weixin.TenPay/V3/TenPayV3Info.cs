@@ -36,6 +36,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180802
     修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
 
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -63,6 +65,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// 商户支付密钥Key。登录微信商户后台，进入栏目【账户设置】【密码安全】【API 安全】【API 密钥】
         /// </summary>
         public string Key { get; set; }
+        /// <summary>
+        /// 微信支付证书位置（物理路径），在 .NET Core 下执行 TenPayV3InfoCollection.Register() 方法会为 HttpClient 自动添加证书
+        /// </summary>
+        public string Cert_Path { get; set; }
         /// <summary>
         /// 支付完成后的回调处理页面
         /// </summary>

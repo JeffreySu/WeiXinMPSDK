@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.3.0.1</Version>
+    <Version>1.4.0-preview</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -34,6 +34,7 @@
       v1.0.1 优化 TenPayV3Result.GetXmlValues() 方法
       v1.1.0 完善子账号 SubMchId 相关参数
       v1.3.0 停止对 .NET 3.5 和 .NET 4.0 的支持
+      v1.4.0 .NET Core 添加多证书注册功能
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

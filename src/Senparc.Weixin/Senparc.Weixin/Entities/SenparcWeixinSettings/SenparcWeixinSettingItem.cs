@@ -7,9 +7,11 @@
     
     创建标识：Senparc - 20180707
 
-	修改标识：Senparc - 20170802
-    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+	修改标识：Senparc - 20180802
+    修改描述：MP v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
 
+	修改标识：Senparc - 20190521
+    修改描述：v6.4.4 .NET Core 添加多证书注册功能
 
 ----------------------------------------------------------------*/
 
@@ -128,6 +130,10 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         public virtual string TenPayV3_Key { get; set; }
         /// <summary>
+        /// 微信支付证书位置（物理路径），在 .NET Core 下执行 TenPayV3InfoCollection.Register() 方法会为 HttpClient 自动添加证书
+        /// </summary>
+        public virtual string TenPayV3_Cert_Path { get; set; }
+        /// <summary>
         /// 微信支付AppId
         /// </summary>
         public virtual string TenPayV3_AppId { get; set; }
@@ -151,6 +157,7 @@ namespace Senparc.Weixin.Entities
         /// 特约商户微信支付 子商户AppID
         /// </summary>
         public virtual string TenPayV3_Sub_AppId { get; set; }
+
         #endregion
 
         #endregion

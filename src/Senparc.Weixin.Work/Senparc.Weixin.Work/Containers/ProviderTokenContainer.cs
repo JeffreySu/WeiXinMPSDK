@@ -278,11 +278,11 @@ namespace Senparc.Weixin.Work.Containers
                     ExpireTime = DateTimeOffset.MinValue,
                     ProviderTokenResult = new ProviderTokenResult()
                 };
-                await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null);
+                await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null).ConfigureAwait(false);
                 return bag;
                 //}
             };
-            await RegisterFuncCollection[shortKey]();
+            await RegisterFuncCollection[shortKey]().ConfigureAwait(false);
 
             if (!name.IsNullOrEmpty())
             {
@@ -300,9 +300,9 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)) || getNewToken)
+            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false) || getNewToken)
             {
-                await RegisterAsync(corpId, corpSecret);
+                await RegisterAsync(corpId, corpSecret).ConfigureAwait(false);
             }
             return await GetTokenAsync(corpId, corpSecret);
         }
@@ -316,7 +316,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            var result = await GetTokenResultAsync(corpId, corpSecret, getNewToken);
+            var result = await GetTokenResultAsync(corpId, corpSecret, getNewToken).ConfigureAwait(false);
             return result.provider_access_token;
         }
 
@@ -329,23 +329,23 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)))
+            if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false))
             {
                 throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
-            var providerTokenBag = await TryGetItemAsync(BuildingKey(corpId, corpSecret));
+            var providerTokenBag = await TryGetItemAsync(BuildingKey(corpId, corpSecret)).ConfigureAwait(false);
             //lock (providerTokenBag.Lock)
             {
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTimeOffset.Now)
                 {
                     //已过期，重新获取
-                    var providerTokenResult = await SsoApi.GetProviderTokenAsync(providerTokenBag.CorpId, providerTokenBag.CorpSecret);
+                    var providerTokenResult = await SsoApi.GetProviderTokenAsync(providerTokenBag.CorpId, providerTokenBag.CorpSecret).ConfigureAwait(false);
                     providerTokenBag.ProviderTokenResult = providerTokenResult;
                     //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
                     //    providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                    await UpdateAsync(providerTokenBag, null);//更新到缓存
+                    await UpdateAsync(providerTokenBag, null).ConfigureAwait(false);//更新到缓存
                 }
             }
             return providerTokenBag.ProviderTokenResult;

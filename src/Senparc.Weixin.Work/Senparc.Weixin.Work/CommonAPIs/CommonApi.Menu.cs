@@ -479,9 +479,9 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-                var result = await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+                var result = await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
                 return result;
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
     }

@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Work
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
         {
             Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
-              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.Work);
+              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.Work).ConfigureAwait(false);
 
             Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
               async appKey =>
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Work
                     /*
                      * 对于企业微信来说，AppId = key = CorpId+'@'+CorpSecret
                      */
-                    return await AccessTokenContainer.CheckRegisteredAsync(appKey);
+                    return await AccessTokenContainer.CheckRegisteredAsync(appKey).ConfigureAwait(false);
                 };
 
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
@@ -158,7 +158,7 @@ namespace Senparc.Weixin.Work
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppKey, retryIfFaild);
-            return await result;
+            return await result.ConfigureAwait(false);
         }
         #endregion
     }

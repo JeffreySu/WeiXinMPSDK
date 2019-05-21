@@ -98,6 +98,8 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.TenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
             senparcWeixinSetting.TenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
             senparcWeixinSetting.TenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+            senparcWeixinSetting.TenPayV3_SubAppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_SubAppId"];
+            senparcWeixinSetting.TenPayV3_SubAppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_SubAppSecret"];
             senparcWeixinSetting.TenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
             senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_WxOpenTenpayNotify"];
             if (string.IsNullOrEmpty(senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify))

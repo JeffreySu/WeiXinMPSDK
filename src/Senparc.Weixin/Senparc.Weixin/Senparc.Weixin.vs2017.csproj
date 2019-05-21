@@ -355,7 +355,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.7.3-preview1" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.7.3.1-preview1" />
     <PackageReference Include="Senparc.NeuChar" Version="0.6.8" />
   </ItemGroup>
 

@@ -111,7 +111,7 @@ namespace Senparc.Weixin.TenPay.V3
             try
             {
                 var service = Senparc.CO2NET.SenparcDI.GlobalServiceCollection;
-                var certName = tenPayV3Info.MchId;
+                var certName = key;
                 var certPassword = tenPayV3Info.Key;
                 var certPath = tenPayV3Info.Cert_Path;
 
@@ -120,7 +120,6 @@ namespace Senparc.Weixin.TenPay.V3
             }
             catch (Exception ex)
             {
-
                 throw;
             }
 #endif

@@ -187,7 +187,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
+            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -212,13 +212,13 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction);
+                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction).ConfigureAwait(false);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
                             var bytes = Encoding.UTF8.GetBytes(jsonString);
-                            await ms.WriteAsync(bytes, 0, bytes.Length);
+                            await ms.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
                             ms.Seek(0, SeekOrigin.Begin);
 
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.CommonAPIs
                             return await Post.PostGetJsonAsync<T>(url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
-                                checkValidationResult: checkValidationResult);
+                                checkValidationResult: checkValidationResult).ConfigureAwait(false);
                         }
                     default:
                         throw new ArgumentOutOfRangeException("sendType");

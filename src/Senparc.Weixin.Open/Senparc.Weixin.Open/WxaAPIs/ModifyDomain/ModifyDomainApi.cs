@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 };
             }
 
-            return await CommonJsonSend.SendAsync<ModifyDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ModifyDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
 

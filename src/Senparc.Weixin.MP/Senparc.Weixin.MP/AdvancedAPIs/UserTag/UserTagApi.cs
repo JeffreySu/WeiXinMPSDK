@@ -254,8 +254,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】获取公众号已创建的标签
@@ -269,9 +269,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                return await CommonJsonSend.SendAsync<TagJson>(null, url, null, CommonJsonSendType.GET);
+                return await CommonJsonSend.SendAsync<TagJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】编辑标签
@@ -295,9 +295,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】删除标签
@@ -321,9 +321,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】获取标签下粉丝列表
@@ -344,8 +344,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     tagid = tagid,
                     next_openid = nextOpenid
                 };
-                return await CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】批量为用户打标签
@@ -366,9 +366,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】批量为用户取消标签
@@ -389,9 +389,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid_list = openid_list,
                     tagid = tagid
                 };
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】获取用户身上的标签列表
@@ -410,8 +410,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid = openid
                 };
-                return await CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppid);
+                return await CommonJsonSend.SendAsync<UserTagListResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppid).ConfigureAwait(false);
         }
         #endregion
     }

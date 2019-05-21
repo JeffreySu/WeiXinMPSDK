@@ -238,12 +238,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
                    accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
-               return await CommonJsonSend.SendAsync<UserInfoJson>(null, url, null, CommonJsonSendType.GET);
+               return await CommonJsonSend.SendAsync<UserInfoJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
                //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
                //{"errcode":40013,"errmsg":"invalid appid"}
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -262,9 +262,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                {
                    url += "&next_openid=" + nextOpenId;
                }
-               return await CommonJsonSend.SendAsync<OpenIdResultJson>(null, url, null, CommonJsonSendType.GET);
+               return await CommonJsonSend.SendAsync<OpenIdResultJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -286,9 +286,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    openid = openId,
                    remark = remark
                };
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -308,8 +308,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     user_list = userList,
                 };
-                return await CommonJsonSend.SendAsync<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -329,8 +329,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     begin_openid = beginOpenId
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -350,8 +350,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid_list = openidList
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -371,8 +371,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid_list = openidList
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
         #endregion
     }

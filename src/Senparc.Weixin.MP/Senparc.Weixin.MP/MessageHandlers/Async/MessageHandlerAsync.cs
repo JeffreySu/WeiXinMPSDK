@@ -69,8 +69,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
         {
             return (base.DefaultMessageHandlerAsyncEvent == DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
-                            ? await DefaultResponseMessageAsync(requestMessage)
-                            : await Task.Run(syncMethod));
+                            ? await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false)
+                            : await Task.Run(syncMethod).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -89,9 +89,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         try
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId)
-                                ?? ((await (OnTextOrEventRequestAsync(requestMessage))
-                                ?? (await OnTextRequestAsync(requestMessage))));
+                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId).ConfigureAwait(false)
+                                ?? ((await (OnTextOrEventRequestAsync(requestMessage)).ConfigureAwait(false)
+                                ?? (await OnTextRequestAsync(requestMessage).ConfigureAwait(false))));
                         }
                         catch (Exception ex)
                         {
@@ -102,41 +102,41 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     }
                     break;
                 case RequestMsgType.Location:
-                    ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation);
+                    ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Image:
 
                     WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
 
-                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Voice:
-                    ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice);
+                    ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Video:
-                    ResponseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo);
+                    ResponseMessage = await OnVideoRequestAsync(RequestMessage as RequestMessageVideo).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Link:
-                    ResponseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink);
+                    ResponseMessage = await OnLinkRequestAsync(RequestMessage as RequestMessageLink).ConfigureAwait(false);
                     break;
                 case RequestMsgType.ShortVideo:
-                    ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo);
+                    ResponseMessage = await OnShortVideoRequestAsync(RequestMessage as RequestMessageShortVideo).ConfigureAwait(false);
                     break;
                 case RequestMsgType.File:
-                    ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
+                    ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile).ConfigureAwait(false);
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Unknown:
-                    ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType);
+                    ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Event:
                     {
                         var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
-                                            await OnTextOrEventRequestAsync(requestMessageText) ??
-                                                (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase));
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
+                                            await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false) ??
+                                                (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
                     }
                     break;
 
@@ -185,7 +185,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
             //#endregion
 
-            await base.OnExecutingAsync(cancellationToken);
+            await base.OnExecutingAsync(cancellationToken).ConfigureAwait(false);
 
             //判断是否已经接入开发者信息
             if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
-            await base.OnExecutedAsync(cancellationToken);
+            await base.OnExecutedAsync(cancellationToken).ConfigureAwait(false);
         }
 
     }

@@ -188,7 +188,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new PayBankResult(responseContent);
         }
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new QueryBankResult(responseContent);
         }
@@ -255,7 +255,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new GetPublicKeyResult(responseContent);
         }

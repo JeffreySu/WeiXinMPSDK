@@ -244,12 +244,12 @@ namespace Senparc.Weixin.MP.Containers
                     WxCardApiTicketExpireTime = DateTimeOffset.MinValue,
                     WxCardApiTicketResult = new JsApiTicketResult()
                 };
-                await UpdateAsync(appId, bag, null);
+                await UpdateAsync(appId, bag, null).ConfigureAwait(false);
                 return bag;
                 //}
             };
 
-            await RegisterFuncCollection[appId]();
+            await RegisterFuncCollection[appId]().ConfigureAwait(false);
 
             if (!name.IsNullOrEmpty())
             {
@@ -271,11 +271,11 @@ namespace Senparc.Weixin.MP.Containers
                                                                     string appSecret,
                                                                     bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(appId) || getNewTicket)
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false) || getNewTicket)
             {
-                await RegisterAsync(appId, appSecret);
+                await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetWxCardApiTicketAsync(appId, getNewTicket);
+            return await GetWxCardApiTicketAsync(appId, getNewTicket).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> GetWxCardApiTicketAsync(string appId, bool getNewTicket = false)
         {
-            JsApiTicketResult result = await GetWxCardApiTicketResultAsync(appId, getNewTicket);
+            JsApiTicketResult result = await GetWxCardApiTicketResultAsync(appId, getNewTicket).ConfigureAwait(false);
             return result.ticket;
         }
 
@@ -299,23 +299,23 @@ namespace Senparc.Weixin.MP.Containers
         public static async Task<JsApiTicketResult> GetWxCardApiTicketResultAsync(string appId,
                                                                                   bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(appId))
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用WxCardApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            WxCardApiTicketBag wxCardApiTicketBag = await TryGetItemAsync(appId);
-            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
+            WxCardApiTicketBag wxCardApiTicketBag = await TryGetItemAsync(appId).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
             {
                 if (getNewTicket || wxCardApiTicketBag.WxCardApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
                     JsApiTicketResult wxCardApiTicketResult = await CommonApi.GetTicketAsync(wxCardApiTicketBag.AppId,
-                                                                                             wxCardApiTicketBag.AppSecret);
+                                                                                             wxCardApiTicketBag.AppSecret).ConfigureAwait(false);
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = SystemTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);
-                    await UpdateAsync(wxCardApiTicketBag, null);
+                    await UpdateAsync(wxCardApiTicketBag, null).ConfigureAwait(false);
                 }
             }
             return wxCardApiTicketBag.WxCardApiTicketResult;

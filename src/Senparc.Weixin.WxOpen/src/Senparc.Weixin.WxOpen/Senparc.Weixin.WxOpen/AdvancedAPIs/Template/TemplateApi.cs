@@ -290,9 +290,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                     emphasis_keyword = emphasisKeyword,
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -309,9 +309,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #region 模板快速设置
@@ -333,7 +333,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 offset = offset,
                 count = count
             };
-            return await CommonJsonSend.SendAsync<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             {
                 id = id
             };
-            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
 
@@ -372,7 +372,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 id = id,
                 keyword_id_list = keywordIdList
             };
-            return await CommonJsonSend.SendAsync<AddJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<AddJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         #endregion
@@ -397,7 +397,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 offset = offset,
                 count = count
             };
-            return await CommonJsonSend.SendAsync<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             {
                 template_id = templateId
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
 

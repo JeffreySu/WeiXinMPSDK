@@ -248,12 +248,12 @@ namespace Senparc.Weixin.MP.Containers
                     JsApiTicketExpireTime = DateTimeOffset.MinValue,
                     JsApiTicketResult = new JsApiTicketResult()
                 };
-                await UpdateAsync(appId, bag, null);
+                await UpdateAsync(appId, bag, null).ConfigureAwait(false);
                 return bag;
                 //}
             };
 
-            await RegisterFuncCollection[appId]();
+            await RegisterFuncCollection[appId]().ConfigureAwait(false);
 
             if (!name.IsNullOrEmpty())
             {
@@ -273,11 +273,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetJsApiTicketAsync(string appId, string appSecret, bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(appId) || getNewTicket)
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false) || getNewTicket)
             {
-                await RegisterAsync(appId, appSecret);
+                await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetJsApiTicketAsync(appId, getNewTicket);
+            return await GetJsApiTicketAsync(appId, getNewTicket).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> GetJsApiTicketAsync(string appId, bool getNewTicket = false)
         {
-            var result = await GetJsApiTicketResultAsync(appId, getNewTicket);
+            var result = await GetJsApiTicketResultAsync(appId, getNewTicket).ConfigureAwait(false);
             return result.ticket;
         }
 
@@ -300,22 +300,22 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetJsApiTicketResultAsync(string appId, bool getNewTicket = false)
         {
-            if (!await CheckRegisteredAsync(appId))
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var jsApiTicketBag = await TryGetItemAsync(appId);
-            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
+            var jsApiTicketBag = await TryGetItemAsync(appId).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret).ConfigureAwait(false);
                     //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
                     jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
                     jsApiTicketBag.JsApiTicketExpireTime = SystemTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
-                    await UpdateAsync(jsApiTicketBag, null);
+                    await UpdateAsync(jsApiTicketBag, null).ConfigureAwait(false);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

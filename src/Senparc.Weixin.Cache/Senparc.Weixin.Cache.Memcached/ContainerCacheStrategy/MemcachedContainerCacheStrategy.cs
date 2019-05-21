@@ -113,7 +113,7 @@ namespace Senparc.Weixin.Cache.Memcached
         public override async Task UpdateContainerBagAsync(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
         {
             //Memcached 组件没有提供对应 TryGet() 的异步方法
-            await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey));
+            await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey)).ConfigureAwait(false);
         }
 
         #endregion

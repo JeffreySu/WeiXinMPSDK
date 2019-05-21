@@ -674,9 +674,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -724,9 +724,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -773,9 +773,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -830,9 +830,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送音乐消息
@@ -893,9 +893,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -956,9 +956,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -1007,9 +1007,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1041,9 +1041,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnoreNull = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1102,9 +1102,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -1129,9 +1129,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     command = typingStatus
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1162,9 +1162,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             };
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
               {
-                  return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                  return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-              }, accessTokenOrAppId);
+              }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 

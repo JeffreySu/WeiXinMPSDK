@@ -2574,7 +2574,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var result = Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
                     //针对特殊字段的null值进行过滤
                     jsonSetting: jsonSetting);
-                return await result;
+                return await result.ConfigureAwait(false);
 
             }, accessTokenOrAppId);
         }
@@ -2600,9 +2600,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/pay/activate?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayActiveResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayActiveResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】对优惠券批价
@@ -2624,9 +2624,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     quantity = quantity
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetpayPriceResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetpayPriceResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】查询券点余额接口
@@ -2642,9 +2642,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/pay/getcoinsinfo?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCoinsInfoResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCoinsInfoResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】确认兑换库存接口
@@ -2668,9 +2668,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     order_id = orderId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】充值券点接口
@@ -2691,9 +2691,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayRechargeResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayRechargeResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】查询订单详情接口
@@ -2714,9 +2714,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayGetOrderResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayGetOrderResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】查询券点流水详情接口
@@ -2749,9 +2749,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetOrderListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetOrderListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2806,9 +2806,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                             data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
                                       });
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2825,9 +2825,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/landingpage/create?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2862,9 +2862,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     code = codeList
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2886,9 +2886,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2912,9 +2912,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     code = codeList
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2936,9 +2936,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetHtmlResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetHtmlResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】Mark(占用)Code接口
@@ -2965,9 +2965,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     is_mark = isMark
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -2991,9 +2991,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3018,9 +3018,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     encrypt_code = encryptCode,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDecryptResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDecryptResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3042,9 +3042,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDeleteResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDeleteResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3068,9 +3068,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardGetResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3095,9 +3095,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     status_list = statusList
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3119,9 +3119,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDetailGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDetailGetResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3147,9 +3147,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     new_code = newCode
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3173,9 +3173,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】拉取卡券概况数据接口
@@ -3200,9 +3200,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardBizuinInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardBizuinInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 获取免费券数据接口
@@ -3229,9 +3229,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】拉取会员卡数据接口
@@ -3257,9 +3257,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3285,9 +3285,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardDetailResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardDetailResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3348,9 +3348,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnoreNull = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3376,9 +3376,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     username = userNames
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         ///  <summary>
@@ -3419,9 +3419,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     init_custom_field_value3 = initCustomFieldValue3,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3438,9 +3438,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/activateuserform/set?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3458,8 +3458,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/membercard/userinfo/get?access_token={0}", accessToken);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserinfoGetResult>(null, urlFormat, new { card_id = cardId, code = code }, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserinfoGetResult>(null, urlFormat, new { card_id = cardId, code = code }, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -3494,9 +3494,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3522,9 +3522,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     is_open = isOpen
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】设置自助核销接口
@@ -3549,9 +3549,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     is_open = isOpen
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         ///  <summary>
@@ -3619,9 +3619,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     custom_field_value3 = customFieldValue3,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateUserResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateUserResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3653,9 +3653,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     record_balance = recordBalance,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MemberCardDealResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MemberCardDealResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3689,9 +3689,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     seat_number = seatNumbers
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3727,9 +3727,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     is_cancel = isCancel
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3755,9 +3755,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     balance = balance
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -3787,9 +3787,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     seat_number = seatNumber
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】创建子商户接口
@@ -3810,9 +3810,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     info = info
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】卡券开放类目查询接口
@@ -3848,9 +3848,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     appid = appid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
         /// <summary>
@@ -3870,9 +3870,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     next_get = nextGet
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
@@ -3895,9 +3895,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     info = info
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】拉取单个子商户信息接口
@@ -3918,9 +3918,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     merchant_id = merchantId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】批量拉取子商户信息接口
@@ -3945,9 +3945,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     status = status
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantBatchGetJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantBatchGetJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】母商户资质申请接口
@@ -3974,9 +3974,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     last_quarter_tax_listing_media_id = lastQuarterTaxListingMediaid
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】母商户资质审核查询接口
@@ -3990,9 +3990,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/component/check_card_agent_qualification?access_token={0}", accessToken.AsUrlData());
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
         /// <summary>
@@ -4028,9 +4028,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     secondary_category_id = secondaryCategoryId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】子商户资质审核查询接口
@@ -4049,9 +4049,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     appid = appid
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
@@ -4076,9 +4076,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardListResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardListResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4104,9 +4104,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     reduce_stock_value = reduceStockValue
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4130,9 +4130,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     outer_str = outerStr
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<Card_GetUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<Card_GetUrlResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4154,9 +4154,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     activate_ticket = activateTicket
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetActivateTempInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetActivateTempInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4173,9 +4173,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/page/add?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4197,9 +4197,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     page_id = pageId
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGiftCardPageInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGiftCardPageInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4216,9 +4216,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/page/add?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4234,9 +4234,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/page/batchget?access_token={0}", accessToken.AsUrlData());
                 var data = new { };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGiftCardPageListResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGiftCardPageListResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4253,9 +4253,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/giftcard/maintain/set?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<DownGiftCardPageResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<DownGiftCardPageResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4275,9 +4275,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     sub_mch_id = subId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayGiftCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayGiftCardResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4299,9 +4299,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     sub_mch_id = subId,
                     wxa_appid = wxaAppId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4323,9 +4323,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     wxa_appid = wxaAppId,
                     page_id = pageId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4345,9 +4345,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     order_id = orderId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GiftCardOrderItemResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GiftCardOrderItemResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4376,9 +4376,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     count = count
 
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GiftCardOrderListResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GiftCardOrderListResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4395,9 +4395,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/generalcard/updateuser?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateUserGiftCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateUserGiftCardResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4417,9 +4417,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     order_id = orderId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4436,9 +4436,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/add?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddCardAfterPayResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddCardAfterPayResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4458,9 +4458,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     rule_id = ruleId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4480,9 +4480,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     rule_id = ruleId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_GetByIdResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_GetByIdResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4499,9 +4499,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftcard/batchget?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_BatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AfterPay_BatchGetResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4518,9 +4518,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/add?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4537,9 +4537,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/paygiftmembercard/delete?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeletePayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeletePayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4559,9 +4559,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     mchid = mchId
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPayMemberRuleResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4578,9 +4578,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/mkt/activity/create?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateActivityResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateActivityResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4602,9 +4602,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     component_appid = componentAppid,
                     authorization_code = authorizationCode
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiQueryAuthResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiQueryAuthResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4621,9 +4621,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_confirm_authorization?component_access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -4645,9 +4645,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     component_appid = componentAppid,
                     authorizer_appid = authorizerAppid
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiGetAuthorizerInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<ApiGetAuthorizerInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion

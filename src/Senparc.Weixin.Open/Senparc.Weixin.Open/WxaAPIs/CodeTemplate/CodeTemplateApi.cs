@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatedraftlist?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetTemplateDraftListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetTemplateDraftListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatelist?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetTemplateListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetTemplateListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 draft_id = draft_id
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 template_id = template_id
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

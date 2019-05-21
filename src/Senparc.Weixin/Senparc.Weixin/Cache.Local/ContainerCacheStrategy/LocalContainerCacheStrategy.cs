@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Cache
         {
             var dic = new Dictionary<string, TBag>();
             var baseCacheStrategy = BaseCacheStrategy();
-            var cacheList =  await baseCacheStrategy.GetAllAsync();
+            var cacheList =  await baseCacheStrategy.GetAllAsync().ConfigureAwait(false);
             foreach (var baseContainerBag in cacheList)
             {
                 if (baseContainerBag.Value is TBag)

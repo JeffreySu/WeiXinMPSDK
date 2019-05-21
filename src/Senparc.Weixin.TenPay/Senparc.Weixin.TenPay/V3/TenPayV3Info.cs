@@ -71,6 +71,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public string CertPath { get; set; }
         /// <summary>
+        /// 微信支付证书密码
+        /// </summary>
+        public string CertSecret { get; set; }
+        /// <summary>
         /// 支付完成后的回调处理页面
         /// </summary>
         public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
@@ -100,10 +104,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="mchId"></param>
         /// <param name="key"></param>
         /// <param name="certPath"></param>
+        /// <param name="certSecret"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string tenPayV3Notify, string tenPayV3WxOpenNotify)
-            : this(appId, appSecret, mchId, key, certPath, "", "", tenPayV3Notify, tenPayV3WxOpenNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify)
+            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", tenPayV3Notify, tenPayV3WxOpenNotify)
         {
 
         }
@@ -119,13 +124,14 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="subMchId"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string subAppId, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
         {
             AppId = appId;
             AppSecret = appSecret;
             MchId = mchId;
             Key = key;
             CertPath = certPath;
+            CertSecret = certSecret;
             TenPayV3Notify = tenPayV3Notify;
             TenPayV3_WxOpenNotify = tenPayV3WxOpenNotify;
             Sub_AppId = subAppId;
@@ -142,6 +148,7 @@ namespace Senparc.Weixin.TenPay.V3
                   senparcWeixinSetting.TenPayV3_MchId,
                   senparcWeixinSetting.TenPayV3_Key,
                   senparcWeixinSetting.TenPayV3_CertPath,
+                  senparcWeixinSetting.TenPayV3_CertSecret,
                   senparcWeixinSetting.TenPayV3_SubAppId,
                   senparcWeixinSetting.TenPayV3_SubMchId,
                   senparcWeixinSetting.TenPayV3_TenpayNotify,

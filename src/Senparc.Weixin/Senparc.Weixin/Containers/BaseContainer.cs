@@ -193,7 +193,7 @@ namespace Senparc.Weixin.Containers
 
             if (RegisterFuncCollection.TryGetValue(shortKey, out var registerFunc))
             {
-                return await registerFunc();
+                return await registerFunc().ConfigureAwait(false);
             }
 
             return null;
@@ -450,7 +450,7 @@ namespace Senparc.Weixin.Containers
 
             if (appId == null)
             {
-                var firstBag = (await GetAllItemsAsync()).FirstOrDefault() as IBaseContainerBag_AppId;
+                var firstBag = (await GetAllItemsAsync().ConfigureAwait(false)).FirstOrDefault() as IBaseContainerBag_AppId;
                 appId = firstBag == null ? null : firstBag.AppId;
             }
 
@@ -474,7 +474,7 @@ namespace Senparc.Weixin.Containers
         public static async Task<List<TBag>> GetAllItemsAsync()
         {
             //return Cache.GetAll<TBag>().Values
-            return (await _containerCache.GetAllAsync<TBag>()).Values
+            return (await _containerCache.GetAllAsync<TBag>().ConfigureAwait(false)).Values
                 //如果需要做进一步的筛选，则使用Select或Where，但需要注意效率问题
                 //.Select(z => z)
                 .ToList();
@@ -490,9 +490,9 @@ namespace Senparc.Weixin.Containers
         public static async Task<TBag> TryGetItemAsync(string shortKey)
         {
             var cacheKey = GetBagCacheKey(shortKey);
-            if (await Cache.CheckExistedAsync(cacheKey))
+            if (await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
             {
-                return await Cache.GetAsync<TBag>(cacheKey);
+                return await Cache.GetAsync<TBag>(cacheKey).ConfigureAwait(false);
             }
 
             return default(TBag);
@@ -507,9 +507,9 @@ namespace Senparc.Weixin.Containers
         public static async Task<TK> TryGetItemAsync<TK>(string shortKey, Func<TBag, TK> property)
         {
             var cacheKey = GetBagCacheKey(shortKey);
-            if (await Cache.CheckExistedAsync(cacheKey))
+            if (await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
             {
-                var item = await Cache.GetAsync<TBag>(cacheKey);
+                var item = await Cache.GetAsync<TBag>(cacheKey).ConfigureAwait(false);
                 return property(item);
             }
             return default(TK);
@@ -526,7 +526,7 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (bag == null)
             {
-                await Cache.RemoveFromCacheAsync(cacheKey);
+                await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);
             }
             else
             {
@@ -552,7 +552,7 @@ namespace Senparc.Weixin.Containers
 
             bag.CacheTime = SystemTime.Now;
 
-            await Cache.UpdateAsync(cacheKey, bag, expiry);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+            await Cache.UpdateAsync(cacheKey, bag, expiry).ConfigureAwait(false);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>
@@ -567,7 +567,7 @@ namespace Senparc.Weixin.Containers
                 throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
             }
 
-            await UpdateAsync(bag.Key, bag, expiry);
+            await UpdateAsync(bag.Key, bag, expiry).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -581,20 +581,20 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             if (partialUpdate == null)
             {
-                await Cache.RemoveFromCacheAsync(cacheKey);//移除对象
+                await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);//移除对象
             }
             else
             {
-                if (!await Cache.CheckExistedAsync(cacheKey))
+                if (!await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
                 {
                     var newBag = new TBag()
                     {
                         Key = cacheKey//确保这一项Key已经被记录
                     };
 
-                    await Cache.SetAsync(cacheKey, newBag, expiry);
+                    await Cache.SetAsync(cacheKey, newBag, expiry).ConfigureAwait(false);
                 }
-                partialUpdate(await TryGetItemAsync(shortKey));//更新对象
+                partialUpdate(await TryGetItemAsync(shortKey).ConfigureAwait(false));//更新对象
             }
         }
 
@@ -606,15 +606,15 @@ namespace Senparc.Weixin.Containers
         public static async Task<bool> CheckRegisteredAsync(string shortKey)
         {
             var cacheKey = GetBagCacheKey(shortKey);
-            var registered = await Cache.CheckExistedAsync(cacheKey);
+            var registered = await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false);
 
             if (!registered && RegisterFuncCollection.ContainsKey(shortKey))
             {
                 //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
-                await RegisterFuncCollection[shortKey]();//使用异步方法返回
+                await RegisterFuncCollection[shortKey]().ConfigureAwait(false);//使用异步方法返回
             }
 
-            return await Cache.CheckExistedAsync(cacheKey);
+            return await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -624,7 +624,7 @@ namespace Senparc.Weixin.Containers
         public static async Task RemoveFromCacheAsync(string shortKey)
         {
             var cacheKey = GetBagCacheKey(shortKey);
-            await Cache.RemoveFromCacheAsync(cacheKey);
+            await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);
         }
 
         #endregion

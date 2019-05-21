@@ -174,12 +174,12 @@ namespace Senparc.Weixin.MP.Containers
                     OAuthAccessTokenExpireTime = DateTimeOffset.MinValue,
                     OAuthAccessTokenResult = new OAuthAccessTokenResult()
                 };
-                await UpdateAsync(appId, bag, null);
+                await UpdateAsync(appId, bag, null).ConfigureAwait(false);
                 return bag;
                 //}
             };
 
-            await RegisterFuncCollection[appId]();
+            await RegisterFuncCollection[appId]().ConfigureAwait(false);
 
             if (!name.IsNullOrEmpty())
             {
@@ -266,11 +266,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetOAuthAccessTokenAsync(string appId, string appSecret, string code, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(appId) || getNewToken)
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false) || getNewToken)
             {
-                await RegisterAsync(appId, appSecret);
+                await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetOAuthAccessTokenAsync(appId, code, getNewToken);
+            return await GetOAuthAccessTokenAsync(appId, code, getNewToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> GetOAuthAccessTokenAsync(string appId, string code, bool getNewToken = false)
         {
-            var result = await GetOAuthAccessTokenResultAsync(appId, code, getNewToken);
+            var result = await GetOAuthAccessTokenResultAsync(appId, code, getNewToken).ConfigureAwait(false);
             return result.access_token;
         }
 
@@ -295,23 +295,23 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<OAuthAccessTokenResult> GetOAuthAccessTokenResultAsync(string appId, string code, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(appId))
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false))
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = await TryGetItemAsync(appId);
-            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
+            var oAuthAccessTokenBag = await TryGetItemAsync(appId).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var oAuthAccessTokenResult = await OAuthApi.GetAccessTokenAsync(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
+                    var oAuthAccessTokenResult = await OAuthApi.GetAccessTokenAsync(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code).ConfigureAwait(false);
                     oAuthAccessTokenBag.OAuthAccessTokenResult = oAuthAccessTokenResult;
                     //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
-                    await UpdateAsync(oAuthAccessTokenBag, null);
+                    await UpdateAsync(oAuthAccessTokenBag, null).ConfigureAwait(false);
                 }
             }
             return oAuthAccessTokenBag.OAuthAccessTokenResult;

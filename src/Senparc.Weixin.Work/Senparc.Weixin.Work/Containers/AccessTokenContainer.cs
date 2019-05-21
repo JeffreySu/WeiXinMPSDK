@@ -345,7 +345,7 @@ namespace Senparc.Weixin.Work.Containers
                      ExpireTime = DateTimeOffset.MinValue,
                      AccessTokenResult = new AccessTokenResult()
                  };
-                 await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null);
+                 await UpdateAsync(BuildingKey(corpId, corpSecret), bag, null).ConfigureAwait(false);
                  return bag;
                  //}
              };
@@ -377,9 +377,9 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!await CheckRegisteredAsync(BuildingKey(corpId, corpSecret)) || getNewToken)
             {
-                await RegisterAsync(corpId, corpSecret);
+                await RegisterAsync(corpId, corpSecret).ConfigureAwait(false);
             }
-            return await GetTokenAsync(corpId, corpSecret, getNewToken);
+            return await GetTokenAsync(corpId, corpSecret, getNewToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -390,7 +390,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            var result = await GetTokenResultAsync(corpId, corpSecret, getNewToken);
+            var result = await GetTokenResultAsync(corpId, corpSecret, getNewToken).ConfigureAwait(false);
             return result.access_token;
         }
 
@@ -403,7 +403,7 @@ namespace Senparc.Weixin.Work.Containers
         public static async Task<IAccessTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
             var appKey = BuildingKey(corpId, corpSecret);
-            return await GetTokenResultAsync(appKey, getNewToken);
+            return await GetTokenResultAsync(appKey, getNewToken).ConfigureAwait(false);
         }
 
 
@@ -415,28 +415,28 @@ namespace Senparc.Weixin.Work.Containers
         /// <returns></returns>
         public static async Task<IAccessTokenResult> GetTokenResultAsync(string appKey, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(appKey))
+            if (!await CheckRegisteredAsync(appKey).ConfigureAwait(false))
             {
                 string corpId;
                 string corpSecret;
                 GetCorpIdAndSecretFromKey(appKey, out corpId, out corpSecret);
 
-                await RegisterAsync(corpId, corpSecret);
+                await RegisterAsync(corpId, corpSecret).ConfigureAwait(false);
                 //throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = await TryGetItemAsync(appKey);
+            var accessTokenBag = await TryGetItemAsync(appKey).ConfigureAwait(false);
             // lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret);
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId, accessTokenBag.CorpSecret).ConfigureAwait(false);
                     //accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
                     //    accessTokenBag.CorpSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    await UpdateAsync(accessTokenBag, null);//更新到缓存
+                    await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;

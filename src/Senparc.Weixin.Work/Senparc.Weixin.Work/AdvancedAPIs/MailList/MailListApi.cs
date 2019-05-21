@@ -639,7 +639,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
                 /*
                    返回结果：
@@ -648,7 +648,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                        "errmsg": "created"
                     }
                 */
-            }, accessTokenOrAppKey);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -664,8 +664,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<GetMemberResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetMemberResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -685,7 +685,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }
 
             /*
@@ -695,7 +695,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                   "errmsg": "updated"
                }
            */
-            , accessTokenOrAppKey);
+            , accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -711,8 +711,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -735,8 +735,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     useridlist = useridlist
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -763,8 +763,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await CommonJsonSend.SendAsync<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -790,8 +790,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await CommonJsonSend.SendAsync<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -1115,8 +1115,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userid = userId,
                 };
 
-                return await CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -1135,8 +1135,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/invite?access_token={0}", accessToken);
 
-                return await CommonJsonSend.SendAsync<InviteMemberListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<InviteMemberListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -1153,8 +1153,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
             /*
              *  返回结果：

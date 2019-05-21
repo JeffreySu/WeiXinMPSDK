@@ -83,8 +83,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/ticket/get?access_token={0}&type=wx_card", accessToken);
 
-                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -101,8 +101,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/ticket/get?access_token={0}&type=agent_config", accessToken);
 
-                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 

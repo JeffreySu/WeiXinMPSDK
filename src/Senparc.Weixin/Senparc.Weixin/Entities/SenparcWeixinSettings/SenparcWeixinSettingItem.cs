@@ -134,6 +134,10 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         public virtual string TenPayV3_CertPath { get; set; }
         /// <summary>
+        /// 微信支付证书密码，在 .NET Core 下执行 TenPayV3InfoCollection.Register() 方法会为 HttpClient 自动添加证书
+        /// </summary>
+        public virtual string TenPayV3_CertSecret { get; set; }
+        /// <summary>
         /// 微信支付AppId
         /// </summary>
         public virtual string TenPayV3_AppId { get; set; }

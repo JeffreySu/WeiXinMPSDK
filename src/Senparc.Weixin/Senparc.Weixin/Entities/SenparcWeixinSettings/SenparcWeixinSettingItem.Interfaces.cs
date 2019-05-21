@@ -134,9 +134,13 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         string TenPayV3_Key { get; set; }
         /// <summary>
-        /// 证书地址，物理路径
+        /// 微信支付证书地址，物理路径（如 D:\\cert\\cert.p12）
         /// </summary>
         string TenPayV3_CertPath { get; set; }
+        /// <summary>
+        /// 微信支付证书密码
+        /// </summary>
+        string TenPayV3_CertSecret { get; set; }
 
         /// <summary>
         /// 微信支付AppId

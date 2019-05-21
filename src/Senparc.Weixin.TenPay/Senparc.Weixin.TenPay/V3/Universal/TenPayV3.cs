@@ -193,7 +193,7 @@ namespace Senparc.Weixin.TenPay.V3
                 string responseContent = RequestUtility.HttpPost(
                     url,
                     postStream: ms,
-                    certName:mchId,
+                    certName: certName,
                     timeOut: timeOut);
 
                 return responseContent;
@@ -537,7 +537,7 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 //调用证书
 #if NET45
-            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+                string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
                 string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif

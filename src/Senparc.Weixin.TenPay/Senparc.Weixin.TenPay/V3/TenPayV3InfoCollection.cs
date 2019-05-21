@@ -119,6 +119,8 @@ namespace Senparc.Weixin.TenPay.V3
                 var certPath = tenPayV3Info.CertPath;
 
                 //添加注册
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-Web", $"certName:{certName}, certPassword:{certPassword}, certPath:{certPath}");
+
                 service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
             }
             catch (Exception ex)

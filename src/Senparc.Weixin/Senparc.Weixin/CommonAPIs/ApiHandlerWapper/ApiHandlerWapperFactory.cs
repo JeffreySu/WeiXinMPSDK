@@ -142,7 +142,7 @@ namespace Senparc.Weixin.CommonAPIs
     //        {
     //            return null;
     //        }
-    //        return await funWapper();
+    //        return await funWapper().ConfigureAwait(false);
     //    }
 
     //    #endregion

@@ -92,7 +92,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
 
-            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET);
+            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             return result;
         }
 

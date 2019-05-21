@@ -213,7 +213,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <returns></returns>
         public static async Task<SessionBag> GetSessionAsync(string key)
         {
-            var bag = await TryGetItemAsync(key);
+            var bag = await TryGetItemAsync(key).ConfigureAwait(false);
             if (bag == null)
             {
                 return null;
@@ -222,14 +222,14 @@ namespace Senparc.Weixin.WxOpen.Containers
             if (bag.ExpireTime < SystemTime.Now)
             {
                 //已经过期
-                await Cache.RemoveFromCacheAsync(key);
+                await Cache.RemoveFromCacheAsync(key).ConfigureAwait(false);
                 return null;
             }
 
             //using (FlushCache.CreateInstance())
             //{
             bag.ExpireTime = SystemTime.Now.Add(GetExpireTime());//滚动过期时间
-            await UpdateAsync(key, bag, GetExpireTime());
+            await UpdateAsync(key, bag, GetExpireTime()).ConfigureAwait(false);
             //}
             return bag;
         }
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 SessionKey = sessionKey,
                 ExpireTime = SystemTime.Now.Add(expireTime ?? GetExpireTime())
             };
-            await UpdateAsync(key, sessionBag, expireTime ?? GetExpireTime());
+            await UpdateAsync(key, sessionBag, expireTime ?? GetExpireTime()).ConfigureAwait(false);
             return sessionBag;
             //}
         }

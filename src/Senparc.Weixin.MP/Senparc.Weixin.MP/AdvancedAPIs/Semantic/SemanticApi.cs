@@ -109,9 +109,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //        BaseSemanticResultJson as Semantic_RestaurantResult;
                 //}
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
     }

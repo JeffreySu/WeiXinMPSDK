@@ -258,9 +258,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await Post.PostFileGetJsonAsync<PoiUploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                return await Post.PostFileGetJsonAsync<PoiUploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -278,9 +278,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -302,9 +302,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     poi_id = poiId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -328,9 +328,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     limit = limit
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -352,9 +352,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     poi_id = poiId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -374,9 +374,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -391,9 +391,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
     }

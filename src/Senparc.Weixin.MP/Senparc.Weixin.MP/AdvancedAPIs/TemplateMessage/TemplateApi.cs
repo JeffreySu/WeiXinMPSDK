@@ -305,9 +305,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     miniprogram = miniProgram,
                     data = data,
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -324,7 +324,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
-                templateMessageData.Url, templateMessageData, miniProgram, timeOut);
+                templateMessageData.Url, templateMessageData, miniProgram, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -347,9 +347,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     industry_id1 = ((int)industry_id1).ToString(),
                     industry_id2 = ((int)industry_id2).ToString()
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -365,9 +365,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_industry?access_token={0}";
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】获得模板ID
@@ -387,9 +387,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     template_id_short = template_id_short
 
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步办法】 获取模板列表
@@ -404,9 +404,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/template/get_all_private_template?access_token={0}";
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】删除模板
@@ -426,9 +426,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     template_id = template_id
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -460,9 +460,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     data = data
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion

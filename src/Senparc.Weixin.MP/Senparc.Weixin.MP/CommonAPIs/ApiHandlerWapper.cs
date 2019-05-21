@@ -222,10 +222,10 @@ namespace Senparc.Weixin.MP
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
             Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
-              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.MP);
+              async () => await AccessTokenContainer.GetFirstOrDefaultAppIdAsync(PlatformType.MP).ConfigureAwait(false);
 
             Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
-             async appId => await AccessTokenContainer.CheckRegisteredAsync(appId);
+             async appId => await AccessTokenContainer.CheckRegisteredAsync(appId).ConfigureAwait(false);
 
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
-            return await result;
+            return await result.ConfigureAwait(false);
         }
 
         #region 淘汰方法

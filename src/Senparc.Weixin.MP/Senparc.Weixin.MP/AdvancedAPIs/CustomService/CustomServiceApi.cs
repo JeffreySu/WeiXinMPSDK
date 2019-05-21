@@ -465,7 +465,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    pageindex = pageIndex
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId);
         }
@@ -482,10 +482,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/customservice/getkflist?access_token={0}", accessToken.AsUrlData());
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomInfoJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomInfoJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
                //return GetCustomInfoResult<CustomInfoJson>(urlFormat);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -500,10 +500,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken.AsUrlData());
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomOnlineJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomOnlineJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
                //return GetCustomInfoResult<CustomOnlineJson>(urlFormat);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         //private static T GetCustomInfoResult<T>(string urlFormat)
@@ -536,9 +536,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    password = passWord
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】邀请绑定客服帐号
@@ -562,9 +562,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】设置客服信息
@@ -589,9 +589,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    password = passWord
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -610,9 +610,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var url = string.Format(Config.ApiMpHost + "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return await Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
+               return await Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -628,9 +628,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/customservice/kfaccount/del?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -656,9 +656,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    text = text
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -684,9 +684,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    text = text
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -703,9 +703,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -722,9 +722,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -740,9 +740,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var urlFormat = string.Format(Config.ApiMpHost + "/customservice/kfsession/getwaitcase?access_token={0}", accessToken.AsUrlData());
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -768,8 +768,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    msgid = msgId,
                    number = number
                };
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-           }, accessTokenOrAppId);
+               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+           }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
         #endregion

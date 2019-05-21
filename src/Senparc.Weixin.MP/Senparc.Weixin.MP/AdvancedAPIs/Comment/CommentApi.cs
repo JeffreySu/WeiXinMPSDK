@@ -332,8 +332,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -407,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -434,7 +434,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -462,7 +462,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -517,7 +517,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -545,7 +545,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
            }, accessTokenOrAppId);
         }
 

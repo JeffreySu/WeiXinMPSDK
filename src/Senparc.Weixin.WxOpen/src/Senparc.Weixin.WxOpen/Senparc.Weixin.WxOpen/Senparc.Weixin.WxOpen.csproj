@@ -118,7 +118,7 @@
       <Version>0.7.3.1-preview2</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.6.8</Version>
+      <Version>0.6.9-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
       <Version>6.4.3</Version>

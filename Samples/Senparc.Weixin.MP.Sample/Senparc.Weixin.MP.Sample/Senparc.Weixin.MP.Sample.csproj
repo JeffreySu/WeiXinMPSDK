@@ -81,14 +81,14 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.7.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.7.1\lib\net45\Senparc.CO2NET.dll</HintPath>
+    <Reference Include="Senparc.CO2NET, Version=0.7.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.0.7.3.1-preview2\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.APM.0.3.0.2\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.APM, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.APM.0.3.1-preview1\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.3.0.1\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
+    <Reference Include="Senparc.CO2NET.Cache.Memcached, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.CO2NET.Cache.Memcached.3.3.1-preview1\lib\net45\Senparc.CO2NET.Cache.Memcached.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.5.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.Cache.Redis.3.5.0.2\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>

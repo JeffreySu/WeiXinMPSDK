@@ -487,7 +487,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM">
-      <Version>0.3.0.2</Version>
+      <Version>0.3.1-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
       <Version>0.6.8</Version>

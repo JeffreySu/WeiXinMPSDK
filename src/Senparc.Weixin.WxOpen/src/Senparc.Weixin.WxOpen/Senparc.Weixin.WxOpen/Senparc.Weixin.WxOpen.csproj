@@ -121,10 +121,10 @@
       <Version>0.6.9-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
-      <Version>6.4.3</Version>
+      <Version>6.4.4-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.7.4.1</Version>
+      <Version>16.7.4.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

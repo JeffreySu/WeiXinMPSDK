@@ -224,7 +224,7 @@ namespace Senparc.Weixin.WxOpen
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
-            return await result;
+            return await result.ConfigureAwait(false);
         }
 
         #region 淘汰方法

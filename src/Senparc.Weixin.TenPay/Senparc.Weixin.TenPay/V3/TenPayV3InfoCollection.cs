@@ -36,13 +36,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180802
     修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
 
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能
 
     TODO：升级为Container
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 
@@ -96,11 +100,32 @@ namespace Senparc.Weixin.TenPay.V3
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_AppSecret = tenPayV3Info.AppSecret;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_MchId = tenPayV3Info.MchId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Key = tenPayV3Info.Key;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_CertPath = tenPayV3Info.CertPath;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_CertSecret = tenPayV3Info.CertSecret;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_TenpayNotify = tenPayV3Info.TenPayV3Notify;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_WxOpenTenpayNotify = tenPayV3Info.TenPayV3_WxOpenNotify;
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_MchId = tenPayV3Info.Sub_MchId;
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_Sub_AppId = tenPayV3Info.Sub_AppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubMchId = tenPayV3Info.Sub_MchId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppId = tenPayV3Info.Sub_AppId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppSecret = tenPayV3Info.Sub_AppSecret;
             }
+
+            //进行证书注册
+#if NETSTANDARD2_0
+            try
+            {
+                var service = Senparc.CO2NET.SenparcDI.GlobalServiceCollection;
+                var certName = key;
+                var certPassword = tenPayV3Info.CertSecret;
+                var certPath = tenPayV3Info.CertPath;
+
+                //添加注册
+                service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+#endif
         }
 
         /// <summary>

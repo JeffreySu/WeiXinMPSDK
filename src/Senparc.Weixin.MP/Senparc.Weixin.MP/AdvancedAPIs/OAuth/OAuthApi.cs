@@ -158,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string.Format(Config.ApiMpHost + "/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
                                 appId.AsUrlData(), secret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string.Format(Config.ApiMpHost + "/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId.AsUrlData(), grantType.AsUrlData(), refreshToken.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<OAuthUserInfo> GetUserInfoAsync(string oauthAccessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> AuthAsync(string oauthAccessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", oauthAccessToken.AsUrlData(), openId.AsUrlData());
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
         #endregion
     }

@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 wechatid = wechatid.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】解除绑定小程序的体验者 接口
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 wechatid = wechatid.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         #endregion

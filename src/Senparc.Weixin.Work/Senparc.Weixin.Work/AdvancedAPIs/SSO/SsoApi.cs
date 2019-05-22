@@ -114,7 +114,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     auth_code = authCode
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     provider_secret = providerSecret
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
 

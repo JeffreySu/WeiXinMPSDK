@@ -376,7 +376,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_verify_ticket = componentVerifyTicket
             };
 
-            return await CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_appid = componentAppId
             };
 
-            return await CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
 
@@ -426,7 +426,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorization_code = authorizationCode
             };
 
-            return await CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -482,7 +482,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_refresh_token = authorizerRefreshToken
             };
 
-            return await CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -508,7 +508,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppId,
             };
 
-            return await CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -535,7 +535,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_name = optionName
             };
 
-            return await CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_value = optionValue
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -582,7 +582,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     authorizerAccessToken.AsUrlData(), type.AsUrlData());
 
-            JsApiTicketResult result = await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
+            JsApiTicketResult result = await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             return result;
         }
 
@@ -631,7 +631,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 };
             }
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         #endregion

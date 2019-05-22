@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
     /// <summary>
     /// 上传图片返回结果
     /// </summary>
-    public class UploadImageResultJson : WxJsonResult
+    public class PoiUploadImageResultJson : WxJsonResult
     {
         /// <summary>
         /// 上传成功后图片的链接

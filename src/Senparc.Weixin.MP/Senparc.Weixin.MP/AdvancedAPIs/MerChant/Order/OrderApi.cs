@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 order_id = orderId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdOrderResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdOrderResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 endtime = endTime.HasValue ? DateTimeHelper.GetUnixDateTime(endTime.Value) : (long?)null
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByFilterResult>(accessToken, urlFormat, data, jsonSetting: new JsonSetting(true));
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByFilterResult>(accessToken, urlFormat, data, jsonSetting: new JsonSetting(true)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 is_others = isOthers
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 order_id = orderId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
         #endregion
     }

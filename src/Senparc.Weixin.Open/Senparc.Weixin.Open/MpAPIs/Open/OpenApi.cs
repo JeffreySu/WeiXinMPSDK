@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/bind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         #endregion

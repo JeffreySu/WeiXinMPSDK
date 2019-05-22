@@ -252,9 +252,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                        name = name
                    }
                };
-               return await CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -269,9 +269,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var urlFormat = Config.ApiMpHost + "/cgi-bin/groups/get?access_token={0}";
                var url = string.Format(urlFormat, accessToken.AsUrlData());
-               return await CommonJsonSend.SendAsync<GroupsJson>(null, url, null, CommonJsonSendType.GET);
+               return await CommonJsonSend.SendAsync<GroupsJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -288,9 +288,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var urlFormat = Config.ApiMpHost + "/cgi-bin/groups/getid?access_token={0}";
                var data = new { openid = openId };
-               return await CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -315,9 +315,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                        name = name
                    }
                };
-               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -339,9 +339,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    openid = openId,
                    to_groupid = toGroupId
                };
-               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -365,9 +365,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    to_groupid = toGroupId
                };
 
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -392,9 +392,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    }
                };
 
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
     }

@@ -51,7 +51,6 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public string MchId { get; set; }
 
-
         /// <summary>
         /// 商户自定义的终端设备号，如门店编号、设备的ID
         /// </summary>

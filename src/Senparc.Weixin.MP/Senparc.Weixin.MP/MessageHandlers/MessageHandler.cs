@@ -226,7 +226,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
         }
 
         /// <summary>

@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180214
 
+
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能；添加子商户号设置
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -41,14 +45,23 @@ namespace Senparc.Weixin.TenPay.V3
     public class TenPayV3PayToWorkerRequestData
     {
         /// <summary>
-        /// 微信分配的公众账号ID（企业号corpid即为此appId）
+        /// 公众账号ID
         /// </summary>
         public string AppId { get; set; }
+        /// <summary>
+        /// 子商户公众账号ID	
+        /// </summary>
+        public string SubAppId { get; set; }
 
         /// <summary>
-        /// 商户号 [mchid]
+        /// 商户号
         /// </summary>
         public string MchId { get; set; }
+
+        /// <summary>
+        /// 子商户号，如果没有则不用设置
+        /// </summary>
+        public string SubMchId { get; set; }
         /// <summary>
         /// 企业微信支付应用secret（参见企业微信管理端支付应用页面）
         /// </summary>
@@ -151,10 +164,13 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="agentId"></param>
         public TenPayV3PayToWorkerRequestData(string appId, string mchId,string secret, string nonceStr, string partnerTradeNo,
             string openId, string key, string checkName, string reUserName, decimal amount, string desc, string spbillCreateIP,
-          string deviceInfo, string actName, string wwMsgType = null, string approvalNumber = null, string approvalType = null, uint? agentId = null)
+          string deviceInfo, string actName, string wwMsgType = null, string approvalNumber = null, string approvalType = null, uint? agentId = null,
+          string subAppId = null, string subMchId = null)
         {
             AppId = appId;
+            SubAppId = subAppId;
             MchId = mchId;
+            SubMchId = subMchId;
             Secret = secret;
             NonceStr = nonceStr;
             PartnerTradeNo = partnerTradeNo;
@@ -182,7 +198,9 @@ namespace Senparc.Weixin.TenPay.V3
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //微信分配的公众账号ID（企业微信corpid即为此appid）
                                                                      //https://work.weixin.qq.com/api/doc#90000/90135/90278
+            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId); //子商户公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId); //子商户号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo); //微信支付分配的终端设备号
             PackageRequestHandler.SetParameter("partner_trade_no", this.PartnerTradeNo); //商户订单号

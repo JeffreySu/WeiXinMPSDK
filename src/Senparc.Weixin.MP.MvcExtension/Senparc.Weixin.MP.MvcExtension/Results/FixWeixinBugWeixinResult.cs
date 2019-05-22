@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
                 var bytes = Encoding.UTF8.GetBytes(content);
                 //context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
-                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
             });
 
             // return base.ExecuteResultAsync(context);

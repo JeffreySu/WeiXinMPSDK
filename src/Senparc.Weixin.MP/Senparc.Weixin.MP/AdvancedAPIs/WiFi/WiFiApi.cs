@@ -610,9 +610,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     pageindex = pageIndex,
                     pagesize = pageSize
                 };
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WiFiShopListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WiFiShopListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】查询门店Wi-Fi信息
@@ -636,9 +636,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     pageindex = pageindex,
                     pagesize = pagesize
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiShopGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiShopGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】修改门店网络信息
@@ -663,9 +663,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     ssid = ssid
 
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】清空门店网络及设备
@@ -700,9 +700,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
                 }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】添加设备
@@ -729,9 +729,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     password = password,
                     //bssid = bssid,
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///  【异步方法】添加portal型设备
@@ -756,9 +756,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     ssid = ssid,
                     reset = reset,
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiRegisterJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiRegisterJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -799,9 +799,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
                 }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDeviceListResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDeviceListResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -823,9 +823,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     bssid = bssid
                 };
 
-                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -850,9 +850,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     img_id = imgId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -895,9 +895,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
                 }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -920,9 +920,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     shop_id = shopId,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetHomePageResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetHomePageResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】 设置微信首页欢迎语
@@ -948,9 +948,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
 
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】 设置连网完成页
@@ -976,9 +976,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1006,9 +1006,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     shop_id = shopId,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStatisticsResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStatisticsResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】 设置门店卡券投放信息
@@ -1042,9 +1042,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】查询门店卡券投放信息
@@ -1066,9 +1066,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiGetCouponPutJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiGetCouponPutJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1084,8 +1084,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string urlFormat = Config.ApiMpHost + "/bizwifi/account/get_connecturl?access_token={0}";
 
                 return await  Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiConnectUrlResultJson>(accessToken, urlFormat, null,
-                    CommonJsonSendType.GET);
-            }, accessTokenOrAppId);
+                    CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】第三方平台获取开插件wifi_token
@@ -1107,9 +1107,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiOpenPluginTokenJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WiFiOpenPluginTokenJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
 

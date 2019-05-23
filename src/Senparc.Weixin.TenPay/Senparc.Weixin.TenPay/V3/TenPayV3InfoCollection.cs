@@ -121,33 +121,26 @@ namespace Senparc.Weixin.TenPay.V3
 #if NETSTANDARD2_0
             try
             {
-                var service = Senparc.CO2NET.SenparcDI.GlobalServiceCollection;
+                var service = SenparcDI.GlobalServiceCollection;
                 var certName = key;
                 var certPassword = tenPayV3Info.CertSecret;
                 var certPath = tenPayV3Info.CertPath;
 
                 //添加注册
 
-
-                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-Web", $"certName:{certName}, certPassword:{certPassword}, certPath:{certPath}");
-
                 //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
 
-#region 测试添加证书
+                #region 测试添加证书
 
                 //添加注册
-                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.1", $"certName:{certName}");
 
                 if (!string.IsNullOrEmpty(certPath))
                 {
-                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.2", $"certName:{certName}");
 
                     if (File.Exists(certPath))
                     {
                         try
                         {
-                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.3", $"certName:{certName}");
-
                             var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
                             var checkValidationResult = false;
 
@@ -155,8 +148,6 @@ namespace Senparc.Weixin.TenPay.V3
                             serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
                                     .ConfigurePrimaryHttpMessageHandler(() =>
                                     {
-                                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-ConfigurePrimaryHttpMessageHandler", $"certName:{certName}");
-
                                         var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
 
                                         httpClientHandler.ClientCertificates.Add(cert);
@@ -168,7 +159,6 @@ namespace Senparc.Weixin.TenPay.V3
 
                                         return httpClientHandler;
                                     });
-
                         }
                         catch (Exception ex)
                         {
@@ -181,10 +171,7 @@ namespace Senparc.Weixin.TenPay.V3
                         Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"已设置微信支付证书，但无法找到文件", $"certName:{certName},certPath:{certPath}");
                     }
                 }
-                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-2.1（结束）", $"certName:{certName}");
-
-#endregion
-
+                #endregion
             }
             catch (Exception ex)
             {
@@ -220,8 +207,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// TenPayV3InfoCollection 构造函数
         /// </summary>
-        public TenPayV3InfoCollection()
-            : base(StringComparer.OrdinalIgnoreCase)
+        public TenPayV3InfoCollection() : base(StringComparer.OrdinalIgnoreCase)
         {
 
         }

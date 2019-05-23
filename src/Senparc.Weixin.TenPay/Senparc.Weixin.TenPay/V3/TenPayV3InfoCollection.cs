@@ -45,7 +45,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+#if NETSTANDARD2_0
+using Microsoft.Extensions.DependencyInjection;
+#endif
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -88,7 +96,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         /// <param name="tenPayV3Info"></param>
         /// <param name="name">公众号唯一标识（或名称）</param>
-        public static void Register(TenPayV3Info tenPayV3Info,string name)
+        public static void Register(TenPayV3Info tenPayV3Info, string name)
         {
             var key = GetKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
             Data[key] = tenPayV3Info;
@@ -119,9 +127,64 @@ namespace Senparc.Weixin.TenPay.V3
                 var certPath = tenPayV3Info.CertPath;
 
                 //添加注册
+
+
                 Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-Web", $"certName:{certName}, certPassword:{certPassword}, certPath:{certPath}");
 
-                service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
+                //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
+
+#region 测试添加证书
+
+                //添加注册
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.1", $"certName:{certName}");
+
+                if (!string.IsNullOrEmpty(certPath))
+                {
+                    Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.2", $"certName:{certName}");
+
+                    if (File.Exists(certPath))
+                    {
+                        try
+                        {
+                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-1.3", $"certName:{certName}");
+
+                            var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                            var checkValidationResult = false;
+
+                            var serviceCollection = SenparcDI.GlobalServiceCollection;
+                            serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
+                                    .ConfigurePrimaryHttpMessageHandler(() =>
+                                    {
+                                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-ConfigurePrimaryHttpMessageHandler", $"certName:{certName}");
+
+                                        var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
+
+                                        httpClientHandler.ClientCertificates.Add(cert);
+
+                                        if (checkValidationResult)
+                                        {
+                                            httpClientHandler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(RequestUtility.CheckValidationResult);
+                                        }
+
+                                        return httpClientHandler;
+                                    });
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", $"certName:{certName},certPath:{certPath}");
+                            Senparc.CO2NET.Trace.SenparcTrace.BaseExceptionLog(ex);
+                        }
+                    }
+                    else
+                    {
+                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"已设置微信支付证书，但无法找到文件", $"certName:{certName},certPath:{certPath}");
+                    }
+                }
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"CERT测试-AddSenparcHttpClientWithCertificate-2.1（结束）", $"certName:{certName}");
+
+#endregion
+
             }
             catch (Exception ex)
             {

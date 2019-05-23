@@ -90,5 +90,11 @@
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.Http">
+      <Version>2.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
 
 </Project>

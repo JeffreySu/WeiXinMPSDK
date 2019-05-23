@@ -108,7 +108,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
         public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string tenPayV3Notify, string tenPayV3WxOpenNotify)
-            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "", tenPayV3Notify, tenPayV3WxOpenNotify)
+            : this(appId, appSecret, mchId, key, certPath, certSecret, "", "","", tenPayV3Notify, tenPayV3WxOpenNotify)
         {
 
         }
@@ -120,11 +120,13 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="mchId"></param>
         /// <param name="key"></param>
         /// <param name="certPath"></param>
+        /// <param name="certSecret"></param>
         /// <param name="subAppId"></param>
+        /// <param name="subAppSecret"></param>
         /// <param name="subMchId"></param>
         /// <param name="tenPayV3Notify"></param>
         /// <param name="tenPayV3WxOpenNotify"></param>
-        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string certPath, string certSecret, string subAppId,string subAppSecret, string subMchId, string tenPayV3Notify, string tenPayV3WxOpenNotify)
         {
             AppId = appId;
             AppSecret = appSecret;
@@ -135,6 +137,7 @@ namespace Senparc.Weixin.TenPay.V3
             TenPayV3Notify = tenPayV3Notify;
             TenPayV3_WxOpenNotify = tenPayV3WxOpenNotify;
             Sub_AppId = subAppId;
+            Sub_AppSecret = subAppSecret;
             Sub_MchId = subMchId;
         }
 
@@ -150,6 +153,7 @@ namespace Senparc.Weixin.TenPay.V3
                   senparcWeixinSetting.TenPayV3_CertPath,
                   senparcWeixinSetting.TenPayV3_CertSecret,
                   senparcWeixinSetting.TenPayV3_SubAppId,
+                  senparcWeixinSetting.TenPayV3_SubAppSecret,
                   senparcWeixinSetting.TenPayV3_SubMchId,
                   senparcWeixinSetting.TenPayV3_TenpayNotify,
                   senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify

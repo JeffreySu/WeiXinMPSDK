@@ -538,7 +538,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //设置package订单参数
             packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号 
+            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号
             packageReqHandler.SetParameter("out_trade_no", "");         //填入商家订单号
             packageReqHandler.SetParameter("nonce_str", nonceStr);             //随机字符串
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);

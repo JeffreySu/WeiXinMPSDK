@@ -478,7 +478,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
                     break;
                 case RequestMsgType.Unknown:
                     ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);

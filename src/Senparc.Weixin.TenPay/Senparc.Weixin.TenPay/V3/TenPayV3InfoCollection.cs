@@ -145,7 +145,8 @@ namespace Senparc.Weixin.TenPay.V3
                             var checkValidationResult = false;
 
                             var serviceCollection = SenparcDI.GlobalServiceCollection;
-                            serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
+                            //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
+                            serviceCollection.AddHttpClient(certName)
                                     .ConfigurePrimaryHttpMessageHandler(() =>
                                     {
                                         var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
@@ -176,6 +177,9 @@ namespace Senparc.Weixin.TenPay.V3
             catch (Exception ex)
             {
                 throw;
+            }
+            finally {
+                SenparcDI.ResetGlobalIServiceProvider();
             }
 #endif
         }

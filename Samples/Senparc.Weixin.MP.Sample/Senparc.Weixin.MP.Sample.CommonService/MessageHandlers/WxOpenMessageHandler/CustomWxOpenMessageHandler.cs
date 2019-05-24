@@ -63,15 +63,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             };
         }
 
-        public override XDocument ResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
-
-        public override XDocument FinalResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
 
         public override void OnExecuting()
         {
@@ -117,6 +108,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 //发送客服消息
                 Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendMiniProgramPage(appId, OpenId, "欢迎使用 Senparc.Weixin SDK", "pages/websocket/websocket",
                  uploadResult.media_id);
+            }
+            else if (contentUpper == "客服")
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "您即将进入客服");
+                var responseMessage = base.CreateResponseMessage<ResponseMessageTransfer_Customer_Service>();
+                return responseMessage;
             }
             else
             {

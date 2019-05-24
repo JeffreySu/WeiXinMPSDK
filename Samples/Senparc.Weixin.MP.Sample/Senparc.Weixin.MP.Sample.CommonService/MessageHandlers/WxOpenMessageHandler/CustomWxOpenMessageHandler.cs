@@ -63,15 +63,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             };
         }
 
-        public override XDocument ResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
-
-        public override XDocument FinalResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
 
         public override void OnExecuting()
         {

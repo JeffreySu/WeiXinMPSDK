@@ -116,6 +116,40 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             }
         }
 
+
+        public override XDocument ResponseDocument
+        {
+            get
+            {
+                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+            }
+        }
+
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                if (ResponseDocument == null)
+                {
+                    return null;
+                }
+
+                if (!UsingEcryptMessage)
+                {
+                    return ResponseDocument;
+                }
+
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
+            }
+        }
+
         private PostModel _postModel;
 
 
@@ -255,6 +289,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
+
+                        SenparcTrace.SendCustomLog("WXOPEN-TEXT ResponseMessage:", ResponseMessage.ToJson());
                     }
                     break;
                 case RequestMsgType.Image:
@@ -307,8 +343,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public virtual void OnExecuted()
         {
             base.OnExecuted();
-
-
         }
 
         #endregion

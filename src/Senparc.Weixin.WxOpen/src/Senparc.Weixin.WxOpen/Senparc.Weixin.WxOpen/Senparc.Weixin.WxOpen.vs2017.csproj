@@ -122,7 +122,7 @@
       1、支持异步 Container
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       3、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
-      v3.4.5 JsCode2Json返回结果增加unionid
+      v3.4.5 JsCode2Json 返回结果增加 unionid
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

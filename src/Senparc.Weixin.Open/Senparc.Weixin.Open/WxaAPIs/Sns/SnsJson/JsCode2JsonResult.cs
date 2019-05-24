@@ -27,7 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170827
 
-
+    
+    修改标识：Senparc - 20190524
+    修改描述：JsCode2Json 返回结果增加 unionid
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;

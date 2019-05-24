@@ -307,6 +307,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         public virtual void OnExecuted()
         {
             base.OnExecuted();
+
+
         }
 
         #endregion

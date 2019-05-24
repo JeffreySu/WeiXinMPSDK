@@ -118,6 +118,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendMiniProgramPage(appId, OpenId, "欢迎使用 Senparc.Weixin SDK", "pages/websocket/websocket",
                  uploadResult.media_id);
             }
+            else if (contentUpper == "客服")
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "您即将进入客服");
+                var responseMessage = base.CreateResponseMessage<ResponseMessageTransfer_Customer_Service>();
+                return responseMessage;
+            }
             else
             {
 

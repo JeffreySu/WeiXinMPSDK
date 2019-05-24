@@ -20,6 +20,9 @@ test_script:
   - cmd: dotnet test -c Release Samples\Senparc.Weixin.MP.Sample.vs2017\Senparc.Weixin.MP.Sample.vs2017.sln
 artifacts:
   - path: '**\*.nupkg'
+    name: nupkg
+  - path: '**\*.snupkg'
+    name: snupkg
 nuget:
   disable_publish_on_pr: true
 #deploy:

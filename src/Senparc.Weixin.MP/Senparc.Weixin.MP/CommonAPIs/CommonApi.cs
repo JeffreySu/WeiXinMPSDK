@@ -225,9 +225,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}",
                                        accessToken.AsUrlData(), openId.AsUrlData());
                var result = CommonJsonSend.SendAsync<WeixinUserInfoResult>(null, url, null, CommonJsonSendType.GET);
-               return await result;
+               return await result.ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -241,7 +241,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetTicketAsync", true)]
         public static async Task<JsApiTicketResult> GetTicketAsync(string appId, string secret, string type = "jsapi")
         {
-            var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync(appId, secret);
+            var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync(appId, secret).ConfigureAwait(false);
             return GetTicketByAccessToken(accessToken, type);
         }
 
@@ -260,9 +260,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                         accessToken.AsUrlData(), type.AsUrlData());
 
                 var result = CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
-                return await result;
+                return await result.ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -277,9 +277,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
+                return await CommonJsonSend.SendAsync<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -300,9 +300,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     appid = appId
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion

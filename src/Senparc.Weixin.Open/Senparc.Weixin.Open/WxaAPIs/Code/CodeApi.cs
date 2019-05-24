@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170726
 
+    修改标识：Senparc - 20190511
+    修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
 
 ----------------------------------------------------------------*/
 
@@ -342,7 +344,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 user_desc = user_desc
             };
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -355,7 +357,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
-            await Get.DownloadAsync(url, stream);
+            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
             return new CodeResultJson()
             {
                 errcode = ReturnCode.请求成功
@@ -375,7 +377,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/get_category?access_token={0}", accessToken.AsUrlData());
 
 
-            return await CommonJsonSend.SendAsync<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetCategoryResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -390,7 +392,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/get_page?access_token={0}", accessToken.AsUrlData());
 
 
-            return await CommonJsonSend.SendAsync<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetPageResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -411,7 +413,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 item_list = item_list
             };
 
-            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -433,7 +435,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 auditid = auditid
             };
 
-            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -454,7 +456,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             };
 
-            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuditStatusResultJson>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 发布已通过审核的小程序
@@ -473,7 +475,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
             {
             };
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 修改小程序线上代码的可见状态
@@ -494,7 +496,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 action = action.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 小程序版本回退（仅供第三方代小程序调用）
@@ -507,7 +509,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertcoderelease?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 查询当前设置的最低基础库版本及各版本用户占比（仅供第三方代小程序调用）
@@ -520,7 +522,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/getweappsupportversion?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetWeappSupportVersionResultJson>(null, url, null, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetWeappSupportVersionResultJson>(null, url, null, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 设置最低基础库版本（仅供第三方代小程序调用）
@@ -541,7 +543,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 version = version.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 小程序分阶段发布接口
@@ -562,7 +564,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 gray_percentage = gray_percentage
             };
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 小程序取消分阶段发布
@@ -575,7 +577,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertgrayrelease?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 小程序查询当前分阶段发布详情
@@ -588,7 +590,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

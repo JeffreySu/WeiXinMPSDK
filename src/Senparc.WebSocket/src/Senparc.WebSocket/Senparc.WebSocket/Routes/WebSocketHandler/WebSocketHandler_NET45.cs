@@ -86,12 +86,12 @@ namespace Senparc.WebSocket
             {
                 if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
                 {
-                    await messageHandler.OnConnecting(webSocketHandler);//调用MessageHandler
+                    await messageHandler.OnConnecting(webSocketHandler).ConfigureAwait(false);//调用MessageHandler
                 }
             }
 
             //Checks WebSocket state.
-            await HandleMessage(webSocket);
+            await HandleMessage(webSocket).ConfigureAwait(false);
         }
 
         public void ProcessRequest(HttpContext context)

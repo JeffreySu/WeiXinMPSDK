@@ -21,25 +21,40 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：UploadImageResultJson.cs
-    文件功能描述：门店 上传图片返回结果
+    文件名：RequestMessageEvent_View.cs
+    文件功能描述：点击菜单跳转小程序的事件推送（view_miniprogram）
     
     
-    创建标识：Senparc - 20150513
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Entities;
+using Senparc.NeuChar.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
+namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 上传图片返回结果
+    /// 点击菜单跳转小程序的事件推送（view_miniprogram）
     /// </summary>
-    public class UploadImageResultJson : WxJsonResult
+    public class RequestMessageEvent_View_Miniprogram : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
-        /// 上传成功后图片的链接
+        /// 事件类型
         /// </summary>
-        public string url { get; set; }
+        public override Event Event
+        {
+            get { return Event.view_miniprogram; }
+        }
+
+        /// <summary>
+        /// 事件KEY值，跳转的小程序路径
+        /// </summary>
+        public string EventKey { get; set; }
+        /// <summary>
+        /// 菜单ID，如果是个性化菜单，则可以通过这个字段，知道是哪个规则的菜单被点击了
+        /// </summary>
+        public string MenuId { get; set; }
     }
 }

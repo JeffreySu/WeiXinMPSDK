@@ -73,7 +73,7 @@ namespace Senparc.WebSocket
 
             Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
             await _webSocket.SendAsync(new ArraySegment<byte>(bytes),
-                              WebSocketMessageType.Text, true, _cancellationToken);
+                              WebSocketMessageType.Text, true, _cancellationToken).ConfigureAwait(false);
         }
     }
 }

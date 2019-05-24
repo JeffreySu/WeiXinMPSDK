@@ -84,7 +84,7 @@ namespace Senparc.Weixin.Cache
         public virtual async Task<TBag> GetContainerBagAsync<TBag>(string key, bool isFullKey = false) where TBag : IBaseContainerBag
         {
             var baseCacheStrategy = BaseCacheStrategy();
-            return await baseCacheStrategy.GetAsync<TBag>(key, isFullKey);
+            return await baseCacheStrategy.GetAsync<TBag>(key, isFullKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Cache
         public virtual async Task UpdateContainerBagAsync(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
         {
             var baseCacheStrategy = BaseCacheStrategy();
-            await baseCacheStrategy.UpdateAsync(key, bag, expiry, isFullKey);
+            await baseCacheStrategy.UpdateAsync(key, bag, expiry, isFullKey).ConfigureAwait(false);
         }
 
 

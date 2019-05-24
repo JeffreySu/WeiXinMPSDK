@@ -197,7 +197,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            return await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST);
+            return await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessToken)
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
-            return await CommonJsonSend.SendAsync<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -227,8 +227,8 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/get_jsapi_ticket?access_token={0}",
                                     accessToken.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
-            }, AccessTokenContainer.BuildingKey(corpId, corpSecret));
+                return await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, AccessTokenContainer.BuildingKey(corpId, corpSecret)).ConfigureAwait(false);
         }
 
 
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 agentid = agentId
             };
 
-            return await CommonJsonSend.SendAsync<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
                 openid = openId
             };
 
-            return await CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

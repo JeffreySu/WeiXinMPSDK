@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> DefaultResponseMessageAsync(IRequestMessageBase requestMessage)
         {
-            return await Task.Run(() => DefaultResponseMessage(requestMessage));
+            return await Task.Run(() => DefaultResponseMessage(requestMessage)).ConfigureAwait(false);
         }
         //{
         //    例如可以这样实现：
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             var result = base.DefaultMessageHandlerAsyncEvent == Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
                    ? null
-                   : await Task.Run(() => OnTextOrEventRequest(requestMessage));
+                   : await Task.Run(() => OnTextOrEventRequest(requestMessage)).ConfigureAwait(false);
             return result;
         }
 
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnLocationRequestAsync(RequestMessageLocation requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnLocationRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnLocationRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnImageRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnImageRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnVoiceRequestAsync(RequestMessageVoice requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnVoiceRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnVoiceRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnVideoRequestAsync(RequestMessageVideo requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnVideoRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnVideoRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnLinkRequestAsync(RequestMessageLink requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnLinkRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnLinkRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnShortVideoRequestAsync(RequestMessageShortVideo requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnShortVideoRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnShortVideoRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnFileRequestAsync(RequestMessageFile requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnFileRequest(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnFileRequest(requestMessage)).ConfigureAwait(false);
         }
 
         #endregion
@@ -171,7 +171,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnNeuCharRequestAsync(RequestMessageNeuChar requestMessage)
         {
-            return await DefaultAsyncMethod(requestMessage, () => OnNeuCharRequest(requestMessage));
+            //return await DefaultAsyncMethod(requestMessage,async () => await OnNeuCharRequest(requestMessage).ConfigureAwait(false)).ConfigureAwait(false);
+           return  await OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
         }
 
         #endregion

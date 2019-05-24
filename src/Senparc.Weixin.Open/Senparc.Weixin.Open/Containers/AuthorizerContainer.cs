@@ -567,11 +567,11 @@ namespace Senparc.Weixin.Open.Containers
                      JsApiTicketResult = new JsApiTicketResult(),
                      JsApiTicketExpireTime = DateTimeOffset.MinValue,
                  };
-                 await UpdateAsync(authorizerAppId, bag, null);
+                 await UpdateAsync(authorizerAppId, bag, null).ConfigureAwait(false);
                  return bag;
                  //}
              };
-            await RegisterFuncCollection[authorizerAppId]();
+            await RegisterFuncCollection[authorizerAppId]().ConfigureAwait(false);
 
             //TODO：这里也可以考虑尝试进行授权（会影响速度）
         }
@@ -584,9 +584,9 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         private static async Task TryRegisterAsync(string componentAppId, string authorizerAppid)
         {
-            if (!await CheckRegisteredAsync(authorizerAppid))
+            if (!await CheckRegisteredAsync(authorizerAppid).ConfigureAwait(false))
             {
-                await RegisterAsync(componentAppId, authorizerAppid);
+                await RegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
             }
         }
 
@@ -603,19 +603,19 @@ namespace Senparc.Weixin.Open.Containers
         public static async Task<AuthorizationInfo> GetAuthorizationInfoAsync(string componentAppId, string authorizerAppid,
     bool getNewTicket = false)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
-            var authorizerBag = await TryGetItemAsync(authorizerAppid);
-            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetAuthorizationInfo", authorizerAppid))//同步锁
+            var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetAuthorizationInfo", authorizerAppid).ConfigureAwait(false))//同步锁
             {
                 //更新Authorization
                 if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= SystemTime.Now)
                 {
-                    var componentVerifyTicket = await ComponentContainer.TryGetComponentVerifyTicketAsync(componentAppId);
-                    var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
+                    var componentVerifyTicket = await ComponentContainer.TryGetComponentVerifyTicketAsync(componentAppId).ConfigureAwait(false);
+                    var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket).ConfigureAwait(false);
 
                     //获取新的AuthorizerAccessToken
-                    var refreshToken = await ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid);
+                    var refreshToken = await ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid).ConfigureAwait(false);
 
                     if (refreshToken == null)
                     {
@@ -623,13 +623,13 @@ namespace Senparc.Weixin.Open.Containers
                     }
 
                     var refreshResult = await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
-                        refreshToken);
+                        refreshToken).ConfigureAwait(false);
 
                     //更新数据
                     await TryUpdateAuthorizationInfoAsync(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
 
-                    authorizerBag = await TryGetItemAsync(authorizerAppid);//外部缓存需要重新获取新数据
+                    authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);//外部缓存需要重新获取新数据
                 }
             }
             return authorizerBag.AuthorizationInfo;
@@ -646,7 +646,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             await TryRegisterAsync(componentAppId, authorizerAppid);
 
-            var authorizationInfo = await GetAuthorizationInfoAsync(componentAppId, authorizerAppid, getNewTicket);
+            var authorizationInfo = await GetAuthorizationInfoAsync(componentAppId, authorizerAppid, getNewTicket).ConfigureAwait(false);
             return authorizationInfo.authorizer_access_token;
 
             //v2.3.4 改用以上方法，避免authorization_info.authorizer_access_token值为空
@@ -666,25 +666,25 @@ namespace Senparc.Weixin.Open.Containers
         ///// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
         public static async Task<GetAuthorizerInfoResult> GetAuthorizerInfoResultAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
-            var authorizerBag = await TryGetItemAsync(authorizerAppid);
-            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetAuthorizerInfoResult", authorizerAppid))//同步锁
+            var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetAuthorizerInfoResult", authorizerAppid).ConfigureAwait(false))//同步锁
             {
 
                 //更新AuthorizerInfokd
                 if (getNewTicket || authorizerBag.AuthorizerInfo.user_name == null)
                 {
-                    var componentVerifyTicket = await ComponentContainer.TryGetComponentVerifyTicketAsync(componentAppId);
-                    var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
+                    var componentVerifyTicket = await ComponentContainer.TryGetComponentVerifyTicketAsync(componentAppId).ConfigureAwait(false);
+                    var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket).ConfigureAwait(false);
 
                     //已过期，重新获取
-                    var getAuthorizerInfoResult = await ComponentApi.GetAuthorizerInfoAsync(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
+                    var getAuthorizerInfoResult = await ComponentApi.GetAuthorizerInfoAsync(componentAccessToken, componentAppId, authorizerAppid).ConfigureAwait(false);//TODO:如果是过期，可以通过刷新的方式重新获取
 
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
 
-                    await UpdateAsync(authorizerBag, null);//更新到缓存
+                    await UpdateAsync(authorizerBag, null).ConfigureAwait(false);//更新到缓存
 
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
@@ -705,11 +705,11 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="authorizationInfo"></param>
         public static async Task TryUpdateAuthorizationInfoAsync(string componentAppId, string authorizerAppid, AuthorizationInfo authorizationInfo)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
             if (authorizationInfo.expires_in > 0 && authorizationInfo.authorizer_access_token != null)
             {
-                var authorizerBag = await TryGetItemAsync(authorizerAppid);
+                var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
 
                 var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                          authorizationInfo.authorizer_access_token
@@ -719,7 +719,7 @@ namespace Senparc.Weixin.Open.Containers
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
-                await UpdateAsync(authorizerBag, null);//立即更新
+                await UpdateAsync(authorizerBag, null).ConfigureAwait(false);//立即更新
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -743,13 +743,13 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="expiresIn"></param>
         public static async Task TryUpdateAuthorizationInfoAsync(string componentAppId, string authorizerAppid, string authorizerAccessToken, string authorizerRefreshToken, int expiresIn)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
             if (expiresIn > 0 && authorizerAccessToken != null)
             {
                 using (FlushCache.CreateInstance())
                 {
-                    var authorizerBag = await TryGetItemAsync(authorizerAppid);
+                    var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
 
                     var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                               authorizerAccessToken
@@ -761,7 +761,7 @@ namespace Senparc.Weixin.Open.Containers
                     authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                     authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
 
-                    await UpdateAsync(authorizerBag, null);//立即更新
+                    await UpdateAsync(authorizerBag, null).ConfigureAwait(false);//立即更新
 
                     //通知变更
                     if (refreshTokenChanged)
@@ -785,7 +785,7 @@ namespace Senparc.Weixin.Open.Containers
                       string refreshToken)
         {
             var refreshResult = await ComponentApi.ApiAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
-                         refreshToken);
+                         refreshToken).ConfigureAwait(false);
             //更新到存储
             ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid, refreshResult);
             return refreshResult;
@@ -804,9 +804,9 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<string> TryGetJsApiTicketAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
-            return await GetJsApiTicketAsync(componentAppId, authorizerAppid, getNewTicket);
+            return await GetJsApiTicketAsync(componentAppId, authorizerAppid, getNewTicket).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -818,7 +818,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<string> GetJsApiTicketAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
-            var result = await GetJsApiTicketResultAsync(componentAppId, authorizerAppid, getNewTicket);
+            var result = await GetJsApiTicketResultAsync(componentAppId, authorizerAppid, getNewTicket).ConfigureAwait(false);
             return result.ticket;
         }
 
@@ -831,21 +831,21 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetJsApiTicketResultAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
-            await TryRegisterAsync(componentAppId, authorizerAppid);
+            await TryRegisterAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
-            var accessTicketBag = await TryGetItemAsync(authorizerAppid);
-            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetJsApiTicketResult", authorizerAppid))//同步锁
+            var accessTicketBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName + ".GetJsApiTicketResult", authorizerAppid).ConfigureAwait(false))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var authorizerAccessToken = await TryGetAuthorizerAccessTokenAsync(componentAppId, authorizerAppid);
+                    var authorizerAccessToken = await TryGetAuthorizerAccessTokenAsync(componentAppId, authorizerAppid).ConfigureAwait(false);
 
-                    accessTicketBag.JsApiTicketResult = await ComponentApi.GetJsApiTicketAsync(authorizerAccessToken);
+                    accessTicketBag.JsApiTicketResult = await ComponentApi.GetJsApiTicketAsync(authorizerAccessToken).ConfigureAwait(false);
 
                     accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
 
-                    await UpdateAsync(accessTicketBag, null);//更新到缓存
+                    await UpdateAsync(accessTicketBag, null).ConfigureAwait(false);//更新到缓存
                 }
             }
             return accessTicketBag.JsApiTicketResult;

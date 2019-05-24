@@ -198,7 +198,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
             if (accessTokenOrAppId == null)
             {
-                appId = await accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc();// AccessTokenContainer.GetFirstOrDefaultAppId();
+                appId = await accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc().ConfigureAwait(false);// AccessTokenContainer.GetFirstOrDefaultAppId();
                 if (appId == null)
                 {
                     throw new UnRegisterAppIdException(null,
@@ -232,7 +232,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, false);
                     accessToken = accessTokenResult.access_token;
                 }
-                result = await fun(accessToken);
+                result = await fun(accessToken).ConfigureAwait(false);
             }
             catch (ErrorJsonResultException ex)
             {
@@ -242,7 +242,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
                     //尝试重新验证（如果是低版本VS，此处不能使用await关键字，可以直接使用xx.Result输出。VS2013不支持：无法在 catch 字句体中等待）
-                    var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
+                    var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).ConfigureAwait(false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 
@@ -251,7 +251,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
                                 invalidCredentialValue,
-                                fun, appId, false);
+                                fun, appId, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }
                 else

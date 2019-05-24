@@ -21,41 +21,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：GetGrayReleasePlanResultJson.cs
-    文件功能描述：GetGrayReleasePlanResultJson
+    文件名：UploadImageResultJson.cs
+    文件功能描述：门店 上传图片返回结果
     
     
-    创建标识：Senparc - 20190511
-
+    创建标识：Senparc - 20150513
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
 {
-    [Serializable]
-    public class GetGrayReleasePlanResultJson : CodeResultJson
-    {
-        public GrayReleasePlan gray_release_plan { get; set; }
-    }
-
-    [Serializable]
-    public class GrayReleasePlan
+    /// <summary>
+    /// 上传图片返回结果
+    /// </summary>
+    public class PoiUploadImageResultJson : WxJsonResult
     {
         /// <summary>
-        /// 0:初始状态 1:执行中 2:暂停中 3:执行完毕 4:被删除
+        /// 上传成功后图片的链接
         /// </summary>
-        public int status { get; set; }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public long create_timestamp { get; set; }
-
-        public int gray_percentage { get; set; }
+        public string url { get; set; }
     }
 }

@@ -50,6 +50,7 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Tencent;
+using Senparc.NeuChar.Helpers;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers

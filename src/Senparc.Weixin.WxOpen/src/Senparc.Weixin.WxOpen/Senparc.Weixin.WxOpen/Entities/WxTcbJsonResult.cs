@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
-    public class WxTcbJsonResult : WxJsonResult
+    public class WxCloudFunctionJsonResult : WxJsonResult
     {
         /// <summary>
         /// 云函数返回的buffer

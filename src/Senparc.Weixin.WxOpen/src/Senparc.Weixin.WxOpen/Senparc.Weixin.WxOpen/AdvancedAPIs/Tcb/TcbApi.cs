@@ -27,12 +27,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.InvokeCloudFunction", true)]
-        public static WxTcbJsonResult InvokeCloudFunction(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
+        public static WxCloudFunctionJsonResult InvokeCloudFunction(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/tcb/invokecloudfunction?access_token={0}&env=" + env + "&name=" + name;
-                return CommonJsonSend.Send<WxTcbJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+                return CommonJsonSend.Send<WxCloudFunctionJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -49,12 +49,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.InvokeCloudFunctionAsync", true)]
-        public static async Task<WxTcbJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
+        public static async Task<WxCloudFunctionJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/tcb/invokecloudfunction?access_token={0}&env=" + env + "&name=" + name;
-                return await CommonJsonSend.SendAsync<WxTcbJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<WxCloudFunctionJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

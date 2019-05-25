@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.Entities
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 {
     public class WxCloudFunctionJsonResult : WxJsonResult
     {

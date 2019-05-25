@@ -191,7 +191,6 @@ namespace Senparc.Weixin.WxOpen
 
         #endregion
 
-
         #region 异步方法
 
         /// <summary>

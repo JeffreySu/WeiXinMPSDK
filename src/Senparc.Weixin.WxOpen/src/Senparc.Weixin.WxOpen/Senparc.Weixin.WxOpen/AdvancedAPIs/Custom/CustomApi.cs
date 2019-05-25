@@ -153,8 +153,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
         #endregion
 
-
-
         #region 异步方法
 
         /// <summary>

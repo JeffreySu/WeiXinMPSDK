@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180318
     修改描述：v14.10.6 完善“查看指定文章的评论数据”接口（CommentApi.List()）的返回结果数据
+    
+    修改标识：Senparc - 20190421
+    修改描述：v17.0.0 完善异步方法
 
 ----------------------------------------------------------------*/
 
@@ -306,7 +309,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -330,8 +332,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -355,7 +357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -405,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -432,7 +434,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -460,7 +462,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -487,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -515,7 +517,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -543,11 +545,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-               return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
            }, accessTokenOrAppId);
         }
 
         #endregion
-#endif
     }
 }

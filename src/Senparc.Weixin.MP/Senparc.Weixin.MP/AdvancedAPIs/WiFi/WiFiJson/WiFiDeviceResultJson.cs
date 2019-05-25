@@ -38,10 +38,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
     /// </summary>
     public class GetDeviceListResult : WxJsonResult
     {
-        public DeviceList_Data data { get; set; }
+        public GetDeviceList_Data data { get; set; }
     }
 
-    public class DeviceList_Data
+    public class GetDeviceList_Data
     {
         /// <summary>
         /// 总数
@@ -58,10 +58,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
         /// <summary>
         /// 当前页列表数组
         /// </summary>
-        public List<DeviceList_Data_Record> records { get; set; }
+        public List<GetDeviceList_Data_Record> records { get; set; }
     }
 
-    public class DeviceList_Data_Record
+    public class GetDeviceList_Data_Record
     {
         /// <summary>
         /// 门店ID

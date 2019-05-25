@@ -68,7 +68,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -88,11 +88,10 @@ namespace Senparc.Weixin.Open.WxaAPIs.Sns
                 Config.ApiMpHost + "/sns/component/jscode2session?appid={0}&js_code={1}&grant_type={2}&component_appid={3}&component_access_token={4}";
 
             var url = string.Format(urlFormat, appId, jsCode, grantType, componentAppId, componentAccessToken);
-            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET);
+            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             return result;
         }
 
         #endregion
-#endif
     }
 }

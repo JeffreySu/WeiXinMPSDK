@@ -64,7 +64,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET35 || NET40 || NET45
+#if NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else
@@ -285,6 +285,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }, accessTokenOrAppId);
 
         }
+
         #region 同步方法
 
         /// <summary>
@@ -309,7 +310,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -325,13 +326,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
                 
-                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

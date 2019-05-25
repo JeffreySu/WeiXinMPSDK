@@ -37,7 +37,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
     public class QrCodeApiTests : CommonApiTest
     {
 
-#if !NET35 && !NET40
         #region 异步方法
 
 
@@ -93,7 +92,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
         }
 
         #endregion
-#endif
 
     }
 }

@@ -284,7 +284,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.MP.Helpers
             var timestamp = GetTimestamp();
             //获取随机码
             string nonceStr = GetNoncestr();
-            string ticket = await JsApiTicketContainer.TryGetJsApiTicketAsync(appId, appSecret);
+            string ticket = await JsApiTicketContainer.TryGetJsApiTicketAsync(appId, appSecret).ConfigureAwait(false);
             //获取签名
             string signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, url);
             //返回信息包
@@ -308,7 +308,6 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         #endregion
-#endif
     }
 }
 

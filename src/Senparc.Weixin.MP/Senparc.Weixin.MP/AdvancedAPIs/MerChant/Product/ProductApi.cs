@@ -215,7 +215,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】增加商品
@@ -228,7 +227,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/create?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddProductResult>(accessToken, urlFormat, addProductData);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddProductResult>(accessToken, urlFormat, addProductData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -247,7 +246,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 product_id = productId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -263,7 +262,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/update?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reviseProduct);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reviseProduct).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -282,7 +281,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 product_id = productId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetProductResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetProductResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -301,7 +300,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 status = status
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByStatusResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByStatusResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -322,7 +321,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 status = status
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -341,7 +340,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 cate_id = cateId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSubResult>(accessToken, urlFormat, date);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSubResult>(accessToken, urlFormat, date).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -360,7 +359,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 cate_id = cateId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSkuResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSkuResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -379,9 +378,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 cate_id = cateId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPropertyResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPropertyResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>0.7.1.6</Version>
+    <Version>0.7.2</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
 
@@ -46,6 +46,7 @@
 
       v0.5.5 发布支持 .net core 2.1 的正式版
       v0.6.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v0.7.3 全局使用 .ConfigureAwait(false) 应对异步锁死问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -78,7 +78,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】增加库存
@@ -91,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, addStockData);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, addStockData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -105,9 +104,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

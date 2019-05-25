@@ -46,18 +46,18 @@ namespace Senparc.WebSocket
 
                 //Reads data.
                 WebSocketReceiveResult webSocketReceiveResult =
-                  await webSocket.ReceiveAsync(receivedDataBuffer, cancellationToken);
+                  await webSocket.ReceiveAsync(receivedDataBuffer, cancellationToken).ConfigureAwait(false);
 
                 //If input frame is cancelation frame, send close command.
                 if (webSocketReceiveResult.MessageType == WebSocketMessageType.Close)
                 {
                     if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
                     {
-                        await messageHandler.OnDisConnected(webSocketHandler);//调用MessageHandler
+                        await messageHandler.OnDisConnected(webSocketHandler).ConfigureAwait(false);//调用MessageHandler
                     }
 
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,
-                      String.Empty, cancellationToken);
+                      String.Empty, cancellationToken).ConfigureAwait(false);
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace Senparc.WebSocket
                                     Message = receiveString// + " | 系统错误：" + e.Message
                                 };
                             }
-                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString);//调用MessageHandler
+                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString).ConfigureAwait(false);//调用MessageHandler
                         }
                         catch (Exception ex)
                         {

@@ -66,7 +66,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.TenPay;
 
-#if !NET35 && !NET40 && !NET45
+#if !NET45
 using System.Net.Http;
 #endif
 
@@ -202,7 +202,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
             #region 发起post请求
@@ -432,7 +432,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             #region 发起post请求，载入到doc中
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
 
@@ -604,7 +604,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             #region 发起post请求，载入到doc中
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);

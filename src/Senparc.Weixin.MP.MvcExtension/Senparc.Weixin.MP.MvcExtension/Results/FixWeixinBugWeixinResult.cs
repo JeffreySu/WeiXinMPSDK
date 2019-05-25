@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.NeuChar.MessageHandlers;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             set { base.Content = value; }
         }
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
         public override void ExecuteResult(ControllerContext context)
         {
             var content = this.Content;
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
                 var bytes = Encoding.UTF8.GetBytes(content);
                 //context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
-                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
             });
 
             // return base.ExecuteResultAsync(context);

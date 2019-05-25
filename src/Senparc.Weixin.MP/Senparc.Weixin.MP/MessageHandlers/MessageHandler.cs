@@ -178,7 +178,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        private PostModel _postModel;
+        private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
 
         /// <summary>
         /// 微微嗨开发者信息
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
@@ -478,7 +478,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
                     break;
                 case RequestMsgType.Unknown:
                     ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);

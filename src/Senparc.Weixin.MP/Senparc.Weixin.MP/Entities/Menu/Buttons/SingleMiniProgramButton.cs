@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SingleMiniProgramButton.cs
     文件功能描述：小程序按钮
@@ -27,7 +27,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170327
 
+    修改标识：Senparc - 20181005
+    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
+
 ----------------------------------------------------------------*/
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
@@ -53,7 +57,7 @@ namespace Senparc.Weixin.MP.Entities.Menu
         public string pagepath { get; set; }
 
         public SingleMiniProgramButton()
-            : base(ButtonType.miniprogram.ToString())
+            : base(MenuButtonType.miniprogram.ToString())
         {
         }
     }

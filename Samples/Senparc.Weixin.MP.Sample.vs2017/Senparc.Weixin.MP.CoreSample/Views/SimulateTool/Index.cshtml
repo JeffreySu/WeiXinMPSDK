@@ -1,17 +1,24 @@
-﻿@{
+﻿@*DPBMARK_FILE MP*@
+@{
     ViewBag.Title = "微信消息模拟测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var nonce = "JeffreySu";
-    var timestamp = DateTime.Now.Ticks.ToString();
-    var echostr = DateTime.Now.Ticks.ToString();
+    var timestamp = SystemTime.Now.Ticks.ToString();
+    var echostr = SystemTime.Now.Ticks.ToString();
     var token = ViewData["Token"] as string;
-
-    var host = this.Context.Request.Host.Value;
+    var portString = Context.Request.Host.Port.HasValue ? $":{Context.Request.Host.Port.Value}" : null;
 }
 @section HeaderContent
 {
     <style>
+
+        .wrapper h2 {
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
+        }
+
         .param {
             display: none;
         }
@@ -146,9 +153,9 @@
 
         function switchAsyncController() {
             if ($('#UseAsyncController:checked').length > 0) {
-                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", host)');
+                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString)');
             } else {
-                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", host)');
+                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Context.Request.Host.Host + portString)');
             }
         }
 
@@ -163,6 +170,8 @@
 }
 
 <div class="wrapper">
+    <h2>消息模拟器</h2>
+
     <div class="form-control">
         <ul>
             <li>
@@ -170,7 +179,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", host), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
@@ -215,7 +224,7 @@
                     <label class="control-label">Recognition：</label><input name="Recognition" class="control-input" /><br />
                 </div>
                 <div id="paramVideo" class="param">
-                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@SystemTime.Now.Ticks" step="1" /><br />
                     <label class="control-label">ThumbMediaId：</label><input name="ThumbMediaId" class="control-input" /><br />
                 </div>
                 @*<div id="paramLink" class="param"></div>*@
@@ -305,8 +314,8 @@
                 </div>
             </li>
             <li>
-                <label class="control-label">MagId:</label>
-                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
+                <label class="control-label">MsgId:</label>
+                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@SystemTime.Now.Ticks" />
             </li>
             <li>
                 <label class="checkbox checkbox_test">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>

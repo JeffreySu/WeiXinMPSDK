@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ApiHandlerWapperBase.cs
     文件功能描述：提供ApiHandlerWapper的公共基础方法
@@ -33,6 +33,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170730
     修改描述：v4.13.5 完善AppId未注册提示
+
+    修改标识：Senparc - 20181027
+    修改描述：v6.1.10 改进 TryCommonApiBase 方法
+
+    修改标识：Senparc - 20190429
+    修改描述：v6.4.0 重构异步 ApiHandlerWapper
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -123,8 +130,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             catch (ErrorJsonResultException ex)
             {
                 if (retryIfFaild
-                    && appId != null
-                    //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                    && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
+                                        //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                     && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
                     //尝试重新验证
@@ -136,7 +143,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredFunc,
                                 accessTokenContainer_GetAccessTokenResultFunc,
                                 invalidCredentialValue,
-                                fun, appId, false);
+                                fun, accessToken, false);
                 }
                 else
                 {
@@ -156,7 +163,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
 
@@ -165,8 +172,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="platformType">平台类型，PlatformType枚举</param>
-        /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
-        /// <param name="accessTokenContainer_CheckRegisteredFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
+        /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
+        /// <param name="accessTokenContainer_CheckRegisteredAsyncFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultAsyncFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResultAsync(appId)方法（异步方法）</param>
         /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
@@ -175,8 +182,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <returns></returns>
         public static async Task<T> TryCommonApiBaseAsync<T>(
             PlatformType platformType,
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
+            Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+            Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc,
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc,
             int invalidCredentialValue,
             Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult
@@ -191,7 +198,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
             if (accessTokenOrAppId == null)
             {
-                appId = accessTokenContainer_GetFirstOrDefaultAppIdFunc();// AccessTokenContainer.GetFirstOrDefaultAppId();
+                appId = await accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc().ConfigureAwait(false);// AccessTokenContainer.GetFirstOrDefaultAppId();
                 if (appId == null)
                 {
                     throw new UnRegisterAppIdException(null,
@@ -201,7 +208,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
             {
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
-                if (!accessTokenContainer_CheckRegisteredFunc(accessTokenOrAppId))
+                if (!await accessTokenContainer_CheckRegisteredAsyncFunc(accessTokenOrAppId))
                 {
                     throw new UnRegisterAppIdException(accessTokenOrAppId,
                         string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！",
@@ -216,7 +223,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             }
 
 
-            Task<T> result = null;
+            T result = null;
 
             try
             {
@@ -225,25 +232,26 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, false);
                     accessToken = accessTokenResult.access_token;
                 }
-                result = fun(accessToken);
+                result = await fun(accessToken).ConfigureAwait(false);
             }
             catch (ErrorJsonResultException ex)
             {
                 if (retryIfFaild
-                    && appId != null
-                    && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                    && appId != null    //如果 appId 为 null，已经没有重试的意义（直接提供的 AccessToken 是错误的）
+                                        //&& ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                    && (int)ex.JsonResult.errcode == invalidCredentialValue)
                 {
-                    //尝试重新验证（此处不能使用await关键字，VS2013不支持：无法在 catch 字句体中等待）
-                    var accessTokenResult = accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).Result;//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
+                    //尝试重新验证（如果是低版本VS，此处不能使用await关键字，可以直接使用xx.Result输出。VS2013不支持：无法在 catch 字句体中等待）
+                    var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).ConfigureAwait(false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 
-                    result = TryCommonApiBaseAsync(platformType,
-                                accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                                accessTokenContainer_CheckRegisteredFunc,
+                    result = await TryCommonApiBaseAsync(platformType,
+                                accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                                accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
                                 invalidCredentialValue,
-                                fun, appId, false);
+                                fun, appId, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }
                 else
@@ -251,13 +259,11 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     throw;
                 }
             }
-
-            return await result;
+            return result;
         }
 
 
         #endregion
-#endif
 
     }
 }

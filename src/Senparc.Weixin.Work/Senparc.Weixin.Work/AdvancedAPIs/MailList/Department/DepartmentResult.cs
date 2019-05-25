@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：部门接口返回结果
@@ -14,7 +14,7 @@
     修改描述：添加order字段
 
     修改标识：Senparc - 20171017
-    修改描述：v1.2.0 部门id改为long类型
+    修改描述：v1.2.0 部门id改为long类型    
 
     修改标识：Senparc - 20171127
     修改描述：v1.2.3 GetDepartmentListResult.order改为long类型

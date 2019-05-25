@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：MemcachedServiceCollectionExtensions.cs
     文件功能描述：Memcached 依赖注入设置。
@@ -27,16 +27,17 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class MemcachedServiceCollectionExtensions
     {
         /// <summary>
-        /// .NET Core下设置依赖注入
+        /// .NET Core下设置依赖注入（暂时请用CO2NET对应 AddSenparcMemcached 方法）
         /// </summary>
         /// <param name="services"></param>
         /// <param name="setupAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcMemcached(this IServiceCollection services, Action<MemcachedClientOptions> setupAction)
+        public static IServiceCollection AddWeixinMemcached(this IServiceCollection services, Action<MemcachedClientOptions> setupAction)
         {
-            services.AddSingleton<MemcachedObjectCacheStrategy, MemcachedObjectCacheStrategy>();
-            services.AddSingleton<MemcachedContainerStrategy, MemcachedContainerStrategy>();
-            return services.AddEnyimMemcached(setupAction);
+            return services;
+            //services.AddSingleton<MemcachedObjectCacheStrategy, MemcachedObjectCacheStrategy>();
+            //services.AddSingleton<MemcachedContainerStrategy, MemcachedContainerStrategy>();
+            //return services.AddEnyimMemcached(setupAction);
         }
     }
 }

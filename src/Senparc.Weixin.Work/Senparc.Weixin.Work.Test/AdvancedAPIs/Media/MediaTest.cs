@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -51,12 +51,25 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public string UploadImageTest()
         {
-            string _media = "E:\\1.jpg";
+            string _media = "E:\\Senparc项目\\WeiXinMPSDK\\src\\Senparc.Weixin.Work\\Senparc.Weixin.Work.Test\\AdvancedAPIs\\Media\\test.jpg";
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
+
+            Console.WriteLine("mediaId:" + result.media_id);
             return result.media_id;
+        }
+
+        /// <summary>
+        /// 上传并下载两次
+        /// 相关问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/1196
+        /// </summary>
+        [TestMethod]
+        public void UploadAndGetImageTwiceTest()
+        {
+            GetImageTest();
+            GetImageTest();
         }
 
         [TestMethod]
@@ -71,7 +84,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件
-                var fileName = string.Format(@"E:\testpic_{0}.jpg", DateTime.Now.Ticks);
+                var fileName = string.Format(@"E:\testpic_{0}.jpg", SystemTime.Now.Ticks);
                 using (FileStream fs = new FileStream(fileName, FileMode.Create))
                 {
                     ms.Position = 0;

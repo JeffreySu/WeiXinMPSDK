@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：ModifyDomainApi.cs
     文件功能描述：修改域名接口
@@ -32,6 +32,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
         
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.WxaAPIs.ModifyDomain;
@@ -58,6 +60,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ModifyDomainApi.ModifyDomain", true)]
         public static ModifyDomainResultJson ModifyDomain(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,
@@ -94,7 +97,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -108,6 +111,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ModifyDomainApi.ModifyDomainAsync", true)]
         public static async Task<ModifyDomainResultJson> ModifyDomainAsync(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,
@@ -138,11 +142,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 };
             }
 
-            return await CommonJsonSend.SendAsync<ModifyDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ModifyDomainResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
 
         #endregion
-#endif
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：AppStoreManager.cs
     文件功能描述：AppStoreOAuth
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.AppStore
             var formData = new Dictionary<string, string>();
             formData["appKey"] = passportBag.AppKey;
             formData["secret"] = passportBag.AppSecret;
-            var result = Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
+            var result = CO2NET.HttpUtility.Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
             if (result.Result != AppResultKind.成功)
             {
                 throw new WeixinException("获取Passort失败！错误信息：" + result.Result, null);

@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Linq;
+﻿//DPBMARK_FILE Open
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
+using System;
+using System.IO;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -26,12 +20,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
-        private string component_Token = WebConfigurationManager.AppSettings["Component_Token"];
-        private string component_EncodingAESKey = WebConfigurationManager.AppSettings["Component_EncodingAESKey"];
+        private string component_AppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Config.SenparcWeixinSetting.Component_Secret;
+        private string component_Token = Config.SenparcWeixinSetting.Component_Token;
+        private string component_EncodingAESKey = Config.SenparcWeixinSetting.Component_EncodingAESKey;
 
-        /// <summary>
+        /// <summary>                      
         /// 发起授权页的体验URL
         /// </summary>
         /// <returns></returns>
@@ -40,10 +34,22 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //获取预授权码
             var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId, component_Secret, true);
 
-            var callbackUrl = "http://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
+            var callbackUrl = "https://sdk.weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
+
+
+        /// <summary>
+        /// 发起小程序快速注册授权
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FastRegisterAuth()
+        {
+            var url = AccountApi.FastRegisterAuth(component_AppId, Config.SenparcWeixinSetting.WeixinAppId, true, "https://sdk.weixin.senparc.com");
+            return Redirect(url);
+        }
+
 
         /// <summary>
         /// 微信服务器会不间断推送最新的Ticket（10分钟一次），需要在此方法中更新缓存
@@ -52,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult Notice(PostModel postModel)
         {
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -82,12 +88,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 //记录RequestMessage日志（可选）
                 //messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request.txt", DateTime.Now.Ticks)));
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
+                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", SystemTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
 
                 messageHandler.Execute();//执行
 
                 //记录ResponseMessage日志（可选）
-                using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId))))
+                using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", SystemTime.Now.Ticks, messageHandler.RequestMessage.AppId))))
                 {
                     tw.WriteLine(messageHandler.ResponseMessageText);
                     tw.Flush();
@@ -111,11 +117,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult Callback(Entities.Request.PostModel postModel)
         {
-            //此处的URL格式类型为：http://sdk.weixin.senparc.com/Open/Callback/$APPID$， 在RouteConfig中进行了配置，你也可以用自己的格式，只要和开放平台设置的一致。
+            //此处的URL格式类型为：https://sdk.weixin.senparc.com/Open/Callback/$APPID$， 在RouteConfig中进行了配置，你也可以用自己的格式，只要和开放平台设置的一致。
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            var logPath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Open/{0}/", SystemTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);
@@ -141,13 +147,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 }
 
                 messageHandler.RequestDocument.Save(Path.Combine(logPath,
-                    string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
+                    string.Format("{0}_Request_{1}.txt", SystemTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
 
                 messageHandler.Execute(); //执行
 
                 if (messageHandler.ResponseDocument != null)
                 {
-                    var ticks = DateTime.Now.Ticks;
+                    var ticks = SystemTime.Now.Ticks;
                     messageHandler.ResponseDocument.Save(Path.Combine(logPath,
                         string.Format("{0}_Response_{1}.txt", ticks,
                             messageHandler.RequestMessage.FromUserName)));
@@ -166,7 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 using (
                     TextWriter tw =
-                        new StreamWriter(Server.MapPath("~/App_Data/Open/Error_" + DateTime.Now.Ticks + ".txt")))
+                        new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Open/Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

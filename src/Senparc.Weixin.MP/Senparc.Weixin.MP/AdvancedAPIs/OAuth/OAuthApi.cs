@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
     /*----------------------------------------------------------------
 
-    Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+    Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
     except in compliance with the License. You may obtain a copy of the License at
@@ -39,6 +39,9 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
@@ -60,6 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="responseType">返回类型，请填写code（或保留默认）</param>
         /// <param name="addConnectRedirect">加上后可以解决40029-invalid code的问题（测试中）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.GetAuthorizeUrl", true)]
         public static string GetAuthorizeUrl(string appId, string redirectUrl, string state, OAuthScope scope, string responseType = "code", bool addConnectRedirect = true)
         {
             var url =
@@ -82,6 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
         /// <param name="grantType">填写为authorization_code（请保持默认参数）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.GetAccessToken", true)]
         public static OAuthAccessTokenResult GetAccessToken(string appId, string secret, string code, string grantType = "authorization_code")
         {
             var url =
@@ -98,6 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
         /// <param name="grantType">填写refresh_token</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.RefreshToken", true)]
         public static RefreshTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
@@ -114,6 +120,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.GetUserInfo", true)]
         public static OAuthUserInfo GetUserInfo(string oauthAccessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
@@ -126,6 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.Auth", true)]
         public static WxJsonResult Auth(string oauthAccessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", oauthAccessToken.AsUrlData(), openId.AsUrlData());
@@ -134,7 +142,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取AccessToken（OAuth专用）
@@ -144,13 +151,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.GetAccessTokenAsync", true)]
         public static async Task<OAuthAccessTokenResult> GetAccessTokenAsync(string appId, string secret, string code, string grantType = "authorization_code")
         {
             var url =
                 string.Format(Config.ApiMpHost + "/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
                                 appId.AsUrlData(), secret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -160,13 +168,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.RefreshTokenAsync", true)]
         public static async Task<OAuthAccessTokenResult> RefreshTokenAsync(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
                 string.Format(Config.ApiMpHost + "/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId.AsUrlData(), grantType.AsUrlData(), refreshToken.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -176,10 +185,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.GetUserInfoAsync", true)]
         public static async Task<OAuthUserInfo> GetUserInfoAsync(string oauthAccessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", oauthAccessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -188,12 +198,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="oauthAccessToken">调用接口凭证（OAuth专用）</param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "OAuthApi.AuthAsync", true)]
         public static async Task<WxJsonResult> AuthAsync(string oauthAccessToken, string openId)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", oauthAccessToken.AsUrlData(), openId.AsUrlData());
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

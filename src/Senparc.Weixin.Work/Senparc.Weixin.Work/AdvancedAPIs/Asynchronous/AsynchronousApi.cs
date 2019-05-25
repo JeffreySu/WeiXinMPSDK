@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -16,6 +16,9 @@
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -23,9 +26,12 @@
  */
 
 using System.Threading.Tasks;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -69,6 +75,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// post数据格式：
         /// {
         ///    "media_id":"xxxxxx",
+        ///    "to_invite": true,
         ///    "callback":
         ///    {
         ///        "url": "xxx",
@@ -77,6 +84,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchSyncUser", true)]
         public static AsynchronousJobId BatchSyncUser(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -86,10 +94,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     media_id = mediaId,
+                    to_invite = true,
                     callback = callBack
                 };
 
-                return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return Weixin.CommonAPIs.CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -111,6 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// post数据格式：
         /// {
         ///    "media_id":"xxxxxx",
+        ///    "to_invite": true,
         ///    "callback":
         ///    {
         ///        "url": "xxx",
@@ -119,6 +129,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchReplaceUser", true)]
         public static AsynchronousJobId BatchReplaceUser(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -128,10 +139,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var data = new
                 {
                     media_id = mediaId,
+                    to_invite = true,
                     callback = callBack
                 };
 
-                return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return Weixin.CommonAPIs.CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -161,6 +173,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchReplaceParty", true)]
         public static AsynchronousJobId BatchReplaceParty(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -185,6 +198,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.GetReplaceUserResult", true)]
         public static AsynchronousReplaceUserResult GetReplaceUserResult(string accessTokenOrAppKey, string jobId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -192,7 +206,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return Get.GetJson<AsynchronousReplaceUserResult>(url);
+                return CommonJsonSend.Send<AsynchronousReplaceUserResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -204,6 +218,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.GetReplacePartyResult", true)]
         public static AsynchronousReplacePartyResult GetReplacePartyResult(string accessTokenOrAppKey, string jobId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -211,7 +226,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return Get.GetJson<AsynchronousReplacePartyResult>(url);
+                return CommonJsonSend.Send<AsynchronousReplacePartyResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -220,7 +235,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 通讯录更新
@@ -264,6 +279,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchSyncUserAsync", true)]
         public static async Task<AsynchronousJobId> BatchSyncUserAsync(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -276,8 +292,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -306,6 +322,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchReplaceUserAsync", true)]
         public static async Task<AsynchronousJobId> BatchReplaceUserAsync(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -318,8 +335,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -348,6 +365,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         ///    }
         /// }
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.BatchReplacePartyAsync", true)]
         public static async Task<AsynchronousJobId> BatchReplacePartyAsync(string accessTokenOrAppKey, string mediaId, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -360,8 +378,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -372,6 +390,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.GetReplaceUserResultAsync", true)]
         public static async Task<AsynchronousReplaceUserResult> GetReplaceUserResultAsync(string accessTokenOrAppKey, string jobId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -379,8 +398,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return await Get.GetJsonAsync<AsynchronousReplaceUserResult>(url);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousReplaceUserResult>(accessToken, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -391,6 +410,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="jobId"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "AsynchronousApi.GetReplacePartyResultAsync", true)]
         public static async Task<AsynchronousReplacePartyResult> GetReplacePartyResultAsync(string accessTokenOrAppKey, string jobId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -398,14 +418,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return await Get.GetJsonAsync<AsynchronousReplacePartyResult>(url);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousReplacePartyResult>(accessToken, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
 
         #endregion
         #endregion
-#endif
     }
 }

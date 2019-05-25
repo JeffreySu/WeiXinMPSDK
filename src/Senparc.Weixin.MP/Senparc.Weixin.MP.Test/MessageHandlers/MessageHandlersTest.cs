@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -24,12 +24,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.Helpers.Extensions;
+using Senparc.NeuChar.Context;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
+using Senparc.WeixinTests;
+using Senparc.NeuChar.Entities.Request;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -51,14 +55,30 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
-            if (requestMessage.Content == "代理")
-            {
-            }
-            else
-            {
-                responseMessage.Content = "文字信息";
-            }
-            return responseMessage;
+
+            var requestHandler = requestMessage.StartHandler();
+            requestHandler.Keyword("代理", () =>
+                {
+                    responseMessage.Content = "收到关键字：代理";
+                    return responseMessage;
+                })
+                .SelectMenuKeyword("101", () =>
+                {
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
+                    return responseMessage;
+                })
+                .SelectMenuKeyword("102", () =>
+                {
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
+                    return responseMessage;
+                })
+                .Default(() =>
+                {
+                    responseMessage.Content = "文字信息";
+                    return responseMessage;
+                });
+
+            return requestHandler.ResponseMessage;
         }
 
         public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
@@ -188,10 +208,44 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             responseMessage.Content = "欢迎关注";
             return responseMessage;
         }
+
+
+        #region 卡券回调测试
+
+        public override IResponseMessageBase OnEvent_GiftCard_Pay_DoneRequest(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_Pay_DoneRequest";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_GiftCard_Send_To_FriendRequest(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_Send_To_FriendRequest";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_GiftCard_User_AcceptRequest(RequestMessageEvent_GiftCard_User_Accept requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里是 OnEvent_GiftCard_User_AcceptRequest";
+            return responseMessage;
+        }
+
+        #endregion
+
+
+        public override IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
+            return responseMessage;
+        }
     }
 
     [TestClass]
-    public partial class MessageHandlersTest
+    public partial class MessageHandlersTest : BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -355,7 +409,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageHandlers1 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             var messageHandlers2 = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers1.Execute();
-            Assert.AreEqual(messageHandlers1.WeixinContext.GetHashCode(), messageHandlers2.WeixinContext.GetHashCode());
+            Assert.AreEqual(messageHandlers1.GlobalMessageContext.GetHashCode(), messageHandlers2.GlobalMessageContext.GetHashCode());
         }
 
         [TestMethod]
@@ -363,14 +417,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            var messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.IsTrue(messageContext.RequestMessages.Count > 0);
             Assert.IsNotNull(messageHandlers.CurrentMessageContext);
             Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", messageHandlers.CurrentMessageContext.UserName);
 
-            messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
+            messageHandlers.GlobalMessageContext.ExpireMinutes = 0;//马上过期
             messageHandlers.Execute();
-            messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            messageContext = messageHandlers.GlobalMessageContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.AreEqual(0, messageContext.RequestMessages.Count);
         }
 
@@ -412,9 +466,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers.Execute();
-            Assert.IsTrue(messageHandlers.WeixinContext.MessageCollection.Count > 0);
-            messageHandlers.WeixinContext.Restore();
-            Assert.AreEqual(0, messageHandlers.WeixinContext.MessageCollection.Count);
+            Assert.IsTrue(messageHandlers.GlobalMessageContext.MessageCollection.Count > 0);
+            messageHandlers.GlobalMessageContext.Restore();
+            Assert.AreEqual(0, messageHandlers.GlobalMessageContext.MessageCollection.Count);
         }
 
         [TestMethod]
@@ -535,7 +589,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var requestMessage = new RequestMessageText()
             {
                 Content = "Hi",
-                CreateTime = DateTime.Now,
+                CreateTime = SystemTime.Now,
                 FromUserName = "FromeUserName",
                 ToUserName = "ToUserName",
                 MsgId = 123,
@@ -586,7 +640,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
-         
+
             messageHandler.Execute();
 
             Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageFile));
@@ -596,9 +650,107 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
-               
+
         }
 
         #endregion
+
+        #region NeuChar 测试
+        [TestMethod]
+
+
+        public void NeuCharDefineTest()
+        {
+            string xmlText = @"<xml>
+  <ToUserName>Senparc</ToUserName>
+  <FromUserName>NeuChar</FromUserName>
+  <CreateTime>1537966819</CreateTime>
+  <MsgType>NeuChar</MsgType>
+  <MsgId>636735924194707412</MsgId>
+  <NeuCharMessageType>SaveConfig</NeuCharMessageType>
+  <ConfigRoot><![CDATA[{
+  ""version"": ""0.0.1"",
+  ""name"": ""NeuChar"",
+  ""guid"": ""9F88AF01CC084F658DDD31F022B18053"",
+  ""key"": """",
+  ""Configs"": {
+                ""Version"": ""0.0.1"",
+    ""MaterialData"": [
+      {
+        ""Name"": ""2d71a392-6055-425d-9433-cf3d88d3e0d6"",
+        ""Id"": ""2d71a392-6055-425d-9433-cf3d88d3e0d6"",
+        ""Note"": null,
+        ""Version"": ""20180926"",
+        ""Type"": 1,
+        ""Content"": ""Test""
+      }
+    ],
+    ""Config"": {
+      ""MessagePair"": [
+        {
+          ""Name"": ""规则一"",
+          ""Id"": null,
+          ""Note"": null,
+          ""Version"": ""20180926"",
+          ""Request"": {
+            ""Type"": 0,
+            ""Keywords"": [
+              ""1""
+            ]
+},
+          ""Responses"": [
+            {
+              ""Type"": 1,
+              ""MaterialId"": ""2d71a392-6055-425d-9433-cf3d88d3e0d6""
+            }
+          ]
+        }
+      ]
+    },
+    ""Name"": ""MessageHandlerNode"",
+    ""ChildrenNodes"": []
+  }
+}]]></ConfigRoot>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNull(messageHandlers.ResponseMessage);
+            Assert.IsNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
+            Console.Write(messageHandlers.TextResponseMessage);
+        }
+
+
+        [TestMethod]
+        public void NeuCharReplyTest()
+        {
+            string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>1357986928</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[neuchar]]></Content>
+    <MsgId>5832509444155992350</MsgId>
+</xml>
+";
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
+            Console.Write(messageHandlers.ResponseDocument.ToString());
+        }
+
+        #endregion
+
+
     }
 }

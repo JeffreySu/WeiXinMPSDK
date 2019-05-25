@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
     
     
     创建标识：Senparc - 20150319
+
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -73,11 +77,11 @@ namespace Senparc.Weixin.MP.AppStore
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime ExpireTime
+        public DateTimeOffset ExpireTime
         {
             get
             {
-                return new DateTime(ExpireTimeTicks);//如果高频次读取可以使用局部变量保存
+                return new DateTimeOffset(ExpireTimeTicks,TimeSpan.Zero);//如果高频次读取可以使用局部变量保存
             }
         }
     }

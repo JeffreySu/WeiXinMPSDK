@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -29,6 +29,18 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
+using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache;
+using Moq;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.CO2NET;
+using Senparc.Weixin.Entities;
+using Senparc.WeixinTests;
+
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+using Microsoft.AspNetCore.Hosting;
+#endif
+
 
 namespace Senparc.Weixin.Work.Test.CommonApis
 {
@@ -36,7 +48,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
     /// CommonApiTest 的摘要说明
     /// </summary>
     [TestClass]
-    public partial class CommonApiTest
+    public partial class CommonApiTest: BaseTest
     {
         private dynamic _appConfig;
         protected dynamic AppConfig
@@ -45,9 +57,21 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../Config/test.config"))
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+                    var filePath = "../../../Config/test.config";
+#else
+                    var filePath = "../../Config/test.config";
+#endif
+                    if (File.Exists(filePath))
                     {
-                        var doc = XDocument.Load("../../Config/test.config");
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+                        var stream = new FileStream(filePath, FileMode.Open);
+                        var doc = XDocument.Load(stream);
+                        stream.Dispose();
+#else
+                        var doc = XDocument.Load(filePath);
+#endif
+
                         _appConfig = new
                         {
                             CorpId = doc.Root.Element("CorpId").Value,
@@ -93,6 +117,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             //全局只需注册一次
             AccessTokenContainer.Register(_corpId, _corpSecret);
         }
+
 
         [TestMethod]
         public void GetTokenTest()

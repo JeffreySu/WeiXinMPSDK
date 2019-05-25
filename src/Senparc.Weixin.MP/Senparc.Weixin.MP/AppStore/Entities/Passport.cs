@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：Passport.cs
     文件功能描述：P2P通行证
     
     
     创建标识：Senparc - 20150319
+
+    修改标识：Senparc - 20170522
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,7 +49,7 @@ namespace Senparc.Weixin.MP.AppStore
         /// </summary>
         public string ApiUrl { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         /// <summary>
         /// 供微微嗨服务器记录唯一开发人员ID

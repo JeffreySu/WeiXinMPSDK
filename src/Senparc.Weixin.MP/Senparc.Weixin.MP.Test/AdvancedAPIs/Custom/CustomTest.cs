@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
@@ -101,15 +102,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             {
                 Title = "测试标题",
                 Description = "测试描述",
-                Url = "http://sdk.weixin.senparc.com",
-                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                Url = "https://sdk.weixin.senparc.com",
+                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
             articles.Add(new Article()
             {
                 Title = "测试更多标题",
                 Description = "测试更多描述",
-                Url = "http://sdk.weixin.senparc.com",
-                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                Url = "https://sdk.weixin.senparc.com",
+                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
             });
 
             var result = CustomApi.SendNews(accessToken, openId, articles);

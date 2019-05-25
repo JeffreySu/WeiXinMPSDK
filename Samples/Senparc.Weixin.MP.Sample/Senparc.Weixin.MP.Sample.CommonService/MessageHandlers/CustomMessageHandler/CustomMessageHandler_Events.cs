@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -8,28 +8,24 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers.Extensions;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
-
-#if NET45
-using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
+//#if NET45
+//using System.Web;
+//#endif
 
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -43,11 +39,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
 #if NET45
-             var fileVersionInfo = FileVersionInfo.GetVersionInfo(Server.GetMapPath("~/bin/Senparc.Weixin.MP.dll"));
+            var filePath = ServerUtility.ContentRootMapPath("~/bin/Senparc.Weixin.MP.dll");//发布路径
 #else
-            var filePath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
+            //var filePath = ServerUtility.ContentRootMapPath("~/bin/Release/netcoreapp2.2/Senparc.Weixin.MP.dll");//本地测试路径
+            var filePath = ServerUtility.ContentRootMapPath("~/Senparc.Weixin.MP.dll");//发布路径
 #endif
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 
             string version = fileVersionInfo == null
                 ? "-"
@@ -61,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 还可以点击菜单体验微信支付。
 
 SDK官方地址：https://weixin.senparc.com
-SDK Demo：http://sdk.weixin.senparc.com
+SDK Demo：https://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 QQ群：289181996
@@ -69,9 +66,9 @@ QQ群：289181996
 ===============
 更多：
 
-1、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+1、JSSDK测试：https://sdk.weixin.senparc.com/WeixinJSSDK
 
-2、开放平台测试（建议PC上打开）：http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth
+2、开放平台测试（建议PC上打开）：https://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth
 
 3、回复关键字：
 
@@ -111,7 +108,7 @@ QQ群：289181996
 
 感谢您对盛派网络的支持！
 
-© {2} Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版", DateTime.Now.Year);
+© {2} Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版", SystemTime.Now.Year);
         }
 
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
@@ -135,7 +132,7 @@ QQ群：289181996
         /// <summary>
         /// 点击事件
         /// </summary>
-        /// <param name="requestMessage"></param>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
@@ -146,7 +143,7 @@ QQ群：289181996
             {
                 case "OneClick":
                     {
-                        //这个过程实际已经在OnTextOrEventRequest中完成，这里不会执行到。
+                        //这个过程实际已经在OnTextOrEventRequest中命中“OneClick”关键字，并完成回复，这里不会执行到。
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
@@ -167,19 +164,19 @@ QQ群：289181996
                         {
                             Title = "您点击了子菜单图文按钮",
                             Description = "您点击了子菜单图文按钮，这是一条图文信息。这个区域是Description内容\r\n可以使用\\r\\n进行换行。",
-                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg",
-                            Url = "http://sdk.weixin.senparc.com"
+                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg",
+                            Url = "https://sdk.weixin.senparc.com"
                         });
 
                         //随机添加一条图文，或只输出一条图文信息
-                        if (DateTime.Now.Second % 2 == 0)
+                        if (SystemTime.Now.Second % 2 == 0)
                         {
                             strongResponseMessage.Articles.Add(new Article()
                             {
                                 Title = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
                                 Description = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
-                                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg",
-                                Url = "http://sdk.weixin.senparc.com"
+                                PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg",
+                                Url = "https://sdk.weixin.senparc.com"
                             });
                         }
                     }
@@ -187,9 +184,15 @@ QQ群：289181996
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
-                                                                     Server.GetMapPath("~/Images/Logo.thumb.jpg"));
+
+#if NET45
+                        var filePath = "~/Images/Logo.thumb.jpg";
+#else   
+                        var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
+#endif
+
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
+                                                                    ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
                         //设置音乐信息
@@ -205,23 +208,45 @@ QQ群：289181996
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
-                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+#if NET45
+                        var filePath = "~/Images/Logo.jpg";
+#else
+                        var filePath = "~/wwwroot/Images/Logo.jpg";
+#endif
+
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
+                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
+                case "SendMenu"://菜单消息
+                    {
+                        //注意：
+                        //1、此接口可以在任意地方调用（包括后台线程），此处演示为通过
+                        //2、一下"s:"前缀只是 Senparc.Weixin 的内部约定，可以使用 OnTextRequest事件中的 requestHandler.SelectMenuKeyword() 方法自动匹配到后缀（如101）
+
+                        var menuContentList = new List<SendMenuContent>(){
+                            new SendMenuContent("101","满意"),
+                            new SendMenuContent("102","一般"),
+                            new SendMenuContent("103","不满意")
+                        };
+                        //使用异步接口
+                        CustomApi.SendMenuAsync(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
+
+                        reponseMessage = new ResponseMessageNoResponse();//不返回任何消息
+                    }
+                    break;
                 case "SubClickRoot_Agent"://代理消息
                     {
                         //获取返回的XML
-                        DateTime dt1 = DateTime.Now;
+                        var dt1 = SystemTime.Now;
                         reponseMessage = MessageAgent.RequestResponseMessage(this, agentUrl, agentToken, RequestDocument.ToString());
                         //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
-                        DateTime dt2 = DateTime.Now;
+                        var dt2 = SystemTime.Now;
 
                         if (reponseMessage is ResponseMessageNews)
                         {
@@ -245,16 +270,16 @@ QQ群：289181996
                         {
                             Title = "OAuth2.0测试",
                             Description = "选择下面两种不同的方式进行测试，区别在于授权成功后，最后停留的页面。",
-                            //Url = "http://sdk.weixin.senparc.com/oauth2",
-                            //PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                            //Url = "https://sdk.weixin.senparc.com/oauth2",
+                            //PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "OAuth2.0测试（不带returnUrl），测试环境可使用",
                             Description = "OAuth2.0测试（不带returnUrl）",
-                            Url = "http://sdk.weixin.senparc.com/oauth2",
-                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                            Url = "https://sdk.weixin.senparc.com/oauth2",
+                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
                         var returnUrl = "/OAuth2/TestReturnUrl";
@@ -262,8 +287,8 @@ QQ群：289181996
                         {
                             Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
                             Description = "OAuth2.0测试（带returnUrl）",
-                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
-                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                            Url = "https://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
+                            PicUrl = "https://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
                         reponseMessage = strongResponseMessage;
@@ -310,7 +335,7 @@ QQ群：289181996
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         try
                         {
-                            var result = AdvancedAPIs.MediaApi.UploadForeverMedia(appId, Server.GetMapPath("~/Images/logo.jpg"));
+                            var result = AdvancedAPIs.MediaApi.UploadForeverMedia(appId, ServerUtility.ContentRootMapPath("~/Images/logo.jpg"));
                             strongResponseMessage.Content = result.media_id;
                         }
                         catch (Exception e)
@@ -440,13 +465,13 @@ QQ群：289181996
                 {
                     if (codeRecord.AllowDownload)
                     {
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
                     }
                     else
                     {
                         //确认可以下载
                         codeRecord.AllowDownload = true;
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, GetDownloadInfo(codeRecord)));
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, OpenId, GetDownloadInfo(codeRecord)));
                     }
                 }
             }
@@ -572,7 +597,7 @@ QQ群：289181996
 状态：{0}
 MsgId：{1}
 （这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
-                CustomApi.SendText(appId, WeixinOpenId, msg);//发送客服消息
+                CustomApi.SendText(appId, OpenId, msg);//发送客服消息
             }
             catch (Exception e)
             {

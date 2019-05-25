@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Test.CommonApis;
 

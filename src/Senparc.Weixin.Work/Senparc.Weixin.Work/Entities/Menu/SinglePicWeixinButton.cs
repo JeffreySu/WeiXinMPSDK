@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SinglePicWeixinButton.cs
     文件功能描述：调起微信相册按钮
@@ -9,7 +9,11 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20181005
+    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
 ----------------------------------------------------------------*/
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Work.Entities.Menu
 {
@@ -26,7 +30,7 @@ namespace Senparc.Weixin.Work.Entities.Menu
         public string key { get; set; }
 
         public SinglePicWeixinButton()
-            : base(ButtonType.pic_weixin.ToString())
+            : base(MenuButtonType.pic_weixin.ToString())
         {
         }
     }

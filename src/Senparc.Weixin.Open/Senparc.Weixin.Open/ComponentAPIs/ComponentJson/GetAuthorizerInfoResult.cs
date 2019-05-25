@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：GetAuthorizerInfoResult.cs
     文件功能描述：获取授权方的账户信息返回结果
@@ -15,6 +15,13 @@
 
     修改标识：Senparc - 20180101
     修改描述：v2.8.4 GetAuthorizerInfoResult 添加 principal_name 属性（公众号的主体名称）
+
+    修改标识：Senparc - 20180101
+    修改描述：v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
+
+    修改标识：Senparc - 20181223
+    修改描述：v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,6 +49,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     [Serializable]
     public class AuthorizerInfo
     {
+        /* 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1453779503&token=577c9c8ce651b313d1b4926cdfcb48d6e6935a9e&lang=zh_CN */
+
         /// <summary>
         /// 授权方昵称
         /// </summary>
@@ -67,16 +76,26 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         public string principal_name { get; set; }
         /// <summary>
+        /// 用以了解以下功能的开通状况（0代表未开通，1代表已开通）： open_store:是否开通微信门店功能 open_scan:是否开通微信扫商品功能 open_pay:是否开通微信支付功能 open_card:是否开通微信卡券功能 open_shake:是否开通微信摇一摇功能
+        /// </summary>
+        public BusinessInfo business_info { get; set; }
+        /// <summary>
+        /// 二维码图片的URL，开发者最好自行也进行保存
+        /// </summary>
+        public string qrcode_url { get; set; }
+        /// <summary>
+        /// 帐号介绍
+        /// </summary>
+        public string signature { get; set; }
+        /// <summary>
         /// 授权方公众号所设置的微信号，可能为空
         /// </summary>
         public string alias { get; set; }
         /// <summary>
         /// 二维码图片的URL，开发者最好自行也进行保存
         /// </summary>
-        public string qrcode_url { get; set; }
 
-        public BusinessInfo business_info { get; set; }
-
+        public MiniProgramInfo MiniProgramInfo { get; set; }
 
     }
 
@@ -104,6 +123,33 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// 是否开通微信扫商品功能
         /// </summary>
         public int open_scan { get; set; }
+    }
+
+    [Serializable]
+    public class MiniProgramInfo
+    {
+        /// <summary>
+        /// 小程序已设置的各个服务器域名
+        /// </summary>
+        public MiniProgramInfo_Network network { get; set; }
+        public List<MiniProgramInfo_Categories> categories { get; set; }
+        public int visit_status { get; set; }
+    }
+
+    [Serializable]
+    public class MiniProgramInfo_Network
+    {
+        public string[] RequestDomain { get; set; }
+        public string[] WsRequestDomain { get; set; }
+        public string[] UploadDomain { get; set; }
+        public string[] DownloadDomain { get; set; }
+    }
+
+    [Serializable]
+    public class MiniProgramInfo_Categories
+    {
+        public string first { get; set; }
+        public string second { get; set; }
     }
 
     //[Obsolete("此类已过期，请使用AuthorizationInfo")]
@@ -157,29 +203,29 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
 #region 实际返回json，文档中的json结构是错误的
 //{"authorizer_info":
-    //{"nick_name":"微微嗨测试二",
-    //"head_img":"http:\/\/wx.qlogo.cn\/mmopen\/BUORmFJiapJ3LBJ6HnD0wnKMsVaP1W9jEOEZRzBSn8ZXs9aicxBxibaIdibxItbtqgj0sU4QfIRCAt8nxReDHRKjbVbUGPNq7w1B\/0",
-    //"service_type_info":{"id":2},
-    //"verify_type_info":{"id":-1},
-    //"user_name":"gh_df67ac2cc491",
-    //"alias":"WeiWeiHiTest2",
-    //"qrcode_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/FVYUzJtc8bscHJYzg6Re85MP3VyCmibYe9Nes2npCiacqDbygnmSoODRktkV6BId92tvsapE83EELHwu06uNrIAA\/0",
-    //"business_info":{"open_pay":0,"open_shake":0,"open_scan":0,"open_card":0,"open_store":0}
+//{"nick_name":"微微嗨测试二",
+//"head_img":"http:\/\/wx.qlogo.cn\/mmopen\/BUORmFJiapJ3LBJ6HnD0wnKMsVaP1W9jEOEZRzBSn8ZXs9aicxBxibaIdibxItbtqgj0sU4QfIRCAt8nxReDHRKjbVbUGPNq7w1B\/0",
+//"service_type_info":{"id":2},
+//"verify_type_info":{"id":-1},
+//"user_name":"gh_df67ac2cc491",
+//"alias":"WeiWeiHiTest2",
+//"qrcode_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/FVYUzJtc8bscHJYzg6Re85MP3VyCmibYe9Nes2npCiacqDbygnmSoODRktkV6BId92tvsapE83EELHwu06uNrIAA\/0",
+//"business_info":{"open_pay":0,"open_shake":0,"open_scan":0,"open_card":0,"open_store":0}
 //},
 //"authorization_info":
-    //{"authorizer_appid":"wx7cfd56c9f047bf51",
-        //"func_info":[{"funcscope_category":{"id":1}},
-        //{"funcscope_category":{"id":2}},
-        //{"funcscope_category":{"id":3}},
-        //{"funcscope_category":{"id":4}},
-        //{"funcscope_category":{"id":5}},
-        //{"funcscope_category":{"id":6}},
-        //{"funcscope_category":{"id":7}},
-        //{"funcscope_category":{"id":8}},
-        //{"funcscope_category":{"id":11}},
-        //{"funcscope_category":{"id":12}},
-        //{"funcscope_category":{"id":13}},
-        //{"funcscope_category":{"id":10}}]
-    //}
+//{"authorizer_appid":"wx7cfd56c9f047bf51",
+//"func_info":[{"funcscope_category":{"id":1}},
+//{"funcscope_category":{"id":2}},
+//{"funcscope_category":{"id":3}},
+//{"funcscope_category":{"id":4}},
+//{"funcscope_category":{"id":5}},
+//{"funcscope_category":{"id":6}},
+//{"funcscope_category":{"id":7}},
+//{"funcscope_category":{"id":8}},
+//{"funcscope_category":{"id":11}},
+//{"funcscope_category":{"id":12}},
+//{"funcscope_category":{"id":13}},
+//{"funcscope_category":{"id":10}}]
+//}
 //}
 #endregion

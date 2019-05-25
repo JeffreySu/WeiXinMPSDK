@@ -7,10 +7,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
     public partial class MessageHandlersTest
     {
-        #region 微信认证事件推送
 
         /// <summary>
-        /// 微信认证事件测试
+        /// 事件测试
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="xml"></param>
@@ -26,11 +25,17 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             var requestMessage = messageHandlers.RequestMessage as T;
 
+            Console.WriteLine(messageHandlers.RequestMessage.GetType());
+
             Assert.IsNotNull(requestMessage);
             Assert.AreEqual(eventType, requestMessage.Event);
 
             return messageHandlers;
         }
+
+
+        #region 微信认证事件推送
+
 
 
         [TestMethod]
@@ -43,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 <Event><![CDATA[qualification_verify_success]]></Event>
 <ExpiredTime>1442401156</ExpiredTime>
 </xml> ";
-            var messageHandler = VerifyEventTest<RequestMessageEvent_QualificationVerifySuccess>(xml,Event.qualification_verify_success);
+            var messageHandler = VerifyEventTest<RequestMessageEvent_QualificationVerifySuccess>(xml, Event.qualification_verify_success);
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_QualificationVerifySuccess;
             Assert.AreEqual("2015-09-16 18:59:16", requestMessage.ExpiredTime.ToString("yyyy-MM-dd HH:mm:ss"));
             Assert.AreEqual("success", messageHandler.TextResponseMessage);
@@ -133,6 +138,103 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_VerifyExpired;
             Assert.AreEqual("2015-09-16 18:59:16", requestMessage.ExpiredTime.ToString("yyyy-MM-dd HH:mm:ss"));
             Assert.AreEqual("success", messageHandler.TextResponseMessage);
+        }
+
+        #endregion
+
+        #region 微信
+
+
+        [TestMethod]
+        public void ViewMiniProgramTest()
+        {
+            var xml = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[view_miniprogram]]></Event>
+<EventKey><![CDATA[pages/index/index]]></EventKey>
+<MenuId>MENUID</MenuId>
+</xml>
+";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_View_Miniprogram>(xml, Event.view_miniprogram);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_View_Miniprogram;
+            Assert.IsNotNull(requestMessage);
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("小程序被访问：MENUID - pages/index/index", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
+
+
+        #endregion
+
+        #region 卡券回调
+
+
+        [TestMethod]
+        public void GiftCard_Pay_DoneTest()
+        {
+            var xml = @"<xml>
+<ToUserName><![CDATA[gh_3fcea188bf78]]></ToUserName>
+<FromUserName><![CDATA[obLatjgoYejavUtHsWwrX-2GtFJE]]></FromUserName>
+<CreateTime>1472631550</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[giftcard_pay_done]]></Event>
+<PageId><![CDATA[OQK0R3MaFnCm74Phw5hwFJlz5sn+jy1zzM2amDidDbU=]]></PageId>
+<OrderId><![CDATA[Z2y2rY74ksZX1ceuGA]]></OrderId>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_GiftCard_Pay_Done>(xml, Event.giftcard_pay_done);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_GiftCard_Pay_Done;
+
+            Assert.IsInstanceOfType(requestMessage, typeof(RequestMessageEvent_GiftCard_Pay_Done));
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+
+            Assert.AreEqual("这里是 OnEvent_GiftCard_Pay_DoneRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
+
+        [TestMethod]
+        public void GiftCard_Send_To_FriendTest()
+        {
+            var xml = @"<xml>
+<ToUserName><![CDATA[gh_3fcea188bf78]]></ToUserName>
+<FromUserName><![CDATA[obLatjgoYejavUtHsWwrX-2GtFJE]]></FromUserName>
+<CreateTime>1472631550</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[giftcard_send_to_friend]]></Event>
+<PageId><![CDATA[OQK0R3MaFnCm74Phw5hwFJlz5sn+jy1zzM2amDidDbU=]]></PageId>
+<OrderId><![CDATA[Z2y2rY74ksZX1ceuGA]]></OrderId>
+<IsChatRoom>true</IsChatRoom>
+<IsReturnBack><![CDATA[true]]></IsReturnBack>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_GiftCard_Send_To_Friend>(xml, Event.giftcard_send_to_friend);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend;
+
+            Assert.IsInstanceOfType(requestMessage, typeof(RequestMessageEvent_GiftCard_Send_To_Friend));
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+
+            Assert.AreEqual("这里是 OnEvent_GiftCard_Send_To_FriendRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
+
+        [TestMethod]
+        public void GiftCard_User_AcceptdTest()
+        {
+            var xml = @"<xml>
+<ToUserName><![CDATA[gh_3fcea188bf78]]></ToUserName>
+<FromUserName><![CDATA[obLatjgoYejavUtHsWwrX-2GtFJE]]></FromUserName>
+<CreateTime>1472631800</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[giftcard_user_accept]]></Event>
+<PageId><![CDATA[OQK0R3MaFnCm74Phw5hwFJlz5sn+jy1zzM2amDidDbU=]]></PageId>
+<OrderId><![CDATA[Z2y2rY74ksZX1ceuGA]]></OrderId>
+<IsChatRoom>true</IsChatRoom>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_GiftCard_User_Accept>(xml, Event.giftcard_user_accept);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_GiftCard_User_Accept;
+
+            Assert.IsInstanceOfType(requestMessage, typeof(RequestMessageEvent_GiftCard_User_Accept));
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+
+            Assert.AreEqual("这里是 OnEvent_GiftCard_User_AcceptRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
         }
 
         #endregion

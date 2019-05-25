@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -24,8 +24,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.Agent;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.Agents
 {
@@ -35,7 +37,7 @@ namespace Senparc.Weixin.MP.Test.Agents
         [TestMethod]
         public void RequestXmlTest()
         {
-            var url = "http://sdk.weixin.senparc.com/weixin"; //可以换成你自己的地址
+            var url = "https://sdk.weixin.senparc.com/weixin"; //可以换成你自己的地址
             var token = "weixin"; //替换成自己的Token
 
             var requestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -49,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 </xml>";
 
             var xml = MessageAgent.RequestXml(null, url, token, requestXml);
-            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
+            var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
@@ -61,7 +63,7 @@ namespace Senparc.Weixin.MP.Test.Agents
         [TestMethod]
         public void CheckUrlAndTokenTest()
         {
-            var url = "http://sdk.weixin.senparc.com/weixin";
+            var url = "https://sdk.weixin.senparc.com/weixin";
             var token = "weixin";
             var result = MessageAgent.CheckUrlAndToken(url, token);
             Assert.IsTrue(result);

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GroupsAPI.cs
     文件功能描述：用户组接口
@@ -38,6 +38,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
+    
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -45,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
@@ -65,6 +72,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name">分组名字（30个字符以内）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.Create", true)]
         public static CreateGroupResult Create(string accessTokenOrAppId, string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -87,13 +95,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.Get", true)]
         public static GroupsJson Get(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = Config.ApiMpHost + "/cgi-bin/groups/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken.AsUrlData());
-                return HttpUtility.Get.GetJson<GroupsJson>(url);
+                return CommonJsonSend.Send< GroupsJson >(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
         }
@@ -105,6 +114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.GetId", true)]
         public static GetGroupIdResult GetId(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -124,6 +134,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name">分组名字（30个字符以内）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.Update", true)]
         public static WxJsonResult Update(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -150,6 +161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="toGroupId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.MemberUpdate", true)]
         public static WxJsonResult MemberUpdate(string accessTokenOrAppId, string openId, int toGroupId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -173,6 +185,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.BatchUpdate", true)]
         public static WxJsonResult BatchUpdate(string accessTokenOrAppId, int toGroupId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -197,6 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="groupId">分组id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.Delete", true)]
         public static WxJsonResult Delete(string accessTokenOrAppId, int groupId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -217,7 +231,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】创建分组
@@ -226,6 +239,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name">分组名字（30个字符以内）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.CreateAsync", true)]
         public static async Task<CreateGroupResult> CreateAsync(string accessTokenOrAppId, string name, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -238,9 +252,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                        name = name
                    }
                };
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -248,15 +262,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.GetAsync", true)]
         public static async Task<GroupsJson> GetAsync(string accessTokenOrAppId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var urlFormat = Config.ApiMpHost + "/cgi-bin/groups/get?access_token={0}";
                var url = string.Format(urlFormat, accessToken.AsUrlData());
-               return await HttpUtility.Get.GetJsonAsync<GroupsJson>(url);
+               return await CommonJsonSend.SendAsync<GroupsJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -266,15 +281,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.GetIdAsync", true)]
         public static async Task<GetGroupIdResult> GetIdAsync(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
                var urlFormat = Config.ApiMpHost + "/cgi-bin/groups/getid?access_token={0}";
                var data = new { openid = openId };
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -285,6 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="name">分组名字（30个字符以内）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.UpdateAsync", true)]
         public static async Task<WxJsonResult> UpdateAsync(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -298,9 +315,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                        name = name
                    }
                };
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -311,6 +328,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="toGroupId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.MemberUpdateAsync", true)]
         public static async Task<WxJsonResult> MemberUpdateAsync(string accessTokenOrAppId, string openId, int toGroupId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -321,9 +339,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    openid = openId,
                    to_groupid = toGroupId
                };
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -334,6 +352,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.BatchUpdateAsync", true)]
         public static async Task<WxJsonResult> BatchUpdateAsync(string accessTokenOrAppId, int toGroupId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -346,9 +365,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    to_groupid = toGroupId
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -358,6 +377,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="groupId">分组id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupsApi.DeleteAsync", true)]
         public static async Task<WxJsonResult> DeleteAsync(string accessTokenOrAppId, int groupId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -372,11 +392,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    }
                };
 
-               return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

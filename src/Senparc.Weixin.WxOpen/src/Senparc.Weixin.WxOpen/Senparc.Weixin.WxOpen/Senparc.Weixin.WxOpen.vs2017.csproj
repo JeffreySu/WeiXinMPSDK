@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>1.9.1</Version>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>3.4.5-preview1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
 
     <Description>
       微信公众账号 - 微信小程序 模块
@@ -15,7 +15,6 @@
     </Description>
     <Copyright>Senparc Copyright © 2004~2018</Copyright>
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
-
 
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
@@ -33,8 +32,7 @@
       v0.2.0
       1、添加WxOpenMessageHandler
       2、添加SuccessResponseMessage类型响应信息
-      v0.3.0
-      根据MP的架构重构框架
+      v0.3.0 根据MP的架构重构框架
 
       v1.0.0
       2017年1月9日，随小程序正式发布
@@ -74,11 +72,59 @@
       2、添加 DataCubeApi，包含所有“数据”接口
       v1.8.1 新增附近的小程序API
       v1.8.2 从 Open 中迁移模板消息过来，在 Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下
-      
+
       v1.9.0
-        1、停止对 .net core 1.1 生成的独立版本
-        2、待分配 WxAppApi.GetWxaCode()、GetWxaCodeUnlimit() 接口，添加获取小程序二维码时的颜色参数。
+      1、停止对 .net core 1.1 生成的独立版本
+      2、待分配 WxAppApi.GetWxaCode()、GetWxaCodeUnlimit() 接口，添加获取小程序二维码时的颜色参数。
       v1.9.1 提供 RegisterServices 进行快捷注册
+      v1.9.2 更新 WxAppApi.GetWxaCodeUnlimit() 参数引用
+
+      v1.10.0-rc1 支持 .NET Core 2.1.0-rc1-final
+
+      v1.10.5 发布支持 .net core 2.1 的正式版
+
+      v2.0.0 引入 Senparc.CO2NET，支持 Senparc.Weixin v5.0
+      V2.0.3 SessionBag 添加 UnionId 属性
+      v2.0.6.1 支持 CO2NET v0.1.6.1 解决 XXE 漏洞
+      v2.0.9 支持 CO2NET v0.1.9
+      v2.0.10 支持 Senparc.Weixin v5.0.10
+      v2.0.11 支持 Senparc.Weixin v5.0.11
+      v2.0.11.1 添加 小程序码的接口缺少 is_hyaline 参数
+      v2.0.11.2 修正 TemplateApi.Add() 方法返回类型
+      v2.1.0 支持 Senparc.Weixin v5.1.0，重构 Container，提供新的缓存过期策略
+      v2.1.1 fix bug 小程序“数据分析”接口 日趋势 字段类型
+      v2.1.2 优化接口，支持 CO2NET v0.2.4
+      v2.2.0 实现 SenparcWeixinSetting 自动注册
+      v2.3.0 单独设立小程序客服接口（AdvancedAPIs.CustomApi），支持所有小程序客服消息类型
+      v2.4.0 添加校验文字及图片是否含有违法内容的接口
+      v2.4.1 fixbug：TemplateApi.LibraryGet() 方法修正 API 地址
+
+      v3.0.0 支持 NeuChar 标准
+      v3.0.1 支持 Senparc.Weixin v6.0.1
+      v3.1.0 支持 Senparc.NeuChar v0.0.5
+      v3.1.4 支持 Senparc.NeuChar v0.1.2；新增小程序专属的WxOpenApiHandlerWapper
+      v3.1.6 支持 Senparc.NeuChar v0.1.4
+      v3.1.7 支持 Senparc.NeuChar v0.2.1
+      v3.1.9 支持 Senparc.Weixin 6.1.4
+      v3.1.10 Senparc.NeuChar v0.2.7
+      v3.1.12 支持 Senparc.NeuChar v0.2.9.1
+      v3.1.13 提供 MessageHandler 的 NeuChar 对接能力
+      v3.1.14 Senparc.NeuChar v0.2.11，升级 MessageHandler
+      v3.1.15.1 优化小程序 ResponseMessageText 的默认函数
+      v3.1.16 MessageHandler 构造函数，提供 PostModel 默认值
+      v3.2.0 使用 Senparc.CO2NET.APM
+      v3.2.1 支持 Senparc.NeuChar v0.4.4
+      v3.2.2 优化 APM 和 MessageHandler 消息解密过程
+      v3.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
+      v3.3.4 该场景 id 访问 uv	添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
+      v3.3.9 支持最新版本 Senparc.Weixin
+      v3.4.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      3、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
+      v3.4.5 
+      1、JsCode2Json 返回结果增加 unionid
+      2、优化小程序 MessageHandler，可返回进入客服的响应消息
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -98,71 +144,15 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-  </PropertyGroup>-->
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.WxOpen.xml</DocumentationFile>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
 
-
-
-  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.6|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>-->
-
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
-
-
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    --><!--<Reference Include="System.Net.Http" />--><!--
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>-->
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
@@ -176,34 +166,19 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
 
-  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>-->
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
-
-
 
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
-
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.1-preview1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />

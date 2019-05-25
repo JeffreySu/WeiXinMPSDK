@@ -1,4 +1,5 @@
-﻿namespace Senparc.Weixin.Work.Entities.Request.KF
+﻿using Senparc.NeuChar;
+namespace Senparc.Weixin.Work.Entities.Request.KF
 {
     public class RequestMessageVoice : RequestMessageFile
     {

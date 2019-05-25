@@ -1,14 +1,13 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2018 Senparc
     
     文件名：StoreLocationData.cs
-    文件功能描述：卡券 门店地址信息
+    文件功能描述：门店接口POST数据
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+    创建标识：Senparc - 20181008
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -17,65 +16,66 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Card
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class StoreLocationData
+    /// <summary>
+    /// 创建门店小程序数据
+    /// </summary>
+    public class ApplyMerchantData
     {
-        /// <summary>
-        /// 门店地址信息
-        /// </summary>
-        public List<Store_Location> location_list { get; set; }
+        public int first_catid { get; set; }
+        public int second_catid { get; set; }
+        public string qualification_list { get; set; }
+        public string headimg_mediaid { get; set; }
+        public string nickname { get; set; }
+        public string intro { get; set; }
+        public string org_code { get; set; }
+        public string other_files { get; set; }
     }
 
     /// <summary>
-    /// 单条门店地址信息
+    /// 创建门店数据
     /// </summary>
-    public class Store_Location
+    public class CreateMapPoiData
     {
-        /// <summary>
-        /// 门店名称
-        /// 必填
-        /// </summary>
-        public string business_name { get; set; }
-        /// <summary>
-        /// 门店所在的省
-        /// 必填
-        /// </summary>
-        public string province { get; set; }
-        /// <summary>
-        /// 门店所在的市
-        /// 必填
-        /// </summary>
-        public string city { get; set; }
-        /// <summary>
-        /// 门店所在的区
-        /// 必填
-        /// </summary>
-        public string district { get; set; }
-        /// <summary>
-        /// 门店所在的详细街道地址
-        /// 必填
-        /// </summary>
-        public string address { get; set; }
-        /// <summary>
-        /// 门店的电话
-        /// 必填
-        /// </summary>
-        public string telephone { get; set; }
-        /// <summary>
-        /// 门店的类型（酒店、餐饮、购物...）
-        /// 必填
-        /// </summary>
-        public string category { get; set; }
-        /// <summary>
-        /// 门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
-        /// 必填
-        /// </summary>
+        public string name { get; set; }
         public string longitude { get; set; }
-        /// <summary>
-        /// 门店所在地理位置的纬度
-        /// 必填
-        /// </summary>
         public string latitude { get; set; }
+        public string province { get; set; }
+        public string city { get; set; }
+        public string district { get; set; }
+        public string address { get; set; }
+        public string category { get; set; }
+        public string telephone { get; set; }
+        public string photo { get; set; }
+        public string license { get; set; }
+        public string introduct { get; set; }
+        public string districtid { get; set; }
     }
+
+    /// <summary>
+    /// 添加门店数据
+    /// </summary>
+    public class AddStoreData
+    {
+        public string poi_id { get; set; }
+        public string map_poi_id { get; set; }
+        public string pic_list { get; set; }
+        public string contract_phone { get; set; }
+        public string credential { get; set; }
+        public string qualification_list { get; set; }
+    }
+
+    /// <summary>
+    /// 更新门店信息
+    /// </summary>
+    public class UpdateStoreData
+    {
+        public string map_poi_id { get; set; }
+        public string poi_id { get; set; }
+        public string hour { get; set; }
+        public string contract_phone { get; set; }
+        public string pic_list { get; set; }
+    }
+
 }

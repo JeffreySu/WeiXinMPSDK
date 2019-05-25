@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Senparc.Weixin.Open.MessageHandlers;
 using System.IO;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Open.Entities.Request;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 {
@@ -18,13 +20,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 
         public override string OnComponentVerifyTicketRequest(RequestMessageComponentVerifyTicket requestMessage)
         {
-            var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
+            var openTicketPath = ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket");
             if (!Directory.Exists(openTicketPath))
             {
                 Directory.CreateDirectory(openTicketPath);
             }
 
-            //RequestDocument.Save(Path.Combine(openTicketPath, string.Format("{0}_Doc.txt", DateTime.Now.Ticks)));
+            //RequestDocument.Save(Path.Combine(openTicketPath, string.Format("{0}_Doc.txt", SystemTime.Now.Ticks)));
 
             //记录ComponentVerifyTicket（也可以存入数据库或其他可以持久化的地方）
             using (FileStream fs = new FileStream(Path.Combine(openTicketPath, string.Format("{0}.txt", RequestMessage.AppId)),FileMode.OpenOrCreate,FileAccess.ReadWrite))

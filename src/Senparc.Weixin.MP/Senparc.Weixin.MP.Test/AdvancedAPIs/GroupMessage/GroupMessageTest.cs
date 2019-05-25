@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -23,6 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
@@ -44,7 +46,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
 
-            var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId,GroupMessageType.image,false);
+            var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId, GroupMessageType.image, false);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }
@@ -57,7 +59,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
-            var clientMsgId = DateTime.Now.Ticks.ToString();
+            var clientMsgId = SystemTime.Now.Ticks.ToString();
             var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, clientMsgId, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);
@@ -78,14 +80,35 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public void GetVideoMediaIdResultTest()
+        public VideoMediaIdResult GetVideoMediaIdResultTest()
         {
-            string mediaId = "Qk7qR9oZGG1CyzJ8ik3j3nElgY5xETEFAiTLrMsZJs9iAKarM7DopvxbREE7fINU";
+            var videoFilePath = ServerUtility.ContentRootMapPath("video-test.mp4");
+            Console.WriteLine("Video Path:" + videoFilePath);
 
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = GroupMessageApi.GetVideoMediaIdResult(accessToken, mediaId, "test", "test");
+            //上传视频
+            var uploadResult = MediaApi.UploadTemporaryMedia(_appId, UploadMediaFileType.video, videoFilePath);
+            Console.WriteLine("Video Upload Result:" + uploadResult);
 
+            string mediaId = uploadResult.media_id;//也可以通过对公众号发送视频获得
+
+            var result = GroupMessageApi.GetVideoMediaIdResult(_appId, mediaId, "test", "test");
+            Assert.IsNotNull(result);
+            Console.WriteLine("GetVideoMediaIdResult" + result.ToJson());
+            Assert.IsNotNull(result.media_id);
             Assert.IsTrue(result.media_id.Length > 0);
+            return result;
+        }
+
+        [TestMethod]
+        public void SendGroupMessagePreviewTest()
+        {
+            var videoMediaIdResult = GetVideoMediaIdResultTest();
+            var groupSendResult = GroupMessageApi.SendGroupMessagePreview(_appId, GroupMessageType.video, videoMediaIdResult.media_id, _testOpenId);
+
+            Console.WriteLine("AppId:" + _appId);
+            Console.WriteLine("OpenId:" + _testOpenId);
+            Assert.IsNotNull(groupSendResult);
+            Console.WriteLine(groupSendResult.ToJson());
         }
     }
 }

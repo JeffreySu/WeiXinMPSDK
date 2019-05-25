@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -25,8 +25,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
+    using Senparc.NeuChar;
+    using Senparc.NeuChar.Entities;
     using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
+    using Senparc.NeuChar.Helpers;
 
     [TestClass]
     public class EntityHelperTest
@@ -56,7 +58,7 @@ namespace Senparc.Weixin.MP.Test
 
         #region 可为空对象测试
 
-        class NullableClass : RequestMessageBase, IResponseMessageBase
+        class NullableClass : ResponseMessageBase, IResponseMessageBase
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -65,7 +67,7 @@ namespace Senparc.Weixin.MP.Test
 
             public string ToUserName { get; set; }
             public string FromUserName { get; set; }
-            public DateTime CreateTime { get; set; }
+            public DateTimeOffset CreateTime { get; set; }
             public ResponseMsgType MsgType { get; }
         }
         [TestMethod]
@@ -82,7 +84,7 @@ namespace Senparc.Weixin.MP.Test
 </xml>";
             var doc = XDocument.Parse(nullableTestXml);
             var entity = new NullableClass();
-            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+            EntityHelper.FillEntityWithXml(entity as ResponseMessageBase, doc);
 
             Assert.AreEqual(10, entity.Id);
             Assert.AreEqual("Jeffrey Su", entity.Name);
@@ -277,8 +279,8 @@ namespace Senparc.Weixin.MP.Test
 
             responseMusic.Music.Title = "测试Music";
             responseMusic.Music.Description = "测试Music的说明";
-            responseMusic.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
-            responseMusic.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Content/music2.mp3";
+            responseMusic.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
+            responseMusic.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Content/music2.mp3";
 
             var responseDoc = EntityHelper.ConvertEntityToXml(responseMusic);
             Console.WriteLine(responseDoc.ToString());

@@ -21,12 +21,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：GetAuditStatusResultJson.cs
+    文件名：GetAuditResultJson.cs
     文件功能描述：审核ID返回结果
     
     
     创建标识：Senparc - 20170726
-
+    
+    修改标识：Senparc - 20190525
+    修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
 
 ----------------------------------------------------------------*/
 
@@ -40,7 +42,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
-    public class GetAuditStatusResultJson : WxJsonResult
+    public class GetAuditResultJson : WxJsonResult
     {
 
         /// <summary>

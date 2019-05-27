@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.AppStore
         {
             get
             {
-                return Config.IsDebug ? "http://localhost:12222" : "http://www.weiweihi.com";//用于自动切换本地单元测试的请求地址
+                return Config.IsDebug ? "http://localhost:12222" : "http://www.neuchar.com";//用于自动切换本地单元测试的请求地址
             }
         }
 

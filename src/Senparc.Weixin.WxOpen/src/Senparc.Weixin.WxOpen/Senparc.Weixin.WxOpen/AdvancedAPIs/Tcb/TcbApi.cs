@@ -373,6 +373,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获取腾讯云API调用凭证
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="lifespan">有效期（单位为秒，最大7200）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.GetQcloudToken", true)]
+        public static WxQcloudTokenJsonResult GetQcloudToken(string accessTokenOrAppId, int lifespan, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/getqcloudtoken?access_token={0}";
+                var postBody = new
+                {
+                    lifespan
+                };
+                return CommonJsonSend.Send<WxQcloudTokenJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -729,6 +750,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
                     fileid_list
                 };
                 return await CommonJsonSend.SendAsync<WxDeleteFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 获取腾讯云API调用凭证
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="lifespan">有效期（单位为秒，最大7200）</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.GetQcloudToken", true)]
+        public static async Task<WxQcloudTokenJsonResult> GetQcloudTokenAsync(string accessTokenOrAppId, int lifespan, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/getqcloudtoken?access_token={0}";
+                var postBody = new
+                {
+                    lifespan
+                };
+                return await CommonJsonSend.SendAsync<WxQcloudTokenJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

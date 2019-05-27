@@ -56,13 +56,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
+using Senparc.NeuChar.App.AppStore;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.Tencent;

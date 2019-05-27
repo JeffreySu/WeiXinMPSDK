@@ -304,6 +304,75 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获取文件上传链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="path">上传路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.UploadFile", true)]
+        public static WxUploadFileJsonResult UploadFile(string accessTokenOrAppId, string env, string path, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/uploadfile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    path
+                };
+                return CommonJsonSend.Send<WxUploadFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 获取文件下载链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="file_list">文件列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDownloadFile", true)]
+        public static WxDownloadFileJsonResult BatchDownloadFile(string accessTokenOrAppId, string env, IEnumerable<FileItem> file_list, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/batchdownloadfile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    file_list
+                };
+                return CommonJsonSend.Send<WxDownloadFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="fileid_list">文件ID列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDeleteFile", true)]
+        public static WxDeleteFileJsonResult BatchDeleteFile(string accessTokenOrAppId, string env, IEnumerable<string> fileid_list, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/batchdeletefile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    fileid_list
+                };
+                return CommonJsonSend.Send<WxDeleteFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -591,6 +660,75 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
                     query
                 };
                 return await CommonJsonSend.SendAsync<WxDatabaseCountJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】获取文件上传链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="path">上传路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.UploadFileAsync", true)]
+        public static async Task<WxUploadFileJsonResult> UploadFileAsync(string accessTokenOrAppId, string env, string path, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/uploadfile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    path
+                };
+                return await CommonJsonSend.SendAsync<WxUploadFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】获取文件下载链接
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="file_list">文件列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDownloadFileAsync", true)]
+        public static async Task<WxDownloadFileJsonResult> BatchDownloadFileAsync(string accessTokenOrAppId, string env, IEnumerable<FileItem> file_list, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/batchdownloadfile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    file_list
+                };
+                return await CommonJsonSend.SendAsync<WxDownloadFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】删除文件
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="fileid_list">文件ID列表</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDeleteFileAsync", true)]
+        public static async Task<WxDeleteFileJsonResult> BatchDeleteFileAsync(string accessTokenOrAppId, string env, IEnumerable<string> fileid_list, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/batchdeletefile?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    fileid_list
+                };
+                return await CommonJsonSend.SendAsync<WxDeleteFileJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

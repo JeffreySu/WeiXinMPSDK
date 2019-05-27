@@ -189,6 +189,121 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 数据库插入记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseAdd", true)]
+        public static WxDatabaseAddJsonResult DatabaseAdd(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseadd?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseAddJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 数据库删除记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseDelete", true)]
+        public static WxDatabaseDeleteJsonResult DatabaseDelete(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasedelete?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseDeleteJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 数据库更新记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseUpdate", true)]
+        public static WxDatabaseUpdateJsonResult DatabaseUpdate(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseupdate?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseUpdateJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 数据库查询记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseQuery", true)]
+        public static WxDatabaseQueryJsonResult DatabaseQuery(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasequery?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseQueryJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 统计集合记录数或统计查询语句对应的结果记录数
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCount", true)]
+        public static WxDatabaseCountJsonResult DatabaseCount(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecount?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseCountJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -361,6 +476,121 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
                     offset
                 };
                 return await CommonJsonSend.SendAsync<WxDatabaseCollectionJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】数据库插入记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseAddAsync", true)]
+        public static async Task<WxDatabaseAddJsonResult> DatabaseAddAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseadd?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseAddJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】数据库删除记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseDeleteAsync", true)]
+        public static async Task<WxDatabaseDeleteJsonResult> DatabaseDeleteAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasedelete?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseDeleteJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】数据库更新记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseUpdateAsync", true)]
+        public static async Task<WxDatabaseUpdateJsonResult> DatabaseUpdateAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseupdate?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseUpdateJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】数据库查询记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseQueryAsync", true)]
+        public static async Task<WxDatabaseQueryJsonResult> DatabaseQueryAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasequery?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseQueryJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】统计集合记录数或统计查询语句对应的结果记录数
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCountAsync", true)]
+        public static async Task<WxDatabaseCountJsonResult> DatabaseCountAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecount?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseCountJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

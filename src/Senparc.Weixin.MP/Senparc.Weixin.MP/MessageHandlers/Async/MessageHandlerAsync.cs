@@ -36,7 +36,6 @@ using System.Xml.Linq;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;

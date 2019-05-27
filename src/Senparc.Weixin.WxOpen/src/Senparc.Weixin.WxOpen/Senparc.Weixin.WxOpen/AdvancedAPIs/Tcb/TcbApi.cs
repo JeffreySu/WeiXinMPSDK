@@ -118,6 +118,77 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 新增集合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="collection_name">集合名称</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionAdd", true)]
+        public static WxJsonResult DatabaseCollectionAdd(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectionadd?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    collection_name
+                };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 删除集合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="collection_name">集合名称</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionDelete", true)]
+        public static WxJsonResult DatabaseCollectionDelete(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectiondelete?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    collection_name
+                };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 获取特定云环境下集合信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="limit">获取数量限制</param>
+        /// <param name="offset">偏移量</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionGet", true)]
+        public static WxDatabaseCollectionJsonResult DatabaseCollectionGet(string accessTokenOrAppId, string env, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectionget?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    limit,
+                    offset
+                };
+                return CommonJsonSend.Send<WxDatabaseCollectionJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         #endregion
 
         #region 异步方法
@@ -219,6 +290,77 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
                     job_id
                 };
                 return await CommonJsonSend.SendAsync<WxDatabaseMigrateQueryInfoJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】新增集合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="collection_name">集合名称</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionAddAsync", true)]
+        public static async Task<WxJsonResult> DatabaseCollectionAddAsync(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectionadd?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    collection_name
+                };
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】删除集合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="collection_name">集合名称</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionDeleteAsync", true)]
+        public static async Task<WxJsonResult> DatabaseCollectionDeleteAsync(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectiondelete?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    collection_name
+                };
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】获取特定云环境下集合信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="limit">获取数量限制</param>
+        /// <param name="offset">偏移量</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseCollectionGetAsync", true)]
+        public static async Task<WxDatabaseCollectionJsonResult> DatabaseCollectionGetAsync(string accessTokenOrAppId, string env, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databasecollectionget?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    limit,
+                    offset
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseCollectionJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

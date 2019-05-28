@@ -471,6 +471,9 @@
     <PackageReference Include="Senparc.NeuChar">
       <Version>0.7.2-preview1</Version>
     </PackageReference>
+    <PackageReference Include="Senparc.NeuChar.App">
+      <Version>0.5.0-preview1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

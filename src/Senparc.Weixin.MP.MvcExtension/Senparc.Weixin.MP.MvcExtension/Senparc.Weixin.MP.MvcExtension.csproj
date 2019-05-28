@@ -116,7 +116,7 @@
       <Version>0.8.1-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.CO2NET.APM">
-      <Version>0.4.1-preview1</Version>
+      <Version>0.4.1.1-preview1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

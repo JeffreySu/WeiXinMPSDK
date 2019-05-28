@@ -278,27 +278,6 @@
     <Compile Include="AdvancedAPIs\Wxa\MerchantJson\PoiInMap.cs" />
     <Compile Include="AdvancedAPIs\Wxa\MerchantJson\StoreData.cs" />
     <Compile Include="AdvancedAPIs\Wxa\WxaApi.cs" />
-    <Compile Include="AppStore\Api.cs" />
-    <Compile Include="AppStore\Api\ApiConnection.cs" />
-    <Compile Include="AppStore\Api\ApiContainer.cs" />
-    <Compile Include="AppStore\Api\BaseApi.cs" />
-    <Compile Include="AppStore\Api\MemberApi.cs" />
-    <Compile Include="AppStore\AppStoreManager.cs" />
-    <Compile Include="AppStore\Config.cs" />
-    <Compile Include="AppStore\DeveloperInfo.cs" />
-    <Compile Include="AppStore\Entities\AppResult\AppResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\GetMemberResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\NormalAppResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\PassportResult.cs" />
-    <Compile Include="AppStore\Entities\OAuthAccessTokenResult.cs" />
-    <Compile Include="AppStore\Entities\Passport.cs" />
-    <Compile Include="AppStore\Entities\WxJsonResult.cs" />
-    <Compile Include="AppStore\Enums.cs" />
-    <Compile Include="AppStore\AppStoreOAuth.cs" />
-    <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
-    <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
-    <Compile Include="AppStore\ReturnResult.cs" />
-    <Compile Include="AppStore\Utility\AppUtility.cs" />
     <Compile Include="Containers\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -487,10 +466,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM">
-      <Version>0.4.1-preview1</Version>
+      <Version>0.4.1.1-preview1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.1-preview1</Version>
+      <Version>0.7.2-preview1</Version>
+    </PackageReference>
+    <PackageReference Include="Senparc.NeuChar.App">
+      <Version>0.5.0-preview1</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

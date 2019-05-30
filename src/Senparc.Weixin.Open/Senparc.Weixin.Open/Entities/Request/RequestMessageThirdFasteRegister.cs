@@ -8,7 +8,6 @@
     创建标识：Senparc - 20190103
 ----------------------------------------------------------------*/
 
-using Senparc.NeuChar.Entities;
 using System;
 
 namespace Senparc.Weixin.Open
@@ -39,7 +38,38 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 注册时提交的资料
         /// </summary>
-        public ThirdFasteRegisterInfo info {get;set;}
+        public info info {get;set;}
     }
 
+    /// <summary>
+    /// 注册时提交的资料信息
+    /// </summary>
+    public class info
+    {
+        /// <summary>
+        /// 企业名称
+        /// </summary>
+        public string name { get; set; }
+
+        /// <summary>
+        /// 企业代码
+        /// </summary>
+        public string code { get; set; }
+        /// <summary>
+        /// 企业代码类型 
+        /// </summary>
+        public CodeType code_type { get; set; }
+        /// <summary>
+        /// 法人微信号
+        /// </summary>
+        public string legal_persona_wechat { get; set; }
+        /// <summary>
+        /// 法人姓名
+        /// </summary>
+        public string legal_persona_name { get; set; }
+        /// <summary>
+        /// 第三方联系电话
+        /// </summary>
+        public string component_phone { get; set; }
+    }
 }

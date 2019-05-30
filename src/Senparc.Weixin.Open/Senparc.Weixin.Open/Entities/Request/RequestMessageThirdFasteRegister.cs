@@ -6,6 +6,11 @@
     
     
     创建标识：Senparc - 20190103
+
+
+    修改标识：Senparc - 20190530
+    修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -35,11 +40,10 @@ namespace Senparc.Weixin.Open
         public string auth_code { get; set; }
 
         public string msg { get; set; }
-
+        
         /// <summary>
         /// 注册时提交的资料
         /// </summary>
         public ThirdFasteRegisterInfo info {get;set;}
     }
-
 }

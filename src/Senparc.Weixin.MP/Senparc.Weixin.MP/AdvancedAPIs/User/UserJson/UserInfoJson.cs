@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// <summary>
         /// 二维码扫码场景（开发者自定义）
         /// </summary>
-        public uint qr_scene { get; set; }
+        public int qr_scene { get; set; }
         /// <summary>
         /// 二维码扫码场景描述（开发者自定义）
         /// </summary>

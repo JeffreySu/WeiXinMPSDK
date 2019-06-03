@@ -94,7 +94,11 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 小程序注册审核事件推送
         /// </summary>
-        notify_third_fasteregister
+        notify_third_fasteregister,
+        /// <summary>
+        /// 小程序名称设置及改名审核事件推送
+        /// </summary>
+        wxa_nickname_audit
     }
 
     /// <summary>

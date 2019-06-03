@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190129
     修改描述：v6.3.8 修复 CommonJsonSend.Send() 方法中的异常请求结果自动抛出 
 
+    修改标识：Senparc - 20190602
+    修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -66,12 +69,19 @@ namespace Senparc.Weixin.CommonAPIs
              {
                  //可能发生错误
                  WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+
+                 ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误
-                     throw new ErrorJsonResultException(
+                     //发生错误，记录异常
+                     ex = new ErrorJsonResultException(
                           string.Format("微信 GET 请求发生错误！错误代码：{0}，说明：{1}",
                                           (int)errorResult.errcode, errorResult.errmsg), null, errorResult, apiUrl);
+                 }
+
+                 if (Config.ThrownWhenJsonResultFaild && ex != null)
+                 {
+                     throw ex;//抛出异常
                  }
              }
          };
@@ -85,14 +95,20 @@ namespace Senparc.Weixin.CommonAPIs
              {
                  //可能发生错误
                  WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                 ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误
+                     //发生错误，记录异常
                      throw new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),
                           null, errorResult, apiUrl);
+                 }
+
+                 if (Config.ThrownWhenJsonResultFaild && ex != null)
+                 {
+                     throw ex;//抛出异常
                  }
              }
          };
@@ -128,7 +144,8 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST,
+            int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
             //TODO:此方法可以设定一个日志记录开关
 

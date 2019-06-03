@@ -42,6 +42,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180717
     修改描述：v5.1.2 Config.SenparcWeixinSetting 提供默认实例
 
+    修改标识：Senparc - 20190530
+    修改描述：更新访问器表达式主题
 
 ----------------------------------------------------------------*/
 
@@ -67,15 +69,16 @@ namespace Senparc.Weixin
         /// </summary>
         public static bool IsDebug
         {
-            get { return CO2NET.Config.IsDebug || SenparcWeixinSetting.IsDebug; }
-            set { SenparcWeixinSetting.IsDebug = value; }
+            get => CO2NET.Config.IsDebug || SenparcWeixinSetting.IsDebug;
+
+            set => SenparcWeixinSetting.IsDebug = value;
         }
 
         /// <summary>
         /// 默认微信配置
         /// </summary>
         [Obsolete("请使用 SenparcWeixinSetting")]
-        public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get { return SenparcWeixinSetting; } set { SenparcWeixinSetting = value; } }
+        public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get => SenparcWeixinSetting; set { SenparcWeixinSetting = value; } }
 
         /// <summary>
         /// <para>微信全局配置</para>
@@ -101,8 +104,8 @@ namespace Senparc.Weixin
         /// </summary>
         public static string RootDictionaryPath
         {
-            get { return CO2NET.Config.RootDictionaryPath; }
-            set { CO2NET.Config.RootDictionaryPath = value; }
+            get => CO2NET.Config.RootDictionaryPath;
+            set => CO2NET.Config.RootDictionaryPath = value;
         }
 
         /// <summary>
@@ -110,9 +113,13 @@ namespace Senparc.Weixin
         /// </summary>
         public static string DefaultCacheNamespace
         {
-            get { return CO2NET.Config.DefaultCacheNamespace; }
-            set { CO2NET.Config.DefaultCacheNamespace = value; }
+            get => CO2NET.Config.DefaultCacheNamespace;
+            set => CO2NET.Config.DefaultCacheNamespace = value;
         }
+        /// <summary>
+        /// 当 JsonResult 不为“成功”状态时，是否抛出异常，默认为 true
+        /// </summary>
+        public static bool ThrownWhenJsonResultFaild { get; set; }
 
         #region API地址（前缀）设置
 
@@ -121,15 +128,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// 公众号（小程序）、开放平台 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
-        private static string _apiMpHost = "https://api.weixin.qq.com";
-        /// <summary>
-        /// 公众号（小程序）、开放平台 API 的服务器地址（默认为：https://api.weixin.qq.com）
-        /// </summary>
-        public static string ApiMpHost
-        {
-            get { return _apiMpHost; }
-            set { _apiMpHost = value; }
-        }
+        public static string ApiMpHost { get; set; } = "https://api.weixin.qq.com";
 
         /// <summary>
         /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
@@ -199,6 +198,7 @@ namespace Senparc.Weixin
         static Config()
         {
             SenparcWeixinSetting = new SenparcWeixinSetting();//提供默认实例
+            ThrownWhenJsonResultFaild = true;
         }
     }
 }

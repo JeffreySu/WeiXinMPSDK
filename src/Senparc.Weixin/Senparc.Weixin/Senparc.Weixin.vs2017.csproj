@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.4.7-preview1</Version>
+    <Version>6.4.8-preview1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -296,6 +296,8 @@
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       v6.4.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
       v6.4.4 .NET Core 添加多证书注册功能
+      v6.4.8 添加 Config.ThrownWhenJsonResultFaild 属性，用于设置当 JsonResult 不为“成功”状态时，是否抛出异常，默认为 true
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -356,7 +358,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="0.8.1-preview1" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.2-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.4-preview1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

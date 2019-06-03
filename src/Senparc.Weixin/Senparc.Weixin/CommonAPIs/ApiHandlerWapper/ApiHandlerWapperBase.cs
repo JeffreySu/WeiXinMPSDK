@@ -126,6 +126,19 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     accessToken = accessTokenResult.access_token;
                 }
                 result = fun(accessToken);
+
+                //当系统不抛出异常，且当前返回结果不成功，且允许重试的时候，在内部抛出一个异常，以便进行 Retry
+                if (!Config.ThrownWhenJsonResultFaild
+                    && result is WxJsonResult
+                    && (result as WxJsonResult).errcode != ReturnCode.请求成功
+                    && retryIfFaild
+                    )
+                {
+                    var errorResult = result as WxJsonResult;
+                    throw new ErrorJsonResultException(
+                          string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                                          (int)errorResult.errcode, errorResult.errmsg), null, errorResult);
+                }
             }
             catch (ErrorJsonResultException ex)
             {
@@ -233,6 +246,19 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     accessToken = accessTokenResult.access_token;
                 }
                 result = await fun(accessToken).ConfigureAwait(false);
+
+                //当系统不抛出异常，且当前返回结果不成功，且允许重试的时候，在内部抛出一个异常，以便进行 Retry
+                if (!Config.ThrownWhenJsonResultFaild
+                    && result is WxJsonResult
+                    && (result as WxJsonResult).errcode != ReturnCode.请求成功
+                    && retryIfFaild
+                    )
+                {
+                    var errorResult = result as WxJsonResult;
+                    throw new ErrorJsonResultException(
+                          string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                                          (int)errorResult.errcode, errorResult.errmsg), null, errorResult);
+                }
             }
             catch (ErrorJsonResultException ex)
             {

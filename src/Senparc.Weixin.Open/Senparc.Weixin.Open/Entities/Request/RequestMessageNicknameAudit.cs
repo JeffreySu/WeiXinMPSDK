@@ -1,11 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：RequestMessageUnauthorized.cs
+    文件名：RequestMessageNicknameAudit.cs
     文件功能描述：推送取消授权通知
     
     
-    创建标识：Senparc - 20150430
+    创建标识：mc7246 - 20190603
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Open

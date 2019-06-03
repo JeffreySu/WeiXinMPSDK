@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>7.2.11-preview1</Version>
+    <Version>7.2.12-preview1</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

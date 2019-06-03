@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         public int total_count { get; set; }
         /// <summary>
-        /// 有效期，为2小时
+        /// 当前查询的帐号基本信息列表
         /// </summary>
         public List<AuthorizerAccountInfo> list { get; set; }
     }

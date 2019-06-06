@@ -116,6 +116,10 @@ namespace Senparc.Weixin
             get => CO2NET.Config.DefaultCacheNamespace;
             set => CO2NET.Config.DefaultCacheNamespace = value;
         }
+        /// <summary>
+        /// 当 JsonResult 不为“成功”状态时，是否抛出异常，默认为 true
+        /// </summary>
+        public static bool ThrownWhenJsonResultFaild { get; set; }
 
         #region API地址（前缀）设置
 
@@ -194,6 +198,7 @@ namespace Senparc.Weixin
         static Config()
         {
             SenparcWeixinSetting = new SenparcWeixinSetting();//提供默认实例
+            ThrownWhenJsonResultFaild = true;//默认接口返回不正确结果时抛出异常
         }
     }
 }

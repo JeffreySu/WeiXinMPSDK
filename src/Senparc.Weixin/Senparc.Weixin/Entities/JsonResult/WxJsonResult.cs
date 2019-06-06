@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Entities
     }
 
     /// <summary>
-    /// 公众号 JSON 返回结果（用于菜单接口等）
+    /// 公众号 JSON 返回结果（用于菜单接口等），子类必须具有不带参数的构造函数
     /// </summary>
     [Serializable]
     public class WxJsonResult : BaseJsonResult
@@ -79,6 +79,11 @@ namespace Senparc.Weixin.Entities
         /// 返回消息代码数字（同errcode枚举值）
         /// </summary>
         public override int ErrorCodeValue { get { return (int)errcode; } }
+
+        /// <summary>
+        /// 无参数的构造函数
+        /// </summary>
+        public WxJsonResult() { }
 
 
         public override string ToString()

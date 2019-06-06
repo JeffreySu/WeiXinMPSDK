@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20190606
+    修改描述：v6.4.8 为兼容新版本的 TryCommonApiBase<T>，添加不带参数的构造函数
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -54,5 +57,10 @@ namespace Senparc.Weixin.MP.Entities
         {
             menu = buttonGroupBase;
         }
+
+        /// <summary>
+        /// 请勿使用此构造函数创建对象
+        /// </summary>
+        public GetMenuResult() { }
     }
 }

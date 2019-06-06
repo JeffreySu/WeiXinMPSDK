@@ -40,6 +40,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190429
     修改描述：v6.4.0 重构异步 ApiHandlerWapper
 
+    修改标识：Senparc - 20190606
+    修改描述：v6.4.8 TryCommonApiBase<T> 中 T 参数添加 new() 约束
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -57,6 +60,38 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
     /// </summary>
     public class ApiHandlerWapperBase
     {
+        /// <summary>
+        /// 返回配置错误结果信息（不抛出异常）
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private static T GetConfigErrorResult<T>(string errorMessage) where T : BaseJsonResult, new()
+        {
+            var result = new T();
+            result.errmsg = errorMessage;
+            if (result is WxJsonResult)
+            {
+                (result as WxJsonResult).errcode = ReturnCode.SenparcWeixinSDK配置错误;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 返回 JsonResult 错误结果信息（不抛出异常）
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        private static T GetJsonErrorResult<T>(WxJsonResult jsonResult) where T : BaseJsonResult, new()
+        {
+            var result = new T();
+            result.errmsg = jsonResult.errmsg;
+            if (result is WxJsonResult)
+            {
+                (result as WxJsonResult).errcode = jsonResult.errcode;
+            }
+            return result;
+        }
+
         #region 同步方法
 
         /// <summary>
@@ -78,7 +113,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc,
             int invalidCredentialValue,
-            Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult
+            Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
             //ApiHandlerWapperFactory.ApiHandlerWapperFactoryCollection["s"] = ()=> new Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson();
@@ -97,8 +132,15 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 appId = accessTokenContainer_GetFirstOrDefaultAppIdFunc != null ? accessTokenContainer_GetFirstOrDefaultAppIdFunc() : null;// AccessTokenContainer.GetFirstOrDefaultAppId();
                 if (appId == null)
                 {
-                    throw new UnRegisterAppIdException(null,
-                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：" + platformType);
+                    var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{platformType}");
+                    if (Config.ThrownWhenJsonResultFaild)
+                    {
+                        throw unregisterAppIdEx;//抛出异常
+                    }
+                    else
+                    {
+                        return GetConfigErrorResult<T>(unregisterAppIdEx.Message);//返回 Json 错误结果
+                    }
                 }
             }
             else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
@@ -106,7 +148,15 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 if (!accessTokenContainer_CheckRegisteredFunc(accessTokenOrAppId))
                 {
-                    throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：" + platformType, accessTokenOrAppId));
+                    var unregisterAppIdEx = new UnRegisterAppIdException(null, $"此appId（{accessTokenOrAppId}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{platformType}");
+                    if (Config.ThrownWhenJsonResultFaild)
+                    {
+                        throw unregisterAppIdEx;//抛出异常
+                    }
+                    else
+                    {
+                        return GetConfigErrorResult<T>(unregisterAppIdEx.Message);//返回 Json 错误结果
+                    }
                 }
 
                 appId = accessTokenOrAppId;
@@ -149,7 +199,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 {
                     //尝试重新验证
                     var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, true);//AccessTokenContainer.GetAccessTokenResult(appId, true);
-                    //强制获取并刷新最新的AccessToken
+                                                                                                       //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApiBase(platformType,
                                 accessTokenContainer_GetFirstOrDefaultAppIdFunc,
@@ -161,13 +211,31 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 else
                 {
                     ex.AccessTokenOrAppId = accessTokenOrAppId;
-                    throw;
+
+                    //如果要求抛出异常，并且传入的是 AccessToken（AppId 为 null），那么已经没有必要重试，直接抛出异常
+                    if (Config.ThrownWhenJsonResultFaild && appId == null)
+                    {
+                        throw;//抛出异常
+                    }
+                    else
+                    {
+                        return GetJsonErrorResult<T>(ex.JsonResult);//返回 Json 错误结果
+                    }
                 }
             }
             catch (WeixinException ex)
             {
                 ex.AccessTokenOrAppId = accessTokenOrAppId;
-                throw;
+
+                //判断如果传进来的是 AccessToken，并且不抛出异常，那么这里不throw
+                if (Config.ThrownWhenJsonResultFaild && ApiUtility.IsAppId(accessTokenOrAppId, platformType))
+                {
+                    throw;//抛出异常
+                }
+                else
+                {
+                    return GetConfigErrorResult<T>(ex.Message);//返回 Json 错误结果
+                }
             }
 
             return result;
@@ -199,7 +267,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc,
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc,
             int invalidCredentialValue,
-            Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult
+            Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : BaseJsonResult, new()
         {
 
             //ApiHandlerWapperFactory.ApiHandlerWapperFactoryCollection["s"] = ()=> new Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson();
@@ -214,8 +282,15 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 appId = await accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc().ConfigureAwait(false);// AccessTokenContainer.GetFirstOrDefaultAppId();
                 if (appId == null)
                 {
-                    throw new UnRegisterAppIdException(null,
-                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{platformType}");
+                    if (Config.ThrownWhenJsonResultFaild)
+                    {
+                        throw unregisterAppIdEx;//抛出异常
+                    }
+                    else
+                    {
+                        return GetConfigErrorResult<T>(unregisterAppIdEx.Message);//返回 Json 错误结果
+                    }
                 }
             }
             else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
@@ -223,9 +298,15 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 if (!await accessTokenContainer_CheckRegisteredAsyncFunc(accessTokenOrAppId))
                 {
-                    throw new UnRegisterAppIdException(accessTokenOrAppId,
-                        string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！",
-                            accessTokenOrAppId));
+                    var unregisterAppIdEx = new UnRegisterAppIdException(null, $"此appId（{accessTokenOrAppId}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{platformType}");
+                    if (Config.ThrownWhenJsonResultFaild)
+                    {
+                        throw unregisterAppIdEx;//抛出异常
+                    }
+                    else
+                    {
+                        return GetConfigErrorResult<T>(unregisterAppIdEx.Message);//返回 Json 错误结果
+                    }
                 }
 
                 appId = accessTokenOrAppId;
@@ -269,7 +350,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 {
                     //尝试重新验证（如果是低版本VS，此处不能使用await关键字，可以直接使用xx.Result输出。VS2013不支持：无法在 catch 字句体中等待）
                     var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).ConfigureAwait(false);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
-                    //强制获取并刷新最新的AccessToken
+                                                                                                                                        //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 
                     result = await TryCommonApiBaseAsync(platformType,
@@ -282,9 +363,32 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                 }
                 else
                 {
-                    throw;
+                    //如果要求抛出异常，并且传入的是 AccessToken（AppId 为 null），那么已经没有必要重试，直接抛出异常
+                    if (Config.ThrownWhenJsonResultFaild && appId == null)
+                    {
+                        throw;//抛出异常
+                    }
+                    else
+                    {
+                        return GetJsonErrorResult<T>(ex.JsonResult);//返回 Json 错误结果
+                    }
                 }
             }
+            catch (WeixinException ex)
+            {
+                ex.AccessTokenOrAppId = accessTokenOrAppId;
+
+                //判断如果传进来的是 AccessToken，并且不抛出异常，那么这里不throw
+                if (Config.ThrownWhenJsonResultFaild && ApiUtility.IsAppId(accessTokenOrAppId, platformType))
+                {
+                    throw;//抛出异常
+                }
+                else
+                {
+                    return GetConfigErrorResult<T>(ex.Message);//返回 Json 错误结果
+                }
+            }
+
             return result;
         }
 

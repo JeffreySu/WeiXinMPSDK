@@ -35,6 +35,9 @@ using System.Text;
 
 namespace Senparc.Weixin.Entities
 {
+    /// <summary>
+    /// WxJsonResult 等 Json 结果的基类（抽象类），子类必须具有不带参数的构造函数
+    /// </summary>
     [Serializable]
     public abstract class BaseJsonResult : IJsonResult
     {

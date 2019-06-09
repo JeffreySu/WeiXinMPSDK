@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             if (!File.Exists(filePath))
             {
                 //使用.zip文件
-                filePath.Replace(".rar", ".zip");
+                filePath = filePath.Replace(".rar", ".zip");
             }
             return filePath;
         }

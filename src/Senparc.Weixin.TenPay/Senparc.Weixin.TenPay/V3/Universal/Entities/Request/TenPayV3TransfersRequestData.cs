@@ -31,6 +31,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190521
     修改描述：v1.4.0 .NET Core 添加多证书注册功能；添加子商户号设置
+
+    修改标识：Senparc - 20190609
+    修改描述：v1.4.2 修改“企业付款”接口（Transfers）的参数命名：mch_id -> mchid，appid -> mch_appid
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -119,6 +123,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 企业付款
         /// </summary>
+        /// <param name="appId"></param>
         /// <param name="appid">公众账号appid</param>
         /// <param name="mchId">商户号</param>
         /// <param name="deviceInfo">设备号</param>
@@ -131,6 +136,8 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="amount">金额（单位：元，小数点后不要超过2位，否则会被四舍五入到分）</param>
         /// <param name="desc">企业付款描述信息</param>
         /// <param name="spbillCreateIP">Ip地址</param>
+        /// <param name="subAppId"></param>
+        /// <param name="subMchId"></param>
         public TenPayV3TransfersRequestData(string appId, string mchId, string deviceInfo, string nonceStr, string outTradeNo, string openId, string key, string checkName, 
             string reUserName, decimal amount, string desc, string spbillCreateIP, string subAppId = null, string subMchId = null)
         {
@@ -157,9 +164,9 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.Init();
 
             //设置package订单参数
-            PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
+            PackageRequestHandler.SetParameter("mch_appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId); //子商户公众账号ID
-            PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameter("mchid", this.MchId); //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId); //子商户号
             //https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2
             PackageRequestHandler.SetParameter("device_info", this.DeviceInfo); //终端设备号

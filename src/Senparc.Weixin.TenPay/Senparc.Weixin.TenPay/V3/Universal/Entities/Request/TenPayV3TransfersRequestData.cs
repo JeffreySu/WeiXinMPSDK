@@ -33,7 +33,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v1.4.0 .NET Core 添加多证书注册功能；添加子商户号设置
 
     修改标识：Senparc - 20190609
-    修改描述：v1.4.2 修改“企业付款”接口（Transfers）的参数命名：mch_id -> mchid
+    修改描述：v1.4.2 修改“企业付款”接口（Transfers）的参数命名：mch_id -> mchid，appid -> mch_appid
 
 ----------------------------------------------------------------*/
 using System;
@@ -164,7 +164,7 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.Init();
 
             //设置package订单参数
-            PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
+            PackageRequestHandler.SetParameter("mch_appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId); //子商户公众账号ID
             PackageRequestHandler.SetParameter("mchid", this.MchId); //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId); //子商户号

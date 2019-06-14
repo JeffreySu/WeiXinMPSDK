@@ -58,7 +58,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         public int status { get; set; }
 
         /// <summary>
-        /// 如果status为3或者4，会返回审核失败的原因
+        /// 如果status为2，会返回审核失败的原因
         /// </summary>
         public string reason { get; set; }
 

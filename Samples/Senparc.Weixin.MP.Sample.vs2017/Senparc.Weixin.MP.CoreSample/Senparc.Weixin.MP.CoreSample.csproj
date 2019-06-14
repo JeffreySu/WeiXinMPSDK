@@ -5,7 +5,7 @@
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
     <!--<AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>-->
 
-    <Version>3.4.11</Version>
+    <Version>3.5.4</Version>
     <!--<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>-->
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
@@ -18,8 +18,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.8.1-preview1" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.5.4-preview1" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.8.2" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.5.4" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>

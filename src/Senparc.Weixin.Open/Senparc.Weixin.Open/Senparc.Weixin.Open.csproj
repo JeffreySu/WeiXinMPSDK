@@ -77,6 +77,7 @@
     <Compile Include="AccountAPIs\AccountBasicInfoJson\AccountBasicInfoJsonResult.cs" />
     <Compile Include="AccountAPIs\FastRegisterJson\FastRegisterJsonResult.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\AuthorizerListResult.cs" />
     <Compile Include="Containers\OAuthContainer.cs" />
     <Compile Include="Containers\ComponentContainer.cs" />
     <Compile Include="Containers\AuthorizerContainer.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\RequestMessageNicknameAudit.cs" />
     <Compile Include="Entities\Request\RequestMessageThirdFasteRegister.cs" />
     <Compile Include="Entities\Request\RequestMessageUpdateAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
@@ -154,7 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.3-preview1</Version>
+      <Version>0.7.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

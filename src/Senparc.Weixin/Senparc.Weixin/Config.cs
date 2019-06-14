@@ -198,7 +198,7 @@ namespace Senparc.Weixin
         static Config()
         {
             SenparcWeixinSetting = new SenparcWeixinSetting();//提供默认实例
-            ThrownWhenJsonResultFaild = true;
+            ThrownWhenJsonResultFaild = true;//默认接口返回不正确结果时抛出异常
         }
     }
 }

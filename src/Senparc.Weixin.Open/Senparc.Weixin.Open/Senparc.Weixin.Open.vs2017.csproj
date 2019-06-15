@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>4.5.6</Version>
+    <Version>4.5.7</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -160,6 +160,7 @@
       3) 小程序分阶段发布
       4) 小程序版本回退
       v4.5.6 增加小程序名称审核事件，修复小程序添加类目接口参数错误
+      v4.5.7 修复帐号类型参数错误
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

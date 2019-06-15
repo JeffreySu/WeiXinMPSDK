@@ -90,7 +90,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// 设定条件，当API结果没有返回成功信息时抛出异常
         /// </summary>
         static Action<string, string> postFailAction = (apiUrl, returnText) =>
-         {
+        {
              if (returnText.Contains("errcode"))
              {
                  //可能发生错误
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.CommonAPIs
                      throw ex;//抛出异常
                  }
              }
-         };
+        };
 
         #endregion
 

@@ -31,9 +31,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：修复附近的小程序添加地点，修改注释
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.WxOpen.Entities;
-
 namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
@@ -68,6 +65,5 @@ namespace Senparc.Weixin.WxOpen.Entities
         /// poi_id
         /// </summary>
         public string poi_id { get; set; }
-
     }
 }

@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null)
+            if (CurrentMessageContext.StorageData == null || (CurrentMessageContext.StorageData is int))
             {
                 CurrentMessageContext.StorageData = 0;
             }

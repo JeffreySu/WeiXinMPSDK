@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170107
     
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点，修改注释
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.WxOpen;

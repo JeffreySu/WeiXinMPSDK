@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180106
     修改描述：完成接口-附近的小程序API
 
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -165,6 +165,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public ThirdParty_AuthInfo auth_info { get; set; }
 
+        /// <summary>
+        /// 授权管理员的信息
+        /// </summary>
         public GetPermanentCodeResult_AuthUserInfo auth_user_info { get; set; }
 
     }

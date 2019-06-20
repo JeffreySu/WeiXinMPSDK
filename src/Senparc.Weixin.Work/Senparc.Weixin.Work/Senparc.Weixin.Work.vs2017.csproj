@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.5.5</Version>
+		<Version>3.5.6</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -124,6 +124,7 @@
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       v3.5.0 发送Markdown消息和任务卡片消息
       v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+      v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

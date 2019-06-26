@@ -149,7 +149,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var fileName = string.Format("Senparc.Weixin{0}-v{1}.{2}",
                     codeRecord.IsWebVersion ? "-Web" : "",
                     codeRecord.Version,
-                    filePath.Split('.')[1]//同步扩展名
+                    filePath.Split('.').Last()//同步扩展名
                     );
 
                 file.FileDownloadName = fileName;

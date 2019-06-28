@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomAPI.cs
     文件功能描述：小程序客服接口
@@ -153,8 +153,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
         #endregion
 
-
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -170,7 +168,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
             int timeOut = Config.TIME_OUT)
         {
             return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content,
-             timeOut);
+             timeOut).ConfigureAwait(false);
         }
 
 
@@ -185,7 +183,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "CustomApi.SendImageAsync", true)]
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(accessTokenOrAppId, openId, mediaId, timeOut);
+            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(accessTokenOrAppId, openId, mediaId, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -218,9 +216,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
@@ -253,11 +251,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

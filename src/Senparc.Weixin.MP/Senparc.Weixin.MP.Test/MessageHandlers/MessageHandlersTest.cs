@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -33,6 +33,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.WeixinTests;
+using Senparc.NeuChar.Entities.Request;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -54,14 +55,30 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
-            if (requestMessage.Content == "代理")
-            {
-            }
-            else
-            {
-                responseMessage.Content = "文字信息";
-            }
-            return responseMessage;
+
+            var requestHandler = requestMessage.StartHandler();
+            requestHandler.Keyword("代理", () =>
+                {
+                    responseMessage.Content = "收到关键字：代理";
+                    return responseMessage;
+                })
+                .SelectMenuKeyword("101", () =>
+                {
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
+                    return responseMessage;
+                })
+                .SelectMenuKeyword("102", () =>
+                {
+                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
+                    return responseMessage;
+                })
+                .Default(() =>
+                {
+                    responseMessage.Content = "文字信息";
+                    return responseMessage;
+                });
+
+            return requestHandler.ResponseMessage;
         }
 
         public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
@@ -217,10 +234,18 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         #endregion
+
+
+        public override IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
+            return responseMessage;
+        }
     }
 
     [TestClass]
-    public partial class MessageHandlersTest:BaseTest
+    public partial class MessageHandlersTest : BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -564,7 +589,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var requestMessage = new RequestMessageText()
             {
                 Content = "Hi",
-                CreateTime = DateTime.Now,
+                CreateTime = SystemTime.Now,
                 FromUserName = "FromeUserName",
                 ToUserName = "ToUserName",
                 MsgId = 123,
@@ -615,7 +640,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             };
 
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testFileXml), postModel, 10);
-         
+
             messageHandler.Execute();
 
             Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageFile));
@@ -625,7 +650,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("95d98d3bf1b251a9e4a40f3bd88eef29", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
-               
+
         }
 
         #endregion

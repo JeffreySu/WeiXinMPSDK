@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -28,9 +28,9 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
     {
-        private DateTime _dateTime;
+        //private DateTimeOffset _dateTime;
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         //{
         //    get { return _dateTime; }
         //    set { this.SetContainerProperty(ref _dateTime, value); }
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
 
             baseCache.Set(key, new TestContainerBag1()
             {
-                DateTime = DateTime.Now,
+                DateTime = SystemTime.Now,
                 Name = "Jeffrey"
             });
 

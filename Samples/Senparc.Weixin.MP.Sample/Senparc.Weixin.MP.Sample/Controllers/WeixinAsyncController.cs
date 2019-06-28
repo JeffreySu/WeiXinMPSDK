@@ -24,6 +24,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.IO;
+using System.Threading;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
 
 
         public WeixinAsyncController()
@@ -96,7 +97,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            await messageHandler.ExecuteAsync();//执行微信处理过程（关键）
+            var cancellationToken = new CancellationToken();
+            await messageHandler.ExecuteAsync(cancellationToken);//执行微信处理过程（关键）
 
             messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -114,12 +116,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //异步并发测试（提供给单元测试使用）
             return Task.Factory.StartNew<ActionResult>(() =>
             {
-                DateTime begin = DateTime.Now;
+                var begin = SystemTime.Now;
                 int t1, t2, t3;
                 System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
                 System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.1));
-                DateTime end = DateTime.Now;
+                var end = SystemTime.Now;
                 var thread = System.Threading.Thread.CurrentThread;
                 var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,

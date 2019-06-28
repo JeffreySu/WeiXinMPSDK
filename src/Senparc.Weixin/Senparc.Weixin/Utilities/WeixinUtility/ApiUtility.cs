@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：StreamUtility.cs
     文件功能描述：微信对象公共类
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170926
     修改描述：v4.16.4 在2017年9月26日企业号长度变化，对应修改IsAppId()方法逻辑
+    
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
 
 ----------------------------------------------------------------*/
 
@@ -59,9 +62,9 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// </summary>
         /// <param name="expireInSeconds">有效时间（秒）</param>
         /// <returns></returns>
-        public static DateTime GetExpireTime(int expireInSeconds)
+        public static DateTimeOffset GetExpireTime(int expireInSeconds)
         {
-            return DateTime.Now.Add(GetExpiryTimeSpan(expireInSeconds));//提前x分钟重新获取
+            return SystemTime.Now.Add(GetExpiryTimeSpan(expireInSeconds));//提前x分钟重新获取
         }
 
         /// <summary>

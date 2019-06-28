@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetSessionStateResultJson.cs
     文件功能描述：获取客户的会话状态返回结果

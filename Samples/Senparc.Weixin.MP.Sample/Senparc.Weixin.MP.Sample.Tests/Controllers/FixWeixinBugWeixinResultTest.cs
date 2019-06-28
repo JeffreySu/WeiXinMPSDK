@@ -87,8 +87,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         /// <param name="xmlFormat"></param>
         private string InitXml(string xmlFormat, string content)
         {
-            return string.Format(xmlTextFormat,
-                                 DateTimeHelper.GetWeixinDateTime(DateTime.Now), content);
+            return string.Format(xmlTextFormat, DateTimeHelper.GetUnixDateTime(SystemTime.Now), content);
         }
 
         [TestMethod]
@@ -111,7 +110,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     messageHandler.Execute();
 
                     var result = new FixWeixinBugWeixinResult(messageHandler);
-                    Assert.AreEqual("success",result.Content);
+                    Assert.AreEqual("success", result.Content);
                 }
             }
         }

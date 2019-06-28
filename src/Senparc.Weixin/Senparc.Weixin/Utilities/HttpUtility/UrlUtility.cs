@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：UrlUtility.cs
     文件功能描述：URL工具类
@@ -39,8 +39,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180909
     修改描述：v6.0.4 UrlUtility.GenerateOAuthCallbackUrl() 方法，更好支持反向代理
 
-   修改标识：Senparc - 20180917
+    修改标识：Senparc - 20180917
     修改描述：v6.1.1 还原上一个版本 v6.0.4 的修改
+    
+    修改标识：Senparc - 20190123
+    修改描述：v6.3.6 支持在子程序环境下获取 OAuth 回调地址
 ----------------------------------------------------------------*/
 
 using System;
@@ -48,7 +51,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.CO2NET.Extensions;
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web;
 #else
 using System.Net.Http;
@@ -70,14 +73,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
-#if NET40 || NET45
+#if NET45
         public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
 #else
         public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)
 #endif
         {
 
-#if NET35 || NET40 || NET45
+#if NET45
 
             if (httpContext.Request.Url == null)
             {
@@ -91,6 +94,7 @@ namespace Senparc.Weixin.HttpUtility
             var port = urlData.Port;//端口
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
+            string baseUrl = httpContext.Request.ApplicationPath;//子站点应用路径
 #else
             if (httpContext.Request == null)
             {
@@ -107,6 +111,7 @@ namespace Senparc.Weixin.HttpUtility
             var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
             string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
+            string baseUrl = httpContext.Request.PathBase;//子站点应用路径
 #endif
             if (port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
                 (schemeUpper == "HTTP" && port == 80) ||
@@ -120,13 +125,15 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             //授权回调字符串
-            var callbackUrl = string.Format("{0}://{1}{2}{3}{4}returnUrl={5}",
+            var callbackUrl = string.Format("{0}://{1}{2}{6}{3}{4}returnUrl={5}",
                 scheme,
                 host,
                 portSetting,
                 oauthCallbackUrl,
                 oauthCallbackUrl.Contains("?") ? "&" : "?",
-                returnUrl.UrlEncode()
+                returnUrl.UrlEncode(),
+                //添加应用目录：https://github.com/JeffreySu/WeiXinMPSDK/issues/1552
+                baseUrl
             );
             return callbackUrl;
         }

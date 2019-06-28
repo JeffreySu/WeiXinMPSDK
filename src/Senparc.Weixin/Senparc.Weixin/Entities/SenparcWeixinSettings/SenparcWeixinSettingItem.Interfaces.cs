@@ -1,8 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：SenparcWeixinSettingItem.Interfaces.cs
+    文件功能描述：SenparcWeixinSettingItem 接口
+    
+    
+    创建标识：Senparc - 20180803
+
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能，添加 ISenparcWeixinSettingForTenpayV3.TenPayV3_CertPath 属性
+
+----------------------------------------------------------------*/
+
+
+
 
 namespace Senparc.Weixin.Entities
 {
@@ -111,13 +122,26 @@ namespace Senparc.Weixin.Entities
     public interface ISenparcWeixinSettingForTenpayV3 : ISenparcWeixinSettingBase
     {
         /// <summary>
-        /// MchId
+        /// MchId（商户ID）
         /// </summary>
         string TenPayV3_MchId { get; set; }
+        /// <summary>
+        /// 子商户 MchId，没有可留空
+        /// </summary>
+        string TenPayV3_SubMchId { get; set; }
         /// <summary>
         /// MchKey
         /// </summary>
         string TenPayV3_Key { get; set; }
+        /// <summary>
+        /// 微信支付证书地址，物理路径（如 D:\\cert\\cert.p12）
+        /// </summary>
+        string TenPayV3_CertPath { get; set; }
+        /// <summary>
+        /// 微信支付证书密码
+        /// </summary>
+        string TenPayV3_CertSecret { get; set; }
+
         /// <summary>
         /// 微信支付AppId
         /// </summary>
@@ -126,6 +150,16 @@ namespace Senparc.Weixin.Entities
         /// 微信支付AppKey
         /// </summary>
         string TenPayV3_AppSecret { get; set; }
+
+        /// <summary>
+        /// 子商户微信支付AppId
+        /// </summary>
+        string TenPayV3_SubAppId { get; set; }
+        /// <summary>
+        /// 子商户微信支付AppKey
+        /// </summary>
+        string TenPayV3_SubAppSecret { get; set; }
+
         /// <summary>
         /// 微信支付TenpayNotify
         /// </summary>

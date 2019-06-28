@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：LinkerCorpData.cs
     文件功能描述：互联企业消息推送接口数据
@@ -263,6 +263,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
     }
 
 
+    #endregion
+
+    #region 任务卡片消息
+    public class Taskcard_Notice
+    {
+        public string title { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
+        public string task_id { get; set; }
+        public TaskcardBtn[] btn { get; set; }
+    }
+
+    public class TaskcardBtn
+    {
+        public string key { get; set; }
+        public string name { get; set; }
+        public string replace_name { get; set; }
+        public string color { get; set; }
+        public bool is_bold { get; set; }
+    }
     #endregion
 }
 

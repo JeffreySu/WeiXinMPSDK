@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：WxJsonResult.cs
     文件功能描述：同于公众号的JSON返回结果基类（用于菜单接口等）
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Entities
     }
 
     /// <summary>
-    /// 公众号 JSON 返回结果（用于菜单接口等）
+    /// 公众号 JSON 返回结果（用于菜单接口等），子类必须具有不带参数的构造函数
     /// </summary>
     [Serializable]
     public class WxJsonResult : BaseJsonResult
@@ -79,6 +79,11 @@ namespace Senparc.Weixin.Entities
         /// 返回消息代码数字（同errcode枚举值）
         /// </summary>
         public override int ErrorCodeValue { get { return (int)errcode; } }
+
+        /// <summary>
+        /// 无参数的构造函数
+        /// </summary>
+        public WxJsonResult() { }
 
 
         public override string ToString()

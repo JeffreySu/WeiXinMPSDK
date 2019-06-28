@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -20,6 +20,7 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Entities;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web.Configuration;
@@ -62,20 +63,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             };
         }
 
-        public override XDocument ResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
-
-        public override XDocument FinalResponseDocument
-        {
-            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
-        }
 
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null)
+            if (CurrentMessageContext.StorageData == null || (CurrentMessageContext.StorageData is int))
             {
                 CurrentMessageContext.StorageData = 0;
             }
@@ -111,11 +103,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             else if (contentUpper == "CARD")
             {
                 //上传封面临时素材
-                var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image, Server.GetMapPath("~/Images/Logo.thumb.jpg"));
+                var uploadResult = MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image, ServerUtility.ContentRootMapPath("~/Images/Logo.thumb.jpg"));
 
                 //发送客服消息
                 Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendMiniProgramPage(appId, OpenId, "欢迎使用 Senparc.Weixin SDK", "pages/websocket/websocket",
                  uploadResult.media_id);
+            }
+            else if (contentUpper == "客服")
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "您即将进入客服");
+                var responseMessage = base.CreateResponseMessage<ResponseMessageTransfer_Customer_Service>();
+                return responseMessage;
             }
             else
             {

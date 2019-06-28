@@ -180,17 +180,30 @@
     float: left;
     line-height: 26px;
     clear: left;
+    min-width: 110px;
 }
 
 .contatc-img {
     float: left;
     margin-right: 7px;
+    margin-bottom:5px;
     display: inline;
 }
 
     .contatc-img a {
         display: block;
     }
+
+/*#qqGroups li.contatc-img:nth-child(2) {
+    text-indent: 8em;
+    clear: left;
+}*/
+
+/*#qqGroups li.contatc-img:nth-child(11) {
+
+    text-indent: 8em;
+    clear: left;
+}*/
 
 .catalog {
     background: #E7EEF1;
@@ -299,7 +312,7 @@ img.official-img {
 
 .readmore {
     margin-top: 40px;
-    margin-left: 60px;
+    margin-left: 20px;
     background-color: #e0f3fe;
     float: left;
 }
@@ -757,7 +770,7 @@ p.crowdfunding-note {
     }
 
     .content-weixin {
-        width: 900px;
+        width: 905px;
         margin: 0px auto;
         clear: both;
     }

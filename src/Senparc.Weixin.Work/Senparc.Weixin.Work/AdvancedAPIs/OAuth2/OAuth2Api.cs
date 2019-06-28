@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：OAuth2Api.cs
     文件功能描述：OAuth2接口
@@ -19,6 +19,8 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 ----------------------------------------------------------------*/
 
 /*
@@ -78,7 +80,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
-            return Get.GetJson<GetUserInfoResult>(url);
+            return CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
-            return CO2NET.HttpUtility.Get.GetJson<GetUserInfoResult>(url);
+            return CommonJsonSend.Send<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         ///【异步方法】 获取成员信息
@@ -133,7 +135,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
-            return await Get.GetJsonAsync<GetUserInfoResult>(url);
+            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -148,7 +150,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
-            return await CO2NET.HttpUtility.Get.GetJsonAsync<GetUserInfoResult>(url);
+            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -168,9 +170,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 user_ticket = userTicket
             };
 
-            return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

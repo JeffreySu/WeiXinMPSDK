@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WeixinAsyncController.cs
     文件功能描述：此Controller为异步Controller（Action），使用异步线程处理并发请求。
@@ -29,6 +29,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.CO2NET.HttpUtility;
 using System.Xml.Linq;
 using System.Threading;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "_Async_" + Guid.NewGuid().ToString("n").Substring(0, 6);
 
 
         public WeixinAsyncController()
@@ -87,9 +88,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             postModel.EncodingAESKey = EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = AppId; //根据自己后台的设置保持一致
 
-            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10);
+            var cancellationToken = new CancellationToken();//给异步方法使用
 
-            messageHandler.DefaultMessageHandlerAsyncEvent = Senparc.NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, 10)
+            {
+                DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod//没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
+            };
 
             #region 设置消息去重
 
@@ -101,7 +105,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-            await messageHandler.ExecuteAsync(); //执行微信处理过程（关键）
+            await messageHandler.ExecuteAsync(cancellationToken); //执行微信处理过程（关键）
 
             messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
@@ -119,12 +123,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //异步并发测试（提供给单元测试使用）
             return Task.Factory.StartNew<ActionResult>(() =>
             {
-                DateTime begin = DateTime.Now;
+                var begin = SystemTime.Now;
                 int t1, t2, t3;
                 System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
                 System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.1));
-                DateTime end = DateTime.Now;
+                var end = SystemTime.Now;
                 var thread = System.Threading.Thread.CurrentThread;
                 var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,

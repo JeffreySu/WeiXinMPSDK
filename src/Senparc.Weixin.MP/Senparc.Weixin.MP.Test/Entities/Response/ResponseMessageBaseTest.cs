@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
         RequestMessageText requestMessage = new RequestMessageText()
                                             {
                                                 MsgId = 1,
-                                                CreateTime = DateTime.Now,
+                                                CreateTime = SystemTime.Now,
                                                 FromUserName = "TNT2",
                                                 ToUserName = "Senparc",
                                                 //MsgType = RequestMsgType.Text,
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
   <Music>
     <Title><![CDATA[标题]]></Title>
     <Description><![CDATA[描述]]></Description>
-    <MusicUrl><![CDATA[http://sdk.weixin.senparc.com/Content/music1.mp3]]></MusicUrl>
+    <MusicUrl><![CDATA[https://sdk.weixin.senparc.com/Content/music1.mp3]]></MusicUrl>
     <HQMusicUrl><![CDATA[]]></HQMusicUrl>
   </Music>
   <FuncFlag>0</FuncFlag>
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
                 Assert.AreEqual("标题", strongResponseMessage.Music.Title);
                 Assert.AreEqual("描述", strongResponseMessage.Music.Description);
-                Assert.AreEqual("http://sdk.weixin.senparc.com/Content/music1.mp3", strongResponseMessage.Music.MusicUrl);
+                Assert.AreEqual("https://sdk.weixin.senparc.com/Content/music1.mp3", strongResponseMessage.Music.MusicUrl);
                 Assert.AreEqual("", strongResponseMessage.Music.HQMusicUrl);
             }
             #endregion
@@ -222,8 +222,8 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
     <item>
       <Title><![CDATA[您点击了子菜单图文按钮]]></Title>
       <Description><![CDATA[您点击了子菜单图文按钮，这是一条图文信息。]]></Description>
-      <PicUrl><![CDATA[http://sdk.weixin.senparc.com/Images/qrcode.jpg]]></PicUrl>
-      <Url><![CDATA[http://sdk.weixin.senparc.com]]></Url>
+      <PicUrl><![CDATA[https://sdk.weixin.senparc.com/Images/qrcode.jpg]]></PicUrl>
+      <Url><![CDATA[https://sdk.weixin.senparc.com]]></Url>
     </item>
   </Articles>
   <FuncFlag>0</FuncFlag>

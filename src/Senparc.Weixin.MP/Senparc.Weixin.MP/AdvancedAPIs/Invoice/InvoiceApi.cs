@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
  
     文件名：InvoiceApi.cs
     文件功能描述：电子发票接口
@@ -728,7 +728,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         #region 支付相关
@@ -749,9 +748,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     paymch_info = payMchInfo
                 };
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -767,9 +766,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=get_pay_mch&access_token={0}", accessToken.AsUrlData());
                 var data = new { };
-                return await CommonJsonSend.SendAsync<GetPayMchResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetPayMchResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
 
@@ -1078,9 +1077,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         time_out = timeOut
                     }
                 };
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1096,9 +1095,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=get_contact&access_token={0}", accessToken.AsUrlData());
                 var data = new { };
-                return await CommonJsonSend.SendAsync<GetContactResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetContactResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1121,9 +1120,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     encrypt_code = encryptCode
                 };
 
-                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1144,9 +1143,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     item_list = itemList
                 };
 
-                return await CommonJsonSend.SendAsync<GetInvoiceListResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetInvoiceListResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1171,9 +1170,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     reimburse_status = reimburseStatus.ToString()
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1198,9 +1197,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     invoice_list = itemList
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #region 开票平台接口
@@ -1219,9 +1218,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/seturl?access_token={0}", accessToken.AsUrlData());
                 var data = new { };
 
-                return await CommonJsonSend.SendAsync<SetUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<SetUrlResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1242,9 +1241,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     invoice_info = invoiceInfo
                 };
 
-                return await CommonJsonSend.SendAsync<CreateCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CreateCardResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1263,9 +1262,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["pdf"] = file;
 
-                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
+                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1287,9 +1286,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     s_media_id = s_mediaId
                 };
 
-                return await CommonJsonSend.SendAsync<GetPDFResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetPDFResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1310,9 +1309,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     info
                 };
 
-                return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -1333,9 +1332,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/biz/getusertitleurl?access_token={0}", accessToken.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1358,9 +1357,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     biz_name = bizName
                 };
 
-                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetUserTitleUrlResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1382,15 +1381,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     scan_text = scanText
                 };
 
-                return await CommonJsonSend.SendAsync<ScanTitleResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<ScanTitleResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
 
         #endregion
-#endif
 
     }
 }

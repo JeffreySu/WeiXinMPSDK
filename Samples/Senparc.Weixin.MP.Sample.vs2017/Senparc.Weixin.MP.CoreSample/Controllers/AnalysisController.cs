@@ -39,8 +39,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             Analysis_IndexVD vd = new Analysis_IndexVD()
             {
-                StartDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
-                EndDate = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+                StartDate = SystemTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
+                EndDate = SystemTime.Now.AddDays(-1).ToString("yyyy-MM-dd"),
             };
 
 
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [HttpPost]
         public ActionResult Index(Analysis_IndexVD vd_Form)
         {
-            IBaseAnalysisResult result1 = null;
+            //IBaseAnalysisResult result1 = null;
 
             //if (ModelState.IsValid)
             //{

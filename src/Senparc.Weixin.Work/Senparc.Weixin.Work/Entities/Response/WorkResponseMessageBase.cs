@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Work.Entities
 
 				responseMessage.ToUserName = requestMessage.FromUserName;
 				responseMessage.FromUserName = requestMessage.ToUserName;
-				responseMessage.CreateTime = DateTime.Now; //使用当前最新时间
+				responseMessage.CreateTime = SystemTime.Now; //使用当前最新时间
 
 			}
 			catch (Exception ex)

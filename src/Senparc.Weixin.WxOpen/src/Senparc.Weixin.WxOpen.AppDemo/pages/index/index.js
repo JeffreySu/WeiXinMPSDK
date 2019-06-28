@@ -3,8 +3,10 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo',
-    userInfo: {}
+    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   //事件处理函数
   bindViewTap: function() {
@@ -26,7 +28,7 @@ Page({
       url: wx.getStorageSync('domainName') + '/WxOpen/RequestData',
       data: { nickName : that.data.userInfo.nickName},
       method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      header: { 'content-type':'application/x-www-form-urlencoded'}, 
       success: function(res){
         // success
         var json = res.data;
@@ -53,15 +55,16 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
-       var submitData = JSON.stringify({
+       var submitData = {
           sessionId:wx.getStorageSync("sessionId"),
           formId:e.detail.formId
-        });
+        };
 
         wx.request({
           url: wx.getStorageSync('domainName') + '/WxOpen/TemplateTest',
           data: submitData,
           method: 'POST', 
+          header: { 'content-type': 'application/x-www-form-urlencoded' }, 
           success: function(res){
             // success
             var json = res.data;
@@ -89,7 +92,8 @@ Page({
         encryptedData:e.detail.encryptedData 
         },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -127,7 +131,8 @@ Page({
         sessionId: wx.getStorageSync('sessionId')
       },
       method: 'POST',
-      success: function (res) {
+      header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+       success: function (res) {
         // success
         var json = res.data;
         console.log(res.data);
@@ -161,7 +166,8 @@ Page({
                   formId: json.package
                 },
                 method: 'POST',
-                success: function (templateMsgRes) {
+                  header: { 'content-type': 'application/x-www-form-urlencoded' }, 
+                  success: function (templateMsgRes) {
                   if (templateMsgRes.data.success){
                     wx.showModal({
                       title: '模板消息发送成功！',
@@ -206,6 +212,40 @@ Page({
       }
       });
   },
+  getRunData:function(){
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData;
+
+        wx.request({
+          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
+          data: {
+            sessionId: wx.getStorageSync('sessionId'),
+            encryptedData: encryptedData,
+            iv: res.iv, 
+          },
+          method: 'POST',
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (runDataRes) {
+            if (runDataRes.data.success) {
+              wx.showModal({
+                title: '成功获得步数信息！',
+                content: JSON.stringify(runDataRes.data.runData),
+                showCancel: false
+              });
+            } else {
+              wx.showModal({
+                title: '获取步数信息失败！',
+                content: runDataRes.data.msg,
+                showCancel: false
+              });
+            }
+          }
+        });
+
+      }
+    })
+  },
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'
@@ -214,17 +254,55 @@ Page({
   onLoad: function () {
     console.log('onLoad')
     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
+
+    //判断是否登录
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
       })
-      //console.log(userInfo);
-    })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+
+    // //调用应用实例的方法获取全局数据
+    // app.getUserInfo(function(userInfo){
+    //   //更新数据
+    //   that.setData({
+    //     userInfo:userInfo
+    //   })
+    //   //console.log(userInfo);
+    // })
 
     var interval = setInterval(function() {
         that.setData({time:new Date().toLocaleTimeString()});
     },1000);
+  },
+  getUserInfo: function (e) {
+    console.log(e)
+    app.getUserInfo(e);
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
   }
 })

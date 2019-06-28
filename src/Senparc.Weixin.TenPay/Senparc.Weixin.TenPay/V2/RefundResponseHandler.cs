@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
  
     文件名：RefundResponseHandler.cs
     文件功能描述：微信支付退款 响应处理
@@ -42,7 +42,7 @@ using System.Text;
 
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected HttpContext HttpContext;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.TenPay.V2
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected virtual string getCharset()
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：LocalContainerCacheStrategy.cs
     文件功能描述：本地容器缓存。
@@ -40,6 +40,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.Cache;
 using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache
 {
@@ -105,7 +106,11 @@ namespace Senparc.Weixin.Cache
 
         #region BaseContainerCacheStrategy 成员
 
-
+        /// <summary>
+        ///  获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
         public override IDictionary<string, TBag> GetAll<TBag>()
         {
             var dic = new Dictionary<string, TBag>();
@@ -121,6 +126,30 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
+        #region 异步方法
+
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            var dic = new Dictionary<string, TBag>();
+            var baseCacheStrategy = BaseCacheStrategy();
+            var cacheList =  await baseCacheStrategy.GetAllAsync().ConfigureAwait(false);
+            foreach (var baseContainerBag in cacheList)
+            {
+                if (baseContainerBag.Value is TBag)
+                {
+                    dic[baseContainerBag.Key] = (TBag)baseContainerBag.Value;
+                }
+            }
+            return dic;
+        }
+
+        #endregion
 
         #endregion
 

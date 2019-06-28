@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
 
 #if NET45
 using System.Web;
@@ -23,30 +24,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
         public static object Lock = new object();
 
 
-#if NET45
-        private HttpContextBase _context;
-
-        public ConfigHelper(HttpContextBase context)
+        public ConfigHelper()
         {
-            _context = context;
         }
-#else
-        private HttpContext _context;
-
-        public ConfigHelper(HttpContext context)
-        {
-            _context = context;
-        }
-#endif
 
         private string GetDatabaseFilePath()
         {
-#if NET45
-            return _context.Server.MapPath("~/App_Data/Document/Config.xml");
-#else
-            return Server.GetMapPath("~/App_Data/Document/Config.xml");
-
-#endif
+            return ServerUtility.ContentRootMapPath("~/App_Data/Document/Config.xml");
         }
 
         private XDocument GetXDocument()
@@ -101,14 +85,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
 #if NET45
             doc.Save(GetDatabaseFilePath());
 #else
-            using (FileStream fs = new FileStream(GetDatabaseFilePath(),FileMode.OpenOrCreate,FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(GetDatabaseFilePath(), FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 doc.Save(fs);
             }
 #endif
         }
 
-        public string Download(string version,bool isWebVersion)
+        public string Download(string version, bool isWebVersion)
         {
             lock (Lock)
             {
@@ -118,16 +102,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             }
 
             //打包下载文件
-            //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
+            //FileStream fs = new FileStream(_context.ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
 
-#if NET45
-            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar",isWebVersion?"-Web":"", version));
-#else
-            return Server.GetMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
-#endif
-
-
+            var filePath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
+            if (!File.Exists(filePath))
+            {
+                //使用.zip文件
+                filePath = filePath.Replace(".rar", ".zip");
+            }
+            return filePath;
         }
     }
 }

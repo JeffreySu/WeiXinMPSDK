@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WorkCustomMessageHandler.cs
     文件功能描述：自定义WorkMessageHandler
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
         public override IWorkResponseMessageBase OnEvent_EnterAgentRequest(RequestMessageEvent_Enter_Agent requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "欢迎进入应用！现在时间是：" + DateTime.Now.ToString();
+            responseMessage.Content = "欢迎进入应用！现在时间是：" + SystemTime.Now.DateTime.ToString();
             return responseMessage;
         }
 

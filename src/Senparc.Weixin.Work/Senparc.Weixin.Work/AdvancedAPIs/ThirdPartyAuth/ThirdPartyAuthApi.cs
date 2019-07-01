@@ -166,6 +166,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 获取企业号的永久授权码【QY移植修改】
+        /// 文档：https://work.weixin.qq.com/api/doc#90001/90143/90603
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -570,6 +571,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】获取企业号的永久授权码【QY移植修改】
+        /// 文档：https://work.weixin.qq.com/api/doc#90001/90143/90603
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>

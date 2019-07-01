@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnNeuCharRequestAsync(RequestMessageNeuChar requestMessage)
         {
             //return await DefaultAsyncMethod(requestMessage,async () => await OnNeuCharRequest(requestMessage).ConfigureAwait(false)).ConfigureAwait(false);
-           return  await OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
+           return  await base.OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
         }
 
         #endregion

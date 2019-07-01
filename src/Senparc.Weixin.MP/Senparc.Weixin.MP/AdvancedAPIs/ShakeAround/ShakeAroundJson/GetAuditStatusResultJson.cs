@@ -37,10 +37,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
     /// </summary>
     public class GetAuditStatusResultJson : WxJsonResult
     {
-        public GetAuditStatusData data { get; set; }
+        public GetAuditStatusResultJson_Data data { get; set; }
     }
 
-    public class GetAuditStatusData
+    public class GetAuditStatusResultJson_Data
     {
         /// <summary>
         /// 提交申请的时间戳

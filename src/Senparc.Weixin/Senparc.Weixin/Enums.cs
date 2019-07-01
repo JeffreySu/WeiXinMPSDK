@@ -66,6 +66,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190512
     修改描述：v6.4.3 丰富 ReturnCode 枚举类型
 
+    修改标识：Senparc - 20190512
+    修改描述：v6.4.9 增加 ReturnCode 枚举： 创建标签 错误返回信息
+
 ----------------------------------------------------------------*/
 
 
@@ -222,6 +225,14 @@ namespace Senparc.Weixin
         参数错误invalid_parameter = 61451,
         无效客服账号invalid_kf_account = 61452,
         客服帐号已存在kf_account_exsited = 61453,
+    
+        //创建标签 错误返回信息
+        标签名非法请注意不能和其他标签重名 = 45157,
+        标签名长度超过30个字节 = 45158,
+        创建的标签数过多请注意不能超过100个 = 45056,
+
+        
+
         /// <summary>
         /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
         /// </summary>

@@ -66,6 +66,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190512
     修改描述：v6.4.3 丰富 ReturnCode 枚举类型
 
+    修改标识：Senparc - 20190512
+    修改描述：v6.4.9 增加 ReturnCode 枚举： 创建标签 错误返回信息
+
 ----------------------------------------------------------------*/
 
 

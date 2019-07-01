@@ -176,7 +176,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
         }
         /// <summary>
-        /// 群机器人发送图文信息
+        /// 【异步方法】群机器人发送图文信息
         /// </summary>
         /// <param name="key">机器人Key</param>
         /// <param name="data">内容</param>

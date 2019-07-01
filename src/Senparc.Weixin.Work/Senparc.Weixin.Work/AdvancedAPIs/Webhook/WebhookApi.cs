@@ -1,4 +1,20 @@
-﻿using Senparc.CO2NET.Helpers.Serializers;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：WebhookApi.cs
+    文件功能描述：Webhook群机器人相关Api
+    
+    
+    创建标识：lishewen - 20190701
+  
+----------------------------------------------------------------*/
+
+/*
+    官方文档：https://work.weixin.qq.com/api/doc?notreplace=true#90000/90135/91760
+ */
+
+
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using System;

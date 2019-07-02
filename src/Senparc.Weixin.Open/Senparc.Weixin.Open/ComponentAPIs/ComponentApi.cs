@@ -21,6 +21,9 @@
     修改标识：Senparc - 20180505
     修改描述：修改 ApiAuthorizerToken() 方法注释
 
+    修改标识：Senparc - 20190615
+    修改描述：修复帐号类型参数错误
+
 ----------------------------------------------------------------*/
 
 /*
@@ -113,7 +116,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAppId.AsUrlData(), preAuthCode.AsUrlData(), redirectUrl.AsUrlData());
 
             if (authType != LoginAuthType.默认)
-                url = string.Format("{0}&auth_type={1}", url, authType);
+                url = string.Format("{0}&auth_type={1}", url, (int) authType);
 
             if (!string.IsNullOrEmpty(bizAppId))
                 url = string.Format("{0}&biz_appid={1}", url, bizAppId);
@@ -685,6 +688,5 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
 
         #endregion
-        //////////////////////////////////////////////////////////////////////////////////
     }
 }

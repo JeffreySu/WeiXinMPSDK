@@ -355,7 +355,7 @@ namespace Senparc.Weixin.Containers
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
-                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());
             }
 
             Update(bag.Key, bag, expiry);
@@ -564,7 +564,7 @@ namespace Senparc.Weixin.Containers
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
-                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
             }
 
             await UpdateAsync(bag.Key, bag, expiry).ConfigureAwait(false);

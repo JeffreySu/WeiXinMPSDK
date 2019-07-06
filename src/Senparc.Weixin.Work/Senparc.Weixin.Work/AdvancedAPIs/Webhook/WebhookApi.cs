@@ -127,7 +127,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         {
             var md5str = Senparc.CO2NET.Helpers.EncryptHelper.GetMD5(stream, false);
             string base64 = Senparc.CO2NET.Utilities.StreamUtility.GetBase64String(stream);
-            stream.Close();
+            //stream.Close();
             return SendImage(key, base64, md5str, timeOut);
         }
         /// <summary>

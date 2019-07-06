@@ -125,24 +125,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
         public static WorkJsonResult SendImage(string key, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            //TODO: 此处可封装到CO2NET
-            #region 此处可封装到CO2NET
-            //计算文件MD5
-            System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] ret = md5.ComputeHash(stream);
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < ret.Length; i++)
-            {
-                sb.Append(ret[i].ToString("x2"));
-            }
-
-            string md5str = sb.ToString();
-            #endregion
+            var md5str = Senparc.CO2NET.Helpers.EncryptHelper.GetMD5(stream, false);
             string base64 = Senparc.CO2NET.Utilities.StreamUtility.GetBase64String(stream);
-
             stream.Close();
-
             return SendImage(key, base64, md5str, timeOut);
         }
         /// <summary>
@@ -253,22 +238,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
         public static async Task<WorkJsonResult> SendImageAsync(string key, Stream stream, int timeOut = Config.TIME_OUT)
         {
-            //TODO: 此处可封装到CO2NET
-            #region 此处可封装到CO2NET
-            //计算文件MD5
-            System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            byte[] ret = md5.ComputeHash(stream);
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < ret.Length; i++)
-            {
-                sb.Append(ret[i].ToString("x2"));
-            }
-
-            string md5str = sb.ToString();
-            #endregion
+            var md5str = Senparc.CO2NET.Helpers.EncryptHelper.GetMD5(stream, false);
             string base64 = await Senparc.CO2NET.Utilities.StreamUtility.GetBase64StringAsync(stream);
-
             //执行异步时关闭流，有一定几率出现问题
             //stream.Close();
 

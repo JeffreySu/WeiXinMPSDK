@@ -6,7 +6,10 @@
     
     
     创建标识：lishewen - 20190701
-  
+
+    修改标识：lishewen - 20190706
+    修改描述：v3.5.8 丰富 Webhook 接口：SendImage
+
 ----------------------------------------------------------------*/
 
 /*
@@ -17,10 +20,7 @@
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 

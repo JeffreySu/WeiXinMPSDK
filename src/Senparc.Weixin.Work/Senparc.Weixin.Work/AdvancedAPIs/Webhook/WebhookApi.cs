@@ -19,6 +19,7 @@ using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,10 +102,48 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             JsonSetting jsonSetting = new JsonSetting(true);
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
-        private static WorkJsonResult SendImage(string key, string filepath, int timeOut = Config.TIME_OUT)
+        /// <summary>
+        /// 群机器人发送图片信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="filepath">图片文件路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
+        public static WorkJsonResult SendImage(string key, string filepath, int timeOut = Config.TIME_OUT)
         {
-            //TODO: 重载，传入文件路径，转换为base64，并计算md5后再传入SendImage方法发送
-            throw new NotSupportedException();
+            FileStream file = new FileStream(filepath, FileMode.Open);
+            return SendImage(key, file, timeOut);
+        }
+        /// <summary>
+        /// 群机器人发送图片信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="stream">图片流</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
+        public static WorkJsonResult SendImage(string key, Stream stream, int timeOut = Config.TIME_OUT)
+        {
+            //TODO: 此处可封装到CO2NET
+            #region 此处可封装到CO2NET
+            //计算文件MD5
+            System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] ret = md5.ComputeHash(stream);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ret.Length; i++)
+            {
+                sb.Append(ret[i].ToString("x2"));
+            }
+
+            string md5str = sb.ToString();
+            #endregion
+            string base64 = Senparc.CO2NET.Utilities.StreamUtility.GetBase64String(stream);
+
+            stream.Close();
+
+            return SendImage(key, base64, md5str, timeOut);
         }
         /// <summary>
         /// 群机器人发送图文信息
@@ -190,6 +229,50 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
             };
             JsonSetting jsonSetting = new JsonSetting(true);
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(key, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】群机器人发送图片信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="filepath">图片文件路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
+        public static async Task<WorkJsonResult> SendImageAsync(string key, string filepath, int timeOut = Config.TIME_OUT)
+        {
+            FileStream file = new FileStream(filepath, FileMode.Open);
+            return await SendImageAsync(key, file, timeOut);
+        }
+        /// <summary>
+        /// 【异步方法】群机器人发送图片信息
+        /// </summary>
+        /// <param name="key">机器人Key</param>
+        /// <param name="stream">图片流</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
+        public static async Task<WorkJsonResult> SendImageAsync(string key, Stream stream, int timeOut = Config.TIME_OUT)
+        {
+            //TODO: 此处可封装到CO2NET
+            #region 此处可封装到CO2NET
+            //计算文件MD5
+            System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] ret = md5.ComputeHash(stream);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < ret.Length; i++)
+            {
+                sb.Append(ret[i].ToString("x2"));
+            }
+
+            string md5str = sb.ToString();
+            #endregion
+            string base64 = await Senparc.CO2NET.Utilities.StreamUtility.GetBase64StringAsync(stream);
+
+            //执行异步时关闭流，有一定几率出现问题
+            //stream.Close();
+
+            return await SendImageAsync(key, base64, md5str, timeOut);
         }
         /// <summary>
         /// 【异步方法】群机器人发送图文信息

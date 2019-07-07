@@ -357,7 +357,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
             var ms = new MemoryStream();
             var openId = sessionBag.OpenId;
-            var page = $"pages/QrCode/QrCode?codeType={codeType}";
+            var page = "pages/QrCode/QrCode";
             LineColor lineColor = null;//线条颜色
             if (codeType == "2")
             {
@@ -365,7 +365,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
 
             var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
-                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page, lineColor: lineColor);
+                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}|{codeType}", page, lineColor: lineColor);
             ms.Position = 0;
 
             if (!useBase64.IsNullOrEmpty())

@@ -357,7 +357,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
             var ms = new MemoryStream();
             var openId = sessionBag.OpenId;
-            var page = "pages/QrCode/QrCode";
+            var page = $"pages/QrCode/QrCode?codeType={codeType}";
             LineColor lineColor = null;//线条颜色
             if (codeType == "2")
             {

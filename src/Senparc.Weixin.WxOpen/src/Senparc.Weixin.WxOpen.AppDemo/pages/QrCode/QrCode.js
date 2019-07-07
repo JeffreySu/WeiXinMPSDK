@@ -5,14 +5,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    qrCodeImgBase64Data:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    wx.request({
+      url: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode',
+      data: {
+        sessionKey: wx.getStorageSync('sessionId'),//todo:sessionid
+      },
+      method: 'POST',
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      success: function (rest) {
+        if (res.data.success) {
+          console.log('获取二维码成功：' + res.data.msg);
+          that.setData({
+            qrCodeImgBase64Data: 'data:image/jpeg;base64,' + res.data.msg,  // data 为接口返回的base64字符串  
+          });
+        } else {
+          wx.showModal({
+            title: '获取二维码失败',
+            content: res.data.msg,
+            showCancel: false
+          });
+        }
+      }
+    });
   },
 
   /**

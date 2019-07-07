@@ -341,7 +341,12 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
         }
 
-        public async Task<IActionResult> GetQrCode(string sessionKey)
+        /// <summary>
+        /// 获取二维码
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> GetQrCode(string sessionKey)//TODO：SessionId
         {
             var sessionBag = SessionContainer.GetSession(sessionKey);
             if (sessionBag == null)
@@ -358,7 +363,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 ms.Position = 0;
                 //转base64
                 var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
-                return Json(new { success = false, msg = imgBase64 });
+                return Json(new { success = true, msg = imgBase64 });
             }
         }
     }

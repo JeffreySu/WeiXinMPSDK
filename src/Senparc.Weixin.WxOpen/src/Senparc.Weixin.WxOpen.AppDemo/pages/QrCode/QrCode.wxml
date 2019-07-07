@@ -1,3 +1,3 @@
 <!--pages/QrCode/QrCode.wxml-->
 <text>保存以下二维码，扫描打开后可以直接进入到本页面</text>
-<image></image>
+<image src='{{qrCodeImgBase64Data}}'></image>

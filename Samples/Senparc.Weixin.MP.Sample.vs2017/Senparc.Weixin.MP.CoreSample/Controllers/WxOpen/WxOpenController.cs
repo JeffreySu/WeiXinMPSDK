@@ -363,7 +363,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 ms.Position = 0;
                 //转base64
                 var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
-                return Json(new { success = true, msg = imgBase64 });
+
+                ms.Position = 0;
+                string imgStr = null;
+                using (var sr = new StreamReader(ms))
+                {
+                    imgStr = await sr.ReadToEndAsync();
+                    return Json(new { success = true, msg = imgBase64, imgStr = imgStr });
+                }
+
             }
         }
     }

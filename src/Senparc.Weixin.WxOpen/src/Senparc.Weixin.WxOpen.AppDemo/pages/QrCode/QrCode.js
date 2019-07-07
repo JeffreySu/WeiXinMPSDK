@@ -26,6 +26,7 @@ Page({
           that.setData({
             qrCodeImgBase64Data: 'data:image/jpeg;base64,' + res.data.msg,  // data 为接口返回的base64字符串  
           });
+          console.log(that.data.qrCodeImgBase64Data);
         } else {
           wx.showModal({
             title: '获取二维码失败',

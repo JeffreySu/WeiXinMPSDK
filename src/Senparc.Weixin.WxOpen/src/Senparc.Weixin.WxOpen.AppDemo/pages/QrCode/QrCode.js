@@ -16,11 +16,11 @@ Page({
     wx.request({
       url: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode',
       data: {
-        sessionKey: wx.getStorageSync('sessionId'),//todo:sessionid
+        sessionId: wx.getStorageSync('sessionId'),
       },
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded' },
-      success: function (rest) {
+      success: function (res) {
         if (res.data.success) {
           console.log('获取二维码成功：' + res.data.msg);
           that.setData({

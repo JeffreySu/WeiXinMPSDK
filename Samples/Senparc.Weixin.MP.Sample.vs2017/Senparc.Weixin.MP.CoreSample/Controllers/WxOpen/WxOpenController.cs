@@ -346,9 +346,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// </summary>
         /// <param name="sessionKey"></param>
         /// <returns></returns>
-        public async Task<IActionResult> GetQrCode(string sessionKey)//TODO：SessionId
+        public async Task<IActionResult> GetQrCode(string sessionId)
         {
-            var sessionBag = SessionContainer.GetSession(sessionKey);
+            var sessionBag = SessionContainer.GetSession(sessionId);
             if (sessionBag == null)
             {
                 return Json(new { success = false, msg = "请先登录！" });

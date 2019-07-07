@@ -1,5 +1,5 @@
 <!--pages/QrCode/QrCode.wxml-->
-<view wx:if="{{sceneCode!=null}}" class='note sceneCode'>
+<view wx:if="{{sceneCode}}" class='note sceneCode'>
 <text>当前页面通过二维码进入，scene：{{sceneCode}}</text>
 </view>
 

@@ -251,9 +251,10 @@ Page({
       url: '../LivePusher/LivePusher'
     })
   },
-  openQrCodePage:function(){
+  openQrCodePage:function(e){
+    var codeType = e.target.dataset.codetype;
     wx.navigateTo({
-      url: '../QrCode/QrCode'
+      url: '../QrCode/QrCode?codeType=' + codeType
     })
   },
   onLoad: function () {

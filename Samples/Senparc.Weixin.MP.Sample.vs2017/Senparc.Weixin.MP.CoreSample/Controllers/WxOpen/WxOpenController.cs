@@ -19,6 +19,7 @@ using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -346,7 +347,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// </summary>
         /// <param name="sessionKey"></param>
         /// <returns></returns>
-        public async Task<IActionResult> GetQrCode(string sessionId, string useBase64)
+        public async Task<IActionResult> GetQrCode(string sessionId, string useBase64, string codeType = "1")
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
             if (sessionBag == null)
@@ -357,8 +358,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             var ms = new MemoryStream();
             var openId = sessionBag.OpenId;
             var page = "pages/QrCode/QrCode";
+            LineColor lineColor = null;//线条颜色
+            if (codeType == "2")
+            {
+                lineColor = new LineColor(221, 51, 238);
+            }
+
             var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
-                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page);
+                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page, lineColor: lineColor);
             ms.Position = 0;
 
             if (!useBase64.IsNullOrEmpty())

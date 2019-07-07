@@ -6,6 +6,7 @@ Page({
    */
   data: {
     qrCodeImg:'',
+    codeType:'',
     sceneCode:null
   },
 
@@ -23,8 +24,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (query) {
     var that = this;
+
+    that.setData({
+      codeType: query.codeType
+    });
+    console.log('codeType', query.codeType);
 
     // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
     const scene = decodeURIComponent(query.scene);
@@ -36,7 +42,9 @@ Page({
 
     //使用图片文件流直接加载图片
     that.setData({
-      qrCodeImg: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode?sessionId=' + wx.getStorageSync('sessionId')
+      qrCodeImg: wx.getStorageSync('domainName') 
+                  + '/WxOpen/GetQrCode?sessionId=' + wx.getStorageSync('sessionId')
+                  + '&codeType=' + that.data.codeType
     });
 
     //使用 base64 方式加载图片

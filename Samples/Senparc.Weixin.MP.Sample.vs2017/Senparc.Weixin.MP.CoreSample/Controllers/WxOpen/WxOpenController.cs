@@ -358,7 +358,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             {
                 var openId = sessionBag.OpenId;
                 var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
-                    .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", "/QrCode/QrCode");
+                    .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", "pages/QrCode/QrCode");
 
                 ms.Position = 0;
                 //转base64

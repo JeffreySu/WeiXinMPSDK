@@ -357,21 +357,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             using (var ms = new MemoryStream())
             {
                 var openId = sessionBag.OpenId;
+                var page = "pages/QrCode/QrCode";
                 var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
-                    .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", "pages/QrCode/QrCode");
+                    .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page);
 
-                ms.Position = 0;
                 //转base64
+                ms.Position = 0;
                 var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
 
-                ms.Position = 0;
-                string imgStr = null;
-                using (var sr = new StreamReader(ms))
-                {
-                    imgStr = await sr.ReadToEndAsync();
-                    return Json(new { success = true, msg = imgBase64, imgStr = imgStr });
-                }
-
+                return Json(new { success = true, msg = imgBase64, page = page });
             }
         }
     }

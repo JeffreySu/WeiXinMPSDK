@@ -5,13 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    qrCodeImgBase64Data:''
+    qrCodeImg:'',
+    sceneCode:null
   },
 
   /* 预览图片 */
   viewQrCode:function (e) {
-      console.log('base64编码的图片无法使用预览，必须使用文件地址');
-    var src = wx.getStorageSync('domainName') + '/WxOpen/GetQrCode?outputFile=1'; //e.currentTarget.dataset.src;//获取data-src  循环单个图片链接
+      console.log('注意：base64编码的图片无法使用预览，必须使用文件地址');
+      var src = e.currentTarget.dataset.src;//获取data-src  循环单个图片链接
       var imgList = [];
       imgList.push(src);
       wx.previewImage({
@@ -24,29 +25,45 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode',
-      data: {
-        sessionId: wx.getStorageSync('sessionId'),
-      },
-      method: 'POST',
-      header: { 'content-type': 'application/x-www-form-urlencoded' },
-      success: function (res) {
-        if (res.data.success) {
-          console.log('获取二维码成功：' + res.data.msg);
-          that.setData({
-            qrCodeImgBase64Data: 'data:image/jpeg;base64,' + res.data.msg,  // data 为接口返回的base64字符串  
-          });
-          console.log(that.data.qrCodeImgBase64Data);
-        } else {
-          wx.showModal({
-            title: '获取二维码失败',
-            content: res.data.msg,
-            showCancel: false
-          });
-        }
-      }
+
+    // scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+    const scene = decodeURIComponent(query.scene);
+    if(scene){
+      that.setData({
+        sceneCode: scene
+      });
+    }
+
+    //使用图片文件流直接加载图片
+    that.setData({
+      qrCodeImg: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode?sessionId=' + wx.getStorageSync('sessionId')
     });
+
+    //使用 base64 方式加载图片
+    // wx.request({
+    //   url: wx.getStorageSync('domainName') + '/WxOpen/GetQrCode?useBase64=1',
+    //   data: {
+    //     sessionId:,
+    //   },
+    //   method: 'POST',
+    //   header: { 'content-type': 'application/x-www-form-urlencoded' },
+    //   success: function (res) {
+    //     if (res.data.success===false) {
+    //       wx.showModal({
+    //         title: '获取二维码失败',
+    //         content: res.data.msg,
+    //         showCancel: false
+    //       });
+          
+    //     } else {
+    //       console.log('获取二维码成功：' + res.data.msg);
+    //       that.setData({
+    //         qrCodeImg: 'data:image/jpeg;base64,' + res.data.msg,  // data 为接口返回的base64字符串
+    //       });
+    //       console.log(that.data.qrCodeImg);
+    //     }
+    //   }
+    // });
   },
 
   /**

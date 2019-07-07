@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
+    motto: 'Senparc.Weixin SDK Demo v2019.7.6',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -249,6 +249,11 @@ Page({
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'
+    })
+  },
+  openQrCodePage:function(){
+    wx.navigateTo({
+      url: '../QrCode/QrCode'
     })
   },
   onLoad: function () {

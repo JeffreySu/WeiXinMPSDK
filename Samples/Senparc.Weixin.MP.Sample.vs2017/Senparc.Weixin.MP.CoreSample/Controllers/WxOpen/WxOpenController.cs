@@ -18,6 +18,7 @@ using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -338,7 +339,27 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                     msg = ex.Message
                 });
             }
+        }
 
+        public async Task<IActionResult> GetQrCode(string sessionKey)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionKey);
+            if (sessionBag == null)
+            {
+                return Json(new { success = false, msg = "请先登录！" });
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                var openId = sessionBag.OpenId;
+                var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
+                    .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", " /QrCode/OrCode");
+
+                ms.Position = 0;
+                //转base64
+                var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
+                return Json(new { success = false, msg = imgBase64 });
+            }
         }
     }
 }

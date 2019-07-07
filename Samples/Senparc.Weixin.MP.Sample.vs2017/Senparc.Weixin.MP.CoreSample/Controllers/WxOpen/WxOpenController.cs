@@ -18,6 +18,8 @@ using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
+using System.Threading.Tasks;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -338,7 +340,46 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                     msg = ex.Message
                 });
             }
+        }
 
+        /// <summary>
+        /// 获取二维码
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> GetQrCode(string sessionId, string useBase64, string codeType = "1")
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            if (sessionBag == null)
+            {
+                return Json(new { success = false, msg = "请先登录！" });
+            }
+
+            var ms = new MemoryStream();
+            var openId = sessionBag.OpenId;
+            var page = $"pages/QrCode/QrCode?codeType={codeType}";
+            LineColor lineColor = null;//线条颜色
+            if (codeType == "2")
+            {
+                lineColor = new LineColor(221, 51, 238);
+            }
+
+            var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
+                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page, lineColor: lineColor);
+            ms.Position = 0;
+
+            if (!useBase64.IsNullOrEmpty())
+            {
+                //转base64
+                var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
+
+                return Json(new { success = true, msg = imgBase64, page = page });
+            }
+            else
+            {
+                //返回文件流
+                return File(ms, "image/jpeg");
+            }
         }
     }
 }

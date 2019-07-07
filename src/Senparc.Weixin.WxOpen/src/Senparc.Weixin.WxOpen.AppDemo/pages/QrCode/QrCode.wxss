@@ -1,1 +1,4 @@
 /* pages/QrCode/QrCode.wxss */
+.note{ margin:20x;padding:10px;}
+
+.qrArea{text-align: center;}

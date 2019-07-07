@@ -346,7 +346,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         /// </summary>
         /// <param name="sessionKey"></param>
         /// <returns></returns>
-        public async Task<IActionResult> GetQrCode(string sessionId)
+        public async Task<IActionResult> GetQrCode(string sessionId,string outputFile)
         {
             var sessionBag = SessionContainer.GetSession(sessionId);
             if (sessionBag == null)
@@ -361,11 +361,19 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
                     .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page);
 
-                //转base64
-                ms.Position = 0;
-                var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
+                if (outputFile.IsNullOrEmpty())
+                {
+                    //转base64
+                    ms.Position = 0;
+                    var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
 
-                return Json(new { success = true, msg = imgBase64, page = page });
+                    return Json(new { success = true, msg = imgBase64, page = page });
+                }
+                else
+                {
+                    //返回文件流
+                    return File(ms, "image/jpeg");
+                }
             }
         }
     }

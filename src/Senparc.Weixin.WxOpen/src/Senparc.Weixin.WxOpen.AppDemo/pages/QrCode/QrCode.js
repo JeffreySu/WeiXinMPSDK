@@ -8,6 +8,17 @@ Page({
     qrCodeImgBase64Data:''
   },
 
+  /* 预览图片 */
+  viewQrCode:function (e) {
+      console.log('base64编码的图片无法使用预览，必须使用文件地址');
+    var src = wx.getStorageSync('domainName') + '/WxOpen/GetQrCode?outputFile=1'; //e.currentTarget.dataset.src;//获取data-src  循环单个图片链接
+      var imgList = [];
+      imgList.push(src);
+      wx.previewImage({
+        current: src, // 当前显示图片的http链接
+        urls: imgList // 需要预览的图片http链接列表
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

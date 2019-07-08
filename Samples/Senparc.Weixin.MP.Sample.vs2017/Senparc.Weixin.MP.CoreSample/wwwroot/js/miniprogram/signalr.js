@@ -1713,51 +1713,89 @@ var XhrHttpClient = /** @class */ (function (_super) {
             return Promise.reject(new Error("No url defined."));
         }
         return new Promise(function (resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.open(request.method, request.url, true);
-            xhr.withCredentials = true;
-            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            // Explicitly setting the Content-Type header for React Native on Android platform.
-            xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
             var headers = request.headers;
-            if (headers) {
-                Object.keys(headers)
-                    .forEach(function (header) {
-                    xhr.setRequestHeader(header, headers[header]);
-                });
-            }
-            if (request.responseType) {
-                xhr.responseType = request.responseType;
-            }
-            if (request.abortSignal) {
-                request.abortSignal.onabort = function () {
-                    xhr.abort();
-                    reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["AbortError"]());
-                };
-            }
-            if (request.timeout) {
-                xhr.timeout = request.timeout;
-            }
-            xhr.onload = function () {
-                if (request.abortSignal) {
-                    request.abortSignal.onabort = null;
+
+            var xhrMiniprogram = ex.request({
+                url: request.url,
+                data: request.content || "",
+                header: headers,
+                method: request.method,
+                responseType: request.responseType,
+                success: function (res) {
+                    if (request.abortSignal) {
+                        request.abortSignal.onabort = null;
+                    }
+                    consloe.log(res);
+                    var statusText = res.errmsg.split(':')[1];
+                    var responseText = JSON.stringify(res.data);
+                    if (typeof res.data == "object") {
+                        responseText = JSON.stringify(res.data);
+                    } else {
+                        responseText = res.data;
+                    }
+                    if (res.statusCode >= 200 && res.statusCode < 300) {
+                        resolve(new _HttpClient__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"](res.statusCode, statusText, responseText));
+                    }
+                    else {
+                        reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](statusText, res.statusCode));
+                    }
+                },
+                fail: function (res) {
+                    if (res.errMsg.includes('timeout')) {
+                        _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Timeout from HTTP request.");
+                        reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["TimeoutError"]());
+                    } else {
+                        _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Error from HTTP request. " + xhr.status + ": " + xhr.statusText + ".");
+                        reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](xhr.statusText, xhr.status));
+                    }
                 }
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    resolve(new _HttpClient__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"](xhr.status, xhr.statusText, xhr.response || xhr.responseText));
-                }
-                else {
-                    reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](xhr.statusText, xhr.status));
-                }
-            };
-            xhr.onerror = function () {
-                _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Error from HTTP request. " + xhr.status + ": " + xhr.statusText + ".");
-                reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](xhr.statusText, xhr.status));
-            };
-            xhr.ontimeout = function () {
-                _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Timeout from HTTP request.");
-                reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["TimeoutError"]());
-            };
-            xhr.send(request.content || "");
+            });
+
+            //var xhr = new XMLHttpRequest();
+            //xhr.open(request.method, request.url, true);
+            //xhr.withCredentials = true;
+            //xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            //// Explicitly setting the Content-Type header for React Native on Android platform.
+            //xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+            //var headers = request.headers;
+            //if (headers) {
+            //    Object.keys(headers)
+            //        .forEach(function (header) {
+            //        xhr.setRequestHeader(header, headers[header]);
+            //    });
+            //}
+            //if (request.responseType) {
+            //    xhr.responseType = request.responseType;
+            //}
+            //if (request.abortSignal) {
+            //    request.abortSignal.onabort = function () {
+            //        xhr.abort();
+            //        reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["AbortError"]());
+            //    };
+            //}
+            //if (request.timeout) {
+            //    xhr.timeout = request.timeout;
+            //}
+            //xhr.onload = function () {
+            //    if (request.abortSignal) {
+            //        request.abortSignal.onabort = null;
+            //    }
+            //    if (xhr.status >= 200 && xhr.status < 300) {
+            //        resolve(new _HttpClient__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"](xhr.status, xhr.statusText, xhr.response || xhr.responseText));
+            //    }
+            //    else {
+            //        reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](xhr.statusText, xhr.status));
+            //    }
+            //};
+            //xhr.onerror = function () {
+            //    _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Error from HTTP request. " + xhr.status + ": " + xhr.statusText + ".");
+            //    reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["HttpError"](xhr.statusText, xhr.status));
+            //};
+            //xhr.ontimeout = function () {
+            //    _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_2__["LogLevel"].Warning, "Timeout from HTTP request.");
+            //    reject(new _Errors__WEBPACK_IMPORTED_MODULE_0__["TimeoutError"]());
+            //};
+            //xhr.send(request.content || "");
         });
     };
     return XhrHttpClient;
@@ -3124,7 +3162,9 @@ var HttpConnection = /** @class */ (function () {
                         if (!(_i < transports_1.length)) return [3 /*break*/, 9];
                         endpoint = transports_1[_i];
                         this.connectionState = 0 /* Connecting */;
-                        transport = this.resolveTransport(endpoint, requestedTransport, requestedTransferFormat);
+                        //transport = this.resolveTransport(endpoint, requestedTransport, requestedTransferFormat);
+                        transport = 1;//always use websocket for Miniprogram
+
                         if (!(typeof transport === "number")) return [3 /*break*/, 8];
                         this.transport = this.constructTransport(transport);
                         if (!!negotiateResponse.connectionId) return [3 /*break*/, 5];
@@ -3883,28 +3923,37 @@ var WebSocketTransport = /** @class */ (function () {
                             url = url.replace(/^http/, "ws");
                             var webSocket;
                             var cookies = _this.httpClient.getCookieString(url);
-                            if (typeof window === "undefined" && cookies) {
-                                // Only pass cookies when in non-browser environments
-                                webSocket = new _this.webSocketConstructor(url, undefined, {
-                                    headers: {
-                                        Cookie: "" + cookies,
-                                    },
-                                });
-                            }
-                            if (!webSocket) {
-                                // Chrome is not happy with passing 'undefined' as protocol
-                                webSocket = new _this.webSocketConstructor(url);
-                            }
-                            if (transferFormat === _ITransport__WEBPACK_IMPORTED_MODULE_1__["TransferFormat"].Binary) {
-                                webSocket.binaryType = "arraybuffer";
-                            }
+                            //if (typeof window === "undefined" && cookies) {
+                            //    // Only pass cookies when in non-browser environments
+                            //    webSocket = new _this.webSocketConstructor(url, undefined, {
+                            //        headers: {
+                            //            Cookie: "" + cookies,
+                            //        },
+                            //    });
+                            //}
+                            //if (!webSocket) {
+                            //    // Chrome is not happy with passing 'undefined' as protocol
+                            //    webSocket = new _this.webSocketConstructor(url);
+                            //}
+                            //if (transferFormat === _ITransport__WEBPACK_IMPORTED_MODULE_1__["TransferFormat"].Binary) {
+                            //    webSocket.binaryType = "arraybuffer";
+                            //}
+
+                            //https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.connectSocket.html
+                            webSocket = ex.connectSocket({
+                                url: url,
+                                header: {
+                                            Cookie: "" + cookies,
+                                        },
+                            });
+
                             // tslint:disable-next-line:variable-name
-                            webSocket.onopen = function (_event) {
+                            webSocket.onOpen = function (_event) {
                                 _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_0__["LogLevel"].Information, "WebSocket connected to " + url + ".");
                                 _this.webSocket = webSocket;
                                 resolve();
                             };
-                            webSocket.onerror = function (event) {
+                            webSocket.onError = function (event) {
                                 var error = null;
                                 // ErrorEvent is a browser only type we need to check if the type exists before using it
                                 if (typeof ErrorEvent !== "undefined" && event instanceof ErrorEvent) {
@@ -3912,13 +3961,13 @@ var WebSocketTransport = /** @class */ (function () {
                                 }
                                 reject(error);
                             };
-                            webSocket.onmessage = function (message) {
+                            webSocket.onMessage = function (message) {
                                 _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_0__["LogLevel"].Trace, "(WebSockets transport) data received. " + Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["getDataDetail"])(message.data, _this.logMessageContent) + ".");
                                 if (_this.onreceive) {
                                     _this.onreceive(message.data);
                                 }
                             };
-                            webSocket.onclose = function (event) { return _this.close(event); };
+                            webSocket.onClose = function (event) { return _this.close(event); };
                         })];
                 }
             });
@@ -3927,7 +3976,10 @@ var WebSocketTransport = /** @class */ (function () {
     WebSocketTransport.prototype.send = function (data) {
         if (this.webSocket && this.webSocket.readyState === this.webSocketConstructor.OPEN) {
             this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_0__["LogLevel"].Trace, "(WebSockets transport) sending data. " + Object(_Utils__WEBPACK_IMPORTED_MODULE_2__["getDataDetail"])(data, this.logMessageContent) + ".");
-            this.webSocket.send(data);
+            //this.webSocket.send(data);
+            this.webSocket.send({
+                data:data
+            });
             return Promise.resolve();
         }
         return Promise.reject("WebSocket is not in the OPEN state");

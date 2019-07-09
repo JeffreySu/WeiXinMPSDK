@@ -25,9 +25,14 @@ Page({
         FormId: e.detail.formId//选填formId用于发送模板消息，不需要可输入''
       });
 
-      wx.sendSocketMessage({
-        data: submitData
+      // wx.sendSocketMessage({
+      //   data: submitData
+      // });
+
+      connection.invoke("SendMessage", submitData).catch(function (err) {
+        return console.error(err.toString());
       });
+
       that.setData({
         messageContent: ''
       })
@@ -61,6 +66,24 @@ Page({
       return console.error(err.toString());
     });
 
+    connection.on("ReceiveMessage", function (message) {
+      console.log('收到服务器内容：' + message)
+        // var jsonResult = JSON.parse(res.data);
+        // var currentIndex = that.data.messageTextArr.length + 1;
+        // var newArr = that.data.messageTextArr;
+        // newArr.unshift(
+        //   {
+        //     index: currentIndex,
+        //     content: jsonResult.content,
+        //     time: jsonResult.time
+        //   });
+        console.log(that);
+        that.setData({
+          // messageTextArr: newArr
+          messageTextArr: message
+        });
+    });
+
     //WebSocket 连接成功
     wx.onSocketOpen(function (res) {
       console.log('WebSocket 连接成功！')
@@ -69,23 +92,25 @@ Page({
         messageTip: 'WebSocket 连接成功！'
       })
     })
-    //收到 WebSocket 推送消息
-    wx.onSocketMessage(function (res) {
-      console.log('收到服务器内容：' + res.data)
-      var jsonResult = JSON.parse(res.data);
-      var currentIndex = that.data.messageTextArr.length + 1;
-      var newArr = that.data.messageTextArr;
-      newArr.unshift(
-        {
-          index: currentIndex,
-          content: jsonResult.content,
-          time: jsonResult.time
-        });
-      console.log(that);
-      that.setData({
-        messageTextArr: newArr
-      });
-    })
+
+
+    // //收到 WebSocket 推送消息
+    // wx.onSocketMessage(function (res) {
+    //   console.log('收到服务器内容：' + res.data)
+    //   var jsonResult = JSON.parse(res.data);
+    //   var currentIndex = that.data.messageTextArr.length + 1;
+    //   var newArr = that.data.messageTextArr;
+    //   newArr.unshift(
+    //     {
+    //       index: currentIndex,
+    //       content: jsonResult.content,
+    //       time: jsonResult.time
+    //     });
+    //   console.log(that);
+    //   that.setData({
+    //     messageTextArr: newArr
+    //   });
+    // })
     //WebSocket 已关闭
     wx.onSocketClose(function (res) {
       console.log('WebSocket 已关闭！')

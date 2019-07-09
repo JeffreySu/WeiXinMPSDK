@@ -357,7 +357,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 
             var ms = new MemoryStream();
             var openId = sessionBag.OpenId;
-            var page = $"pages/QrCode/QrCode?codeType={codeType}";
+            var page = "pages/QrCode/QrCode";//此接口不可以带参数，如果需要加参数，必须加到scene中
+            var scene = $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}#{codeType}";//储存OpenId后缀，以及codeType。scene最多允许32个字符
             LineColor lineColor = null;//线条颜色
             if (codeType == "2")
             {
@@ -365,14 +366,13 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
 
             var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
-                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}", page, lineColor: lineColor);
+                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, scene, page, lineColor: lineColor);
             ms.Position = 0;
 
             if (!useBase64.IsNullOrEmpty())
             {
                 //转base64
                 var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
-
                 return Json(new { success = true, msg = imgBase64, page = page });
             }
             else

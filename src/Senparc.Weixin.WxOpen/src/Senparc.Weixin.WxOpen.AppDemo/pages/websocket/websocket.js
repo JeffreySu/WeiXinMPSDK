@@ -1,3 +1,6 @@
+var signalR = require("../../utils/signalr.1.0.js")
+
+var connection;
 var app = getApp()
 var socketOpen = false;//WebSocket 打开状态
 Page({
@@ -38,14 +41,26 @@ Page({
     console.log('onLoad')
     var that = this
 
-    //连接 Websocket
-    wx.connectSocket({
-      url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
-      header:{ 
-        'content-type': 'application/json'
-      },
-      method:"GET"
+    // //连接 Websocket
+    // wx.connectSocket({
+    //   // url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
+    //   url: wx.getStorageSync('wssDomainName') + '/SenparcHub',
+    //   header:{ 
+    //     'content-type': 'application/json'
+    //   },
+    //   method:"GET"
+    // });
+
+    
+     connection = new signalR.HubConnectionBuilder().withUrl(wx.getStorageSync('wssDomainName') + "/SenparcHub").build();
+console.log(connection);
+
+    connection.start().then(function () {
+      console.log('ws started');
+    }).catch(function (err) {
+      return console.error(err.toString());
     });
+
 //WebSocket 连接成功
 wx.onSocketOpen(function(res) {
   console.log('WebSocket 连接成功！')

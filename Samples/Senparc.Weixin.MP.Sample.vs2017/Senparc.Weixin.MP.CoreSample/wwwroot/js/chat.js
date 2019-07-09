@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/VirtualPath/senparcHub").build();
+console.log(signalR);
 
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;

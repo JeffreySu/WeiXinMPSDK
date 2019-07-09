@@ -17,7 +17,7 @@ Page({
 
   bindWebsocketTap: function(){
     wx.navigateTo({
-      url: '../websocket/websocket'
+      url: '../websocket_signalr/websocket_signalr'
     })
   },
 

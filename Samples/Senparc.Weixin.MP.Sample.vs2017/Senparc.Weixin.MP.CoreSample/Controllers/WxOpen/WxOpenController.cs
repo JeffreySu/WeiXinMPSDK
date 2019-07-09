@@ -221,18 +221,18 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult TemplateTest(string sessionId, string formId)
+        public async Task<IActionResult> TemplateTest(string sessionId, string formId)
         {
             var templateMessageService = new TemplateMessageService();
             try
             {
-                var sessionBag = templateMessageService.RunTemplateTest(WxOpenAppId, sessionId, formId);
+                var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
             catch (Exception ex)
             {
-                var sessionBag = SessionContainer.GetSession(sessionId);
+                var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
                 var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
 
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });

@@ -29,7 +29,7 @@ Page({
       //   data: submitData
       // });
 
-      connection.invoke("SendMessage", submitData).catch(function (err) {
+      connection.invoke("SendText", submitData).catch(function (err) {
         return console.error(err.toString());
       });
 
@@ -68,19 +68,18 @@ Page({
 
     connection.on("ReceiveMessage", function (message) {
       console.log('收到服务器内容：' + message)
-        // var jsonResult = JSON.parse(res.data);
-        // var currentIndex = that.data.messageTextArr.length + 1;
-        // var newArr = that.data.messageTextArr;
-        // newArr.unshift(
-        //   {
-        //     index: currentIndex,
-        //     content: jsonResult.content,
-        //     time: jsonResult.time
-        //   });
+      var jsonResult = message//JSON.parse(message);
+        var currentIndex = that.data.messageTextArr.length + 1;
+        var newArr = that.data.messageTextArr;
+        newArr.unshift(
+          {
+            index: currentIndex,
+            content: jsonResult,// jsonResult.content,
+            time: jsonResult.time
+          });
         console.log(that);
         that.setData({
-          // messageTextArr: newArr
-          messageTextArr: message
+          messageTextArr: newArr
         });
     });
 

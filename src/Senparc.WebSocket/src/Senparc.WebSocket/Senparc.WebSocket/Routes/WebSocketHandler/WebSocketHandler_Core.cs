@@ -33,16 +33,16 @@ namespace Senparc.WebSocket
 
         async Task EchoLoop()
         {
-          await HandleMessage(_socket);
+          await HandleMessage(_socket).ConfigureAwait(false);
         }
 
         static async Task Acceptor(HttpContext hc, Func<Task> n)
         {
             if (!hc.WebSockets.IsWebSocketRequest)
                 return;
-            var socket = await hc.WebSockets.AcceptWebSocketAsync();
+            var socket = await hc.WebSockets.AcceptWebSocketAsync().ConfigureAwait(false);
             var h = new WebSocketHandler(socket);
-            await h.EchoLoop();
+            await h.EchoLoop().ConfigureAwait(false);
         }
         /// <summary>
         /// branches the request pipeline for this SocketHandler usage

@@ -135,7 +135,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken.AsUrlData(), code.AsUrlData(), agentId.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken.AsUrlData(), code.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET);
+            return await CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 user_ticket = userTicket
             };
 
-            return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<GetUserDetailResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
         #endregion
     }

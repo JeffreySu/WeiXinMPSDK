@@ -523,8 +523,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -563,8 +563,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -604,8 +604,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -649,8 +649,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -690,8 +690,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -736,8 +736,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -782,8 +782,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     },
                     safe = safe
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -826,8 +826,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送Markdown消息
@@ -861,8 +861,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送小程序通知消息
@@ -878,8 +878,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -896,8 +896,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _urlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -914,8 +914,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppKey);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         #endregion
     }

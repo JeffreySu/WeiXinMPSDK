@@ -117,6 +117,8 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
+    <Compile Include="AdvancedAPIs\Webhook\WebhookApi.cs" />
+    <Compile Include="AdvancedAPIs\Webhook\WebhookNews.cs" />
     <Compile Include="AdvancedAPIs\WorkApiEnlightener.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="Containers\JsApiTicketContainer.cs" />
@@ -241,7 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.6.8</Version>
+      <Version>0.7.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

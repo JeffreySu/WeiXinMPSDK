@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             using (var fs = FileHelper.GetFileStream(fileName))
             {
-                var jsonText = await RequestUtility.HttpPostAsync(url, null, fs);
+                var jsonText = await RequestUtility.HttpPostAsync(url, null, fs).ConfigureAwait(false);
                 json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
             }
             return json;

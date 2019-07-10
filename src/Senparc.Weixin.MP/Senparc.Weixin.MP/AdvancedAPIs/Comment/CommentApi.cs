@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="begin">起始位置</param>
         /// <param name="count">获取数目（>=50会被拒绝）</param>
-        /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
+        /// <param name="type">type=0 普通评论+精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.List", true)]
@@ -332,8 +332,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -370,7 +370,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="begin">起始位置</param>
         /// <param name="count">获取数目（>=50会被拒绝）</param>
-        /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
+        /// <param name="type">type=0 普通评论+精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ListAsync", true)]
@@ -407,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -434,7 +434,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -462,7 +462,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -517,7 +517,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -545,7 +545,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
            }, accessTokenOrAppId);
         }
 

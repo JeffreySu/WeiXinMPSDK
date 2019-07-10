@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>3.4.2.3</Version>
+    <Version>3.4.9</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -122,6 +122,11 @@
       1、支持异步 Container
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       3、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
+      v3.4.5
+      1、JsCode2Json 返回结果增加 unionid
+      2、优化小程序 MessageHandler，可返回进入客服的响应消息
+      v3.4.8 修复附近的小程序添加地点
+      v3.4.9 添加开放平台小程序的普通链接二维码接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -150,17 +155,6 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
@@ -185,7 +179,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.8" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.4" />
   </ItemGroup>
 
   <ItemGroup>

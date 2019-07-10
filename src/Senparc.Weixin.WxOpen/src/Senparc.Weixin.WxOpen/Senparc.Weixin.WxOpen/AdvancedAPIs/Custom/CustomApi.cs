@@ -153,8 +153,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
         #endregion
 
-
-
         #region 异步方法
 
         /// <summary>
@@ -170,7 +168,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
             int timeOut = Config.TIME_OUT)
         {
             return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content,
-             timeOut);
+             timeOut).ConfigureAwait(false);
         }
 
 
@@ -185,7 +183,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "CustomApi.SendImageAsync", true)]
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(accessTokenOrAppId, openId, mediaId, timeOut);
+            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(accessTokenOrAppId, openId, mediaId, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -218,9 +216,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
@@ -253,9 +251,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
 
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, Senparc.Weixin.MP.AdvancedAPIs.CustomApi.UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
     }

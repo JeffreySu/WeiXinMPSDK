@@ -19,7 +19,8 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
-using Senparc.CO2NET.Utilities; 
+using Senparc.CO2NET.Utilities;
+using System;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -153,6 +154,8 @@ namespace Senparc.Weixin.MP.CoreSample
             register.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
 
             #endregion
+
+            CO2NET.APM.Config.DataExpire = TimeSpan.FromMinutes(60);//测试APM缓存过期时间（默认情况下可以不用设置）
 
             #endregion
 

@@ -238,9 +238,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/apply_merchant?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -255,9 +255,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/get_merchant_audit_info?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<GetMerchantAuditInfoJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+                return await CommonJsonSend.SendAsync<GetMerchantAuditInfoJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -274,8 +274,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/modify_merchant?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, new { headimg_mediaid, intro }, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, new { headimg_mediaid, intro }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -292,9 +292,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/search_map_poi?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<SearchMapPoiJson>(null, url, new { districtid, keyword }, CommonJsonSendType.GET, timeOut);
+                return await CommonJsonSend.SendAsync<SearchMapPoiJson>(null, url, new { districtid, keyword }, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -310,9 +310,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/add_store?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<AddStoreJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<AddStoreJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -328,9 +328,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/update_store?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<UpdateStoreJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<UpdateStoreJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -346,9 +346,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/get_store_info?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<StoreJsonResult>(null, url, new { poi_id }, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<StoreJsonResult>(null, url, new { poi_id }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -366,9 +366,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/get_store_info?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<StoreListJsonResult>(null, url, new { offset, limit }, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<StoreListJsonResult>(null, url, new { offset, limit }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -384,9 +384,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/wxa/del_store?access_token={0}", accessToken.AsUrlData());
-                return await CommonJsonSend.SendAsync<StoreJsonResult>(null, url, new { poi_id }, CommonJsonSendType.POST, timeOut);
+                return await CommonJsonSend.SendAsync<StoreJsonResult>(null, url, new { poi_id }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion

@@ -302,11 +302,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetAccessTokenAsync(string appId, string appSecret, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(appId) || getNewToken)
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false) || getNewToken)
             {
-                await RegisterAsync(appId, appSecret);
+                await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetAccessTokenAsync(appId, getNewToken);
+            return await GetAccessTokenAsync(appId, getNewToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> GetAccessTokenAsync(string appId, bool getNewToken = false)
         {
-            var result = await GetAccessTokenResultAsync(appId, getNewToken);
+            var result = await GetAccessTokenResultAsync(appId, getNewToken).ConfigureAwait(false);
             return result.access_token;
         }
 
@@ -329,22 +329,22 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<IAccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
         {
-            if (!await CheckRegisteredAsync(appId))
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false))
             {
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = await TryGetItemAsync(appId);
+            var accessTokenBag = await TryGetItemAsync(appId).ConfigureAwait(false);
 
-            using (await Cache.BeginCacheLockAsync(LockResourceName, appId))//同步锁
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret).ConfigureAwait(false);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    await UpdateAsync(accessTokenBag, null);//更新到缓存
+                    await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;

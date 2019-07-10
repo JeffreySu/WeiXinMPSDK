@@ -50,6 +50,7 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Tencent;
+using Senparc.NeuChar.Helpers;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -113,6 +114,40 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             set
             {
                 base.ResponseMessage = value;
+            }
+        }
+
+
+        public override XDocument ResponseDocument
+        {
+            get
+            {
+                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+            }
+        }
+
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                if (ResponseDocument == null)
+                {
+                    return null;
+                }
+
+                if (!UsingEcryptMessage)
+                {
+                    return ResponseDocument;
+                }
+
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
             }
         }
 
@@ -255,6 +290,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
+
+                        SenparcTrace.SendCustomLog("WXOPEN-TEXT ResponseMessage:", ResponseMessage.ToJson());
                     }
                     break;
                 case RequestMsgType.Image:
@@ -264,7 +301,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
                     break;
                 case RequestMsgType.Event:
                     {

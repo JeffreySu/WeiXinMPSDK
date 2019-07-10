@@ -36,7 +36,6 @@ using System.Xml.Linq;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
@@ -96,18 +95,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         catch (Exception ex)
                         {
                             SenparcTrace.SendCustomLog("mp-response error", ex.Message + "\r\n|||\r\n" + (ex.InnerException != null ? ex.InnerException.ToString() : ""));
-
                         }
-
                     }
                     break;
                 case RequestMsgType.Location:
                     ResponseMessage = await OnLocationRequestAsync(RequestMessage as RequestMessageLocation).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Image:
-
-                    WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
-
+                    //WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
                     ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Voice:

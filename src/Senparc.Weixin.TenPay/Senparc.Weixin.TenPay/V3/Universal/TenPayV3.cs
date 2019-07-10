@@ -127,6 +127,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword">证书密码</param>
         /// <param name="data">数据</param>
         /// <param name="url">Url</param>
+        /// <param name="timeOut">超时时间（毫秒）</param>
         /// <returns></returns>
         private static string CertPost(string cert, string certPassword, string data, string url, int timeOut = Config.TIME_OUT)
         {
@@ -193,7 +194,7 @@ namespace Senparc.Weixin.TenPay.V3
                 string responseContent = RequestUtility.HttpPost(
                     url,
                     postStream: ms,
-                    certName:mchId,
+                    certName: certName,
                     timeOut: timeOut);
 
                 return responseContent;
@@ -537,7 +538,7 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 //调用证书
 #if NET45
-            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+                string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
                 string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
@@ -612,6 +613,11 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var useGzip = dataInfo.TarType == "GZIP";//使用GZIP压缩
+            //TODO:根据GZIP参数判断是否压缩：https://github.com/JeffreySu/WeiXinMPSDK/issues/670
+
+
             return RequestUtility.HttpPost(urlFormat, null, ms, encoding: Encoding.UTF8);
         }
 

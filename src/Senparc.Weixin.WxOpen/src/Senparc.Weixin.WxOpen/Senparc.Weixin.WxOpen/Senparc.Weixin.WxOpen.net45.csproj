@@ -73,6 +73,7 @@
     <Compile Include="CommonAPIs\WxOpenApiHandlerWapper.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
+    <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
@@ -101,7 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.6.14.2</Version>
+      <Version>16.7.9</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

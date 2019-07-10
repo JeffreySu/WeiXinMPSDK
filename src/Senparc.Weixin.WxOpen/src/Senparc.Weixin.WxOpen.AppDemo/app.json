@@ -3,12 +3,14 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/websocket/websocket",
-    "pages/LivePusher/LivePusher"
+    "pages/LivePusher/LivePusher",
+    "pages/QrCode/QrCode"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap81.json"
 }

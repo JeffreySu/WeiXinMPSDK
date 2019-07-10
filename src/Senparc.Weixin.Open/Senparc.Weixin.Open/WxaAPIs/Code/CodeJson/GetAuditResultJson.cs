@@ -20,30 +20,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
-  
-    文件名：PassportCollection.cs
-    文件功能描述：同时管理多个应用的Passport的容器
+    
+    文件名：GetAuditResultJson.cs
+    文件功能描述：审核ID返回结果
     
     
-    创建标识：Senparc - 20150319
+    创建标识：Senparc - 20170726
+    
+    修改标识：Senparc - 20190525
+    修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
+
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 
-namespace Senparc.Weixin.MP.AppStore
+using Senparc.Weixin.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Senparc.Weixin.Open.WxaAPIs
 {
-    /// <summary>
-    /// 同时管理多个应用的Passport的容器
-    /// </summary>
-    public class PassportCollection : Dictionary<string, PassportBag>
+    public class GetAuditResultJson : WxJsonResult
     {
+
         /// <summary>
-        /// 统一URL前缀，如http://api.weiweihi.com:8080/App/Api
+        /// 最新的审核ID，只在使用GetLatestAuditStatus接口时才有返回值
         /// </summary>
-        public string BasicUrl { get; set; }
-        public string MarketingToolUrl { get; set; }
-        public PassportCollection()
-        {
-        }
+        public string auditid { get; set; }
+        /// <summary>
+        /// 审核状态，其中0为审核成功，1为审核失败，2为审核中
+        /// </summary>
+        public int status { get; set; }
+
+        /// <summary>
+        /// 当status=1，审核被拒绝时，返回的拒绝原因
+        /// </summary>
+        public string reason { get; set; }
     }
 }

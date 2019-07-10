@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.4.2</Version>
+    <Version>16.7.9</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -464,6 +464,7 @@
       2、停止对 .NET 3.5 和 .NET 4.0 的支持
       v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
       v16.7.4 添加 MessageHandler 的“点击菜单跳转小程序的事件推送”功能
+      v16.7.7.1 修改 UserInfoJson.qr_scene 类型为 unit
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -505,30 +506,6 @@
   </ItemGroup>
 
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -548,8 +525,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.3.1-preview1" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.9-preview1" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.4.1.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.4" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.5.4" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,18 +20,35 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
-  
-    文件名：Config.cs
-    文件功能描述：调试设置
+    
+    文件名：WxQcloudTokenJsonResult.cs
+    文件功能描述：获取腾讯云API调用凭证 返回结果
     
     
-    创建标识：Senparc - 20150319
+    创建标识：lishewen - 20190530
+   
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.MP.AppStore
+using Senparc.Weixin.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 {
-    public static class Config
+    /// <summary>
+    /// 获取腾讯云API调用凭证 返回结果
+    /// </summary>
+    public class WxQcloudTokenJsonResult : WxJsonResult
     {
-        public static bool IsDebug = false;
+        public string secretid { get; set; }
+        public string secretkey { get; set; }
+        public string token { get; set; }
+        /// <summary>
+        /// 过期时间戳
+        /// </summary>
+        public int expired_time { get; set; }
     }
 }

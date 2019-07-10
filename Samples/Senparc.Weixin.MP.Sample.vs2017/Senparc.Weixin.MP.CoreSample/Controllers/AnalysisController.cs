@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         [HttpPost]
         public ActionResult Index(Analysis_IndexVD vd_Form)
         {
-            IBaseAnalysisResult result1 = null;
+            //IBaseAnalysisResult result1 = null;
 
             //if (ModelState.IsValid)
             //{

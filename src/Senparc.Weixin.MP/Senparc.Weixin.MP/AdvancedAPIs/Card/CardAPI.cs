@@ -802,7 +802,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 查询code接口
+        /// 查询code接口。
+        /// https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1499332673_Unm7V 接口4：获取用户开卡时提交的信息（非跳转型开卡组件）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code"></param>
@@ -3048,7 +3049,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】查询code接口
+        /// 【异步方法】查询code接口。
+        /// https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1499332673_Unm7V 接口4：获取用户开卡时提交的信息（非跳转型开卡组件）
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code"></param>

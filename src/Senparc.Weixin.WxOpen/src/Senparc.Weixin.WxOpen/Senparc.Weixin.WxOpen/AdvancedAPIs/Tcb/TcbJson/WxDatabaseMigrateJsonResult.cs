@@ -21,15 +21,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：GetAuditStatusResultJson.cs
-    文件功能描述：审核ID返回结果
+    文件名：WxDatabaseMigrateJsonResult.cs
+    文件功能描述：数据库操作记录的各类返回结果
     
     
-    创建标识：Senparc - 20170726
-
-
+    创建标识：lishewen - 20190530
+   
 ----------------------------------------------------------------*/
-
 
 using Senparc.Weixin.Entities;
 using System;
@@ -38,23 +36,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Open.WxaAPIs
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
 {
-    public class GetAuditStatusResultJson : WxJsonResult
+    /// <summary>
+    /// 数据库导入/导出 返回结果
+    /// </summary>
+    public class WxDatabaseMigrateJsonResult : WxJsonResult
     {
+        /// <summary>
+        /// 任务ID，可使用数据库迁移进度查询 API 查询进度及结果
+        /// </summary>
+        public int job_id { get; set; }
+    }
 
+    /// <summary>
+    /// 数据库迁移状态查询 返回结果
+    /// </summary>
+    public class WxDatabaseMigrateQueryInfoJsonResult : WxJsonResult
+    {
         /// <summary>
-        /// 最新的审核ID，只在使用GetLatestAuditStatus接口时才有返回值
+        /// 导出状态
         /// </summary>
-        public string auditid { get; set; }
+        public string status { get; set; }
         /// <summary>
-        /// 审核状态，其中0为审核成功，1为审核失败，2为审核中
+        /// 导出成功记录数
         /// </summary>
-        public int status { get; set; }
-
+        public int record_success { get; set; }
         /// <summary>
-        /// 当status=1，审核被拒绝时，返回的拒绝原因
+        /// 导出失败记录数
         /// </summary>
-        public string reason { get; set; }
+        public int record_fail { get; set; }
+        /// <summary>
+        /// 导出错误信息
+        /// </summary>
+        public string err_msg { get; set; }
+        /// <summary>
+        /// 导出文件下载地址
+        /// </summary>
+        public string file_url { get; set; }
     }
 }

@@ -28,6 +28,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             return base.OnDisConnected(webSocketHandler);
         }
 
+        public virtual async Task ReceiveMessage(string message)
+        {
+            
+        }
+
         public override async Task OnMessageReceiced(WebSocketHelper webSocketHandler, ReceivedMessage receivedMessage, string originalData)
         {
             if (receivedMessage == null || string.IsNullOrEmpty(receivedMessage.Message))

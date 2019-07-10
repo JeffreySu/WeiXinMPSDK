@@ -66,21 +66,21 @@ Page({
       return console.error(err.toString());
     });
 
-    connection.on("ReceiveMessage", function (message) {
-      console.log('收到服务器内容：' + message)
-      var jsonResult = message//JSON.parse(message);
-        var currentIndex = that.data.messageTextArr.length + 1;
-        var newArr = that.data.messageTextArr;
-        newArr.unshift(
-          {
-            index: currentIndex,
-            content: jsonResult,// jsonResult.content,
-            time: jsonResult.time
-          });
-        console.log(that);
-        that.setData({
-          messageTextArr: newArr
+    connection.on("ReceiveMessage", function (res) {
+      console.log('收到服务器内容：' + res)
+      var jsonResult = JSON.parse(res);
+      var currentIndex = that.data.messageTextArr.length + 1;
+      var newArr = that.data.messageTextArr;
+      newArr.unshift(
+        {
+          index: currentIndex,
+          content: jsonResult.content,
+          time: jsonResult.time
         });
+      console.log(that);
+      that.setData({
+        messageTextArr: newArr
+      });
     });
 
     //WebSocket 连接成功

@@ -16,6 +16,11 @@ namespace Senparc.WebSocket.SignalR
         /// </summary>
         public static string ClientFunctionName { get; set; } = "ReceiveMessage";
 
+        //public virtual async Task ReceiveMessage(string message)
+        //{
+        //    WebSocketMessageHandler webSocketMessageHandler = new 
+        //}
+
         /// <summary>
         /// 通用消息发送
         /// </summary>

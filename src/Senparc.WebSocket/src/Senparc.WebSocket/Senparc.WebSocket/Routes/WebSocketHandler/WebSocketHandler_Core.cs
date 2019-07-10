@@ -11,9 +11,7 @@ using System.Threading;
 #else
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.WebSockets;
+using Senparc.WebSocket.SignalR;
 #endif
 
 
@@ -23,35 +21,11 @@ namespace Senparc.WebSocket
 #if !NET45
     public partial class WebSocketHandler
     {
-        public const int BufferSize = 4096;
-        System.Net.WebSockets.WebSocket _socket;
+        SenparcWebSocketHubBase _socket;
 
-        WebSocketHandler(System.Net.WebSockets.WebSocket socket)
+        WebSocketHandler(SenparcWebSocketHubBase socket)
         {
             this._socket = socket;
-        }
-
-        async Task EchoLoop()
-        {
-          await HandleMessage(_socket).ConfigureAwait(false);
-        }
-
-        static async Task Acceptor(HttpContext hc, Func<Task> n)
-        {
-            if (!hc.WebSockets.IsWebSocketRequest)
-                return;
-            var socket = await hc.WebSockets.AcceptWebSocketAsync().ConfigureAwait(false);
-            var h = new WebSocketHandler(socket);
-            await h.EchoLoop().ConfigureAwait(false);
-        }
-        /// <summary>
-        /// branches the request pipeline for this SocketHandler usage
-        /// </summary>
-        /// <param name="app"></param>
-        public static void Map(IApplicationBuilder app)
-        {
-            app.UseWebSockets();
-            app.Use(WebSocketHandler.Acceptor);
         }
     }
 #endif

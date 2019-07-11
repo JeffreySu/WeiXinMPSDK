@@ -1,4 +1,4 @@
-
+﻿
 /** 
  * @overview ASP.NET Core SignalR JavaScript Client.
  * @version 1.0.0.

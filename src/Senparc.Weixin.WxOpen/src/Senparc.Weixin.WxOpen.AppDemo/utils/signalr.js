@@ -3972,7 +3972,7 @@ var WebSocketTransport = /** @class */ (function () {
 
                             // tslint:disable-next-line:variable-name
                         webSocket.onOpen = function (_event) {
-                            console.log('WebSocket 连接成功！')
+                            console.log('WebSocket 锟斤拷锟接成癸拷锟斤拷')
 
                                 _this.logger.log(_ILogger__WEBPACK_IMPORTED_MODULE_0__["LogLevel"].Information, "WebSocket connected to " + url + ".");
                                 _this.webSocket = webSocket;

@@ -1,3 +1,6 @@
+var signalR = require("../../utils/signalr.1.0.js")
+
+var connection;
 var app = getApp()
 var socketOpen = false;//WebSocket 打开状态
 Page({
@@ -40,37 +43,40 @@ Page({
 
     //连接 Websocket
     wx.connectSocket({
-      url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
+      // url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
+      url: wx.getStorageSync('wssDomainName') + '/SenparcHub',
       header:{ 
         'content-type': 'application/json'
       },
       method:"GET"
     });
-//WebSocket 连接成功
-wx.onSocketOpen(function(res) {
-  console.log('WebSocket 连接成功！')
-  socketOpen = true;
-  that.setData({
-    messageTip:'WebSocket 连接成功！'
-  })
+
+
+    //WebSocket 连接成功
+    wx.onSocketOpen(function(res) {
+      console.log('WebSocket 连接成功！')
+      socketOpen = true;
+      that.setData({
+        messageTip:'WebSocket 连接成功！'
+      })
+        })
+    //收到 WebSocket 推送消息
+    wx.onSocketMessage(function(res) {
+      console.log('收到服务器内容：' + res.data)
+      var jsonResult = JSON.parse(res.data);
+      var currentIndex= that.data.messageTextArr.length+1;
+      var newArr = that.data.messageTextArr;
+      newArr.unshift(
+        {
+          index:currentIndex,
+          content:jsonResult.content,
+          time:jsonResult.time
+        });
+        console.log(that);
+      that.setData({
+        messageTextArr:newArr
+      });
     })
-//收到 WebSocket 推送消息
-wx.onSocketMessage(function(res) {
-  console.log('收到服务器内容：' + res.data)
-  var jsonResult = JSON.parse(res.data);
-  var currentIndex= that.data.messageTextArr.length+1;
-  var newArr = that.data.messageTextArr;
-  newArr.unshift(
-    {
-      index:currentIndex,
-      content:jsonResult.content,
-      time:jsonResult.time
-    });
-    console.log(that);
-  that.setData({
-    messageTextArr:newArr
-  });
-})
     //WebSocket 已关闭
     wx.onSocketClose(function(res) {
       console.log('WebSocket 已关闭！')

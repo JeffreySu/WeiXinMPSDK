@@ -1,22 +1,20 @@
 ﻿//DPBMARK_FILE WebSocket
-#if NET45
-
+#if !NET45
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.WxOpen.Containers;
-using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-
+using Microsoft.AspNetCore.SignalR;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
     /// <summary>
-    /// 自定义 WebSocket 处理类
+    /// .NET Core 自定义 WebSocket 处理类
     /// </summary>
-    public class CustomWebSocketMessageHandler : WebSocketMessageHandler
+    public class CustomDotNetCoreWebSocketMessageHandler : WebSocketMessageHandler
     {
         public override Task OnConnecting(WebSocketHelper webSocketHandler)
         {
@@ -30,6 +28,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             return base.OnDisConnected(webSocketHandler);
         }
 
+
         public override async Task OnMessageReceiced(WebSocketHelper webSocketHandler, ReceivedMessage receivedMessage, string originalData)
         {
             if (receivedMessage == null || string.IsNullOrEmpty(receivedMessage.Message))
@@ -39,22 +38,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
             var message = receivedMessage.Message;
 
-            await webSocketHandler.SendMessage("originalData：" + originalData);
-            await webSocketHandler.SendMessage("您发送了文字：" + message);
-            await webSocketHandler.SendMessage("正在处理中...");
+            await webSocketHandler.SendMessage("originalData：" + originalData, webSocketHandler.WebSocket.Clients.Caller);
+            await webSocketHandler.SendMessage("您发送了文字：" + message, webSocketHandler.WebSocket.Clients.Caller);
+            await webSocketHandler.SendMessage("正在处理中...", webSocketHandler.WebSocket.Clients.Caller);
 
             await Task.Delay(1000);
 
             //处理文字
             var result = string.Concat(message.Reverse());
-            await webSocketHandler.SendMessage(result);
+            await webSocketHandler.SendMessage(result, webSocketHandler.WebSocket.Clients.Caller);
 
-#if NET45
             var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-#else
-            var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-#endif
-
 
             try
             {
@@ -66,7 +60,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 //临时演示使用固定openId
                 var openId = sessionBag != null ? sessionBag.OpenId : "onh7q0DGM1dctSDbdByIHvX4imxA";// "用户未正确登陆";
 
-                await webSocketHandler.SendMessage("OpenId：" + openId);
+                await webSocketHandler.SendMessage("OpenId：" + openId, webSocketHandler.WebSocket.Clients.Caller);
                 //await webSocketHandler.SendMessage("FormId：" + formId);
 
                 if (sessionBag == null)
@@ -95,7 +89,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             {
                 var msg = ex.Message + "\r\n\r\n" + originalData + "\r\n\r\nAPPID:" + appId;
 
-                await webSocketHandler.SendMessage(msg); //VS2017以下如果编译不通过，可以注释掉这一行
+                await webSocketHandler.SendMessage(msg, webSocketHandler.WebSocket.Clients.Caller); //VS2017以下如果编译不通过，可以注释掉这一行
 
                 WeixinTrace.SendCustomLog("WebSocket OnMessageReceiced()过程出错", msg);
             }

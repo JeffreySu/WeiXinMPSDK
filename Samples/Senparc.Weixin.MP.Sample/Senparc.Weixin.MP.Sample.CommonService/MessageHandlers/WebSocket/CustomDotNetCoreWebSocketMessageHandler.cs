@@ -28,10 +28,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             return base.OnDisConnected(webSocketHandler);
         }
 
-        public virtual async Task ReceiveMessage(string message)
-        {
-            
-        }
 
         public override async Task OnMessageReceiced(WebSocketHelper webSocketHandler, ReceivedMessage receivedMessage, string originalData)
         {
@@ -52,12 +48,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             var result = string.Concat(message.Reverse());
             await webSocketHandler.SendMessage(result, webSocketHandler.WebSocket.Clients.Caller);
 
-#if NET45
             var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-#else
-            var appId = "WxOpenAppId";//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-#endif
-
 
             try
             {

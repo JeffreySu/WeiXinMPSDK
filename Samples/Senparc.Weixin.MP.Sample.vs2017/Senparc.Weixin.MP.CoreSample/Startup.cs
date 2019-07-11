@@ -22,6 +22,7 @@ using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.CO2NET.Utilities;
 using System;
 using Senparc.Weixin.MP.CoreSample.WebSocket.Hubs;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -305,6 +306,13 @@ namespace Senparc.Weixin.MP.CoreSample
             ;
 
             /* 微信配置结束 */
+
+            #endregion
+
+
+            #region WebSocket
+
+            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomDotNetCoreWebSocketMessageHandler>();//注册 WebSocket 消息处理程序
 
             #endregion
         }

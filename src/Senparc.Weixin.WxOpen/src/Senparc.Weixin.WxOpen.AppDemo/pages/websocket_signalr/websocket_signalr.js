@@ -29,7 +29,7 @@ Page({
       //   data: submitData
       // });
 
-      connection.invoke("SendText", submitData).catch(function (err) {
+      connection.invoke("ReceiveMessage", submitData).catch(function (err) {
         return console.error(err.toString());
       });
 

@@ -19,14 +19,17 @@ namespace Senparc.WebSocket
 {
 
 #if !NET45
-    public partial class WebSocketHandler
-    {
-        SenparcWebSocketHubBase _socket;
 
-        WebSocketHandler(SenparcWebSocketHubBase socket)
-        {
-            this._socket = socket;
-        }
-    }
+    //.NET Core(SignalR) 不需要
+
+    //public partial class WebSocketHandler
+    //{
+    //    SenparcWebSocketHubBase _socket;
+
+    //    WebSocketHandler(SenparcWebSocketHubBase socket)
+    //    {
+    //        this._socket = socket;
+    //    }
+    //}
 #endif
 }

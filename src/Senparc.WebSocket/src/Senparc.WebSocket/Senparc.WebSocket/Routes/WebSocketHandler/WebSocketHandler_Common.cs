@@ -112,12 +112,20 @@ namespace Senparc.WebSocket
             }
         }
 #else
-        private static async Task HandleMessage(SenparcWebSocketHubBase webSocket)
-        {
-            var cancellationToken = new CancellationToken();
-            WebSocketHelper webSocketHandler = new WebSocketHelper(webSocket, /*webSocketContext, */cancellationToken);
-            var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
-        }
+        //.NET Core（SignalR）不需要
+
+        //protected static async Task HandleMessage(SenparcWebSocketHubBase webSocket, string message)
+        //{
+        //    var cancellationToken = new CancellationToken();
+        //    WebSocketHelper webSocketHandler = new WebSocketHelper(webSocket, /*webSocketContext, */cancellationToken);
+        //    var receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(message);
+        //    var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
+        //    //messageHandler.OnMessageReceiced(webSocketHandler,)
+        //}
 #endif
+
+
+
+
     }
 }

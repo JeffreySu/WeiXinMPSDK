@@ -63,6 +63,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 await webSocketHandler.SendMessage("OpenId：" + openId, webSocketHandler.WebSocket.Clients.Caller);
                 //await webSocketHandler.SendMessage("FormId：" + formId);
 
+                //群发
+                await webSocketHandler.SendMessage($"[群发消息] [来自 OpenId：{openId}]：{message}" , webSocketHandler.WebSocket.Clients.Others);
+
+
                 if (sessionBag == null)
                 {
                     openId = "onh7q0DGM1dctSDbdByIHvX4imxA";//临时测试

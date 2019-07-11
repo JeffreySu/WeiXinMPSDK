@@ -80,8 +80,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 {
                     keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息"),
                     keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
-                    keyword3 = new TemplateDataItem("Name"),
-                    keyword4 = new TemplateDataItem("Number"),
+                    keyword3 = new TemplateDataItem("来自 Senparc.Weixin SDK 小程序 .Net Core WebSocket 触发"),
+                    keyword4 = new TemplateDataItem(SystemTime.NowTicks.ToString()),
                     keyword5 = new TemplateDataItem(100.ToString("C")),
                     keyword6 = new TemplateDataItem("400-031-8816"),
                 };

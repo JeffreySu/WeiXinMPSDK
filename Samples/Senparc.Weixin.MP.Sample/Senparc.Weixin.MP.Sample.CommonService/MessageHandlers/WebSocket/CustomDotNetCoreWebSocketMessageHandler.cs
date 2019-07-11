@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
             await webSocketHandler.SendMessage("originalData：" + originalData, webSocketHandler.WebSocket.Clients.Caller);
             await webSocketHandler.SendMessage("您发送了文字：" + message, webSocketHandler.WebSocket.Clients.Caller);
-            await webSocketHandler.SendMessage("正在处理中...", webSocketHandler.WebSocket.Clients.Caller);
+            await webSocketHandler.SendMessage("正在处理中（反转文字）...", webSocketHandler.WebSocket.Clients.Caller);
 
             await Task.Delay(1000);
 

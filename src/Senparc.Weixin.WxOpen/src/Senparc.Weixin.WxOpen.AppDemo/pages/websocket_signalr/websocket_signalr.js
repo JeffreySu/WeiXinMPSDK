@@ -5,7 +5,7 @@ var app = getApp()
 var socketOpen = false;//WebSocket 打开状态
 Page({
   data: {
-    messageTip: '',
+    messageTip: '正在连接中，请等待...',
     messageTextArr: [],
     messageContent: 'TEST',
     userinfo: {}
@@ -46,22 +46,21 @@ Page({
     console.log('onLoad')
     var that = this
 
-    // //连接 Websocket
-    // wx.connectSocket({
-    //   // url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
-    //   url: wx.getStorageSync('wssDomainName') + '/SenparcHub',
-    //   header:{ 
-    //     'content-type': 'application/json'
-    //   },
-    //   method:"GET"
-    // });
-
-
+  
+  },
+  onShow:function(){
+    console.log('onShow');
+    var that = this;
     connection = new signalR.HubConnectionBuilder().withUrl(wx.getStorageSync('wssDomainName') + "/SenparcHub").build();
     console.log(connection);
 
     connection.start().then(function () {
       console.log('ws started');
+
+      socketOpen = true;
+      that.setData({
+        messageTip: 'WebSocket 连接成功！'
+      })
     }).catch(function (err) {
       return console.error(err.toString());
     });
@@ -83,13 +82,21 @@ Page({
       });
     });
 
+    // //连接 Websocket
+    // wx.connectSocket({
+    //   // url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
+    //   url: wx.getStorageSync('wssDomainName') + '/SenparcHub',
+    //   header:{ 
+    //     'content-type': 'application/json'
+    //   },
+    //   method:"GET"
+    // });
+
+
     //WebSocket 连接成功
     wx.onSocketOpen(function (res) {
       console.log('WebSocket 连接成功！')
-      socketOpen = true;
-      that.setData({
-        messageTip: 'WebSocket 连接成功！'
-      })
+      
     })
 
 

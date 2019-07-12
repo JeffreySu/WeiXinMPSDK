@@ -308,13 +308,6 @@ namespace Senparc.Weixin.MP.CoreSample
             /* 微信配置结束 */
 
             #endregion
-
-
-            #region WebSocket
-
-            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomDotNetCoreWebSocketMessageHandler>();//注册 WebSocket 消息处理程序
-
-            #endregion
         }
 
 

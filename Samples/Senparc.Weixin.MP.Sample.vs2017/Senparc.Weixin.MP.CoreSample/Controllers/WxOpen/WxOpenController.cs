@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+        public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
             switch (type.ToUpper())
@@ -204,19 +204,30 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
 
             //检验水印
-            var checkWartmark = false;
+            var checkWatermark = false;
             if (decodedEntity != null)
             {
-                checkWartmark = decodedEntity.CheckWatermark(WxOpenAppId);
+                checkWatermark = decodedEntity.CheckWatermark(WxOpenAppId);
+
+                //保存用户信息（可选）
+                if (checkWatermark && decodedEntity is DecodedUserInfo decodedUserInfo)
+                {
+                    var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
+                    if (sessionBag != null)
+                    {
+                        await SessionContainer.AddDecodedUserInfoAsync(sessionBag, decodedUserInfo);
+                    }
+                }
             }
+
 
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
             return Json(new
             {
-                success = checkWartmark,
+                success = checkWatermark,
                 //decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
-                        checkWartmark ? "通过" : "不通过")
+                        checkWatermark ? "通过" : "不通过")
             });
         }
 

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿#if !NET45
+using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.RegisterServices;
-#if NETSTANDARD2_0
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace Senparc.WebSocket
         /// <typeparam name="T"></typeparam>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection RegisterSenparcWebSocket<T>(IServiceCollection services)
+        public static IServiceCollection AddSenparcWebSocket<T>(this IServiceCollection services)
             where T : WebSocketMessageHandler, new()
         {
             services.AddSignalR();//使用 SignalR

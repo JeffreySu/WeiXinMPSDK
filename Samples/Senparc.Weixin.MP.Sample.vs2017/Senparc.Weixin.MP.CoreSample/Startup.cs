@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,9 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.WebSocket;
+
 using Senparc.CO2NET.Utilities;
-using System;
 using Senparc.Weixin.MP.CoreSample.WebSocket.Hubs;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 
@@ -54,7 +56,8 @@ namespace Senparc.Weixin.MP.CoreSample
              */
 
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
-                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
+                    .AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
+                    .AddSenparcWebSocket<CustomDotNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

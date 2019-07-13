@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.CoreSample
 
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
                     .AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
-                    .AddSenparcWebSocket<CustomDotNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

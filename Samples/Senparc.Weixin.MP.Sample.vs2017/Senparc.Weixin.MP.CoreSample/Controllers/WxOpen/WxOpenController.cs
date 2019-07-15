@@ -18,6 +18,8 @@ using System.IO;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
+using System.Threading.Tasks;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
 {
@@ -187,7 +189,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+        public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
             switch (type.ToUpper())
@@ -202,35 +204,46 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
             }
 
             //检验水印
-            var checkWartmark = false;
+            var checkWatermark = false;
             if (decodedEntity != null)
             {
-                checkWartmark = decodedEntity.CheckWatermark(WxOpenAppId);
+                checkWatermark = decodedEntity.CheckWatermark(WxOpenAppId);
+
+                //保存用户信息（可选）
+                if (checkWatermark && decodedEntity is DecodedUserInfo decodedUserInfo)
+                {
+                    var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
+                    if (sessionBag != null)
+                    {
+                        await SessionContainer.AddDecodedUserInfoAsync(sessionBag, decodedUserInfo);
+                    }
+                }
             }
+
 
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
             return Json(new
             {
-                success = checkWartmark,
+                success = checkWatermark,
                 //decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
-                        checkWartmark ? "通过" : "不通过")
+                        checkWatermark ? "通过" : "不通过")
             });
         }
 
         [HttpPost]
-        public ActionResult TemplateTest(string sessionId, string formId)
+        public async Task<IActionResult> TemplateTest(string sessionId, string formId)
         {
             var templateMessageService = new TemplateMessageService();
             try
             {
-                var sessionBag = templateMessageService.RunTemplateTest(WxOpenAppId, sessionId, formId);
+                var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
 
                 return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
             }
             catch (Exception ex)
             {
-                var sessionBag = SessionContainer.GetSession(sessionId);
+                var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
                 var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
 
                 return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
@@ -338,7 +351,46 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                     msg = ex.Message
                 });
             }
+        }
 
+        /// <summary>
+        /// 获取二维码
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> GetQrCode(string sessionId, string useBase64, string codeType = "1")
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            if (sessionBag == null)
+            {
+                return Json(new { success = false, msg = "请先登录！" });
+            }
+
+            var ms = new MemoryStream();
+            var openId = sessionBag.OpenId;
+            var page = "pages/QrCode/QrCode";//此接口不可以带参数，如果需要加参数，必须加到scene中
+            var scene = $"OpenIdSuffix:{openId.Substring(openId.Length - 10, 10)}#{codeType}";//储存OpenId后缀，以及codeType。scene最多允许32个字符
+            LineColor lineColor = null;//线条颜色
+            if (codeType == "2")
+            {
+                lineColor = new LineColor(221, 51, 238);
+            }
+
+            var result = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi
+                .GetWxaCodeUnlimitAsync(WxOpenAppId, ms, scene, page, lineColor: lineColor);
+            ms.Position = 0;
+
+            if (!useBase64.IsNullOrEmpty())
+            {
+                //转base64
+                var imgBase64 = Convert.ToBase64String(ms.GetBuffer());
+                return Json(new { success = true, msg = imgBase64, page = page });
+            }
+            else
+            {
+                //返回文件流
+                return File(ms, "image/jpeg");
+            }
         }
     }
 }

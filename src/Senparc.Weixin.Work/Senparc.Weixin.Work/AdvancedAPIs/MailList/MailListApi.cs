@@ -52,6 +52,7 @@
     批量删除成员：http://work.weixin.qq.com/api/doc#10060
     获取部门成员：http://work.weixin.qq.com/api/doc#10061
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
+    手机号获取userid：https://work.weixin.qq.com/api/doc#90001/90143/91693
  */
 
 using System.Threading.Tasks;
@@ -188,13 +189,35 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    useridlist = useridlist
+                    useridlist
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
+        }
 
+        /// <summary>
+        /// 手机号获取userid
+        /// 请确保手机号的正确性，若出错的次数较多，会导致1天不可调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="mobile">手机号码。长度为5 ~32个字节</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.GetUserid", true)]
+        public static GetUseridResult GetUserid(string accessTokenOrAppKey, string mobile, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserid?access_token={0}", accessToken.AsUrlData());
 
+                var data = new
+                {
+                    mobile
+                };
+
+                return CommonJsonSend.Send<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -593,7 +616,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
-        
+
         /// <summary>
         /// 让成员成功加入企业
         /// </summary>
@@ -732,15 +755,36 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    useridlist = useridlist
+                    useridlist
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
-
-
         }
 
+        /// <summary>
+        /// 【异步方法】手机号获取userid
+        /// 请确保手机号的正确性，若出错的次数较多，会导致1天不可调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="mobile">手机号码。长度为5 ~32个字节</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.GetUseridAsync", true)]
+        public static async Task<GetUseridResult> GetUseridAsync(string accessTokenOrAppKey, string mobile, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserid?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    mobile
+                };
+
+                return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】获取部门成员【QY移植修改】

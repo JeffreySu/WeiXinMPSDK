@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.WxOpen.Containers;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
@@ -52,9 +50,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
             try
             {
-                //发送模板消息
-                var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
-
+            
                 var sessionBag = SessionContainer.GetSession(receivedMessage.SessionId);
 
                 //临时演示使用固定openId
@@ -66,15 +62,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 //群发
                 await webSocketHandler.SendMessage($"[群发消息] [来自 OpenId：***{openId.Substring(openId.Length - 10, 10)}，昵称：{sessionBag.DecodedUserInfo?.nickName}]：{message}", webSocketHandler.WebSocket.Clients.All);
 
-
-                if (sessionBag == null)
-                {
-                    openId = "onh7q0DGM1dctSDbdByIHvX4imxA";//临时测试
-                }
+                //发送模板消息
 
                 //var data = new WxOpenTemplateMessage_PaySuccessNotice(
                 //    "在线购买", SystemTime.Now, "图书众筹", "1234567890",
                 //    100, "400-9939-858", "http://sdk.senparc.weixin.com");
+
+                var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
 
                 var data = new
                 {

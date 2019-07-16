@@ -1,7 +1,7 @@
 var signalR = require("../../utils/signalr.1.0.js")
-// var signalR = require("../../utils/signalr.1.0.js")
+var senparcWebsocket = require("../../utils/senparc.websocket.js")
 
-var connection;
+var connection;// Signalr 连接
 var app = getApp()
 var socketOpen = false;//WebSocket 打开状态
 Page({
@@ -15,24 +15,11 @@ Page({
   formSubmit: function (e) {
     var that = this;
     console.log('formSubmit', e);
-    var msg = e.detail.value.messageContent;//获得输入文字
-    console.log('send message:' + msg);
     if (socketOpen) {
-
-      //如果使用Senparc.WebSocket，必须严格按照以下data数据字段发送（只能多不能少）
-      var submitData = JSON.stringify({
-        Message: msg,//必填
-        SessionId: wx.getStorageSync("sessionId"),//选填，不需要可输入''
-        FormId: e.detail.formId//选填formId用于发送模板消息，不需要可输入''
-      });
-
-      // wx.sendSocketMessage({
-      //   data: submitData
-      // });
-
-      connection.invoke("ReceiveMessage", submitData).catch(function (err) {
-        return console.error(err.toString());
-      });
+      var text = e.detail.value.messageContent;//必填，获得输入文字
+      var sessionId = wx.getStorageSync("sessionId");//选填，不需要可输入''
+      var formId = e.detail.formId//选填formId用于发送模板消息，不需要可输入''
+      senparcWebsocket.sendMessage(text,sessionId,formId);//发送 websocket 请求
 
       that.setData({
         messageContent: ''
@@ -45,28 +32,23 @@ Page({
   },
   onLoad: function () {
     console.log('onLoad')
-    var that = this
-
-  
   },
   onShow:function(){
     console.log('onShow');
+
     var that = this;
-    connection = new signalR.HubConnectionBuilder().withUrl(wx.getStorageSync('wssDomainName') + "/SenparcHub").build();
-    console.log(connection);
-
-    connection.start().then(function () {
+    var hubUrl = wx.getStorageSync('wssDomainName') + "/SenparcHub";//Hub Url
+    var onStart = function () {
       console.log('ws started');
-
       socketOpen = true;
       that.setData({
         messageTip: 'WebSocket 连接成功！'
       })
-    }).catch(function (err) {
-      return console.error(err.toString());
-    });
+    };
+    connection = senparcWebsocket.buildConnectionAndStart(hubUrl, signalR, onStart);
 
-    connection.on("ReceiveMessage", function (res) {
+    //定义收到消息后触发的事件
+    var onReceive = function (res) {
       console.log('收到服务器内容：' + res)
       var jsonResult = JSON.parse(res);
       var currentIndex = that.data.messageTextArr.length + 1;
@@ -81,43 +63,14 @@ Page({
       that.setData({
         messageTextArr: newArr
       });
-    });
-
-    // //连接 Websocket
-    // wx.connectSocket({
-    //   // url: wx.getStorageSync('wssDomainName') + '/SenparcWebSocket',
-    //   url: wx.getStorageSync('wssDomainName') + '/SenparcHub',
-    //   header:{ 
-    //     'content-type': 'application/json'
-    //   },
-    //   method:"GET"
-    // });
-
+    };
+    senparcWebsocket.onReceiveMessage(onReceive);
 
     //WebSocket 连接成功
     wx.onSocketOpen(function (res) {
       console.log('WebSocket 连接成功！')
       
     })
-
-
-    // //收到 WebSocket 推送消息
-    // wx.onSocketMessage(function (res) {
-    //   console.log('收到服务器内容：' + res.data)
-    //   var jsonResult = JSON.parse(res.data);
-    //   var currentIndex = that.data.messageTextArr.length + 1;
-    //   var newArr = that.data.messageTextArr;
-    //   newArr.unshift(
-    //     {
-    //       index: currentIndex,
-    //       content: jsonResult.content,
-    //       time: jsonResult.time
-    //     });
-    //   console.log(that);
-    //   that.setData({
-    //     messageTextArr: newArr
-    //   });
-    // })
     //WebSocket 已关闭
     wx.onSocketClose(function (res) {
       console.log('WebSocket 已关闭！')

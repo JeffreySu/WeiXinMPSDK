@@ -127,13 +127,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.8.2</Version>
+      <Version>0.8.3</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
       <Version>0.7.4</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
-      <Version>6.4.8</Version>
+      <Version>6.4.11</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin.MP">
       <Version>16.7.9</Version>

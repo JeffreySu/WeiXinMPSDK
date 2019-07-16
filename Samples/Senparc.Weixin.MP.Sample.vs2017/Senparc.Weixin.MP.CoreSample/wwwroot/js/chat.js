@@ -1,6 +1,9 @@
 ﻿"use strict";
-
-var connection = new signalR.HubConnectionBuilder().withUrl("/VirtualPath/senparcHub").build();
+var hubPath = '/senparcHub';
+if (window.location.host.indexOf('localhost') === 0) {
+    hubPath = '/VirtualPath' + hubPath;
+}
+var connection = new signalR.HubConnectionBuilder().withUrl(hubPath).build();
 console.log(signalR);
 
 //Disable send button until connection is established

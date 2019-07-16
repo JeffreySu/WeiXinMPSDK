@@ -264,7 +264,7 @@ namespace Senparc.Weixin.MP.Sample
         private void RegisterWebSocket()
         {
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
-            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
+            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomNet45WebSocketMessageHandler>();
         }
         //DPBMARK_END
 

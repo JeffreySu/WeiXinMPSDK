@@ -1,4 +1,4 @@
-var signalR = require("../../utils/signalr.js")
+var signalR = require("../../utils/signalr.1.0.js")
 // var signalR = require("../../utils/signalr.1.0.js")
 
 var connection;

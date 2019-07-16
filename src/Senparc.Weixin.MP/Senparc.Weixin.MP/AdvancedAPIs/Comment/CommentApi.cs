@@ -271,6 +271,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_data_id = msg_data_id,
                     index = index,
                     user_comment_id = user_comment_id,
+                    content = content
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
@@ -289,7 +290,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyDelete", true)]
-        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -514,6 +515,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_data_id = msg_data_id,
                     index = index,
                     user_comment_id = user_comment_id,
+                    content = content
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
@@ -532,7 +534,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyDeleteAsync", true)]
-        public static Task<WxJsonResult> ReplyDeleteAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        public static Task<WxJsonResult> ReplyDeleteAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {

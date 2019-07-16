@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CoreSample.WebSocket.Hubs
@@ -19,22 +16,5 @@ namespace Senparc.Weixin.MP.CoreSample.WebSocket.Hubs
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
-
-        ///// <summary>
-        ///// 给小程序用
-        ///// </summary>
-        ///// <param name="message"></param>
-        ///// <returns></returns>
-        //public async Task SendText(string message)
-        //{
-        //    await Clients.Caller.SendAsync("ReceiveMessage", "您发送了文字：" + message);
-        //    await Clients.Caller.SendAsync("ReceiveMessage", "正在处理中...");
-
-        //    await Task.Delay(1000);//模拟停顿1秒
-
-        //    //处理文字
-        //    var result = string.Concat(message.Reverse());
-        //    await Clients.Caller.SendAsync("ReceiveMessage", result);
-        //}
     }
 }

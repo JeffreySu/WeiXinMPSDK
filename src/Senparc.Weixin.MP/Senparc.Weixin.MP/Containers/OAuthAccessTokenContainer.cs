@@ -59,19 +59,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
-using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -136,7 +130,7 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class OAuthAccessTokenContainer : BaseContainer<OAuthAccessTokenBag>
     {
-        const string LockResourceName = "MP.OAuthAccessTokenContainer";
+        private const string LockResourceName = "MP.OAuthAccessTokenContainer";
 
         #region 同步方法
 
@@ -300,8 +294,10 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = await TryGetItemAsync(appId).ConfigureAwait(false);
-            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
+            var cacheKey = $"{appId}|{code}";
+
+            var oAuthAccessTokenBag = await TryGetItemAsync(cacheKey).ConfigureAwait(false);
+            using (await Cache.BeginCacheLockAsync(LockResourceName, cacheKey).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= SystemTime.Now)
                 {
@@ -311,9 +307,12 @@ namespace Senparc.Weixin.MP.Containers
                     //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
                     oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
                         ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
+
+                    oAuthAccessTokenBag.Key = cacheKey;
                     await UpdateAsync(oAuthAccessTokenBag, null).ConfigureAwait(false);
                 }
             }
+
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
         }
 

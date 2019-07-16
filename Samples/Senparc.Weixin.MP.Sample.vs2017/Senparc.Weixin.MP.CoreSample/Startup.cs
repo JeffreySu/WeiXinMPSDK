@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +20,11 @@ using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
+using Senparc.WebSocket;
+
 using Senparc.CO2NET.Utilities;
-using System;
+using Senparc.Weixin.MP.CoreSample.WebSocket.Hubs;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -43,6 +47,8 @@ namespace Senparc.Weixin.MP.CoreSample
             services.AddMemoryCache();//使用本地缓存必须添加
             services.AddSession();//使用Session
 
+            services.AddSignalR();//使用 SignalR
+
             /*
              * CO2NET 是从 Senparc.Weixin 分离的底层公共基础模块，经过了长达 6 年的迭代优化，稳定可靠。
              * 关于 CO2NET 在所有项目中的通用设置可参考 CO2NET 的 Sample：
@@ -50,7 +56,8 @@ namespace Senparc.Weixin.MP.CoreSample
              */
 
             services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
-                    .AddSenparcWeixinServices(Configuration);//Senparc.Weixin 注册
+                    .AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +86,11 @@ namespace Senparc.Weixin.MP.CoreSample
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //使用 SignalR
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SenparcHub>("/senparcHub");
+            });
 
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)

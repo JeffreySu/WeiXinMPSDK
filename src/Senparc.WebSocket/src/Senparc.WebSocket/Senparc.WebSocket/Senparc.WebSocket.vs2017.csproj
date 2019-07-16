@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>0.7.2.1</Version>
+    <Version>0.8.0</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
 
@@ -11,7 +11,7 @@
     <Description>
       微信公众账号 - WebSocket 模块
 
-      Senparc.Weixin SDK 开源项目：
+      Senparc.Weixin SDK 开源项目：  
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
     <Copyright>Senparc Copyright © 2004~2018</Copyright>
@@ -47,6 +47,10 @@
       v0.5.5 发布支持 .net core 2.1 的正式版
       v0.6.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v0.7.3 全局使用 .ConfigureAwait(false) 应对异步锁死问题
+      v0.8.0
+      1、支持 .NET Core SignalR
+      2、提供 Register 注册方法
+      3、优化 WebSocketMesssageHandler
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -106,12 +110,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET" Version="0.8.3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.AspNetCore.SignalR">
+      <Version>1.1.0</Version>
+    </PackageReference>
   </ItemGroup>
 
   <!--<ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">

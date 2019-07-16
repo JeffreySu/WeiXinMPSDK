@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.9</Version>
+    <Version>16.7.10</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -465,6 +465,7 @@
       v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
       v16.7.4 添加 MessageHandler 的“点击菜单跳转小程序的事件推送”功能
       v16.7.7.1 修改 UserInfoJson.qr_scene 类型为 unit
+      v16.7.10 修复回复评论的参数bug，添加图文群发总数据的新字段
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

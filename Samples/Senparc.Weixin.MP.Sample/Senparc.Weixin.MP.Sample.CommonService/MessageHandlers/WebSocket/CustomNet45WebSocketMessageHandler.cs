@@ -1,24 +1,22 @@
 ﻿//DPBMARK_FILE WebSocket
+#if NET45
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.WxOpen.Containers;
-
-#if NET45
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-#else
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-#endif
+
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
     /// <summary>
     /// 自定义 WebSocket 处理类
     /// </summary>
-    public class CustomWebSocketMessageHandler : WebSocketMessageHandler
+    public class CustomNet45WebSocketMessageHandler : WebSocketMessageHandler
     {
         public override Task OnConnecting(WebSocketHelper webSocketHandler)
         {
@@ -104,3 +102,4 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
         }
     }
 }
+#endif

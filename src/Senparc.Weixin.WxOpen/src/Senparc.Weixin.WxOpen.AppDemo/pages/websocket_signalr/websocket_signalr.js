@@ -22,7 +22,7 @@ Page({
       senparcWebsocket.sendMessage(text,sessionId,formId);//发送 websocket 请求
 
       that.setData({
-        messageContent: ''
+        messageContent: ''//清空文本框内容
       })
     } else {
       that.setData({

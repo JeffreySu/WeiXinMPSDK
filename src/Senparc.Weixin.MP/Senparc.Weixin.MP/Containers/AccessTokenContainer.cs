@@ -180,7 +180,7 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            RegisterAsync(appId, appSecret, name).Wait();
+            RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
         }
 
         #region AccessToken

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ namespace Senparc.WeixinTests.Cache
             Console.WriteLine(jsonString);
         }
 
-#if !NETCOREAPP2_1
+#if !NETCOREAPP2_1 || NETCOREAPP2_2
         /// <summary>
         /// 对比序列化到JSON以及二进制序列化的效率
         /// </summary>
@@ -64,8 +64,8 @@ namespace Senparc.WeixinTests.Cache
                     Key = Guid.NewGuid().ToString(),
                     Name = "Jeffrey",
                     SessionKey = "SessionKey",
-                    CacheTime = DateTime.Now,
-                    ExpireTime = DateTime.Now,
+                    CacheTime = SystemTime.Now,
+                    ExpireTime = SystemTime.Now,
                     OpenId = "OpenId"
                 };
                 return sessionBag;
@@ -73,7 +73,7 @@ namespace Senparc.WeixinTests.Cache
 
             var testCycle = 50;
             //使用 Newtonsoft.Json 进行 1 万次序列化并计算时间
-            DateTime dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             for (int i = 0; i < testCycle; i++)
             {
                 //获取一个 SessionBag 对象
@@ -88,12 +88,12 @@ namespace Senparc.WeixinTests.Cache
                     Console.WriteLine(jsonString);//输出字符串
                     Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
                     Console.WriteLine("==============");
-                    dt1=DateTime.Now;//过滤启动时间，Newtonsoft启动时间需要200多ms
+                    dt1=SystemTime.Now;//过滤启动时间，Newtonsoft启动时间需要200多ms
                 }
             }
-            DateTime dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
 
-            DateTime dt3 = DateTime.Now;
+            var dt3 = SystemTime.Now;
             //使用 Newtonsoft.Json 进行 1 万次序列化并计算时间
             for (int i = 0; i < testCycle; i++)
             {
@@ -109,12 +109,12 @@ namespace Senparc.WeixinTests.Cache
                     Console.WriteLine(jsonString);//输出字符串
                     Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
                     Console.WriteLine("==============");
-                    dt3=DateTime.Now;//过滤启动时间
+                    dt3=SystemTime.Now;//过滤启动时间
                 }
             }
-            DateTime dt4 = DateTime.Now;
+            var dt4 = SystemTime.Now;
 
-            DateTime dt5 = DateTime.Now;
+            var dt5 = SystemTime.Now;
             //使用 .NET 内置 JSON 序列化
             for (int i = 0; i < testCycle; i++)
             {
@@ -136,11 +136,11 @@ namespace Senparc.WeixinTests.Cache
                         Console.WriteLine(Encoding.UTF8.GetString(objectDataAsStream));//输出字符串
                         Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
                     Console.WriteLine("==============");
-                    dt5=DateTime.Now;//过滤启动时间
+                    dt5=SystemTime.Now;//过滤启动时间
                     }
                 }
             }
-            DateTime dt6 = DateTime.Now;
+            var dt6 = SystemTime.Now;
 
             Console.WriteLine("Newtonsoft JSON 序列化 {0} 次，耗时：{1}ms", testCycle, (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine(".NET 内置 JSON 序列化 {0} 次，耗时：{1}ms", testCycle, (dt4 - dt3).TotalMilliseconds);

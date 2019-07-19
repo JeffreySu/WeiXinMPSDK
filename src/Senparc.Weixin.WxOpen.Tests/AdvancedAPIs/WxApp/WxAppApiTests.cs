@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         [TestMethod()]
         public void CreateWxaQrCodeTest()
         {
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             using (var ms = new MemoryStream())
             {
                 var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, ms, "pages/websocket", 100);
@@ -59,24 +59,24 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
                 Assert.IsTrue(File.Exists(filePath));
             }
 
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
         }
 
         [TestMethod()]
         public void CreateWxaQrCodeTest2()
         {
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             var filePath = "../../Config/qr2.jpg";
             var result = WxAppApi.CreateWxQrCode(base._wxOpenAppId, filePath, "pages/websocket", 100);
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
         }
 
         [TestMethod()]
         public void CreateWxaQrCodeAsyncTest()
         {
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             var filePath = "../../Config/qr-async.jpg";
             Task.Factory.StartNew(async () =>
             {
@@ -95,13 +95,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 
                 Assert.IsTrue(File.Exists(filePath));
             });
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
 
             while (!File.Exists(filePath))
             {
 
             }
-            var dt3 = DateTime.Now;
+            var dt3 = SystemTime.Now;
             Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("等待时间：{0}ms", (dt3 - dt2).TotalMilliseconds);
         }
@@ -109,8 +109,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         [TestMethod()]
         public void CreateWxaQrCodeAsyncTest2()
         {
-            var dt1 = DateTime.Now;
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+            var dt1 = SystemTime.Now;
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             var filePath = "../../../Config/qr-async2.jpg";
 #else
             var filePath = "../../Config/qr-async2.jpg";
@@ -121,13 +121,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
                 Assert.IsTrue(File.Exists(filePath));
             });
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
 
             while (!File.Exists(filePath))
             {
 
             }
-            var dt3 = DateTime.Now;
+            var dt3 = SystemTime.Now;
             Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("等待时间：{0}ms", (dt3 - dt2).TotalMilliseconds);
         }
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void GetWxaCodeUnlimitTest()
         {
             Console.WriteLine("GetWxaCodeUnlimitTest开始");
-#if NETCOREAPP2_0 || NETCOREAPP2_1
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
             var filePath = "../../../qr-wxopen.jpg";
 #else
             var filePath = "../../qr-wxopen.jpg";

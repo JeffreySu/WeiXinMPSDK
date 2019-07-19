@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ApiHandlerWapper.cs（从MP移植）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
     
     
     创建标识：Senparc - 20180917
+
+    修改标识：Senparc - 20190429
+    修改描述：v3.4.1 重构异步 ApiHandlerWapper
+
+    修改标识：Senparc - 20190429
+    修改描述：v3.4.2 修正调用 TryCommonApiBase() 方法中的 PlatformType.WxOpen 参数
+    
+    修改标识：Senparc - 20190606
+    修改描述：TryCommonApiBase<T> 中 T 参数添加 new() 约束
 
 ----------------------------------------------------------------*/
 
@@ -53,7 +62,7 @@ namespace Senparc.Weixin.WxOpen
         /// <param name="accessTokenOrAppId">AccessToken或AppId。如果为null，则自动取已经注册的第一个appId/appSecret来信息获取AccessToken。</param>
         /// <param name="retryIfFaild">请保留默认值true，不用输入。</param>
         /// <returns></returns>
-        public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
+        public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult, new()
         {
 
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
@@ -69,7 +78,7 @@ namespace Senparc.Weixin.WxOpen
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
-                    PlatformType.MP,
+                    PlatformType.WxOpen,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
@@ -186,7 +195,6 @@ namespace Senparc.Weixin.WxOpen
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -198,13 +206,13 @@ namespace Senparc.Weixin.WxOpen
         /// <param name="accessTokenOrAppId">AccessToken或AppId。如果为null，则自动取已经注册的第一个appId/appSecret来信息获取AccessToken。</param>
         /// <param name="retryIfFaild">请保留默认值true，不用输入。</param>
         /// <returns></returns>
-        public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
+        public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult, new()
         {
-            Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.WxOpen);
+            Func<Task<string>> accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc =
+               async () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.WxOpen);
 
-            Func<string, bool> accessTokenContainer_CheckRegisteredFunc =
-                appId => AccessTokenContainer.CheckRegistered(appId);
+            Func<string, Task<bool>> accessTokenContainer_CheckRegisteredAsyncFunc =
+               async appId => AccessTokenContainer.CheckRegistered(appId);
 
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc =
                 (appId, getNewToken) => AccessTokenContainer.GetAccessTokenResultAsync(appId, getNewToken);
@@ -213,13 +221,13 @@ namespace Senparc.Weixin.WxOpen
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
-                    PlatformType.MP,
-                    accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                    accessTokenContainer_CheckRegisteredFunc,
+                    PlatformType.WxOpen,
+                    accessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
+                    accessTokenContainer_CheckRegisteredAsyncFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
-            return await result;
+            return await result.ConfigureAwait(false);
         }
 
         #region 淘汰方法
@@ -256,6 +264,5 @@ namespace Senparc.Weixin.WxOpen
         #endregion
 
         #endregion
-#endif
     }
 }

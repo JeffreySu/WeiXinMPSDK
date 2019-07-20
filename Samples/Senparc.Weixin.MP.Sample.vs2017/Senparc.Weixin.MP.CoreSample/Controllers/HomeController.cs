@@ -148,5 +148,16 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             return Content(HttpContext.Request.PathBase);
         }
+
+        /// <summary>
+        /// 测试未经注册的TryGetAccessToken同步方法
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TryGetAccessTokenTest()
+        {
+            var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
+            return Content($"AccessToken: {result.Substring(0, 10) }...");
+
+        }
     }
 }

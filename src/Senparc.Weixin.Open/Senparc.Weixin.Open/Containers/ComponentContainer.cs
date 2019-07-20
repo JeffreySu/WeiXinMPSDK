@@ -297,7 +297,10 @@ namespace Senparc.Weixin.Open.Containers
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
-            RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).Wait();
+            Task.Factory.StartNew(() =>
+            {
+                RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).ConfigureAwait(false);
+            }).Wait();
         }
 
 

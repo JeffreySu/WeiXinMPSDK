@@ -77,7 +77,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
-        public ActionResult WeChatSampleBuilder() {
+        public ActionResult WeChatSampleBuilder()
+        {
             return View();
         }
 
@@ -128,6 +129,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             var accessTokenBags = AccessTokenContainer.GetAllItems();
             return Json(accessTokenBags, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 测试未经注册的TryGetAccessToken同步方法
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TryGetAccessTokenTest()
+        {
+            var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
+            return Content("AccessToken: "+result.Substring(0, 10) + "...");
+
         }
     }
 }

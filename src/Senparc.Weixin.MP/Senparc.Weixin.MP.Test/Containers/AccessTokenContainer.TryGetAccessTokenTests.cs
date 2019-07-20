@@ -39,6 +39,7 @@ using Senparc.CO2NET.Extensions;
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
     //测试未注册情况下， AccessTokenContainer.TryGetAccessToken 的执行情况
+    //说明：单元测试始终能通过，但是在有UI的情况下情况会不一样，所以仍然需要在UI中进行测试
     [TestClass]
     public class TryGetAccessTokenTests : CommonApiTest
     {

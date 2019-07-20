@@ -190,6 +190,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
         }
 
+        [TestMethod]
         public void TryGetAccessTokenTest()
         {
             //清除注册信息

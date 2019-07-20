@@ -184,7 +184,10 @@ namespace Senparc.Weixin.Work.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string corpId, string corpSecret, string name = null)
         {
-            RegisterAsync(corpId, corpSecret, name).Wait();
+            Task.Factory.StartNew(() =>
+            {
+                RegisterAsync(corpId, corpSecret, name).ConfigureAwait(false);
+            }).Wait();
         }
 
         /// <summary>

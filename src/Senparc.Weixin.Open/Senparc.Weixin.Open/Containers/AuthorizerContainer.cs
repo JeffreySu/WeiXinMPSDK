@@ -247,7 +247,10 @@ namespace Senparc.Weixin.Open.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         private static void Register(string componentAppId, string authorizerAppId, string name = null)
         {
-            RegisterAsync(componentAppId, authorizerAppId, name).Wait();
+            Task.Factory.StartNew(() =>
+            {
+                RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
+            }).Wait();
         }
 
         /// <summary>

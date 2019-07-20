@@ -157,7 +157,6 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
             return Content($"AccessToken: {result.Substring(0, 10) }...");
-
         }
     }
 }

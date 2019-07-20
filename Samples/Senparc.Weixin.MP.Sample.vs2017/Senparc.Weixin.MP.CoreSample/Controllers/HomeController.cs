@@ -155,8 +155,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult TryGetAccessTokenTest()
         {
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
             var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
-            return Content($"AccessToken: {result.Substring(0, 10) }...");
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
+
+            return Content($"AccessToken: {result?.Substring(0, 10) }...");
         }
     }
 }

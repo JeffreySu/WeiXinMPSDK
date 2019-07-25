@@ -135,23 +135,40 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
         public void DecodeUserInfoBySessionIdTest2()
         {
             //测试 issue：https://github.com/JeffreySu/WeiXinMPSDK/issues/1825
-            var sessionId = "ABCDEFGHIJK";
+            //var sessionId = "ABCDEFGHIJK";
             var sessionKey = "0sVkQ4CtcaiYJtvoPLBecw==";
             var encryptedData =
                 "GiW4s+17o7RSaPOwGX8Ir1+3c/RYbHKvRzBg8UFlmIIiArLtU0ctkzjq1LRR5MH5CSPs63Jt4qCoFScSlRKlQ4/RVXXJFQV+r/1L+qKv/PdHRvVDLb+8P6CvPTurEuHsxlLyXTnnlEIu6IFYFzZWBMIp6+SHEK85mEb1gw4BtMmEy9EitnMskNjsEnmpI3M9r8ItKyQ8hinJejuno0JPXn3trc+2gMheNt4+4NwMTM6mzzGVO6g40NP7NjK9Tl6+An2TjBe+GGVFdrkl5hpYDXE/YO2FsL909faX3Y08msSuCVk5AsMGMJiUwddiu44KODdxCYfwLxBaIgYJEY6xLygFmAMuDg/L2g4/wDabBrhA5BNsD6lrcRRbvrHK65Lu3xd1oTXyMGbfUGTD4GLlLSJUX2FhcG7ZmHwg1jQUuKFHJu/AMQgdoPa/JONAu5Hjp0hL7ahr5LC0ghwdTfTowg3X1Ko9IgRxxj755eGgXQK7AnsMwjXzt4X+4YpOYpCb2LVSrTV2t4QjVNPe+Rjmsg==";
             var iv = "4y2ftkwAM2mF6Qc89HydpA==";
-            var unionId = "";
+            //var unionId = "";
 
-            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
+            //SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
 
-            var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
-                encryptedData, iv);
+            var userInfo = EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+
+            //var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
+            //    encryptedData, iv);
             Assert.IsNotNull(userInfo);
-            Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
+            Console.WriteLine(userInfo);
+            //Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
-            Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
+            //Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
         }
 
+
+        [TestMethod()]
+        public void DecodeUserInfoBySessionIdTest3()
+        {
+            //测试 issue：https://github.com/JeffreySu/WeiXinMPSDK/issues/1825
+            var sessionKey = "98195476102492321891401391061935624977242";
+            var encryptedData =
+                "deWfUALVVTxrux2cp0qeqLWotTHTIpRmIrpcuWoh3ngyr7vjCDYq1wh2Q0CE6Zj9P/V2ZVqtjkVAiGdBuBR8fSs9qpWhb9ieO5FoumuvgoM6HP5+7Eul6lm8njXJlbTZr+pODAIeMoBIwpQUPpCLwYtpSuKlQGKvsrmoVU5j5xgoKm4dyKmNwq3qcqE5Q+HUOV0r/c7GusFWZD0haaccduMjmKAyupCpbwdDu6kiVfEo1pVZdp5j4C5ihrZdE7gzeS9vOAFDaB+NXPB6Lz+H8js6BH8gVJ7tZ1KUAwqt+FIqHHBKsREKoyjePwREkRc1Sr/N+QR1vps2cFGpqp16NAoTyT/JFi2jNs8PgrrEYZkjVvyMUYFlDnq5BWNyyh5RX34JEq7EN62sc+wfAMB2Nrm/QEcBCtYLycP3xcQnCLasU2SQbpIr5GOUz7aiIu5rwMXMUDDg7jxCOA4+ORfSHUgS6OczRjY+QqrcfKmlA84=";
+            var iv = "116115241129461711788323441202601974169239";
+            var userInfo = EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
+            Assert.IsNotNull(userInfo);
+            Console.WriteLine(userInfo);
+        }
 
         //[TestMethod]
         //public void AES_DecryptTest()

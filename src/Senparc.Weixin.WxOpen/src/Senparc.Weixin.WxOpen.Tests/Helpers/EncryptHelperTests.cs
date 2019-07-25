@@ -30,11 +30,13 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Containers;
 using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.WxOpen.Helpers.Tests
 {
     [TestClass()]
-    public class EncryptHelperTests
+    public class EncryptHelperTests : BaseTest
     {
         [TestMethod()]
         public void GetSignatureTest()
@@ -128,5 +130,50 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
 
             Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
         }
+
+        [TestMethod()]
+        public void DecodeUserInfoBySessionIdTest2()
+        {
+            //测试 issue：https://github.com/JeffreySu/WeiXinMPSDK/issues/1825
+            var sessionId = "ABCDEFGHIJK";
+            var sessionKey = "0sVkQ4CtcaiYJtvoPLBecw==";
+            var encryptedData =
+                "GiW4s+17o7RSaPOwGX8Ir1+3c/RYbHKvRzBg8UFlmIIiArLtU0ctkzjq1LRR5MH5CSPs63Jt4qCoFScSlRKlQ4/RVXXJFQV+r/1L+qKv/PdHRvVDLb+8P6CvPTurEuHsxlLyXTnnlEIu6IFYFzZWBMIp6+SHEK85mEb1gw4BtMmEy9EitnMskNjsEnmpI3M9r8ItKyQ8hinJejuno0JPXn3trc+2gMheNt4+4NwMTM6mzzGVO6g40NP7NjK9Tl6+An2TjBe+GGVFdrkl5hpYDXE/YO2FsL909faX3Y08msSuCVk5AsMGMJiUwddiu44KODdxCYfwLxBaIgYJEY6xLygFmAMuDg/L2g4/wDabBrhA5BNsD6lrcRRbvrHK65Lu3xd1oTXyMGbfUGTD4GLlLSJUX2FhcG7ZmHwg1jQUuKFHJu/AMQgdoPa/JONAu5Hjp0hL7ahr5LC0ghwdTfTowg3X1Ko9IgRxxj755eGgXQK7AnsMwjXzt4X+4YpOYpCb2LVSrTV2t4QjVNPe+Rjmsg==";
+            var iv = "4y2ftkwAM2mF6Qc89HydpA==";
+            var unionId = "";
+
+            SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
+
+            var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
+                encryptedData, iv);
+            Assert.IsNotNull(userInfo);
+            Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
+
+            Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
+        }
+
+
+        //[TestMethod]
+        //public void AES_DecryptTest()
+        //{
+        //    JsCode2JsonResult result = Senparc.CO2NET.Helpers.SerializerHelper.GetObject<JsCode2JsonResult>(@"{""openid"":""o5mT-4xYKKfTYu4qjrZ6lpnZE7KY"",""session_key"":""0sVkQ4CtcaiYJtvoPLBecw=="",""unionid"":null,""errcode"":0,""ErrorCodeValue"":0,""errmsg"":null,""P2PData"":null}");
+        //    //使用SessionContainer管理登录信息（推荐）
+        //    var unionId = result.unionid;
+        //    var sessionBag = SessionContainer.UpdateSession(null, result.openid, result.session_key, unionId);
+        //    var sessionId = sessionBag.Key;
+
+
+        //    var model = SerializerHelper.GetObject<dynamic>(@"{""Code"":""071GaTvK0UyoL92mO8yK0WlMvK0GaTvj"",""State"":""Csproj_wxOpen_Bind"",""ReturnUrl"":"""",""EncryptedData"":""GiW4s+17o7RSaPOwGX8Ir1+3c/RYbHKvRzBg8UFlmIIiArLtU0ctkzjq1LRR5MH5CSPs63Jt4qCoFScSlRKlQ4/RVXXJFQV+r/1L+qKv/PdHRvVDLb+8P6CvPTurEuHsxlLyXTnnlEIu6IFYFzZWBMIp6+SHEK85mEb1gw4BtMmEy9EitnMskNjsEnmpI3M9r8ItKyQ8hinJejuno0JPXn3trc+2gMheNt4+4NwMTM6mzzGVO6g40NP7NjK9Tl6+An2TjBe+GGVFdrkl5hpYDXE/YO2FsL909faX3Y08msSuCVk5AsMGMJiUwddiu44KODdxCYfwLxBaIgYJEY6xLygFmAMuDg/L2g4/wDabBrhA5BNsD6lrcRRbvrHK65Lu3xd1oTXyMGbfUGTD4GLlLSJUX2FhcG7ZmHwg1jQUuKFHJu/AMQgdoPa/JONAu5Hjp0hL7ahr5LC0ghwdTfTowg3X1Ko9IgRxxj755eGgXQK7AnsMwjXzt4X+4YpOYpCb2LVSrTV2t4QjVNPe+Rjmsg=="",""Iv"":""4y2ftkwAM2mF6Qc89HydpA=="",""RawData"":""{\""nickName\"":\""*Rebecca\"",\""gender\"":2,\""language\"":\""zh_CN\"",\""city\"":\""Qingdao\"",\""province\"":\""Shandong\"",\""country\"":\""China\"",\""avatarUrl\"":\""https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epNuU1WTDS98s7OS06OmnNktDJyHkrjRmEJrDjheXnnETPOTtMcsMPP6q7Bn3TIorV28iaETTvl3sA/132\""}"",""Signature"":""4a9a68b855b73f5a448d2b169a697ee14de5cf06""}");
+
+        //    var checkSuccess = EncryptHelper.CheckSignature(sessionId, model.RawData, model.Signature);
+        //    if (!checkSuccess)
+        //    {
+        //        //throw new UserFriendlyException("签名校验失败");
+        //    }
+
+        //    var userInfo = EncryptHelper.DecodeUserInfoBySessionId(sessionId, model.EncryptedData, model.Iv);
+
+        //}
+
     }
 }

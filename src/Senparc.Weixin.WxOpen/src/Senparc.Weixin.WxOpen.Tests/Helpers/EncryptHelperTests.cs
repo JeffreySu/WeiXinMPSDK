@@ -129,6 +129,11 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
             Console.WriteLine(SerializerHelper.GetJsonString(userInfo));
+
+            //测试 EncryptHelper.DecodeEncryptedData() 方法
+            var userInfoStr = EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
+            Console.WriteLine("userInfoStr:");
+            Console.WriteLine(SerializerHelper.GetJsonString(userInfoStr));
         }
 
         [TestMethod()]

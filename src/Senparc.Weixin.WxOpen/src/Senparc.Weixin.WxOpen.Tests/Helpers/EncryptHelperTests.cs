@@ -139,7 +139,7 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
         [TestMethod()]
         public void DecodeUserInfoBySessionIdTest2()
         {
-            //测试 issue：https://github.com/JeffreySu/WeiXinMPSDK/issues/1825
+            //测试 issue：https://github.com/JeffreySu/WeiXinMPSDK/issues/1869
             //var sessionId = "ABCDEFGHIJK";
             var sessionKey = "0sVkQ4CtcaiYJtvoPLBecw==";
             var encryptedData =

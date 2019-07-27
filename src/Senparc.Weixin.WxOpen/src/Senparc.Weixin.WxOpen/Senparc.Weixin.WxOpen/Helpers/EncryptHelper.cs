@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190402
     修改描述：v3.3.10 添加“微信小程序运动步数解密”功能：EncryptHelper.DecryptRunData()
 
+    修改标识：Senparc - 20190727
+    修改描述：完善 AES_Decrypt，处理偶然出现的 adding is invalid and cannot be removed 问题（未发现规律）
 
 ----------------------------------------------------------------*/
 
@@ -133,22 +135,62 @@ namespace Senparc.Weixin.WxOpen.Helpers
             aes.IV = Iv;
             var decrypt = aes.CreateDecryptor(aes.Key, aes.IV);
             byte[] xBuff = null;
-            using (var ms = new MemoryStream())
+
+            //using (ICryptoTransform decrypt = aes.CreateDecryptor(aes.Key, aes.IV) /*aes.CreateDecryptor()*/)
+            //{
+            //    var src = Convert.FromBase64String(Input); 
+            //    byte[] dest = decrypt.TransformFinalBlock(src, 0, src.Length);
+            //    return dest;
+            //    //return Encoding.UTF8.GetString(dest);
+            //}
+
+
+            try
             {
-                using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                using (var ms = new MemoryStream())
                 {
-                    //        cs.Read(decryptBytes, 0, decryptBytes.Length);
-                    //        cs.Close();
-                    //        ms.Close();
+                    using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
+                    {
+                        //cs.Read(decryptBytes, 0, decryptBytes.Length);
+                        //cs.Close();
+                        //ms.Close();
 
-                    //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
+                        //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
 
-                    byte[] xXml = Convert.FromBase64String(Input);
-                    byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
-                    Array.Copy(xXml, msg, xXml.Length);
-                    cs.Write(xXml, 0, xXml.Length);
+
+                        byte[] xXml = Convert.FromBase64String(Input);
+                        byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
+                        Array.Copy(xXml, msg, xXml.Length);
+                        cs.Write(xXml, 0, xXml.Length);
+                    }
+                    //cs.Dispose();
+                    xBuff = decode2(ms.ToArray());
                 }
-                xBuff = decode2(ms.ToArray());
+            }
+            catch (System.Security.Cryptography.CryptographicException e)
+            {
+                //Padding is invalid and cannot be removed.
+                Console.WriteLine("===== CryptographicException =====");
+
+                using (var ms = new MemoryStream())
+                {
+                    //cs 不自动释放，用于避免“Padding is invalid and cannot be removed”的错误    —— 2019.07.27 Jeffrey
+                    var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write);
+                    {
+                        //cs.Read(decryptBytes, 0, decryptBytes.Length);
+                        //cs.Close();
+                        //ms.Close();
+
+                        //cs.FlushFinalBlock();//用于解决第二次获取小程序Session解密出错的情况
+
+                        byte[] xXml = Convert.FromBase64String(Input);
+                        byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
+                        Array.Copy(xXml, msg, xXml.Length);
+                        cs.Write(xXml, 0, xXml.Length);
+                    }
+                    //cs.Dispose();
+                    xBuff = decode2(ms.ToArray());
+                }
             }
             return xBuff;
         }
@@ -241,6 +283,11 @@ namespace Senparc.Weixin.WxOpen.Helpers
         where T : DecodeEntityBase
         {
             var jsonStr = DecodeEncryptedDataBySessionId(sessionId, encryptedData, iv);
+
+            //Console.WriteLine("===== jsonStr =====");
+            //Console.WriteLine(jsonStr);
+            //Console.WriteLine();
+
             var entity = SerializerHelper.GetObject<T>(jsonStr);
             return entity;
         }

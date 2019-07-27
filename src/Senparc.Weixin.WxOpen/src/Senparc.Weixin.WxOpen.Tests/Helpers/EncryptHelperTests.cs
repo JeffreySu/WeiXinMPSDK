@@ -148,14 +148,22 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             //var unionId = "";
 
             //SessionContainer.UpdateSession(sessionId, "OpenId", sessionKey, unionId);
+            try
+            {
+                var userInfo = EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
 
-            var userInfo = EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
 
-
-            //var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
-            //    encryptedData, iv);
-            Assert.IsNotNull(userInfo);
-            Console.WriteLine(userInfo);
+                //var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
+                //    encryptedData, iv);
+                Assert.IsNotNull(userInfo);
+                Console.WriteLine(userInfo);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                throw;
+            }
+           
             //Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
             //Console.WriteLine(SerializerHelper.GetJsonString(userInfo));

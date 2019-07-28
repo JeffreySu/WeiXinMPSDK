@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.11.1</Version>
+    <Version>16.7.12</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -467,6 +467,7 @@
       v16.7.7.1 修改 UserInfoJson.qr_scene 类型为 unit
       v16.7.10 修复回复评论的参数bug，添加图文群发总数据的新字段
       v16.7.11 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v16.7.12 修复：客服输入状态的参数错误，调整客服输入状态的参数名称
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

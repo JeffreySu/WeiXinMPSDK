@@ -192,17 +192,35 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
-            switch (type.ToUpper())
-            {
-                case "USERINFO"://wx.getUserInfo()
-                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
-                        sessionId,
-                        encryptedData, iv);
-                    break;
-                default:
-                    break;
-            }
 
+            try
+            {
+                switch (type.ToUpper())
+                {
+                    case "USERINFO"://wx.getUserInfo()
+                        decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                            sessionId,
+                            encryptedData, iv);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                WeixinTrace.SendCustomLog("EncryptHelper.DecodeUserInfoBySessionId 方法出错",
+                    $@"sessionId: {sessionId}
+encryptedData: {encryptedData}
+iv: {iv}
+sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+                ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
+                : "未保存sessionId")}
+
+异常信息：
+{ex.ToString()}
+");
+            }
+            
             //检验水印
             var checkWatermark = false;
             if (decodedEntity != null)

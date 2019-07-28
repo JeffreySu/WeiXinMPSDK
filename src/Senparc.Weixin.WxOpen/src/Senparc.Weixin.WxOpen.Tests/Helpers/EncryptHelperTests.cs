@@ -71,8 +71,6 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
         public void CheckSignatureTest()
         {
             //储存Session
-
-
             var sessionId = "7f3f7489cb904d20bd4b5e9443f1bcab";
             var rawData = "{\"nickName\":\"苏震巍\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Suzhou\",\"province\":\"Jiangsu\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEKXyjX4N6I5Vx1aeiaBeJ2iaTLy15n0HgvjNbWEpKA3ZbdgXkOhWK7OH8iar3iaLxsZia5Ha4DnRPlMerw/0\"}";
             var sessionKey = "lEIWEBVlmAj/Ng0t54iahA==";

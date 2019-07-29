@@ -5,8 +5,6 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -198,7 +196,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
                 switch (type.ToUpper())
                 {
                     case "USERINFO"://wx.getUserInfo()
-                        decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                        decodedEntity = EncryptHelper.DecodeUserInfoBySessionId(
                             sessionId,
                             encryptedData, iv);
                         break;

@@ -73,7 +73,7 @@ Page({
             wx.showModal({
               title: '已尝试发送模板消息',
               content: json.msg,
-              showCancel:false5
+              showCancel:false
             });
           }
         })

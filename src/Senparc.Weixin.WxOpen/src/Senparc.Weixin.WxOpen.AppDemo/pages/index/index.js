@@ -17,7 +17,7 @@ Page({
 
   bindWebsocketTap: function(){
     wx.navigateTo({
-      url: '../websocket_signalr/websocket_signalr'
+      url: '../websocket_signalr/websocket_signalr'// 此页面对应 .net core demo，如果为 .net framework，请使用'../websocket_signalr/websocket'
     })
   },
 

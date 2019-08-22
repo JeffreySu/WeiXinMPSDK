@@ -51,7 +51,7 @@
       1、支持 .NET Core SignalR
       2、提供 Register 注册方法
       3、优化 WebSocketMesssageHandler
-      v0.8.1 引用最新版本 CO2NET 和 Senparc.Weixin
+      v0.8.1 引用最新版本 CO2NET
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

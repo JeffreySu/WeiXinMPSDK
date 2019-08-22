@@ -224,7 +224,7 @@ namespace Senparc.Weixin.Work.Containers
             Task.Factory.StartNew(() =>
             {
                 RegisterAsync(corpId, corpSecret, name).ConfigureAwait(false);
-            }).ConfigureAwait(false)
+            }).ConfigureAwait(false);
         }
 
 

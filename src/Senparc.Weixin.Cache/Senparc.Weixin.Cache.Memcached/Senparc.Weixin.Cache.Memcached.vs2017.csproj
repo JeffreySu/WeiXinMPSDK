@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>2.3.9</Version>
+    <Version>2.3.10</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -69,6 +69,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v2.3.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v2.3.5 支持异步缓存接口
       v2.3.9 引用最新版本 CO2NET
+      v2.3.10 引用最新版本 CO2NET 和 Senparc.Weixin
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
@@ -154,7 +155,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.3.2" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.3.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.4.3</Version>
+    <Version>1.4.4</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -37,6 +37,7 @@
       v1.4.0 .NET Core 添加多证书注册功能
       v1.4.2 修改“企业付款”接口（Transfers）的参数命名
       v1.4.3 引用最新版本 CO2NET
+      v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

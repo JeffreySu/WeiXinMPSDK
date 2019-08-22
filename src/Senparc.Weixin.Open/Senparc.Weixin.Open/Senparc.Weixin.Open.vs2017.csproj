@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>4.5.8.1</Version>
+    <Version>4.5.9</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -162,6 +162,7 @@
       v4.5.6 增加小程序名称审核事件，修复小程序添加类目接口参数错误
       v4.5.7 修复帐号类型参数错误
       v4.5.8 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v4.5.9 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

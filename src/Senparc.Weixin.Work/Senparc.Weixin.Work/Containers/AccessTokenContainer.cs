@@ -74,7 +74,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v3.4.0 支持异步 Container
 
     修改标识：Senparc - 20190504
-    修改描述：v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+    修改描述：v3.5.10 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
+    修改标识：Senparc - 20190822
+    修改描述：v3.5.11 完善同步方法的 AccessTokenContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -220,7 +224,7 @@ namespace Senparc.Weixin.Work.Containers
             Task.Factory.StartNew(() =>
             {
                 RegisterAsync(corpId, corpSecret, name).ConfigureAwait(false);
-            }).Wait();
+            }).ConfigureAwait(false);
         }
 
 

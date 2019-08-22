@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.5.10.1</Version>
+		<Version>3.5.11</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -129,6 +129,7 @@
       v3.5.8 丰富 Webhook 接口：SendImage
       v3.5.9 添加接口：手机号获取 userid
       v3.5.10 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v3.5.11 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

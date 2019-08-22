@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.Containers
             Task.Factory.StartNew(() =>
             {
                 RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
-            }).Wait();
+            }).ConfigureAwait(false);
         }
 
         #region AccessToken

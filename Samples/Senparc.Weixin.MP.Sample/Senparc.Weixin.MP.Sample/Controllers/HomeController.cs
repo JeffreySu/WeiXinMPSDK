@@ -137,9 +137,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult TryGetAccessTokenTest()
         {
-            var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
-            return Content("AccessToken: "+result.Substring(0, 10) + "...");
-
+            Stopwatch sp = new Stopwatch();
+            var appId = "YourAppId";//非config里的注册过的appid
+            var appSecret = "YourSecret";//非config里的注册过的appSecret
+            sp.Start();
+            string message = string.Empty;
+            try
+            {
+                 message = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);//
+            }
+            catch (Exception e)
+            {
+                message = e.Message;
+            }
+            sp.Stop();
+            return Content($"消息：{message.Substring(0, 10)}...\r\n耗时 {sp.ElapsedMilliseconds}ms");
         }
     }
 }

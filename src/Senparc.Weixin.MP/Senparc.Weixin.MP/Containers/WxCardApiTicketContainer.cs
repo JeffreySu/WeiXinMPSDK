@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.Containers
             Task.Factory.StartNew(() =>
             {
                 RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
-            }).ConfigureAwait();
+            }).ConfigureAwait(false);
         }
 
         #region WxCardApiTicket

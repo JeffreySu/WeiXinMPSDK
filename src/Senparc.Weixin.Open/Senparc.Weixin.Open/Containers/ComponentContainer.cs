@@ -78,6 +78,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190504
     修改描述：v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
+    修改标识：Senparc - 20190822
+    修改描述：v4.5.9 完善同步方法的 AuthorizerContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -297,7 +301,10 @@ namespace Senparc.Weixin.Open.Containers
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
-            RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).Wait();
+            Task.Factory.StartNew(() =>
+            {
+                RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).ConfigureAwait(false);
+            }).ConfigureAwait(false);
         }
 
 

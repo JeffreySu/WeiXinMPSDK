@@ -38,6 +38,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190421
     修改描述：v17.0.0 支持异步 Container
+    
+    修改标识：Senparc - 20190822
+    修改描述：v16.7.13 完善同步方法的 WxCardApiTicketContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
 
 ----------------------------------------------------------------*/
 
@@ -154,7 +157,10 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            RegisterAsync(appId, appSecret, name).Wait();
+            Task.Factory.StartNew(() =>
+            {
+                RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+            }).ConfigureAwait(false);
         }
 
         #region WxCardApiTicket

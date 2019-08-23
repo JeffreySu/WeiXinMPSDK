@@ -5,8 +5,6 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -189,34 +187,63 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+        public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             DecodeEntityBase decodedEntity = null;
-            switch (type.ToUpper())
-            {
-                case "USERINFO"://wx.getUserInfo()
-                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
-                        sessionId,
-                        encryptedData, iv);
-                    break;
-                default:
-                    break;
-            }
 
+            try
+            {
+                switch (type.ToUpper())
+                {
+                    case "USERINFO"://wx.getUserInfo()
+                        decodedEntity = EncryptHelper.DecodeUserInfoBySessionId(
+                            sessionId,
+                            encryptedData, iv);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                WeixinTrace.SendCustomLog("EncryptHelper.DecodeUserInfoBySessionId 方法出错",
+                    $@"sessionId: {sessionId}
+encryptedData: {encryptedData}
+iv: {iv}
+sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
+                ? (await SessionContainer.GetSessionAsync(sessionId)).SessionKey
+                : "未保存sessionId")}
+
+异常信息：
+{ex.ToString()}
+");
+            }
+            
             //检验水印
-            var checkWartmark = false;
+            var checkWatermark = false;
             if (decodedEntity != null)
             {
-                checkWartmark = decodedEntity.CheckWatermark(WxOpenAppId);
+                checkWatermark = decodedEntity.CheckWatermark(WxOpenAppId);
+
+                //保存用户信息（可选）
+                if (checkWatermark && decodedEntity is DecodedUserInfo decodedUserInfo)
+                {
+                    var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
+                    if (sessionBag != null)
+                    {
+                        await SessionContainer.AddDecodedUserInfoAsync(sessionBag, decodedUserInfo);
+                    }
+                }
             }
+
 
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
             return Json(new
             {
-                success = checkWartmark,
+                success = checkWatermark,
                 //decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
-                        checkWartmark ? "通过" : "不通过")
+                        checkWatermark ? "通过" : "不通过")
             });
         }
 

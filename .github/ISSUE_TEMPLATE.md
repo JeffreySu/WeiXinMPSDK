@@ -40,12 +40,10 @@
 
 ##### 开发环境
 
-- [ ] Visual Studio 2010
-- [ ] Visual Studio 2010 (SP1)
-- [ ] Visual Studio 2012
-- [ ] Visual Studio 2013
 - [ ] Visual Studio 2015
-- [x] Visual Studio 2017
+- [ ] Visual Studio 2017
+- [x] Visual Studio 2019
+- [ ] Visual Studio Code
 - [ ] 其他：
 
 ##### 缓存环境

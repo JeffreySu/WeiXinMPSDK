@@ -33,8 +33,9 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
+#if NETSTANDARD2_0
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
-
+#endif
             //注册开始
             RegisterService register;
 

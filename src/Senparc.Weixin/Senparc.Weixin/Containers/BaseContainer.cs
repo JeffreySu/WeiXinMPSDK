@@ -182,8 +182,6 @@ namespace Senparc.Weixin.Containers
         //TODO:同一个 appId 可能会对应 AccessToken、JsTicket 等多种 Container 情况。
 
 
-        //TODO:同一个 appId 可能会对应 AccessToken、JsTicket 等多种 Container 情况。
-
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
         /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>

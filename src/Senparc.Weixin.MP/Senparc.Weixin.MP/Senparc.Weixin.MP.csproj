@@ -466,13 +466,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM">
-      <Version>0.4.1.1</Version>
+      <Version>0.4.2</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.4</Version>
+      <Version>0.7.5</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar.App">
-      <Version>0.5.4</Version>
+      <Version>0.5.5</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -112,8 +112,15 @@ namespace Senparc.Weixin.Cache.Memcached
 
         public override async Task UpdateContainerBagAsync(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
         {
-            //Memcached 组件没有提供对应 TryGet() 的异步方法
-            await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey)).ConfigureAwait(false);
+            var baseCacheStrategy = BaseCacheStrategy();
+            object value;
+            if ((baseCacheStrategy as MemcachedObjectCacheStrategy).TryGet(key, out value))
+            {
+               await baseCacheStrategy.UpdateAsync(key, bag, expiry, isFullKey);
+            }
+
+            //Memcached 组件没有提供对应 TryGet() 的异步方法，所以也可以考虑使用 Task.Factory 完成异步
+            //await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey)).ConfigureAwait(false);
         }
 
         #endregion

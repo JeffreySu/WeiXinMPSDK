@@ -82,6 +82,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190822
     修改描述：v3.5.11 完善同步方法的 JsApiTicketContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
 
+    修改标识：Senparc - 20190826
+    修改描述：v3.5.13 优化 Register() 方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -192,10 +194,12 @@ namespace Senparc.Weixin.Work.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string corpId, string corpSecret, string name = null)
         {
-            Task.Factory.StartNew(() =>
-            {
-                RegisterAsync(corpId, corpSecret, name).ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            var task = RegisterAsync(corpId, corpSecret, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(corpId, corpSecret, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -90,6 +90,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190825
     修改描述：v16.7.14 修复 AccessTokenContainer.RegisterAsync() 执行缓存更新时可能发生的线程死锁情况
 
+    修改标识：Senparc - 20190826
+    修改描述：v16.7.15 优化 Register() 方法
+
 ----------------------------------------------------------------*/
 
 /* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */
@@ -183,10 +186,12 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            Task.Factory.StartNew(() =>
-            {
-                RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            var task = RegisterAsync(appId, appSecret, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
         #region AccessToken

@@ -183,10 +183,12 @@ namespace Senparc.Weixin.MP.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            Task.Factory.StartNew(() =>
-            {
-                RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            var task = RegisterAsync(appId, appSecret, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
         #region AccessToken

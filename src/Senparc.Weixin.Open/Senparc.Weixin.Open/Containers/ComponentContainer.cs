@@ -81,6 +81,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190822
     修改描述：v4.5.9 完善同步方法的 AuthorizerContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+    
+    修改标识：Senparc - 20190826
+    修改描述：v4.5.10 优化 Register() 方法
 
 ----------------------------------------------------------------*/
 
@@ -301,10 +304,12 @@ namespace Senparc.Weixin.Open.Containers
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
-            Task.Factory.StartNew(() =>
-            {
-                RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            var task = RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(componentAppId, componentAppSecret, getComponentVerifyTicketFunc, getAuthorizerRefreshTokenFunc, authorizerTokenRefreshedFunc, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
 

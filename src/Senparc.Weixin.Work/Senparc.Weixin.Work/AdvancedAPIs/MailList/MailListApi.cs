@@ -42,6 +42,9 @@
     修改标识：Senparc - 20190214
     修改描述：v3.3.7 MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
 
+    修改标识：Senparc - 20190826
+    修改描述：v3.5.12 MailListApi.InviteMember() 已被官方弃用，标记为过期
+
 ----------------------------------------------------------------*/
 
 /*
@@ -55,6 +58,7 @@
     手机号获取userid：https://work.weixin.qq.com/api/doc#90001/90143/91693
  */
 
+using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.CO2NET.HttpUtility;
@@ -578,6 +582,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [Obsolete("请使用 Invite() 方法！")]
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteMember", true)]
         public static InviteMemberResult InviteMember(string accessTokenOrAppKey, string userId, int timeOut = Config.TIME_OUT)
         {
@@ -606,6 +611,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.Invite", true)]
         public static InviteMemberListResultJson Invite(string accessTokenOrAppKey, InviteMemberData data, int timeOut = Config.TIME_OUT)
         {
+            //API:https://work.weixin.qq.com/api/doc#90000/90135/90975
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/invite?access_token={0}", accessToken);
@@ -1147,6 +1153,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [Obsolete("请使用 InviteAsync() 方法！")]
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteMemberAsync", true)]
         public static async Task<InviteMemberResult> InviteMemberAsync(string accessTokenOrAppKey, string userId, int timeOut = Config.TIME_OUT)
         {
@@ -1175,6 +1182,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteAsync", true)]
         public static async Task<InviteMemberListResultJson> InviteAsync(string accessTokenOrAppKey, InviteMemberData data, int timeOut = Config.TIME_OUT)
         {
+            //API:https://work.weixin.qq.com/api/doc#90000/90135/90975
+
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/invite?access_token={0}", accessToken);

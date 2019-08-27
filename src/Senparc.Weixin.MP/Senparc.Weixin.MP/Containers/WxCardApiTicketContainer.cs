@@ -44,6 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190826
     修改描述：v16.7.15 优化 Register() 方法
+
+    修改标识：Senparc - 20190827
+    修改描述：v16.7.16 解决卡券WxCardApiTicketContainer【异步方法】获取可用Ticket,type传值的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -321,7 +325,7 @@ namespace Senparc.Weixin.MP.Containers
                 {
                     //已过期，重新获取
                     JsApiTicketResult wxCardApiTicketResult = await CommonApi.GetTicketAsync(wxCardApiTicketBag.AppId,
-                                                                                             wxCardApiTicketBag.AppSecret).ConfigureAwait(false);
+                                                                                             wxCardApiTicketBag.AppSecret,"wx_card").ConfigureAwait(false);
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = SystemTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);

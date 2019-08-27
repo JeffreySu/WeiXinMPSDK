@@ -321,7 +321,7 @@ namespace Senparc.Weixin.MP.Containers
                 {
                     //已过期，重新获取
                     JsApiTicketResult wxCardApiTicketResult = await CommonApi.GetTicketAsync(wxCardApiTicketBag.AppId,
-                                                                                             wxCardApiTicketBag.AppSecret).ConfigureAwait(false);
+                                                                                             wxCardApiTicketBag.AppSecret,"wx_card").ConfigureAwait(false);
 
                     wxCardApiTicketBag.WxCardApiTicketResult = wxCardApiTicketResult;
                     wxCardApiTicketBag.WxCardApiTicketExpireTime = SystemTime.Now.AddSeconds(wxCardApiTicketBag.WxCardApiTicketResult.expires_in);

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CardManageResultJson.cs
     文件功能描述：管理卡券返回结果
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20171127
     修改描述：v14.8.7 完善CardGetResultJson字段
+
+    修改标识：Senparc - 20190121
+    修改描述：v16.6.9 修复：GetCardInfoResultJson 返回结果参数
 
 ----------------------------------------------------------------*/
 
@@ -227,7 +230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     public class GetCardInfoResultJson : WxJsonResult
     {
-        public List<GetCardInfoItem> GetCardInfo { get; set; }
+        public List<GetCardInfoItem> list { get; set; }
     }
 
     public class GetCardInfoItem
@@ -290,7 +293,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class GetCardMemberCardInfoResultJson : WxJsonResult
     {
         public List<GetCardMemberCardInfoItem> GetCardMemberCardInfo { get; set; }
-     }
+    }
 
     public class GetCardMemberCardInfoItem
     {
@@ -315,15 +318,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public int receive_user { get; set; }
         /// <summary>
-        /// 使用次数
+        /// 激活人数
         /// </summary>
         public int active_user { get; set; }
         /// <summary>
-        /// 使用人数
+        /// 使用次数
         /// </summary>
         public int verify_cnt { get; set; }
         /// <summary>
-        /// 激活人数
+        /// 使用人数
         /// </summary>
         public int verify_user { get; set; }
         /// <summary>
@@ -334,5 +337,90 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 历史领取会员卡总人数
         /// </summary>
         public int total_receive_user { get; set; }
+    }
+
+    /// <summary>
+    /// 拉取单张会员卡数据返回值
+    /// </summary>
+    public class GetCardMemberCardDetailResultJson : WxJsonResult
+    {
+        /// <summary>
+        /// 单张会员卡数据
+        /// </summary>
+        public List<GetCardMemberCardInfoItem> GetCardMemberCardDetail { get; set; }
+    }
+    /// <summary>
+    /// 单张会员卡数据
+    /// </summary>
+    public class GetCardMemberCardDetailItem
+    {
+        /// <summary>
+        /// 日期信息
+        /// </summary>
+        public string ref_date { get; set; }
+        /// <summary>
+        /// 子商户类型
+        /// </summary>
+        public int merchanttype { get; set; }
+        /// <summary>
+        /// 卡券id
+        /// </summary>
+        public string cardid { get; set; }
+        /// <summary>
+        /// 子商户ID
+        /// </summary>
+        public int submerchantid { get; set; }
+        /// <summary>
+        /// 浏览次数
+        /// </summary>
+        public int view_cnt { get; set; }
+        /// <summary>
+        /// 浏览人数
+        /// </summary>
+        public int view_user { get; set; }
+        /// <summary>
+        /// 领取次数
+        /// </summary>
+        public int receive_cnt { get; set; }
+        /// <summary>
+        /// 领取人数
+        /// </summary>
+        public int receive_user { get; set; }
+        /// <summary>
+        /// 使用次数
+        /// </summary>
+        public int verify_cnt { get; set; }
+        /// <summary>
+        /// 使用人数
+        /// </summary>
+        public int verify_user { get; set; }
+        /// <summary>
+        /// 激活次数
+        /// </summary>
+        public int active_cnt { get; set; }
+        /// <summary>
+        /// 激活人数
+        /// </summary>
+        public int active_user { get; set; }
+        /// <summary>
+        /// 有效会员总人数
+        /// </summary>
+        public int total_user { get; set; }
+        /// <summary>
+        /// 历史领取会员卡总人数
+        /// </summary>
+        public int total_receive_user { get; set; }
+        /// <summary>
+        /// 新用户数
+        /// </summary>
+        public int new_user { get; set; }
+        /// <summary>
+        /// 应收金额（仅限使用快速买单的会员卡）
+        /// </summary>
+        public double payOriginalFee { get; set; }
+        /// <summary>
+        /// 实收金额（仅限使用快速买单的会员卡）
+        /// </summary>
+        public double fee { get; set; }
     }
 }

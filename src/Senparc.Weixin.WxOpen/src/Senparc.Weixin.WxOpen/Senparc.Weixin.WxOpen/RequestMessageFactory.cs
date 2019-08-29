@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -38,6 +38,10 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.CO2NET.Helpers;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
@@ -83,10 +87,13 @@ namespace Senparc.Weixin.WxOpen
                     case RequestMsgType.Image:
                         requestMessage = new RequestMessageImage();
                         break;
+                    case RequestMsgType.NeuChar:
+                        requestMessage = new RequestMessageNeuChar();
+                        break;
                     case RequestMsgType.Event:
                         //判断Event类型
                         switch (doc.Root.Element("Event").Value.ToUpper())
-                        { 
+                        {
                             case "USER_ENTER_TEMPSESSION"://进入客服会话
                                 requestMessage = new RequestMessageEvent_UserEnterTempSession();
                                 break;
@@ -98,7 +105,7 @@ namespace Senparc.Weixin.WxOpen
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
                 }
-                EntityHelper.FillEntityWithXml(requestMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
             {

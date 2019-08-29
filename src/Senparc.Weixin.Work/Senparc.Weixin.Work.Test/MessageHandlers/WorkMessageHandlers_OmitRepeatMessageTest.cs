@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -25,13 +25,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : WorkMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : WorkMessageHandler<MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>>
     {
         public string RunStep { get; set; }
 
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             base.OnExecuting();
         }
 
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = requestMessage.Content;
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
+        public override IWorkResponseMessageBase DefaultResponseMessage(IWorkRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送的消息类型暂未被识别。";

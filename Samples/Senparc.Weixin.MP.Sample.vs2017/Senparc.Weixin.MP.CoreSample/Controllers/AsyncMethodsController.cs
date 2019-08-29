@@ -1,46 +1,25 @@
-﻿using System;
+﻿//DPBMARK_FILE MP
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
+using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.Entities;
-using Microsoft.Extensions.Options;
-//using ZXing.Aztec.Internal;
-
-
-#if NET45
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MvcExtension;
-#else
-using Microsoft.AspNetCore.Mvc;
-#endif
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class AsyncMethodsController : Controller
     {
-        private string appId;
-        private string appSecret;
-
-        IOptions<SenparcWeixinSetting> _senparcWeixinSetting;
-
-        public AsyncMethodsController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
-        {
-#if NET45
-        string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
-#else
-            _senparcWeixinSetting = senparcWeixinSetting;
-            appId = _senparcWeixinSetting.Value.WeixinAppId;
-            appSecret = _senparcWeixinSetting.Value.WeixinAppSecret;
-#endif
-        }
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         public ActionResult Index()
         {
@@ -53,7 +32,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public async Task<RedirectResult> QrCodeTest()
         {
-            var ticks = DateTime.Now.Ticks.ToString();
+            var ticks = SystemTime.Now.Ticks.ToString();
             var sceneId = int.Parse(ticks.Substring(ticks.Length - 7, 7));
 
             var qrResult = await QrCodeApi.CreateAsync(appId, 100, sceneId, QrCode_ActionName.QR_SCENE, "QrTest");
@@ -88,14 +67,21 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                     first = new TemplateDataItem("【异步模板消息测试】"),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("网页测试"),
-                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    keyword3 = new TemplateDataItem(SystemTime.Now.ToString("O")),
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
-                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, "pages/index/index", testData);
+                var miniProgram = new TempleteModel_MiniProgram()
+                {
+                    appid = "wxfcb0a0031394a51c",//【盛派互动（BookHelper）】小程序
+                    pagepath = "pages/index/index"
+                };
+
+                var result = await TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData, miniProgram);
                 return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看。此前的验证码已失效，如需继续测试，请重新获取验证码。");
             }
         }
+
 
         #region 异步死锁测试
 
@@ -106,7 +92,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public ActionResult DeadLockTest()
         {
             var result =
-                Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+                RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
                     cookieContainer: null).Result;
             return Content(result);
         }
@@ -117,7 +103,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public async Task<ActionResult> NoDeadLockTest()
         {
-            var result = await Senparc.Weixin.HttpUtility.RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+            var result = await RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
                 cookieContainer: null);
             return Content(result);
         }
@@ -127,10 +113,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         {
             string result = null;
             await Task.Run(() =>
-            {
-                Task.Delay(1000);
-                result = "hi " + DateTime.Now.ToString();
-            });
+               {
+                   Task.Delay(1000);
+                   result = "hi " + SystemTime.Now.ToString();
+               });
             return result;
         }
 
@@ -167,7 +153,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             await Task.Run(() =>
             {
                 Task.Delay(1000);
-                result = "hi " + DateTime.Now.ToString();
+                result = "hi " + SystemTime.Now.ToString();
             }).ConfigureAwait(false);
             return result;
         }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEvent_PicSysphoto.cs
     文件功能描述：事件之弹出系统拍照发图(pic_sysphoto)
@@ -10,6 +10,8 @@
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
+
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {

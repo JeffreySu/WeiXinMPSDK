@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommentApi.cs
     文件功能描述：评论数据管理
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180318
     修改描述：v14.10.6 完善“查看指定文章的评论数据”接口（CommentApi.List()）的返回结果数据
+    
+    修改标识：Senparc - 20190421
+    修改描述：v17.0.0 完善异步方法
 
 ----------------------------------------------------------------*/
 
@@ -37,6 +40,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 */
 
 
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
@@ -65,6 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.Open", true)]
         public static WxJsonResult Open(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -89,6 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.Close", true)]
         public static WxJsonResult Close(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -114,9 +121,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="begin">起始位置</param>
         /// <param name="count">获取数目（>=50会被拒绝）</param>
-        /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
+        /// <param name="type">type=0 普通评论+精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.List", true)]
         public static ListResultJson List(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
         {
             //返回JSON：
@@ -169,6 +177,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.MarkElect", true)]
         public static WxJsonResult MarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -196,6 +205,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.UnmarkElect", true)]
         public static WxJsonResult UnmarkElect(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -222,6 +232,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.Delete", true)]
         public static WxJsonResult Delete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -249,6 +260,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="content">回复内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyAdd", true)]
         public static WxJsonResult ReplyAdd(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -259,6 +271,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_data_id = msg_data_id,
                     index = index,
                     user_comment_id = user_comment_id,
+                    content = content
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
@@ -276,7 +289,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="content">回复内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyDelete", true)]
+        public static WxJsonResult ReplyDelete(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -296,7 +310,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -307,6 +320,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.OpenAsync", true)]
         public static async Task<WxJsonResult> OpenAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -319,8 +333,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -331,6 +345,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.CloseAsync", true)]
         public static Task<WxJsonResult> CloseAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -343,7 +358,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -356,9 +371,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="index">（非必填）多图文时，用来指定第几篇图文，从0开始，不带默认返回该msg_data_id的第一篇图文</param>
         /// <param name="begin">起始位置</param>
         /// <param name="count">获取数目（>=50会被拒绝）</param>
-        /// <param name="type">type=0 普通评论&精选评论 type=1 普通评论 type=2 精选评论</param>
+        /// <param name="type">type=0 普通评论+精选评论 type=1 普通评论 type=2 精选评论</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ListAsync", true)]
         public static Task<ListResultJson> ListAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint begin, uint count, uint type, int timeOut = Config.TIME_OUT)
         {
             //返回JSON：
@@ -392,7 +408,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<ListResultJson>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -405,6 +421,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.MarkElectAsync", true)]
         public static Task<WxJsonResult> MarkElectAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -418,7 +435,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -432,6 +449,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.UnmarkElectAsync", true)]
         public static Task<WxJsonResult> UnmarkElectAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -445,7 +463,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -458,6 +476,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="user_comment_id">用户评论id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.DeleteAsync", true)]
         public static Task<WxJsonResult> DeleteAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -471,7 +490,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -485,6 +504,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="content">回复内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyAddAsync", true)]
         public static Task<WxJsonResult> ReplyAddAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -495,10 +515,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_data_id = msg_data_id,
                     index = index,
                     user_comment_id = user_comment_id,
+                    content = content
                 };
 
                 JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppId);
         }
 
@@ -512,7 +533,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="content">回复内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static Task<WxJsonResult> ReplyDeleteAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, string content, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommentApi.ReplyDeleteAsync", true)]
+        public static Task<WxJsonResult> ReplyDeleteAsync(string accessTokenOrAppId, uint msg_data_id, uint? index, uint user_comment_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
            {
@@ -525,11 +547,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                JsonSetting jsonSetting = new JsonSetting(ignoreNulls: true);
-               return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
            }, accessTokenOrAppId);
         }
 
         #endregion
-#endif
     }
 }

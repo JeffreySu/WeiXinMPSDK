@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
@@ -19,6 +19,7 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections;
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <returns></returns>
         public static long GetTimestamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan ts = DateTimeOffset.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
             return Convert.ToInt64(ts.TotalSeconds);
         }
 
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.Work.Helpers
              .Append("noncestr=").Append(noncestr).Append("&")
              .Append("timestamp=").Append(timestamp).Append("&")
              .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
+            return EncryptHelper.GetSha1(sb.ToString()).ToLower();
         }
 
 

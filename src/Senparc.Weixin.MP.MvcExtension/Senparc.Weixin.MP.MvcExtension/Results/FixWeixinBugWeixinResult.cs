@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MessageHandlers;
+using Senparc.NeuChar.MessageHandlers;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             set { base.Content = value; }
         }
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
         public override void ExecuteResult(ControllerContext context)
         {
             var content = this.Content;
@@ -115,39 +115,36 @@ namespace Senparc.Weixin.MP.MvcExtension
         }
 
 #else
-        public override Task ExecuteResultAsync(ActionContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
-            return Task.Factory.StartNew(async () =>
+            var content = this.Content;
+
+            if (content == null)
             {
-                var content = this.Content;
-
-                if (content == null)
+                //使用IMessageHandler输出
+                if (_messageHandlerDocument == null)
                 {
-                    //使用IMessageHandler输出
-                    if (_messageHandlerDocument == null)
-                    {
-                        throw new Senparc.Weixin.Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
-                    }
-                    var finalResponseDocument = _messageHandlerDocument.FinalResponseDocument;
-
-
-                    if (finalResponseDocument == null)
-                    {
-                        //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
-                    }
-                    else
-                    {
-                        content = finalResponseDocument.ToString();
-                    }
+                    throw new Senparc.Weixin.Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
                 }
+                var finalResponseDocument = _messageHandlerDocument.FinalResponseDocument;
 
-                context.HttpContext.Response.ContentType = "text/xml";
-                content = (content ?? "").Replace("\r\n", "\n");
 
-                var bytes = Encoding.UTF8.GetBytes(content);
-                //context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
-                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
-            });
+                if (finalResponseDocument == null)
+                {
+                    //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
+                }
+                else
+                {
+                    content = finalResponseDocument.ToString();
+                }
+            }
+
+            context.HttpContext.Response.ContentType = "text/xml";
+            content = (content ?? "").Replace("\r\n", "\n");
+
+            var bytes = Encoding.UTF8.GetBytes(content);
+            //context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+            await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
 
             // return base.ExecuteResultAsync(context);
         }

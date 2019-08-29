@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CardCreateData.cs
     文件功能描述：所有类型的卡券数据
@@ -47,6 +47,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 
@@ -151,16 +152,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class Card_MemberCardData : BaseCardInfo
     {
         /// <summary>
-        /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。填写false，积分字段无需填写。储值字段处理方式相同。
+        /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_bonus { get; set; }
         /// <summary>
         /// 是否支持储值，填写true 或false。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_balance { get; set; }
         /// <summary>
         /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
@@ -208,10 +207,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string bonus_url { get; set; }
         /// <summary>
+        /// 积分信息类目对应的小程序 user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string bonus_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 积分入口小程序的页面路径 
+        /// </summary>
+        public string bonus_app_brand_pass { get; set; }
+        /// <summary>
         /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
         /// 非必填
         /// </summary>
         public string balance_url { get; set; }
+        /// <summary>
+        /// 余额信息类目对应的小程序 user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string balance_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 余额入口小程序的页面路径
+        /// </summary>
+        public string balance_app_brand_pass { get; set; }
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
         /// 非必填
@@ -256,9 +271,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public bool? wx_activate_after_submit { get; set; }
         /// <summary>
         /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接（官方文档为bool类型：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283）
+        /// <para>如果是使用小程序页面激活则不填此字段，填写activate_app_brand_user_name和activate_app_brand_pass字段</para>
         /// </summary>
         public string wx_activate_after_submit_url { get; set; }
-
+        /// <summary>
+        /// 激活会员卡跳转的小程序user_name，格式为小程序原始id+@app  小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string activate_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 激活会员卡跳转的小程序页面路径
+        /// </summary>
+        public string activate_app_brand_pass { get; set; }
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)
@@ -266,7 +289,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         }
     }
 
-    public class CustomField : IJsonEnumString
+    public class CustomField /*: IJsonEnumString*/
     {
         /// <summary>
         /// 会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
@@ -277,6 +300,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 点击类目跳转外链url
         /// </summary>
         public string url { get; set; }
+        /// <summary>
+        /// 自定义入口小程序user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义入口小程序的页面路径 如：API/cardPage
+        /// </summary>
+        public string app_brand_pass { get; set; }
     }
 
     public class CustomCell
@@ -296,6 +327,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public string url { get; set; }
+        /// <summary>
+        /// 自定义入口小程序user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string app_brand_user_name { get; set; }
+        /// <summary>
+        /// 自定义入口小程序的页面路径 如：API/cardPage
+        /// </summary>
+        public string app_brand_pass { get; set; }
     }
     /// <summary>
     /// 积分规则，新增加

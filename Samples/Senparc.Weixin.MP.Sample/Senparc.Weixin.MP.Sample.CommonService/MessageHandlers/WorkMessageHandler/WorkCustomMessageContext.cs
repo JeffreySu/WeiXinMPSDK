@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WorkCustomMessageContext.cs
     文件功能描述：企业号消息上下文
@@ -8,24 +8,25 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE Work
 using System;
 using System.Collections.Generic;
 using System.Linq;
 //using System.Runtime.Remoting.Messaging;
 using System.Text;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler
 {
-    public class WorkCustomMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
+    public class WorkCustomMessageContext : MessageContext<IWorkRequestMessageBase,IWorkResponseMessageBase>
     {
         public WorkCustomMessageContext()
         {
             base.MessageContextRemoved += CustomMessageContext_MessageContextRemoved;
         }
 
-        void CustomMessageContext_MessageContextRemoved(object sender, Senparc.Weixin.Context.WeixinContextRemovedEventArgs<IRequestMessageBase,IResponseMessageBase> e)
+        void CustomMessageContext_MessageContextRemoved(object sender, Senparc.NeuChar.Context.WeixinContextRemovedEventArgs<IWorkRequestMessageBase,IWorkResponseMessageBase> e)
         {
             /* 注意，这个事件不是实时触发的（当然你也可以专门写一个线程监控）
              * 为了提高效率，根据WeixinContext中的算法，这里的过期消息会在过期后下一条请求执行之前被清除

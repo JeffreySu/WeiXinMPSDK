@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,8 +22,11 @@ using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    using Senparc.CO2NET.Utilities;
+    using Senparc.NeuChar;
+    using Senparc.NeuChar.Entities;
+    using Senparc.NeuChar.Helpers;
     using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
     //using Senparc.Weixin.MP.Sample.Service;
     //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
 
@@ -52,7 +56,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //如果不需要记录requestDoc，只需要：
                 //var requestMessage = RequestMessageFactory.GetRequestEntity(Request.InputStream);
 
-                requestDoc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
+                requestDoc.Save(ServerUtility.ContentRootMapPath("~/App_Data/" + SystemTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
@@ -64,7 +68,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
                             strongresponseMessage.Content =
                                 string.Format(
-                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com",
+                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com",
                                     strongRequestMessage.Content);
                             responseMessage = strongresponseMessage;
                             break;
@@ -85,14 +89,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 Title = "您刚才发送了图片信息",
                                 Description = "您发送的图片将会显示在边上",
                                 PicUrl = strongRequestMessage.PicUrl,
-                                Url = "http://sdk.weixin.senparc.com"
+                                Url = "https://sdk.weixin.senparc.com"
                             });
                             strongresponseMessage.Articles.Add(new Article()
                             {
                                 Title = "第二条",
                                 Description = "第二条带连接的内容",
                                 PicUrl = strongRequestMessage.PicUrl,
-                                Url = "http://sdk.weixin.senparc.com"
+                                Url = "https://sdk.weixin.senparc.com"
                             });
                             responseMessage = strongresponseMessage;
                             break;
@@ -103,7 +107,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             var strongRequestMessage = requestMessage as RequestMessageVoice;
                             var strongresponseMessage =
                                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageMusic>(requestMessage);
-                            strongresponseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
+                            strongresponseMessage.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
                             responseMessage = strongresponseMessage;
                             break;
                         }
@@ -115,8 +119,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
-                responseDoc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
+                var responseDoc = EntityHelper.ConvertEntityToXml(responseMessage);
+                responseDoc.Save(ServerUtility.ContentRootMapPath("~/App_Data/" + SystemTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
 
                 return Content(responseDoc.ToString());
                 //如果不需要记录responseDoc，只需要：
@@ -125,7 +129,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             catch (Exception ex)
             {
                 using (
-                    TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt")))
+                    TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine(ex.Message);
                     tw.WriteLine(ex.InnerException.Message);
@@ -181,7 +185,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //根据MsgId去重结束
 
             string responseXml = null;//响应消息XML
-            var responseTime = (DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks) / 10000000 - 8 * 60 * 60;
+            var responseTime = (SystemTime.Now.Ticks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks) / 10000000 - 8 * 60 * 60;
 
             switch (msgType)
             {

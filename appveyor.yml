@@ -1,0 +1,32 @@
+version: 1.0.0.{build}
+image:
+  - Visual Studio 2017
+pull_requests:
+  do_not_increment_build_number: true
+#branches:
+#  only:
+#    - master
+#    - Developer
+skip_branch_with_pr: true
+configuration: Release
+before_build:
+  - cmd: dotnet restore Samples\Senparc.Weixin.MP.Sample.vs2017\Senparc.Weixin.MP.Sample.vs2017.sln
+build:
+  verbosity: minimal
+  parallel: true
+build_script:
+  - cmd: dotnet build -c Release Samples\Senparc.Weixin.MP.Sample.vs2017\Senparc.Weixin.MP.Sample.vs2017.sln
+test_script:
+  - cmd: dotnet test -c Release Samples\Senparc.Weixin.MP.Sample.vs2017\Senparc.Weixin.MP.Sample.vs2017.sln
+artifacts:
+  - path: '**\*.nupkg'
+    name: nupkg
+  - path: '**\*.snupkg'
+    name: snupkg
+nuget:
+  disable_publish_on_pr: true
+#deploy:
+#  provider: NuGet
+#  api_key:
+#    secure: <Your secret>
+

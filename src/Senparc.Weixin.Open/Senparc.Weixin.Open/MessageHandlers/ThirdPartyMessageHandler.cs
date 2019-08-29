@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -10,15 +10,20 @@
     修改标识：Senparc - 20160813
     修改描述：v2.3.0 添加authorized和updateauthorized两种通知类型的处理
 
+    修改标识：Senparc - 20181030
+    修改描述：v4.1.15 优化 MessageHandler 构造函数，提供 PostModel 默认值
+
 ----------------------------------------------------------------*/
 
 
 using System;
 using System.IO;
 using System.Xml.Linq;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.Open.Tencent;
+using Senparc.Weixin.Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
@@ -44,22 +49,22 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
-            _postModel = postModel;
-            EcryptRequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
+            EcryptRequestDocument = XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
-            Init();
+            Init(postModel);
         }
 
         public ThirdPartyMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
         {
-            _postModel = postModel;
             EcryptRequestDocument = ecryptRequestDocument;//原始加密XML转成XDocument
 
-            Init();
+            Init(postModel);
         }
 
-        public XDocument Init()
+        public XDocument Init(IEncryptPostModel postModel)
         {
+            _postModel = postModel as PostModel ?? new PostModel();
+
             //解密XML信息
             var postDataStr = EcryptRequestDocument.ToString();
 
@@ -130,6 +135,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnUpdateAuthorizedRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.notify_third_fasteregister:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageThirdFasteRegister;
+                            ResponseMessageText = OnThirdFasteRegisterRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.wxa_nickname_audit:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageNicknameAudit;
+                            ResponseMessageText = OnNicknameAuditRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -194,5 +211,17 @@ namespace Senparc.Weixin.Open.MessageHandlers
         {
             return "success";
         }
+
+        public virtual string OnThirdFasteRegisterRequest(RequestMessageThirdFasteRegister requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnNicknameAuditRequest(RequestMessageNicknameAudit requestMessage)
+        {
+            return "success";
+        }
+
+
     }
 }

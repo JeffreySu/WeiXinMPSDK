@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：ResponseMessageFactory.cs
     文件功能描述：获取XDocument转换后的IResponseMessageBase实例
@@ -13,9 +13,10 @@
 
 using System;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work
 {
@@ -27,9 +28,9 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IResponseMessageBase GetResponseEntity(XDocument doc)
+        public static IWorkResponseMessageBase GetResponseEntity(XDocument doc)
         {
-            ResponseMessageBase responseMessage = null;
+            WorkResponseMessageBase responseMessage = null;
             ResponseMsgType msgType;
             try
             {
@@ -69,7 +70,7 @@ namespace Senparc.Weixin.Work
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IResponseMessageBase GetResponseEntity(string xml)
+        public static IWorkResponseMessageBase GetResponseEntity(string xml)
         {
             return GetResponseEntity(XDocument.Parse(xml));
         }

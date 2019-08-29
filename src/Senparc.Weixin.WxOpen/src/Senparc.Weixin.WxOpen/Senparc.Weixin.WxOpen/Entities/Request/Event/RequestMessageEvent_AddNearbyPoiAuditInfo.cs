@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEvent_UserEnterTempSession.cs
     文件功能描述：事件之地点审核
@@ -27,10 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170107
     
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点，修改注释
 ----------------------------------------------------------------*/
-
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
@@ -58,7 +57,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         public int status { get; set; }
 
         /// <summary>
-        /// 如果status为3或者4，会返回审核失败的原因
+        /// 如果status为2，会返回审核失败的原因
         /// </summary>
         public string reason { get; set; }
 
@@ -66,6 +65,5 @@ namespace Senparc.Weixin.WxOpen.Entities
         /// poi_id
         /// </summary>
         public string poi_id { get; set; }
-
     }
 }

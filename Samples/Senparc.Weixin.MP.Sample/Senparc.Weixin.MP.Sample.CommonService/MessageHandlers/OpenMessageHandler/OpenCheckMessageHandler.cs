@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,8 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Entities.Request;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 
 
 #if NET45
@@ -37,8 +40,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
         //private string testAppId = "wx570bc396a51b8ff8";
 
 #if NET45
-        private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string componentAppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string componentSecret = Config.SenparcWeixinSetting.Component_Secret;
 #else
         private string componentAppId = "ComponentAppId";
         private string componentSecret = "Component_Secret";
@@ -91,7 +94,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
             return responseMessage;
         }
 
-        public override Entities.IResponseMessageBase DefaultResponseMessage(Entities.IRequestMessageBase requestMessage)
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "默认消息";

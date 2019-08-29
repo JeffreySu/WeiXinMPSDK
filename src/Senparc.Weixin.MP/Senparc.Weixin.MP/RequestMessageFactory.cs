@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150327
     修改描述：添加小视频类型
+    
+    修改标识：Senparc - 20180829
+    修改描述：v15.4.0 支持NeuChar，添加 RequestMessageNeuChar() 方法
 
 ----------------------------------------------------------------*/
 
@@ -39,6 +42,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -99,6 +105,9 @@ namespace Senparc.Weixin.MP
                         break;
                     case RequestMsgType.File:
                         requestMessage = new RequestMessageFile();
+                        break;
+                    case RequestMsgType.NeuChar:
+                        requestMessage = new RequestMessageNeuChar();
                         break;
                     case RequestMsgType.Event:
                         //判断Event类型
@@ -210,6 +219,34 @@ namespace Senparc.Weixin.MP
                             case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
                                 break;
+                            case "APPLY_MERCHANT_AUDIT_INFO"://创建门店小程序审核事件
+                                requestMessage = new RequestMessageEvent_ApplyMerchantAuditInfo();
+                                break;
+                            case "CREATE_MAP_POI_AUDIT_INFO"://从腾讯地图中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_CreateMapPoiAuditInfo();
+                                break;
+                            case "ADD_STORE_AUDIT_INFO"://门店小程序中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_AddStoreAuditInfo();
+                                break;
+                            case "MODIFY_STORE_AUDIT_INFO"://修改门店图片审核事件
+                                requestMessage = new RequestMessageEvent_ModifyStoreAuditInfo();
+                                break;
+
+                            case "VIEW_MINIPROGRAM"://微信点击菜单跳转小程序的事件推送的事件
+                                requestMessage = new RequestMessageEvent_View_Miniprogram();
+                                break;
+
+                            #region 卡券回调
+                            case "GIFTCARD_PAY_DONE"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Pay_Done();
+                                break;
+                            case "GIFTCARD_SEND_TO_FRIEND"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_Send_To_Friend();
+                                break;
+                            case "GIFTCARD_USER_ACCEPT"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_GiftCard_User_Accept();
+                                break;
+                            #endregion
 
                             #region 微信认证事件推送
                             case "QUALIFICATION_VERIFY_SUCCESS"://资质认证成功（此时立即获得接口权限）
@@ -265,7 +302,7 @@ namespace Senparc.Weixin.MP
                             break;
                         }
                 }
-                EntityHelper.FillEntityWithXml(requestMessage, doc);
+                Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
             {

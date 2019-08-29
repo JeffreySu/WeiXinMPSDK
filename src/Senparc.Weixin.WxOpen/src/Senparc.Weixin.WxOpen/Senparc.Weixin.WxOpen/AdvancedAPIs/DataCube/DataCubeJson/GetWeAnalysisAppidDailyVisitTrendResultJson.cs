@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetWeAnalysisAppidDailyVisitTrendResultJson.cs
     文件功能描述：小程序“数据分析”接口 - 访问趋势：日趋势 返回结果
     
     
     创建标识：Senparc - 20180101
+
+    修改标识：Senparc - 20180718
+    修改描述：修改 stay_time_uv,stay_time_session 类型
     
 ----------------------------------------------------------------*/
 using System;
@@ -72,11 +75,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <summary>
         /// 人均停留时长 (浮点型，单位：秒)
         /// </summary>
-        public int stay_time_uv { get; set; }
+        public double stay_time_uv { get; set; }
         /// <summary>
         /// 次均停留时长 (浮点型，单位：秒)
         /// </summary>
-        public int stay_time_session { get; set; }
+        public double stay_time_session { get; set; }
         /// <summary>
         /// 平均访问深度 (浮点型)
         /// </summary>

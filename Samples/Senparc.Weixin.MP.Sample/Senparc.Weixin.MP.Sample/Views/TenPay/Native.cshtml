@@ -1,4 +1,5 @@
-﻿@{
+﻿@*DPBMARK_FILE TenPay*@
+@{
     Layout = null;
 }
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -9,12 +10,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <!--https://chart.googleapis.com/chart?cht=qr&chs=200×200&choe=UTF-8&chld=L|4&chl=http://Codeup.org -->
+        <!--https://chart.googleapis.com/chart?cht=qr&chs=200×200&choe=UTF-8&chld=L|4&chl=http://Codeup.org -->
 
-    <div>
-    
-    <center><a href="@ViewData["parm"]">点击支付(微信浏览器)</a><br>扫描支付</br><img src="@ViewData["parm"]" alt="QR code"/></center>
-    </div>
+        <div>
+
+            <center><a href="@ViewData["parm"]">点击支付(微信浏览器)</a><br />扫描支付</br><img src="@ViewData["parm"]" alt="QR code" /></center>
+        </div>
     </form>
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CardCreateResultJson.cs
     文件功能描述：创建卡券返回结果
@@ -345,5 +345,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 此次更新是否需要提审，true为需要，false为不需要。 
         ///
         public bool send_check { get; set; }
+    }
+
+    /// <summary>
+    /// 获取开卡插件参数
+    /// </summary>
+    public class Card_GetUrlResultJson:WxJsonResult
+    {
+        /// <summary>
+        /// 返回的url，内含调用开卡插件所需的参数
+        /// </summary>
+        public string url { get; set; }
     }
 }

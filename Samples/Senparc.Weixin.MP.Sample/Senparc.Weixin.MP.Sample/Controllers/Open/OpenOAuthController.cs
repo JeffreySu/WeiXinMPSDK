@@ -1,4 +1,5 @@
-﻿using System;
+﻿//DPBMARK_FILE Open
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public class OpenOAuthController : BaseController
     {
-        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
-        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string component_AppId = Config.SenparcWeixinSetting.Component_Appid;
+        private string component_Secret = Config.SenparcWeixinSetting.Component_Secret;
         //private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
         #region 开放平台入口及回调
@@ -92,8 +93,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index(string appId)
         {
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://sdk.weixin.senparc.com/OpenOAuth/UserInfoCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
-            ViewData["UrlBase"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://sdk.weixin.senparc.com/OpenOAuth/BaseCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
+            ViewData["UrlUserInfo"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "https://sdk.weixin.senparc.com/OpenOAuth/UserInfoCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
+            ViewData["UrlBase"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "https://sdk.weixin.senparc.com/OpenOAuth/BaseCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
             return View();
         }
 
@@ -137,7 +138,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
+            Session["OAuthAccessTokenStartTime"] = SystemTime.Now;
             Session["OAuthAccessToken"] = result;
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
@@ -184,7 +185,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
+            Session["OAuthAccessTokenStartTime"] = SystemTime.Now;
             Session["OAuthAccessToken"] = result;
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下

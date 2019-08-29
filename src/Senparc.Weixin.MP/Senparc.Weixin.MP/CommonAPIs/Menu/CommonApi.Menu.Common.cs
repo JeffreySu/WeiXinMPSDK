@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommonApi.Menu.Common.cs
     文件功能描述：通用自定义菜单接口（公共方法）
@@ -61,6 +61,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
@@ -76,6 +77,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="rootButtonList"></param>
         /// <param name="buttonGroup"></param>
+        //[ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetButtonGroup", true)]
         private static void GetButtonGroup(List<MenuFull_RootButton> rootButtonList, ButtonGroupBase buttonGroup)
         {
             foreach (var rootButton in rootButtonList)
@@ -361,6 +363,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="resultFull"></param>
         /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
         /// <returns></returns>
+        //[ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.GetMenuFromJsonResult", true)]
         public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull, ButtonGroupBase buttonGroupBase)
         {
             GetMenuResult result = null;

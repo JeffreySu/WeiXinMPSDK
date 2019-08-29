@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CodeApi.cs
     文件功能描述：小程序代码模版库管理
@@ -38,6 +38,8 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Entities;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
@@ -53,6 +55,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">第三方平台自己的component_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.GetTemplateDraftList", true)]
         public static GetTemplateDraftListResultJson GetTemplateDraftList(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatedraftlist?access_token={0}", accessToken.AsUrlData());
@@ -66,6 +69,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">第三方平台自己的component_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.GetTemplateList", true)]
         public static GetTemplateListResultJson GetTemplateList(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatelist?access_token={0}", accessToken.AsUrlData());
@@ -80,6 +84,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="draft_id">草稿ID，本字段可通过“获取草稿箱内的所有临时代码草稿”接口获得</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.AddToTemplate", true)]
         public static WxJsonResult AddToTemplate(string accessToken, int draft_id, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/addtotemplate?access_token={0}", accessToken.AsUrlData());
@@ -101,6 +106,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="template_id">要删除的模版ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.DeleteTemplate", true)]
         public static WxJsonResult DeleteTemplate(string accessToken, int template_id, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/deletetemplate?access_token={0}", accessToken.AsUrlData());
@@ -117,7 +123,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 获取草稿箱内的所有临时代码草稿
@@ -125,11 +131,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">第三方平台自己的component_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.GetTemplateDraftListAsync", true)]
         public static async Task<GetTemplateDraftListResultJson> GetTemplateDraftListAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatedraftlist?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetTemplateDraftListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetTemplateDraftListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -138,11 +145,12 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">第三方平台自己的component_access_token</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.GetTemplateListAsync", true)]
         public static async Task<GetTemplateListResultJson> GetTemplateListAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/gettemplatelist?access_token={0}", accessToken.AsUrlData());
 
-            return await CommonJsonSend.SendAsync<GetTemplateListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return await CommonJsonSend.SendAsync<GetTemplateListResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -152,6 +160,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="draft_id">草稿ID，本字段可通过“获取草稿箱内的所有临时代码草稿”接口获得</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.AddToTemplateAsync", true)]
         public static async Task<WxJsonResult> AddToTemplateAsync(string accessToken, int draft_id, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/addtotemplate?access_token={0}", accessToken.AsUrlData());
@@ -163,7 +172,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 draft_id = draft_id
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -173,6 +182,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="template_id">要删除的模版ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeTemplateApi.DeleteTemplateAsync", true)]
         public static async Task<WxJsonResult> DeleteTemplateAsync(string accessToken, int template_id, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/deletetemplate?access_token={0}", accessToken.AsUrlData());
@@ -184,9 +194,8 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 template_id = template_id
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

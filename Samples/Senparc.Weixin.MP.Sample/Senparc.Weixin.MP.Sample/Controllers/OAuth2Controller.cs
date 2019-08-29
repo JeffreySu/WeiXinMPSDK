@@ -8,12 +8,14 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+//DPBMARK_FILE MP
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -25,8 +27,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
-        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+        private string appId = Config.SenparcWeixinSetting.WeixinAppId;
+        private string secret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
         /// <summary>
         /// 
@@ -35,7 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(string returnUrl)
         {
-            var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
+            var state = "JeffreySu-" + SystemTime.Now.Millisecond;//随机数，用于识别请求可靠性
             Session["State"] = state;//储存随机数到Session
 
             ViewData["returnUrl"] = returnUrl;
@@ -43,11 +45,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //此页面引导用户点击授权
             ViewData["UrlUserInfo"] =
                 OAuthApi.GetAuthorizeUrl(appId,
-                "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+                "https://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
                 state, OAuthScope.snsapi_userinfo);
             ViewData["UrlBase"] =
                 OAuthApi.GetAuthorizeUrl(appId,
-                "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+                "https://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
                 state, OAuthScope.snsapi_base);
             return View();
         }
@@ -91,7 +93,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
+            Session["OAuthAccessTokenStartTime"] = SystemTime.Now;
             Session["OAuthAccessToken"] = result;
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
@@ -142,7 +144,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            Session["OAuthAccessTokenStartTime"] = DateTime.Now;
+            Session["OAuthAccessTokenStartTime"] = SystemTime.Now;
             Session["OAuthAccessToken"] = result;
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下

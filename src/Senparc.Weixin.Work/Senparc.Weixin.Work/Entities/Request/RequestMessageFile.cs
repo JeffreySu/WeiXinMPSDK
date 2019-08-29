@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageFile.cs
     文件功能描述：接收文件消息
@@ -9,12 +9,15 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 文件消息请求
     /// </summary>
-    public class RequestMessageFile : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageFile : WorkRequestMessageBase, IRequestMessageFile
     {
         public override RequestMsgType MsgType
         {

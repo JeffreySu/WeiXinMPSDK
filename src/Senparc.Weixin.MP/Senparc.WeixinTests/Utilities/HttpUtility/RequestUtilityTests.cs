@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,6 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.HttpUtility;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(url,
+            var result = RequestUtility.HttpPost(url,
                 cookieContainer, stream, useAjax: true);
 
             Console.WriteLine(result);
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = Senparc.Weixin.HttpUtility.RequestUtility.HttpResponsePost(url,
+            var result = RequestUtility.HttpResponsePost(url,
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);

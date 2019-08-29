@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -25,6 +25,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.NeuChar;
 using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities.Menu;
@@ -48,7 +49,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 name = "单击测试",
                 key = "OneClick",
-                type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
+                type = MenuButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
             });
 
             //二级菜单

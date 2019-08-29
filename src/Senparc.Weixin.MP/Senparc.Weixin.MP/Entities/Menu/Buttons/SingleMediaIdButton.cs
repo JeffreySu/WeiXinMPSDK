@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,15 +19,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SingleMediaIdButton.cs
     文件功能描述：下发消息（除文本消息）按钮
     
     
     创建标识：Senparc - 20170824
+
+    修改标识：Senparc - 20181005
+    修改描述：菜单按钮类型（ButtonType）改为使用 Senparc.NeuChar.MenuButtonType
     
 ----------------------------------------------------------------*/
+using Senparc.NeuChar;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
@@ -42,7 +46,7 @@ namespace Senparc.Weixin.MP.Entities.Menu
         public string media_id { get; set; }
 
         public SingleMediaIdButton()
-            : base(ButtonType.media_id.ToString())
+            : base(MenuButtonType.media_id.ToString())
         {
         }
     }

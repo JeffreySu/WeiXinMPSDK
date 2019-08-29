@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ThirdPartyAuthPostData.cs
     文件功能描述：第三方应用授权需要post的数据
@@ -44,6 +44,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public SetAgent_IsReportUser isreportuser { get; set; }
     }
+
+    /// <summary>
+    /// 获取注册码数据
+    /// </summary>
+    public class GetRegisterCodeData
+    {
+        public string template_id { get; set; }
+        public string corp_name { get; set; }
+        public string admin_name { get; set; }
+        public string admin_mobile { get; set; }
+        public string state { get; set; }
+        public string follow_user { get; set; }
+    }
+
+    /// <summary>
+    /// 设置授权应用可见范围数据
+    /// </summary>
+    public class SetScopeData
+    {
+        public int agentid { get; set; }
+        public string[] allow_user { get; set; }
+        public int[] allow_party { get; set; }
+        public int[] allow_tag { get; set; }
+    }
+
 }
 
 

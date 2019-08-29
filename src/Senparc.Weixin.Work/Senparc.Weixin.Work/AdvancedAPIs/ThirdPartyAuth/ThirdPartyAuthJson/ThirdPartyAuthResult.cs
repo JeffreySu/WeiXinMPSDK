@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
@@ -9,6 +9,10 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 2019620
+    修改描述：v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -16,6 +20,92 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
 {
+    /// <summary>
+    /// 设置授权应用可见范围返回结果
+    /// </summary>
+    public class SetScopeResult : WorkJsonResult
+    {
+        public string[] invaliduser { get; set; }
+        public int[] invalidparty { get; set; }
+        public int[] invalidtag { get; set; }
+    }
+
+    /// <summary>
+    /// 查询注册状态返回结果
+    /// </summary>
+    public class GetRegisterInfoResult : WorkJsonResult
+    {
+        public string corpid { get; set; }
+        public Contact_Sync contact_sync { get; set; }
+        public Auth_User_Info auth_user_info { get; set; }
+        public string state { get; set; }
+    }
+
+    public class Contact_Sync
+    {
+        public string access_token { get; set; }
+        public int expires_in { get; set; }
+    }
+
+    public class Auth_User_Info
+    {
+        public string userid { get; set; }
+    }
+
+    /// <summary>
+    /// 获取注册码返回结果
+    /// </summary>
+    public class GetRegisterCodeResult : WorkJsonResult
+    {
+        public string register_code { get; set; }
+        public int expires_in { get; set; }
+    }
+
+    /// <summary>
+    /// 第三方使用user_ticket获取成员详情返回结果
+    /// </summary>
+    public class GetUserInfoByTicketResult : WorkJsonResult
+    {
+        public string corpid { get; set; }
+        public string userid { get; set; }
+        public string name { get; set; }
+        public string mobile { get; set; }
+        public string gender { get; set; }
+        public string email { get; set; }
+        public string avatar { get; set; }
+        public string qr_code { get; set; }
+    }
+
+
+    /// <summary>
+    /// 第三方根据code获取企业成员信息返回结果
+    /// </summary>
+    public class GetUserInfoResult : WorkJsonResult
+    {
+        public string CorpId { get; set; }
+        public string OpenId { get; set; }
+        public string UserId { get; set; }
+        public string DeviceId { get; set; }
+        public string user_ticket { get; set; }
+        public int expires_in { get; set; }
+    }
+
+
+    /// <summary>
+    /// 获取应用的管理员列表返回结果
+    /// </summary>
+    public class GetAdminListResult : WorkJsonResult
+    {
+        public AdminItem[] admin { get; set; }
+    }
+
+    public class AdminItem
+    {
+        public string userid { get; set; }
+        public int auth_type { get; set; }
+    }
+
+
     /// <summary>
     /// 获取应用套件令牌返回结果
     /// </summary>
@@ -74,7 +164,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权信息
         /// </summary>
         public ThirdParty_AuthInfo auth_info { get; set; }
+
+        /// <summary>
+        /// 授权管理员的信息
+        /// </summary>
+        public GetPermanentCodeResult_AuthUserInfo auth_user_info { get; set; }
+
     }
+
+    /// <summary>
+    /// 授权管理员的信息
+    /// </summary>
+    public class GetPermanentCodeResult_AuthUserInfo
+    {
+        /// <summary>
+        /// 授权管理员的userid，可能为空（内部管理员一定有，不可更改）
+        /// </summary>
+        public string userid { get; set; }
+        /// <summary>
+        /// 授权管理员的name，可能为空（内部管理员一定有，不可更改）
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 授权管理员的头像url
+        /// </summary>
+        public string avatar { get; set; }
+    }
+
 
     /// <summary>
     /// ThirdParty_AuthCorpInfo【QY移植修改】

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEventBase.cs
     文件功能描述：事件基类
@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170106
 ----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
@@ -48,7 +51,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 请求消息的事件推送消息基类
     /// </summary>
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
+    public class RequestMessageEventBase : RequestMessageEvent, IRequestMessageEventBase, NeuChar.Entities.IRequestMessageEvent
     {
         public override RequestMsgType MsgType
         {
@@ -62,5 +65,10 @@ namespace Senparc.Weixin.WxOpen.Entities
         {
             get { return Event.user_enter_tempsession; }
         }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public override object EventType { get { return Event; } }
     }
 }

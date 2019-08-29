@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageUpdateAuthorized.cs
     文件功能描述：授权更新通知
     
     
     创建标识：Senparc - 20160813
+
+    修改标识：Senparc - 20181226
+    修改描述：v4.3.3 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +36,6 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime AuthorizationCodeExpiredTime { get; set; }
+        public DateTimeOffset AuthorizationCodeExpiredTime { get; set; }
     }
 }

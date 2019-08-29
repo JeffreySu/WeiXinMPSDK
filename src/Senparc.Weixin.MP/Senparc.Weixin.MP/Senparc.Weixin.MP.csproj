@@ -343,6 +343,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JsSdkAddCardUiPackage.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.Message.cs" />
@@ -465,6 +466,9 @@
     <Folder Include="NeuChar\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET">
+      <Version>0.8.9</Version>
+    </PackageReference>
     <PackageReference Include="Senparc.CO2NET.APM">
       <Version>0.4.2</Version>
     </PackageReference>

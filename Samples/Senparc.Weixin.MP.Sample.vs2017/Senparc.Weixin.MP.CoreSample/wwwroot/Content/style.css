@@ -102,7 +102,7 @@
                 }
 
 .senparc-jumbotron {
-    background: url(/images/v2/background.png);
+    background: url(../images/v2/background.png);
     width: 100%;
     padding: 28px 0 0 0;
 }
@@ -204,6 +204,10 @@
     text-indent: 8em;
     clear: left;
 }*/
+
+a.qqGroup_tip {
+   text-decoration: underline;
+}
 
 .catalog {
     background: #E7EEF1;

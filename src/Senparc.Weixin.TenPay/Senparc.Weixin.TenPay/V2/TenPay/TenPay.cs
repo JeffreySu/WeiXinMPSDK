@@ -131,7 +131,7 @@ namespace Senparc.Weixin.TenPay.V2
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】发货通知
@@ -193,6 +193,5 @@ namespace Senparc.Weixin.TenPay.V2
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OrderqueryResult>(accessToken, urlFormat, data);
         }
         #endregion
-#endif
     }
 }

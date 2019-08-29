@@ -15,8 +15,11 @@ App({
     else 
     {
     //本地测试域名
-      wx.setStorageSync('domainName', "http://localhost:58936")
-      wx.setStorageSync('wssDomainName', "ws://localhost:58936")
+      // wx.setStorageSync('domainName', "http://localhost:58936")
+      // wx.setStorageSync('wssDomainName', "ws://localhost:58936")
+
+      wx.setStorageSync('domainName', "http://localhost:58936/VirtualPath")
+      wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
     }
 
     // 打开调试

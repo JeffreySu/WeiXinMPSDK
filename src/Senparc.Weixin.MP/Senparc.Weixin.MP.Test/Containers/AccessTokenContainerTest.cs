@@ -33,6 +33,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Extensions;
 //using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
@@ -187,6 +188,18 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
             Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
+        }
+
+        [TestMethod]
+        public void TryGetAccessTokenTest()
+        {
+            //清除注册信息
+            AccessTokenContainer.RemoveFromCache(base._appId);
+
+            //直接调用
+            var result = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
+            Assert.IsNotNull(result);
+            Console.WriteLine(result.ToJson());
         }
     }
 }

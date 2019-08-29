@@ -81,7 +81,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170522
     修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20190418
+    修改描述：v16.7.0 支持异步 Container
+
+    修改标识：Senparc - 20190503
+    修改描述：v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+
+    修改标识：Senparc - 20190825
+    修改描述：v16.7.14 修复 AccessTokenContainer.RegisterAsync() 执行缓存更新时可能发生的线程死锁情况
+
+    修改标识：Senparc - 20190826
+    修改描述：v16.7.15 优化 Register() 方法
+
 ----------------------------------------------------------------*/
+
+/* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */
 
 using System;
 using System.Collections.Generic;
@@ -159,49 +173,26 @@ namespace Senparc.Weixin.MP.Containers
     {
         const string LockResourceName = "MP.AccessTokenContainer";
 
+
+        #region 同步方法
+
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
         /// </summary>
         /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
+        [Obsolete("请使用 RegisterAsync() 方法")]
         public static void Register(string appId, string appSecret, string name = null)
         {
-            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
-            RegisterFunc = () =>
-            {
-                //using (FlushCache.CreateInstance())
-                //{
-                var bag = new AccessTokenBag()
-                {
-                    //Key = appId,
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    AccessTokenExpireTime = DateTimeOffset.MinValue,
-                    AccessTokenResult = new AccessTokenResult()
-                };
-                Update(appId, bag, null);//第一次添加，此处已经立即更新
-                return bag;
-                //}
-            };
-            RegisterFunc();
-
-            if (!name.IsNullOrEmpty())
-            {
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
-                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
-            }
-
-            //为JsApiTicketContainer进行自动注册
-            JsApiTicketContainer.Register(appId, appSecret, name);
-
-            //OAuthAccessTokenContainer进行自动注册
-            OAuthAccessTokenContainer.Register(appId, appSecret, name);
-
+            var task = RegisterAsync(appId, appSecret, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(appId, appSecret, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
-
-        #region 同步方法
 
         #region AccessToken
 
@@ -264,8 +255,52 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
+
+        /// <summary>
+        /// 【异步方法】注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
+        /// </summary>
+        /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的N“AppID(应用ID)”</param>
+        /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别。当 name 不为 null 和 空值时，本次注册内容将会被记录到 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name] 中，方便取用。</param>
+        public static async Task RegisterAsync(string appId, string appSecret, string name = null)
+        {
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFuncCollection[appId] = async () =>
+            {
+                //using (FlushCache.CreateInstance())
+                //{
+                var bag = new AccessTokenBag()
+                {
+                    //Key = appId,
+                    Name = name,
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    AccessTokenExpireTime = DateTimeOffset.MinValue,
+                    AccessTokenResult = new AccessTokenResult()
+                };
+                await UpdateAsync(appId, bag, null).ConfigureAwait(false);//第一次添加，此处已经立即更新
+                return bag;
+                //}
+            };
+
+            var registerTask = RegisterFuncCollection[appId]();
+
+            if (!name.IsNullOrEmpty())
+            {
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
+                Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
+            }
+
+            //为JsApiTicketContainer进行自动注册
+            var registerJsApiTask = JsApiTicketContainer.RegisterAsync(appId, appSecret, name);
+
+            //OAuthAccessTokenContainer进行自动注册
+            var registerOAuthTask = OAuthAccessTokenContainer.RegisterAsync(appId, appSecret, name);
+
+            Task.WaitAll(new[] { registerTask, registerJsApiTask, registerOAuthTask });//等待所有任务完成
+        }
 
         #region AccessToken
 
@@ -278,11 +313,11 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> TryGetAccessTokenAsync(string appId, string appSecret, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId) || getNewToken)
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false) || getNewToken)
             {
-                Register(appId, appSecret);
+                await RegisterAsync(appId, appSecret).ConfigureAwait(false);
             }
-            return await GetAccessTokenAsync(appId, getNewToken);
+            return await GetAccessTokenAsync(appId, getNewToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -293,7 +328,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<string> GetAccessTokenAsync(string appId, bool getNewToken = false)
         {
-            var result = await GetAccessTokenResultAsync(appId, getNewToken);
+            var result = await GetAccessTokenResultAsync(appId, getNewToken).ConfigureAwait(false);
             return result.access_token;
         }
 
@@ -305,22 +340,22 @@ namespace Senparc.Weixin.MP.Containers
         /// <returns></returns>
         public static async Task<IAccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
         {
-            if (!CheckRegistered(appId))
+            if (!await CheckRegisteredAsync(appId).ConfigureAwait(false))
             {
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = TryGetItem(appId);
+            var accessTokenBag = await TryGetItemAsync(appId).ConfigureAwait(false);
 
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appId).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= SystemTime.Now)
                 {
                     //已过期，重新获取
-                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret).ConfigureAwait(false);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
-                    Update(accessTokenBag, null);//更新到缓存
+                    await UpdateAsync(accessTokenBag, null).ConfigureAwait(false);//更新到缓存
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -330,7 +365,6 @@ namespace Senparc.Weixin.MP.Containers
         #endregion
 
         #endregion
-#endif
     }
 }
 

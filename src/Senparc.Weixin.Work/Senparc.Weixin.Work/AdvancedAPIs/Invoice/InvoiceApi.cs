@@ -151,7 +151,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -174,9 +174,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     encrypt_code = encryptCode
                 };
 
-                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -198,9 +198,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     item_list = itemList
                 };
 
-                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetInvoiceInfoResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -225,9 +225,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     reimburse_status = reimburseStatus
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -252,13 +252,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     invoice_list = itemList
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
-#endif
 
     }
 }

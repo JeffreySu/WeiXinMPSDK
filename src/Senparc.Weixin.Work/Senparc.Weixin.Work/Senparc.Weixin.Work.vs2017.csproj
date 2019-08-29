@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-		<Version>3.3.10</Version>
+		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
+		<Version>3.5.13</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -118,6 +119,20 @@
       v3.3.8.1 添加“让成员成功加入企业”接口
       v3.3.9 支持最新版本 Senparc.Weixin
       v3.3.10 修改 Copr 错别字，修正为 Corp
+      v3.4.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v3.5.0 发送Markdown消息和任务卡片消息
+      v3.5.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+      v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
+      v3.5.7 添加 Webhook 群机器人相关 Api
+      v3.5.8 丰富 Webhook 接口：SendImage
+      v3.5.9 添加接口：手机号获取 userid
+      v3.5.10 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v3.5.11 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+      v3.5.12 MailListApi.InviteMember() 已被官方弃用，标记为过期
+      v3.5.13 优化 xxContainer.Register() 方法
+
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -137,17 +152,6 @@
 		<CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
 	</PropertyGroup>
 
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.Work.xml</DocumentationFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.Work.xml</DocumentationFile>
-	</PropertyGroup>
-
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
 		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
 		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.Work.xml</DocumentationFile>
@@ -162,30 +166,6 @@
 		<Compile Remove="Properties\AssemblyInfo.cs" />
 	</ItemGroup>
 
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<!--<Reference Include="System.Net.Http" />-->
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Web.Extensions" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Xml.Linq" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-		<Reference Include="System.Core" />
-		<Reference Include="System.Data" />
-		<Reference Include="System.Data.DataSetExtensions" />
-		<!--<Reference Include="System.Net.Http" />-->
-		<Reference Include="System.Runtime.Serialization" />
-		<Reference Include="System.Web" />
-		<Reference Include="System.Web.Extensions" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Xml.Linq" />
-	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
 		<Reference Include="System.Core" />
@@ -229,7 +209,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.6.3.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.7.5" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -67,7 +67,7 @@ namespace Microsoft.AspNetCore.Http
         public async Task Invoke(HttpContext context)
         {
             context.Request.EnableRewind();
-            await _next(context);
+            await _next(context).ConfigureAwait(false);
         }
     }
 

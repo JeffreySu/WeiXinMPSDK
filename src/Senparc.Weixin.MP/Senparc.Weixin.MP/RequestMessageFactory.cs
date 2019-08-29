@@ -232,6 +232,9 @@ namespace Senparc.Weixin.MP
                                 requestMessage = new RequestMessageEvent_ModifyStoreAuditInfo();
                                 break;
 
+                            case "VIEW_MINIPROGRAM"://微信点击菜单跳转小程序的事件推送的事件
+                                requestMessage = new RequestMessageEvent_View_Miniprogram();
+                                break;
 
                             #region 卡券回调
                             case "GIFTCARD_PAY_DONE"://券点流水详情事件：当商户朋友的券券点发生变动时

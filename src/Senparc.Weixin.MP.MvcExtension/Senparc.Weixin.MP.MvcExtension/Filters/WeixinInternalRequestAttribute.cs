@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web.Mvc;
 using System.Web;
 #else
@@ -25,7 +25,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 #endif
-using Senparc.Weixin.MP.MvcExtension.BrowserUtility;
 //using Senparc.Weixin.BrowserUtility;
 
 namespace Senparc.Weixin.MP.MvcExtension
@@ -57,7 +56,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
 #else
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
@@ -65,7 +64,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             {
 
                 //if (!filterContext.HttpContext.SideInWeixinBrowser())
-                if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
+                if (!Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     ActionResult actionResult = null;

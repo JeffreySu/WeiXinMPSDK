@@ -28,6 +28,9 @@
     修改标识：Senparc - 20150727
     修改描述：添加批量获取用户基本信息返回结果
 
+    修改标识：Senparc - 20190601
+    修改描述：qr_scene 属性改为 uint 类型
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -103,7 +106,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// <summary>
         /// 二维码扫码场景（开发者自定义）
         /// </summary>
-        public int qr_scene { get; set; }
+        public uint qr_scene { get; set; }
         /// <summary>
         /// 二维码扫码场景描述（开发者自定义）
         /// </summary>

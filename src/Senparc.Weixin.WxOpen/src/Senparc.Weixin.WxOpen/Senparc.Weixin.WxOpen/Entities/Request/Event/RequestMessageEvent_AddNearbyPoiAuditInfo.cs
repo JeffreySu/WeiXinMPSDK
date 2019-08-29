@@ -27,10 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170107
     
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点，修改注释
 ----------------------------------------------------------------*/
-
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
@@ -58,7 +57,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         public int status { get; set; }
 
         /// <summary>
-        /// 如果status为3或者4，会返回审核失败的原因
+        /// 如果status为2，会返回审核失败的原因
         /// </summary>
         public string reason { get; set; }
 
@@ -66,6 +65,5 @@ namespace Senparc.Weixin.WxOpen.Entities
         /// poi_id
         /// </summary>
         public string poi_id { get; set; }
-
     }
 }

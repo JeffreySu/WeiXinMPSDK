@@ -69,6 +69,4 @@ namespace Senparc.Weixin.WxOpen.Entities
         public string avatarUrl { get; set; }
         public string unionId { get; set; }
     }
-
-
 }

@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    @if (!string.IsNullOrWhiteSpace(this.Context.Request.PathBase))
+    {
+        <base href="@this.Context.Request.PathBase" />
+    }
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - 微信公众平台 小程序 企业号 开放平台 微信支付 JSSDK Senparc.Weixin SDK</title>
     <meta name="keywords" content="微信SDK,微信公众账号,小程序,SDK,微信公众平台,企业号,服务号,订阅号,微信支付,开放平台,Senparc.Weixin,,Senparc.Weixin.MP,JSSDK,开发者,第三方工具,说明,文档,AppStore,微微嗨,盛派网络,Senparc,.net,c#,小程序开发" />
     <meta name="description" content="Senparc.Weixin SDK，是目前使用率超过 90% 的微信 C# SDK，包含完整的公众账号、小程序、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。目前包含了Senparc.Weixin.MP（微信公众号SDK）、Senparc.Weixin.Work（微信企业号/企业微信SDK）、Senparc.Weixin.Open（微信开放平台SDK），以及Senparc.Weixin.TenPay（微信支付）、微信JSSDK的完整SDK和案例。" />
     @*    @Styles.Render("~/Content/css")*@
 
-
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" />
     <link href="~/Content/danktooltip/css/darktooltip.min.css" rel="stylesheet" />
 
     <link href="~/Content/reset.css" rel="stylesheet" />
@@ -51,7 +55,7 @@
             <div class="wrapper">
                 <div class="logo">
                     <a href="http://www.senparc.com">
-                        <img src="/images/v2/logo .png" alt="微信SDK" />
+                        <img src="~/images/v2/logo .png" alt="微信SDK" />
                     </a>
                 </div>
                 <div class="header-title">
@@ -63,7 +67,9 @@
                         <li class="btn-top-menu">
                             <a href="javascript:;">工具箱</a>
                             <ul class="nav-sub-catalog">
+                                <li><a href="https://weixin.senparc.com:8039" target="_blank">动态微信 WebApi Swagger 文档 （新）</a></li>
                                 <li><a href="@Url.Action("WeChatSampleBuilder", "Home")">微信 Sample 项目自动生成器 （新）</a></li>
+                                <li><a href="@Url.Action("Index", "WebSocket")">WebSocket 测试（新）</a></li>
                                 <li><a href="@Url.Action("Index", "Menu")">自定义菜单设置</a></li>
                                 <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟器</a></li>
                                 <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
@@ -98,6 +104,7 @@
                                 <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-download">离线帮助文档下载</a></li>
                                 <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-online">在线文档</a></li>
                                 <li><a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))#doc-online-source-code">查看在线文档源代码</a></li>
+                                <li><a href="https://weixin.senparc.com:8039" target="_blank">动态微信 WebApi Swagger 文档 （新）</a></li>
                                 <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">更多开发资源</a></li>
                             </ul>
                         </li>
@@ -253,7 +260,7 @@
                     <p>谢谢！</p>
                 </div>
                 <div class="feedback-action contentTop">
-                    <img src="/images/v2/ewm_03.png" />
+                    <img src="~/images/v2/ewm_03.png" />
                     <p>资金捐助（支付宝钱包扫一扫）</p>
                 </div>
             </div>

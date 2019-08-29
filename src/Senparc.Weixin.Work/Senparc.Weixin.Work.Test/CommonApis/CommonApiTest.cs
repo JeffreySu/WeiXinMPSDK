@@ -108,9 +108,12 @@ namespace Senparc.Weixin.Work.Test.CommonApis
         {
             if (_userRedis)
             {
-                var redisConfiguration = "localhost:6379";
+                var redisConfiguration = "localhost:6379,defaultDatabase=2";
                 RedisManager.ConfigurationOption = redisConfiguration;
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+
+                Senparc.Weixin.Cache.Redis.Register.RegisterDomainCache();//进行领域缓存注册
             }
 
 

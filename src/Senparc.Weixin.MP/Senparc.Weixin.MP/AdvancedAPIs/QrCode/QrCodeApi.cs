@@ -211,7 +211,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -293,8 +292,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         ///// <summary>
@@ -334,10 +333,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            await Get.DownloadAsync(url, stream);
+            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
         }
 
         #endregion
-#endif
     }
 }

@@ -72,7 +72,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -92,11 +92,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
 
-            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET);
+            var result = await CommonJsonSend.SendAsync<JsCode2JsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             return result;
         }
 
         #endregion
-#endif
     }
 }

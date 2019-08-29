@@ -42,7 +42,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.CO2NET.Helpers;
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// </summary>
         protected string Content;
 
-#if NET35 || NET40 || NET45
+#if NET45
         private string Charset = "gb2312";
 #else
         private int Charset = 936;
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.TenPay.V2
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             Parameters = new Hashtable();
             XmlMap = new Hashtable();
 
@@ -373,7 +373,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         protected virtual string GetCharset()
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
             return Encoding.UTF8.WebName;

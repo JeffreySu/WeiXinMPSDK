@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class SemanticApi
     {
         #region 同步方法
- 
+
         /// <summary>
         /// 发送语义理解请求
         /// </summary>
@@ -67,7 +67,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSend", true)]
-        public static T SemanticSend<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
+        public static T SemanticSend<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
+            where T : WxJsonResult, new()
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -81,11 +82,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
 
-             }, accessTokenOrAppId);
+            }, accessTokenOrAppId);
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】发送语义理解请求
@@ -96,7 +96,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSendAsync", true)]
-        public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
+        public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
+            where T : WxJsonResult,new()
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -108,11 +109,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //        BaseSemanticResultJson as Semantic_RestaurantResult;
                 //}
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

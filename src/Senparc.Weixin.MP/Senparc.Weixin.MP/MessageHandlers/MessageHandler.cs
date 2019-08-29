@@ -56,13 +56,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
+using Senparc.NeuChar.App.AppStore;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.Tencent;
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        private PostModel _postModel;
+        private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
 
         /// <summary>
         /// 微微嗨开发者信息
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(inputStream, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             : base(requestDocument, postModel, maxRecordCount)
         {
             DeveloperInfo = developerInfo;
-            postModel = postModel ?? new PostModel();
+            _postModel = postModel ?? new PostModel();
             //GlobalMessageContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
@@ -478,7 +478,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
                     break;
                 case RequestMsgType.Unknown:
                     ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);

@@ -146,7 +146,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】增加分组
@@ -159,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/add?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddGroupResult>(accessToken, urlFormat, addGroupData);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddGroupResult>(accessToken, urlFormat, addGroupData).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 group_id = groupId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -192,7 +191,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/propertymod?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, propertyModGroup);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, propertyModGroup).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -206,7 +205,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/productmod?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, productModGroup);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, productModGroup).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -219,7 +218,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/getall?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllGroup>(accessToken, urlFormat, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllGroup>(accessToken, urlFormat, null, CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -238,9 +237,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
                 group_id = groupId
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdGroup>(accessToken, urlFormat, data);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdGroup>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

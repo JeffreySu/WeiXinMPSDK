@@ -80,7 +80,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
          ///  <summary>
         /// 将一条长链接转成短链接。
@@ -100,11 +99,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     action = action,
                     long_url = longUrl
                 };
-                return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<ShortUrlResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

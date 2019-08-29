@@ -21,6 +21,9 @@
     修改标识：Senparc - 20180505
     修改描述：修改 ApiAuthorizerToken() 方法注释
 
+    修改标识：Senparc - 20190615
+    修改描述：修复帐号类型参数错误
+
 ----------------------------------------------------------------*/
 
 /*
@@ -44,7 +47,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     {
         #region 同步方法
 
-
         /// <summary>
         /// 获取第三方平台access_token
         /// </summary>
@@ -53,7 +55,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.ComponentRebindAdminAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.GetComponentAccessToken", true)]
         public static ComponentAccessTokenResult GetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
         {
             var url = Config.ApiMpHost + "/cgi-bin/component/api_component_token";
@@ -114,7 +116,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAppId.AsUrlData(), preAuthCode.AsUrlData(), redirectUrl.AsUrlData());
 
             if (authType != LoginAuthType.默认)
-                url = string.Format("{0}&auth_type={1}", url, authType);
+                url = string.Format("{0}&auth_type={1}", url, (int) authType);
 
             if (!string.IsNullOrEmpty(bizAppId))
                 url = string.Format("{0}&biz_appid={1}", url, bizAppId);
@@ -352,9 +354,36 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
+        /// <summary>
+        /// 拉取所有已授权的帐号信息
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/api/api_get_authorizer_list.html
+        /// </summary>
+        /// <param name="componentAppId">第三方平台 APPID</param>
+        /// <param name="componentAccessToken">	令牌</param>
+        /// <param name="offset">偏移位置/起始位置</param>
+        /// <param name="count">拉取数量，最大为 500</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.GetAuthorizerList", true)]
+        public static AuthorizerListResult GetAuthorizerList(string componentAppId, string componentAccessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_list?component_access_token={0}", componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                component_access_token = componentAccessToken,
+                offset = offset,
+                count = count
+            };
+
+            return CommonJsonSend.Send<AuthorizerListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取第三方平台access_token
@@ -376,7 +405,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_verify_ticket = componentVerifyTicket
             };
 
-            return await CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -399,10 +428,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_appid = componentAppId
             };
 
-            return await CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
-
-
 
 
         /// <summary>
@@ -426,7 +453,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorization_code = authorizationCode
             };
 
-            return await CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -455,7 +482,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -482,7 +509,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_refresh_token = authorizerRefreshToken
             };
 
-            return await CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -508,7 +535,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppId,
             };
 
-            return await CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -535,7 +562,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_name = optionName
             };
 
-            return await CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -564,7 +591,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 option_value = optionValue
             };
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -582,13 +609,13 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     authorizerAccessToken.AsUrlData(), type.AsUrlData());
 
-            JsApiTicketResult result = await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET);
+            JsApiTicketResult result = await CommonJsonSend.SendAsync<JsApiTicketResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
             return result;
         }
 
         /// <summary>
+        /// 【异步方法】创建小程序接口
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21538208049W8uwq&token=&lang=zh_CN
-        /// 创建小程序接口
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="entName">企业名（需与工商部门登记信息一致）</param>
@@ -631,11 +658,35 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 };
             }
 
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】拉取所有已授权的帐号信息
+        /// 文档：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/api/api_get_authorizer_list.html
+        /// </summary>
+        /// <param name="componentAppId">第三方平台 APPID</param>
+        /// <param name="componentAccessToken">	令牌</param>
+        /// <param name="offset">偏移位置/起始位置</param>
+        /// <param name="count">拉取数量，最大为 500</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "ComponentApi.GetAuthorizerList", true)]
+        public static async Task<AuthorizerListResult> GetAuthorizerListAsync(string componentAppId, string componentAccessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_list?component_access_token={0}", componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                component_access_token = componentAccessToken,
+                offset = offset,
+                count = count
+            };
+
+            return await CommonJsonSend.SendAsync<AuthorizerListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         #endregion
-#endif
-        //////////////////////////////////////////////////////////////////////////////////
     }
 }

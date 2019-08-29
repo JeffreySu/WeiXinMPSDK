@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
 
@@ -225,6 +225,5 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
 
 
         #endregion
-#endif
     }
 }

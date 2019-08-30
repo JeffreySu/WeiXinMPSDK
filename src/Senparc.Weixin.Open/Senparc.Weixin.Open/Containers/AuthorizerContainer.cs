@@ -84,6 +84,9 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20190822
     修改描述：v4.5.9 完善同步方法的 AuthorizerContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
 
+    修改标识：Senparc - 20190826
+    修改描述：v4.5.10 优化 Register() 方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -250,10 +253,12 @@ namespace Senparc.Weixin.Open.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         private static void Register(string componentAppId, string authorizerAppId, string name = null)
         {
-            Task.Factory.StartNew(() =>
-            {
-                RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
-            }).ConfigureAwait(false);
+            var task = RegisterAsync(componentAppId, authorizerAppId, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>16.7.17</Version>
+    <Version>16.7.18</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -473,6 +473,7 @@
       v16.7.15 优化 xxContainer.Register() 方法
       v16.7.16 解决卡券WxCardApiTicketContainer【异步方法】获取可用Ticket,type传值的问题
       v16.7.17 添加 JsSdkAddCardUiPackage（JSSDK 卡券 AddCard API 调用的参数）
+      v16.7.18 引用最新版本 CO2NET 和 Senparc.Weixin
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -534,8 +535,8 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.4.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.5" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.5.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.6" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.5.6" />
   </ItemGroup>
 
   <ItemGroup>

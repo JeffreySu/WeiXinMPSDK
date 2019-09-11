@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>7.2.16</Version>
+    <Version>7.2.17</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -87,6 +87,7 @@
       v7.2.8 升级 OAuth 重定向功能，改为永久重定向（301)
       v7.2.15 引用最新版本 CO2NET
       v7.2.16 引用最新版本 CO2NET 和 Senparc.Weixin.MP
+      v7.2.17 引用最新版本 CO2NET 和 Senparc.Weixin.MP
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.MVC</PackageId>
@@ -149,7 +150,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.6" />
   </ItemGroup>
 
   <ItemGroup>

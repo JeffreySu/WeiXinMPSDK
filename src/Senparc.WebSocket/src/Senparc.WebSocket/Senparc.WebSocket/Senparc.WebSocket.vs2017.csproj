@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>0.8.1</Version>
+    <Version>0.8.2</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
 
@@ -52,6 +52,7 @@
       2、提供 Register 注册方法
       3、优化 WebSocketMesssageHandler
       v0.8.1 引用最新版本 CO2NET
+      v0.8.2 引用最新版本 CO2NET
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -111,7 +112,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.8.9" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.8.10" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>

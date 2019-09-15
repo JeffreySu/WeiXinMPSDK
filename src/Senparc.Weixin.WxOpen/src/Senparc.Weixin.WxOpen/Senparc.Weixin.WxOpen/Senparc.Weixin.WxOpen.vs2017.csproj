@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>3.5.3</Version>
+    <Version>3.5.5</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -131,6 +131,9 @@
       v3.5.1 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
       v3.5.2 引用最新版本 CO2NET
       v3.5.3 引用最新版本 CO2NET 和 Senparc.Weixin
+      v3.5.4 修正 UniformSendData 参数
+      v3.5.5 引用最新版本 CO2NET 和 Senparc.Weixin
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -183,7 +186,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.7.6" />
   </ItemGroup>
 
   <ItemGroup>

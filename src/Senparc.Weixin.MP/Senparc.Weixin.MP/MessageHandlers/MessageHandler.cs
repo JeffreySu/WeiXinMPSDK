@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
         /// </summary>
-        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
+        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc { get; set; } = null;
 
 
         /// <summary>

@@ -63,18 +63,19 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IWorkResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public abstract class WorkMessageHandler<TC> : MessageHandler<TC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
-        where TC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
+    public abstract class WorkMessageHandler<TMC>
+        : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
+        where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static GlobalMessageContext<TC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IWorkRequestMessageBase, IWorkResponseMessageBase>();
+        public static GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override GlobalMessageContext<TC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalMessageContext
+        public override GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalMessageContext
         {
             get { return GlobalWeixinContext; }
         }
@@ -221,7 +222,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             }
 
             var requestDocument = XDocument.Parse(msgXml);
-            RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
+            RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             //记录上下文
             if (RequestMessage.MsgType != RequestMsgType.Unknown && MessageContextGlobalConfig.UseMessageContext)

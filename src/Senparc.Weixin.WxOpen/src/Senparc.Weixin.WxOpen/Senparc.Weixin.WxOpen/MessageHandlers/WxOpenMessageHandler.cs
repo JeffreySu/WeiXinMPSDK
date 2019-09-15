@@ -58,20 +58,20 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     /// <summary>
     /// 小程序MessageHandler
     /// </summary>
-    /// <typeparam name="TC">上下文MessageContext类型</typeparam>
-    public abstract partial class WxOpenMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    /// <typeparam name="TMC">上下文MessageContext类型</typeparam>
+    public abstract partial class WxOpenMessageHandler<TMC> : MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase>();
         //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
+        public override GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get
             {
@@ -251,7 +251,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
-            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;

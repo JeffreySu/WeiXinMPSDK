@@ -53,6 +53,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
@@ -77,21 +78,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract partial class MessageHandler<TC> :
-        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public abstract partial class MessageHandler<TMC> :
+        MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase>();
         //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
+        public override GlobalMessageContext<TMC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
         {
             get
             {
@@ -304,19 +305,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
-            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
 
 
-            //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
             if (MessageContextGlobalConfig.UseMessageContext)
             {
                 var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
 
-                lock (MessageContextGlobalConfig.OmitRepeatLock)//TODO:使用分布式锁
+                //使用分布式锁，已支持分布式上下文缓存
+                var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                using(cache.BeginCacheLock(MessageContextGlobalConfig.MESSAGE_CONTENT_OMIT_REPEAT_LOCK_NAME,"MpMessageHandler-Repeat"))
                 {
                     #region 消息去重
 

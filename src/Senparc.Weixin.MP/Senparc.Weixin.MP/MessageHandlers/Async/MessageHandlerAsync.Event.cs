@@ -43,7 +43,7 @@ using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public abstract partial class MessageHandler<TC>
+    public abstract partial class MessageHandler<TMC>
     {
         /// <summary>
         /// 【异步方法】Event事件类型请求

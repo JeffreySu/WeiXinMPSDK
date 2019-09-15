@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>3.5.5</Version>
+    <Version>3.6.0-preview3</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -133,6 +133,7 @@
       v3.5.3 引用最新版本 CO2NET 和 Senparc.Weixin
       v3.5.4 修正 UniformSendData 参数
       v3.5.5 引用最新版本 CO2NET 和 Senparc.Weixin
+      v3.6.0 消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -186,7 +187,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.8.0-preview2" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.8.0-preview3-1" />
   </ItemGroup>
 
   <ItemGroup>

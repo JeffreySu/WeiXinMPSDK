@@ -15,10 +15,12 @@ using System.Linq;
 using System.Text;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.MP.MessageContexts;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
-    public class CustomMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>
+    /* v16.8.0 后，提供分布式缓存，只需要直接使用 DefaultMpMessageContext，即使没有 CustomMessageContext 也没有关系 */
+    public class CustomMessageContext : DefaultMpMessageContext  //MessageContext<IRequestMessageBase, IResponseMessageBase>
     {
         public CustomMessageContext()
         {

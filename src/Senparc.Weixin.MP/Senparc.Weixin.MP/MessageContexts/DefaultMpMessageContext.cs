@@ -1,12 +1,38 @@
-﻿using Senparc.NeuChar;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：DefaultMpMessageContext.cs
+    文件功能描述：公众号上下文消息的默认实现
+    
+    
+    创建标识：Senparc - 20190916
+    
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.MessageContexts
@@ -257,7 +283,54 @@ namespace Senparc.Weixin.MP.MessageContexts
         /// <returns></returns>
         public override IResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
-            throw new NotImplementedException();
+            ResponseMessageBase responseMessage;
+            switch (responseMsgType)
+            {
+                case ResponseMsgType.Text:
+                    responseMessage = new ResponseMessageText();
+                    break;
+                case ResponseMsgType.News:
+                    responseMessage = new ResponseMessageNews();
+                    break;
+                case ResponseMsgType.Music:
+                    responseMessage = new ResponseMessageMusic();
+                    break;
+                case ResponseMsgType.Image:
+                    responseMessage = new ResponseMessageImage();
+                    break;
+                case ResponseMsgType.Voice:
+                    responseMessage = new ResponseMessageVoice();
+                    break;
+                case ResponseMsgType.Video:
+                    responseMessage = new ResponseMessageVideo();
+                    break;
+                case ResponseMsgType.Transfer_Customer_Service:
+                    responseMessage = new ResponseMessageTransfer_Customer_Service();
+                    break;
+                case ResponseMsgType.NoResponse:
+                    responseMessage = new ResponseMessageNoResponse();
+                    break;
+                case ResponseMsgType.SuccessResponse:
+                    responseMessage = new SuccessResponseMessage();
+                    break;
+
+                #region 扩展类型
+                case ResponseMsgType.MultipleNews:
+                case ResponseMsgType.LocationMessage:
+                case ResponseMsgType.UseApi:
+                #endregion
+
+                case ResponseMsgType.MpNews:
+                case ResponseMsgType.Unknown:
+                case ResponseMsgType.Other:
+                default:
+                    responseMessage = new ResponseMessageUnknownType()
+                    {
+                        ResponseDocument = doc
+                    };
+                    break;
+            }
+            return responseMessage;
         }
     }
 }

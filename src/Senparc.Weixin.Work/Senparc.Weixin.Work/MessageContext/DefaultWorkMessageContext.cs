@@ -4,6 +4,7 @@ using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Exceptions;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Senparc.Weixin.Work.MessageContexts
     /// <summary>
     /// 企业号上下文消息的默认实现
     /// </summary>
-    public class DefaultWorkMessageContext 
+    public class DefaultWorkMessageContext
         : MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
     {
         /// <summary>
@@ -140,7 +141,53 @@ namespace Senparc.Weixin.Work.MessageContexts
         /// <returns></returns>
         public override IWorkResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
-            throw new NotImplementedException();
+            IWorkResponseMessageBase responseMessage;
+            switch (responseMsgType)
+            {
+                case ResponseMsgType.Text:
+                    responseMessage = new ResponseMessageText();
+                    break;
+                case ResponseMsgType.News:
+                    responseMessage = new ResponseMessageNews();
+                    break;
+                case ResponseMsgType.Image:
+                    responseMessage = new ResponseMessageImage();
+                    break;
+                case ResponseMsgType.Voice:
+                    responseMessage = new ResponseMessageVoice();
+                    break;
+                case ResponseMsgType.Video:
+                    responseMessage = new ResponseMessageVideo();
+                    break;
+                case ResponseMsgType.NoResponse:
+                    responseMessage = new WorkResponseMessageNoResponse();
+                    break;
+                case ResponseMsgType.SuccessResponse:
+                    responseMessage = new WorkSuccessResponseMessage();
+                    break;
+
+                #region 不支持
+                case ResponseMsgType.Transfer_Customer_Service:
+                case ResponseMsgType.Music:
+                #endregion
+
+                #region 扩展类型
+                case ResponseMsgType.MultipleNews:
+                case ResponseMsgType.LocationMessage:
+                case ResponseMsgType.UseApi:
+                #endregion
+
+                case ResponseMsgType.Other:
+                case ResponseMsgType.Unknown:
+                default:
+                    responseMessage = new WorkResponseMessageUnknownType()
+                    {
+                        ResponseDocument = doc
+                    };
+                    break;
+            }
+            return responseMessage;
+
         }
     }
 }

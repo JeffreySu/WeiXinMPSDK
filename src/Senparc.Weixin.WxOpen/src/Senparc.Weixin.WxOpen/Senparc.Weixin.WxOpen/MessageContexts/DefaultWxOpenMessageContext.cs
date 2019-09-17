@@ -61,7 +61,43 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
         /// <returns></returns>
         public override IResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
-            throw new NotImplementedException();
+            IResponseMessageBase responseMessage;
+            switch (responseMsgType)
+            {
+                case ResponseMsgType.Transfer_Customer_Service:
+                    responseMessage = new ResponseMessageTransfer_Customer_Service();
+                    break;
+
+                case ResponseMsgType.NoResponse:
+                    responseMessage = new ResponseMessageNoResponse();
+                    break;
+                case ResponseMsgType.SuccessResponse:
+                    responseMessage = new SuccessResponseMessage();
+                    break;
+
+
+                #region 不支持
+                case ResponseMsgType.Other:
+                case ResponseMsgType.Unknown:
+                case ResponseMsgType.Text:
+                case ResponseMsgType.News:
+                case ResponseMsgType.Music:
+                case ResponseMsgType.Image:
+                case ResponseMsgType.Voice:
+                case ResponseMsgType.Video:
+                case ResponseMsgType.MpNews:
+                case ResponseMsgType.MultipleNews:
+                case ResponseMsgType.LocationMessage:
+                case ResponseMsgType.UseApi:
+                #endregion
+                default:
+                    responseMessage = new ResponseMessageUnknownType()
+                    {
+                        ResponseDocument = doc
+                    };
+                    break;
+            }
+            return responseMessage;
         }
     }
 }

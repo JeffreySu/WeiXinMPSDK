@@ -50,6 +50,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181117
     修改描述：v16.5.0 Execute() 重写方法名称改为 BuildResponseMessage()
+    
+    修改标识：Senparc - 20190917
+    修改描述：v16.8.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
 ----------------------------------------------------------------*/
 

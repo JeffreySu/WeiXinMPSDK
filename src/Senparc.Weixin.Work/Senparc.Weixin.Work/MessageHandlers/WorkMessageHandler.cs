@@ -32,9 +32,12 @@
 
     修改标识：Senparc - 20181117
     修改描述：v3.2.0 Execute() 重写方法名称改为 BuildResponseMessage()
-
+    
     修改标识：Senparc - 20181226
     修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
+    修改标识：Senparc - 20190917
+    修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
 ----------------------------------------------------------------*/
 
@@ -67,19 +70,6 @@ namespace Senparc.Weixin.Work.MessageHandlers
         : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
         where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
-        /// <summary>
-        /// 上下文（仅限于当前MessageHandler基类内）
-        /// </summary>
-        public static GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>();
-
-        /// <summary>
-        /// 全局消息上下文
-        /// </summary>
-        public override GlobalMessageContext<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase> GlobalMessageContext
-        {
-            get { return GlobalWeixinContext; }
-        }
-
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量

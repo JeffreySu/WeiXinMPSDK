@@ -432,7 +432,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public override void OnExecuting()
         {
             /* 
-             * 此处原消息去重逻辑已经转移到 Init() 方法中。
+             * 此处原消息去重逻辑已经转移到 基类CommonInitialize() 方法中（执行完 Init() 方法之后进行判断）。
              * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
              * 如果有新消息加入，将导致去重算法失效。
              * （当然这样情况发生的概率极低，一般只在测试中会发生，

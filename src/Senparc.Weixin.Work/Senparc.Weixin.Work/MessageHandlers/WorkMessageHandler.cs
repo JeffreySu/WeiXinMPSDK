@@ -306,19 +306,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         public virtual void OnExecuting()
         {
-            //消息去重
-            if (OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
-            {
-                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
-                    ||
-                    ((lastMessage.CreateTime == RequestMessage.CreateTime) && lastMessage.MsgType != RequestMessage.MsgType)//使用CreateTime去重（OpenId对象已经是同一个）
-                    )
-                {
-                    CancelExcute = true;//重复消息，取消执行
-                    return;
-                }
-            }
+            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
 
             base.OnExecuting();
         }

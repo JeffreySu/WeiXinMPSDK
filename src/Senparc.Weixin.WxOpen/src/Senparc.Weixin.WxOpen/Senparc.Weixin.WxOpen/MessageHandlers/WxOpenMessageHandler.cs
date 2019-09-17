@@ -242,13 +242,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
 
-            //记录上下文
-            if (MessageContextGlobalConfig.UseMessageContext)
-            {
-                GlobalMessageContext.InsertMessage(RequestMessage);
-            }
-
             return decryptDoc;
+
+            //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
         /// <summary>

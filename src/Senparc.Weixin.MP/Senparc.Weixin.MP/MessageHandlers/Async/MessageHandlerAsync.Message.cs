@@ -45,7 +45,7 @@ using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public abstract partial class MessageHandler<TC>
+    public abstract partial class MessageHandler<TMC>
     {
         #region 默认方法及未知类型方法
 

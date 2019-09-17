@@ -15,10 +15,11 @@ using System.Linq;
 using System.Text;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.WxOpen.MessageContexts;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
-    public class CustomWxOpenMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
+    public class CustomWxOpenMessageContext : DefaultWxOpenMessageContext
     {
         public CustomWxOpenMessageContext()
         {

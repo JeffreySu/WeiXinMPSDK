@@ -24,6 +24,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Test.Context
 {
@@ -33,12 +35,16 @@ namespace Senparc.Weixin.MP.Test.Context
         [TestMethod]
         public void AddTest()
         {
-            var list = new MessageContainer<int>(-1);
+
+            var list = new MessageContainer<RequestMessageBase>(-1);
 
             //测试不限量添加
             for (int i = 0; i < 1000; i++)
             {
-                list.Add(i);
+                list.Add(new RequestMessageText()
+                {
+                    Content = i.ToString()
+                }); ;
             }
             Assert.AreEqual(1000, list.Count);
 
@@ -46,7 +52,10 @@ namespace Senparc.Weixin.MP.Test.Context
             list.MaxRecordCount = 100;//限量100条
             for (int i = 0; i < 1000; i++)
             {
-                list.Add(i);
+                list.Add(new RequestMessageText()
+                {
+                    Content = i.ToString()
+                });
             }
             Assert.AreEqual(100, list.Count);
         }
@@ -54,11 +63,20 @@ namespace Senparc.Weixin.MP.Test.Context
         [TestMethod]
         public void AddRangeTest()
         {
-            var list = new MessageContainer<int>(10);//限量10条
+            var list = new MessageContainer<RequestMessageBase>(10);//限量10条
 
             for (int i = 0; i < 1000; i++)
             {
-                list.AddRange(new[] { i, i + 1, i + 2 });
+                list.AddRange(new[] { new RequestMessageText()
+                {
+                    Content = i.ToString()
+                }, new RequestMessageText()
+                {
+                    Content = (i+1).ToString()
+                }, new RequestMessageText()
+                {
+                    Content = (i+2).ToString()
+                } });
             }
             Assert.AreEqual(10, list.Count);
         }
@@ -66,11 +84,14 @@ namespace Senparc.Weixin.MP.Test.Context
         [TestMethod]
         public void InsertTest()
         {
-            var list = new MessageContainer<int>(10);//限量10条
+            var list = new MessageContainer<RequestMessageBase>(10);//限量10条
 
             for (int i = 0; i < 1000; i++)
             {
-                list.Insert(0, i);
+                list.Insert(0, new RequestMessageText()
+                {
+                    Content = i.ToString()
+                });
             }
             Assert.AreEqual(10, list.Count);
             Assert.AreEqual(9, list[0]);
@@ -79,11 +100,20 @@ namespace Senparc.Weixin.MP.Test.Context
         [TestMethod]
         public void InsertRangeTest()
         {
-            var list = new MessageContainer<int>(10);//限量10条
+            var list = new MessageContainer<RequestMessageBase>(10);//限量10条
 
             for (int i = 0; i < 1000; i++)
             {
-                list.InsertRange(0, new[] { i, i + 1, i + 2 });
+                list.InsertRange(0, new[] { new RequestMessageText()
+                {
+                    Content = i.ToString()
+                }, new RequestMessageText()
+                {
+                    Content = (i+1).ToString()
+                }, new RequestMessageText()
+                {
+                    Content = (i+2).ToString()
+                } });
 
                 //i=0:0,1,2
                 //i=1:1,2,3,0,1,2

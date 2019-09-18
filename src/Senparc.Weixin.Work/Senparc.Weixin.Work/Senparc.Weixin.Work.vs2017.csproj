@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.5.13</Version>
+		<Version>3.6.0-preview3</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -132,7 +132,8 @@
       v3.5.11 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
       v3.5.12 MailListApi.InviteMember() 已被官方弃用，标记为过期
       v3.5.13 优化 xxContainer.Register() 方法
-
+      v3.5.14 引用最新版本 CO2NET 和 Senparc.Weixin
+      v3.6.0 消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -209,7 +210,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="0.7.5" />
+	  <PackageReference Include="Senparc.NeuChar" Version="0.8.0-preview3-5" />
 	</ItemGroup>
 
 	<ItemGroup>

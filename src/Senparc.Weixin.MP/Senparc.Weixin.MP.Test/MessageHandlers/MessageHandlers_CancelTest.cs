@@ -29,7 +29,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class CancelMessageHandlers : MessageHandler<MessageContexts.DefaultMpMessageContext>
     {
         public string RunStep { get; set; }
 

@@ -36,7 +36,7 @@ using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
 {
-    public abstract partial class WxOpenMessageHandler<TC>
+    public abstract partial class WxOpenMessageHandler<TMC>
     {
         /// <summary>
         /// Event事件类型请求

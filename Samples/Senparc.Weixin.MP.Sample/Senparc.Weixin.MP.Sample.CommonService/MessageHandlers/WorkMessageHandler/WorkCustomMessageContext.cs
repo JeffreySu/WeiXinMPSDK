@@ -15,11 +15,12 @@ using System.Linq;
 //using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler
 {
-    public class WorkCustomMessageContext : MessageContext<IWorkRequestMessageBase,IWorkResponseMessageBase>
+    public class WorkCustomMessageContext : Senparc.Weixin.Work.MessageContexts.DefaultWorkMessageContext
     {
         public WorkCustomMessageContext()
         {

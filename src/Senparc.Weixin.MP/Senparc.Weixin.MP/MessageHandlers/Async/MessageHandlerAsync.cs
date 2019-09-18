@@ -55,9 +55,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract partial class MessageHandler<TC> :
-        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public abstract partial class MessageHandler<TMC> :
+        MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）

@@ -311,6 +311,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             };
 
             return decryptDoc;
+            //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
 

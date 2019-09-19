@@ -214,13 +214,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
             var requestDocument = XDocument.Parse(msgXml);
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
-            //记录上下文
-            if (RequestMessage.MsgType != RequestMsgType.Unknown && MessageContextGlobalConfig.UseMessageContext)
-            {
-                GlobalMessageContext.InsertMessage(RequestMessage);
-            }
-
             return requestDocument;
+
+            //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
         /// <summary>

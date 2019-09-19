@@ -114,9 +114,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null || (CurrentMessageContext.StorageData is int))
+
+            var currentMessageContext = base.GettCurrentMessageContext();
+            if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
-                CurrentMessageContext.StorageData = 0;
+                currentMessageContext.StorageData = (int)0;
+                GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
             }
             base.OnExecuting();
         }
@@ -124,7 +127,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override void OnExecuted()
         {
             base.OnExecuted();
-            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+            var currentMessageContext = base.GettCurrentMessageContext();
+            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
         }
 
         /// <summary>

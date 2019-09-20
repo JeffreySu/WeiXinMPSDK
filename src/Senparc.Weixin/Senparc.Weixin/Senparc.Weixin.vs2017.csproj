@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.5.0-preview4</Version>
+    <Version>6.5.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -303,7 +303,9 @@
       v6.4.12 引用最新版本 CO2NET
       v6.4.13 引用最新版本 CO2NET
       v6.4.14 引用最新版本 CO2NET
-      v6.5.0 引用新版本 NeuChar，支持分布式消息上下文（MessageContext）
+      v6.5.0
+      1、引用新版本 NeuChar，支持分布式消息上下文（MessageContext）
+      2、提供带符号的 nuget 包（.snupkg)
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -363,8 +365,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="0.9.0" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.8.0-preview4" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.9.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.8.0" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

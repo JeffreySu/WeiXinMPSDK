@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>0.8.2</Version>
+    <Version>0.8.3</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
 
@@ -53,6 +53,7 @@
       3、优化 WebSocketMesssageHandler
       v0.8.1 引用最新版本 CO2NET
       v0.8.2 引用最新版本 CO2NET
+      v0.8.3 提供带符号的 nuget 包（.snupkg)
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -112,7 +113,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="0.9.0" />
+    <PackageReference Include="Senparc.CO2NET" Version="0.9.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>

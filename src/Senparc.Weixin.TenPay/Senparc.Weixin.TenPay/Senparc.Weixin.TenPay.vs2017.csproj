@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.4.7-preview4</Version>
+    <Version>1.4.7</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -40,8 +40,9 @@
       v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
       v1.4.5 添加 GetTransferInfoResult.payment_time 属性
       v1.4.6 引用最新版本 CO2NET 和 Senparc.Weixin
-      v1.4.7 支持最新版本 Senparc.Weixin
-
+      v1.4.7
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

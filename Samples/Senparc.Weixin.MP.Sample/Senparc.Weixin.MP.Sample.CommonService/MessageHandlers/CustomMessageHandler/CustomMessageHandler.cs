@@ -37,6 +37,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP.MessageContexts;
 
 #if NET45
 using System.Web;
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
+    public partial class CustomMessageHandler : MessageHandler<DefaultMpMessageContext>
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
@@ -115,7 +116,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //测试MessageContext.StorageData
 
-            var currentMessageContext = base.GettCurrentMessageContext();
+            var currentMessageContext = base.GetCurrentMessageContext();
             if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
                 currentMessageContext.StorageData = (int)0;
@@ -127,7 +128,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override void OnExecuted()
         {
             base.OnExecuted();
-            var currentMessageContext = base.GettCurrentMessageContext();
+            var currentMessageContext = base.GetCurrentMessageContext();
             currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
             GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
         }

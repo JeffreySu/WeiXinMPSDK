@@ -474,10 +474,10 @@
       <Version>0.4.4</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.3</Version>
+      <Version>0.8.0.4</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar.App">
-      <Version>0.5.7.3</Version>
+      <Version>0.5.7.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

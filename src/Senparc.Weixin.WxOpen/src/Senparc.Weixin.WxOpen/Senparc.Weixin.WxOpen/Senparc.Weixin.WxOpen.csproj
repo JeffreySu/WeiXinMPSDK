@@ -130,7 +130,7 @@
       <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0</Version>
+      <Version>0.8.0.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
       <Version>6.5.0</Version>

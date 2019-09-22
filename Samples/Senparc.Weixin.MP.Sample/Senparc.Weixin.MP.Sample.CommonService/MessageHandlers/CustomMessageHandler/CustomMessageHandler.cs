@@ -37,6 +37,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
 using Senparc.CO2NET.Utilities;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP.MessageContexts;
 
 #if NET45
 using System.Web;
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
+    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>  /*如果不需要自定义，可以直接使用：MessageHandler<DefaultMpMessageContext> */
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
@@ -547,8 +548,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             Task.Factory.StartNew(async () =>
              {
-             //上传素材
-             var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
+                 //上传素材
+                 var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                  var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                  var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                  await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");

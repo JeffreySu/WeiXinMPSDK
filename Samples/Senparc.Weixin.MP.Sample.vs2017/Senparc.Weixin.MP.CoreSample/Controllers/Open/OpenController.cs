@@ -25,6 +25,7 @@ using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Open.AccountAPIs;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
+using Senparc.Weixin.MP.MessageContexts;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {

@@ -33,6 +33,8 @@ using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.MP.MessageContexts;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -49,7 +51,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
     <CreateTime>{{0}}</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
     <Content><![CDATA[{0}]]></Content>
-    <MsgId>5832509444155992350</MsgId>
+    <MsgId>{{1}}</MsgId>
 </xml>
 ";
 
@@ -243,9 +245,17 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         public void MessageContextRecordLimtTest()
         {
             //测试MessageContext的数量限制
-            var xml = string.Format(string.Format(xmlTextFormat, "测试限制"), DateTimeHelper.GetUnixDateTime(SystemTime.Now));
+
+            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+
+            //创建 GlobalMessageContext 对象
+            var globalMessageContext = new GlobalMessageContext<DefaultMpMessageContext, IRequestMessageBase, IResponseMessageBase>();
+            globalMessageContext.Restore();//清空所有上下文
+
             for (int i = 0; i < 100; i++)
             {
+                var xml = string.Format(string.Format(xmlTextFormat, "测试限制"), DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(i)), SystemTime.NowTicks + i);
+
                 Init(xml);//初始化
 
                 var timestamp = "itsafaketimestamp";
@@ -257,14 +267,19 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     Timestamp = timestamp,
                     Nonce = nonce
                 };
-                var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
+                var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult;
+                Assert.IsNotNull(actual);
+                Console.WriteLine(actual.ToJson());
             }
-            Assert.AreEqual(1, MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.Count);
 
-            var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue[0];
-            var recordCount = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MaxRecordCount;
-            Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);
-            Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
+            //获取指定 openId 的上下文信息
+            var myMessageContext = globalMessageContext.GetMessageContext(openId);
+            Assert.IsNotNull(myMessageContext);
+
+            var recordCount = myMessageContext.MaxRecordCount;
+            Console.WriteLine(myMessageContext.RequestMessages[0].ToJson());
+            Assert.AreEqual(recordCount, myMessageContext.RequestMessages.Count);
+            Assert.AreEqual(recordCount, myMessageContext.ResponseMessages.Count);
         }
 
         [TestMethod]

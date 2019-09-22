@@ -23,6 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET;
+using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Tests
 {
@@ -79,7 +82,21 @@ namespace Senparc.Weixin.MP.Sample.Tests
 
         public BaseTest()
         {
-            //Senparc.Mvc.IoC.Bootstrapper.ConfigureStructureMap();//如果使用IoC，在这里完成Global.asax中需要完成的初始化
+            //设置全局 Debug 状态
+            var isGLobalDebug = true;
+            var senparcSetting = SenparcSetting.BuildFromWebConfig(isGLobalDebug);
+
+            //CO2NET 全局注册，必须！！
+            IRegisterService register = RegisterService.Start(senparcSetting).UseSenparcGlobal();
+
+            /* 微信配置开始
+           * 建议按照以下顺序进行注册
+           */
+            var isWeixinDebug = true;
+            var senparcWeixinSetting = SenparcWeixinSetting.BuildFromWebConfig(isWeixinDebug);
+
+            //微信全局注册，必须！！
+            register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
         }
     }
 }

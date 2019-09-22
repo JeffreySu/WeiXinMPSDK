@@ -22,6 +22,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     using Senparc.CO2NET.Cache;
     using Senparc.CO2NET.HttpUtility;
     using Senparc.CO2NET.Utilities;
+    using Senparc.NeuChar.MessageHandlers;
     using Senparc.Weixin.Entities;
     using Senparc.Weixin.HttpUtility;
     using Senparc.Weixin.MP.MvcExtension;
@@ -71,8 +72,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public async Task<ActionResult> Post(PostModel postModel)
+        public ActionResult Post(PostModel postModel)
         {
+            /* 异步请求请见 WeixinAsyncController（推荐） */
+
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 return Content("参数错误！");
@@ -93,11 +96,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomMessageHandler(Request.GetRequestMemoryStream(), postModel, maxRecordCount);
 
-            #region 设置消息去重
+            #region 设置消息去重设置
 
             /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
-             * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
-            messageHandler.OmitRepeatedMessage = true;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
+             * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的 RequestMessage */
+            messageHandler.OmitRepeatedMessage = true;//默认已经是开启状态，此处仅作为演示，也可以设置为 false 在本次请求中停用此功能
 
             #endregion
 
@@ -105,9 +108,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             {
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                CancellationToken cancellationToken = new CancellationToken();
-                await messageHandler.ExecuteAsync(cancellationToken);//执行微信处理过程（关键）
-                
+                messageHandler.Execute();//执行微信处理过程（关键）
+
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-

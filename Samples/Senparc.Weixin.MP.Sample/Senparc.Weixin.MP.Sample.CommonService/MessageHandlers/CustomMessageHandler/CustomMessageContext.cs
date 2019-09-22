@@ -27,7 +27,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             base.MessageContextRemoved += CustomMessageContext_MessageContextRemoved;
         }
 
-
         /// <summary>
         /// 当上下文过期，被移除时触发的时间
         /// </summary>

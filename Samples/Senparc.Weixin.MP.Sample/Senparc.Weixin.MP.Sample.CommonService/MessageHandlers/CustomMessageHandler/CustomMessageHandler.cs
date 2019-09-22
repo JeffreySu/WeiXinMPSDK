@@ -398,17 +398,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
-
                     var result = new StringBuilder();
                     result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                    if (CurrentMessageContext.RequestMessages.Count > 1)
+                    var currentMessageContext = base.GetCurrentMessageContext();
+                    if (currentMessageContext.RequestMessages.Count > 1)
                     {
-                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                            CurrentMessageContext.StorageData);
-                        for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
+                            currentMessageContext.StorageData);
+                        for (int i = currentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                         {
-                            var historyMessage = CurrentMessageContext.RequestMessages[i];
+                            var historyMessage = currentMessageContext.RequestMessages[i];
                             result.AppendFormat("{0} 【{1}】{2}\r\n",
                                 historyMessage.CreateTime.ToString("HH:mm:ss"),
                                 historyMessage.MsgType.ToString(),

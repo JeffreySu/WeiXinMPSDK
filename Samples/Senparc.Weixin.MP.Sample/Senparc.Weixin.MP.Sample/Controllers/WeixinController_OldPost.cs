@@ -27,6 +27,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     using Senparc.NeuChar.Entities;
     using Senparc.NeuChar.Helpers;
     using Senparc.Weixin.MP.Entities;
+    using Senparc.Weixin.MP.MessageContexts;
+
     //using Senparc.Weixin.MP.Sample.Service;
     //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
 
@@ -51,8 +53,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 requestDoc = XDocument.Load(Request.InputStream);
-
-                var requestMessage = RequestMessageFactory.GetRequestEntity(requestDoc);
+                var requestMessage = RequestMessageFactory.GetRequestEntity(new DefaultMpMessageContext(), requestDoc);
                 //如果不需要记录requestDoc，只需要：
                 //var requestMessage = RequestMessageFactory.GetRequestEntity(Request.InputStream);
 

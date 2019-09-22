@@ -111,6 +111,7 @@
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="MessageContexts\DefaultWxOpenMessageContext.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
@@ -130,7 +131,7 @@
       <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.1</Version>
+      <Version>0.8.0.3</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
       <Version>6.5.0</Version>

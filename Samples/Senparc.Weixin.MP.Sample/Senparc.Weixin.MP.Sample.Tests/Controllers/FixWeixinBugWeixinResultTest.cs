@@ -33,17 +33,18 @@ using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.MP.MessageContexts;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
-    public partial class TestMessageHandler : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public partial class TestMessageHandler : MessageHandler<DefaultMpMessageContext>
     {
         public TestMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
-            WeixinContext.ExpireMinutes = 3;
+            //WeixinContext.ExpireMinutes = 3;
         }
 
 

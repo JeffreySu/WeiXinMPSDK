@@ -94,13 +94,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
-        public override XDocument ResponseDocument
-        {
-            get
-            {
-                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
-            }
-        }
+        public override XDocument ResponseDocument =>
+            ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
 
         /// <summary>
         /// 最后返回的ResponseDocument。
@@ -137,14 +132,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public new IRequestMessageBase RequestMessage
         {
-            get
-            {
-                return base.RequestMessage as IRequestMessageBase;
-            }
-            set
-            {
-                base.RequestMessage = value;
-            }
+            get => base.RequestMessage as IRequestMessageBase;
+            set => base.RequestMessage = value;
         }
 
         /// <summary>
@@ -154,14 +143,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public new IResponseMessageBase ResponseMessage
         {
-            get
-            {
-                return base.ResponseMessage as IResponseMessageBase;
-            }
-            set
-            {
-                base.ResponseMessage = value;
-            }
+            get => base.ResponseMessage as IResponseMessageBase;
+            set => base.ResponseMessage = value;
         }
 
         private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
@@ -174,11 +157,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlightener MessageEntityEnlightener { get { return MpMessageEntityEnlightener.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener => MpMessageEntityEnlightener.Instance;
         /// <summary>
         /// Api 接口定义
         /// </summary>
-        public override ApiEnlightener ApiEnlightener { get { return MpApiEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener => MpApiEnlightener.Instance;
 
 
         /// <summary>
@@ -280,7 +263,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
             //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
             base.SpecialDeduplicationAction = (requestMessage, messageHandler) =>
             {
-                var lastMessage = messageHandler.CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 1];
+                var currentMessageContext = messageHandler.GetCurrentMessageContext();
+                var lastMessage = currentMessageContext.RequestMessages[currentMessageContext.RequestMessages.Count - 1];
 
                 if (!MessageIsRepeated &&
                             lastMessage is RequestMessageEventBase &&

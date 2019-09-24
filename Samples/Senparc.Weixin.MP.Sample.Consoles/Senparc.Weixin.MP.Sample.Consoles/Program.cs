@@ -298,6 +298,13 @@ namespace Senparc.Weixin.MP.Sample.Consoles
 
             Console.WriteLine($"当前缓存策略: {CacheStrategyFactory.GetObjectCacheStrategyInstance()}");
 
+            var jsonSetting = new Newtonsoft.Json.JsonSerializerSettings()
+            {
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
+            Console.WriteLine($"SenparcWeixinSetting: {Senparc.Weixin.Config.SenparcWeixinSetting.ToJson(true, jsonSetting)}");
+
             Console.ReadLine();
         }
 

@@ -188,7 +188,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.8.0.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.100" />
   </ItemGroup>
 
   <ItemGroup>

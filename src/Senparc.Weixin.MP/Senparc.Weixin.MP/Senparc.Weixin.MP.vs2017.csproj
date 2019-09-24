@@ -477,7 +477,9 @@
       v16.8.0
       1、消息上下文支持分布式缓存
       2、提供带符号的 nuget 包（.snupkg)
-      v16.9.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      v16.9.0
+      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      2、QrCodeApi.Create() 参数说明更改
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

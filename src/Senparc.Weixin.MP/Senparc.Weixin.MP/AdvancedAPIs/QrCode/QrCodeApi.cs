@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170715
     修改描述：v14.5.3 添加 QrCode_ActionName.QR_STR_SCENE
 
+    修改标识：Senparc - 20190925
+    修改描述：v16.9.0 QrCodeApi.Create() 参数说明更改
+
 ----------------------------------------------------------------*/
 
 /*

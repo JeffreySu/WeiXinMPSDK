@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
-    <Version>2.6.0</Version>
+    <Version>2.7.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -87,6 +87,7 @@
       v2.4.0
       1、支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
+      v2.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.5.0.5</Version>
+    <Version>6.6.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -306,6 +306,8 @@
       v6.5.0
       1、引用新版本 NeuChar，支持分布式消息上下文（MessageContext）
       2、提供带符号的 nuget 包（.snupkg)
+      v6.6.0 使用最新版本 Neuchar、CO2NET，支持 .NET Core 3.0
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

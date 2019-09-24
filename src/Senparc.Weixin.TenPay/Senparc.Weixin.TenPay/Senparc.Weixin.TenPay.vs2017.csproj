@@ -43,8 +43,9 @@
       v1.4.7
       1、支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
-      v1.5.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-      
+      v1.5.0
+      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

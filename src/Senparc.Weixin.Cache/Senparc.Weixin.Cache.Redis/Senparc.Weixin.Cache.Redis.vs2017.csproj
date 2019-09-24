@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
-    <Version>2.5.2</Version>
+    <Version>2.6.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -13,7 +13,7 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2018</Copyright>
+    <Copyright>Senparc Copyright © 2004~2019</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
 
 
@@ -79,6 +79,14 @@
       v2.3.0 支持 Senparc.CO2NET.Cache.Redis v3.2.0
       v2.4.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v2.5.0 支持 .net 4.6.1
+      v2.5.3 添加 RedisHashSetContainerCacheStrategy，优化 HashSet 格式储存 Container 信息
+      v2.5.4 升级 StackExchange.Redis 到最新版本
+      v2.5.5 支持异步缓存接口
+      v2.5.9 引用最新版本 CO2NET
+      v2.5.10 引用最新版本 CO2NET 和 Senparc.Weixin
+      v2.4.0
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -132,7 +140,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.4.2" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.5.5" />
   </ItemGroup>
 
 
@@ -140,10 +148,10 @@
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.600" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

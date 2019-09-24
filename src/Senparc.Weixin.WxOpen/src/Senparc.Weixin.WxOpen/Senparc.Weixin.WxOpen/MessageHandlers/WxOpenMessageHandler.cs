@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WxOpenMessageHandler.cs
     文件功能描述：小程序MessageHandler
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20181117
     修改描述：v3.2.0 Execute() 重写方法名称改为 BuildResponseMessage()
+    
+    修改标识：Senparc - 20190917
+    修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
 ----------------------------------------------------------------*/
 
@@ -50,6 +53,7 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Tencent;
+using Senparc.NeuChar.Helpers;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -57,32 +61,14 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     /// <summary>
     /// 小程序MessageHandler
     /// </summary>
-    /// <typeparam name="TC">上下文MessageContext类型</typeparam>
-    public abstract partial class WxOpenMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    /// <typeparam name="TMC">上下文MessageContext类型</typeparam>
+    public abstract partial class WxOpenMessageHandler<TMC> : MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
-        /// <summary>
-        /// 上下文（仅限于当前MessageHandler基类内）
-        /// </summary>
-        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
-        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
-
-        /// <summary>
-        /// 全局消息上下文
-        /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
-        {
-            get
-            {
-                return GlobalWeixinContext;
-            }
-        }
-
         /// <summary>
         /// 原始的加密请求（如果不加密则为null）
         /// </summary>
         public XDocument EcryptRequestDocument { get; set; }
-
 
         /// <summary>
         /// 请求实体
@@ -113,6 +99,40 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             set
             {
                 base.ResponseMessage = value;
+            }
+        }
+
+
+        public override XDocument ResponseDocument
+        {
+            get
+            {
+                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+            }
+        }
+
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                if (ResponseDocument == null)
+                {
+                    return null;
+                }
+
+                if (!UsingEcryptMessage)
+                {
+                    return ResponseDocument;
+                }
+
+                var timeStamp = SystemTime.Now.Ticks.ToString();
+                var nonce = SystemTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
             }
         }
 
@@ -216,20 +236,15 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
-            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
 
-
-            //记录上下文
-            if (MessageContextGlobalConfig.UseMessageContext)
-            {
-                GlobalMessageContext.InsertMessage(RequestMessage);
-            }
-
             return decryptDoc;
+
+            //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
         /// <summary>
@@ -255,6 +270,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
+
+                        SenparcTrace.SendCustomLog("WXOPEN-TEXT ResponseMessage:", ResponseMessage.ToJson());
                     }
                     break;
                 case RequestMsgType.Image:
@@ -264,7 +281,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequest(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
                     break;
                 case RequestMsgType.Event:
                     {
@@ -275,31 +292,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
             }
 
-
             #endregion
         }
 
         public virtual void OnExecuting()
         {
-            //消息去重
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-                && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-                //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-                )
-            {
-                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
-                    ||
-                    //使用CreateTime去重（OpenId对象已经是同一个）
-                    ((lastMessage.MsgId == RequestMessage.MsgId
-                        && lastMessage.CreateTime == RequestMessage.CreateTime
-                        && lastMessage.MsgType == RequestMessage.MsgType))
-                    )
-                {
-                    CancelExcute = true;//重复消息，取消执行
-                    return;
-                }
-            }
+            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
 
             base.OnExecuting();
         }

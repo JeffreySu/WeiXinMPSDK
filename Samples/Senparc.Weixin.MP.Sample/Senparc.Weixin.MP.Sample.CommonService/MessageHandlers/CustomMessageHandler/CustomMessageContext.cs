@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomMessageContext.cs
     文件功能描述：微信消息上下文
@@ -15,16 +15,17 @@ using System.Linq;
 using System.Text;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.MP.MessageContexts;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
-    public class CustomMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>
+    /* v16.8.0 后，提供分布式缓存，只需要直接使用 DefaultMpMessageContext，即使没有 CustomMessageContext 也没有关系 */
+    public class CustomMessageContext : DefaultMpMessageContext  //MessageContext<IRequestMessageBase, IResponseMessageBase>
     {
         public CustomMessageContext()
         {
             base.MessageContextRemoved += CustomMessageContext_MessageContextRemoved;
         }
-
 
         /// <summary>
         /// 当上下文过期，被移除时触发的时间

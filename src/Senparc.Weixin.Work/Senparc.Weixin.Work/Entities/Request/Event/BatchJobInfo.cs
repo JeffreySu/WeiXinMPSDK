@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：BatchJobInfo.cs
     文件功能描述：异步任务完成事件推送的BatchJob

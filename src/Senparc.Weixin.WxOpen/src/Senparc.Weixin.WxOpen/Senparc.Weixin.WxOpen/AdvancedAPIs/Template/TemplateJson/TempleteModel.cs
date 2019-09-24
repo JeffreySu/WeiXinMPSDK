@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：TempleteModel.cs
     文件功能描述：小程序模板消息接口需要的数据
@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20161112
     
+    修改标识：Senparc - 20190906
+    修改描述：v3.5.4 修正 UniformSendData 参数
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -100,36 +104,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         public string template_id { get; set; }
         public string page { get; set; }
         public string form_id { get; set; }
-        public Data data { get; set; }
+        public object data { get; set; }
         public string emphasis_keyword { get; set; }
-    }
-
-    public class Data
-    {
-        public Keyword1 keyword1 { get; set; }
-        public Keyword2 keyword2 { get; set; }
-        public Keyword3 keyword3 { get; set; }
-        public Keyword4 keyword4 { get; set; }
-    }
-
-    public class Keyword1
-    {
-        public string value { get; set; }
-    }
-
-    public class Keyword2
-    {
-        public string value { get; set; }
-    }
-
-    public class Keyword3
-    {
-        public string value { get; set; }
-    }
-
-    public class Keyword4
-    {
-        public string value { get; set; }
     }
 
     public class Mp_Template_Msg
@@ -138,7 +114,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         public string template_id { get; set; }
         public string url { get; set; }
         public Miniprogram miniprogram { get; set; }
-        public Data1 data { get; set; }
+        public object data { get; set; }
     }
 
     public class Miniprogram
@@ -146,44 +122,4 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         public string appid { get; set; }
         public string pagepath { get; set; }
     }
-
-    public class Data1
-    {
-        public First first { get; set; }
-        public Keyword11 keyword1 { get; set; }
-        public Keyword21 keyword2 { get; set; }
-        public Keyword31 keyword3 { get; set; }
-        public Remark remark { get; set; }
-    }
-
-    public class First
-    {
-        public string value { get; set; }
-        public string color { get; set; }
-    }
-
-    public class Keyword11
-    {
-        public string value { get; set; }
-        public string color { get; set; }
-    }
-
-    public class Keyword21
-    {
-        public string value { get; set; }
-        public string color { get; set; }
-    }
-
-    public class Keyword31
-    {
-        public string value { get; set; }
-        public string color { get; set; }
-    }
-
-    public class Remark
-    {
-        public string value { get; set; }
-        public string color { get; set; }
-    }
-
 }

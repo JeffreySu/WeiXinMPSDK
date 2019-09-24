@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WorkCustomMessageContext.cs
     文件功能描述：企业号消息上下文
@@ -15,11 +15,12 @@ using System.Linq;
 //using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler
 {
-    public class WorkCustomMessageContext : MessageContext<IWorkRequestMessageBase,IWorkResponseMessageBase>
+    public class WorkCustomMessageContext : Senparc.Weixin.Work.MessageContexts.DefaultWorkMessageContext
     {
         public WorkCustomMessageContext()
         {

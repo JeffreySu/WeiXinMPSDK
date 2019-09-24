@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -36,6 +36,8 @@ using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP.MessageContexts;
 
 #if NET45
 using System.Web;
@@ -53,7 +55,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
+    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>  /*如果不需要自定义，可以直接使用：MessageHandler<DefaultMpMessageContext> */
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
@@ -105,17 +107,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
-        //public CustomMessageHandler(RequestMessageBase requestMessage, PostModel postModel)
-        //    : base(requestMessage, postModel)
-        //{
-        //}
-
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null)
+
+            var currentMessageContext = base.GetCurrentMessageContext();
+            if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
-                CurrentMessageContext.StorageData = 0;
+                currentMessageContext.StorageData = (int)0;
+                GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
             }
             base.OnExecuting();
         }
@@ -123,12 +123,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override void OnExecuted()
         {
             base.OnExecuted();
-            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+            var currentMessageContext = base.GetCurrentMessageContext();
+            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
         }
 
         /// <summary>
         /// 处理文字请求
         /// </summary>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -361,19 +364,46 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
+
+
+                //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
+                .SelectMenuKeyword("101", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：102（微信服务器端最终格式：id="s:102",content="一般"）
+                .SelectMenuKeyword("102", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：103（微信服务器端最终格式：id="s:103",content="不满意"）
+                .SelectMenuKeyword("103", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们需要您的意见或建议，欢迎向我们反馈！ <a href=\"https://github.com/JeffreySu/WeiXinMPSDK/issues/new\">点击这里</a>";
+                    return defaultResponseMessage;
+                })
+                .SelectMenuKeywords(new[] { "110", "111" }, () =>
+                {
+                    defaultResponseMessage.Content = $"这里只是演示，可以同时支持多个选择菜单";
+                    return defaultResponseMessage;
+                })
+
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
                     var result = new StringBuilder();
                     result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                    if (CurrentMessageContext.RequestMessages.Count > 1)
+                    var currentMessageContext = base.GetCurrentMessageContext();
+                    if (currentMessageContext.RequestMessages.Count > 1)
                     {
-                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                            CurrentMessageContext.StorageData);
-                        for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
+                            currentMessageContext.StorageData);
+                        for (int i = currentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                         {
-                            var historyMessage = CurrentMessageContext.RequestMessages[i];
+                            var historyMessage = currentMessageContext.RequestMessages[i];
                             result.AppendFormat("{0} 【{1}】{2}\r\n",
                                 historyMessage.CreateTime.ToString("HH:mm:ss"),
                                 historyMessage.MsgType.ToString(),
@@ -392,6 +422,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
 
                     defaultResponseMessage.Content = result.ToString();
+
                     return defaultResponseMessage;
                 })
                 //“一次订阅消息”接口测试
@@ -572,7 +603,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
         {
             var eventResponseMessage = base.OnEventRequest(requestMessage);//对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
-            //TODO: 对Event信息进行统一操作
+                                                                           //TODO: 对Event信息进行统一操作
             return eventResponseMessage;
         }
 

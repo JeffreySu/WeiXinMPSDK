@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -18,6 +18,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -131,7 +132,7 @@ QQ群：289181996
         /// <summary>
         /// 点击事件
         /// </summary>
-        /// <param name="requestMessage"></param>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
@@ -183,7 +184,6 @@ QQ群：289181996
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
 
 #if NET45
                         var filePath = "~/Images/Logo.thumb.jpg";
@@ -191,7 +191,7 @@ QQ群：289181996
                         var filePath = "~/wwwroot/Images/Logo.thumb.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.thumb,
                                                                     ServerUtility.ContentRootMapPath(filePath));
                         //PS：缩略图官方没有特别提示文件大小限制，实际测试哪怕114K也会返回文件过大的错误，因此尽量控制在小一点（当前图片39K）
 
@@ -208,20 +208,35 @@ QQ群：289181996
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-
 #if NET45
                         var filePath = "~/Images/Logo.jpg";
 #else
                         var filePath = "~/wwwroot/Images/Logo.jpg";
 #endif
 
-                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+                        var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                                      ServerUtility.ContentRootMapPath(filePath));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Image.MediaId = uploadResult.media_id;
+                    }
+                    break;
+                case "SendMenu"://菜单消息
+                    {
+                        //注意：
+                        //1、此接口可以在任意地方调用（包括后台线程），此处演示为通过
+                        //2、一下"s:"前缀只是 Senparc.Weixin 的内部约定，可以使用 OnTextRequest事件中的 requestHandler.SelectMenuKeyword() 方法自动匹配到后缀（如101）
+
+                        var menuContentList = new List<SendMenuContent>(){
+                            new SendMenuContent("101","满意"),
+                            new SendMenuContent("102","一般"),
+                            new SendMenuContent("103","不满意")
+                        };
+                        //使用异步接口
+                        CustomApi.SendMenuAsync(appId, OpenId, "请对 Senparc.Weixin SDK 给出您的评价", menuContentList, "感谢您的参与！");
+
+                        reponseMessage = new ResponseMessageNoResponse();//不返回任何消息
                     }
                     break;
                 case "SubClickRoot_Agent"://代理消息
@@ -549,51 +564,6 @@ QQ群：289181996
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出地理位置选择器";
             return responseMessage;
-        }
-
-        /// <summary>
-        /// 事件之发送模板消息返回结果
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public override IResponseMessageBase OnEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
-        {
-            switch (requestMessage.Status)
-            {
-                case "success":
-                    //发送成功
-
-                    break;
-                case "failed:user block":
-                    //送达由于用户拒收（用户设置拒绝接收公众号消息）而失败
-                    break;
-                case "failed: system failed":
-                    //送达由于其他原因失败
-                    break;
-                default:
-                    throw new WeixinException("未知模板消息状态：" + requestMessage.Status);
-            }
-
-            //注意：此方法内不能再发送模板消息，否则会造成无限循环！
-
-            try
-            {
-                var msg = @"已向您发送模板消息
-状态：{0}
-MsgId：{1}
-（这是一条来自MessageHandler的客服消息）".FormatWith(requestMessage.Status, requestMessage.MsgID);
-                CustomApi.SendText(appId, OpenId, msg);//发送客服消息
-            }
-            catch (Exception e)
-            {
-                Senparc.Weixin.WeixinTrace.SendCustomLog("模板消息发送失败", e.ToString());
-            }
-
-
-            //无需回复文字内容
-            //return requestMessage
-            //    .CreateResponseMessage<ResponseMessageNoResponse>();
-            return null;
         }
 
         #region 微信认证事件推送

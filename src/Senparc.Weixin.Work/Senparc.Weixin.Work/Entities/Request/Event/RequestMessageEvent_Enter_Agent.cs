@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：RequestMessageEvent_Enter_Agent.cs
     文件功能描述：事件之用户进入应用的事件推送(enter_agent)

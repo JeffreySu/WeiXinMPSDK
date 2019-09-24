@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：MemcachedContainerStrategy.cs
     文件功能描述：Memcached 容器缓存策略。
@@ -98,6 +98,32 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
+        #region 异步方法
+
+        /// <summary>
+        ///  【异步方法】获取所有 Bag 对象
+        /// </summary>
+        /// <typeparam name="TBag"></typeparam>
+        /// <returns></returns>
+        public override async Task<IDictionary<string, TBag>> GetAllAsync<TBag>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task UpdateContainerBagAsync(string key, IBaseContainerBag bag, TimeSpan? expiry = null, bool isFullKey = false)
+        {
+            var baseCacheStrategy = BaseCacheStrategy();
+            object value;
+            if ((baseCacheStrategy as MemcachedObjectCacheStrategy).TryGet(key, out value))
+            {
+               await baseCacheStrategy.UpdateAsync(key, bag, expiry, isFullKey);
+            }
+
+            //Memcached 组件没有提供对应 TryGet() 的异步方法，所以也可以考虑使用 Task.Factory 完成异步
+            //await Task.Factory.StartNew(() => UpdateContainerBag(key, bag, expiry, isFullKey)).ConfigureAwait(false);
+        }
+
+        #endregion
 
         #endregion
 

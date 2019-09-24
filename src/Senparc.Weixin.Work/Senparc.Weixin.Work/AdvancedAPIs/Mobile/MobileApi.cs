@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MobileApi.cs
     文件功能描述：移动端SDK
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/ticket/get?access_token={0}&type=wx_card", accessToken);
 
-                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -101,12 +101,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/ticket/get?access_token={0}&type=agent_config", accessToken);
 
-                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetTicketResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

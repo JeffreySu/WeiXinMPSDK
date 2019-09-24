@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -108,9 +108,12 @@ namespace Senparc.Weixin.Work.Test.CommonApis
         {
             if (_userRedis)
             {
-                var redisConfiguration = "localhost:6379";
+                var redisConfiguration = "localhost:6379,defaultDatabase=2";
                 RedisManager.ConfigurationOption = redisConfiguration;
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+                Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+
+                Senparc.Weixin.Cache.Redis.Register.RegisterDomainCache();//进行领域缓存注册
             }
 
 

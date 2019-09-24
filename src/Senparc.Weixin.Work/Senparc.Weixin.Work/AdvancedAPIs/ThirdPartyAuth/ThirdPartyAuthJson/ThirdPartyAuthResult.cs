@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
@@ -9,6 +9,10 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 2019620
+    修改描述：v3.5.6 添加 GetPermanentCodeResult.auth_user_info 属性
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -160,7 +164,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权信息
         /// </summary>
         public ThirdParty_AuthInfo auth_info { get; set; }
+
+        /// <summary>
+        /// 授权管理员的信息
+        /// </summary>
+        public GetPermanentCodeResult_AuthUserInfo auth_user_info { get; set; }
+
     }
+
+    /// <summary>
+    /// 授权管理员的信息
+    /// </summary>
+    public class GetPermanentCodeResult_AuthUserInfo
+    {
+        /// <summary>
+        /// 授权管理员的userid，可能为空（内部管理员一定有，不可更改）
+        /// </summary>
+        public string userid { get; set; }
+        /// <summary>
+        /// 授权管理员的name，可能为空（内部管理员一定有，不可更改）
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 授权管理员的头像url
+        /// </summary>
+        public string avatar { get; set; }
+    }
+
 
     /// <summary>
     /// ThirdParty_AuthCorpInfo【QY移植修改】

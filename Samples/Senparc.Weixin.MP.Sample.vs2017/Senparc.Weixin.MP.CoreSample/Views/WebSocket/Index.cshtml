@@ -1,0 +1,80 @@
+﻿@model Senparc.Weixin.MP.Entities.GetMenuResult
+@*DPBMARK_FILE MP*@
+@{
+    ViewBag.Title = "WebSocket 演示";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        .websocketArea {
+            padding: 40px;
+        }
+
+            .websocketArea h2 {
+                font-weight: bold;
+                font-size: 200%;
+            }
+
+            .websocketArea p {
+                margin: 20px 0 5px 0;
+                line-height: 150%;
+            }
+
+                .websocketArea p.center {
+                    text-align: center;
+                }
+
+            .websocketArea a {
+                text-decoration: underline;
+            }
+
+            .websocketArea hr {
+                border-style: inset;
+                border-width: 1px;
+            }
+            .websocketArea p{font-size:120%;}
+    </style>
+
+}
+    <div class="wrapper websocketArea">
+        <h2>WebSocket（SignalR） 测试</h2>
+        <br />
+        <p>小程序 WebSocket + SignalR 教程：<a href="https://www.cnblogs.com/szw/p/miniprogram-signalr-websocket.html" target="_blank">《在小程序中使用 WebSocket （.NET Core）》</a></p>
+        <br />
+        <hr />
+
+        <p>
+            一、网页版使用说明：打开多个窗口（可使用不同浏览器、不同手机/PC端），输入 User 和 Message 参数，点击【Send Message】按钮，所有客户端即可同时收到消息：
+        </p>
+        <div class="container">
+            @*<div class="row">&nbsp;</div>*@
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    User..........<input type="text" id="userInput" />
+                    <br />
+                    Message...<input type="text" id="messageInput" />
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>
+
+        <p>二、微信小程序使用说明：扫描下方小程序二维码，授权登录，点击【WebSocket】按钮，输入消息并点击【发送】按钮进行体验，可同时打开多台手机微信进行测试：</p>
+        <p class="center"><img class="official-img" src="~/images/SenparcRobot_MiniProgram.jpg" alt="微信SDK小程序"></p>
+    </div>
+<div class="clear"></div>

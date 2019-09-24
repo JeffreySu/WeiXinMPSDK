@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -275,7 +275,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Text
                 var doc = XDocument.Parse(xml_Text);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageText;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageText;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("this is a test", result.Content);
@@ -285,7 +285,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Image
                 var doc = XDocument.Parse(xml_Image);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageImage;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("this is a url", result.PicUrl);
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Voice
                 var doc = XDocument.Parse(xml_Voice);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageVoice;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("media_id", result.MediaId);
@@ -305,7 +305,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Video
                 var doc = XDocument.Parse(xml_Video);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVideo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageVideo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("media_id", result.MediaId);
@@ -315,7 +315,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Location
                 var doc = XDocument.Parse(xml_Location);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageLocation;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageLocation;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(113.358803, result.Location_Y);
@@ -325,7 +325,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //ShortVideo
                 var doc = XDocument.Parse(xmlEvent_ShortVideo);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageShortVideo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageShortVideo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("media_id", result.MediaId);
@@ -335,7 +335,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Location
                 var doc = XDocument.Parse(xmlEvent_Location);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Location;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(113.320107, result.Longitude);
@@ -345,7 +345,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Click
                 var doc = XDocument.Parse(xmlEvent_Click);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Click;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Click;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("EVENTKEY", result.EventKey);
@@ -355,7 +355,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_View
                 var doc = XDocument.Parse(xmlEvent_View);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_View;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_View;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("www.qq.com", result.EventKey);
@@ -365,7 +365,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Scancode_Push
                 var doc = XDocument.Parse(xmlEvent_Scancode_Push);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Push;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Scancode_Push;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("qrcode", result.ScanCodeInfo.ScanType);
@@ -375,7 +375,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Scancode_Waitmsg
                 var doc = XDocument.Parse(xmlEvent_Scancode_Waitmsg);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Waitmsg;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Scancode_Waitmsg;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("qrcode", result.ScanCodeInfo.ScanType);
@@ -385,7 +385,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Pic_Sysphoto
                 var doc = XDocument.Parse(xmlEvent_Pic_Sysphoto);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Sysphoto;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Pic_Sysphoto;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("1", result.SendPicsInfo.Count);
@@ -395,7 +395,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Pic_Photo_Or_Album
                 var doc = XDocument.Parse(xmlEvent_Pic_Photo_Or_Album);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Photo_Or_Album;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Pic_Photo_Or_Album;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("5a75aaca956d97be686719218f275c6b", result.SendPicsInfo.PicList[0].item.PicMd5Sum);
@@ -405,7 +405,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Pic_Weixin
                 var doc = XDocument.Parse(xmlEvent_Pic_Weixin);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Weixin;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Pic_Weixin;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("5a75aaca956d97be686719218f275c6b", result.SendPicsInfo.PicList[0].item.PicMd5Sum);
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Location_Select
                 var doc = XDocument.Parse(xmlEvent_Location_Select);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location_Select;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Location_Select;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(" 广州市海珠区客村艺苑路 106号", result.SendLocationInfo.Label);
@@ -425,7 +425,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Event_Enter_Agent
                 var doc = XDocument.Parse(xmlEvent_Enter_Agent);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Enter_Agent;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Enter_Agent;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(1, result.AgentID);
@@ -434,7 +434,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Suite_Ticket
                 var doc = XDocument.Parse(xml_Suite_Ticket);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Suite_Ticket;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageInfo_Suite_Ticket;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
                 Assert.AreEqual("asdfasfdasdfasdf", result.SuiteTicket);
@@ -443,7 +443,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Change_Auth
                 var doc = XDocument.Parse(xml_Change_Auth);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Change_Auth;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageInfo_Change_Auth;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
                 Assert.AreEqual("wxf8b4f85f3a794e77", result.AuthCorpId);
@@ -452,7 +452,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Cancel_Auth
                 var doc = XDocument.Parse(xml_Cancel_Auth);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Cancel_Auth;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageInfo_Cancel_Auth;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
                 Assert.AreEqual("wxf8b4f85f3a794e77", result.AuthCorpId);
@@ -461,7 +461,7 @@ namespace Senparc.Weixin.Work.Test
             {
                 //Batch_Job_Result
                 var doc = XDocument.Parse(xml_Batch_Job_Result);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Batch_Job_Result;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultWorkMessageContext(), doc) as RequestMessageEvent_Batch_Job_Result;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("wx28dbb14e37208abe", result.ToUserName);
                 Assert.AreEqual("ok", result.BatchJob.ErrMsg);

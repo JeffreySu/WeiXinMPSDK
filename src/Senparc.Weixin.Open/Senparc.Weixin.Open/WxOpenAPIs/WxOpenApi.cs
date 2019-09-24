@@ -74,7 +74,12 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static WxJsonResult AddCategory(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
-            return CommonJsonSend.Send<WxJsonResult>(null, url, addCategoryData);
+            var data = new
+            {
+                categories = addCategoryData
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 
         /// <summary>
@@ -109,7 +114,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         }
 
         /// <summary>
-        /// 添加类目
+        /// 修改类目
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
@@ -135,7 +140,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 类目相关接口
@@ -150,7 +155,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getallcategories?access_token={accessToken.AsUrlData()}";
             return await CommonJsonSend.SendAsync<CategoryListJsonResult>(null, url, null,
-                CommonJsonSendType.GET);
+                CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -163,7 +168,12 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, IList<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, addCategoryData);
+            var data = new
+            {
+                categories = addCategoryData
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -182,7 +192,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 first = first,
                 second = second
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -195,11 +205,11 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/getcategory?access_token={accessToken.AsUrlData()}";
             return await CommonJsonSend.SendAsync<GetCategoryJsonResult>(null, url, null,
-                CommonJsonSendType.GET);
+                CommonJsonSendType.GET).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 添加类目
+        /// 修改类目
         /// </summary>
         /// <param name="accessToken">小程序的access_token</param>
         /// <param name="first">一级类目ID</param>
@@ -217,12 +227,11 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
                 second = second,
                 certicates = certicates
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         #endregion
 
         #endregion
-#endif
     }
 }

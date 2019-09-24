@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -40,6 +40,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
@@ -71,7 +72,8 @@ namespace Senparc.Weixin.WxOpen
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(XDocument doc, PostModel postModel = null)
+        public static IRequestMessageBase GetRequestEntity<TMC>(TMC messageContext, XDocument doc, PostModel postModel = null)
+            where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
             RequestMessageBase requestMessage = null;
             RequestMsgType msgType;
@@ -79,32 +81,9 @@ namespace Senparc.Weixin.WxOpen
             try
             {
                 msgType = MsgTypeHelper.GetRequestMsgType(doc);
-                switch (msgType)
-                {
-                    case RequestMsgType.Text:
-                        requestMessage = new RequestMessageText();
-                        break;
-                    case RequestMsgType.Image:
-                        requestMessage = new RequestMessageImage();
-                        break;
-                    case RequestMsgType.NeuChar:
-                        requestMessage = new RequestMessageNeuChar();
-                        break;
-                    case RequestMsgType.Event:
-                        //判断Event类型
-                        switch (doc.Root.Element("Event").Value.ToUpper())
-                        {
-                            case "USER_ENTER_TEMPSESSION"://进入客服会话
-                                requestMessage = new RequestMessageEvent_UserEnterTempSession();
-                                break;
-                            default://其他意外类型（也可以选择抛出异常）
-                                requestMessage = new RequestMessageEventBase();
-                                break;
-                        }
-                        break;
-                    default:
-                        throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
-                }
+
+                requestMessage = messageContext.GetRequestEntityMappingResult(msgType) as RequestMessageBase;
+
                 Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
             catch (ArgumentException ex)
@@ -120,9 +99,10 @@ namespace Senparc.Weixin.WxOpen
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(string xml)
+        public static IRequestMessageBase GetRequestEntity<TMC>(TMC messageContext, string xml)
+            where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
-            return GetRequestEntity(XDocument.Parse(xml));
+            return GetRequestEntity(messageContext, XDocument.Parse(xml));
         }
 
 
@@ -132,13 +112,13 @@ namespace Senparc.Weixin.WxOpen
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(Stream stream)
+        public static IRequestMessageBase GetRequestEntity<TMC>(TMC messageContext, Stream stream)
+            where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
             using (XmlReader xr = XmlReader.Create(stream))
             {
                 var doc = XDocument.Load(xr);
-
-                return GetRequestEntity(doc);
+                return GetRequestEntity(messageContext, doc);
             }
         }
     }

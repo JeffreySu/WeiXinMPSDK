@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：TemplateAPI.cs
     文件功能描述：小程序的模板消息接口
@@ -138,6 +138,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSend", true)]
         public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
+            //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
@@ -257,7 +258,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -290,9 +291,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                     emphasis_keyword = emphasisKeyword,
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -305,13 +306,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSendAsync", true)]
         public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
+            //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #region 模板快速设置
@@ -333,7 +335,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 offset = offset,
                 count = count
             };
-            return await CommonJsonSend.SendAsync<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<LibraryListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -351,7 +353,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             {
                 id = id
             };
-            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<LibraryGetJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
 
@@ -372,7 +374,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 id = id,
                 keyword_id_list = keywordIdList
             };
-            return await CommonJsonSend.SendAsync<AddJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<AddJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         #endregion
@@ -397,7 +399,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
                 offset = offset,
                 count = count
             };
-            return await CommonJsonSend.SendAsync<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<ListJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -415,7 +417,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             {
                 template_id = templateId
             };
-            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
         }
 
 
@@ -423,6 +425,5 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
 
         #endregion
-#endif
     }
 }

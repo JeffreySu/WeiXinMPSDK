@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SenparcWeixinSettingItem.cs
     文件功能描述：Senparc.Weixin SDK 中单个公众号配置信息
@@ -7,9 +7,11 @@
     
     创建标识：Senparc - 20180707
 
-	修改标识：Senparc - 20170802
-    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+	修改标识：Senparc - 20180802
+    修改描述：MP v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
 
+	修改标识：Senparc - 20190521
+    修改描述：v6.4.4 .NET Core 添加多证书注册功能；增加 ISenparcWeixinSettingForTenpayV3 接口中的新属性
 
 ----------------------------------------------------------------*/
 
@@ -120,21 +122,37 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         public virtual string TenPayV3_MchId { get; set; }
         /// <summary>
-        /// 子商户 MchId，没有可留空
+        /// 特约商户微信支付 子商户ID，没有可留空
         /// </summary>
-        public string TenPayV3_SubMchId { get; set; }
+        public virtual string TenPayV3_SubMchId { get; set; }
         /// <summary>
         /// MchKey
         /// </summary>
         public virtual string TenPayV3_Key { get; set; }
         /// <summary>
+        /// 微信支付证书位置（物理路径），在 .NET Core 下执行 TenPayV3InfoCollection.Register() 方法会为 HttpClient 自动添加证书
+        /// </summary>
+        public virtual string TenPayV3_CertPath { get; set; }
+        /// <summary>
+        /// 微信支付证书密码，在 .NET Core 下执行 TenPayV3InfoCollection.Register() 方法会为 HttpClient 自动添加证书
+        /// </summary>
+        public virtual string TenPayV3_CertSecret { get; set; }
+        /// <summary>
         /// 微信支付AppId
         /// </summary>
         public virtual string TenPayV3_AppId { get; set; }
         /// <summary>
-        /// 微信支付AppKey
+        /// 微信支付AppSecert
         /// </summary>
         public virtual string TenPayV3_AppSecret { get; set; }
+        /// <summary>
+        /// 特约商户微信支付 子商户AppID
+        /// </summary>
+        public virtual string TenPayV3_SubAppId { get; set; }
+        /// <summary>
+        /// 特约商户微信支付 子商户AppSecret
+        /// </summary>
+        public virtual string TenPayV3_SubAppSecret { get; set; }
         /// <summary>
         /// 微信支付TenpayNotify
         /// </summary>
@@ -143,14 +161,9 @@ namespace Senparc.Weixin.Entities
         /// 小程序微信支付WxOpenTenpayNotify
         /// </summary>
         public virtual string TenPayV3_WxOpenTenpayNotify { get; set; }
-        /// <summary>
-        /// 特约商户微信支付 子商户ID
-        /// </summary>
-        public virtual string TenPayV3_Sub_MchId { get; set; }
-        /// <summary>
-        /// 特约商户微信支付 子商户AppID
-        /// </summary>
-        public virtual string TenPayV3_Sub_AppId { get; set; }
+
+
+
         #endregion
 
         #endregion

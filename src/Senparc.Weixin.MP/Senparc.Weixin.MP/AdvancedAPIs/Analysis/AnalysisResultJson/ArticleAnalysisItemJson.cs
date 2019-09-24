@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ArticleAnalysisItemJson.cs
     文件功能描述：获取图文群发每日数据返回结果 单条数据类
@@ -113,6 +113,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// 图文消息的标题
         /// </summary>
         public string title { get; set; }
+        /// <summary>
+        /// 图文消息链接
+        /// </summary>
+        public string url { get; set; }
+        /// <summary>
+        /// 在获取图文阅读分时数据时才有该字段，代表用户从哪里进入来阅读该图文。0:会话;1.好友;2.朋友圈;3.腾讯微博;4.历史消息页;5.其他;6.看一看;7.搜一搜
+        /// </summary>
+        public int user_source { get; set; }
 
         public List<ArticleTotal_Detail> details { get; set; }
     }

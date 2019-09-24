@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：ModifyDomainApi.cs
     文件功能描述：成员管理接口
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】创建开放平台帐号并绑定公众号/小程序。
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/create?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 wechatid = wechatid.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】解除绑定小程序的体验者 接口
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
                 wechatid = wechatid.ToString()
             };
 
-            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -202,10 +202,9 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var urlFormat = Config.ApiMpHost + "/cgi-bin/open/get?access_token={0}";
             var data = new { appid = appId };
-            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, data).ConfigureAwait(false);
         }
 
         #endregion
-#endif
     }
 }

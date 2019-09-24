@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomMessageContext.cs
     文件功能描述：微信消息上下文
@@ -15,10 +15,11 @@ using System.Linq;
 using System.Text;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.WxOpen.MessageContexts;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
-    public class CustomWxOpenMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
+    public class CustomWxOpenMessageContext : DefaultWxOpenMessageContext
     {
         public CustomWxOpenMessageContext()
         {

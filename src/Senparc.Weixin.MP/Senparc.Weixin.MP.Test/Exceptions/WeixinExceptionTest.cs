@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test
             WeixinException unkonwnException = null;
             try
             {
-                var response = MP.RequestMessageFactory.GetRequestEntity(xmlText);
+                var response = MP.RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), xmlText);
             }
             catch (WeixinException ex)
             {

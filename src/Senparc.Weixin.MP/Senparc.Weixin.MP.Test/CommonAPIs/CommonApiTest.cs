@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         {
                             AppId = "YourAppId", //换成你的信息
                             Secret = "YourSecret",//换成你的信息
-                            WxOpenAppId ="YourWxOpenAppId",//换成你的信息
+                            WxOpenAppId = "YourWxOpenAppId",//换成你的信息
                             WxOpenSecret = "YourWxOpenSecret",//换成你的信息
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息
@@ -206,7 +206,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         }
 
 
-        public CommonApiTest()
+        public CommonApiTest() : this(true)
+        { }
+
+        public CommonApiTest(bool registerMpAccount)
         {
             if (_useRedis)
             {
@@ -215,20 +218,23 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
 
-            //全局只需注册一次
-            AccessTokenContainer.Register(_appId, _appSecret);
+            if (registerMpAccount)
+            {
+                //全局只需注册一次
+                AccessTokenContainer.Register(_appId, _appSecret);
 
-            ////注册小程序
-            //if (!string.IsNullOrEmpty(_wxOpenAppId))
-            //{
-            //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
-            //}
+                ////注册小程序
+                //if (!string.IsNullOrEmpty(_wxOpenAppId))
+                //{
+                //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
+                //}
 
-            //ThreadUtility.Register();
+                //ThreadUtility.Register();
 
-            //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
-            ////全局只需注册一次
-            //JsApiTicketContainer.Register(_appId, _appSecret);
+                //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
+                ////全局只需注册一次
+                //JsApiTicketContainer.Register(_appId, _appSecret);
+            }
         }
 
         [TestMethod]

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：DataCubeApi.cs
     文件功能描述：小程序“数据分析”接口
@@ -285,7 +285,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 概况趋势
@@ -305,9 +305,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailysummarytrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailySummaryTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailySummaryTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
 
@@ -328,9 +328,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidDailyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -348,8 +348,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidWeeklyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidWeeklyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -367,9 +367,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyvisittrend?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidMonthlyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidMonthlyVisitTrendResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -392,9 +392,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitdistribution?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitDistributionResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitDistributionResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -416,9 +416,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiddailyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -437,9 +437,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidweeklyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -457,9 +457,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidmonthlyretaininfo?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<CommonGetWeAnalysisAppidRetainInfoResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #region 访问页面
@@ -480,9 +480,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappidvisitpage?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitPageResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidVisitPageResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -509,14 +509,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
             {
                 string urlFormat = Config.ApiMpHost + "/datacube/getweanalysisappiduserportrait?access_token={0}";
                 var data = new { begin_date = beginDate, end_date = endDate };
-                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidUserPortraitResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetWeAnalysisAppidUserPortraitResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
 
         #endregion
-#endif
     }
 }

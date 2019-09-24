@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MiniApi.cs
     文件功能描述：小程序接口
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
 
@@ -90,8 +90,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/miniprogram/jscode2session?access_token={0}&js_code={1}&grant_type=authorization_code", accessToken, code);
 
-                return await CommonJsonSend.SendAsync<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -109,12 +109,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/miniprogram/jscode2session?suite_access_token={0}&js_code={1}&grant_type=authorization_code", suiteAccessToken.AsUrlData(), code);
 
-                return await CommonJsonSend.SendAsync<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, suiteAccessToken);
+                return await CommonJsonSend.SendAsync<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -179,22 +179,10 @@ namespace Senparc.Weixin.Work.Helpers
                         case "AgentType":
                             {
                                 AgentType tp;
-#if NET35
-                                try
-                                {
-                                    tp = (AgentType)Enum.Parse(typeof(AgentType), root.Element(propName).Value, true);
-                                    prop.SetValue(entity, tp, null);
-                                }
-                                catch
-                                {
-
-                                }
-#else
                                 if (Enum.TryParse(root.Element(propName).Value, out tp))
                                 {
                                     prop.SetValue(entity, tp, null);
                                 }
-#endif
                                 break;
                             }
                         case "Receiver":
@@ -223,19 +211,7 @@ namespace Senparc.Weixin.Work.Helpers
                             {
                                 RequestMsgType type = RequestMsgType.Unknown;
                                 var parseSuccess = false;
-#if NET35
-                                try
-                                {
-                                    type = (RequestMsgType)Enum.Parse(typeof(RequestMsgType), msgTypeEle.Value, true);
-                                    parseSuccess = true;
-                                }
-                                catch
-                                {
-
-                                }
-#else
                                 parseSuccess = Enum.TryParse(msgTypeEle.Value, true, out type);
-#endif
                                 if (parseSuccess)
                                 {
                                     switch (type)

@@ -105,7 +105,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             //FileStream fs = new FileStream(_context.ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
 
-            return ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
+            var filePath = ServerUtility.ContentRootMapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
+            if (!File.Exists(filePath))
+            {
+                //使用.zip文件
+                filePath = filePath.Replace(".rar", ".zip");
+            }
+            return filePath;
         }
     }
 }

@@ -5,6 +5,7 @@
     <Version>1.0.0.0</Version>
     <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
+    <Description>此项目是 Sample.netcore 下启动项目</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.6.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Senparc.NeuChar" Version="0.8.0.5" />
     <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
   </ItemGroup>
 
@@ -32,4 +34,4 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
-</Project>
+</Project> 

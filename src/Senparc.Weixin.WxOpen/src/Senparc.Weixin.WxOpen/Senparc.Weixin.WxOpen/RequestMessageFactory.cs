@@ -82,7 +82,7 @@ namespace Senparc.Weixin.WxOpen
             {
                 msgType = MsgTypeHelper.GetRequestMsgType(doc);
 
-                requestMessage = messageContext.GetRequestEntityMappingResult(msgType) as RequestMessageBase;
+                requestMessage = messageContext.GetRequestEntityMappingResult(msgType, doc) as RequestMessageBase;
 
                 Senparc.NeuChar.Helpers.EntityHelper.FillEntityWithXml(requestMessage, doc);
             }

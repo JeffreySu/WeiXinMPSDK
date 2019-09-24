@@ -339,7 +339,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 <FromUserName><![CDATA[oxRg0uLsnpHjb8o93uVnwMK_WAVw]]></FromUserName>
 <CreateTime>1516545128</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
-<Event><![CDATA[subscribe]]></Event>
+<Event>subscribe</Event>
 <EventKey><![CDATA[]]></EventKey>
 </xml>
 ";

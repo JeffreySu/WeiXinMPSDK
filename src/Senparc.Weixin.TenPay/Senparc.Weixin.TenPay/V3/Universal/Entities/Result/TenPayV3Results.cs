@@ -1143,6 +1143,7 @@ namespace Senparc.Weixin.TenPay.V3
                     payment_amount = int.Parse(GetXmlValue("payment_amount"));
                     transfer_time = GetXmlValue("transfer_time") ?? "";
                     desc = GetXmlValue("desc") ?? "";
+                    payment_time = GetXmlValue("payment_time") ?? "";
                 }
             }
         }

@@ -5,6 +5,7 @@
     <Version>1.0.0.0</Version>
     <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
+    <Description>此项目是 Sample.netcore 下启动项目</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,4 +34,4 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
-</Project>
+</Project> 

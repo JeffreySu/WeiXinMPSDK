@@ -212,6 +212,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             }
 
             var requestDocument = XDocument.Parse(msgXml);
+
             RequestMessage = RequestMessageFactory.GetRequestEntity<TMC>(new TMC(), doc: requestDocument);
 
             return requestDocument;

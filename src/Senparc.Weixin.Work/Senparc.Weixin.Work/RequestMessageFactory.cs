@@ -52,8 +52,8 @@ namespace Senparc.Weixin.Work
                 {
                     msgType = MsgTypeHelper.GetRequestMsgType(doc);
 
-                    messageContext.GetRequestEntityMappingResult(msgType, doc);
-                    
+                    requestMessage = messageContext.GetRequestEntityMappingResult(msgType, doc) as WorkRequestMessageBase;
+
                     EntityHelper.FillEntityWithXml(requestMessage, doc);
                 }
                 catch (ArgumentException ex)
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Work
         public static IWorkRequestMessageBase GetRequestEntity<TMC>(TMC messageContext, string xml)
             where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {
-            return GetRequestEntity(messageContext,XDocument.Parse(xml));
+            return GetRequestEntity(messageContext, XDocument.Parse(xml));
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Work
             using (XmlReader xr = XmlReader.Create(stream))
             {
                 var doc = XDocument.Load(xr);
-                return GetRequestEntity(messageContext,doc);
+                return GetRequestEntity(messageContext, doc);
             }
         }
 

@@ -12,7 +12,7 @@
 
 ## 解决方案文件（sln）说明
 
-> 解决方案文件（.sln）如有写明 Visual Studio 版本，，如：`Senparc.Weixin.MP.Sample.vs2017.sln`，则表明此项目需要使用 Visual Studio 2017 或以上打开。
+> 解决方案文件（.sln）如有写明 Visual Studio 版本，如：`Senparc.Weixin.MP.Sample.vs2017.sln`，则表明此项目需要使用 Visual Studio 2017 或以上打开。
 
 ## 帮你选择
 

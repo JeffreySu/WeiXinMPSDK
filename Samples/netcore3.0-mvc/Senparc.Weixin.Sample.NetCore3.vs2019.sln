@@ -51,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.Test.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Sample.Consoles", "..\Senparc.Weixin.MP.Sample.Consoles\Senparc.Weixin.MP.Sample.Consoles\Senparc.Weixin.MP.Sample.Consoles.csproj", "{94E16915-CA18-450A-8221-3396985D33D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.NetCore3", "..\Senparc.Weixin.Sample.vs2019\Senparc.Weixin.Sample.NetCore3\Senparc.Weixin.Sample.NetCore3.csproj", "{EB4FCB9F-9670-4B03-9E9E-724AFF737FD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Sample.NetCore3", "Senparc.Weixin.Sample.NetCore3\Senparc.Weixin.Sample.NetCore3.csproj", "{EB4FCB9F-9670-4B03-9E9E-724AFF737FD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

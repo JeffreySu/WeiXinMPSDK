@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.7.0</Version>
+		<Version>3.7.0.1</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -137,7 +137,7 @@
       1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
       v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-
+      v3.7.0.1 修复消息请求出现 null 异常的问题
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

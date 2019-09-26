@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>7.2.17</Version>
+    <Version>7.4.0</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -88,6 +88,11 @@
       v7.2.15 引用最新版本 CO2NET
       v7.2.16 引用最新版本 CO2NET 和 Senparc.Weixin.MP
       v7.2.17 引用最新版本 CO2NET 和 Senparc.Weixin.MP
+      v7.3.0
+      1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v7.4.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.MVC</PackageId>
@@ -150,7 +155,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.6" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.100" />
   </ItemGroup>
 
   <ItemGroup>

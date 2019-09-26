@@ -43,7 +43,7 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public abstract partial class MessageHandler<TC>
+    public abstract partial class MessageHandler<TMC>
     {
         /// <summary>
         /// Event事件类型请求

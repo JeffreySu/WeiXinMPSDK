@@ -72,6 +72,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190906
     修改描述：v1.4.5 添加 GetTransferInfoResult.payment_time 属性
 
+    修改标识：Senparc - 20190925
+    修改描述：v1.5.0 商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -1143,6 +1146,7 @@ namespace Senparc.Weixin.TenPay.V3
                     payment_amount = int.Parse(GetXmlValue("payment_amount"));
                     transfer_time = GetXmlValue("transfer_time") ?? "";
                     desc = GetXmlValue("desc") ?? "";
+                    payment_time = GetXmlValue("payment_time") ?? "";
                 }
             }
         }

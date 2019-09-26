@@ -346,6 +346,7 @@
     <Compile Include="Helpers\JSSDK\JsSdkAddCardUiPackage.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
+    <Compile Include="MessageContexts\DefaultMpMessageContext.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.Message.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.Event.cs" />
     <Compile Include="MessageHandlers\Async\MessageHandlerAsync.cs" />
@@ -467,16 +468,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.8.9</Version>
+      <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.CO2NET.APM">
-      <Version>0.4.2</Version>
+      <Version>0.4.4</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.5</Version>
+      <Version>0.8.0.4</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar.App">
-      <Version>0.5.5</Version>
+      <Version>0.5.7.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

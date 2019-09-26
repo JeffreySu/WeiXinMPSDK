@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test
         public void FillEntityWithXmlTest()
         {
             var doc = XDocument.Parse(xml);
-            var entity = RequestMessageFactory.GetRequestEntity(doc);
+            var entity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
             EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
 
             Assert.AreEqual("gh_a96a4a619366", entity.ToUserName);
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.Test
         public void FillEntityWithEmbedXmlTest()
         {
             var doc = XDocument.Parse(embedXml);
-            var entity = RequestMessageFactory.GetRequestEntity(doc);
+            var entity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
             EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
 
             Assert.AreEqual("gh_4d00ed8d6399", entity.ToUserName);
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.Test
         public void ConvertEntityToXmlTest()
         {
             var doc = XDocument.Parse(xml);
-            var requestEntity = RequestMessageFactory.GetRequestEntity(doc);
+            var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
 
             {
                 //Text
@@ -212,7 +212,7 @@ namespace Senparc.Weixin.MP.Test
   <MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
 </xml>";
                 var doc = XDocument.Parse(imageRequestXML);
-                var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
+                var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageImage;
                 Assert.IsNotNull(requestEntity);
 
                 //var responseNews =
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.MP.Test
   <MsgId>5847298622973403529</MsgId>
 </xml>";
             var doc = XDocument.Parse(voiceTest);
-            var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+            var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageVoice;
             Assert.IsNotNull(requestEntity);
 
             var responseMusic =

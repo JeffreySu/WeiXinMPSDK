@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />
   </ItemGroup>

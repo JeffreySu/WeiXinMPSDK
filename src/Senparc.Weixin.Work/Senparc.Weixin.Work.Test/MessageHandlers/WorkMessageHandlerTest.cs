@@ -30,13 +30,14 @@ using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Helpers;
 using Senparc.Weixin.Work.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
-    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
-    public class WorkMessageHandlersTest
+    [TestClass]
+    public class WorkMessageHandlersTest:BaseTest
     {
-        public class CustomMessageHandlers : WorkMessageHandler<MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>>
+        public class CustomMessageHandlers : WorkMessageHandler<MessageContexts.DefaultWorkMessageContext>
         {
             public CustomMessageHandlers(XDocument requestDoc, PostModel postModel, int maxRecordCount = 0)
                 : base(requestDoc, postModel, maxRecordCount)

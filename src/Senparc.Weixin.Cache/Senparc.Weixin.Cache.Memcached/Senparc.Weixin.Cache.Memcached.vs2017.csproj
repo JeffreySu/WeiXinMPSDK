@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>2.3.11</Version>
+    <Version>2.5.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     
@@ -71,6 +71,10 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       v2.3.9 引用最新版本 CO2NET
       v2.3.10 引用最新版本 CO2NET 和 Senparc.Weixin
       v2.3.11 更新 MemcachedContainerCacheStrategy.UpdateContainerBagAsync() 方法
+      v2.4.0
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v2.5.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
@@ -156,7 +160,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.3.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>

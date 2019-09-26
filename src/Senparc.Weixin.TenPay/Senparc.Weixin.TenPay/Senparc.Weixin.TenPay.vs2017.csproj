@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.4.4</Version>
+    <Version>1.5.0</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -38,6 +38,14 @@
       v1.4.2 修改“企业付款”接口（Transfers）的参数命名
       v1.4.3 引用最新版本 CO2NET
       v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
+      v1.4.5 添加 GetTransferInfoResult.payment_time 属性
+      v1.4.6 引用最新版本 CO2NET 和 Senparc.Weixin
+      v1.4.7
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v1.5.0
+      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

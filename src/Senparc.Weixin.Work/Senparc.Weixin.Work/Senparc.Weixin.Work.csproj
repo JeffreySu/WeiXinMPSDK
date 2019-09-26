@@ -212,11 +212,14 @@
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Entities\Response\WorkResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageUnknownType.cs" />
+    <Compile Include="Entities\Response\WorkSuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="MessageContext\DefaultWorkMessageContext.cs" />
     <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,10 +247,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.8.9</Version>
+      <Version>0.9.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.5</Version>
+      <Version>0.8.0.4</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

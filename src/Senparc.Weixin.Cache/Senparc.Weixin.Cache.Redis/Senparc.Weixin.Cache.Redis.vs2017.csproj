@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
-    <Version>2.5.10</Version>
+    <Version>2.7.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -84,6 +84,10 @@
       v2.5.5 支持异步缓存接口
       v2.5.9 引用最新版本 CO2NET
       v2.5.10 引用最新版本 CO2NET 和 Senparc.Weixin
+      v2.4.0
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v2.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -137,7 +141,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.5.3" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.6.0" />
   </ItemGroup>
 
 

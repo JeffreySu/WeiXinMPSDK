@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
+    /* 此类通过反射可以得到当前平台支持的通用通讯消息类型（事件） */
+
     /// <summary>
     /// 公众号 MessageEntityEnlightener
     /// </summary>

@@ -299,7 +299,7 @@ namespace Senparc.Weixin.MP.Containers
             //OAuthAccessTokenContainer进行自动注册
             var registerOAuthTask = OAuthAccessTokenContainer.RegisterAsync(appId, appSecret, name);
 
-            Task.WaitAll(new[] { registerTask, registerJsApiTask, registerOAuthTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask, registerOAuthTask });//等待所有任务完成
         }
 
         #region AccessToken

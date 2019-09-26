@@ -27,7 +27,7 @@ using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.MessageContexts;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /// <summary>
     /// 第三方开放平台演示

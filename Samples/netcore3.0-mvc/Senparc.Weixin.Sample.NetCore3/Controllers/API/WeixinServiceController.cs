@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     using Microsoft.AspNetCore.Routing;
     using Senparc.Weixin.MP;

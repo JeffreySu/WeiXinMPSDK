@@ -2,7 +2,7 @@
 using Senparc.WebSocket.SignalR;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.CoreSample.WebSocket.Hubs
+namespace Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs
 {
     public class SenparcHub : SenparcWebSocketHubBase
     {

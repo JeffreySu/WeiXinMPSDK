@@ -31,7 +31,7 @@ using System.Xml.Linq;
 using System.Threading;
 using Senparc.NeuChar.MessageHandlers;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /// <summary>
     /// 此Controller为异步Controller（Action），使用异步线程处理并发请求。

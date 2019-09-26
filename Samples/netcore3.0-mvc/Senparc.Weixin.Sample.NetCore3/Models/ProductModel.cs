@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Senparc.Weixin.MP.CoreSample.Models
+namespace Senparc.Weixin.Sample.NetCore3.Models
 {
     /// <summary>
     /// 商品实体类

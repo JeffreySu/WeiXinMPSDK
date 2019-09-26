@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class MediaController : Controller
     {

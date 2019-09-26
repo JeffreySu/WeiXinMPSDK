@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class ValuesController : Controller
     {

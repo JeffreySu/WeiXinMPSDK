@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /// <summary>
     /// 插件项目相关：

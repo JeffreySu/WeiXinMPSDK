@@ -1,6 +1,6 @@
 using System;
 
-namespace Senparc.Weixin.MP.CoreSample.Models
+namespace Senparc.Weixin.Sample.NetCore3.Models
 {
     public class ErrorViewModel
     {

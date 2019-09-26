@@ -19,7 +19,7 @@ using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers.WxOpen
+namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {
     /// <summary>
     /// 微信小程序Controller

@@ -13,7 +13,7 @@ using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
 
     public class OpenOAuthController : BaseController

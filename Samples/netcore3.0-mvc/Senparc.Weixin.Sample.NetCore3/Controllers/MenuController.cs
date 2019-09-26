@@ -26,7 +26,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.CO2NET.HttpUtility;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class MenuController : BaseController
     {

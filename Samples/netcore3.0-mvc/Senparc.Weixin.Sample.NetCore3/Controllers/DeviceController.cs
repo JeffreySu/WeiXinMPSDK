@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.MP.Containers;
 using Microsoft.AspNetCore.Http;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /// <summary>
     /// 设备能力测试

@@ -15,7 +15,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System.IO;
 //using Senparc.Weixin.MP.Sample.CommonService.Download;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class DocumentController : BaseController
     {

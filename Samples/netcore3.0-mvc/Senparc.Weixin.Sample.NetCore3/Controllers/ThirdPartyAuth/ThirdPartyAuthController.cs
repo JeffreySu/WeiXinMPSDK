@@ -16,7 +16,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /// <summary>
     /// 企业号对接测试

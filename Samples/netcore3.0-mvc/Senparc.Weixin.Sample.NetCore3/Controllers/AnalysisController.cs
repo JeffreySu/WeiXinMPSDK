@@ -10,7 +10,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.CoreSample.Models.VD;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public enum AnalysisType
     {

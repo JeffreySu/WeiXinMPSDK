@@ -20,7 +20,7 @@ using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar;

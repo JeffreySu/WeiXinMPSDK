@@ -27,7 +27,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Agents;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class SimulateToolController : BaseController
     {

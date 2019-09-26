@@ -14,7 +14,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Trace;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag

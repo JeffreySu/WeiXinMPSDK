@@ -49,7 +49,7 @@ using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     /* 
      * 友情提示：微信支付正式上线之前，请进行沙箱测试！ 

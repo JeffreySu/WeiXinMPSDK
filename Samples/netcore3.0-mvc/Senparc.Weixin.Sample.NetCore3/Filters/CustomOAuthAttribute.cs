@@ -5,7 +5,7 @@ using Senparc.CO2NET;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.MP.MvcExtension;
 
-namespace Senparc.Weixin.MP.CoreSample.Filters
+namespace Senparc.Weixin.Sample.NetCore3.Filters
 {
     /// <summary>
     /// OAuth自动验证，可以加在Action或整个Controller上

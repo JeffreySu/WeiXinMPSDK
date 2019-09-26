@@ -14,7 +14,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     using Microsoft.AspNetCore.Http;
     using Senparc.Weixin.MP.MvcExtension;

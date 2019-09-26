@@ -14,7 +14,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
-namespace Senparc.Weixin.MP.CoreSample.Controllers
+namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     public class AsyncMethodsController : Controller
     {

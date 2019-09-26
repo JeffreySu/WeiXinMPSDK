@@ -62,7 +62,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET, Version=1.0.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.1.0.1001\lib\net45\Senparc.CO2NET.dll</HintPath>
+      <HintPath>..\packages\Senparc.CO2NET.1.0.100\lib\net45\Senparc.CO2NET.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.CO2NET.APM, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.CO2NET.APM.0.5.0\lib\net45\Senparc.CO2NET.APM.dll</HintPath>

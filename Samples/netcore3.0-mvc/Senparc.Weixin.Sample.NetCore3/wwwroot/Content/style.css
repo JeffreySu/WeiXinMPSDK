@@ -1,0 +1,2101 @@
+.hide {
+    display: none;
+}
+/*.content {
+    min-width: 1000px;
+}*/
+.senparc-header {
+    background: #034067;
+}
+
+/*.logo {
+    float: left;
+}*/
+
+.center {
+    text-align: center;
+}
+
+.logo img {
+    margin-top: 8px;
+}
+
+.navbar-collapse {
+    float: right;
+}
+
+.wrapper-header {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.header-title {
+    font-size: 22px;
+    line-height: 38px;
+    padding-top: 8px;
+    float: left;
+    margin-left: 6px;
+    letter-spacing: 2px;
+}
+
+    .header-title a {
+        color: #fff;
+    }
+
+.navbar-brand {
+    padding-top: 10px;
+}
+
+.nav-catalog {
+    line-height: 58px;
+    color: #fff;
+    padding-right: 16px;
+}
+
+    .nav-catalog li {
+        color: #fff;
+        font-size: 16px;
+        float: left;
+        /*padding-left: 48px;*/
+    }
+
+    .nav-catalog a {
+        line-height: 38px;
+        color: #fff;
+        padding: 0px 20px;
+        display: inline-block;
+    }
+
+        .nav-catalog a:hover {
+            background: #306d94;
+            color: #fff;
+        }
+
+    .nav-catalog .nav-sub-catalog {
+        display: none;
+        position: absolute;
+        background: #034067;
+        box-shadow: #034067 0px 1px 10px 5px;
+    }
+
+        .nav-catalog .nav-sub-catalog li {
+            clear: both;
+            float: left;
+            overflow: hidden;
+            position: relative;
+            line-height: 110%;
+            width: 100%;
+            padding: 0px;
+        }
+
+            .nav-catalog .nav-sub-catalog li a {
+                width: 100%;
+                display: inline-block;
+                padding: 10px 30px;
+                line-height: 150%;
+            }
+
+
+                .nav-catalog .nav-sub-catalog li a:hover {
+                    background: #306d94;
+                    color: #fff;
+                }
+
+.senparc-jumbotron {
+    background: url(../images/v2/background.png);
+    width: 100%;
+    padding: 28px 0 0 0;
+}
+
+#noticearea {
+    background-color: #ffff00;
+    color: #4D4D4D;
+    line-height: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+    #noticearea .wrapper, #noticearea .wrapper span {
+        overflow: hidden;
+    }
+
+.senparc-container {
+}
+
+.container-left {
+    height: 100%;
+    text-align: center;
+    /*width: 260px;*/
+    float: left;
+    margin-top: 8px;
+}
+
+    .container-left li {
+        background: #4EBBFD;
+        margin-bottom: 20px;
+        line-height: 36px;
+        border-radius: 30px;
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+        .container-left li:hover {
+            background: #73caff;
+        }
+
+    .container-left a {
+        color: #fff;
+        display: block;
+    }
+
+.container-right {
+    float: left;
+    /*padding-left: 49px;*/
+    margin-top: 4px;
+}
+
+.container-span {
+    /*font-size: 28px;*/
+    color: #fff;
+    display: block;
+    padding-bottom: 26px;
+}
+
+.container-p {
+    /*font-size: 18px;*/
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 30px;
+    display: block;
+}
+
+/*.contact {
+    margin-top: 100px;
+}*/
+
+.contatc-name {
+    font-size: 16px;
+    color: #fff;
+    letter-spacing: 1px;
+    float: left;
+    line-height: 26px;
+    clear: left;
+    min-width: 110px;
+}
+
+.contatc-img {
+    float: left;
+    margin-right: 7px;
+    margin-bottom:5px;
+    display: inline;
+}
+
+    .contatc-img a {
+        display: block;
+    }
+
+/*#qqGroups li.contatc-img:nth-child(2) {
+    text-indent: 8em;
+    clear: left;
+}*/
+
+/*#qqGroups li.contatc-img:nth-child(11) {
+
+    text-indent: 8em;
+    clear: left;
+}*/
+
+a.qqGroup_tip {
+   text-decoration: underline;
+}
+
+.catalog {
+    background: #E7EEF1;
+    text-align: center;
+}
+
+    .catalog a {
+        line-height: 68px;
+        /*font-size: 22px;*/
+        color: #799999;
+        letter-spacing: 2px;
+        /*padding-right: 48px;*/
+    }
+
+        .catalog a:hover, .catalog a.active {
+            color: #0781CD;
+        }
+
+/*.wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}*/
+
+.weixin-item {
+    margin-bottom: 30px;
+    /*float:left;
+	width:40%;*/
+}
+
+.max {
+    width: 60%;
+}
+
+.weixin-item:last-child {
+    margin-left: 0;
+}
+
+.weixin-item-title {
+    font-size: 20px;
+    color: #4D4D4D;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    margin-top: 35px;
+}
+
+.weixin-bottom-buttons {
+    margin-top: 40px;
+    clear: both;
+}
+
+.weixin-item-button {
+    margin-bottom: 20px;
+}
+
+
+.weixin-item-content {
+    width: 60%;
+    float: left;
+}
+
+.weixin-item-font {
+    font-size: 16px;
+    color: #7E7E7E;
+    line-height: 24px;
+    padding-bottom: 20px;
+    padding-right: 40px;
+}
+
+.weixin-item img {
+    /*margin-left: 40px;*/
+}
+
+
+img.official-img {
+    /*margin: 30px 0 0 0;*/
+    clear: both;
+    width: 256px;
+}
+
+.weixin-weiweihi {
+    width: 830px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.content-weixin {
+    text-align: center;
+    margin-bottom: 30px;
+    /*float: left;*/
+    margin-left: 40px;
+}
+
+.weixin-bottom {
+    text-align: center;
+    padding-bottom: 40px;
+    /*width: 680px;*/
+    float: left;
+}
+
+
+.weixin-item-left {
+    float: left;
+    margin-right: 20px;
+}
+
+.readmore {
+    margin-top: 40px;
+    margin-left: 20px;
+    background-color: #e0f3fe;
+    float: left;
+}
+
+.application {
+    background: #1FA0D2;
+    padding: 8px 10px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+    .application:hover {
+        background: #3085a7;
+    }
+
+
+.test {
+    margin-top: 0px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+    clear: both;
+}
+
+    .test table {
+        width: 100%;
+    }
+
+        .test table td {
+            width: 50%;
+        }
+
+.test-item {
+    /*float: left;*/
+    text-align: center;
+    /*margin-right: 4%;*/
+    height: 100%;
+    margin: 20px;
+    vertical-align: top;
+}
+
+.item-title {
+    font-size: 20px;
+    color: #4D4D4D;
+    letter-spacing: 1px;
+    padding-top: 8px;
+    padding-bottom: 12px;
+}
+
+.item-content {
+    font-size: 16px;
+    color: #7E7E7E;
+    line-height: 24PX;
+    padding-bottom: 20px;
+}
+
+#book-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 30px;
+    clear: both;
+    overflow: hidden;
+}
+
+.feedback {
+    /*height:290px;*/
+    background: #EDF0F0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.feedback-info {
+    width: 55%;
+    float: left;
+}
+
+    .feedback-info p {
+        color: #5E5E5F;
+        font-size: 22px;
+        line-height: 40px;
+        letter-spacing: 1px;
+        padding-left: 60px;
+    }
+
+.feedback-action {
+    width: 40%;
+    float: left;
+    text-align: center;
+}
+
+    .feedback-action p {
+        color: #808383;
+        line-height: 30px;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .feedback-action img {
+        width: 184px;
+    }
+
+    .feedback-action a {
+        padding: 15px 30px;
+        font-size: 120%;
+    }
+
+
+.footer {
+    background: #0A9CD2;
+    height: 84px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.footer-contact {
+    font-size: 16px;
+    color: #fff;
+    line-height: 36px;
+}
+
+    .footer-contact a {
+        color: #fff;
+    }
+
+.footer-icon {
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.clear {
+    clear: both;
+}
+
+.form-control {
+    padding: 36px 0;
+    width: 50%;
+    float: left;
+}
+
+.control-label {
+    text-align: right;
+    float: left;
+    width: 93px;
+    font-size: 14px;
+    color: #585858;
+    line-height: 32px;
+    padding-right: 6px;
+    height: 32px;
+    margin: 10px 0;
+}
+
+.form-control li {
+}
+
+.control-input {
+    height: 22px;
+    width: 300px;
+    padding: 5px;
+    border: 1px solid #A09D9D;
+    margin: 10px 0;
+}
+
+.control-select {
+    width: 300px;
+    height: 32px;
+    margin: 10px 0;
+}
+
+.control-title {
+    font-size: 18px;
+    color: #585858;
+    padding-left: 93px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.send {
+    padding-left: 0;
+    display: block;
+}
+
+.control-btn {
+    margin-left: 93px;
+    height: 36px;
+    width: 314px;
+    background: #0A9CD2;
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 36px;
+    text-align: center;
+    font-size: 16px;
+    border: 0;
+    cursor: pointer;
+}
+
+.control-text {
+    width: 438px;
+    height: 190px;
+    padding: 5px;
+    margin: 10px 0;
+    border: 0.2px solid #BFBDBD;
+}
+
+.control-head {
+    width: 314px;
+    text-align: center;
+}
+
+.control-p {
+    color: #585858;
+    font-size: 14px;
+    line-height: 24px;
+    width: 80%;
+    padding-left: 30px;
+    letter-spacing: 1px;
+}
+
+.up-experience {
+    text-align: center;
+    padding-bottom: 100px;
+    padding-top: 0;
+}
+
+    .up-experience p {
+        color: #4C4C4C;
+        font-size: 20PX;
+        letter-spacing: 1px;
+        line-height: 36px;
+    }
+
+    .up-experience img {
+        padding: 30px 0;
+        width: 100%;
+    }
+
+    .up-experience a {
+        background: #0A9CD2;
+        letter-spacing: 2px;
+        color: #fff;
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+.version {
+    margin-top: 16px;
+}
+
+.tbVersion {
+    color: #4d4d4d;
+    font-size: 15px;
+    /*width: 100%;*/ /*text-align: center;*/
+}
+
+    .tbVersion th {
+        font-weight: bold;
+        padding: 10px;
+        color: #4d4d4d;
+        border-bottom: 1px solid #4d4d4d;
+    }
+
+    .tbVersion td {
+        padding: 6px;
+        color: #4d4d4d;
+        line-height: 150%;
+        vertical-align: middle;
+    }
+
+        .tbVersion td a {
+            color: #4d4d4d;
+        }
+
+.sdk-version {
+    text-decoration: underline;
+}
+
+    .sdk-version:hover {
+        text-decoration: none;
+    }
+
+.tbVersion tbody > tr:hover {
+    background: #abe0ff;
+}
+
+.tbVersion img {
+    vertical-align: bottom;
+}
+
+#menuEditor h3 {
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#menuEditor ul {
+    margin: 13px 0;
+    padding-left: 40px;
+    list-style: disc;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+#menuEditor li {
+}
+
+#menuEditor .control-btn {
+    margin-left: 0px;
+    width: 118px;
+}
+
+.float-left {
+    float: left;
+}
+
+.menu-state {
+    padding: 14px 0;
+}
+
+.menu-list {
+    width: 580px;
+}
+
+    .menu-list table {
+        width: 580px;
+    }
+
+        .menu-list table tr {
+        }
+
+            .menu-list table tr th {
+                font-size: 1.2em;
+                text-align: left;
+            }
+
+            .menu-list table tr td {
+            }
+
+    .menu-list .control-input {
+        width: auto;
+    }
+
+#submitArea {
+    margin-bottom: 14px;
+}
+
+.line {
+    width: 96%;
+    margin: 0 auto;
+    height: 0px;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+}
+
+.currentTestItem {
+    background: #ddd;
+}
+
+.segregate {
+    height: 0px;
+    width: 90%;
+    margin: 40px auto;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    clear: both;
+}
+
+p.crowdfunding-note {
+    padding-top: 77px;
+    text-align: left;
+    word-spacing: 2px;
+}
+
+.crowdfunding-note p {
+    font-size: 16px;
+}
+
+.crowdfunding-note img {
+    padding: 40px;
+    width: 420px;
+    max-width: 90%;
+}
+
+#tm_checkcode {
+    border: 1px solid #A09D9D;
+}
+
+.asyncWapper_con {
+    overflow-x: scroll;
+}
+
+.container-span span {
+    display: block;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#showTest {
+    padding: 10px;
+    margin: 5px 20px;
+    border: #cdcdcd solid 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.test_bs {
+    display: none;
+}
+
+@media screen and (min-width:1000px) {
+    .content {
+        min-width: 1000px;
+    }
+
+    .logo {
+        float: left;
+    }
+
+    .nav-catalog li {
+        /*padding-left: 30px;*/
+    }
+
+        .nav-catalog li a:hover {
+            color: #b8b8b8;
+        }
+
+    .container-left {
+        width: 260px;
+    }
+
+    .wrapper {
+        width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .container-right {
+        padding-left: 49px;
+    }
+
+    .container-span {
+        font-size: 28px;
+    }
+
+    .container-p {
+        font-size: 18px;
+    }
+
+    .weixin-bottom {
+        /*width: 680px;*/
+    }
+
+    .content-weixin {
+        width: 905px;
+        margin: 0px auto;
+        clear: both;
+    }
+
+    img.official-img {
+        margin: 5px 0 0 0;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .contact {
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
+    }
+
+    .catalog a {
+        font-size: 22px;
+        padding-right: 48px;
+    }
+}
+
+@media screen and (min-width:932px) and (max-width:999px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 15px;
+        }
+
+    .header-title {
+        margin-left: 25px;
+        font-size: 20px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+    }
+
+    .nav-catalog li {
+        /*padding-left: 45px;*/
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .container-left {
+        margin-left: 25px;
+        width: 245px;
+    }
+
+    .container-right {
+        padding-left: 49px;
+    }
+
+    .container-span {
+        font-size: 26px;
+    }
+
+    .container-p {
+        font-size: 16px;
+    }
+
+    .weixin-bottom {
+        /*width: 94%;*/
+        margin: 0 3%;
+        padding-bottom: 20px;
+    }
+
+    .content-weixin {
+        float: none;
+    }
+
+
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        float: left;
+        /*width: 50% !important;*/
+        text-align: left;
+        padding-left: 45px;
+        margin-bottom: 0;
+    }
+
+    img.official-img {
+        margin: 0;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .contact {
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
+    }
+
+    .catalog a {
+        font-size: 22px;
+        padding-right: 48px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .feedback {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:838px) and (max-width:931px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 15px;
+        }
+
+    .header-title {
+        margin-left: 25px;
+        font-size: 20px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+    }
+
+    .nav-catalog li {
+        /*padding-left: 30px;*/
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .container-left {
+        margin-left: 15px;
+        width: 233px;
+    }
+
+    .container-right {
+        padding-left: 30px;
+    }
+
+    .container-span {
+        font-size: 24px;
+    }
+
+    .container-p {
+        font-size: 16px;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+    }
+
+    .content-weixin {
+        float: none;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        float: left;
+        /*width: 50% !important;*/
+        text-align: left;
+        padding-left: 45px;
+        margin-bottom: 0;
+    }
+
+    img.official-img {
+        margin: 0;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .contact {
+        margin-top: 58px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        margin-bottom: 28px;
+    }
+
+    .catalog a {
+        font-size: 22px;
+        padding-right: 35px;
+    }
+
+    .form-control {
+        width: 46%;
+        margin: 0 2%;
+    }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .feedback {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:837px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 15px;
+            margin-top: 12px;
+        }
+
+    .header-title {
+        margin-left: 25px;
+        font-size: 18px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+    }
+
+    .nav-catalog li {
+        /*padding-left: 26px;*/
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        margin-left: 15px;
+        width: 100%;
+    }
+
+    .container-right {
+        width: 100%;
+        text-align: left;
+        margin-top: 35px;
+    }
+
+    .container-span {
+        font-size: 24px;
+        margin-left: 110px;
+    }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    /*.container-span span:first-child{
+        text-align:left;
+    }*/
+
+    .container-p {
+        font-size: 16px;
+        margin-left: 110px;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+    }
+
+    .content-weixin {
+        float: none;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        float: left;
+        /*width: 50% !important;*/
+        text-align: left;
+        padding-left: 45px;
+        margin-bottom: 0;
+    }
+
+    img.official-img {
+        margin: 0;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .container-left li {
+        width: 34%;
+        margin: 0 8% 20px;
+        float: left;
+    }
+
+    .contact {
+        margin-top: 26px;
+        margin-bottom: 28px;
+        margin-left: 110px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .contatc-name {
+        margin-bottom: 5px;
+    }
+
+    .catalog a {
+        font-size: 20px;
+        padding: 0 16px;
+    }
+
+    .form-control {
+        width: 46%;
+        margin: 0 2%;
+    }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-input {
+        width: 260px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+        width: 272px;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        width: 97%;
+    }
+
+    .up-experience p {
+        font-size: 18px;
+    }
+
+    .control-title {
+        padding-left: 70px;
+    }
+
+    .control-select {
+        width: 270px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .description h1 {
+        padding-left: 12px;
+    }
+
+    #downloadArea h2 {
+        font-size: 180%;
+    }
+
+    #downloadArea img {
+        width: 190px;
+    }
+
+    .weixin-bottom-buttons {
+        margin-top: 30px;
+    }
+
+    .weixin-item-button {
+        margin-bottom: 15px;
+    }
+
+    .feedback {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:375px) and (max-width:767px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 8px;
+            width: 130px;
+            margin-top: 12px;
+        }
+
+    .header-title {
+        font-size: 14px;
+        margin: 0 8px 12px 15px;
+        line-height: 24px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        border-top: 1px solid #044D7B;
+    }
+
+    .nav-catalog li {
+        line-height: 35px;
+        padding: 0 13px;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        width: 100%;
+    }
+
+    .container-right {
+        padding: 0 3%;
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .container-span {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    .container-p {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+        /*overflow-x: scroll;*/
+    }
+
+    .weixin-bottom-table {
+        overflow-x: scroll;
+    }
+
+    .content-weixin {
+        float: none;
+        margin-left: 0;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        margin-bottom: 0;
+        /*float: left;
+        width: 50% !important;
+        text-align: left;
+        padding-left: 45px;*/
+    }
+
+    img.official-img {
+        margin: 0;
+        width: 218px;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        width: 56%;
+        margin: 0 22%;
+        text-align: left;
+        margin-top: 10px;
+        /*float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;*/
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            /*width: 270px;*/
+        }
+
+    .container-left li {
+        width: 40%;
+        margin: 0 5% 20px;
+        float: left;
+        font-size: 15px;
+    }
+
+    .contact {
+        margin-top: 26px;
+        margin-bottom: 28px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        /*margin-left: 110px;*/
+    }
+
+    .contatc-name {
+        margin-bottom: 5px;
+    }
+
+    .catalog {
+        width: 100%;
+        padding: 15px 0;
+    }
+
+        .catalog a {
+            font-size: 16px;
+            padding: 0 25px;
+            line-height: 35px;
+        }
+
+    .nav-catalog {
+        margin: 12px 0 10px;
+        overflow: auto;
+        padding-right: 0;
+    }
+
+    #contact-content li img {
+        width: 22px;
+        margin-bottom: 5px;
+    }
+
+    .weixin-item-title {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .tbVersion th {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tbVersion td {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .application {
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .test_bs img {
+        width: 70px;
+    }
+
+    .test_bs .item-title {
+        font-size: 16px;
+    }
+
+    .test_bs .item-content {
+        font-size: 13px;
+        text-align: left;
+    }
+
+    .weixin-weiweihi {
+        width: 100%;
+        padding: 0 3%;
+    }
+
+    .weixin-item-font {
+        padding-right: 0;
+        font-size: 15px;
+    }
+
+    .weixin-item-content {
+        width: 100%;
+        float: none;
+    }
+
+    .weixin-item-img {
+        text-align: center;
+        margin-bottom: -25px;
+    }
+
+        .weixin-item-img img {
+            width: 185px;
+        }
+
+    #donate {
+        padding: 20px 3%;
+    }
+
+        #donate .feedback-info {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-info p {
+                font-size: 15px;
+                padding-left: 0px;
+                line-height: 25px;
+            }
+
+        #donate .feedback-action {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-action img {
+                margin-top: 10px;
+            }
+
+        #donate .feedback-info-bs {
+            padding-left: 42px;
+            margin-top: 15px;
+        }
+
+    .form-control {
+        width: 96%;
+        margin: 0 2%;
+        padding: 36px 0 0;
+    }
+
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-input {
+        width: 260px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+        width: 272px;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        width: 100%;
+        text-align: justify;
+        text-justify: inter-ideograph;
+    }
+
+        .control-p:first-child {
+            margin-top: 15px;
+        }
+
+    .up-experience {
+        padding-bottom: 0;
+    }
+
+        .up-experience p {
+            font-size: 17px;
+        }
+
+    .control-head {
+        width: 100%;
+    }
+
+    .control-title {
+        padding-left: 0;
+        font-size: 16px;
+    }
+
+    .control-select {
+        width: 270px;
+    }
+
+    .up-experience a {
+        font-size: 16px;
+    }
+
+    .control-text {
+        width: 96%;
+    }
+
+    #resultText {
+        margin: 0 10px;
+    }
+
+    .result {
+        width: 100% !important;
+        float: none;
+        padding: 0 0 15px 0 !important;
+    }
+
+        .result h1 {
+            margin: 33px 30px 20px 10px !important;
+        }
+
+    .description {
+        width: 100% !important;
+        padding: 26px 3% 0px !important;
+        float: none;
+    }
+
+        .description h1 {
+            padding-bottom: 18px;
+        }
+
+        .description li {
+            font-size: 110% !important;
+        }
+
+    .asyncWapper {
+        padding: 30px 0px !important;
+    }
+
+    .asyncWapper_con {
+        margin: 0 3%;
+    }
+
+        .asyncWapper_con table {
+            width: 300%;
+        }
+
+            .asyncWapper_con table th {
+                padding: 6px 0;
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table td {
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table ol li {
+                margin-left: 20px;
+            }
+
+    .asyncWapper h1 {
+        font-size: 160% !important;
+    }
+
+    #downloadArea {
+        padding: 50px 3%;
+    }
+
+        #downloadArea h2 {
+            font-size: 160%;
+        }
+
+        #downloadArea img {
+            width: 190px;
+        }
+
+    .footer {
+        padding: 8px 5px 0;
+    }
+
+    .weixin-bottom-buttons {
+        margin-top: 30px;
+    }
+
+    .weixin-item-button {
+        margin-bottom: 15px;
+    }
+
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
+
+    .segregate {
+        margin: 30px auto;
+    }
+
+    .feedback {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width:200px) and (max-width:374px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 8px;
+            width: 130px;
+            margin-top: 12px;
+        }
+
+    .header-title {
+        font-size: 12px;
+        margin: 0 8px 12px 15px;
+        line-height: 20px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        border-top: 1px solid #044D7B;
+    }
+
+    .nav-catalog li {
+        line-height: 35px;
+        padding: 0;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    .nav-catalog a {
+        font-size: 14px;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        width: 100%;
+    }
+
+        .container-left a {
+            font-size: 14px;
+        }
+
+    .container-right {
+        padding: 0 3%;
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .container-span {
+        font-size: 14px;
+    }
+
+    .container-p {
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+        /*overflow-x: scroll;*/
+    }
+
+    .content-weixin {
+        float: none;
+        margin-left: 0;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        margin-bottom: 0;
+        /*float: left;
+        width: 50% !important;
+        text-align: left;
+        padding-left: 45px;*/
+    }
+
+    img.official-img {
+        margin: 0;
+        width: 220px;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        width: 56%;
+        margin: 0 14%;
+        text-align: left;
+        margin-top: 10px;
+        /*float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;*/
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            /*width: 270px;*/
+        }
+
+    .container-left li {
+        width: 44%;
+        margin: 0 3% 20px;
+        float: left;
+        font-size: 14px;
+        line-height: 26px;
+    }
+
+    .contact {
+        margin-top: 26px;
+        margin-bottom: 28px;
+        /*margin-left: 110px;*/
+    }
+
+    .contatc-name {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .catalog {
+        width: 100%;
+        padding: 12px 0;
+    }
+
+        .catalog a {
+            font-size: 14px;
+            padding: 0 16px;
+            line-height: 30px;
+        }
+
+    .nav-catalog {
+        margin: 12px 0 10px;
+        overflow: auto;
+        padding-right: 0;
+    }
+
+    #contact-content li img {
+        width: 20px;
+        margin-bottom: 5px;
+    }
+
+    .weixin-item-title {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .weixin-bottom-table {
+        overflow-x: scroll;
+    }
+
+    .tbVersion th {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tbVersion td {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .application {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .test_bs img {
+        width: 65px;
+    }
+
+    .test_bs .item-title {
+        font-size: 14px;
+    }
+
+    .test_bs .item-content {
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .weixin-weiweihi {
+        width: 100%;
+        padding: 0 3%;
+    }
+
+    .weixin-item-font {
+        padding-right: 0;
+        font-size: 13px;
+    }
+
+    .weixin-item-content {
+        width: 100%;
+        float: none;
+    }
+
+    .weixin-item-img {
+        text-align: center;
+        margin-bottom: -25px;
+    }
+
+        .weixin-item-img img {
+            width: 176px;
+        }
+
+    #donate {
+        padding: 20px 3%;
+    }
+
+        #donate .feedback-info {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-info p {
+                font-size: 14px;
+                padding-left: 0px;
+                line-height: 25px;
+            }
+
+        #donate .feedback-action {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-action img {
+                margin-top: 10px;
+                width: 176px;
+            }
+
+        #donate .feedback-info-bs {
+            padding-left: 42px;
+            margin-top: 15px;
+        }
+
+        #donate .feedback-action p {
+            font-size: 13px;
+        }
+
+    .container-span {
+        text-align: left;
+        padding-bottom: 20px;
+    }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    .footer-contact {
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 96%;
+        margin: 0 2%;
+        padding: 36px 0 0;
+    }
+
+        .form-control:last-child {
+            padding: 36px 0 25px;
+        }
+
+    .control-label {
+        width: 78px;
+    }
+
+    .control-input {
+        width: 60%;
+        height: 20px;
+    }
+
+    .control-btn {
+        font-size: 14px;
+        margin-left: 77px;
+        width: 64%;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        font-size: 12px;
+        width: 100%;
+        text-align: justify;
+        text-justify: inter-ideograph;
+    }
+
+        .control-p:first-child {
+            margin-top: 15px;
+        }
+
+    .up-experience {
+        padding-bottom: 0;
+    }
+
+        .up-experience p {
+            font-size: 14px;
+            line-height: 24px;
+        }
+
+        .up-experience img {
+            padding: 18px 0;
+        }
+
+        .up-experience a {
+            font-size: 14px;
+        }
+
+    .control-head {
+        width: 100%;
+    }
+
+    .control-title {
+        padding-left: 0;
+        font-size: 15px;
+    }
+
+    .control-select {
+        width: 64%;
+    }
+
+    .checkbox_test {
+        padding-left: 36px !important;
+    }
+
+    .control-text {
+        width: 96%;
+    }
+
+    #resultText {
+        margin: 0 10px;
+    }
+
+    .result {
+        width: 100% !important;
+        float: none;
+        padding: 0 0 15px 0 !important;
+    }
+
+        .result h1 {
+            font-size: 110% !important;
+            margin: 33px 30px 20px 10px !important;
+        }
+
+    .asyncWapper {
+        padding: 30px 0px !important;
+    }
+
+        .asyncWapper h1 {
+            font-size: 140% !important;
+        }
+
+    .asyncWapper_con {
+        margin: 0 3%;
+    }
+
+        .asyncWapper_con table {
+            width: 300%;
+        }
+
+            .asyncWapper_con table th {
+                padding: 6px 0;
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table td {
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table ol li {
+                margin-left: 20px;
+            }
+
+    #downloadArea {
+        padding: 50px 3%;
+    }
+
+        #downloadArea .versionSelector-title {
+            font-size: 15px;
+        }
+
+        #downloadArea h2 {
+            font-size: 130%;
+        }
+
+        #downloadArea img {
+            width: 180px;
+            margin: 15px;
+        }
+
+    .description {
+        width: 100% !important;
+        padding: 26px 3% 0px !important;
+        float: none;
+    }
+
+        .description h1 {
+            padding-bottom: 18px;
+        }
+
+        .description li {
+            font-size: 110% !important;
+        }
+
+        .description ol {
+            padding-left: 15px;
+        }
+
+    .document_help {
+        font-size: 13px;
+    }
+
+    .footer {
+        padding: 8px 5px 0;
+    }
+
+    .weixin-bottom-buttons {
+        margin-top: 30px;
+    }
+
+    .weixin-item-button {
+        margin-bottom: 15px;
+    }
+
+        .weixin-item-button a:first-child {
+            margin-left: 15px;
+        }
+
+    .segregate {
+        margin: 30px auto;
+    }
+
+    .feedback {
+        margin-top: 0;
+    }
+}
+
+.textTop {
+    margin-top: 37px;
+}
+
+.contentTop {
+    padding-top: 35px;
+}
+
+.top {
+    padding-top: 35px;
+    text-align: left;
+    word-spacing: 2px;
+}

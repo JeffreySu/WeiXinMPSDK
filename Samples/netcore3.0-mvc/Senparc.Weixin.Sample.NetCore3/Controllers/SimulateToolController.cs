@@ -26,6 +26,7 @@ using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Agents;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

@@ -25,6 +25,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -63,7 +64,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         }
         #endregion
 
-
         public ActionResult Index()
         {
             GetMenuResult result = new GetMenuResult(new ButtonGroup());
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 //{
                 //    AccessTokenContainer.Register(appId, appSecret);
                 //}
-                var result = CommonAPIs.CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);
+                var result = CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);
 
                 //也可以直接一步到位：
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
@@ -127,18 +127,18 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 if (useAddCondidionalApi)
                 {
                     //个性化接口
-                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ConditionalButtonGroup()).menu;
+                    buttonGroup = CommonApi.GetMenuFromJsonResult(resultFull, new ConditionalButtonGroup()).menu;
 
                     var addConditionalButtonGroup = buttonGroup as ConditionalButtonGroup;
                     addConditionalButtonGroup.matchrule = menuMatchRule;
-                    result = CommonAPIs.CommonApi.CreateMenuConditional(token, addConditionalButtonGroup);
+                    result = CommonApi.CreateMenuConditional(token, addConditionalButtonGroup);
                     apiName += string.Format("menuid：{0}。", (result as CreateMenuConditionalResult).menuid);
                 }
                 else
                 {
                     //普通接口
-                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
-                    result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
+                    buttonGroup = CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
+                    result = CommonApi.CreateMenu(token, buttonGroup);
                 }
 
                 var json = new
@@ -169,8 +169,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 WxJsonResult result = null;
                 IButtonGroupBase buttonGroup = null;
 
-                buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
-                result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
+                buttonGroup = CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
+                result = CommonApi.CreateMenu(token, buttonGroup);
 
                 var json = new
                 {
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         {
             try
             {
-                var result = CommonAPIs.CommonApi.GetMenu(token);
+                var result = CommonApi.GetMenu(token);
                 if (result == null)
                 {
                     return Json(new { error = "菜单不存在或验证失败！" }, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
@@ -211,7 +211,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         {
             try
             {
-                var result = CommonAPIs.CommonApi.DeleteMenu(token);
+                var result = CommonApi.DeleteMenu(token);
                 var json = new
                 {
                     Success = result.errmsg == "ok",

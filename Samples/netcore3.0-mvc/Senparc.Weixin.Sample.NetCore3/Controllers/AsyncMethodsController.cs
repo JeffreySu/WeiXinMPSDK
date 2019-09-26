@@ -8,6 +8,7 @@ using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.Helpers;

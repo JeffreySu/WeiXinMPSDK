@@ -25,6 +25,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using Senparc.CO2NET.Utilities;
     using Senparc.NeuChar;
     using Senparc.NeuChar.Entities;
+    using Senparc.Weixin.MP;
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MessageContexts;

@@ -13,6 +13,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using System.IO;
+using Senparc.Weixin.MP;
 //using Senparc.Weixin.MP.Sample.CommonService.Download;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
@@ -37,9 +38,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 //chm二维码
                 var qrCodeId = configHelper.GetQrCodeId();
-                var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
+                var qrResult = MP.AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
-                var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
+                var qrCodeUrl = MP.AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
                 ViewData["QrCodeUrl"] = qrCodeUrl;
 
                 ConfigHelper.CodeCollection[guid] = new CodeRecord()

@@ -30,6 +30,7 @@ using Senparc.CO2NET.HttpUtility;
 using System.Xml.Linq;
 using System.Threading;
 using Senparc.NeuChar.MessageHandlers;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="appId"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Callback(Entities.Request.PostModel postModel)
+        public ActionResult Callback(Senparc.Weixin.MP.Entities.Request.PostModel postModel)
         {
             //此处的URL格式类型为：http://sdk.weixin.senparc.com/Open/Callback/$APPID$， 在RouteConfig中进行了配置，你也可以用自己的格式，只要和开放平台设置的一致。
 

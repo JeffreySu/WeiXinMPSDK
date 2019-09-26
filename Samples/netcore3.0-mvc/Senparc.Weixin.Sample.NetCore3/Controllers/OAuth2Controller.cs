@@ -23,6 +23,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 using System.Text;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

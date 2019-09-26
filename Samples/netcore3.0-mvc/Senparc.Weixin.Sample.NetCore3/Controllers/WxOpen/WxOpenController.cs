@@ -18,6 +18,7 @@ using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {

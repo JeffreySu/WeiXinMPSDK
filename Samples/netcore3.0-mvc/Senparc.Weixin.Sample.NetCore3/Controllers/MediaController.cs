@@ -19,6 +19,7 @@ using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         public FileResult GetVoice(string mediaId)
         {
             MemoryStream ms = new MemoryStream();
-            AdvancedAPIs.MediaApi.Get(appId, mediaId, ms);
+            Senparc.Weixin.MP.AdvancedAPIs.MediaApi.Get(appId, mediaId, ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "audio/amr","voice.amr");
         }

@@ -35,12 +35,10 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.CoreSample.Models;
 using Senparc.Weixin.TenPay.V3;
 using ZXing;
 using ZXing.Common;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.CoreSample.Filters;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
@@ -48,6 +46,9 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Senparc.Weixin.Sample.NetCore3.Filters;
+using Senparc.Weixin.Sample.NetCore3.Models;
+using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -480,7 +481,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                     Senparc.Weixin.WeixinTrace.SendCustomLog("支付成功模板消息参数", appId + " , " + openId);
 
-                    var result = AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
+                    var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, templateData);
                 }
                 catch (Exception ex)
                 {

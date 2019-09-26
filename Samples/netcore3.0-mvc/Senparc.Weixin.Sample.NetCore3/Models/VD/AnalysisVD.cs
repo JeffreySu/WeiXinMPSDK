@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.CoreSample.Controllers;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Sample.NetCore3.Controllers;
 
 namespace Senparc.Weixin.Sample.NetCore3.Models.VD
 {

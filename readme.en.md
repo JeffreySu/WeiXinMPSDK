@@ -15,13 +15,19 @@ Senparc.Weixin —— Wechat .NET SDK
 
 By using Senparc.Weixin SDK, you can develop all wechat platform applications, including Official Account, Mini Programm, Mini Game,  Enterprise Account, Open Platform, Wechat Pay, JS-SDK, Wechat IoT/Bluetooth, etc. 
 
-Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
+Now, Senparc.Weixin has been supported almost all of the API for Wechat's all modules. It supports mutipule .Net targets [.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2 / .NET Core 3.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer).
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
 For more than six years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
+
+## Notice 
+> 🥇 .NET Core 3.0 [Senparc.Weixin SDK source code](/src) and [Demo](/Samples/netcore3.0-mvc) has been released!
+
+>  :trophy: 《[2018-2019 WeChat SDK Outstanding Contributors Shortlist](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》 has been published. Please check and register the information :smile:
+
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 
@@ -180,14 +186,14 @@ Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](h
 
 resources
 ----------------
-1. Senparc.Weixin SDK Official Site: http://weixin.senparc.com/
-2. Online Demo Site：http://sdk.weixin.senparc.com/
-3. Blog tutorial: http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
-4. WeChat technology exchange community: http://weixin.senparc.com/QA
-5. Online editing tool for Customize menu: http://sdk.weixin.senparc.com/Menu
-6.  Online test tool for Messages: http://sdk.weixin.senparc.com/SimulateTool
-7. Online test tool for Cache：http://sdk.weixin.senparc.com/Cache/Test
-8. chm documentation download：http://sdk.weixin.senparc.com/Document
+1. Senparc.Weixin SDK Official Site: https://weixin.senparc.com/
+2. Online Demo Site：https://sdk.weixin.senparc.com/
+3. Blog tutorial: https://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+4. WeChat technology exchange community: https://weixin.senparc.com/QA
+5. Online editing tool for Customize menu: https://sdk.weixin.senparc.com/Menu
+6.  Online test tool for Messages: https://sdk.weixin.senparc.com/SimulateTool
+7. Online test tool for Cache：https://sdk.weixin.senparc.com/Cache/Test
+8. chm documentation download：https://sdk.weixin.senparc.com/Document
 9. Source code and the latest updates
 : https://github.com/JeffreySu/WeiXinMPSDK
 10. WeChat development resources: https://github.com/JeffreySu/WeixinResource
@@ -223,7 +229,7 @@ donate: [Enter](http://sdk.weixin.senparc.com#donate)
 Senparc official tutorials
 ----------------
 
-<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" align="right">
+<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="400" align="right">
 
 
 > By Jeffrey Su and Senparc team took 2 years to complete the development of WeChat book have been published, the book's full name is: *Depth Analysis of WeChat Development: the efficient development of the Official Account and Mini Program*, the auxiliary reading system has been on the line: [BookHelper](http://book.weixin.senparc.com)。<br>

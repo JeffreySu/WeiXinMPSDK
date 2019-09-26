@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test
             WeixinException unkonwnException = null;
             try
             {
-                var response = MP.RequestMessageFactory.GetRequestEntity(xmlText);
+                var response = MP.RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), xmlText);
             }
             catch (WeixinException ex)
             {

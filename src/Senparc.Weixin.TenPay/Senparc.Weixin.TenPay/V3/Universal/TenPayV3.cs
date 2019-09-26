@@ -772,6 +772,7 @@ namespace Senparc.Weixin.TenPay.V3
 #endif
             int timeOut = Config.TIME_OUT)
         {
+            //文档：https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_3
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaymkttransfers/gettransferinfo");
 
             var data = dataInfo.PackageRequestHandler.ParseXML();

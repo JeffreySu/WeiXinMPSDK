@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.4.3',
+    motto: 'Senparc.Weixin SDK Demo v2019.8.19',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -17,7 +17,7 @@ Page({
 
   bindWebsocketTap: function(){
     wx.navigateTo({
-      url: '../websocket/websocket'
+      url: '../websocket_signalr/websocket_signalr'// 此页面对应 .net core demo，如果为 .net framework，请使用'../websocket_signalr/websocket'
     })
   },
 
@@ -246,9 +246,49 @@ Page({
       }
     })
   },
+  getRunData:function(){
+    wx.getWeRunData({
+      success(res) {
+        const encryptedData = res.encryptedData;
+
+        wx.request({
+          url: wx.getStorageSync('domainName') + '/WxOpen/DecryptRunData',
+          data: {
+            sessionId: wx.getStorageSync('sessionId'),
+            encryptedData: encryptedData,
+            iv: res.iv, 
+          },
+          method: 'POST',
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (runDataRes) {
+            if (runDataRes.data.success) {
+              wx.showModal({
+                title: '成功获得步数信息！',
+                content: JSON.stringify(runDataRes.data.runData),
+                showCancel: false
+              });
+            } else {
+              wx.showModal({
+                title: '获取步数信息失败！',
+                content: runDataRes.data.msg,
+                showCancel: false
+              });
+            }
+          }
+        });
+
+      }
+    })
+  },
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'
+    })
+  },
+  openQrCodePage:function(e){
+    var codeType = e.target.dataset.codetype;
+    wx.navigateTo({
+      url: '../QrCode/QrCode?codeType=' + codeType
     })
   },
   onLoad: function () {

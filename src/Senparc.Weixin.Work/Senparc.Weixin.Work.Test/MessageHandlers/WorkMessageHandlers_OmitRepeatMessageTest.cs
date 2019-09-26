@@ -27,11 +27,12 @@ using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.NeuChar.Context;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageContexts;
 using Senparc.Weixin.Work.MessageHandlers;
 
 namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : WorkMessageHandler<MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : WorkMessageHandler<DefaultWorkMessageContext>
     {
         public string RunStep { get; set; }
 

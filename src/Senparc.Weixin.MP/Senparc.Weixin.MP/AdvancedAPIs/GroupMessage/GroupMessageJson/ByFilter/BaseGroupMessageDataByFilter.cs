@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_TextData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByFilter_MediaId text { get; set; }
+        public GroupMessageByGroupId_Content text { get; set; }
     }
 
     public class GroupMessageByFilter_MpNewsData : BaseGroupMessageDataByFilter
@@ -116,6 +116,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_WxCardData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByFilter_MediaId wxcard { get; set; }
+        public GroupMessageByGroupId_WxCard wxcard { get; set; }
     }
 }

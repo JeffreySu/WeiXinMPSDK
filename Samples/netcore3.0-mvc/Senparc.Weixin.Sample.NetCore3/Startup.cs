@@ -33,6 +33,7 @@ using Senparc.CO2NET.Utilities;
 //using Senparc.Weixin.MP.CoreSample.WebSocket.Hubs;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -53,7 +54,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
            
             //如果部署在linux系统上，需要加上下面的配置：
-            services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加

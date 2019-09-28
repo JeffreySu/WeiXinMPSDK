@@ -50,7 +50,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP3_0
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;

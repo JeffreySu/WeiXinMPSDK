@@ -480,7 +480,9 @@
       v16.9.0
       1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
       2、QrCodeApi.Create() 参数说明更改
-      v16.9.101 提供 .Net Core 3.0 独立版本
+      v16.9.101
+      1、提供 .Net Core 3.0 独立版本
+      2、群发接口更新过期类型，使用 GroupMessageByFilter_MediaId
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

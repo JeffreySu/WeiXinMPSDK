@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0
+﻿#if NETSTANDARD2_0 || NETCOREAPP3_0
 using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.Exceptions;
 using System;

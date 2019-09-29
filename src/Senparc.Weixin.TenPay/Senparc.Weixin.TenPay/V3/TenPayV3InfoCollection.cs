@@ -48,7 +48,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP3_0
 using Microsoft.Extensions.DependencyInjection;
 #endif
 using Senparc.CO2NET;
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.TenPay.V3
             }
 
             //进行证书注册
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCOREAPP3_0
             try
             {
                 var service = SenparcDI.GlobalServiceCollection;

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>3.7.0</Version>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <Version>3.7.101</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -137,7 +137,7 @@
       1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
       v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-
+      v3.7.101 提供 .Net Core 3.0 独立版本
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -162,6 +162,11 @@
     <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -184,6 +189,14 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
+
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Folder Include="Properties\" />

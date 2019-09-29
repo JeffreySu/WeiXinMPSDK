@@ -93,6 +93,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190826
     修改描述：v16.7.15 优化 Register() 方法
 
+    修改标识：Senparc - 20190929
+    修改描述：v16.9.101 优化 Container 异步注册方法
 ----------------------------------------------------------------*/
 
 /* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */

@@ -483,6 +483,8 @@
       v16.9.101
       1、提供 .Net Core 3.0 独立版本
       2、群发接口更新过期类型，使用 GroupMessageByFilter_MediaId
+      3、优化 Container 异步注册方法
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

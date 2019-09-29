@@ -92,7 +92,9 @@
       1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
       v7.4.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-      v7.4.101 提供 .Net Core 3.0 独立版本
+      v7.4.101
+      1、提供 .Net Core 3.0 独立版本
+      2、修改 .NET Core 3.0 条件编译下 Request.EnableRewind() 方法为 Request.EnableBuffering()
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <PackageId>Senparc.Weixin.MP.MVC</PackageId>

@@ -101,6 +101,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //引入EnableRequestRewind中间件
+            app.UseEnableRequestRewind();
+
             //使用 SignalR
             //app.UseSignalR(routes =>
             //{

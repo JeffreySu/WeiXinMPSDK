@@ -50,7 +50,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();//使用Session
+            services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
             services.AddControllersWithViews()
                     .AddNewtonsoftJson()// 支持 NewtonsoftJson

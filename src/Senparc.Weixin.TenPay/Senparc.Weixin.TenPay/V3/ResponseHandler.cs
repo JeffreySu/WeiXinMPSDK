@@ -153,7 +153,7 @@ namespace Senparc.Weixin.TenPay.V3
 #else
             Parameters = new Hashtable();
 
-            //#if NETSTANDARD2_0
+            //#if NETSTANDARD2_0 || NETCOREAPP3_0
             //            HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
             //#else
             HttpContext = httpContext ?? CO2NET.SenparcDI.GetService<IHttpContextAccessor>()?.HttpContext;

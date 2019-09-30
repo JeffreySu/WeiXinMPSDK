@@ -53,7 +53,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.12.4 删除群发接口 GroupMessageApi.DeleteSendMessage() 添加article_idx参数
 
     修改标识：Senparc - 20180928
-    修改描述：增加GetSendSpeed,SetSendSpeed
+    修改描述：增加 GetSendSpeed,SetSendSpeed
+
+    修改标识：Senparc - 20190928
+    修改描述：v16.9.101 群发接口更新过期类型，使用 GroupMessageByFilter_MediaId
+
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -134,7 +139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_ImageData()
                         {
                             filter = filter,
-                            image = new GroupMessageByGroupId_MediaId()
+                            image = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -145,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_VoiceData()
                         {
                             filter = filter,
-                            voice = new GroupMessageByGroupId_MediaId()
+                            voice = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -156,7 +161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_MpNewsData()
                         {
                             filter = filter,
-                            mpnews = new GroupMessageByGroupId_MediaId()
+                            mpnews = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -167,7 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_MpVideoData()
                         {
                             filter = filter,
-                            mpvideo = new GroupMessageByGroupId_MediaId()
+                            mpvideo = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -701,7 +706,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_ImageData()
                         {
                             filter = filter,
-                            image = new GroupMessageByGroupId_MediaId()
+                            image = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -712,7 +717,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_VoiceData()
                         {
                             filter = filter,
-                            voice = new GroupMessageByGroupId_MediaId()
+                            voice = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -723,7 +728,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_MpNewsData()
                         {
                             filter = filter,
-                            mpnews = new GroupMessageByGroupId_MediaId()
+                            mpnews = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },
@@ -734,7 +739,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         baseData = new GroupMessageByFilter_MpVideoData()
                         {
                             filter = filter,
-                            mpvideo = new GroupMessageByGroupId_MediaId()
+                            mpvideo = new GroupMessageByFilter_MediaId()
                             {
                                 media_id = value
                             },

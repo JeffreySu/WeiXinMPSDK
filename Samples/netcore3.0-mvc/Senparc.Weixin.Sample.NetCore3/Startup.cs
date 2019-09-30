@@ -34,6 +34,7 @@ using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -49,16 +50,19 @@ namespace Senparc.Weixin.Sample.NetCore3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();//使用Session
+
             services.AddControllersWithViews()
                     .AddNewtonsoftJson()// 支持 NewtonsoftJson
                     .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
-           
+            // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
-            services.AddSession();//使用Session
 
             services.AddSignalR();//使用 SignalR
 
@@ -77,6 +81,10 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //引入EnableRequestRewind中间件
+            app.UseEnableRequestRewind();
+            app.UseSession();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,8 +97,8 @@ namespace Senparc.Weixin.Sample.NetCore3
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
+
 
             app.UseAuthorization();
 
@@ -101,10 +109,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSession();
 
-            //引入EnableRequestRewind中间件
-            app.UseEnableRequestRewind();
 
             //使用 SignalR
             //app.UseSignalR(routes =>

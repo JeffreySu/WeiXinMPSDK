@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Filters
             base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;//填写公众号AppId（适用于公众号、微信支付、JsApi等）
 
             //TODO:20190930测试
-            CO2NET.Trace.SenparcTrace.SendCustomLog("调试 10-1", base._appId + " | " + Config.SenparcWeixinSetting.TenPayV3_AppId);
+            CO2NET.Trace.SenparcTrace.SendCustomLog("调试 10-1", base._appId + " | " + Config.SenparcWeixinSetting?.TenPayV3_AppId);
 
         }
 

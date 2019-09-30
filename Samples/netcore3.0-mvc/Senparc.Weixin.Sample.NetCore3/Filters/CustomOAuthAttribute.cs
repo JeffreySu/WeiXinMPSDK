@@ -16,22 +16,22 @@ namespace Senparc.Weixin.Sample.NetCore3.Filters
             : base(appId, oauthCallbackUrl)
         {
             //如果是多租户，appId 可以传入 null，并且忽略下一行，使用 IsLogined() 方法中的动态赋值语句
+
             base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;//填写公众号AppId（适用于公众号、微信支付、JsApi等）
-
-            //TODO:20190930测试
-            CO2NET.Trace.SenparcTrace.SendCustomLog("调试 10-1", base._appId);
-            //CO2NET.Trace.SenparcTrace.SendCustomLog("调试 10-1", base._appId + " | " + Config.SenparcWeixinSetting?.TenPayV3_AppId);
-
         }
 
         public override bool IsLogined(HttpContext httpContext)
         {
             //如果是多租户，也可以这样写，通过 URL 参数来区分：
             //base._appId = httpContext.Request.Query["appId"].FirstOrDefault();//appId也可以是数据库存储的Id，避免暴露真实的AppId
-            CO2NET.Trace.SenparcTrace.SendCustomLog("调试 10-2", (httpContext.Session.GetString("OpenId") != null).ToString());
+
+
+            //.NET Core 3.0 中，Attribute 似乎会在系统初始化的时候进行第一次初始化（执行构造函数），而不是在第一次需要被访问到的时候。
+            //因此，构造函数中的 appId 等默认值未必可以有赋值（当时 其他对象都还没有值），这里为了确保 appId 有值，再次进行判断。
+            base._appId = base._appId ?? Config.SenparcWeixinSetting.TenPayV3_AppId;
 
             return httpContext != null && httpContext.Session.GetString("OpenId") != null;
-            //TODO:20190930测试
+
             //也可以使用其他方法如Session验证用户登录
             //return httpContext != null && httpContext.User.Identity.IsAuthenticated;
         }

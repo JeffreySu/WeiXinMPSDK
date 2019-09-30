@@ -35,6 +35,7 @@ using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -223,7 +224,6 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             #endregion
 
-            
             //开始注册微信信息，必须！
             register.UseSenparcWeixin(senparcWeixinSetting.Value, senparcSetting.Value)
                 //注意：上一行没有 ; 下面可接着写 .RegisterXX()
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                 //注册旧微信支付版本（V2）（可注册多个）
                 .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
-
+                
                 //注册最新微信支付版本（V3）（可注册多个）
                 .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 

@@ -13,7 +13,6 @@ using Senparc.CO2NET.MessageQueue;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Trace;
-using System.Web.Mvc;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
@@ -93,7 +92,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 DateTime = SystemTime.Now
             };
 
-            TestContainer1.Update(bagKey, bag,TimeSpan.FromHours(1));//更新到缓存（立即更新）
+            TestContainer1.Update(bagKey, bag, TimeSpan.FromHours(1));//更新到缓存（立即更新）
 
             itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
@@ -115,7 +114,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         #region 新方法
 
         [HttpPost]
-        public Task<IActionResult> RunTest()
+        public async Task<IActionResult> RunTest()
         {
             var sb = new StringBuilder();
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -124,6 +123,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
 
             var finalExisted = false;
+            var cacheExpire = TimeSpan.FromHours(1);
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
@@ -134,11 +134,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     Key = shortBagKey,
                     DateTime = SystemTime.Now
                 };
-                TestContainer1.Update(shortBagKey, bag, TimeSpan.FromHours(1)); //更新到缓存（立即更新）
+                //TestContainer1.Update(shortBagKey, bag, TimeSpan.FromHours(1)); //更新到缓存（立即更新）
+                await baseCacheStrategy.UpdateAsync(finalBagKey, bag, cacheExpire, true);
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
-
-
             }
+
+            return Content(sb.ToString());
+        }
 
         #endregion
 
@@ -164,7 +166,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     Key = shortBagKey,
                     DateTime = SystemTime.Now
                 };
-                TestContainer1.Update(shortBagKey, bag,TimeSpan.FromHours(1)); //更新到缓存（立即更新）
+                TestContainer1.Update(shortBagKey, bag, TimeSpan.FromHours(1)); //更新到缓存（立即更新）
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
 
                 Thread.Sleep(1);

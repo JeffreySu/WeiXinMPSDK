@@ -80,6 +80,10 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //引入EnableRequestRewind中间件
+            app.UseEnableRequestRewind();
+            app.UseSession();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -104,10 +108,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSession();
 
-            //引入EnableRequestRewind中间件
-            app.UseEnableRequestRewind();
 
             //使用 SignalR
             //app.UseSignalR(routes =>

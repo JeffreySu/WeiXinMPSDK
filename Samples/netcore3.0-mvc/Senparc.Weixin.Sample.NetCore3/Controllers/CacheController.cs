@@ -13,6 +13,8 @@ using Senparc.CO2NET.MessageQueue;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Trace;
+using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -109,8 +111,41 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return Content(sb.ToString(), "text/html; charset=utf-8");
         }
 
+
+        #region 新方法
+
         [HttpPost]
-        public ActionResult RunTest()
+        public Task<IActionResult> RunTest()
+        {
+            var sb = new StringBuilder();
+            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+            var baseCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
+            sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
+
+            var finalExisted = false;
+            for (int i = 0; i < 3; i++)
+            {
+                sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
+                var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss");
+                var finalBagKey = baseCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var bag = new TestContainerBag1()
+                {
+                    Key = shortBagKey,
+                    DateTime = SystemTime.Now
+                };
+                TestContainer1.Update(shortBagKey, bag, TimeSpan.FromHours(1)); //更新到缓存（立即更新）
+                sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
+
+
+            }
+
+        #endregion
+
+        #region 旧方法
+
+        [HttpPost]
+        public ActionResult RunTest_Old()
         {
             var sb = new StringBuilder();
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -185,5 +220,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //ViewData["Result"] = sb.ToString();
             //return View();
         }
+
+
+        #endregion
     }
 }

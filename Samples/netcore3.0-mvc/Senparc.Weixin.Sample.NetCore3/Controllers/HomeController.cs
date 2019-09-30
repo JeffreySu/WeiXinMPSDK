@@ -142,7 +142,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         public ActionResult TryGetAccessTokenTest()
         {
             Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
-            var result = AccessTokenContainer.TryGetAccessToken("YourAppId", "YourSecret", true);
+            var appId = Config.SenparcWeixinSetting.WeixinAppId;
+            var appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
+            var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
             Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
 
             return Content($"AccessToken: {result?.Substring(0, 10) }...");

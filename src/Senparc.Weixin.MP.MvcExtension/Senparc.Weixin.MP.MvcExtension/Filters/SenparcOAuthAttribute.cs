@@ -104,12 +104,6 @@ namespace Senparc.Weixin.MP.MvcExtension
         }
 #endif
 
-#if NET45
-
-#else
-
-#endif
-
 
 #if NET45
         public virtual void OnAuthorization(AuthorizationContext filterContext)

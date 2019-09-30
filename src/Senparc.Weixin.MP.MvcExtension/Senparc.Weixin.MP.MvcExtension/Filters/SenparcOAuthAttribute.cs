@@ -33,6 +33,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
+    /// <summary>
+    /// SenparcOAuthAttribute
+    /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1813:AvoidUnsealedAttributes",
             Justification = "Unsealed so that subclassed types can set properties in the default constructor or override our behavior.")]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
@@ -52,6 +55,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="oauthCallbackUrl">网站内路径（如：/TenpayV3/OAuthCallback），以/开头！当前页面地址会加在Url中的returlUrl=xx参数中</param>
+        /// <param name="oauthScope">默认为 OAuthScope.snsapi_userinfo</param>
         public SenparcOAuthAttribute(string appId, string oauthCallbackUrl, OAuthScope oauthScope = OAuthScope.snsapi_userinfo)
         {
             _appId = appId;

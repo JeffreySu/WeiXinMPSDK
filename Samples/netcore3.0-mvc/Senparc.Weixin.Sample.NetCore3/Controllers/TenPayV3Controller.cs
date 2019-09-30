@@ -128,7 +128,12 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     return Content("验证失败！请从正规途径进入！1001");
                 }
 
+                //测试 TenPayV3Info 内容
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("测试 TenPayV3Info 内容", TenPayV3Info.ToJson(true));
+
+
                 //通过，用code换取access_token
+
                 var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
                 if (openIdResult.errcode != ReturnCode.请求成功)
                 {

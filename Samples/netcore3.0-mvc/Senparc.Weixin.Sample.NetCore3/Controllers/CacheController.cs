@@ -192,7 +192,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     sb.Append($"----- 测试结果：{(testSuccess ? "成功" : "失败")}（总耗时：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms） -----<br /><br />");
 
                     sb.Append($"----- 检查缓存过期 -----<br />");
-                    await Task.Delay(cacheExpire.Add(TimeSpan.FromMilliseconds(500)));
+                    var sleepTime = cacheExpire.Add(TimeSpan.FromMilliseconds(500));
+                    sb.Append($"线程休眠：{sleepTime.TotalSeconds.ToString("f2")}s<br />");
+                    await Task.Delay(sleepTime);
                     cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
                     sb.Append($"----- 检查结果：{(cacheBag == null ? "成功" : "失败")} -----<br /><br />");
 

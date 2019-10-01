@@ -36,6 +36,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -111,12 +112,18 @@ namespace Senparc.Weixin.Sample.NetCore3
             });
 
 
-
-            //使用 SignalR
+            //使用 SignalR（.NET Core 2.x）
             //app.UseSignalR(routes =>
             //{
             //    routes.MapHub<SenparcHub>("/senparcHub");
             //});
+
+            //使用 SignalR（.NET Core 3.0）
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<SenparcHub>("/senparcHub");
+            });
+
             // 启动 CO2NET 全局注册，必须！
             IRegisterService register = RegisterService.Start(env, senparcSetting.Value)
                                                         //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs

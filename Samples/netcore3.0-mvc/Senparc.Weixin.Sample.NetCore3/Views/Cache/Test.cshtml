@@ -18,13 +18,16 @@
             width: 50%;
         }
 
-        .result h1 {
-            margin: 30px;
-            font-weight: bold;
-            font-size: 120%;
-        }
+            .result h1 {
+                margin: 30px;
+                font-weight: bold;
+                font-size: 120%;
+            }
 
-        #resultText { border: 1px solid #66cdaa; padding:10px;}
+        #resultText {
+            border: 1px solid #66cdaa;
+            padding: 10px;
+        }
 
         .description {
             float: left;
@@ -32,18 +35,28 @@
             padding: 40px 0;
         }
 
-        .description h1 {
-            font-weight: bold;
-            font-size: 120%;
-            padding-bottom: 30px;
-        }
+            .description h1 {
+                font-weight: bold;
+                font-size: 120%;
+                padding-bottom: 30px;
+            }
 
-        .description ol, .description li { list-style: decimal; }
+            .description ol, .description li {
+                list-style: decimal;
+            }
 
-        .description ol { padding-left: 25px; }
-        .description li {
-            line-height: 200%;
-            font-size: 120%;
+            .description ol {
+                padding-left: 25px;
+            }
+
+            .description li {
+                line-height: 200%;
+                font-size: 120%;
+            }
+
+        #cacheNote a {
+            color: darkcyan;
+           text-decoration-line:underline;
         }
     </style>
     <script>
@@ -56,16 +69,16 @@
 }
 <div class="wrapper">
     <h2>缓存测试</h2>
-    <div class="description">
-        <h1>Senparc.Weixin 缓存队列原理</h1>
+    <div class="description" id="cacheNote">
+        <h1>CO2NET.Cache 及 Weixin.Cache 缓存测试过程</h1>
         <p>
             <ol>
-                <li>微信的AccessToken等数据都使用各类Container进行管理；</li>
-                <li>每个Container都有一个强制约束的ContainerBag，本地缓存信息；</li>
-                <li>ContainerBag中的属性被修改时，会将需要对当前对象操作的过程放入消息队列（SenparcMessageQueue）；</li>
-                <li>每个消息队列中的对象都带有一个委托类型属性，其动作通常是通过缓存策略（实现自IContainerCacheStrategy，可以是本地缓存或分布式缓存）更新缓存；</li>
-                <li>一个独立的线程会对消息队列进行读取，依次执行队列成员的委托，直到完成当前所有队列的缓存更新操作；</li>
-                <li>上一个步骤重复进行，每次执行完默认等待2秒。此方案可以有效避免同一个ContainerBag对象属性被连续更新的情况下，每次都和缓存服务通讯而产生消耗。</li>
+                <li>使用分布式缓存及本地缓存进行多重全面测试；</li>
+                <li>交换使用缓存策略及 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）进行测试，以全面测试 CO2NET.Cache 和 Weixin.Cache 的可用性以及性能；</li>
+                <li>进行写入测试，不设置缓存过期时间，并检测结果；</li>
+                <li>使用 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）进行写入测试，并设置缓存过期时间，通过底层缓存策略及 ContainerCache（<a href="https://v.qq.com/x/page/a0917lmkono.html" target="_blank">领域缓存</a>）分别获取同一个缓存对象，检测其一致性；</li>
+                <li>进行自动等待后，检查过期缓存数据是否已被自动清除；</li>
+                <li>进行删除测试，对新写入的数据进行删除，并检查结果。</li>
             </ol>
         </p>
     </div>

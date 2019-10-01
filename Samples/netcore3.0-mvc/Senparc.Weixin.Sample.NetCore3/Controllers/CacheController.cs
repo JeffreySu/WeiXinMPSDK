@@ -141,7 +141,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     var containerCache = cacheSet.Value;
                     sb.AppendFormat($"====  开始指定调用缓存策略：{baseCache.GetType().Name} ====<br /><br />");
 
-                    sb.Append($"----- 测试写入（先异步后头弄不） -----<br />");
+                    sb.Append($"----- 测试写入（先异步后同步） -----<br />");
                     var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "." + cacheExpire.GetHashCode();//创建不重复的Key
                     var finalBagKey = baseCache.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                     var bag = new TestContainerBag1()

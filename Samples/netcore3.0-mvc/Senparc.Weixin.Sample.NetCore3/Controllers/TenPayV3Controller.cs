@@ -127,7 +127,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     //实际上可以存任何想传递的数据，比如用户ID
                     return Content("验证失败！请从正规途径进入！1001");
                 }
-
+               
                 //通过，用code换取access_token
                 var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
                 if (openIdResult.errcode != ReturnCode.请求成功)

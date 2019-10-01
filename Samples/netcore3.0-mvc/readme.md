@@ -1,11 +1,11 @@
 # Senparc.Weixin.Sample.NetCore3 项目说明
 
+> 推荐您使用当前 Sample。如果您使用的是 Visual Studio，
+请升级到 VS 2019 v16.3 以上，并安装 [.NET Core 3.0 SDK](https://docs.microsoft.com/zh-cn/aspnet/core/getting-started/?view=aspnetcore-3.0&tabs=windows&WT.mc_id=DT-MVP-5002965)。
+
 当前 Sample 提供了 .NET Core 3.0 的 Mvc 项目示例，可以直接进行部署测试（高级功能测试需要修改配置文件，如修改 appId 等）。
 
 当前 Sample 也可用于调试 Senparc.Weixin SDK，支持 .NET 4.5、.NET Standard 2.0、.NET Core 3.0 的不同版本库编译，并可在 Release 编译条件下生成 nuget 包。
-
-> 推荐您使用当前 Sample。如果您使用的是 Visual Studio，
-请升级到 VS 2019 v16.3 以上，并安装 [.NET Core 3.0 SDK](https://docs.microsoft.com/zh-cn/aspnet/core/getting-started/?view=aspnetcore-3.0&tabs=windows&WT.mc_id=DT-MVP-5002965)。
 
 ## 使用 .NET Core 2.2 Demo
 

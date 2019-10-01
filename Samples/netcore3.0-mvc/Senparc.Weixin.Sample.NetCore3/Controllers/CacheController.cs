@@ -117,10 +117,59 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         public async Task<IActionResult> RunTest()
         {
             var sb = new StringBuilder();
-            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
-            var baseCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
-            sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
+            var currentSystemCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
+            sb.AppendFormat($"当前缓存策略：{containerCacheStrategy.GetType().Name}<br /><br />");
+
+            var caches = new IBaseObjectCacheStrategy[] {
+                RedisObjectCacheStrategy.Instance,
+                LocalObjectCacheStrategy.Instance
+            };
+
+
+
+            foreach (var cache in caches)
+            {
+                sb.AppendFormat($"=====  开始直接调用缓存策略：{cache.GetType().Name} =====<<br />");
+
+                var cacheExpire = TimeSpan.FromSeconds(1);
+                sb.Append($"===== 测试写入 =====<br />");
+                var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "." + cacheExpire.GetHashCode();//创建不重复的Key
+                var finalBagKey = cache.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var bag = new TestContainerBag1()
+                {
+                    Key = shortBagKey,
+                    DateTime = SystemTime.Now
+                };
+                var dt1 = SystemTime.Now;
+                await cache.UpdateAsync(finalBagKey, bag, cacheExpire, true);
+                sb.Append($"===== 写入完成（{SystemTime.NowDiff(dt1).TotalMilliseconds} ms） =====<br /><br />");
+
+                sb.Append($"===== 检查缓存读取 =====<br />");
+                dt1 = SystemTime.Now;
+                var cacheBag = await cache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                var testSuccess = cacheBag != null && cacheBag.DateTime == bag.DateTime && bag.Key == shortBagKey;
+                sb.Append($"===== 检查结果：{(testSuccess ? "成功" : "失败")}（{SystemTime.NowDiff(dt1).TotalMilliseconds} ms） =====<br /><br />");
+
+                sb.Append($"===== 检查缓存过期 =====<br />");
+                await Task.Delay(1000);
+                cacheBag = await cache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                sb.Append($"===== 检查结果：{(cacheBag == null ? "成功" : "失败")} =====<br /><br />");
+
+                sb.Append($"===== 检查缓存删除 =====<br />");
+                await cache.UpdateAsync(finalBagKey, bag, cacheExpire, true);
+                cacheBag = await cache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                testSuccess = cacheBag != null;
+                sb.Append($"===== 写入待删除项目：{(cacheBag == null ? "成功" : "失败")} =====<br />");
+
+
+            }
+
+
+
+
+
 
             var finalExisted = false;
             var cacheExpire = TimeSpan.FromHours(1);
@@ -128,14 +177,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss");
-                var finalBagKey = baseCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var finalBagKey = currentSystemCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,
                     DateTime = SystemTime.Now
                 };
                 //TestContainer1.Update(shortBagKey, bag, TimeSpan.FromHours(1)); //更新到缓存（立即更新）
-                await baseCacheStrategy.UpdateAsync(finalBagKey, bag, cacheExpire, true);
+                await currentSystemCacheStrategy.UpdateAsync(finalBagKey, bag, cacheExpire, true);
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
             }
 

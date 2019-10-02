@@ -72,7 +72,8 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 EncodingAESKey = senparcWeixinSetting.EncodingAESKey,
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
-                Nonce = context.Request.Query["nonce"]
+                Nonce = context.Request.Query["nonce"],
+                Msg_Signature =  context.Request.Query["msg_signature"]
             };
 
             string echostr = context.Request.Query["echostr"];

@@ -147,13 +147,13 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                     {
                         var finalResponseDocument = messageHandlerDocument.FinalResponseDocument;
 
-                        if (finalResponseDocument == null)
+                        if (finalResponseDocument != null)
                         {
-                            //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
+                            returnResult = finalResponseDocument.ToString()?.Replace("\r\n", "\n");
                         }
                         else
                         {
-                            returnResult = finalResponseDocument.ToString().Replace("\r\n", "\n");
+                            //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
                         }
                     }
                 }

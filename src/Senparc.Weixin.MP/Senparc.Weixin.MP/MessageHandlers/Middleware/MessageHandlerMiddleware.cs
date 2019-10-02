@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 else
                 {
                     string signature = context.Request.IsLocal()
-                        ? $"提供签名：{postModel.Signature} vs 正确签名：{CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token)}"
+                        ? $"提供签名：{postModel.Signature}<br />正确签名：{CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token)}"
                         : "非本地访问，无法显示签名信息，请在服务器本机查看！";
 
                     await context.Response.WriteAsync($@"服务器 token 签名校验失败！<br>
@@ -130,11 +130,17 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 #endregion
 
-                messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
+                if (_options.EnableRequestLog)
+                {
+                    messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
+                }
 
                 await messageHandler.ExecuteAsync(cancellationToken); //执行微信处理过程（关键）
 
-                messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
+                if (_options.EnbleResponseLog)
+                {
+                    messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
+                }
 
                 string returnResult = null;
                 //使用IMessageHandler输出
@@ -161,8 +167,9 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 {
                     throw new Senparc.Weixin.Exceptions.WeixinException("执行 WeixinResult 时提供的 MessageHandler 不能为 Null！", null);
                 }
-                context.Response.ContentType = "text/xml;charset=utf-8";
                 returnResult = returnResult ?? "";
+
+                context.Response.ContentType = "text/xml;charset=utf-8";
                 await context.Response.WriteAsync(returnResult);
             }
 

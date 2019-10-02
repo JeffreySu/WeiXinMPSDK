@@ -35,6 +35,7 @@ using Senparc.NeuChar.Helpers;
 using Senparc.WeixinTests;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
+using System.Threading.Tasks;
 
 //TODO:分布式向下文升级，部分方法需要修改后重启测试  —— Jeffrey 2019.9.15
 
@@ -55,6 +56,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
+            Console.WriteLine("OnTextRequest");
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
@@ -80,7 +82,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                     responseMessage.Content = "文字信息";
                     return responseMessage;
                 });
-
             return requestHandler.ResponseMessage;
         }
 
@@ -357,7 +358,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void EcryptMessageRequestTest()
+        public async Task EcryptMessageRequestTest()
         {
             //兼容模式测试
             var ecryptXml = @"<xml>
@@ -381,6 +382,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 AppId = "wx669ef95216eef885"
             };
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            messageHandlers.OmitRepeatedMessage = false;//不去重
+
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
@@ -403,6 +407,15 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
             Assert.IsTrue(messageHandlers.UsingEcryptMessage);
             Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
+
+            Console.WriteLine("RequestMessage:");
+            Console.WriteLine(messageHandlers.RequestMessage.ToJson(true));
+
+            await messageHandlers.ExecuteAsync(new CancellationToken());
+
+            Console.WriteLine("ResponseMessage:");
+            Console.WriteLine(messageHandlers.ResponseMessage.ToJson(true));
+
         }
 
         [TestMethod]

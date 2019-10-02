@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
                  * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
-                messageHandler.OmitRepeatedMessage = true;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
+                messageHandler.OmitRepeatedMessage = _options.OmitRepeatedMessage;//默认已经开启，此处仅作为演示，也可以设置为false在本次请求中停用此功能
 
                 #endregion
 

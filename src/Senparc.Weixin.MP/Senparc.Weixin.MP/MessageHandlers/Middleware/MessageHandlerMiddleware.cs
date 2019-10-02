@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -17,22 +18,42 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 {
+    /// <summary>
+    /// MessageHandler 中间件
+    /// </summary>
+    /// <typeparam name="TMC"></typeparam>
     public class MessageHandlerMiddleware<TMC>
         where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         private readonly RequestDelegate _next;
         private readonly Func<Stream, PostModel, int, MessageHandler<TMC>> _messageHandler;
-        private readonly ISenparcWeixinSettingForMP _senparcWeixinSetting;
+        private readonly Func<HttpContext, ISenparcWeixinSettingForMP> _senparcWeixinSettingFunc;
+        private readonly MessageHandlerMiddlewareOptions _options;
 
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public MessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler, ISenparcWeixinSettingForMP senparcWeixinSetting)
+        public MessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions> options)
         {
             _next = next;
             _messageHandler = messageHandler;
-            _senparcWeixinSetting = senparcWeixinSetting;
+
+            if (options == null)
+            {
+                throw new MessageHandlerException($"{nameof(options)} 参数必须提供！");
+            }
+
+            _options = new MessageHandlerMiddlewareOptions();
+            options(_options);
+
+            if (_options.SenparcWeixinSetting == null)
+            {
+                throw new MessageHandlerException($"{nameof(options)} 中必须对 SenparcWeixinSetting 进行配置！");
+            }
+
+            _senparcWeixinSettingFunc = _options.SenparcWeixinSetting;
         }
 
         /// <summary>
@@ -42,17 +63,20 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
+            var senparcWeixinSetting = _senparcWeixinSettingFunc(context);
             PostModel postModel = new PostModel()
             {
-                Token = _senparcWeixinSetting.Token,
-                AppId = _senparcWeixinSetting.WeixinAppId,
-                EncodingAESKey = _senparcWeixinSetting.EncodingAESKey,
+                Token = senparcWeixinSetting.Token,
+                AppId = senparcWeixinSetting.WeixinAppId,
+                EncodingAESKey = senparcWeixinSetting.EncodingAESKey,
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"]
             };
+
             string echostr = context.Request.Query["echostr"];
 
+            // GET 验证
             if (context.Request.Method.ToUpper() == "GET")
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
@@ -76,11 +100,12 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                     //TODO:给文档链接
                 }
             }
+            // POST 消息请求
             else if (context.Request.Method.ToUpper() == "POST")
             {
-                context.Response.ContentType = "text/plain;charset=utf-8";
                 if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
                 {
+                    context.Response.ContentType = "text/plain;charset=utf-8";
                     await context.Response.WriteAsync("签名校验失败！");
                     return;
                 }
@@ -151,12 +176,22 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
     public static class MessageHandlerMiddlewareExtension
     {
-        public static IApplicationBuilder UseMessageHandler<TMC>(this IApplicationBuilder builder, PathString pathMatch, Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler, ISenparcWeixinSettingForMP senparcWeixinSetting)
+        /// <summary>
+        /// 使用 MessageHandler 配置。注意：会默认使用异步方法 messageHandler.ExecuteAsync()。
+        /// </summary>
+        /// <typeparam name="TMC">上下文消息类型</typeparam>
+        /// <param name="builder"></param>
+        /// <param name="pathMatch">路径规则（路径开头，可带参数）</param>
+        /// <param name="messageHandler"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseMessageHandler<TMC>(this IApplicationBuilder builder, PathString pathMatch,
+            Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler, Action<MessageHandlerMiddlewareOptions> options)
             where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
             return builder.Map(pathMatch, app =>
         {
-            builder.UseMiddleware<MessageHandlerMiddleware<TMC>>(messageHandler, senparcWeixinSetting);
+            builder.UseMiddleware<MessageHandlerMiddleware<TMC>>(messageHandler, options);
         });
         }
     }

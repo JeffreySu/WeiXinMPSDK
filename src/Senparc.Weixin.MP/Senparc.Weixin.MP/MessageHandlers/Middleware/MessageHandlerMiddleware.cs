@@ -137,19 +137,15 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 
                 string returnResult = null;
-                if (_messageHandler is IMessageHandlerDocument messageHandlerDocument && messageHandlerDocument.TextResponseMessage != null)
+                //使用IMessageHandler输出
+                if (_messageHandler is IMessageHandlerDocument messageHandlerDocument)
                 {
-                    returnResult = messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    //先从 messageHandlerDocument.TextResponseMessage 中取值
+                    returnResult = messageHandlerDocument.TextResponseMessage?.Replace("\r\n", "\n");
 
                     if (returnResult == null)
                     {
-                        //使用IMessageHandler输出
-                        if (messageHandlerDocument == null)
-                        {
-                            throw new Senparc.Weixin.Exceptions.WeixinException("执行 WeixinResult 时提供的 MessageHandler 不能为 Null！", null);
-                        }
                         var finalResponseDocument = messageHandlerDocument.FinalResponseDocument;
-
 
                         if (finalResponseDocument == null)
                         {
@@ -160,8 +156,10 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                             returnResult = finalResponseDocument.ToString().Replace("\r\n", "\n");
                         }
                     }
-
-
+                }
+                else
+                {
+                    throw new Senparc.Weixin.Exceptions.WeixinException("执行 WeixinResult 时提供的 MessageHandler 不能为 Null！", null);
                 }
                 context.Response.ContentType = "text/xml;charset=utf-8";
                 returnResult = returnResult ?? "";

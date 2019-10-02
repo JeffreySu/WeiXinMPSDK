@@ -33,7 +33,6 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 #endif
 
-
         /// <summary>
         /// 注册领域缓存
         /// </summary>

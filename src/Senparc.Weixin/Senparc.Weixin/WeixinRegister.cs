@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
               可设置是否全局扫描扩展缓存（扫描会增加系统启动时间）
     修改描述：v5.0.10 UseSenparcWeixin() 添加 SenparcSetting 参数
 
+    修改标识：Senparc - 20191002
+    修改描述：v6.6.102 添加 UseSenparcWeixin() 新方法
+
 ----------------------------------------------------------------*/
 
 #if NETSTANDARD2_0 || NETCOREAPP3_0
@@ -81,7 +84,7 @@ namespace Senparc.Weixin
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null)
         {
             senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
-            senparcSetting = senparcSetting ?? new SenparcSetting();
+            senparcSetting = (senparcSetting ?? CO2NET.Config.SenparcSetting) ?? new SenparcSetting();
 
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.SenparcWeixinSetting = senparcWeixinSetting;
@@ -155,5 +158,24 @@ namespace Senparc.Weixin
 
             return registerService;
         }
+
+
+        #region v6.6.102+ 新方法 
+
+        /// <summary>
+        /// 开始 Senparc.Weixin SDK 初始化参数流程
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="senparcWeixinSetting"></param>
+        /// <param name="registerConfigure"></param>
+        /// <returns></returns>
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> registerConfigure)
+        {
+            var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
+            registerConfigure?.Invoke(register);
+            return register;
+        }
+
+        #endregion
     }
 }

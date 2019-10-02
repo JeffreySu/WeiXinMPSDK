@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"],
-                Msg_Signature =  context.Request.Query["msg_signature"]
+                Msg_Signature =  context.Request.Query["msg_signature"],
             };
 
             string echostr = context.Request.Query["echostr"];

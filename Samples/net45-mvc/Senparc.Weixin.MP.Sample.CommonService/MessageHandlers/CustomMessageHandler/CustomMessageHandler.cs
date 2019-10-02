@@ -10,6 +10,9 @@
     修改标识：Senparc - 20171027
     修改描述：v14.8.3 添加OnUnknownTypeRequest()方法Demo
 
+    修改标识：Senparc - 20191002
+    修改描述：v16.9.102 提供 MessageHandler 中间件
+
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
@@ -80,8 +83,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
+        /// 注意：这里只做测试，只适用于单服务器
         /// </summary>
         public static Dictionary<string, string> TemplateMessageCollection = new Dictionary<string, string>();
+
+        /// <summary>
+        /// 为中间件提供生成当前类的委托
+        /// </summary>
+        public static Func<Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount) => new CustomMessageHandler(stream, postModel, maxRecordCount);
 
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)

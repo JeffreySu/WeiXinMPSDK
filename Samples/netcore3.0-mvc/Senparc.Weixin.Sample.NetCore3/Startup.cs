@@ -36,6 +36,9 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.MP.MessageHandlers.Middleware;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System.Text;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -82,6 +85,8 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             //引入EnableRequestRewind中间件
             app.UseEnableRequestRewind();
             app.UseSession();
@@ -100,7 +105,6 @@ namespace Senparc.Weixin.Sample.NetCore3
             app.UseStaticFiles();
             app.UseRouting();
 
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -116,7 +120,11 @@ namespace Senparc.Weixin.Sample.NetCore3
             {
                 endpoints.MapHub<SenparcHub>("/senparcHub");
             });                                                                                  // DPBMARK_END
-           
+
+            //TODO:可以自定义Value
+            //使用公众号的 MessageHandler 中间件                               -- DPBMARK MP
+            app.UseMessageHandler("/Weixin2", CustomMessageHandler.GenerateMessageHandler, senparcWeixinSetting.Value);// DPBMARK_END
+
             // 启动 CO2NET 全局注册，必须！
 
             //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
@@ -193,14 +201,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 },
 
-                #region 扫描自定义扩展缓存
+            #region 扫描自定义扩展缓存
 
                     //自动扫描自定义扩展缓存（二选一）
                     autoScanExtensionCacheStrategies: true //默认为 true，可以不传入
                                                            //指定自定义扩展缓存（二选一）
                                                            //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
 
-                #endregion
+            #endregion
 
                 )
                 //使用 Senparc.Weixin SDK
@@ -233,7 +241,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #region 注册公众号或小程序（按需）
 
-                    //注册公众号（可注册多个）                                                -- DPBMARK MP
+                    //注册公众号（可注册多个）                                                    -- DPBMARK MP
                     register
                         .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
 

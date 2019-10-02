@@ -113,6 +113,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 var cancellationToken = new CancellationToken();//给异步方法使用
 
+                
                 var messageHandler = _messageHandler(context.Request.GetRequestMemoryStream(), postModel, _options.MaxRecordCount);
 
 

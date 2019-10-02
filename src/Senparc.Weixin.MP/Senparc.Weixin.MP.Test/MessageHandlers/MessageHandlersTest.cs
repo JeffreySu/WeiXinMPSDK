@@ -358,7 +358,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public async Task EcryptMessageRequestTest()
+        public void CompatibilityModelEcryptMessageRequestTest()
         {
             //兼容模式测试
             var ecryptXml = @"<xml>
@@ -382,8 +382,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 AppId = "wx669ef95216eef885"
             };
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
-            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-            messageHandlers.OmitRepeatedMessage = false;//不去重
 
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
@@ -394,12 +392,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
 
 
-            //安全模式测试
-            ecryptXml = @"<xml>
+
+        }
+
+        [TestMethod]
+        public async Task PureEcryptMessageRequestTest()
+        {
+            //纯安全模式测试
+            var ecryptXml = @"<xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
 </xml>";
-            messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "ae70d4e343d946fc0477a5c760b95be0947fddbb",
+                Timestamp = "1414387151",
+                Nonce = "917222494",
+
+                Token = "weixin",
+                EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",
+                AppId = "wx669ef95216eef885"
+            };
+
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            messageHandlers.OmitRepeatedMessage = false;//不去重
+
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);

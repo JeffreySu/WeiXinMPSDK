@@ -201,9 +201,9 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
             where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
             return builder.Map(pathMatch, app =>
-        {
-            builder.UseMiddleware<MessageHandlerMiddleware<TMC>>(messageHandler, options);
-        });
+                    {
+                        app.UseMiddleware<MessageHandlerMiddleware<TMC>>(messageHandler, options);
+                    });
         }
     }
 }

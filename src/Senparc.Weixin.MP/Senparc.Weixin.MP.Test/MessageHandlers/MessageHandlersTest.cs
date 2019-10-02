@@ -399,15 +399,17 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public async Task PureEcryptMessageRequestTest()
         {
             //纯安全模式测试
-            var ecryptXml = @"<xml>
+            var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-    <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
-</xml>";
+    <Encrypt><![CDATA[LasT9+F3u/TTDVh3wUdOXtaMF/uJe8kKvvzZ54avW/DU8pSuJFy815e2rAFBz8bHNK+271sLFLbwBLHr2BOAHS32irOMt8Pwza4tm6TU+C6zWS00SLeF1RPTCd2EyGawFu9jlYHkjxc9kX5PovDI6FoiPs3LcVU2kpu2wE/cdqHsVvt583C8ynagjq3DAh62B8E1Uz9I7lM56J6siW+m82OPFaRJfRSWO6pLuGj8LnBJp0sUah27jJ4COSYuc6VQaf/LaO2K5zDgXklDmDxw/6rQeY1gJLIRuoKLEVUOLaJN3UYTgEjJmAMd1vHbEF12Ex6YYxVRW280IWlLDixgLsvpBkrSUoqXAFmQfNcRJZf3Yr/MSGlpsoUVRfNP7iJ70OtzVU3lbKcMmnn5FbB0EHNzJJSBVM/XPLr9VD9Ac+g=]]></Encrypt>
+</xml>
+";
             var postModel = new PostModel()
             {
-                Msg_Signature = "ae70d4e343d946fc0477a5c760b95be0947fddbb",
-                Timestamp = "1414387151",
-                Nonce = "917222494",
+                Msg_Signature = "20f4a1263d198b696e6958e0d65e928aa68f7d96",
+                Timestamp = "1570032739",
+                Nonce = "2068872452",
 
                 Token = "weixin",
                 EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",

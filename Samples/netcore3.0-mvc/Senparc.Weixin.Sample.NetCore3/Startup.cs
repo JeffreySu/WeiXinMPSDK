@@ -64,6 +64,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            //如果部署在IIS上，需要加上下面的配置：
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加

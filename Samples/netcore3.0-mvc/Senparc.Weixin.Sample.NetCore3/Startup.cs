@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             {
                 endpoints.MapHub<SenparcHub>("/senparcHub");
             });                                                                                  // DPBMARK_END
-
+           
             // 启动 CO2NET 全局注册，必须！
 
             //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs

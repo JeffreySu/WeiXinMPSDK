@@ -146,7 +146,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 return Content(ex.ToString());
             }
-
         }
 
         //需要OAuth登录

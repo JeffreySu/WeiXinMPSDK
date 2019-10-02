@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180122
    
+    
+    修改标识：Senparc - 20191003
+    修改描述：优化 DefaultAsyncMethod 
+    
 ----------------------------------------------------------------*/
 
 
@@ -67,9 +71,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
         {
-            return (base.DefaultMessageHandlerAsyncEvent == DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
-                            ? await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false)
-                            : await Task.Run(syncMethod).ConfigureAwait(false));
+            switch (base.DefaultMessageHandlerAsyncEvent)
+            {
+                case DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync:
+                    //返回默认信息
+                    return await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false);
+                case DefaultMessageHandlerAsyncEvent.SelfSynicMethod:
+                    //返回同步信息
+                    return await Task.Run(syncMethod).ConfigureAwait(false);
+                default:
+                    throw new MessageHandlerException($"DefaultMessageHandlerAsyncEvent 类型未作处理：{base.DefaultMessageHandlerAsyncEvent.ToString()}");
+            }
         }
 
         /// <summary>
@@ -132,8 +144,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case RequestMsgType.Event:
                     {
                         var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                            await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false) ??
+                        ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
+                                            await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false)) ??
                                                 (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
                     }
                     break;

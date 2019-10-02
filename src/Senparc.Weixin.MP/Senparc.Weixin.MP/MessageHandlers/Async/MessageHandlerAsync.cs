@@ -124,6 +124,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Unknown:
+                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessageDocument：" + ResponseDocument.ToString());
+                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessage：" + RequestMessage?.ToJson(true));
+
                     ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Event:

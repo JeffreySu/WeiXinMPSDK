@@ -32,9 +32,14 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         public DefaultMessageHandlerAsyncEvent DefaultMessageHandlerAsyncEvent { get; set; } = DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync;
 
         /// <summary>
-        /// 上下文最大纪录数量
+        /// 上下文最大纪录数量（默认为 10)
         /// </summary>
         public int MaxRecordCount { get; set; } = 10;
+
+        /// <summary>
+        /// 是否去重（默认为 true）
+        /// </summary>
+        public bool OmitRepeatedMessage { get; set; } = true;
 
         /// <summary>
         /// 公众号的 SenparcWeixinSetting 信息

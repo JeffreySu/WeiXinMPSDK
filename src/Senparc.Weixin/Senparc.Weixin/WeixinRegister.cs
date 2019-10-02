@@ -171,8 +171,10 @@ namespace Senparc.Weixin
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> registerConfigure)
         {
+            //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，
+            //需要在 registerService.UseSenparcWeixin() 自动加载 Redis 之前完成，因此必须在 registerService.UseSenparcWeixin() 之前执行。
+            registerConfigure?.Invoke(registerService);
             var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
-            registerConfigure?.Invoke(register);
             return register;
         }
 

@@ -215,7 +215,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     //注册开始
 
-                    #region 微信缓存（按需，必须在 register.UseSenparcWeixin() 之前）
+                    #region 微信缓存（按需，必须放在配置开头，以确保其他可能依赖到缓存的注册过程使用正确的配置）
 
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
                     if (UseRedis(senparcSetting.Value, out _))
@@ -228,7 +228,6 @@ namespace Senparc.Weixin.Sample.NetCore3
                     {
                         app.UseSenparcWeixinCacheMemcached();
                     }                                                                                      // DPBMARK_END
-
 
                     #endregion
 

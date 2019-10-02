@@ -146,7 +146,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 string returnResult = null;
                 //使用IMessageHandler输出
-                if (_messageHandler is IMessageHandlerDocument messageHandlerDocument)
+                if (messageHandler is IMessageHandlerDocument messageHandlerDocument)
                 {
                     //先从 messageHandlerDocument.TextResponseMessage 中取值
                     returnResult = messageHandlerDocument.TextResponseMessage?.Replace("\r\n", "\n");
@@ -169,6 +169,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 {
                     throw new Senparc.Weixin.Exceptions.WeixinException("执行 WeixinResult 时提供的 MessageHandler 不能为 Null！", null);
                 }
+
                 returnResult = returnResult ?? "";
 
                 SenparcTrace.SendCustomLog("MessageHandler 中间件返回消息", returnResult);

@@ -1,6 +1,7 @@
 ﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 
 using Microsoft.AspNetCore.Http;
+using Senparc.NeuChar.MessageHandlers;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,21 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// 启用 RequestMessage 的日志记录
         /// </summary>
         public bool EnableRequestLog { get; set; } = true;
+
         /// <summary>
         /// 启用 ResponseMessage 的日志记录
         /// </summary>
         public bool EnbleResponseLog { get; set; } = true;
+
+        /// <summary>
+        /// 在没有 override 的情况下，MessageHandler 事件异步方法的默认调用方法
+        /// </summary>
+        public DefaultMessageHandlerAsyncEvent DefaultMessageHandlerAsyncEvent { get; set; } = DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync;
+
+        /// <summary>
+        /// 上下文最大纪录数量
+        /// </summary>
+        public int MaxRecordCount { get; set; } = 10;
 
         /// <summary>
         /// 公众号的 SenparcWeixinSetting 信息

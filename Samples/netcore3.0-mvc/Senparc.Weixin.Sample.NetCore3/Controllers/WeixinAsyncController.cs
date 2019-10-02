@@ -119,32 +119,5 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             return new FixWeixinBugWeixinResult(messageHandler);
         }
-
-        /// <summary>
-        /// 为测试并发性能而建
-        /// </summary>
-        /// <returns></returns>
-        public Task<ActionResult> ForTest()
-        {
-            //异步并发测试（提供给单元测试使用）
-            return Task.Factory.StartNew<ActionResult>(() =>
-            {
-                var begin = SystemTime.Now;
-                int t1, t2, t3;
-                System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
-                System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.1));
-                var end = SystemTime.Now;
-                var thread = System.Threading.Thread.CurrentThread;
-                var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
-                    thread.ManagedThreadId,
-                    HttpContext.GetHashCode(),
-                    begin,
-                    end,
-                    t2 - t1
-                    );
-                return Content(result);
-            });
-        }
     }
 }

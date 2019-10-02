@@ -85,6 +85,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //启用 GB2312
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //引入EnableRequestRewind中间件

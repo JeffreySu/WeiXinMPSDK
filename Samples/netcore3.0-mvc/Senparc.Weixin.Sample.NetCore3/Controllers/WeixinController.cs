@@ -209,7 +209,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return Content(result);
         }
 
-
         /// <summary>
         /// 多账号注册测试
         /// </summary>

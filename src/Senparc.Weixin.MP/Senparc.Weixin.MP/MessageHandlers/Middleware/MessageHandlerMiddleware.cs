@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Exceptions;
@@ -112,13 +113,14 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 var cancellationToken = new CancellationToken();//给异步方法使用
 
-                var messageHandler = _messageHandler(context.Request.GetRequestMemoryStream(), postModel, 10);
+                var messageHandler = _messageHandler(context.Request.GetRequestMemoryStream(), postModel, _options.MaxRecordCount);
+
 
                 #region 没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）
 
                 /* 使用 SelfSynicMethod 的好处是可以让异步、同步方法共享同一套（同步）代码，无需写两次，
                  * 当然，这并不一定适用于所有场景，所以是否选用需要根据实际情况而定，这里只是演示，并不盲目推荐。*/
-                messageHandler.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                messageHandler.DefaultMessageHandlerAsyncEvent = _options.DefaultMessageHandlerAsyncEvent;
 
                 #endregion
 
@@ -168,6 +170,8 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                     throw new Senparc.Weixin.Exceptions.WeixinException("执行 WeixinResult 时提供的 MessageHandler 不能为 Null！", null);
                 }
                 returnResult = returnResult ?? "";
+
+                SenparcTrace.SendCustomLog("MessageHandler 中间件返回消息", returnResult);
 
                 context.Response.ContentType = "text/xml;charset=utf-8";
                 await context.Response.WriteAsync(returnResult);

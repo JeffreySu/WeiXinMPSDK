@@ -173,8 +173,6 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 returnResult = returnResult ?? "";
 
-                SenparcTrace.SendCustomLog("MessageHandler 中间件返回消息", returnResult);
-
                 context.Response.ContentType = "text/xml;charset=utf-8";
                 await context.Response.WriteAsync(returnResult);
             }

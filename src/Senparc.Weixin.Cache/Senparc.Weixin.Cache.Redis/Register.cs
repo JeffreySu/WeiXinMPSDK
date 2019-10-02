@@ -10,6 +10,9 @@
     修改标识：Senparc - 20180802
     修改描述：当前类所有方法支持 .net standard 2.0
 
+    修改标识：Senparc - 20191002
+    修改描述：v2.7.102 RegisterDomainCache() 方法重命名为 ActivityDomainCache()
+
 ----------------------------------------------------------------*/
 
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
@@ -31,16 +34,16 @@ namespace Senparc.Weixin.Cache.Redis
         /// <param name="app"></param>
         public static IApplicationBuilder UseSenparcWeixinCacheRedis(this IApplicationBuilder app)
         {
-            RegisterDomainCache();
+            ActivityDomainCache();
             return app;
         }
 #endif
 
 
         /// <summary>
-        /// 注册领域缓存
+        /// 激活领域缓存
         /// </summary>
-        public static void RegisterDomainCache()
+        public static void ActivityDomainCache()
         {
             //通过调用 ContainerCacheStrategy，激活领域模型注册过程
             var cache = RedisContainerCacheStrategy.Instance;

@@ -113,7 +113,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
                 Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 
-                Senparc.Weixin.Cache.Redis.Register.RegisterDomainCache();//进行领域缓存注册
+                Senparc.Weixin.Cache.Redis.Register.ActivityDomainCache();//进行领域缓存注册
             }
 
 

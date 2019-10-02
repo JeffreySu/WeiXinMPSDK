@@ -39,6 +39,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.Text;
+using Senparc.NeuChar.MessageHandlers;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -353,6 +354,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用公众号的 MessageHandler 中间件                                                 -- DPBMARK MP
             app.UseMessageHandler("/Weixin2", CustomMessageHandler.GenerateMessageHandler, options =>
             {
+                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;//异步方法不存在时调用同步方法
                 //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
                 //此处为委托，可以根据条件动态判断输入条件
                 options.SenparcWeixinSetting = context => Config.SenparcWeixinSetting["【盛派网络小助手】公众号"];//或：senparcWeixinSetting.Value;

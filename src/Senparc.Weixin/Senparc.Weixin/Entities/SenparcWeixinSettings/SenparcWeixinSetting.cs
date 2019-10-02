@@ -17,7 +17,10 @@
     修改描述：v5.0.8 SenparcWeixinSetting 构造函数提供 isDebug 参数
 
     修改标识：Senparc - 20180802
-    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+    修改描述：MP v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
+    修改标识：Senparc - 20191002
+    修改描述：v6.6.102 提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
 
 ----------------------------------------------------------------*/
 
@@ -45,6 +48,19 @@ namespace Senparc.Weixin.Entities
         /// 系统中所有微信设置的参数，默认已经添加一个 Key 为“Default”的对象
         /// </summary>
         public SenparcWeixinSettingItemCollection Items { get; set; }
+
+        /// <summary>
+        /// 从 Items 中获取对应键的参数
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public SenparcWeixinSettingItem this[string key]
+        {
+            get
+            {
+                return Items[key];
+            }
+        }
 
         /// <summary>
         /// SenparcWeixinSetting 构造函数

@@ -308,6 +308,9 @@
       2、提供带符号的 nuget 包（.snupkg)
       v6.6.0 使用最新版本 Neuchar、CO2NET，支持 .NET Core 3.0
       v6.6.101 提供 .Net Core 3.0 独立版本
+      v6.6.102
+      1、添加 UseSenparcWeixin() 新方法
+      2、提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

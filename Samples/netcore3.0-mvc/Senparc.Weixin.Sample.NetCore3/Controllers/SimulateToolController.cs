@@ -310,22 +310,36 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
+                string msgSigature = null;
+                var timeStamp = SystemTime.NowTicks.ToString();
+                var nonce = (SystemTime.NowTicks * 2).ToString();
+                string encryptTypeAll = null;
+                string openIdAll = null;
+
+                //对请求消息进行加密
                 if (testEncrypt)
                 {
-                    //进行加密
-                    var timeStamp = SystemTime.NowTicks.ToString();
-                    var nonce = (SystemTime.NowTicks * 2).ToString();
-
                     WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(token, encodingAESKey, appId);
                     string finalResponseXml = null;
-                    string msgSigature = null;
                     var toUserName = requestMessaageDoc.Root.Element("ToUserName").Value;
                     var ret = msgCrype.EncryptRequestMsg(requestMessaageDoc.ToString(), timeStamp, nonce, toUserName, ref finalResponseXml, ref msgSigature);
 
-                    requestMessaageDoc = XDocument.Parse(finalResponseXml);//赋值最新的加密信息
+                    if (ret == 0)
+                    {
+                        requestMessaageDoc = XDocument.Parse(finalResponseXml);//赋值最新的加密信息
+                        var openId = requestMessaageDoc.Root.Element("FromUserName").Value;
+                        openIdAll = $"openid={openId}";
+                        encryptTypeAll = "&encrypt_type=aes";
+                    }
 
                     //Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("模拟测试-加密消息：", requestMessaageDoc?.ToString());
                 }
+
+                var sigature = CheckSignature.GetSignature(timeStamp, nonce, token);
+
+                url += url.Contains("?") ? "&" : "?";
+                url += $"signature={sigature}&timeStamp={timeStamp}&nonce={nonce}&msg_signature={msgSigature}{encryptTypeAll}{openIdAll}";
+                //参数如：signature=330ed3b64e363dc876f35e54a79e59b48739f567&timestamp=1570075722&nonce=863153744&openid=olPjZjsXuQPJoV0HlruZkNzKc91E&encrypt_type=aes&msg_signature=71dc359205a4660bc3b3046b643452c994b5897d
 
                 var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString());
 
@@ -350,9 +364,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         }
                         Task.WaitAll(taskList.ToArray(), 1000 * 10);
                     }
-                    var dt2 = SystemTime.Now;
 
-                    var data = new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds.ToString("##.####"), Result = responseMessageXml };
+                    var data = new { Success = true, LoadTime = SystemTime.DiffTotalMS(dt1, "##.####"), Result = responseMessageXml };
                     return Json(data, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
                 }
                 catch (Exception ex)

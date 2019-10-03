@@ -13,6 +13,9 @@
 	修改标识：Senparc - 20190521
     修改描述：v6.4.4 .NET Core 添加多证书注册功能；增加 ISenparcWeixinSettingForTenpayV3 接口中的新属性
 
+	修改标识：Senparc - 20191003
+    修改描述：v6.6.102 提供 SenparcWeixinSettingItem 快速创建构造函数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +36,90 @@ namespace Senparc.Weixin.Entities
         /// 唯一标识
         /// </summary>
         public virtual string ItemKey { get; set; }
+
+        #region 构造函数
+
+        public SenparcWeixinSettingItem()
+        {
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForMP setting)
+        {
+            ItemKey = setting.ItemKey;
+
+            Token = setting.Token;
+            EncodingAESKey = setting.EncodingAESKey;
+            WeixinAppId = setting.WeixinAppId;
+            WeixinAppSecret = setting.WeixinAppSecret;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForWxOpen setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            WxOpenAppId = setting.WxOpenAppId;
+            WxOpenAppSecret = setting.WxOpenAppSecret;
+            WxOpenEncodingAESKey = setting.WxOpenEncodingAESKey;
+            WxOpenToken = setting.WxOpenToken;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForWork setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            WeixinCorpId = setting.WeixinCorpId;
+            WeixinCorpSecret = setting.WeixinCorpSecret;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForOldTenpay setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            WeixinPay_AppId = setting.WeixinPay_AppId;
+            WeixinPay_AppKey = setting.WeixinPay_AppKey;
+            WeixinPay_Key = setting.WeixinPay_Key;
+            WeixinPay_PartnerId = setting.WeixinPay_PartnerId;
+            WeixinPay_TenpayNotify = setting.WeixinPay_TenpayNotify;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForTenpayV3 setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            TenPayV3_AppId = setting.TenPayV3_AppId;
+            TenPayV3_AppSecret = setting.TenPayV3_AppSecret;
+            TenPayV3_CertPath = setting.TenPayV3_CertPath;
+            TenPayV3_CertSecret = setting.TenPayV3_CertSecret;
+            TenPayV3_Key = setting.TenPayV3_Key;
+            TenPayV3_MchId = setting.TenPayV3_MchId;
+            TenPayV3_SubAppId = setting.TenPayV3_SubAppId;
+            TenPayV3_SubAppSecret = setting.TenPayV3_SubAppSecret;
+            TenPayV3_SubMchId = setting.TenPayV3_SubMchId;
+            TenPayV3_TenpayNotify = setting.TenPayV3_TenpayNotify;
+            TenPayV3_WxOpenTenpayNotify = setting.TenPayV3_WxOpenTenpayNotify;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForOpen setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            Component_Appid = setting.Component_Appid;
+            Component_EncodingAESKey = setting.Component_EncodingAESKey;
+            Component_Secret = setting.Component_Secret;
+            Component_Token = setting.Component_Token;
+        }
+
+        public SenparcWeixinSettingItem(ISenparcWeixinSettingForExtension setting, bool isDebug = false)
+        {
+            ItemKey = setting.ItemKey;
+
+            AgentUrl = setting.AgentUrl;
+            AgentToken = setting.AgentToken;
+            SenparcWechatAgentKey = setting.SenparcWechatAgentKey;
+        }
+        #endregion
+
+
 
         #region 公众号
 

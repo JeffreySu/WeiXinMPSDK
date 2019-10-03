@@ -60,6 +60,10 @@ namespace Senparc.Weixin.Entities
             {
                 return Items[key];
             }
+            set
+            {
+                Items[key] = value;
+            }
         }
 
         /// <summary>
@@ -72,6 +76,7 @@ namespace Senparc.Weixin.Entities
         /// SenparcWeixinSetting 构造函数
         /// </summary>
         /// <param name="isDebug">是否开启 Debug 模式</param>
+        /// <param name="isRoot">是否是根节点，如果是，将创建下级 Items 节点</param>
         public SenparcWeixinSetting(bool isDebug)
         {
             IsDebug = isDebug;
@@ -79,6 +84,7 @@ namespace Senparc.Weixin.Entities
             Items = new SenparcWeixinSettingItemCollection();
             Items["Default"] = this;//储存第一个默认参数
         }
+
 
 #if NET45
         /// <summary>

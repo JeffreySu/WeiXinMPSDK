@@ -87,6 +87,8 @@ namespace Senparc.Weixin.Entities
         /// 企业微信CorpSecret
         /// </summary>
         string WeixinCorpSecret { get; set; }
+
+        //TODO：Token + EncodingAESKey
     }
 
     /// <summary>

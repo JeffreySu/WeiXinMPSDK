@@ -352,7 +352,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                    });
 
             //使用公众号的 MessageHandler 中间件                                                 -- DPBMARK MP
-            app.UseMessageHandler("/Weixin2", CustomMessageHandler.GenerateMessageHandler, options =>
+            app.UseMessageHandler("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
             {
                 //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;

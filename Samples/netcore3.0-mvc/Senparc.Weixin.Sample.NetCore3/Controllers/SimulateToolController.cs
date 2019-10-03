@@ -269,17 +269,17 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="token"></param>
         /// <param name="requestMessaageDoc"></param>
         /// <returns></returns>
-        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc)
+        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
                 requestMessaageDoc.Root.Element("MsgId").Value =
-                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
+                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
             }
 
             var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);
-            Thread.Sleep(100); //模拟服务器响应时间
+            Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
             return responseMessageXml;
         }
 
@@ -359,10 +359,10 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc));
+                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc, sleepMillionSeconds: 100));
                             taskList.Add(task);
                         }
-                        Task.WaitAll(taskList.ToArray(), 1000 * 10);
+                        Task.WaitAll(taskList.ToArray(), 1500 * 10);
                     }
 
                     var data = new { Success = true, LoadTime = SystemTime.DiffTotalMS(dt1, "##.####"), Result = responseMessageXml };

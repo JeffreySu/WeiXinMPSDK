@@ -72,10 +72,10 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
             contextMock.Setup(z => z.Request.Method).Returns("POST");
             contextMock.Setup(z => z.Features).Returns(new FeatureCollection());
 
-            var messageHandlerMiddleware = new MessageHandlerMiddleware<DefaultMpMessageContext>(null, CustomMessageHandlers.GenerateMessageHandler, options =>
+            var messageHandlerMiddleware = new MpMessageHandlerMiddleware<DefaultMpMessageContext>(null, CustomMessageHandlers.GenerateMessageHandler, options =>
             {
                 options.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-                options.SenparcWeixinSetting = context => new SenparcWeixinSetting()
+                options.AccountSettingFunc = context => new SenparcWeixinSetting()
                 {
                     Token = "weixin",
                     EncodingAESKey = "YTJkZmVjMzQ5NDU5NDY3MDhiZWI0NTdiMjFiY2I5MmU",

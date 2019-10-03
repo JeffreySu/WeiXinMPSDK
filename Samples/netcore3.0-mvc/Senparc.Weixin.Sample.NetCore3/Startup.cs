@@ -352,14 +352,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                    });
 
             //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       -- DPBMARK MP
-            app.UseMessageHandler("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+            app.UseMpMessageHandler("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
             {
                 //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                 
                 //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
                 //此处为委托，可以根据条件动态判断输入条件
-                options.SenparcWeixinSetting = context =>
+                options.AccountSettingFunc = context =>
                     //方法一：使用默认配置
                     senparcWeixinSetting.Value;
 

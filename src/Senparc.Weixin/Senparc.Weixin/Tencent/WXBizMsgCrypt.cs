@@ -175,6 +175,48 @@ namespace Senparc.Weixin.Tencent
             return 0;
         }
 
+        /// <summary>
+        /// 模拟生成加密请求消息
+        /// </summary>
+        /// <param name="sReplyMsg"></param>
+        /// <param name="sTimeStamp"></param>
+        /// <param name="sNonce"></param>
+        /// <param name="toUserName"></param>
+        /// <param name="sEncryptMsg"></param>
+        /// <param name="msgSigature"></param>
+        /// <returns></returns>
+        public int EncryptRequestMsg(string sReplyMsg, string sTimeStamp, string sNonce, string toUserName, ref string sEncryptMsg, ref string msgSigature)
+        {
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
+            string raw = "";
+            try
+            {
+                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sAppID);
+            }
+            catch (Exception)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_EncryptAES_Error;
+            }
+            msgSigature = "";
+            int ret = 0;
+            ret = GenarateSinature(m_sToken, sTimeStamp, sNonce, raw, ref msgSigature);
+            if (0 != ret)
+                return ret;
+            sEncryptMsg = "";
+
+            string ToUserNameLabelHead = "<ToUserName><![CDATA[";
+            string ToUserNameLabelTail = "]]></ToUserName>";
+            string EncryptLabelHead = "<Encrypt><![CDATA[";
+            string EncryptLabelTail = "]]></Encrypt>";
+            sEncryptMsg = sEncryptMsg + "<xml>" + ToUserNameLabelHead + toUserName + ToUserNameLabelTail;
+            sEncryptMsg = sEncryptMsg + EncryptLabelHead + raw + EncryptLabelTail;
+            sEncryptMsg += "</xml>";
+            return 0;
+        }
+
         public class DictionarySort : IComparer
         {
             public int Compare(object oLeft, object oRight)

@@ -66,6 +66,10 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         public async Task Invoke(HttpContext context)
         {
             var senparcWeixinSetting = _senparcWeixinSettingFunc(context);
+
+            CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-GlobalSenparcWeixinSetting",
+                Config.SenparcWeixinSetting.ToJson(true, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
+
             PostModel postModel = new PostModel()
             {
                 Token = senparcWeixinSetting.Token,
@@ -74,7 +78,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"],
-                Msg_Signature =  context.Request.Query["msg_signature"],
+                Msg_Signature = context.Request.Query["msg_signature"],
             };
 
             string echostr = context.Request.Query["echostr"];

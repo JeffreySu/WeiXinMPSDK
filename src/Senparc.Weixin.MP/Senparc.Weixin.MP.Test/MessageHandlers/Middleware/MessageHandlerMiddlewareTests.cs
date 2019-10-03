@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
                 options.SenparcWeixinSetting = context => new SenparcWeixinSetting()
                 {
                     Token = "weixin",
-                    EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",
+                    EncodingAESKey = "YTJkZmVjMzQ5NDU5NDY3MDhiZWI0NTdiMjFiY2I5MmU",
                     WeixinAppId = "wx669ef95216eef885"
                 };
             });

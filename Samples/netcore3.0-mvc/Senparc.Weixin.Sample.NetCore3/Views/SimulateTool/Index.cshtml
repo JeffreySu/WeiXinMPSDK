@@ -56,6 +56,15 @@
         #loadResult_Loading, #loadResult_Result {
             display: none;
         }
+
+        li.encryptTest {
+            display: none;
+        }
+
+        #simulateToolArea .control-title {
+            font-weight: bold;
+        }
+
     </style>
     <script>
         $(function () {
@@ -63,6 +72,8 @@
             $('#eventType').change(checkEventType);
             $('#UseAsyncController').change(switchAsyncController);
             $('#TestConcurrence').change(switchTestConcurrenceRange);
+            $('#TestEncrypt').change(switchTestEncrypt);
+
 
             checkRequestType();
             checkEventType();
@@ -92,7 +103,30 @@
             var requestType = $('#requestType').val();
             var eventType = $('#eventType').val();
             var testConcurrenceCount = $('#TestConcurrenceRange').val();
-            var param = { url: url, token: token, requestType: requestType, testConcurrence: checkTestConcurrence(), testConcurrenceCount: testConcurrenceCount };
+            var appId = $('#encryptTest_appId').val();
+            var encodingAESKey = $('#encryptTest_encodingAESKey').val();
+
+            if (checkTestEncrypt()) {
+                if (!appId) {
+                    alert('加密模式下 AppId 必须提供！');
+                    return;
+                }
+                if (!encodingAESKey) {
+                    alert('加密模式下 EncodingAESKey 必须提供！');
+                    return;
+                }
+            }
+
+            var param = {
+                url: url,
+                token: token,
+                requestType: requestType,
+                testConcurrence: checkTestConcurrence(),
+                testConcurrenceCount: testConcurrenceCount,
+                testEncrypt: checkTestEncrypt(),
+                appId: appId,
+                encodingAESKey:encodingAESKey
+            };
             var paramId = 'param' + requestType;
             var eventId = 'event' + eventType;
             var msgId = $('#txtMsgId').val();
@@ -101,6 +135,7 @@
                 alert('MsgId必须填写！');
                 return;
             }
+
 
             //设置参数
             if (requestType != 'Event') {
@@ -166,10 +201,22 @@
                 $('#TestConcurrenceRange').hide();
             }
         }
+
+        function checkTestEncrypt() {
+            return $('#TestEncrypt:checked').length > 0;
+        }
+
+        function switchTestEncrypt() {
+            if (checkTestEncrypt()) {
+                $('li.encryptTest').show();
+            } else {
+                $('li.encryptTest').hide();
+            }
+        }
     </script>
 }
 
-<div class="wrapper">
+<div class="wrapper" id="simulateToolArea">
     <h2>消息模拟器</h2>
 
     <div class="form-control">
@@ -318,8 +365,25 @@
                 <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@SystemTime.Now.Ticks" />
             </li>
             <li>
+                <label class="control-title">并发设置</label>
+            </li>
+            <li>
                 <label class="checkbox checkbox_test">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>
                 <input id="TestConcurrenceRange" type="range" min="2" max="30" value="10" />
+            </li>
+            <li>
+                <label class="control-title">加密设置</label>
+            </li>
+            <li>
+                <label class="checkbox checkbox_test">@Html.CheckBox("TestEncrypt", false)加密模式</label>
+            </li>
+            <li class="encryptTest">
+                <label class="control-label">AppId</label>
+                <input class="control-input" id="encryptTest_appId" name="appId" type="text" value="" placeholder="需要加密的公众号 AppId" />
+            </li>
+            <li class="encryptTest">
+                <label class="control-label">AESKey</label>
+                <input class="control-input" id="encryptTest_encodingAESKey" name="encodingAESKey" type="text" value="" placeholder="在公众号后台和 Token 一起设置的 EncodingAESKey" />
             </li>
             <li>
                 <button class="control-btn" onclick="sendMessage()">提交</button>

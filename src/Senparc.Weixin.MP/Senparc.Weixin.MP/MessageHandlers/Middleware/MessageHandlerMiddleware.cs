@@ -1,6 +1,7 @@
 ﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Context;
@@ -27,7 +28,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         private readonly RequestDelegate _next;
-        private readonly Func<Stream, PostModel, int, MessageHandler<TMC>> _messageHandler;
+        private readonly Func<Stream, PostModel, int, MessageHandler<TMC>> _messageHandlerFunc;
         private readonly Func<HttpContext, ISenparcWeixinSettingForMP> _senparcWeixinSettingFunc;
         private readonly MessageHandlerMiddlewareOptions _options;
 
@@ -39,15 +40,15 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
             Action<MessageHandlerMiddlewareOptions> options)
         {
             _next = next;
-            _messageHandler = messageHandler;
+            _messageHandlerFunc = messageHandler;
 
             if (options == null)
             {
                 throw new MessageHandlerException($"{nameof(options)} 参数必须提供！");
             }
 
-            _options = new MessageHandlerMiddlewareOptions();
-            options(_options);
+            _options = new MessageHandlerMiddlewareOptions();//生成一个新的 Option 对象
+            options(_options);//设置 Opetion
 
             if (_options.SenparcWeixinSetting == null)
             {
@@ -114,8 +115,23 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
                 var cancellationToken = new CancellationToken();//给异步方法使用
 
-                
-                var messageHandler = _messageHandler(context.Request.GetRequestMemoryStream(), postModel, _options.MaxRecordCount);
+                //                var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+                //<xml>
+                //    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+                //    <Encrypt><![CDATA[wVQjGs46yqw0j5IhISmROAFui9lgiZB3VM1rYd73dYMzYJSvRbYQe0f+K+mo/4iGgrqnQA0FucnRBj/FNY7PIku/s4FZ+jC5kK/LXCgsdN/57w9qcatKvvRLDaPrLiUZ+AFBkFjSqkRUZWAgVbBk8tpwtt8R22m0BoNqLcV1n2gRjX05b/Lw+fEm//7tX+yu2f66PNN2GiRFGKbvMasVHXKdqIRqW4224C3p0G7YxPEHLSTH1AWMjl9mDvIbtgCIMQ/yZf+Cm27B+pscDD9ocPl5ruc92yRGTtcjYmd0bQxW1eBAJJiIpA9TzZKjIxwIyoJ3jK56GUu25iC6KuBIQi357JhygGLSaoC6TlWMlJFEIxtd2JKHVEzGNJ+LuQrU5jgnMLLhSxsq5u8r/VMbyKroXGpWNvu9irPrcMhC4L0=]]></Encrypt>
+                //</xml>
+                //";
+                //                var ms = new MemoryStream();
+                //                var sr = new StreamWriter(ms);
+                //                sr.Write(ecryptXml);
+                //                sr.Flush();
+                //                ms.Seek(0, SeekOrigin.Begin);
+
+                //                var messageHandler = _messageHandlerFunc(ms, postModel, _options.MaxRecordCount);
+
+                CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-mw-postModel", postModel.ToJson(true));
+
+                var messageHandler = _messageHandlerFunc(context.Request.GetRequestMemoryStream(), postModel, _options.MaxRecordCount);
 
 
                 #region 没有重写的异步方法将默认尝试调用同步方法中的代码（为了偷懒）

@@ -67,9 +67,6 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         {
             var senparcWeixinSetting = _senparcWeixinSettingFunc(context);
 
-            CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-GlobalSenparcWeixinSetting",
-                Config.SenparcWeixinSetting.ToJson(true, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
-
             PostModel postModel = new PostModel()
             {
                 Token = senparcWeixinSetting.Token,
@@ -118,22 +115,6 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
                 }
 
                 var cancellationToken = new CancellationToken();//给异步方法使用
-
-                //                var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
-                //<xml>
-                //    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-                //    <Encrypt><![CDATA[wVQjGs46yqw0j5IhISmROAFui9lgiZB3VM1rYd73dYMzYJSvRbYQe0f+K+mo/4iGgrqnQA0FucnRBj/FNY7PIku/s4FZ+jC5kK/LXCgsdN/57w9qcatKvvRLDaPrLiUZ+AFBkFjSqkRUZWAgVbBk8tpwtt8R22m0BoNqLcV1n2gRjX05b/Lw+fEm//7tX+yu2f66PNN2GiRFGKbvMasVHXKdqIRqW4224C3p0G7YxPEHLSTH1AWMjl9mDvIbtgCIMQ/yZf+Cm27B+pscDD9ocPl5ruc92yRGTtcjYmd0bQxW1eBAJJiIpA9TzZKjIxwIyoJ3jK56GUu25iC6KuBIQi357JhygGLSaoC6TlWMlJFEIxtd2JKHVEzGNJ+LuQrU5jgnMLLhSxsq5u8r/VMbyKroXGpWNvu9irPrcMhC4L0=]]></Encrypt>
-                //</xml>
-                //";
-                //                var ms = new MemoryStream();
-                //                var sr = new StreamWriter(ms);
-                //                sr.Write(ecryptXml);
-                //                sr.Flush();
-                //                ms.Seek(0, SeekOrigin.Begin);
-
-                //                var messageHandler = _messageHandlerFunc(ms, postModel, _options.MaxRecordCount);
-
-                CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-mw-postModel", postModel.ToJson(true));
 
                 var messageHandler = _messageHandlerFunc(context.Request.GetRequestMemoryStream(), postModel, _options.MaxRecordCount);
 

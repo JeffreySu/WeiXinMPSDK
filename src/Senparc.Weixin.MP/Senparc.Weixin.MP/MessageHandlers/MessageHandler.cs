@@ -237,9 +237,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 string msgXml = null;
                 var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
 
-                CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-Init", "_postModel:" + _postModel.ToJson(true));
-                CO2NET.Trace.SenparcTrace.SendCustomLog("20191003-Init","result:"+result);
-
                 //判断result类型
                 if (result != 0)
                 {

@@ -311,6 +311,7 @@
       v6.6.102
       1、添加 UseSenparcWeixin() 新方法
       2、提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
+      3、提供 SenparcWeixinSettingItem 快速创建构造函数
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         public bool OmitRepeatedMessage { get; set; } = true;
 
         /// <summary>
-        /// 公众号的 SenparcWeixinSetting 信息
+        /// 公众号的 SenparcWeixinSetting 信息，必须包含 Token、AppId，以及 EncodingAESKey（如果有）
         /// </summary>
         public Func<HttpContext, ISenparcWeixinSettingForMP> SenparcWeixinSetting { get; set; }
     }

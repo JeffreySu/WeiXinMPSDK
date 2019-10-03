@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
+using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Exceptions;
@@ -64,8 +65,6 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 如果你在浏览器中打开并看到这句话，那么看到这条消息<span style=""color:#f00"">并不能说明</span>你的程序有问题，
 而是意味着此地址可以被作为微信公众账号后台的 Url，并开始进行官方的对接校验，请注意保持 Token 设置的一致。");
 
-                //TODO:给文档链接
-
                 return false;
             }
         }
@@ -106,26 +105,28 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         }
     }
 
-    //public static class MessageHandlerMiddlewareExtension
-    //{
-    //    /// <summary>
-    //    /// 使用 MessageHandler 配置。注意：会默认使用异步方法 messageHandler.ExecuteAsync()。
-    //    /// </summary>
-    //    /// <param name="builder"></param>
-    //    /// <param name="pathMatch">路径规则（路径开头，可带参数）</param>
-    //    /// <param name="messageHandler"></param>
-    //    /// <param name="options"></param>
-    //    /// <returns></returns>
-    //    public static IApplicationBuilder UseMpMessageHandler<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-    //        Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler, Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
-    //        where TMC : DefaultMpMessageContext, new()
-    //    {
-    //        return builder.Map(pathMatch, app =>
-    //                {
-    //                    app.UseMiddleware<MpMessageHandlerMiddleware<TMC>>(messageHandler, options);
-    //                });
-    //    }
-    //}
+    /// <summary>
+    /// 公众号 MessageHandlerMiddleware 扩展类，用于提供简洁的注册过程
+    /// </summary>
+    public static class MessageHandlerMiddlewareExtension
+    {
+        /// <summary>
+        /// 使用 MessageHandler 配置。注意：会默认使用异步方法 messageHandler.ExecuteAsync()。
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="pathMatch">路径规则（路径开头，可带参数）</param>
+        /// <param name="messageHandler"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseMpMessageHandler<TMC, TPM>(this IApplicationBuilder builder, PathString pathMatch,
+            Func<Stream, TPM, int, MessageHandler<TMC>> messageHandler, 
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
+                where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+                where TPM : IEncryptPostModel
+        {
+            return builder.UseMessageHandler(pathMatch, messageHandler, options);
+        }
+    }
 }
 
 #endif

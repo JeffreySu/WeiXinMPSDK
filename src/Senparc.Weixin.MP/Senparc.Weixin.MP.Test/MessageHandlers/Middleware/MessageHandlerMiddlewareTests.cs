@@ -67,6 +67,9 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
                 var query = new QueryCollection(dic);
                 return query;
             });
+
+            //TODO：此处并没有完全模拟成功 Post，致使 context.Request.GetRequestMemoryStream() 无法正确获取到数据
+
             var requestStream = GetStream(ecryptXml);
             contextMock.Setup(z => z.Request.Body).Returns(requestStream);
             contextMock.Setup(z => z.Request.Method).Returns("POST");

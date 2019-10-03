@@ -40,6 +40,7 @@ using Senparc.Weixin.MP.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.Text;
 using Senparc.NeuChar.MessageHandlers;
+using Senparc.NeuChar.Middlewares;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {

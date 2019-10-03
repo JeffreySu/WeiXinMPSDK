@@ -50,6 +50,11 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static IRegisterService RegisterMpAccount(this IRegisterService registerService, ISenparcWeixinSettingForMP weixinSettingForMP, string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForMP);
+            }
             return RegisterMpAccount(registerService, weixinSettingForMP.WeixinAppId, weixinSettingForMP.WeixinAppSecret, name ?? weixinSettingForMP.ItemKey);
         }
 

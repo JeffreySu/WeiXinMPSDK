@@ -92,6 +92,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             #region NeuChar 执行过程
 
             var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
+            Weixin.WeixinTrace.SendCustomLog("BuildResponseMessageAsync RequestMessage", RequestMessage?.ToJson(true));
 
             switch (RequestMessage.MsgType)
             {

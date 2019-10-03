@@ -367,8 +367,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     {
                         var requestMessage = RequestMessage as RequestMessageText;
 
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(requestMessage, this, weixinAppId) ??
-                                            (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
+                        ResponseMessage = (CurrentMessageHandlerNode.Execute(requestMessage, this, weixinAppId)
+                                           ?? OnTextOrEventRequest(requestMessage))
+                                              ?? OnTextRequest(requestMessage);
                     }
                     break;
                 case RequestMsgType.Location:
@@ -402,9 +403,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case RequestMsgType.Event:
                     {
                         var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                            OnTextOrEventRequest(requestMessageText) ??
-                                                OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                        ResponseMessage = (CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) 
+                                           ?? OnTextOrEventRequest(requestMessageText))
+                                              ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                     }
                     break;
                 default:

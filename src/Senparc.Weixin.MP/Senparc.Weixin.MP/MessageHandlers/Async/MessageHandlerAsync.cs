@@ -101,9 +101,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         try
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId).ConfigureAwait(false)
-                                ?? ((await (OnTextOrEventRequestAsync(requestMessage)).ConfigureAwait(false)
-                                ?? (await OnTextRequestAsync(requestMessage).ConfigureAwait(false))));
+                            ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId).ConfigureAwait(false)
+                                               ?? (await OnTextOrEventRequestAsync(requestMessage).ConfigureAwait(false)))
+                                                   ?? (await OnTextRequestAsync(requestMessage).ConfigureAwait(false));
                         }
                         catch (Exception ex)
                         {
@@ -116,7 +116,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     //WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
-                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
+                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false)
+                                            ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Voice:
                     ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice).ConfigureAwait(false);
@@ -137,7 +138,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Unknown:
-                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessageDocument：" + ResponseDocument.ToString());
+                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessageDocument：" + ResponseDocument?.ToString());
                     Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessage：" + RequestMessage?.ToJson(true));
 
                     ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType).ConfigureAwait(false);
@@ -145,9 +146,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case RequestMsgType.Event:
                     {
                         var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                            await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false)) ??
-                                                (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
+                        ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false)
+                                           ?? await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false))
+                                              ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
                     }
                     break;
 

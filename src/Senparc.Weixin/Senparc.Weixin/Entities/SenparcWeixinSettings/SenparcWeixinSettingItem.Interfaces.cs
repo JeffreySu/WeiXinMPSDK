@@ -10,6 +10,8 @@
     修改标识：Senparc - 20190521
     修改描述：v1.4.0 .NET Core 添加多证书注册功能，添加 ISenparcWeixinSettingForTenpayV3.TenPayV3_CertPath 属性
 
+	修改标识：Senparc - 20191004
+    修改描述：添加新的 Work（企业微信）的参数
 ----------------------------------------------------------------*/
 
 
@@ -84,11 +86,24 @@ namespace Senparc.Weixin.Entities
         /// </summary>
         string WeixinCorpId { get; set; }
         /// <summary>
-        /// 企业微信CorpSecret
+        /// 企业微信 AgentId（单个应用的Id），一般为数字
+        /// </summary>
+         string WeixinCorpAgentId { get; set; }
+
+        /// <summary>
+        /// 企业微信CorpSecret（和 AgentId对应）
         /// </summary>
         string WeixinCorpSecret { get; set; }
+        /// <summary>
+        /// Token
+        /// </summary>
+        string WeixinCorpToken { get; set; }
 
-        //TODO：Token + EncodingAESKey
+        /// <summary>
+        /// EncodingAESKey
+        /// </summary>
+        string WeixinCorpEncodingAESKey { get; set; }
+        
     }
 
     /// <summary>

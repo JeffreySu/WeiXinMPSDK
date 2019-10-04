@@ -16,6 +16,9 @@
 	修改标识：Senparc - 20191003
     修改描述：v6.6.102 提供 SenparcWeixinSettingItem 快速创建构造函数
 
+	修改标识：Senparc - 20191004
+    修改描述：添加新的 Work（企业微信）的参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -68,7 +71,10 @@ namespace Senparc.Weixin.Entities
             ItemKey = setting.ItemKey;
 
             WeixinCorpId = setting.WeixinCorpId;
+            WeixinCorpAgentId = setting.WeixinCorpAgentId;
             WeixinCorpSecret = setting.WeixinCorpSecret;
+            WeixinCorpToken = setting.WeixinCorpToken;
+            WeixinCorpEncodingAESKey = setting.WeixinCorpEncodingAESKey;
         }
 
         public SenparcWeixinSettingItem(ISenparcWeixinSettingForOldTenpay setting, bool isDebug = false)
@@ -166,13 +172,29 @@ namespace Senparc.Weixin.Entities
         #region 企业微信
 
         /// <summary>
-        /// 企业微信CorpId
+        /// 企业微信CorpId（全局）
         /// </summary>
         public virtual string WeixinCorpId { get; set; }
+
         /// <summary>
-        /// 企业微信CorpSecret
+        /// 企业微信 AgentId（单个应用的Id），一般为数字
+        /// </summary>
+        public virtual string WeixinCorpAgentId { get; set; }
+
+        /// <summary>
+        /// 企业微信CorpSecret（和 AgentId对应）
         /// </summary>
         public virtual string WeixinCorpSecret { get; set; }
+
+        /// <summary>
+        /// Token
+        /// </summary>
+        public virtual string WeixinCorpToken { get; set; }
+
+        /// <summary>
+        /// EncodingAESKey
+        /// </summary>
+        public virtual string WeixinCorpEncodingAESKey { get; set; }
 
         #endregion
 

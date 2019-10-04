@@ -225,16 +225,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         }
 
 
+        [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
         public virtual void OnExecuting()
         {
-            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
-
-            base.OnExecuting();
+            throw new MessageHandlerException("请使用异步方法 OnExecutingAsync()");
         }
 
+        [Obsolete("请使用异步方法 OnExecutedAsync()", true)]
         public virtual void OnExecuted()
         {
-            base.OnExecuted();
+            throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
 
         #endregion

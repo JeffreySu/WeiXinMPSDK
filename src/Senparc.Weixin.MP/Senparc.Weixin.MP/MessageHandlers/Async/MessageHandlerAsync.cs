@@ -166,40 +166,29 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
-            //已放入Init()方法中
-            //#region 消息去重
+            /* 
+            * 此处原消息去重逻辑已经转移到 基类CommonInitialize() 方法中（执行完 Init() 方法之后进行判断）。
+            * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
+            * 如果有新消息加入，将导致去重算法失效。
+            * （当然这样情况发生的概率极低，一般只在测试中会发生，
+            * 为了确保各种测试环境下的可靠性，作此修改。  —— Jeffrey Su 2018.1.23
+            */
 
-            //if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-            //&& OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-            ////&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-            //)
-            //{
-            //    var currentIndex = CurrentMessageContext.RequestMessages.FindLastIndex(z=>z.)
-
-
-            //    var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-
-            //    if (
-            //        //使用MsgId去重
-            //        (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
-            //        //使用CreateTime去重（OpenId对象已经是同一个）
-            //        || (lastMessage.MsgId == RequestMessage.MsgId
-            //            && lastMessage.CreateTime == RequestMessage.CreateTime
-            //            && lastMessage.MsgType == RequestMessage.MsgType)
-            //        )
-            //    {
-            //        CancelExcute = true;//重复消息，取消执行
-            //        MessageIsRepeated = true;
-            //        return;
-            //    }
-            //}
+            /* 
+            * 已经启用以异步方法优先的策略，将原有 OnExecuting() 方法在此处执行  —— Jeffrey Su 20191004
+            */
 
             //#endregion
+            if (CancelExcute)
+            {
+                return;
+            }
 
             await base.OnExecutingAsync(cancellationToken).ConfigureAwait(false);
 
+            var currentMessageContext = await base.GetCurrentMessageContext();
             //判断是否已经接入开发者信息
-            if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
+            if (DeveloperInfo != null || currentMessageContext.AppStoreState == AppStoreState.Enter)
             {
                 //优先请求云端应用商店资源
             }

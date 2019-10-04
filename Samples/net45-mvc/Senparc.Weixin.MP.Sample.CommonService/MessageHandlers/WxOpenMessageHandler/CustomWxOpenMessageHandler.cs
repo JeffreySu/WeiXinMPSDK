@@ -22,6 +22,7 @@ using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Entities;
 using Senparc.CO2NET.Utilities;
 using System;
+using System.Threading;
 
 #if NET45
 using System.Web.Configuration;
@@ -71,20 +72,22 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         }
 
 
-        public override void OnExecuting()
+        public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null || (CurrentMessageContext.StorageData is int))
+            var currentMessageContext = await base.GetCurrentMessageContext();
+            if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
-                CurrentMessageContext.StorageData = 0;
+                currentMessageContext.StorageData = 0;
             }
-            base.OnExecuting();
+            await base.OnExecutingAsync(cancellationToken);
         }
 
-        public override void OnExecuted()
+        public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
-            base.OnExecuted();
-            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+            await base.OnExecutedAsync(cancellationToken);
+            var currentMessageContext = await base.GetCurrentMessageContext();
+            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
         }
 
 

@@ -51,11 +51,6 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         {
         }
 
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
-        }
-
         public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();

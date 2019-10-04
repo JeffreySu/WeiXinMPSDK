@@ -45,13 +45,21 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //测试MessageContext.StorageData
 
-            var currentMessageContext = base.GetCurrentMessageContext();
+            var currentMessageContext = await base.GetCurrentMessageContext();
             if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
                 currentMessageContext.StorageData = (int)0;
-                GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
+                await GlobalMessageContext.UpdateMessageContextAsync(currentMessageContext);//储存到缓存
             }
             await base.OnExecutingAsync(cancellationToken);
+        }
+
+        public override async Task OnExecutedAsync(CancellationToken cancellationToken)
+        {
+            var currentMessageContext = await base.GetCurrentMessageContext();
+            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
+            await base.OnExecutedAsync(cancellationToken);
         }
     }
 }

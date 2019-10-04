@@ -72,6 +72,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.Tencent;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -324,35 +325,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// OnExecuting
         /// </summary>
+        [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
         public override void OnExecuting()
         {
-            /* 
-             * 此处原消息去重逻辑已经转移到 基类CommonInitialize() 方法中（执行完 Init() 方法之后进行判断）。
-             * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
-             * 如果有新消息加入，将导致去重算法失效。
-             * （当然这样情况发生的概率极低，一般只在测试中会发生，
-             * 为了确保各种测试环境下的可靠性，作此修改。  —— Jeffrey Su 2018.1.23
-             */
-
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            base.OnExecuting();
-
-            //判断是否已经接入开发者信息
-            if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
-            {
-                //优先请求云端应用商店资源
-
-            }
+            throw new MessageHandlerException("请使用异步方法 OnExecutingAsync()");
         }
 
+        [Obsolete("请使用异步方法 OnExecutedAsync()", true)]
         public override void OnExecuted()
         {
-            base.OnExecuted();
+            throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
-
     }
 }

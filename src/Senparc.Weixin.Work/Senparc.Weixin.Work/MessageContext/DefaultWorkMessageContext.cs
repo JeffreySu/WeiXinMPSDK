@@ -17,15 +17,18 @@ namespace Senparc.Weixin.Work.MessageContexts
     /// <summary>
     /// 企业号上下文消息的默认实现
     /// </summary>
-    public class DefaultWorkMessageContext
-        : MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
+    public class DefaultWorkMessageContext<TRequest, TResponse>
+        : MessageContext<TRequest, TResponse>, IMessageContext<TRequest, TResponse>
+        where TRequest : class, IWorkRequestMessageBase, IRequestMessageBase
+        where TResponse : class, IWorkResponseMessageBase, IResponseMessageBase
     {
+
         /// <summary>
         /// 获取请求消息和实体之间的映射结果
         /// </summary>
         /// <param name="requestMsgType"></param>
         /// <returns></returns>
-        public override IWorkRequestMessageBase GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
+        public override TRequest GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
         {
             IWorkRequestMessageBase requestMessage;
             switch (requestMsgType)
@@ -131,7 +134,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                 default:
                     throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", requestMsgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
             }
-            return requestMessage;
+            return requestMessage as TRequest;
         }
 
         /// <summary>
@@ -139,7 +142,7 @@ namespace Senparc.Weixin.Work.MessageContexts
         /// </summary>
         /// <param name="responseMsgType"></param>
         /// <returns></returns>
-        public override IWorkResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
+        public override TResponse GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
             IWorkResponseMessageBase responseMessage;
             switch (responseMsgType)
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                     };
                     break;
             }
-            return responseMessage;
+            return responseMessage as TResponse;
 
         }
     }

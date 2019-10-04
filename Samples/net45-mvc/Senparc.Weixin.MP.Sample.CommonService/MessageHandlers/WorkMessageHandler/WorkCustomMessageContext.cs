@@ -20,7 +20,7 @@ using Senparc.Weixin.Work.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler
 {
-    public class WorkCustomMessageContext : Senparc.Weixin.Work.MessageContexts.DefaultWorkMessageContext
+    public class WorkCustomMessageContext : Senparc.Weixin.Work.MessageContexts.DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
     {
         public WorkCustomMessageContext()
         {

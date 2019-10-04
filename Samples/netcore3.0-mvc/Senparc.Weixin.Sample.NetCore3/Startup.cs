@@ -44,6 +44,8 @@ using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Work.MessageHandlers.Middleware;
+using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -373,7 +375,6 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //方法三：结合 context 参数动态判断返回Setting值
             });                                                                                   // DPBMARK_END
 
-
             //使用 小程序 MessageHandler 中间件
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
@@ -382,6 +383,13 @@ namespace Senparc.Weixin.Sample.NetCore3
                 }
             );
 
+            //使用 小程序 MessageHandler 中间件
+            app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
+            {
+                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                options.AccountSettingFunc = context => senparcWeixinSetting.Value;
+            }
+            );
 
         }
 

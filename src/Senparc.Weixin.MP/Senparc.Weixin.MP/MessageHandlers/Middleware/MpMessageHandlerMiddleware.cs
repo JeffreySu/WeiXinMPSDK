@@ -104,6 +104,9 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         public override async Task<bool> PostCheckSignature(HttpContext context)
         {
             var postModel = GetPostModel(context);
+
+            CO2NET.Trace.SenparcTrace.SendCustomLog("PostCheckSignature", postModel.ToJson(true));
+
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";

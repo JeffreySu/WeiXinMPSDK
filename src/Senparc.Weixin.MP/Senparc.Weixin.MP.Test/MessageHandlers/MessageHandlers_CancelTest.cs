@@ -45,9 +45,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
+            Console.WriteLine("1");
+
             RunStep = "OnExecuting";
             CancelExcute = true;//取消执行
             await base.OnExecutingAsync(cancellationToken);
+            Console.WriteLine("2");
+
         }
 
         public override async Task OnExecutedAsync(CancellationToken cancellationToken)
@@ -119,13 +123,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             {
                 //OnExecuting中途取消
                 var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText.FormatWith(SystemTime.NowTicks, DateTimeHelper.GetUnixDateTime(SystemTime.Now))), postModel);
-                messageHandler.OmitRepeatedMessage = false;//关闭去重
                 await messageHandler.ExecuteAsync(cancellationToken);
 
                 Assert.AreEqual("OnExecuting", messageHandler.RunStep);
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Console.WriteLine(messageHandler.ResponseMessage.ToJson(true));
-
+                Assert.IsNotNull(messageHandler.RequestDocument);
+                Console.WriteLine(messageHandler.RequestDocument.ToString());
+                Console.WriteLine(messageHandler.RequestMessage.ToJson(true));
+                Assert.IsNull(messageHandler.ResponseMessage);
             }
         }
     }

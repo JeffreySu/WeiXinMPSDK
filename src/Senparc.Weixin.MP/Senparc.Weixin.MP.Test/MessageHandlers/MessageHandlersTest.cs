@@ -74,6 +74,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public void TextMessageRequestTest()
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            //启用同步方法做替补
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             Assert.IsNotNull(messageHandlers.RequestDocument);
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);

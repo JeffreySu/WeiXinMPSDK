@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.NeuChar.Entities;
 
@@ -20,7 +21,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public override ApiResult SendText(string accessTokenOrAppId, string openId, string content)
+        public override async Task<ApiResult> SendText(string accessTokenOrAppId, string openId, string content)
         {
             throw new NotImplementedException();
         }
@@ -32,12 +33,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public override ApiResult SendImage(string accessTokenOrAppId, string openId, string mediaId)
+        public override async Task<ApiResult> SendImage(string accessTokenOrAppId, string openId, string mediaId)
         {
             throw new NotImplementedException();
         }
 
-        public override ApiResult SendNews(string accessTokenOrAppId, string openId, List<Article> articleList)
+        public override async Task<ApiResult> SendNews(string accessTokenOrAppId, string openId, List<Article> articleList)
         {
             throw new NotImplementedException();
         }

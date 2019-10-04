@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IWorkResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public abstract class WorkMessageHandler<TMC>
+    public  abstract partial class WorkMessageHandler<TMC>
         : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
         where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
@@ -235,60 +235,6 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
-
-        public override void BuildResponseMessage()
-        {
-
-            switch (RequestMessage.MsgType)
-            {
-                case RequestMsgType.Unknown://第三方回调
-                    {
-                        if (RequestMessage is IThirdPartyInfoBase)
-                        {
-                            var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                            TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
-                        }
-                        else
-                        {
-                            throw new WeixinException("没有找到合适的消息类型。");
-                        }
-                    }
-                    break;
-                //以下是普通信息
-                case RequestMsgType.Text:
-                    {
-                        var requestMessage = RequestMessage as RequestMessageText;
-                        ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
-                    }
-                    break;
-                case RequestMsgType.Location:
-                    ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                    break;
-                case RequestMsgType.Image:
-                    ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                    break;
-                case RequestMsgType.Voice:
-                    ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                    break;
-                case RequestMsgType.Video:
-                    ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                    break;
-                case RequestMsgType.ShortVideo:
-                    ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                    break;
-                case RequestMsgType.File:
-                    ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                    break;
-                case RequestMsgType.Event:
-                    {
-                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                    }
-                    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-            }
-        }
 
 
         public virtual void OnExecuting()

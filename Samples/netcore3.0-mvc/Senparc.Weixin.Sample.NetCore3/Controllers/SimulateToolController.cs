@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150312
+
+    
+    修改标识：Senparc - 20191004
+    修改描述：优化消息模拟功能 
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
@@ -31,6 +35,9 @@ using Senparc.Weixin.Tencent;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
+    /// <summary>
+    /// 消息模拟器
+    /// </summary>
     public class SimulateToolController : BaseController
     {
         #region 私有方法
@@ -39,7 +46,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// 获取请求XML
         /// </summary>
         /// <returns></returns>
-        private XDocument GetrequestMessaageDoc(string url, string token, RequestMsgType requestType, Event? eventType)
+        private XDocument GetrequestMessaageDoc(/*string url, string token, */RequestMsgType requestType, Event? eventType)
         {
             RequestMessageBase requestMessaage = null;
             switch (requestType)
@@ -268,8 +275,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="requestMessaageDoc"></param>
+        /// <param name="autoFillUrlParameters">是否自动填充Url中缺少的参数（signature、timestamp、nonce），默认为 true</param>
         /// <returns></returns>
-        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc, int sleepMillionSeconds = 0)
+        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
             if (requestMessaageDoc.Root.Element("MsgId") != null)
@@ -278,7 +286,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
             }
 
-            var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);
+            var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
             return responseMessageXml;
         }
@@ -306,7 +314,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
+                var requestMessaageDoc = GetrequestMessaageDoc(/*url, token,*/ requestType, eventType);
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
@@ -341,7 +349,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 url += $"signature={sigature}&timeStamp={timeStamp}&nonce={nonce}&msg_signature={msgSigature}{encryptTypeAll}{openIdAll}";
                 //参数如：signature=330ed3b64e363dc876f35e54a79e59b48739f567&timestamp=1570075722&nonce=863153744&openid=olPjZjsXuQPJoV0HlruZkNzKc91E&encrypt_type=aes&msg_signature=71dc359205a4660bc3b3046b643452c994b5897d
 
-                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString());
+                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
 
                 if (string.IsNullOrEmpty(responseMessageXml))
                 {
@@ -359,7 +367,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc, sleepMillionSeconds: 100));
+                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100));
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);
@@ -382,9 +390,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType, Event? eventType)
+        public ActionResult GetRequestMessageXml(/*string url, string token,*/ RequestMsgType requestType, Event? eventType)
         {
-            var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
+            var requestMessaageDoc = GetrequestMessaageDoc(/*url, token,*/ requestType, eventType);
             return Content(requestMessaageDoc.ToString());
         }
     }

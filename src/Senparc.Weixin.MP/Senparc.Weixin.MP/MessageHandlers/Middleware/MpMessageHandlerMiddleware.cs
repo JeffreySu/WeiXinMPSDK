@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         {
             var postModel = GetPostModel(context);
 
-            CO2NET.Trace.SenparcTrace.SendCustomLog("PostCheckSignature", postModel.ToJson(true));
+            //CO2NET.Trace.SenparcTrace.SendCustomLog("PostCheckSignature", postModel.ToJson(true));
 
             if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
             {

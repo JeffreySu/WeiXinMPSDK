@@ -29,8 +29,10 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     /// MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC"></typeparam>
-    public class MpMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, SenparcWeixinSetting>
-            where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public class MpMessageHandlerMiddleware<TMC, TS> : MessageHandlerMiddleware<TMC, PostModel, SenparcWeixinSetting>, IMessageHandlerMiddleware<TMC, PostModel, TS>
+                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+                //where TPM : PostModel, IEncryptPostModel
+                where TS : class
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
@@ -120,13 +122,12 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseMpMessageHandler<TMC, TPM>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, TPM, int, IMessageHandlerWithContext<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+        public static IApplicationBuilder UseMpMessageHandler<TMC>(this IApplicationBuilder builder, PathString pathMatch,
+            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<SenparcWeixinSetting>> options)
                 where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
-                where TPM : IEncryptPostModel
         {
-            return builder.UseMessageHandler<MpMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForMP>(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<MpMessageHandlerMiddleware<TMC, SenparcWeixinSetting>, TMC, PostModel, SenparcWeixinSetting>(pathMatch, messageHandler, options);
         }
     }
 

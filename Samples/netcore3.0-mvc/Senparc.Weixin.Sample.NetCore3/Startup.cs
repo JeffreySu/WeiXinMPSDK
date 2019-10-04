@@ -373,8 +373,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
 
 
-            app.UseMessageHandler<MpMessageHandlerMiddleware<CustomMessageContext>, CustomMessageContext,PostModel,SenparcWeixinSetting>(
-                "/WeixinAAA", CustomMessageHandler.GenerateMessageHandler, options =>
+            app.UseMpMessageHandler("/WeixinAAA", CustomMessageHandler.GenerateMessageHandler, options =>
                 {
                     //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
                     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;

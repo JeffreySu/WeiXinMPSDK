@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
@@ -76,15 +77,15 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
             contextMock.Setup(z => z.Features).Returns(new FeatureCollection());
 
             var messageHandlerMiddleware = new MpMessageHandlerMiddleware<DefaultMpMessageContext>(null, CustomMessageHandlers.GenerateMessageHandler, options =>
-            {
-                options.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-                options.AccountSettingFunc = context => new SenparcWeixinSetting()
-                {
-                    Token = "weixin",
-                    EncodingAESKey = "YTJkZmVjMzQ5NDU5NDY3MDhiZWI0NTdiMjFiY2I5MmU",
-                    WeixinAppId = "wx669ef95216eef885"
-                };
-            });
+             {
+                 options.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                 options.AccountSettingFunc = context => new SenparcWeixinSetting()
+                 {
+                     Token = "weixin",
+                     EncodingAESKey = "YTJkZmVjMzQ5NDU5NDY3MDhiZWI0NTdiMjFiY2I5MmU",
+                     WeixinAppId = "wx669ef95216eef885"
+                 };
+             });
 
             await messageHandlerMiddleware.Invoke(contextMock.Object);
 

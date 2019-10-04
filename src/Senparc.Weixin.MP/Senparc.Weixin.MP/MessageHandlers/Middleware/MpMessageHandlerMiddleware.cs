@@ -29,15 +29,15 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     /// MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC"></typeparam>
-    public class MpMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForMP>
-            where TMC : DefaultMpMessageContext, new()
+    public class MpMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, SenparcWeixinSetting>
+            where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public MpMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
+        public MpMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<SenparcWeixinSetting>> options)
             : base(next, messageHandler, options)
         {
 
@@ -48,23 +48,25 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
             var postModel = GetPostModel(context);
             if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
             {
+                context.Response.ContentType = "text/plain;charset=utf-8";
                 var echostr = GetEchostr(context);
-                await context.Response.WriteAsync(echostr ?? "未提供 echostr 参数！").ConfigureAwait(false);
-                return true;
+                if (string.IsNullOrEmpty(echostr))
+                {
+                    await context.Response.WriteAsync("未提供 echostr 参数！").ConfigureAwait(false);
+                    return false;
+                }
+                else
+                {
+                    await context.Response.WriteAsync(echostr).ConfigureAwait(false);
+                    return true;
+                }
             }
             else
             {
-                string signature = context.Request.IsLocal()
-                    ? $"提供签名：{postModel.Signature}<br />正确签名：{CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token)}"
-                    : "非本地访问，无法显示签名信息，请在服务器本机查看！";
-
-                await context.Response.WriteAsync($@"服务器 token 签名校验失败！<br>
-<h2>签名信息</h2>
-{signature}<br /><br />
-<h2>提示</h2>
-如果你在浏览器中打开并看到这句话，那么看到这条消息<span style=""color:#f00"">并不能说明</span>你的程序有问题，
-而是意味着此地址可以被作为微信公众账号后台的 Url，并开始进行官方的对接校验，请注意保持 Token 设置的一致。");
-
+                context.Response.ContentType = "text/html;charset=utf-8";
+                var currectSignature = CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token);
+                var msgTip = base.GetGetCheckFaildMessage(context, currectSignature);
+                await context.Response.WriteAsync(msgTip);
                 return false;
             }
         }
@@ -119,14 +121,45 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMpMessageHandler<TMC, TPM>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, TPM, int, MessageHandler<TMC>> messageHandler, 
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
-                where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+            Func<Stream, TPM, int, IMessageHandlerWithContext<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<SenparcWeixinSetting>> options)
+                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
                 where TPM : IEncryptPostModel
         {
-            return builder.UseMessageHandler(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<MpMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForMP>(pathMatch, messageHandler, options);
         }
     }
-}
 
+    ////证明泛型可以用在中间件中
+    //public class TestWM<T>
+    //    where T : class
+    //{
+    //    protected readonly RequestDelegate _next;
+    //    protected readonly T _t;
+
+    //    public TestWM(RequestDelegate next, T t)
+    //    {
+    //        _next = next;
+    //        _t = t;
+    //    }
+
+    //    public async Task Invoke(HttpContext context)
+    //    {
+    //        await context.Response.WriteAsync(_t.GetType().Name);
+    //    }
+
+
+    //}
+
+    //public static class TestWMExtension
+    //{
+
+    //    public static IApplicationBuilder UseTestWM<T>(this IApplicationBuilder builder, T t)
+    //              where T : class
+
+    //    {
+    //        return builder.UseMiddleware<TestWM<T>>(t);
+    //    }
+    //}
+}
 #endif

@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -72,6 +73,11 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送的消息类型暂未被识别。";
             return responseMessage;
+        }
+
+        public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 

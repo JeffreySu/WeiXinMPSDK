@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -63,6 +64,11 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
                 var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
                 responseMessage.Content = "这是一条默认消息。";
                 return responseMessage;
+            }
+
+            public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+            {
+                throw new NotImplementedException();
             }
         }
 

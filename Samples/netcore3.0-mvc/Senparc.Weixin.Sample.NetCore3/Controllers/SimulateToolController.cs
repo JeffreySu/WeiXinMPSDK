@@ -373,7 +373,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);
                     }
 
-                    var data = new { Success = true, LoadTime = SystemTime.DiffTotalMS(dt1, "##.####"), Result = responseMessageXml };
+                    var data = new { Success = true, LoadTime = SystemTime.DiffTotalMS(dt1, "f4"), Result = responseMessageXml };
                     return Json(data, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
                 }
                 catch (Exception ex)

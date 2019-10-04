@@ -171,8 +171,11 @@
                 loadResult_Loading.hide();
                 if (json.Success) {
                     $('#loadTime').text(json.LoadTime);
-                    if (checkTestConcurrence()) {
                         loadResult_Result.show();
+                    if (checkTestConcurrence()) {
+                        $('#oncurrenceWord').text('并发');
+                    } else {
+                        $('#oncurrenceWord').text('单发');
                     }
                 } else {
                     loadResult_Result.hide();
@@ -403,7 +406,7 @@
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
                 <label class="control-title send" id="loadResult_Result">
-                    模拟并发响应时间：<span id="loadTime"></span> ms<br />
+                    模拟<span id="oncurrenceWord">并发</span>响应时间：<span id="loadTime"></span> ms<br />
                     由于后台代理转发暂时没有使用异步请求，结果可能会受影响
                 </label>
             </li>

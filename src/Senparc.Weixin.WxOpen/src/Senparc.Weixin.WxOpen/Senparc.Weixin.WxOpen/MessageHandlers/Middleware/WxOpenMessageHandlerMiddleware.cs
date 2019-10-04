@@ -21,11 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
-    文件名：MpMessageHandlerMiddleware.cs
+    文件名：WxOpenMessageHandlerMiddleware.cs
     文件功能描述：公众号 MessageHandler 中间件
     
     
-    创建标识：Senparc - 20191003
+    创建标识：Senparc - 20191004
     
 ----------------------------------------------------------------*/
 
@@ -43,8 +43,9 @@ using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
+using Senparc.Weixin.WxOpen.Entities.Request;
+using Senparc.Weixin.WxOpen.MessageContexts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,15 +60,15 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     /// 公众号 MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC">上下文类型</typeparam>
-    public class MpMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForMP>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForMP>
-                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public class WxOpenMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>
+                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public MpMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
+        public WxOpenMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
             : base(next, messageHandler, options)
         {
 
@@ -128,9 +129,9 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
             PostModel postModel = new PostModel()
             {
-                Token = senparcWeixinSetting.Token,
-                AppId = senparcWeixinSetting.WeixinAppId,
-                EncodingAESKey = senparcWeixinSetting.EncodingAESKey,
+                Token = senparcWeixinSetting.WxOpenToken,
+                AppId = senparcWeixinSetting.WxOpenAppId,
+                EncodingAESKey = senparcWeixinSetting.WxOpenEncodingAESKey,
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"],
@@ -160,12 +161,12 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseMessageHandlerForMp<TMC>(this IApplicationBuilder builder, PathString pathMatch,
+        public static IApplicationBuilder UseMessageHandlerForWxOpen<TMC>(this IApplicationBuilder builder, PathString pathMatch,
             Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
-                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
+                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
-            return builder.UseMessageHandler<MpMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForMP>(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<WxOpenMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForWxOpen>(pathMatch, messageHandler, options);
         }
     }
 

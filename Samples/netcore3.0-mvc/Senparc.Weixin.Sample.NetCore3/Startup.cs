@@ -42,6 +42,8 @@ using System.Text;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.MessageContexts;
+using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -353,43 +355,34 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 });
 
-            //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       -- DPBMARK MP
-            //app.UseMpMessageHandler("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
-            //{
-            //    //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
-            //    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP、、
+            app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+            {
+                //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
+                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
-            //    //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
-            //    //此处为委托，可以根据条件动态判断输入条件
-            //    options.AccountSettingFunc = context =>
-            //        //方法一：使用默认配置
-            //        senparcWeixinSetting.Value;
+                //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
+                //此处为委托，可以根据条件动态判断输入条件
+                options.AccountSettingFunc = context =>
+                    //方法一：使用默认配置
+                    senparcWeixinSetting.Value;
 
-            //    //方法二：使用指定配置：
-            //    //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
+                //方法二：使用指定配置：
+                //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
 
-            //    //方法三：结合 context 参数动态判断返回Setting值
-            //});                                                                                   // DPBMARK_END
+                //方法三：结合 context 参数动态判断返回Setting值
+            });                                                                                   // DPBMARK_END
 
 
-
-            app.UseMpMessageHandler("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+            //使用 小程序 MessageHandler 中间件
+            app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
-                    //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
                     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-
-                    //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
-                    //此处为委托，可以根据条件动态判断输入条件
-                    options.AccountSettingFunc = context =>
-                            //方法一：使用默认配置
-                            senparcWeixinSetting.Value;
-
-                    //方法二：使用指定配置：
-                    //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
-
-                    //方法三：结合 context 参数动态判断返回Setting值
+                    options.AccountSettingFunc = context => senparcWeixinSetting.Value;
                 }
             );
+
+
         }
 
 

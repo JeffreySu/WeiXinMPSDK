@@ -32,45 +32,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.CO2NET.Trace;
-using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.MessageContexts;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.MessageHandlers.Middleware
 {
     /// <summary>
-    /// 公众号 MessageHandler 中间件
+    /// 企业号 MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC">上下文类型</typeparam>
-    public class WorkMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWork>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWork>
-                where TMC : DefaultWorkMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public class WorkMessageHandlerMiddleware<TMC>
+        : MessageHandlerMiddleware<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase, PostModel, ISenparcWeixinSettingForWork>,
+          IMessageHandlerMiddleware<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase, PostModel, ISenparcWeixinSettingForWork>
+                where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public WorkMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+        public WorkMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
             : base(next, messageHandler, options)
         {
 
         }
+
 
         private bool CheckSignature(HttpContext context, PostModel postModel, out string verifyUrl)
         {
@@ -94,7 +87,10 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
             else
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
-                var currectSignature = Work.Signature.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.Msg_Signature);
+
+                var currectSignature = string.IsNullOrEmpty(postModel.Msg_Signature)
+                            ? "企业号中，Url 中地 msg_signature 参数必须提供，否则无法进行签名！"
+                            : Work.Signature.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.Msg_Signature/*此参数不能为空*/);
                 var msgTip = base.GetGetCheckFaildMessage(context, currectSignature);
                 await context.Response.WriteAsync(msgTip);
                 return false;
@@ -161,9 +157,9 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         public static IApplicationBuilder UseMessageHandlerForWork<TMC>(this IApplicationBuilder builder, PathString pathMatch,
             Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
-                where TMC : DefaultWorkMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+                where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {
-            return builder.UseMessageHandler<WorkMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForWork>(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<WorkMessageHandlerMiddleware<TMC>, IWorkRequestMessageBase, IWorkResponseMessageBase, TMC, PostModel, ISenparcWeixinSettingForWork>(pathMatch, messageHandler, options);
         }
     }
 

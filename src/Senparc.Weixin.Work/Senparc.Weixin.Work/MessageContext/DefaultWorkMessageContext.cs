@@ -17,10 +17,8 @@ namespace Senparc.Weixin.Work.MessageContexts
     /// <summary>
     /// 企业号上下文消息的默认实现
     /// </summary>
-    public class DefaultWorkMessageContext<TRequest, TResponse>
-        : MessageContext<TRequest, TResponse>, IMessageContext<TRequest, TResponse>
-        where TRequest : class, IWorkRequestMessageBase, IRequestMessageBase
-        where TResponse : class, IWorkResponseMessageBase, IResponseMessageBase
+    public class DefaultWorkMessageContext
+        : MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
     {
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace Senparc.Weixin.Work.MessageContexts
         /// </summary>
         /// <param name="requestMsgType"></param>
         /// <returns></returns>
-        public override TRequest GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
+        public override IWorkRequestMessageBase GetRequestEntityMappingResult(RequestMsgType requestMsgType, XDocument doc = null)
         {
             IWorkRequestMessageBase requestMessage;
             switch (requestMsgType)
@@ -134,7 +132,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                 default:
                     throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", requestMsgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
             }
-            return requestMessage as TRequest;
+            return requestMessage;
         }
 
         /// <summary>
@@ -142,7 +140,7 @@ namespace Senparc.Weixin.Work.MessageContexts
         /// </summary>
         /// <param name="responseMsgType"></param>
         /// <returns></returns>
-        public override TResponse GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
+        public override IWorkResponseMessageBase GetResponseEntityMappingResult(ResponseMsgType responseMsgType, XDocument doc = null)
         {
             IWorkResponseMessageBase responseMessage;
             switch (responseMsgType)
@@ -189,7 +187,7 @@ namespace Senparc.Weixin.Work.MessageContexts
                     };
                     break;
             }
-            return responseMessage as TResponse;
+            return responseMessage;
 
         }
     }

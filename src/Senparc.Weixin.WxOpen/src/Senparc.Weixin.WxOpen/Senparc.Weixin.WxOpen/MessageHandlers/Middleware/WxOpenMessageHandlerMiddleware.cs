@@ -57,7 +57,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 {
     /// <summary>
-    /// 公众号 MessageHandler 中间件
+    /// 小程序 MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC">上下文类型</typeparam>
     public class WxOpenMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>

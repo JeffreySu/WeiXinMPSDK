@@ -22,6 +22,9 @@
     修改标识：Senparc - 20191002
     修改描述：v6.6.102 提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
 
+    修改标识：Senparc - 20191004
+    修改描述：添加 SenparcWeixinSetting.MpSetting 等一系列属性，用于快速筛选（限定）不同模块的指定参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -65,6 +68,14 @@ namespace Senparc.Weixin.Entities
                 Items[key] = value;
             }
         }
+
+        public ISenparcWeixinSettingForMP MpSetting => this;
+        public ISenparcWeixinSettingForWxOpen WxOpenSetting => this;
+        public ISenparcWeixinSettingForWork WorkSetting => this;
+        public ISenparcWeixinSettingForOpen OpenSetting => this;
+        public ISenparcWeixinSettingForOldTenpay OldTenpaySettting => this;
+        public ISenparcWeixinSettingForTenpayV3 TenpayV3Setting => this;
+        public ISenparcWeixinSettingForExtension ExtensionSetting => this;
 
         /// <summary>
         /// SenparcWeixinSetting 构造函数
@@ -138,7 +149,10 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.Component_EncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["Component_EncodingAESKey"];
             //微信企业号
             senparcWeixinSetting.WeixinCorpId = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"];
+            senparcWeixinSetting.WeixinCorpAgentId = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpAgentId"];
             senparcWeixinSetting.WeixinCorpSecret = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"];
+            senparcWeixinSetting.WeixinCorpToken = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpToken"];
+            senparcWeixinSetting.WeixinCorpEncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpEncodingAESKey"];
 
             //小程序
             //小程序消息URL对接信息

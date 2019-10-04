@@ -327,18 +327,28 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 //对请求消息进行加密
                 if (testEncrypt)
                 {
-                    WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(token, encodingAESKey, appId);
-                    string finalResponseXml = null;
-                    var toUserName = requestMessaageDoc.Root.Element("ToUserName").Value;
-                    var ret = msgCrype.EncryptRequestMsg(requestMessaageDoc.ToString(), timeStamp, nonce, toUserName, ref finalResponseXml, ref msgSigature);
-
-                    if (ret == 0)
+                    try
                     {
-                        requestMessaageDoc = XDocument.Parse(finalResponseXml);//赋值最新的加密信息
-                        var openId = requestMessaageDoc.Root.Element("FromUserName").Value;
-                        openIdAll = $"openid={openId}";
-                        encryptTypeAll = "&encrypt_type=aes";
+                        WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(token, encodingAESKey, appId);
+                        string finalResponseXml = null;
+                        var toUserName = requestMessaageDoc.Root.Element("ToUserName").Value;
+                        var ret = msgCrype.EncryptRequestMsg(requestMessaageDoc.ToString(), timeStamp, nonce, toUserName, ref finalResponseXml, ref msgSigature);
+
+                        if (ret == 0)
+                        {
+                            requestMessaageDoc = XDocument.Parse(finalResponseXml);//赋值最新的加密信息
+                            var openId = requestMessaageDoc.Root.Element("FromUserName").Value;
+                            openIdAll = $"openid={openId}";
+                            encryptTypeAll = "&encrypt_type=aes";
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        var data = new { Success = false, LoadTime = "N/A", Result = "发生错误：" + ex.ToString() };
+                        return Json(data, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
+                        throw;
+                    }
+
 
                     //Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("模拟测试-加密消息：", requestMessaageDoc?.ToString());
                 }

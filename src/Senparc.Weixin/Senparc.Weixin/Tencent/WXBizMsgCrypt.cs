@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20191004
+    修改描述：添加 EncryptRequestMsg() 方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -211,8 +215,8 @@ namespace Senparc.Weixin.Tencent
             string ToUserNameLabelTail = "]]></ToUserName>";
             string EncryptLabelHead = "<Encrypt><![CDATA[";
             string EncryptLabelTail = "]]></Encrypt>";
-            sEncryptMsg = sEncryptMsg + "<xml>" + ToUserNameLabelHead + toUserName + ToUserNameLabelTail;
-            sEncryptMsg = sEncryptMsg + EncryptLabelHead + raw + EncryptLabelTail;
+            sEncryptMsg += "<xml>" + ToUserNameLabelHead + toUserName + ToUserNameLabelTail;
+            sEncryptMsg += EncryptLabelHead + raw + EncryptLabelTail;
             sEncryptMsg += "</xml>";
             return 0;
         }

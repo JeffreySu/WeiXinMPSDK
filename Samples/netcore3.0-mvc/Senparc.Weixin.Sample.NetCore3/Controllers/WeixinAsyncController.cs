@@ -1,4 +1,11 @@
-﻿/*----------------------------------------------------------------
+﻿/*
+ * 重要提示：
+ * 从 Senparc.Weixin SDK v6.7 起，开始支持中间件注册方式，并默认支持异步方法，因此不再需要创建 Controller。
+ * 中间件输出结果和 Controller 等效。
+ */
+ 
+ 
+ /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
     
     文件名：WeixinAsyncController.cs
@@ -15,13 +22,8 @@
 
 ----------------------------------------------------------------*/
 
+
 //DPBMARK_FILE MP
-
-/*
- * 提示：从 Senparc.Weixin SDK v6.7 起，开始支持中间件注册方式，并默认支持异步方法，因此不再需要创建 Controller。
- * 中间件输出结果和 Controller 等效。
- */
-
 
 //using System;
 //using System.Collections.Generic;

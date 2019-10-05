@@ -32,6 +32,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
@@ -70,8 +72,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
             var echostr = GetEchostr(context);
 
             verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
-               postModel.Timestamp, postModel.Nonce,
-               echostr);
+               postModel.Timestamp, postModel.Nonce, echostr);
             return verifyUrl != null;
         }
 
@@ -150,7 +151,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// 使用 MessageHandler 配置。注意：会默认使用异步方法 messageHandler.ExecuteAsync()。
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="pathMatch">路径规则（路径开头，可带参数）</param>
+        /// <param name="pathMatch">路径规则（路径开头，可带参数），此路径用于提供微信后台 Url 校验及消息推送</param>
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>

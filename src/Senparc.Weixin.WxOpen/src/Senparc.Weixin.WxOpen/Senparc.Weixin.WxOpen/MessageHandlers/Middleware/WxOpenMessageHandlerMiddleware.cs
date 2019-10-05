@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// 使用 MessageHandler 配置。注意：会默认使用异步方法 messageHandler.ExecuteAsync()。
         /// </summary>
         /// <param name="builder"></param>
-        /// <param name="pathMatch">路径规则（路径开头，可带参数）</param>
+        /// <param name="pathMatch">路径规则（路径开头，可带参数），此路径用于提供微信后台 Url 校验及消息推送</param>
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>

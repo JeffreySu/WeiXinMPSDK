@@ -375,21 +375,21 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //方法三：结合 context 参数动态判断返回Setting值
             });                                                                                   // DPBMARK_END
 
-            //使用 小程序 MessageHandler 中间件
+            //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
                     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                     options.AccountSettingFunc = context => senparcWeixinSetting.Value;
                 }
-            );
+            );                                                                                    // DPBMARK_END
 
-            //使用 小程序 MessageHandler 中间件
+            //使用 企业微信 MessageHandler 中间件                                                   // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
                 {
                     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                     options.AccountSettingFunc = context => senparcWeixinSetting.Value;
                 }
-            );
+            );                                                                                    // DPBMARK_END
 
         }
 

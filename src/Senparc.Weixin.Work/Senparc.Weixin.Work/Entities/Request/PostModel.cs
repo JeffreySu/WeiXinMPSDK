@@ -32,6 +32,5 @@ namespace Senparc.Weixin.Work.Entities
         public string CorpId { get; set; }
 
         public string CorpAgentId { get; set; }
-        public string Msg_Signature { get; set; }
     }
 }

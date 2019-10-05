@@ -205,6 +205,10 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Tencent\WXBizMsgCrypt.cs.bak.txt" />
+  </ItemGroup>
+
   <!--存在重复的引用定义 && Microsoft.AspNetCore.Routing 也没有在该项目中使用-->
 	<!--<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
@@ -229,7 +233,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.4.1" />
+	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.4.2" />
 	</ItemGroup>
 
 	<ItemGroup>

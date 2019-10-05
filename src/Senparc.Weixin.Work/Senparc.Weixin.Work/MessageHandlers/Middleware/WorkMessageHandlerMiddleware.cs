@@ -74,10 +74,14 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
             var echostr = this.GetEchostr(context);
             var canCheck = !string.IsNullOrEmpty(postModel.Msg_Signature) && !string.IsNullOrEmpty(postModel.Timestamp) && !string.IsNullOrEmpty(postModel.Nonce) && !string.IsNullOrEmpty(echostr);
 
-            var verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
-                 postModel.Timestamp, postModel.Nonce, echostr);
+            string verifyUrl = null;
+            if (canCheck)
+            {
+                verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
+                     postModel.Timestamp, postModel.Nonce, echostr);
+            }
 
-            if (canCheck && verifyUrl != null)
+            if (verifyUrl != null)
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";
                 await context.Response.WriteAsync(verifyUrl).ConfigureAwait(false);//返回解密后的随机字符串则表示验证通过

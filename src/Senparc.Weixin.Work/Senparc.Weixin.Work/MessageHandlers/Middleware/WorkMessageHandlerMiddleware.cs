@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
 
             var postModel = GetPostModel(context);
             var echostr = this.GetEchostr(context);
-            var canCheck = !string.IsNullOrEmpty(postModel.Timestamp) && !string.IsNullOrEmpty(postModel.Nonce) && !string.IsNullOrEmpty(echostr);
+            var canCheck = !string.IsNullOrEmpty(postModel.Msg_Signature) && !string.IsNullOrEmpty(postModel.Timestamp) && !string.IsNullOrEmpty(postModel.Nonce) && !string.IsNullOrEmpty(echostr);
 
             var verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
                  postModel.Timestamp, postModel.Nonce, echostr);

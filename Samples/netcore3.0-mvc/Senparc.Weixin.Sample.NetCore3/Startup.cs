@@ -136,14 +136,14 @@ namespace Senparc.Weixin.Sample.NetCore3
             // 启动 CO2NET 全局注册，必须！
 
             //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
-            var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, register =>
+            var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
                 {
                     #region CO2NET 全局配置
 
                     #region 全局缓存配置（按需）
 
                     //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
-                    register.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
+                    globalRegister.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
 
                     #region 配置和使用 Redis          -- DPBMARK Redis
 
@@ -194,7 +194,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #region 注册日志（按需，建议）
 
-                    register.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
+                    globalRegister.RegisterTraceLog(ConfigTraceLog);//配置TraceLog
 
                     #endregion
 
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                 )
                 //使用 Senparc.Weixin SDK
-                .UseSenparcWeixin(senparcWeixinSetting.Value, register =>
+                .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
                 {
                     #region 微信相关配置
 
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #region 注册公众号或小程序（按需）
 
                     //注册公众号（可注册多个）                                                    -- DPBMARK MP
-                    register
+                    weixinRegister
                             .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
 
 

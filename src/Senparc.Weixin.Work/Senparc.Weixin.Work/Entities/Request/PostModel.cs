@@ -21,7 +21,8 @@ using Senparc.NeuChar;
 namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
-    /// 微信企业号服务器Post过来的参数集合（不包括PostData）
+    /// <para>微信企业号服务器Post过来的参数集合（不包括PostData）</para>
+    /// <para>注意：企业号的 Url 信息中，验证信息为 Msg_Signature 字段，不是 Signature！</para>
     /// </summary>
     public class PostModel : EncryptPostModel
     {
@@ -32,5 +33,7 @@ namespace Senparc.Weixin.Work.Entities
         public string CorpId { get; set; }
 
         public string CorpAgentId { get; set; }
+
+        
     }
 }

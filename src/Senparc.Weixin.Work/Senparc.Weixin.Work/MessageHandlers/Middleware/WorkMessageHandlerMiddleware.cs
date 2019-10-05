@@ -66,20 +66,18 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
 
         }
 
-
-        private bool CheckSignature(HttpContext context, PostModel postModel, out string verifyUrl)
-        {
-            var echostr = GetEchostr(context);
-
-            verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
-               postModel.Timestamp, postModel.Nonce, echostr);
-            return verifyUrl != null;
-        }
-
         public override async Task<bool> GetCheckSignature(HttpContext context)
         {
+            //Url 参数：msg_signature=64d481da37981dd88ab9926a82534f0222905286&timestamp=1570283669&nonce=1569937039&echostr=XwdIMYbHVlZl1V2ckFg6P4ScQytQrDaOG00fgu0SStDQWQstJ2ApLFdYV%2F2BtzZB1%2FISW0KhLqPBiQSaAVabVQ%3D%3D
+
             var postModel = GetPostModel(context);
-            if (CheckSignature(context, postModel, out string verifyUrl))
+            var echostr = this.GetEchostr(context);
+            var canCheck = !string.IsNullOrEmpty(postModel.Timestamp) && !string.IsNullOrEmpty(postModel.Nonce) && !string.IsNullOrEmpty(echostr);
+
+            var verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
+                 postModel.Timestamp, postModel.Nonce, echostr);
+
+            if (canCheck && verifyUrl != null)
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";
                 await context.Response.WriteAsync(verifyUrl).ConfigureAwait(false);//返回解密后的随机字符串则表示验证通过
@@ -89,10 +87,10 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
 
-                var currectSignature = string.IsNullOrEmpty(postModel.Msg_Signature)
-                            ? "企业号中，Url 中地 msg_signature 参数必须提供，否则无法进行签名！"
+                var correctSignature = !canCheck
+                            ? "企业号中，Url 中的 timestamp, nonce, echostr 参数必须提供，否则无法进行签名验证！"
                             : Work.Signature.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.Msg_Signature/*此参数不能为空*/);
-                var msgTip = base.GetGetCheckFaildMessage(context, currectSignature);
+                var msgTip = base.GetGetCheckFaildMessage(context, postModel.Msg_Signature, correctSignature);
                 await context.Response.WriteAsync(msgTip);
                 return false;
             }
@@ -101,8 +99,15 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
 
         public override async Task<bool> PostCheckSignature(HttpContext context)
         {
+            //Url 参数：msg_signature=3eea248d554c5ce1586f897ca3ca6b390d698254&timestamp=1570287086&nonce=1570089610
+
             var postModel = GetPostModel(context);
-            if (!CheckSignature(context, postModel, out _))
+
+            Senparc.Weixin.Work.Tencent.WXBizMsgCrypt crypt = new Senparc.Weixin.Work.Tencent.WXBizMsgCrypt(postModel.Token, postModel.EncodingAESKey, postModel.CorpId);
+            string replyEchoStr = null;
+            var result = Senparc.Weixin.Work.Tencent.WXBizMsgCrypt.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.EncodingAESKey, ref replyEchoStr);
+
+            if (result != 0)
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";
                 await context.Response.WriteAsync("签名校验失败！").ConfigureAwait(false);

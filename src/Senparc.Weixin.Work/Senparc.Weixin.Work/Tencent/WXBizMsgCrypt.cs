@@ -9,8 +9,8 @@
     修改描述：整理接口
 
     修改标识：Senparc - 20191005
-    修改描述：1、合并更新官方最新示例（没有实质变化）：https://work.weixin.qq.com/api/doc#90000/90138/90307/c#%E5%BA%93
-              2、解决官方示例中的 bug
+    修改描述：合并更新官方最新示例（没有实质变化）：https://work.weixin.qq.com/api/doc#90000/90138/90307/c#%E5%BA%93
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Trace;
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Work.Tencent
             {
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
             }
-            ret = VerifySignature(m_sToken, sTimeStamp, sNonce, this.m_sEncodingAESKey, sMsgSignature);
+            ret = VerifySignature(m_sToken, sTimeStamp, sNonce, sEchoStr, sMsgSignature);
             if (0 != ret)
             {
                 return ret;
@@ -239,6 +239,7 @@ namespace Senparc.Weixin.Work.Tencent
 
         public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
+            //校验规则：https://work.weixin.qq.com/api/doc#90000/90139/90968/%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
             AL.Add(sTimeStamp);

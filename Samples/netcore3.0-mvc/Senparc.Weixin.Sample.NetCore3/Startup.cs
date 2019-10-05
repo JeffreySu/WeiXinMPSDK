@@ -209,12 +209,12 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 },
 
-            #region 扫描自定义扩展缓存
+            #region 扫描自定义扩展缓存（非特殊需求可忽略）
 
                        //自动扫描自定义扩展缓存（二选一）
-                       autoScanExtensionCacheStrategies: true //默认为 true，可以不传入
-                                                              //指定自定义扩展缓存（二选一）
-                                                              //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
+                       autoScanExtensionCacheStrategies: true //默认为 true，可以不传入，此处仅作演示
+                       //指定自定义扩展缓存（二选一）
+                       //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
 
             #endregion
 
@@ -385,10 +385,10 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             //使用 小程序 MessageHandler 中间件
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
-            {
-                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
-                options.AccountSettingFunc = context => senparcWeixinSetting.Value;
-            }
+                {
+                    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                    options.AccountSettingFunc = context => senparcWeixinSetting.Value;
+                }
             );
 
         }

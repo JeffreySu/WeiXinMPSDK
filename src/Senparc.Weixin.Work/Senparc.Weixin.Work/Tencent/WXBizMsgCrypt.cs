@@ -9,6 +9,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Trace;
 using System;
 using System.Collections;
 using System.Security.Cryptography;
@@ -234,6 +235,8 @@ namespace Senparc.Weixin.Work.Tencent
 
         public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
+            SenparcTrace.SendCustomLog("Work GenarateSinature", $"Token:{sToken},ts:{sTimeStamp},snonce:{sNonce},msgEnc:{sMsgEncrypt},sMsgSignature:{sMsgSignature}");
+
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
             AL.Add(sTimeStamp);

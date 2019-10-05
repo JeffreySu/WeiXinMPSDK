@@ -70,7 +70,6 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         private bool CheckSignature(HttpContext context, PostModel postModel, out string verifyUrl)
         {
             var echostr = GetEchostr(context);
-
             verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
                postModel.Timestamp, postModel.Nonce, echostr);
             return verifyUrl != null;
@@ -89,10 +88,10 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
 
-                var currectSignature = string.IsNullOrEmpty(postModel.Msg_Signature)
-                            ? "企业号中，Url 中地 msg_signature 参数必须提供，否则无法进行签名！"
+                var correctSignature = string.IsNullOrEmpty(postModel.Msg_Signature)
+                            ? "企业号中，Url 中的 msg_signature 参数必须提供，否则无法进行签名！"
                             : Work.Signature.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.Msg_Signature/*此参数不能为空*/);
-                var msgTip = base.GetGetCheckFaildMessage(context, currectSignature);
+                var msgTip = base.GetGetCheckFaildMessage(context, postModel.Msg_Signature, correctSignature);
                 await context.Response.WriteAsync(msgTip);
                 return false;
             }

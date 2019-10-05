@@ -94,8 +94,8 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
             else
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
-                var currectSignature = CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token);
-                var msgTip = base.GetGetCheckFaildMessage(context, currectSignature);
+                var correctSignature = CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token);
+                var msgTip = base.GetGetCheckFaildMessage(context, postModel.Signature, correctSignature);
                 await context.Response.WriteAsync(msgTip);
                 return false;
             }
@@ -203,5 +203,4 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     #endregion
 }
 #endif
-      
-      
+

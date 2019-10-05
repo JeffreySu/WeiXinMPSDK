@@ -239,6 +239,7 @@ namespace Senparc.Weixin.Work.Tencent
 
         public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
+            //校验规则：https://work.weixin.qq.com/api/doc#90000/90139/90968/%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
             AL.Add(sTimeStamp);

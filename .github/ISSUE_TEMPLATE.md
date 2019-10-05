@@ -1,5 +1,5 @@
-(*** 此版块专为反馈bug及提交需求服务，不负责解答开发问题，请勿发表开发问题，
-如果您需要这方面的帮助，请移步`问答社区`：https://weixin.senparc.com/QA ***)
+> ***此版块专为反馈 bug 及提交需求服务，不负责解答开发问题，请勿发表开发问题，
+如果您需要这方面的帮助，请移步`问答社区`：https://weixin.senparc.com/QA***
 
 ##### 问题描述
 
@@ -36,7 +36,8 @@
 - [ ] .net 4.5
 - [ ] .net standard 2.0
 - [ ] .net core 1.x
-- [x] .net core 2.x
+- [ ] .net core 2.x
+- [x] .net core 3.x
 
 ##### 开发环境
 

@@ -14,6 +14,7 @@ using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Redis;
 using Senparc.CO2NET.Trace;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

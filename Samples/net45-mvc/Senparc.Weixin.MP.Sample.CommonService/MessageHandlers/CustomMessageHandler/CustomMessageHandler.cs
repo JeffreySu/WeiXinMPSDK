@@ -116,33 +116,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
-        public override void OnExecuting()
-        {
-            //测试MessageContext.StorageData
-
-            var currentMessageContext = base.GetCurrentMessageContext();
-            if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
-            {
-                currentMessageContext.StorageData = (int)0;
-                GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
-            }
-            base.OnExecuting();
-        }
-
-        public override void OnExecuted()
-        {
-            base.OnExecuted();
-            var currentMessageContext = base.GetCurrentMessageContext();
-            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
-            GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
-        }
 
         /// <summary>
         /// 处理文字请求
         /// </summary>
         /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
             //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
@@ -194,8 +174,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             var defaultResponseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
-            var requestHandler =
-                requestMessage.StartHandler()
+            var requestHandler = await requestMessage.StartHandler()
                 //关键字不区分大小写，按照顺序匹配成功后将不再运行下面的逻辑
                 .Keyword("约束", () =>
                 {
@@ -399,13 +378,28 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     return defaultResponseMessage;
                 })
 
-                //Default不一定要在最后一个
-                .Default(() =>
+
+                //“一次订阅消息”接口测试
+                .Keyword("订阅", () =>
+                {
+                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
+                    return defaultResponseMessage;
+                })
+                //正则表达式
+                .Regex(@"^\d+#\d+$", () =>
+                {
+                    defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：^\\d+#\\d+$", requestMessage.Content);
+                    return defaultResponseMessage;
+                })
+
+                //当 Default 使用异步方法时，需要写在最后一个，且 requestMessage.StartHandler() 前需要使用 await 等待异步方法执行；
+                //当 Default 使用同步方法，不一定要在最后一个,并且不需要使用 await
+                .Default(async () =>
                 {
                     var result = new StringBuilder();
                     result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                    var currentMessageContext = base.GetCurrentMessageContext();
+                    var currentMessageContext = await base.GetCurrentMessageContext();
                     if (currentMessageContext.RequestMessages.Count > 1)
                     {
                         result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
@@ -433,18 +427,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = result.ToString();
 
                     return defaultResponseMessage;
-                })
-                //“一次订阅消息”接口测试
-                .Keyword("订阅", () =>
-                {
-                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/SubscribeMsg";
-                    return defaultResponseMessage;
-                })
-                //正则表达式
-                .Regex(@"^\d+#\d+$", () =>
-                {
-                    defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：^\\d+#\\d+$", requestMessage.Content);
-                    return defaultResponseMessage;
                 });
 
             return requestHandler.GetResponseMessage() as IResponseMessageBase;
@@ -455,14 +437,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        public override async Task<IResponseMessageBase> OnLocationRequestAsync(RequestMessageLocation requestMessage)
         {
             var locationService = new LocationService();
             var responseMessage = locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
             return responseMessage;
         }
 
-        public override IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        public override async Task<IResponseMessageBase> OnShortVideoRequestAsync(RequestMessageShortVideo requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您刚才发送的是小视频";
@@ -474,7 +456,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        public override async Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
             //一隔一返回News或Image格式
             if (base.GlobalMessageContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
@@ -511,7 +493,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        public override async Task<IResponseMessageBase> OnVoiceRequestAsync(RequestMessageVoice requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
@@ -543,7 +525,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
+        public override async Task<IResponseMessageBase> OnVideoRequestAsync(RequestMessageVideo requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
@@ -583,7 +565,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        public override async Task<IResponseMessageBase> OnLinkRequestAsync(RequestMessageLink requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = string.Format(@"您发送了一条连接信息：
@@ -593,7 +575,7 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
             return responseMessage;
         }
 
-        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
+        public override async Task<IResponseMessageBase> OnFileRequestAsync(RequestMessageFile requestMessage)
         {
             var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = string.Format(@"您发送了一个文件：
@@ -609,10 +591,10 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
+        public override async Task<IResponseMessageBase> OnEventRequestAsync(IRequestMessageEventBase requestMessage)
         {
-            var eventResponseMessage = base.OnEventRequest(requestMessage);//对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
-                                                                           //TODO: 对Event信息进行统一操作
+            var eventResponseMessage = await base.OnEventRequestAsync(requestMessage);//对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
+                                                                                      //TODO: 对Event信息进行统一操作
             return eventResponseMessage;
         }
 
@@ -631,7 +613,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         }
 
 
-        public override IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
+        public override async Task<IResponseMessageBase> OnUnknownTypeRequestAsync(RequestMessageUnknownType requestMessage)
         {
             /*
              * 此方法用于应急处理SDK没有提供的消息类型，

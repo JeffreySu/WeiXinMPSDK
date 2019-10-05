@@ -8,6 +8,19 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+/*
+     重要提示
+     
+  1. 当前 Controller 展示了有特殊自定义需求的 MessageHandler 处理方案，
+     可以高度控制消息处理过程的每一个细节，
+     如果仅常规项目使用，可以直接使用中间件方式，参考 startup.cs：
+     app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options => ...);
+
+  2. 目前 Senparc.Weixin SDK 已经全面转向异步方法驱动，
+     因此建议使用异步方法（如：messageHandler.ExecuteAsync()），不再推荐同步方法。
+
+ */
+
 //DPBMARK_FILE MP
 using System;
 using System.IO;
@@ -35,9 +48,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
     public partial class WeixinController : Controller
     {
-        public static readonly string Token = Config.SenparcWeixinSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.MpSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.MpSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string AppId = Config.SenparcWeixinSetting.MpSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -208,7 +221,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     );
             return Content(result);
         }
-
 
         /// <summary>
         /// 多账号注册测试

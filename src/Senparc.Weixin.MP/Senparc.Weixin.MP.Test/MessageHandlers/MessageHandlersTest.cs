@@ -35,217 +35,13 @@ using Senparc.NeuChar.Helpers;
 using Senparc.WeixinTests;
 using Senparc.NeuChar.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
+using System.Threading.Tasks;
+using Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities;
 
 //TODO:分布式向下文升级，部分方法需要修改后重启测试  —— Jeffrey 2019.9.15
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CustomMessageHandlers : MessageHandler<DefaultMpMessageContext>
-    {
-        public CustomMessageHandlers(XDocument requestDoc, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestDoc, postModel, maxRecordCount)
-        {
-        }
-
-        public CustomMessageHandlers(RequestMessageBase requestMessage, PostModel postModel = null, int maxRecordCount = 0)
-            : base(requestMessage, postModel, maxRecordCount)
-        {
-        }
-
-
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-        {
-            var responseMessage =
-               ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
-
-
-            var requestHandler = requestMessage.StartHandler();
-            requestHandler.Keyword("代理", () =>
-                {
-                    responseMessage.Content = "收到关键字：代理";
-                    return responseMessage;
-                })
-                .SelectMenuKeyword("101", () =>
-                {
-                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
-                    return responseMessage;
-                })
-                .SelectMenuKeyword("102", () =>
-                {
-                    responseMessage.Content = $"选择菜单：{requestMessage.bizmsgmenuid}，文字：{requestMessage.Content}";
-                    return responseMessage;
-                })
-                .Default(() =>
-                {
-                    responseMessage.Content = "文字信息";
-                    return responseMessage;
-                });
-
-            return requestHandler.ResponseMessage;
-        }
-
-        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
-        {
-            var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responeMessage.Content = "OnEvent_LocationSelectRequest";
-            return responeMessage;
-        }
-
-        public override IResponseMessageBase OnFileRequest(RequestMessageFile requestMessage)
-        {
-            var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responeMessage.Content = requestMessage.FileMd5;
-            return responeMessage;
-        }
-
-        #region 微信认证事件推送
-
-        public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase OnEvent_QualificationVerifyFailRequest(RequestMessageEvent_QualificationVerifyFail requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase OnEvent_NamingVerifySuccessRequest(RequestMessageEvent_NamingVerifySuccess requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase OnEvent_NamingVerifyFailRequest(RequestMessageEvent_NamingVerifyFail requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase OnEvent_AnnualRenewRequest(RequestMessageEvent_AnnualRenew requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase OnEvent_VerifyExpiredRequest(RequestMessageEvent_VerifyExpired requestMessage)
-        {
-            return new SuccessResponseMessage();
-        }
-
-        #endregion
-
-
-        #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
-
-        //public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        #endregion
-
-        /// <summary>
-        /// 默认消息
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您发送的消息类型暂未被识别。";
-            return responseMessage;
-        }
-
-        public override IResponseMessageBase OnUnknownTypeRequest(RequestMessageUnknownType requestMessage)
-        {
-            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
-
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "未知消息类型：" + msgType;
-
-            return responseMessage;
-            //return base.OnUnknownTypeRequest(requestMessage);
-        }
-
-        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "欢迎关注";
-            return responseMessage;
-        }
-
-
-        #region 卡券回调测试
-
-        public override IResponseMessageBase OnEvent_GiftCard_Pay_DoneRequest(RequestMessageEvent_GiftCard_Pay_Done requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "这里是 OnEvent_GiftCard_Pay_DoneRequest";
-            return responseMessage;
-        }
-
-        public override IResponseMessageBase OnEvent_GiftCard_Send_To_FriendRequest(RequestMessageEvent_GiftCard_Send_To_Friend requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "这里是 OnEvent_GiftCard_Send_To_FriendRequest";
-            return responseMessage;
-        }
-
-        public override IResponseMessageBase OnEvent_GiftCard_User_AcceptRequest(RequestMessageEvent_GiftCard_User_Accept requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "这里是 OnEvent_GiftCard_User_AcceptRequest";
-            return responseMessage;
-        }
-
-        #endregion
-
-
-        public override IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
-        {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
-            return responseMessage;
-        }
-    }
 
     [TestClass]
     public partial class MessageHandlersTest : BaseTest
@@ -278,6 +74,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public void TextMessageRequestTest()
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xmlText));
+            //启用同步方法做替补
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             Assert.IsNotNull(messageHandlers.RequestDocument);
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
@@ -357,7 +155,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void EcryptMessageRequestTest()
+        public void CompatibilityModelEcryptMessageRequestTest()
         {
             //兼容模式测试
             var ecryptXml = @"<xml>
@@ -381,6 +179,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 AppId = "wx669ef95216eef885"
             };
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
@@ -390,12 +189,34 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
 
 
-            //安全模式测试
-            ecryptXml = @"<xml>
+
+        }
+
+        [TestMethod]
+        public async Task PureEcryptMessageRequestTest()
+        {
+            //纯安全模式测试
+            var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-    <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
-</xml>";
-            messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+    <Encrypt><![CDATA[LasT9+F3u/TTDVh3wUdOXtaMF/uJe8kKvvzZ54avW/DU8pSuJFy815e2rAFBz8bHNK+271sLFLbwBLHr2BOAHS32irOMt8Pwza4tm6TU+C6zWS00SLeF1RPTCd2EyGawFu9jlYHkjxc9kX5PovDI6FoiPs3LcVU2kpu2wE/cdqHsVvt583C8ynagjq3DAh62B8E1Uz9I7lM56J6siW+m82OPFaRJfRSWO6pLuGj8LnBJp0sUah27jJ4COSYuc6VQaf/LaO2K5zDgXklDmDxw/6rQeY1gJLIRuoKLEVUOLaJN3UYTgEjJmAMd1vHbEF12Ex6YYxVRW280IWlLDixgLsvpBkrSUoqXAFmQfNcRJZf3Yr/MSGlpsoUVRfNP7iJ70OtzVU3lbKcMmnn5FbB0EHNzJJSBVM/XPLr9VD9Ac+g=]]></Encrypt>
+</xml>
+";
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "20f4a1263d198b696e6958e0d65e928aa68f7d96",
+                Timestamp = "1570032739",
+                Nonce = "2068872452",
+
+                Token = "weixin",
+                EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",
+                AppId = "wx669ef95216eef885"
+            };
+
+            var messageHandlers = new CustomMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            messageHandlers.OmitRepeatedMessage = false;//不去重
+
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
@@ -403,6 +224,15 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
             Assert.IsTrue(messageHandlers.UsingEcryptMessage);
             Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
+
+            Console.WriteLine("RequestMessage:");
+            Console.WriteLine(messageHandlers.RequestMessage.ToJson(true));
+
+            await messageHandlers.ExecuteAsync(new CancellationToken());
+
+            Console.WriteLine("ResponseMessage:");
+            Console.WriteLine(messageHandlers.ResponseMessage.ToJson(true));
+
         }
 
         [TestMethod]

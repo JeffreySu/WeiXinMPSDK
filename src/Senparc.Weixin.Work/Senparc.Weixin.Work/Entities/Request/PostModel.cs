@@ -25,9 +25,12 @@ namespace Senparc.Weixin.Work.Entities
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        //TODO：这里使用 CorpId 并不合理，可能会造成重复，CorpId 是全局的，每个 App 会有不同的 AgentId
         public override string DomainId { get => CorpId; set => CorpId = value; }
 
         //以下信息不会出现在微信发过来的信息中，都是企业号后台需要设置（获取的）的信息，用于扩展传参使用
         public string CorpId { get; set; }
+
+        public string CorpAgentId { get; set; }
     }
 }

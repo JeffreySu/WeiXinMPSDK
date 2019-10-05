@@ -1,4 +1,18 @@
-﻿//DPBMARK_FILE MiniProgram
+﻿
+/*
+     重要提示
+     
+  1. 当前 Controller 展示了有特殊自定义需求的 MessageHandler 处理方案，
+     可以高度控制消息处理过程的每一个细节，
+     如果仅常规项目使用，可以直接使用中间件方式，参考 startup.cs：
+     app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options => ...);
+
+  2. 目前 Senparc.Weixin SDK 已经全面转向异步方法驱动，
+     因此建议使用异步方法（如：messageHandler.ExecuteAsync()），不再推荐同步方法。
+
+ */
+
+//DPBMARK_FILE MiniProgram
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;

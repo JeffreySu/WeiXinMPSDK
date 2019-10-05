@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.MessageContexts
     /// <summary>
     /// 公众号上下文消息的默认实现
     /// </summary>
-    public class DefaultMpMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>
+    public class DefaultMpMessageContext : MessageContext<IRequestMessageBase, IResponseMessageBase>, IMessageContext<IRequestMessageBase, IResponseMessageBase>
     {
         /// <summary>
         /// 获取请求消息和实体之间的映射结果

@@ -8,6 +8,20 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+/*
+     重要提示
+     
+  1. 当前 Controller 展示了有特殊自定义需求的 MessageHandler 处理方案，
+     可以高度控制消息处理过程的每一个细节，
+     如果仅常规项目使用，可以直接使用中间件方式，参考 startup.cs：
+     app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options => ...);
+
+  2. 目前 Senparc.Weixin SDK 已经全面转向异步方法驱动，
+     因此建议使用异步方法（如：messageHandler.ExecuteAsync()），不再推荐同步方法。
+
+ */
+
+
 //DPBMARK_FILE Work
 using System;
 using System.Collections.Generic;
@@ -24,6 +38,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -32,9 +47,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// </summary>
     public class WorkController : Controller
     {
-        public static readonly string Token = "fzBsmSaI8XE1OwBh";//与企业微信账号后台的Token设置保持一致，区分大小写。
-        public static readonly string EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string CorpId = "wx7618c0a6d9358622";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string Token = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpToken;//与企业微信账号后台的Token设置保持一致，区分大小写。
+        public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpEncodingAESKey;//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
+        public static readonly string CorpId = Config.SenparcWeixinSetting.WorkSetting.WeixinCorpId;//与微信企业账号后台的CorpId设置保持一致，区分大小写。
 
 
         public WorkController()
@@ -50,8 +65,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         public ActionResult Get(string msg_signature = "", string timestamp = "", string nonce = "", string echostr = "")
         {
             //return Content(echostr); //返回随机字符串则表示验证通过
-            var verifyUrl = Work.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
-                echostr);
+            var verifyUrl = Work.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce, echostr);
             if (verifyUrl != null)
             {
                 return Content(verifyUrl); //返回解密后的随机字符串则表示验证通过

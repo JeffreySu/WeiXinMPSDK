@@ -39,6 +39,13 @@ using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.MP.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using System.Text;
+using Senparc.NeuChar.MessageHandlers;
+using Senparc.NeuChar.Middlewares;
+using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.MessageContexts;
+using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Work.MessageHandlers.Middleware;
+using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -64,6 +71,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             //如果部署在linux系统上，需要加上下面的配置：
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
+            //如果部署在IIS上，需要加上下面的配置：
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMemoryCache();//使用本地缓存必须添加
@@ -85,6 +94,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+            //启用 GB2312
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             //引入EnableRequestRewind中间件
@@ -121,14 +131,12 @@ namespace Senparc.Weixin.Sample.NetCore3
                 endpoints.MapHub<SenparcHub>("/senparcHub");
             });                                                                                  // DPBMARK_END
 
-            //TODO:可以自定义Value
-            //使用公众号的 MessageHandler 中间件                               -- DPBMARK MP
-            app.UseMessageHandler("/Weixin2", CustomMessageHandler.GenerateMessageHandler, senparcWeixinSetting.Value);// DPBMARK_END
+
 
             // 启动 CO2NET 全局注册，必须！
 
             //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
-            app.UseSenparcGlobal(env, senparcSetting.Value, register =>
+            var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, register =>
                 {
                     #region CO2NET 全局配置
 
@@ -143,9 +151,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                     if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                     {
                         /* 说明：
-                         * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
+                        * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                         /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
-                         */
+                        */
                         Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
 
                         //以下会立即将全局缓存设置为 Redis
@@ -169,7 +177,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                         /* 说明：
                         * 1、Memcached 的连接字符串信息会从 Config.SenparcSetting.Cache_Memcached_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
-                       /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
+                    /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Memcached 链接信息（仅修改配置，不立即启用）
                         */
                         Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
@@ -201,12 +209,12 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 },
 
-            #region 扫描自定义扩展缓存
+            #region 扫描自定义扩展缓存（非特殊需求可忽略）
 
-                    //自动扫描自定义扩展缓存（二选一）
-                    autoScanExtensionCacheStrategies: true //默认为 true，可以不传入
-                                                           //指定自定义扩展缓存（二选一）
-                                                           //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
+                       //自动扫描自定义扩展缓存（二选一）
+                       autoScanExtensionCacheStrategies: true //默认为 true，可以不传入，此处仅作演示
+                       //指定自定义扩展缓存（二选一）
+                       //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
 
             #endregion
 
@@ -217,9 +225,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #region 微信相关配置
 
                     /* 微信配置开始
-                     * 
-                     * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-                     */
+                    * 
+                    * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+                    */
 
                     //注册开始
 
@@ -243,84 +251,61 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     //注册公众号（可注册多个）                                                    -- DPBMARK MP
                     register
-                        .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
+                            .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
 
 
-                        //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
-                        .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
+                            //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
+                            .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
 
-                        //除此以外，仍然可以在程序任意地方注册公众号或小程序：
-                        //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
+                            //除此以外，仍然可以在程序任意地方注册公众号或小程序：
+                            //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
                     #endregion
 
                     #region 注册企业号（按需）           -- DPBMARK Work
 
-                        //注册企业微信（可注册多个）
-                        .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
+                            //注册企业微信（可注册多个）
+                            .RegisterWorkAccount(senparcWeixinSetting.Value, "【盛派网络】企业微信")
 
-                        //除此以外，仍然可以在程序任意地方注册企业微信：
-                        //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
+                            //除此以外，仍然可以在程序任意地方注册企业微信：
+                            //AccessTokenContainer.Register(corpId, corpSecret, name);//命名空间：Senparc.Weixin.Work.Containers
                     #endregion                          // DPBMARK_END
 
                     #region 注册微信支付（按需）        -- DPBMARK TenPay
 
-                        //注册旧微信支付版本（V2）（可注册多个）
-                        .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
+                            //注册旧微信支付版本（V2）（可注册多个）
+                            .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
-                        //注册最新微信支付版本（V3）（可注册多个）
-                        .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            //注册最新微信支付版本（V3）（可注册多个）
+                            .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
                     #endregion                          // DPBMARK_END
 
                     #region 注册微信第三方平台（按需）  -- DPBMARK Open
 
-                        //注册第三方平台（可注册多个）
-                        .RegisterOpenComponent(senparcWeixinSetting.Value,
-                           //getComponentVerifyTicketFunc
-                           async componentAppId =>
-                           {
-                               var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
-                               if (!Directory.Exists(dir))
-                               {
-                                   Directory.CreateDirectory(dir);
-                               }
+                            //注册第三方平台（可注册多个）
+                            .RegisterOpenComponent(senparcWeixinSetting.Value,
+                                //getComponentVerifyTicketFunc
+                                async componentAppId =>
+                                {
+                                    var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/OpenTicket"));
+                                    if (!Directory.Exists(dir))
+                                    {
+                                        Directory.CreateDirectory(dir);
+                                    }
 
-                               var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
-                               using (var fs = new FileStream(file, FileMode.Open))
-                               {
-                                   using (var sr = new StreamReader(fs))
-                                   {
-                                       var ticket = await sr.ReadToEndAsync();
-                                       return ticket;
-                                   }
-                               }
-                           },
+                                    var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
+                                    using (var fs = new FileStream(file, FileMode.Open))
+                                    {
+                                        using (var sr = new StreamReader(fs))
+                                        {
+                                            var ticket = await sr.ReadToEndAsync();
+                                            return ticket;
+                                        }
+                                    }
+                                },
 
-                          //getAuthorizerRefreshTokenFunc
-                          async (componentAppId, auhtorizerId) =>
-                          {
-                              var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
-                              if (!Directory.Exists(dir))
-                              {
-                                  Directory.CreateDirectory(dir);
-                              }
-
-                              var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                              if (!File.Exists(file))
-                              {
-                                  return null;
-                              }
-
-                              using (Stream fs = new FileStream(file, FileMode.Open))
-                              {
-                                  var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                  var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                                  return result.authorizer_refresh_token;
-                              }
-                          },
-
-                            //authorizerTokenRefreshedFunc
-                            (componentAppId, auhtorizerId, refreshResult) =>
+                            //getAuthorizerRefreshTokenFunc
+                            async (componentAppId, auhtorizerId) =>
                             {
                                 var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
                                 if (!Directory.Exists(dir))
@@ -329,25 +314,82 @@ namespace Senparc.Weixin.Sample.NetCore3
                                 }
 
                                 var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                                using (Stream fs = new FileStream(file, FileMode.Create))
+                                if (!File.Exists(file))
                                 {
-                                    //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
-                                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                    binFormat.Serialize(fs, refreshResult);
-                                    fs.Flush();
+                                    return null;
                                 }
-                            }, "【盛派网络】开放平台")
 
-                    //除此以外，仍然可以在程序任意地方注册开放平台：
-                    //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
+                                using (Stream fs = new FileStream(file, FileMode.Open))
+                                {
+                                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                                    return result.authorizer_refresh_token;
+                                }
+                            },
+
+                                //authorizerTokenRefreshedFunc
+                                (componentAppId, auhtorizerId, refreshResult) =>
+                                {
+                                    var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                                    if (!Directory.Exists(dir))
+                                    {
+                                        Directory.CreateDirectory(dir);
+                                    }
+
+                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                                    using (Stream fs = new FileStream(file, FileMode.Create))
+                                    {
+                                        //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                                        binFormat.Serialize(fs, refreshResult);
+                                        fs.Flush();
+                                    }
+                                }, "【盛派网络】开放平台")
+
+                        //除此以外，仍然可以在程序任意地方注册开放平台：
+                        //ComponentContainer.Register();//命名空间：Senparc.Weixin.Open.Containers
                     #endregion                          // DPBMARK_END
 
-                    ;
+                        ;
 
                     /* 微信配置结束 */
 
                     #endregion
                 });
+
+            //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP、、
+            app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
+            {
+                //异步方法未提供重写时，调用同步方法（务必视具体情况而定）
+                options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+
+                //配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数。
+                //此处为委托，可以根据条件动态判断输入条件
+                options.AccountSettingFunc = context =>
+                    //方法一：使用默认配置
+                    senparcWeixinSetting.Value;
+
+                //方法二：使用指定配置：
+                //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
+
+                //方法三：结合 context 参数动态判断返回Setting值
+            });                                                                                   // DPBMARK_END
+
+            //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
+            app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
+                {
+                    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                    options.AccountSettingFunc = context => senparcWeixinSetting.Value;
+                }
+            );                                                                                    // DPBMARK_END
+
+            //使用 企业微信 MessageHandler 中间件                                                   // -- DPBMARK Work
+            app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, options =>
+                {
+                    options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                    options.AccountSettingFunc = context => senparcWeixinSetting.Value;
+                }
+            );                                                                                    // DPBMARK_END
 
         }
 

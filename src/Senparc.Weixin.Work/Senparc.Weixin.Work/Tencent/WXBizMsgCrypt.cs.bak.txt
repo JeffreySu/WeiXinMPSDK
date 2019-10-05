@@ -1,38 +1,19 @@
-﻿#region Apache License Version 2.0
-/*----------------------------------------------------------------
-
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
-except in compliance with the License. You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the
-License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-either express or implied. See the License for the specific language governing permissions
-and limitations under the License.
-
-Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
-
-----------------------------------------------------------------*/
-#endregion Apache License Version 2.0
-
-/*----------------------------------------------------------------
+﻿/*----------------------------------------------------------------
     文件名：WXBizMsgCrypt.cs
     文件功能描述：加解密算法
     
     
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20150313
     
-    修改标识：Senparc - 20150303
+    修改标识：Senparc - 20150313
     修改描述：整理接口
 
-    修改标识：Senparc - 20191004
-    修改描述：添加 EncryptRequestMsg() 方法
+    修改标识：Senparc - 20191005
+    修改描述：合并更新官方最新示例（没有实质变化）：https://work.weixin.qq.com/api/doc#90000/90138/90307/c#%E5%BA%93
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Trace;
 using System;
 using System.Collections;
 using System.Security.Cryptography;
@@ -44,19 +25,19 @@ using System.Xml;
 //-40002 :  xml解析失败
 //-40003 :  sha加密生成签名失败
 //-40004 :  AESKey 非法
-//-40005 :  appid 校验错误
+//-40005 :  corpid 校验错误
 //-40006 :  AES 加密失败
 //-40007 ： AES 解密失败
 //-40008 ： 解密后得到的buffer非法
 //-40009 :  base64加密异常
 //-40010 :  base64解密异常
-namespace Senparc.Weixin.Tencent
+namespace Senparc.Weixin.Work.Tencent
 {
     public class WXBizMsgCrypt
     {
         string m_sToken;
         string m_sEncodingAESKey;
-        string m_sAppID;
+        string m_sReceiveId;
         enum WXBizMsgCryptErrorCode
         {
             WXBizMsgCrypt_OK = 0,
@@ -64,7 +45,7 @@ namespace Senparc.Weixin.Tencent
             WXBizMsgCrypt_ParseXml_Error = -40002,
             WXBizMsgCrypt_ComputeSignature_Error = -40003,
             WXBizMsgCrypt_IllegalAesKey = -40004,
-            WXBizMsgCrypt_ValidateAppid_Error = -40005,
+            WXBizMsgCrypt_ValidateCorpid_Error = -40005,
             WXBizMsgCrypt_EncryptAES_Error = -40006,
             WXBizMsgCrypt_DecryptAES_Error = -40007,
             WXBizMsgCrypt_IllegalBuffer = -40008,
@@ -73,16 +54,53 @@ namespace Senparc.Weixin.Tencent
         };
 
         //构造函数
-        // @param sToken: 公众平台上，开发者设置的Token
-        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-        // @param sAppID: 公众帐号的appid
-        public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sAppID)
+        // @param sToken: 企业微信后台，开发者设置的Token
+        // @param sEncodingAESKey: 企业微信后台，开发者设置的EncodingAESKey
+        // @param sReceiveId: 不同场景含义不同，详见文档说明（消息加密时为 CorpId）
+        public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sReceiveId)
         {
             m_sToken = sToken;
-            m_sAppID = sAppID;
+            m_sReceiveId = sReceiveId;
             m_sEncodingAESKey = sEncodingAESKey;
         }
 
+        //验证URL
+        // @param sMsgSignature: 签名串，对应URL参数的msg_signature
+        // @param sTimeStamp: 时间戳，对应URL参数的timestamp
+        // @param sNonce: 随机串，对应URL参数的nonce
+        // @param sEchoStr: 随机串，对应URL参数的echostr
+        // @param sReplyEchoStr: 解密之后的echostr，当return返回0时有效
+        // @return：成功0，失败返回对应的错误码
+        public int VerifyURL(string sMsgSignature, string sTimeStamp, string sNonce, string sEchoStr, ref string sReplyEchoStr)
+        {
+            int ret = 0;
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
+            ret = VerifySignature(m_sToken, sTimeStamp, sNonce, sEchoStr, sMsgSignature);
+            if (0 != ret)
+            {
+                return ret;
+            }
+            sReplyEchoStr = "";
+            string cpid = "";
+            try
+            {
+                sReplyEchoStr = Cryptography.AES_decrypt(sEchoStr, m_sEncodingAESKey, ref cpid); //m_sReceiveId);
+            }
+            catch (Exception)
+            {
+                sReplyEchoStr = "";
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecryptAES_Error;
+            }
+            if (cpid != m_sReceiveId)
+            {
+                sReplyEchoStr = "";
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateCorpid_Error;
+            }
+            return 0;
+        }
 
         // 检验消息的真实性，并且获取解密后的明文
         // @param sMsgSignature: 签名串，对应URL参数的msg_signature
@@ -123,14 +141,16 @@ namespace Senparc.Weixin.Tencent
             }
             catch (FormatException)
             {
+                sMsg = "";
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecodeBase64_Error;
             }
             catch (Exception)
             {
+                sMsg = "";
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecryptAES_Error;
             }
-            if (cpid != m_sAppID)
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateAppid_Error;
+            if (cpid != m_sReceiveId)
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateCorpid_Error;
             return 0;
         }
 
@@ -150,7 +170,7 @@ namespace Senparc.Weixin.Tencent
             string raw = "";
             try
             {
-                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sAppID);
+                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sReceiveId);
             }
             catch (Exception)
             {
@@ -179,49 +199,7 @@ namespace Senparc.Weixin.Tencent
             return 0;
         }
 
-        /// <summary>
-        /// 模拟生成加密请求消息
-        /// </summary>
-        /// <param name="sReplyMsg"></param>
-        /// <param name="sTimeStamp"></param>
-        /// <param name="sNonce"></param>
-        /// <param name="toUserName"></param>
-        /// <param name="sEncryptMsg"></param>
-        /// <param name="msgSigature"></param>
-        /// <returns></returns>
-        public int EncryptRequestMsg(string sReplyMsg, string sTimeStamp, string sNonce, string toUserName, ref string sEncryptMsg, ref string msgSigature)
-        {
-            if (m_sEncodingAESKey.Length != 43)
-            {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-            }
-            string raw = "";
-            try
-            {
-                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sAppID);
-            }
-            catch (Exception)
-            {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_EncryptAES_Error;
-            }
-            msgSigature = "";
-            int ret = 0;
-            ret = GenarateSinature(m_sToken, sTimeStamp, sNonce, raw, ref msgSigature);
-            if (0 != ret)
-                return ret;
-            sEncryptMsg = "";
-
-            string ToUserNameLabelHead = "<ToUserName><![CDATA[";
-            string ToUserNameLabelTail = "]]></ToUserName>";
-            string EncryptLabelHead = "<Encrypt><![CDATA[";
-            string EncryptLabelTail = "]]></Encrypt>";
-            sEncryptMsg += "<xml>" + ToUserNameLabelHead + toUserName + ToUserNameLabelTail;
-            sEncryptMsg += EncryptLabelHead + raw + EncryptLabelTail;
-            sEncryptMsg += "</xml>";
-            return 0;
-        }
-
-        public class DictionarySort : IComparer
+        public class DictionarySort : System.Collections.IComparer
         {
             public int Compare(object oLeft, object oRight)
             {
@@ -251,17 +229,18 @@ namespace Senparc.Weixin.Tencent
             ret = GenarateSinature(sToken, sTimeStamp, sNonce, sMsgEncrypt, ref hash);
             if (ret != 0)
                 return ret;
-            //System.Console.WriteLine(hash);
             if (hash == sSigture)
                 return 0;
             else
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;//-40001
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateSignature_Error;
             }
         }
 
         public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
+            SenparcTrace.SendCustomLog("Work GenarateSinature", $"Token:{sToken},ts:{sTimeStamp},snonce:{sNonce},msgEnc:{sMsgEncrypt},sMsgSignature:{sMsgSignature}");
+
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
             AL.Add(sTimeStamp);
@@ -292,7 +271,7 @@ namespace Senparc.Weixin.Tencent
             }
             catch (Exception)
             {
-                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;//-40003
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ComputeSignature_Error;
             }
             sMsgSignature = hash;
             return 0;

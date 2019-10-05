@@ -54,6 +54,8 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Tencent;
 using Senparc.NeuChar.Helpers;
+using System.Threading.Tasks;
+using System.Threading;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -73,43 +75,18 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public new IRequestMessageBase RequestMessage
-        {
-            get
-            {
-                return base.RequestMessage as IRequestMessageBase;
-            }
-            set
-            {
-                base.RequestMessage = value;
-            }
-        }
+        public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
 
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public new IResponseMessageBase ResponseMessage
-        {
-            get
-            {
-                return base.ResponseMessage as IResponseMessageBase;
-            }
-            set
-            {
-                base.ResponseMessage = value;
-            }
-        }
+        public new IResponseMessageBase ResponseMessage { get => base.ResponseMessage as IResponseMessageBase; set => base.ResponseMessage = value; }
 
 
-        public override XDocument ResponseDocument
-        {
-            get
-            {
-                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
-            }
-        }
+        public override XDocument ResponseDocument => ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+
 
         public override XDocument FinalResponseDocument
         {
@@ -142,11 +119,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WxOpenMessageEntityEnlightener.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener => WxOpenMessageEntityEnlightener.Instance;
         /// <summary>
         /// Api 接口定义
         /// </summary>
-        public override ApiEnlightener ApiEnlightener { get { return WxOpenApiEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener => WxOpenApiEnlightener.Instance;
 
 
         #region 构造函数
@@ -247,10 +224,28 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
+
+        [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
+        public virtual void OnExecuting()
+        {
+            throw new MessageHandlerException("请使用异步方法 OnExecutingAsync()");
+        }
+
+        [Obsolete("请使用异步方法 OnExecutedAsync()", true)]
+        public virtual void OnExecuted()
+        {
+            throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
+        }
+
+        #endregion
+
+        #region 异步方法
+
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
-        public override void BuildResponseMessage()
+        public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
             #region NeuChar 执行过程
 
@@ -266,7 +261,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Text:
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
@@ -276,16 +271,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     {
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
                                 OnImageRequest(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
                     break;
                 case RequestMsgType.Event:
                     {
-                        OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
                     }
                     break;
                 default:
@@ -295,19 +290,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             #endregion
         }
 
-        public virtual void OnExecuting()
-        {
-            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
-
-            base.OnExecuting();
-        }
-
-        public virtual void OnExecuted()
-        {
-            base.OnExecuted();
-        }
-
         #endregion
-
     }
 }

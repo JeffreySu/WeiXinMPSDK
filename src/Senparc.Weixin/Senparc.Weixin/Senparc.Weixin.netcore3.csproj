@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.6.102-preview2</Version>
+    <Version>6.6.102-preview7</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -308,6 +308,10 @@
       2、提供带符号的 nuget 包（.snupkg)
       v6.6.0 使用最新版本 Neuchar、CO2NET，支持 .NET Core 3.0
       v6.6.101 提供 .Net Core 3.0 独立版本
+      v6.6.102
+      1、添加 UseSenparcWeixin() 新方法
+      2、提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
+      3、提供 SenparcWeixinSettingItem 快速创建构造函数
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -366,7 +370,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="1.0.102-preview2" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview2" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.4.2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

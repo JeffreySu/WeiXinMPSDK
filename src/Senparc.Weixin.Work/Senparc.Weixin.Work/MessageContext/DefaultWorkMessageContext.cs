@@ -18,8 +18,9 @@ namespace Senparc.Weixin.Work.MessageContexts
     /// 企业号上下文消息的默认实现
     /// </summary>
     public class DefaultWorkMessageContext
-        : MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
+        : MessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>
     {
+
         /// <summary>
         /// 获取请求消息和实体之间的映射结果
         /// </summary>

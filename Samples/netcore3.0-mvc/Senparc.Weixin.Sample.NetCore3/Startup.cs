@@ -396,10 +396,9 @@ namespace Senparc.Weixin.Sample.NetCore3
             );                                                                                    // DPBMARK_END
 
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
-            app.UseMessageHandlerForWork("/WorkAsync", 
-                WorkCustomMessageHandler.GenerateMessageHandler, 
-                o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                                                                                     // DPBMARK_END
+            app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, 
+                                         o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
+                                                                                                  // DPBMARK_END
         }
 
 

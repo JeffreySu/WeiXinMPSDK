@@ -141,7 +141,7 @@ namespace Senparc.Weixin.Tencent
         // @param sEncryptMsg: 加密后的可以直接回复用户的密文，包括msg_signature, timestamp, nonce, encrypt的xml格式的字符串,
         //						当return返回0时有效
         // return：成功0，失败返回对应的错误码
-        public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
+        public int EncryptResponseMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
         {
             if (m_sEncodingAESKey.Length != 43)
             {
@@ -182,14 +182,14 @@ namespace Senparc.Weixin.Tencent
         /// <summary>
         /// 模拟生成加密请求消息
         /// </summary>
-        /// <param name="sReplyMsg"></param>
+        /// <param name="requestMsg"></param>
         /// <param name="sTimeStamp"></param>
         /// <param name="sNonce"></param>
         /// <param name="toUserName"></param>
         /// <param name="sEncryptMsg"></param>
         /// <param name="msgSigature"></param>
         /// <returns></returns>
-        public int EncryptRequestMsg(string sReplyMsg, string sTimeStamp, string sNonce, string toUserName, ref string sEncryptMsg, ref string msgSigature)
+        public int EncryptRequestMsg(string requestMsg, string sTimeStamp, string sNonce, string toUserName, ref string sEncryptMsg, ref string msgSigature)
         {
             if (m_sEncodingAESKey.Length != 43)
             {
@@ -198,7 +198,7 @@ namespace Senparc.Weixin.Tencent
             string raw = "";
             try
             {
-                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sAppID);
+                raw = Cryptography.AES_encrypt(requestMsg, m_sEncodingAESKey, m_sAppID);
             }
             catch (Exception)
             {

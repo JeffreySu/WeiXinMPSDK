@@ -242,7 +242,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     //验证没有通过，取消执行
                     CancelExcute = true;
-                    TextResponseMessage = "当前 MessageHandler 只允许处理加密消息";
+                    TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEcryptMessage 设置，只允许处理加密消息，以提高安全性！";
                     return null;
                 }
 

@@ -67,6 +67,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     public abstract partial class WxOpenMessageHandler<TMC> : MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>
         where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
+        #region 属性设置
+
         /// <summary>
         /// 原始的加密请求（如果不加密则为null）
         /// </summary>
@@ -115,7 +117,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         private PostModel _postModel;
 
-
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
@@ -125,6 +126,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// </summary>
         public override ApiEnlightener ApiEnlightener => WxOpenApiEnlightener.Instance;
 
+
+        #endregion
 
         #region 构造函数
 
@@ -139,9 +142,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
 
@@ -151,8 +155,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, postModel, maxRecordCount)
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
 
@@ -162,14 +167,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0)
-            : base(requestMessageBase, postModel, maxRecordCount)
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
-
-        #endregion
-
-        #region 消息处理
 
         /// <summary>
         /// 初始化数据
@@ -217,6 +219,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
             {
                 CancelExcute = true;
+                TextResponseMessage = "当前 MessageHandler 只允许处理加密消息";
                 return null;
             }
 
@@ -230,6 +233,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
             //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
+
+        #endregion
+
+        #region 消息处理
+
+
 
 
         [Obsolete("请使用异步方法 OnExecutingAsync()", true)]

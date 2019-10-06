@@ -86,6 +86,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
         where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
+        #region 属性设置
+
         ///// <summary>
         ///// 原始的加密请求（如果不加密则为null）
         ///// </summary>
@@ -95,8 +97,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
-        public override XDocument ResponseDocument =>
-            ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+        public override XDocument ResponseDocument => ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
 
         /// <summary>
         /// 最后返回的ResponseDocument。
@@ -131,22 +132,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public new IRequestMessageBase RequestMessage
-        {
-            get => base.RequestMessage as IRequestMessageBase;
-            set => base.RequestMessage = value;
-        }
+        public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
 
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public new IResponseMessageBase ResponseMessage
-        {
-            get => base.ResponseMessage as IResponseMessageBase;
-            set => base.ResponseMessage = value;
-        }
+        public new IResponseMessageBase ResponseMessage { get => base.ResponseMessage as IResponseMessageBase; set => base.ResponseMessage = value; }
 
         private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
 
@@ -164,6 +157,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public override ApiEnlightener ApiEnlightener => MpApiEnlightener.Instance;
 
+        #endregion
+
+        #region 构造函数 / 初始化相关
 
         /// <summary>
         /// 构造MessageHandler
@@ -171,9 +167,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="inputStream">请求消息流</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(inputStream, postModel, maxRecordCount)
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -185,9 +182,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestDocument">请求消息的XML</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestDocument, postModel, maxRecordCount)
+        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -196,20 +194,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 直接传入IRequestMessageBase，For UnitTest
+        /// 直接传入 IRequestMessageBase，仅供单元测试使用！
         /// </summary>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestMessageBase, postModel, maxRecordCount)
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             postModel = postModel ?? new PostModel();
 
             var postDataDocument = requestMessageBase.ConvertEntityToXml();
-            base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
+            base.CommonInitialize(postDataDocument, maxRecordCount, postModel, onlyAllowEcryptMessage);
         }
 
         /// <summary>
@@ -243,6 +242,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     //验证没有通过，取消执行
                     CancelExcute = true;
+                    TextResponseMessage = "当前 MessageHandler 只允许处理加密消息";
                     return null;
                 }
 
@@ -259,6 +259,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
             {
                 CancelExcute = true;
+                TextResponseMessage = "当前 MessageHandler 只允许处理加密消息";
                 return null;
             }
 
@@ -306,6 +307,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
+        #endregion
 
         #region 扩展
 
@@ -328,6 +330,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         #endregion
 
+        #region 消息处理
 
         /// <summary>
         /// OnExecuting
@@ -343,5 +346,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
+
+        #endregion }
     }
 }

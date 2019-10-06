@@ -213,6 +213,13 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
+            //检查是否限定只能用加密模式
+            if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
+            {
+                CancelExcute = true;
+                return null;
+            }
+
             RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {

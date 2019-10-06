@@ -16,31 +16,25 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Agents;
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Entities.Request;
+using Senparc.NeuChar.Helpers;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.MessageHandlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Helpers;
-using System.Xml.Linq;
-using Senparc.Weixin.MP.AdvancedAPIs;
 using System.Threading.Tasks;
-using Senparc.NeuChar.Entities.Request;
-using Senparc.CO2NET.Helpers;
-using Senparc.NeuChar.Helpers;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Agents;
-using Senparc.CO2NET.Utilities;
-using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.MP.MessageContexts;
+using System.Xml.Linq;
 
 #if NET45
 using System.Web;
@@ -48,8 +42,6 @@ using System.Configuration;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
-using Microsoft.AspNetCore.Http;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -98,6 +90,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
             GlobalMessageContext.ExpireMinutes = 3;
+
+            OnlyAllowEcryptMessage = true;//是否只允许接收加密消息，默认为 false
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {

@@ -361,6 +361,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 url += $"signature={sigature}&timeStamp={timeStamp}&nonce={nonce}&msg_signature={msgSigature}{encryptTypeAll}{openIdAll}";
                 //参数如：signature=330ed3b64e363dc876f35e54a79e59b48739f567&timestamp=1570075722&nonce=863153744&openid=olPjZjsXuQPJoV0HlruZkNzKc91E&encrypt_type=aes&msg_signature=71dc359205a4660bc3b3046b643452c994b5897d
 
+                var dt1 = SystemTime.Now;
                 var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
 
                 if (string.IsNullOrEmpty(responseMessageXml))
@@ -370,9 +371,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 try
                 {
-                    var dt1 = SystemTime.Now;
                     if (testConcurrence)
                     {
+                        dt1 = SystemTime.Now;
                         testConcurrenceCount = testConcurrenceCount > 30 ? 30 : testConcurrenceCount;//设定最高限额
 
                         //模拟并发请求

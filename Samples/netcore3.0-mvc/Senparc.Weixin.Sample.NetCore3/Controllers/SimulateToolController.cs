@@ -32,6 +32,7 @@ using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Agents;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Tencent;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -329,15 +330,16 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 {
                     try
                     {
+                        var openId = requestMessaageDoc.Root.Element("FromUserName").Value;
+                        var toUserName = requestMessaageDoc.Root.Element("ToUserName").Value;
+
                         WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(token, encodingAESKey, appId);
                         string finalResponseXml = null;
-                        var toUserName = requestMessaageDoc.Root.Element("ToUserName").Value;
                         var ret = msgCrype.EncryptRequestMsg(requestMessaageDoc.ToString(), timeStamp, nonce, toUserName, ref finalResponseXml, ref msgSigature);
 
                         if (ret == 0)
                         {
                             requestMessaageDoc = XDocument.Parse(finalResponseXml);//赋值最新的加密信息
-                            var openId = requestMessaageDoc.Root.Element("FromUserName").Value;
                             openIdAll = $"openid={openId}";
                             encryptTypeAll = "&encrypt_type=aes";
                         }

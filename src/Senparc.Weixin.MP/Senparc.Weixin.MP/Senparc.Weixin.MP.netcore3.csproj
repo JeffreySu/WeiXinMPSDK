@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>16.9.102-preview7.6</Version>
+    <Version>16.9.102-preview7.7</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -561,7 +561,7 @@
 
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.5.102-preview2" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.7.5" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.7.6" />
     <PackageReference Include="Senparc.NeuChar.App" Version="0.6.102-preview7.7.1" />
   </ItemGroup>
 

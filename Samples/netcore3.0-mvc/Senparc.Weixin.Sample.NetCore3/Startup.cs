@@ -85,8 +85,7 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            services.AddSenparcGlobalServices(Configuration)//Senparc.CO2NET 全局注册
-                    .AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
+            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
         }
 
@@ -94,11 +93,11 @@ namespace Senparc.Weixin.Sample.NetCore3
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
-            //启用 GB2312
+            //启用 GB2312（按需）
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            //引入EnableRequestRewind中间件
+            //引入EnableRequestRewind中间件（按需）
             app.UseEnableRequestRewind();
+            //使用 Session（按需，本示例中需要用到）
             app.UseSession();
 
             if (env.IsDevelopment())
@@ -124,18 +123,16 @@ namespace Senparc.Weixin.Sample.NetCore3
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-
             //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket
             app.UseEndpoints(endpoints =>
             {
+                //配置自定义 SenparcHub
                 endpoints.MapHub<SenparcHub>("/senparcHub");
             });                                                                                  // DPBMARK_END
 
 
-
             // 启动 CO2NET 全局注册，必须！
-
-            //关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
+            // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
                 {
                     #region CO2NET 全局配置
@@ -207,18 +204,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
 
                     #endregion
-                },
-
-            #region 扫描自定义扩展缓存（非特殊需求可忽略）
-
-                       //自动扫描自定义扩展缓存（二选一）
-                       autoScanExtensionCacheStrategies: true //默认为 true，可以不传入，此处仅作演示
-                                                              //指定自定义扩展缓存（二选一）
-                                                              //autoScanExtensionCacheStrategies: false, extensionCacheStrategiesFunc: () => GetExCacheStrategies(senparcSetting.Value)
-
-            #endregion
-
-                )
+                })
                 //使用 Senparc.Weixin SDK
                 .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
                 {
@@ -228,8 +214,6 @@ namespace Senparc.Weixin.Sample.NetCore3
                     * 
                     * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
                     */
-
-                    //注册开始
 
                     #region 微信缓存（按需，必须放在配置开头，以确保其他可能依赖到缓存的注册过程使用正确的配置）
 
@@ -357,7 +341,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 });
 
-            //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP、、
+            #region 使用 MessageHadler 中间件，取代 创建Controller
+
+            //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
             app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
             {
                 //说明：此代码块中演示了较为全面的功能点，简化的使用可以参考下面小程序和企业微信
@@ -396,14 +382,16 @@ namespace Senparc.Weixin.Sample.NetCore3
             );                                                                                    // DPBMARK_END
 
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
-            app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler, 
+            app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
                                          o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                  // DPBMARK_END
+                                                                                                      // DPBMARK_END
+
+            #endregion
         }
 
 
         /// <summary>
-        /// 配置微信跟踪日志
+        /// 配置微信跟踪日志（演示，按需）
         /// </summary>
         private void ConfigTraceLog()
         {
@@ -419,13 +407,13 @@ namespace Senparc.Weixin.Sample.NetCore3
             };
 
             //当发生基于WeixinException的异常时触发
-            WeixinTrace.OnWeixinExceptionFunc = ex =>
+            WeixinTrace.OnWeixinExceptionFunc = async ex =>
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
                 //发送模板消息给管理员                             -- DPBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
-                eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
+                await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
 

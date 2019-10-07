@@ -33,6 +33,7 @@ using Senparc.NeuChar.Agents;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Tencent;
 using Senparc.CO2NET.Trace;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -278,7 +279,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="requestMessaageDoc"></param>
         /// <param name="autoFillUrlParameters">是否自动填充Url中缺少的参数（signature、timestamp、nonce），默认为 true</param>
         /// <returns></returns>
-        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
+        private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
             if (requestMessaageDoc.Root.Element("MsgId") != null)
@@ -287,7 +288,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
             }
 
-            var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
+            var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
             return responseMessageXml;
         }
@@ -351,7 +352,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         throw;
                     }
 
-
                     //Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("模拟测试-加密消息：", requestMessaageDoc?.ToString());
                 }
 
@@ -380,13 +380,21 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100));
+                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100);
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);
                     }
 
-                    var data = new { Success = true, LoadTime = SystemTime.DiffTotalMS(dt1, "f4"), Result = responseMessageXml };
+                    var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                    var data = new
+                    {
+                        Success = true,
+                        LoadTime = SystemTime.DiffTotalMS(dt1, "f4"),
+                        Result = responseMessageXml,
+                        CacheType = cache.GetType().Name,
+                        ConcurrenceCount = testConcurrenceCount
+                    };
                     return Json(data, new JsonSerializerSettings() { ContractResolver = new DefaultContractResolver() });
                 }
                 catch (Exception ex)

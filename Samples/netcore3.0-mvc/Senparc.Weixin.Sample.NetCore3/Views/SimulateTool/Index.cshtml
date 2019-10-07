@@ -64,7 +64,6 @@
         #simulateToolArea .control-title {
             font-weight: bold;
         }
-
     </style>
     <script>
         $(function () {
@@ -171,11 +170,16 @@
                 loadResult_Loading.hide();
                 if (json.Success) {
                     $('#loadTime').text(json.LoadTime);
-                        loadResult_Result.show();
+                    loadResult_Result.show();
+                    $('#currentCacheType').text(json.CacheType);
                     if (checkTestConcurrence()) {
                         $('#oncurrenceWord').text('并发');
+                        $('#concurrenceCountArea').show();
+                        $('#concurrenceCount').text(json.ConcurrenceCount);
                     } else {
                         $('#oncurrenceWord').text('单发');
+                        $('#concurrenceCountArea').hide();
+                        $('#concurrenceCount').text('');
                     }
                 } else {
                     loadResult_Result.hide();
@@ -405,10 +409,17 @@
             </li>
             <li>
                 <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">
+
+
+
+                <div class="control-title send" id="loadResult_Result">
                     模拟<span id="oncurrenceWord">并发</span>响应时间：<span id="loadTime"></span> ms<br />
-                    由于后台代理转发暂时没有使用异步请求，结果可能会受影响
-                </label>
+                    使用缓存：<span id="currentCacheType"></span><br />
+                    <label class="control-title send" id="concurrenceCountArea">
+                        并发数：<span id="concurrenceCount"></span><br />
+                    </label>
+                </div>
+                
             </li>
             <li></li>
         </ul>

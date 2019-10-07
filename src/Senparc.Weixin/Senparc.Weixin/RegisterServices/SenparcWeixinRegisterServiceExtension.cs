@@ -6,6 +6,7 @@ using System.Text;
 #if NETSTANDARD2_0 || NETCOREAPP3_0
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 #endif
 
@@ -25,7 +26,10 @@ namespace Senparc.Weixin.RegisterServices
         /// <returns></returns>
         public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-
+            if (!CO2NET.RegisterServices.RegisterServiceExtension.SenparcGlobalServicesRegistered)
+            {
+                serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+            }
 
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 

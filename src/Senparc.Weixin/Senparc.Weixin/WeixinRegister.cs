@@ -152,8 +152,7 @@ namespace Senparc.Weixin
                 }
             }
 
-            var dt2 = SystemTime.Now;
-            var exCacheLog = "微信扩展缓存注册总用时：{0}ms\r\n扩展缓存：{1}".FormatWith((dt2 - dt1).TotalMilliseconds, cacheTypes);
+            var exCacheLog = $"微信扩展缓存注册总用时：{SystemTime.DiffTotalMS(dt1, "f4")}ms\r\n扩展缓存：{cacheTypes}";
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
@@ -176,10 +175,12 @@ namespace Senparc.Weixin
         /// <returns></returns>
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> registerConfigure)
         {
-            //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，
-            //需要在 registerService.UseSenparcWeixin() 自动加载 Redis 之前完成，因此必须在 registerService.UseSenparcWeixin() 之前执行。
-            registerConfigure?.Invoke(registerService);
             var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
+
+            //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，需要在在 registerService.UseSenparcWeixin() 自动加载 Redis 后进行
+            //因此必须在 registerService.UseSenparcWeixin() 之后执行。
+
+            registerConfigure?.Invoke(registerService);
             return register;
         }
 

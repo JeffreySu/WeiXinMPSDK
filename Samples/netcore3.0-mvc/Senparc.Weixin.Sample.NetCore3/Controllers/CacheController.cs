@@ -129,9 +129,17 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
 
                 var caches = new Dictionary<IBaseObjectCacheStrategy, IContainerCacheStrategy> {
-                                    { RedisObjectCacheStrategy.Instance, RedisContainerCacheStrategy.Instance },//如果没有配置 Redis，请注释掉这一句
                                     { LocalObjectCacheStrategy.Instance, LocalContainerCacheStrategy.Instance }
                                 };
+                try
+                {
+                    caches[RedisObjectCacheStrategy.Instance] = RedisContainerCacheStrategy.Instance;
+                }
+                catch (Exception)
+                {
+                    sb.Append("==== 当前系统未配置 Reis，跳过 Redis测试 ====<br /><br />");
+                }
+
                 var cacheExpire = TimeSpan.FromSeconds(1);
 
                 foreach (var cacheSet in caches)
@@ -140,7 +148,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     TestContainerBag1 cacheBag = null;
                     var baseCache = cacheSet.Key;
                     var containerCache = cacheSet.Value;
-                    sb.AppendFormat($"====  开始指定调用缓存策略：{baseCache.GetType().Name} ====<br /><br />");
+                    sb.AppendFormat($"==== 开始指定调用缓存策略：{baseCache.GetType().Name} ====<br /><br />");
 
                     sb.Append($"----- 测试写入（先异步后同步） -----<br />");
                     var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "." + cacheExpire.GetHashCode();//创建不重复的Key
@@ -210,11 +218,12 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
                     sb.Append($"----- 删除结果检查：{(cacheBag == null ? "成功" : "失败")} -----<br /><br /><br />");
                 }
-
             }
             catch (Exception ex)
             {
-                sb.Append($"===== 发生异常：{ex.Message} =====");
+                sb.Append($@"===== 发生异常：{ex.Message} =====<br />
+{ex.StackTrace.ToString()}<br />
+{ex.InnerException?.StackTrace.ToString()}<br />");
             }
 
             return Content(sb.ToString());

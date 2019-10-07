@@ -25,6 +25,8 @@ namespace Senparc.Weixin.RegisterServices
         /// <returns></returns>
         public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
+
+
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
             /*

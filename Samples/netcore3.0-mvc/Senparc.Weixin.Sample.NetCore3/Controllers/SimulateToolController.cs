@@ -380,7 +380,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100);
+                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 0);
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);

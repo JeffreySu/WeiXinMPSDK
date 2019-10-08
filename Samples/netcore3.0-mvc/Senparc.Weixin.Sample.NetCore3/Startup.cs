@@ -342,8 +342,6 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
                 });
 
-            MessageContextGlobalConfig.UseMessageContext = false;
-
             #region 使用 MessageHadler 中间件，取代 创建Controller
 
             //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP

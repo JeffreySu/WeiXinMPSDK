@@ -46,6 +46,7 @@ using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.Work.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.NeuChar.Context;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -340,6 +341,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #endregion
                 });
+
+            MessageContextGlobalConfig.UseMessageContext = false;
 
             #region 使用 MessageHadler 中间件，取代 创建Controller
 

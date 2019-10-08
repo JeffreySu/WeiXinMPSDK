@@ -1,0 +1,81 @@
+﻿@*DPBMARK_FILE MP*@
+@{
+    ViewBag.Title = "异步方法测试页面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+
+        .asyncWapper {
+            text-align: center;
+            padding: 30px 30px;
+        }
+
+            .asyncWapper h1 {
+                text-align: center;
+                font-size: 30px;
+                padding: 30px;
+            }
+
+            .asyncWapper p {
+                line-height: 200%;
+            }
+
+            .asyncWapper table thead {
+                font-weight: bold;
+            }
+
+            .asyncWapper td {
+                padding: 10px;
+                line-height: 150%;
+            }
+
+            .asyncWapper ol {
+                list-style-type: decimal;
+                text-align: left;
+            }
+    </style>
+}
+<div class="wrapper asyncWapper">
+    <h1>异步方法测试</h1>
+    <hr />
+    <div class="asyncWapper_con">
+        <table>
+            <thead>
+                <tr>
+                    <th>方法</th>
+                    <th>说明</th>
+                    <th>测试方法</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>临时二维码<br />（QrCodeApi.CreateAsync）</td>
+                    <td>打开后会显示最新获取的二维码，使用微信扫一扫，会得到随机的场景值</td>
+                    <td>@Html.ActionLink("点击测试", "QrCodeTest", null, new { @class = "txtButton" })</td>
+                </tr>
+                <tr>
+                    <td>模板消息<br />（TemplateApi.SendTemplateMessageAsync）</td>
+                    <td>
+                        <ol>
+                            <li>关注“盛派网络小助手”公众号</li>
+                            <li>输入文字“TM”获取您的验证码，并填写到右侧的“验证码”中</li>
+                            <li>点击右侧【点击测试】按钮，将会在公众号上收到通过异步接口发送的模板消息</li>
+                        </ol>
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("TemplateMessageTest", "AsyncMethods", FormMethod.Post))
+                        {
+                            <p>
+                                验证码：<input type="text" id="tm_checkcode" name="checkcode" />
+                                <input type="submit" value="点击测试" class="ui-button" />
+                            </p>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="clear"></div>

@@ -1,4 +1,15 @@
-﻿#if !NET45
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+
+    文件名：Register.cs
+    文件功能描述：注册 Senparc.WebSocket 服务
+
+
+    创建标识：Senparc - 20190712
+
+----------------------------------------------------------------*/
+
+#if !NET45
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.RegisterServices;
 using System;

@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -39,20 +40,15 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         public OmitRepeatMessageMessageHandlers(XDocument requestDoc)
             : base(requestDoc, new PostModel()
                                 {
-                                    Msg_Signature = "845997ceb6e4fd73edd9a377be227848ce20d34f",
-                                    Timestamp = "1412587525",
-                                    Nonce = "1501543730",
+                                    Msg_Signature = "",
+                                    Timestamp = "",
+                                    Nonce = "",
 
-                                    Token = "fzBsmSaI8XE1OwBh",
-                                    EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
-                                    CorpId = "wx7618c0a6d9358622"
+                                    Token = "",
+                                    EncodingAESKey = "",
+                                    CorpId = ""
                                 })
         {
-        }
-
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
         }
 
         public override IWorkResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
@@ -72,6 +68,11 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送的消息类型暂未被识别。";
             return responseMessage;
+        }
+
+        public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 

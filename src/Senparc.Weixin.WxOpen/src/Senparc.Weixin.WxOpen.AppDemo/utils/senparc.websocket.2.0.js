@@ -1,9 +1,13 @@
-/* senparc.websocket.js - 20190716 - v1.0 */
+/* senparc.websocket.js - 20191001 - v2.0 */
+/* 支持 .NET Core 3.0+ SignalR。 */
 
 var senparcWebSocketConnection;
 
 function buildConnectionAndStart(hubUrl, signalR, onStart){
-  senparcWebSocketConnection = new signalR.HubConnectionBuilder().withUrl(hubUrl).build();
+  senparcWebSocketConnection = new signalR.HubConnectionBuilder()
+                                    .withUrl(hubUrl)
+                                    //.withAutomaticReconnect([0, 2000, 5000, 10000, 30000, 45000, 60000])
+                                    .build();
   senparcWebSocketConnection.start(onStart()).then().catch(function (err) {
     return console.error(err.toString());
   });

@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170726
 
+    
+    修改标识：Senparc - 20190529
+    修改描述：v4.7.101 添加“开放平台-代码管理-加急审核”接口：CodeApi.QueryQuota()、CodeApi.SpeedupAudit()
 
 ----------------------------------------------------------------*/
 
@@ -40,6 +43,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    /// <summary>
+    /// CodeApi.QueryQuota() 返回结果
+    /// </summary>
     public class QueryQuotaResultJson : WxJsonResult
     {
         /// <summary>

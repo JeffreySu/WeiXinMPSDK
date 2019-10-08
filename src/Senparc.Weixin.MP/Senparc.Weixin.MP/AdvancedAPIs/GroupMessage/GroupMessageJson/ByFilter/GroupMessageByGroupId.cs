@@ -70,13 +70,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string media_id { get; set; }
     }
 
-    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_Content
     {
         public string content { get; set; }
     }
 
-    [Obsolete("请使用GroupMessageByFilter_MediaId")]
     public class GroupMessageByGroupId_WxCard
     {
         public string card_id { get; set; }

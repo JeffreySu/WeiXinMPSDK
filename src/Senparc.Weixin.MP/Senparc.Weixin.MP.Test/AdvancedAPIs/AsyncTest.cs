@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var apiTotalTime = 0D;//接口总耗时
 
             //指定缓存
-            Senparc.Weixin.Cache.Redis.Register.RegisterDomainCache();//注册领域缓存
+            Senparc.Weixin.Cache.Redis.Register.ActivityDomainCache();//注册领域缓存
             CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
 
             var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();

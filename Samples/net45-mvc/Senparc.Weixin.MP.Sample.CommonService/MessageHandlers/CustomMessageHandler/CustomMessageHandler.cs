@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// 为中间件提供生成当前类的委托
         /// </summary>
         public static Func<Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount)
-                        => new CustomMessageHandler(stream, postModel, maxRecordCount, true/* 是否只允许处理加密消息，以提高安全性 */);
+                        => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */);
 
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
             : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)

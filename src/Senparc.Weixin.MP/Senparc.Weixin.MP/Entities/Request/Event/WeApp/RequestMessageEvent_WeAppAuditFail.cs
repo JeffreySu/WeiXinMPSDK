@@ -29,11 +29,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 事件之小程序审核失败
     /// </summary>
+    [Obsolete("请使用Senparc.Weixin.WxOpen.Entities.RequestMessageEvent_WeAppAuditFail")]
     public class RequestMessageEvent_WeAppAuditFail : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>

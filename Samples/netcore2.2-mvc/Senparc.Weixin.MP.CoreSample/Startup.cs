@@ -331,13 +331,13 @@ namespace Senparc.Weixin.MP.CoreSample
             };
 
             //当发生基于WeixinException的异常时触发
-            WeixinTrace.OnWeixinExceptionFunc = ex =>
+            WeixinTrace.OnWeixinExceptionFunc = async ex =>
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
-                //发送模板消息给管理员                             -- DPBMARK Redis
+                //发送模板消息给管理员                                   -- DPBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
-                eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
+                await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
     }

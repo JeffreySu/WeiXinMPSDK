@@ -43,20 +43,22 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     {
         public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
-            //测试MessageContext.StorageData
+            //演示：MessageContext.StorageData
 
-            var currentMessageContext = await base.GetCurrentMessageContext();
+            var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
             if (currentMessageContext.StorageData == null || (currentMessageContext.StorageData is int))
             {
                 currentMessageContext.StorageData = (int)0;
-                await GlobalMessageContext.UpdateMessageContextAsync(currentMessageContext);//储存到缓存
+                //await GlobalMessageContext.UpdateMessageContextAsync(currentMessageContext);//储存到缓存
             }
             await base.OnExecutingAsync(cancellationToken);
         }
 
         public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
-            var currentMessageContext = await base.GetCurrentMessageContext();
+            //演示：MessageContext.StorageData
+
+            var currentMessageContext = await base.GetUnsafeMessageContext();//为了在分布式缓存下提高读写效率，使用此方法，如果需要获取实时数据，应该使用 base.GetCurrentMessageContext()
             currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
             GlobalMessageContext.UpdateMessageContext(currentMessageContext);//储存到缓存
             await base.OnExecutedAsync(cancellationToken);

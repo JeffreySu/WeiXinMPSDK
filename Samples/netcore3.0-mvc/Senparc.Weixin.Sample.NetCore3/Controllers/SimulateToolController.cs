@@ -282,10 +282,16 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
+            var msgId = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
-                requestMessaageDoc.Root.Element("MsgId").Value =
-                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
+                requestMessaageDoc.Root.Element("MsgId").Value = msgId;
+            }
+
+            //修改文字内容
+            if (requestMessaageDoc.Root.Element("MsgType").Value == "text")
+            {
+                requestMessaageDoc.Root.Element("Content").Value += $" | {msgId}";
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
@@ -362,6 +368,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 //参数如：signature=330ed3b64e363dc876f35e54a79e59b48739f567&timestamp=1570075722&nonce=863153744&openid=olPjZjsXuQPJoV0HlruZkNzKc91E&encrypt_type=aes&msg_signature=71dc359205a4660bc3b3046b643452c994b5897d
 
                 var dt1 = SystemTime.Now;
+
                 var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
 
                 if (string.IsNullOrEmpty(responseMessageXml))
@@ -380,7 +387,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100);
+                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 0);
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);

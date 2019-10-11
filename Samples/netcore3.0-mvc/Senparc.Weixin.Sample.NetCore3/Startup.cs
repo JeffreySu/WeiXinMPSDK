@@ -46,6 +46,7 @@ using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.Work.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
+using Senparc.NeuChar.Context;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {

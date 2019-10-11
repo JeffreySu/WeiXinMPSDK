@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.7.102-preview7.7.9</Version>
+		<Version>3.7.102-preview7.8</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -233,7 +233,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.7.9" />
+	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102-preview7.8.4" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -20,60 +20,43 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2019 Senparc
-  
-    文件名：Enums.cs
-    文件功能描述：枚举类型
+    
+    文件名：RequestMessageEvent_Click.cs
+    文件功能描述：事件之小程序审核失败
     
     
-    创建标识：Senparc - 20170106
-
+    创建标识：Senparc - 2010828
+    
 ----------------------------------------------------------------*/
 
-using System.ComponentModel;
-
-namespace Senparc.Weixin.WxOpen
+namespace Senparc.Weixin.WxOpen.Entities
 {
-    ///// <summary>
-    ///// 接收消息类型
-    ///// </summary>
-    //public enum RequestMsgType
-    //{
-    //    Text, //文本
-    //    Image, //图片
-    //    Event, //事件推送
-    //}
-
     /// <summary>
-    /// 当RequestMsgType类型为Event时，Event属性的类型
+    /// 事件之小程序审核失败
     /// </summary>
-    public enum Event
+    public class RequestMessageEvent_NicknameAudit : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 进入会话事件
+        /// 事件类型
         /// </summary>
-        user_enter_tempsession,
-        add_nearby_poi_audit_info,
-        wxa_nickname_audit, //名称审核事件
-        weapp_audit_success,
-        weapp_audit_fail,
-        weapp_audit_delay
+        public override Event Event
+        {
+            get { return Event.wxa_nickname_audit; }
+        }
 
+        /// <summary>
+        /// 审核结果 2：失败，3：成功
+        /// </summary>
+        public int ret { get; set; }
+
+        /// <summary>
+        /// 需要更改的昵称
+        /// </summary>
+        public string nickname { get; set; }
+
+        /// <summary>
+        /// 驳回原因
+        /// </summary>
+        public string reason { get; set; }
     }
-
-    ///// <summary>
-    ///// 发送消息类型
-    ///// </summary>
-    //public enum ResponseMsgType
-    //{
-    //    [Description("文本")]
-    //    Text = 0,
-    //    [Description("图片")]
-    //    Image = 3,
-
-    //    //以下为延伸类型，微信官方并未提供具体的回复类型
-    //    [Description("无回复")]
-    //    NoResponse = 110,
-    //    [Description("success")]
-    //    SuccessResponse = 200
-    //}
 }

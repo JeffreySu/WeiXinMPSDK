@@ -241,12 +241,13 @@ namespace Senparc.Weixin.MP.MessageContexts
                         #endregion
 
                         #region 小程序审核事件推送
-                        case "WEAPP_AUDIT_SUCCESS": //小程序审核成功
-                            requestMessage = new RequestMessageEvent_WeAppAuditSuccess();
-                            break;
-                        case "WEAPP_AUDIT_FAIL": //小程序审核失败
-                            requestMessage = new RequestMessageEvent_WeAppAuditFail();
-                            break;
+                        //该事件已移动到Senparc.Weixin.WxOpen
+                        //case "WEAPP_AUDIT_SUCCESS": //小程序审核成功
+                        //    requestMessage = new RequestMessageEvent_WeAppAuditSuccess();
+                        //    break;
+                        //case "WEAPP_AUDIT_FAIL": //小程序审核失败
+                        //    requestMessage = new RequestMessageEvent_WeAppAuditFail();
+                        //    break;
                         #endregion
 
                         default://其他意外类型（也可以选择抛出异常）

@@ -43,6 +43,18 @@ namespace Senparc.Weixin.WxOpen.MessageContexts
                         case "USER_ENTER_TEMPSESSION"://进入客服会话
                             requestMessage = new RequestMessageEvent_UserEnterTempSession();
                             break;
+                        case "WEAPP_AUDIT_SUCCESS": //小程序审核成功
+                            requestMessage = new RequestMessageEvent_WeAppAuditSuccess();
+                            break;
+                        case "WEAPP_AUDIT_FAIL": //小程序审核失败
+                            requestMessage = new RequestMessageEvent_WeAppAuditFail();
+                            break;
+                        case "WEAPP_AUDIT_DELAY": //小程序审核延后
+                            requestMessage = new RequestMessageEvent_WeAppAuditDelay();
+                            break;
+                        case "WXA_NICKNAME_AUDIT": //名称审核结果
+                            requestMessage = new RequestMessageEvent_NicknameAudit();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

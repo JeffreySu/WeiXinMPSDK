@@ -289,7 +289,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
 
             //修改文字内容
-            if (requestMessaageDoc.Root.Element("MsgType").Value == "text")
+            if (requestMessaageDoc.Root.Element("MsgType").Value.ToUpper() == "TEXT")
             {
                 requestMessaageDoc.Root.Element("Content").Value += $" | {msgId}";
             }

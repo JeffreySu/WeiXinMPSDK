@@ -34,6 +34,7 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.Tencent;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Cache;
+using System.Linq;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -271,6 +272,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return requestMessaage.ConvertEntityToXml();
         }
 
+        private Random _random = new Random();
+
         /// <summary>
         /// 模拟并发请求
         /// </summary>
@@ -282,7 +285,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
-            var msgId = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
+            var msgId = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(_random.Next(0, 9999999))).ToString();
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
                 requestMessaageDoc.Root.Element("MsgId").Value = msgId;
@@ -291,7 +294,16 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //修改文字内容
             if (requestMessaageDoc.Root.Element("MsgType").Value.ToUpper() == "TEXT")
             {
-                requestMessaageDoc.Root.Element("Content").Value += $" | {msgId}";
+                var values = requestMessaageDoc.Root.Element("Content").Value.Split('|').Select(z => z.Trim()).ToList();
+                if (values.Count == 1)
+                {
+                    values.Add(msgId);
+                }
+                else
+                {
+                    values[1] = msgId;
+                }
+                requestMessaageDoc.Root.Element("Content").Value += $"{values[0]} | {values[1]}";
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);

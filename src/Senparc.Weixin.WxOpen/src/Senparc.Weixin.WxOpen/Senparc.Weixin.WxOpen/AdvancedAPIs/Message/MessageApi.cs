@@ -31,7 +31,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 /* 
-   API地址：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html
+   API地址：https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/subscribe-message.html
+            https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html
 */
 
 using Senparc.NeuChar;
@@ -106,7 +107,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                     page = page,
                     data = data
                 };
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+
+                return await CommonJsonSend.SendAsync(accessToken, urlFormat, submitData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

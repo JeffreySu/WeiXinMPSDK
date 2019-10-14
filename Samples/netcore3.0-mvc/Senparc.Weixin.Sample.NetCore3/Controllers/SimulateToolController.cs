@@ -45,6 +45,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     {
         #region 私有方法
 
+
+        private string _responseMessageXml = null;
+
         /// <summary>
         /// 获取请求XML
         /// </summary>
@@ -305,11 +308,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     values[1] = msgId;
                     values[2] = index.ToString();
                 }
-                requestMessaageDoc.Root.Element("Content").Value = values;
+                requestMessaageDoc.Root.Element("Content").Value = string.Join(" | ", values);
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
+
+            _responseMessageXml = responseMessageXml;
             return responseMessageXml;
         }
 
@@ -383,18 +388,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 var dt1 = SystemTime.Now;
 
-                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
-
-                if (string.IsNullOrEmpty(responseMessageXml))
-                {
-                    responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
-                }
 
                 try
                 {
+                    dt1 = SystemTime.Now;
                     if (testConcurrence)
                     {
-                        dt1 = SystemTime.Now;
+                        //异步方法
                         testConcurrenceCount = testConcurrenceCount > 30 ? 30 : testConcurrenceCount;//设定最高限额
 
                         //模拟并发请求
@@ -406,13 +406,24 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);
                     }
+                    else
+                    {
+                        //同步方法，立即发送
+                        _responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
+                    }
+
+
+                    if (string.IsNullOrEmpty(_responseMessageXml))
+                    {
+                        _responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
+                    }
 
                     var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                     var data = new
                     {
                         Success = true,
                         LoadTime = SystemTime.DiffTotalMS(dt1, "f4"),
-                        Result = responseMessageXml,
+                        Result = _responseMessageXml,
                         CacheType = cache.GetType().Name,
                         ConcurrenceCount = testConcurrenceCount
                     };

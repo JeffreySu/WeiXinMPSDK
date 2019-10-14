@@ -138,8 +138,9 @@
       2、提供带符号的 nuget 包（.snupkg)
       v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
       v3.7.101 提供 .Net Core 3.0 独立版本
-      v3.7.102 小程序审核事件移动到 WxOpen
-      
+      v3.7.102
+      1、小程序审核事件移动到 WxOpen
+      2、订阅消息接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

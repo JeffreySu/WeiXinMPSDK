@@ -280,15 +280,60 @@ Page({
       }
     })
   },
+  //生成二维码
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'
     })
   },
+  //生成二维码
   openQrCodePage:function(e){
     var codeType = e.target.dataset.codetype;
     wx.navigateTo({
       url: '../QrCode/QrCode?codeType=' + codeType
+    })
+  },
+  //订阅消息
+  subscribeMessage:function(){
+    var templateId = 'xWclWkOqDrxEgWF4DExmb9yUe10pfmSSt2KM6pY7ZlU';//根据微信小程序后台[功能]>[订阅消息]中订阅的唯一id进行填写，每一个都不一样
+    wx.requestSubscribeMessage({
+      tmplIds: [templateId],
+      success(res) {
+        console.log(res);
+        var acceptResult = res[templateId];//'accept'、'reject'、'ban'
+        wx.showModal({
+          title: '您点击了按钮',
+          content: '事件类型' + acceptResult+'\r\n'+'您将在几秒钟之后收到延迟的提示',
+          showCancel:false,
+          success:function(){
+            if (acceptResult == 'accept') {
+              wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/SubscribeMessage',
+                method: 'POST',
+                data: {
+                  sessionId: wx.getStorageSync('sessionId'),
+                  templateId: 'xWclWkOqDrxEgWF4DExmb9yUe10pfmSSt2KM6pY7ZlU'
+                },
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                success(msgRes) {
+                  if (msgRes.data.success) {
+                    wx.showModal({
+                      title: '操作成功！',
+                      content: msgRes.data.msg,
+                    })
+                  } else {
+                    wx.showModal({
+                      title: '操作失败！',
+                      content: msgRes.data.msg,
+                    })
+                  }
+                }
+              })
+
+            }
+          }
+        })
+       }
     })
   },
   onLoad: function () {

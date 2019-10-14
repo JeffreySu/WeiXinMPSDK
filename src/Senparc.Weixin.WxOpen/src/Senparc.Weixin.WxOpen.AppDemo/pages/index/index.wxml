@@ -79,6 +79,15 @@
 </view>
 
 <view class="flex-wrp" style="flex-direction:row;">
+ <view class="flex-item">
+    <!-- 一次性订阅消息 -->
+    <button bindtap='subscribeMessage' type="primary"
+    class="btn-DoRequest" hover-class="other-button-hover" >订阅消息</button>
+  </view>
+</view>
+
+<view class="flex-wrp" style="flex-direction:row;">
+
   <view class="flex-item">
     <!-- Live Pusher  -->
     <button bindtap="openLivePusher" 

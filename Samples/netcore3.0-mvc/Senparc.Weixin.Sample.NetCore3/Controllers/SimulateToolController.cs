@@ -303,8 +303,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 else
                 {
                     values[1] = msgId;
+                    values[2] = index.ToString();
                 }
-                requestMessaageDoc.Root.Element("Content").Value += $"{values[0]} | {values[1]} | {index}";
+                requestMessaageDoc.Root.Element("Content").Value = values;
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);

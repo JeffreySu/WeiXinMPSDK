@@ -282,7 +282,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="requestMessaageDoc"></param>
         /// <param name="autoFillUrlParameters">是否自动填充Url中缺少的参数（signature、timestamp、nonce），默认为 true</param>
         /// <returns></returns>
-        private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
+        private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int index, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
             var msgId = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(_random.Next(0, 9999999))).ToString();
@@ -298,12 +298,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 if (values.Count == 1)
                 {
                     values.Add(msgId);
+                    values.Add(index.ToString());
                 }
                 else
                 {
                     values[1] = msgId;
                 }
-                requestMessaageDoc.Root.Element("Content").Value += $"{values[0]} | {values[1]}";
+                requestMessaageDoc.Root.Element("Content").Value += $"{values[0]} | {values[1]} | {index}";
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
@@ -399,7 +400,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 0);
+                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, index: i, sleepMillionSeconds: 0);
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);

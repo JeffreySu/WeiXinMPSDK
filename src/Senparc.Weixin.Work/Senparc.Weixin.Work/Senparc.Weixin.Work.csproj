@@ -220,6 +220,8 @@
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="MessageContext\DefaultWorkMessageContext.cs" />
+    <Compile Include="MessageHandlers\Async\WorkMessageHandler.Async.cs" />
+    <Compile Include="MessageHandlers\Middleware\WorkMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -247,10 +249,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.9.1</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.4</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

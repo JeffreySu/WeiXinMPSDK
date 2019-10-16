@@ -134,6 +134,7 @@
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\MemberAuthJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
     <Compile Include="WxOpenAPIs\AddCategoryJson\AddCategoryData.cs" />
     <Compile Include="WxOpenAPIs\CategoryListJson\CategoryListJsonResult.cs" />
@@ -157,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.4</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

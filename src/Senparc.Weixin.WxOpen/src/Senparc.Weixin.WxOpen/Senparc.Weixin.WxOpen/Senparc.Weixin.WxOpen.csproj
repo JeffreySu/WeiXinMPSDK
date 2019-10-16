@@ -100,6 +100,10 @@
     <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_NicknameAudit.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditDelay.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
@@ -128,16 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.9.1</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.4</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
-      <Version>6.5.0</Version>
+      <Version>6.6.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.8.0.4</Version>
+      <Version>16.9.102</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

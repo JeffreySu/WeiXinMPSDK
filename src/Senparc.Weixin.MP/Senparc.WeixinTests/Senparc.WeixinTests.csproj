@@ -182,7 +182,7 @@
       <Version>4.10.1</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.8.0.4</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
   </ItemGroup>
   <Choose>

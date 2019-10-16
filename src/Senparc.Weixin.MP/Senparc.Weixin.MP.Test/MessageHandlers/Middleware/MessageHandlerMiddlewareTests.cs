@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿#if !NET45
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -93,3 +94,4 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
         }
     }
 }
+#endif

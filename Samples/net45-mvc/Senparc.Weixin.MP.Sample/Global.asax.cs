@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.Sample
                         {
                             using (var sr = new StreamReader(fs))
                             {
-                                var ticket = sr.ReadToEnd();
+                                var ticket = await sr.ReadToEndAsync();
                                 return ticket;
                             }
                         }
@@ -285,13 +285,13 @@ namespace Senparc.Weixin.MP.Sample
             };
 
             //当发生基于WeixinException的异常时触发
-            Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc = ex =>
+            Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc = async ex =>
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
                 //发送模板消息给管理员
                 var eventService = new EventService();
-                eventService.ConfigOnWeixinExceptionFunc(ex);
+                await eventService.ConfigOnWeixinExceptionFunc(ex);
             };
         }
     }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：TempleteModel.cs
     文件功能描述：小程序模板消息接口需要的数据
@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20161112
     
+    修改标识：Senparc - 20190906
+    修改描述：v3.5.4 修正 UniformSendData 参数
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,7 +39,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 {
     /// <summary>
     /// 模板消息Post数据
@@ -69,14 +73,53 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
         public object data { get; set; }
 
         /// <summary>
-        /// 
+        /// 模板需要放大的关键词，不填则默认无放大（非必填）
         /// </summary>
         public string emphasis_keyword { get; set; }
+
+        /// <summary>
+        /// 模板内容字体的颜色，不填默认黑色（非必填）
+        /// </summary>
+        public string color { get; set; }
 
 
 
         public TempleteModel()
         {
         }
+    }
+
+    /// <summary>
+    /// 下发小程序和公众号统一的服务消息
+    /// </summary>
+    public class UniformSendData
+    {
+        public string touser { get; set; }
+        public Weapp_Template_Msg weapp_template_msg { get; set; }
+        public Mp_Template_Msg mp_template_msg { get; set; }
+    }
+
+    public class Weapp_Template_Msg
+    {
+        public string template_id { get; set; }
+        public string page { get; set; }
+        public string form_id { get; set; }
+        public object data { get; set; }
+        public string emphasis_keyword { get; set; }
+    }
+
+    public class Mp_Template_Msg
+    {
+        public string appid { get; set; }
+        public string template_id { get; set; }
+        public string url { get; set; }
+        public Miniprogram miniprogram { get; set; }
+        public object data { get; set; }
+    }
+
+    public class Miniprogram
+    {
+        public string appid { get; set; }
+        public string pagepath { get; set; }
     }
 }

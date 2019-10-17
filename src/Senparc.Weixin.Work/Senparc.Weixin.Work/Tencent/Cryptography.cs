@@ -7,6 +7,10 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20181226
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -15,7 +19,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Tencent
+namespace Senparc.Weixin.Work.Tencent
 {
     class Cryptography
     {
@@ -56,11 +60,11 @@ namespace Tencent
             byte[] bMsg = new byte[len];
             byte[] bCorpid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bCorpid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bCorpid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             corpid = Encoding.UTF8.GetString(bCorpid);
 
-            
+
             return oriMsg;
         }
 
@@ -81,7 +85,7 @@ namespace Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bCorpid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bCorpid.Length);
-   
+
             return AES_encrypt(bMsg, Iv, Key);
 
         }
@@ -95,7 +99,7 @@ namespace Tencent
             string[] arr = codeSerial.Split(',');
             string code = "";
             int randValue = -1;
-            Random rand = new Random(unchecked((int)DateTime.Now.Ticks));
+            Random rand = new Random(unchecked((int)SystemTime.Now.Ticks));
             for (int i = 0; i < codeLen; i++)
             {
                 randValue = rand.Next(0, arr.Length - 1);
@@ -106,7 +110,11 @@ namespace Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -134,7 +142,11 @@ namespace Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
+#if NET45
             var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -192,11 +204,11 @@ namespace Tencent
             return Encoding.UTF8.GetBytes(tmp);
         }
         /**
-         * 将数字转化成ASCII码对应的字符，用于对明文进行补码
-         * 
-         * @param a 需要转化的数字
-         * @return 转化得到的字符
-         */
+		 * 将数字转化成ASCII码对应的字符，用于对明文进行补码
+		 * 
+		 * @param a 需要转化的数字
+		 * @return 转化得到的字符
+		 */
         static char chr(int a)
         {
 
@@ -205,7 +217,11 @@ namespace Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
+#if NET45
+            var aes = new RijndaelManaged();
+#else
+            var aes = Aes.Create();
+#endif
             aes.KeySize = 256;
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;

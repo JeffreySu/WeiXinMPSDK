@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：WeixinInternalRequestAttribute.cs
     文件功能描述：微信内置浏览器状态判断
@@ -17,8 +17,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if NET45
 using System.Web.Mvc;
-using Senparc.Weixin.BrowserUtility;
+using System.Web;
+#else
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+#endif
+//using Senparc.Weixin.BrowserUtility;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -41,19 +48,23 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// </summary>
         /// <param name="message">错误提示信息</param>
         /// <param name="ignoreParameter">如果地址栏中提供改参数，则忽略浏览器判断，建议设置得复杂一些。如?abc=[任意字符]</param>
-        public WeixinInternalRequestAttribute(string message,string ignoreParameter = null)
+        public WeixinInternalRequestAttribute(string message, string ignoreParameter = null)
         {
             _message = message;
             _ignoreParameter = ignoreParameter;
         }
 
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+#if NET45
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
+#else
+            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
+#endif
             {
-                if (!filterContext.HttpContext.SideInWeixinBrowser())
-                //if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
+
+                //if (!filterContext.HttpContext.SideInWeixinBrowser())
+                if (!Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     ActionResult actionResult = null;

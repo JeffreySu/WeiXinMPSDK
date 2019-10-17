@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ProviderTokenResult.cs
     文件功能描述：获取应用提供商凭证返回格式
@@ -21,7 +21,7 @@ namespace Senparc.Weixin.Work.Entities
     /// 获取应用提供商凭证返回格式
     /// </summary>
     [Serializable]
-    public class ProviderTokenResult : QyJsonResult
+    public class ProviderTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 服务提供商的accesstoken，可用于用户授权登录信息查询接口

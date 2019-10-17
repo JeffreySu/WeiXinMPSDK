@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,6 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template;
 using System;
@@ -27,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.Weixin.WxOpen.Tests;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 {
@@ -52,7 +54,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
         /// <param name="url"></param>
         /// <param name="templateId"></param>
         public WxOpenTemplateMessage_PaySuccessNotice(
-            string payAddress, DateTime payTime, string productName,
+            string payAddress, DateTimeOffset payTime, string productName,
             string orderNumber, decimal orderPrice, string hotLine,
             string url, string templateId = "PZfsad7ijpwmqS1f9UDHW8ZBzXT69mKdzLR9zCFBD-E")
             : base(templateId, url, "购买成功通知")
@@ -68,7 +70,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
                 */
 
             keyword1 = payAddress;
-            keyword2 = payTime.ToString();
+            keyword2 = payTime.LocalDateTime.ToString();
             keyword3 = productName;
             keyword4 = orderNumber;
             keyword5 = orderPrice.ToString("C");
@@ -78,17 +80,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
 
 
     [TestClass()]
-    public class TemplateApiTests:CommonApiTest
+    public class TemplateApiTests: WxOpenBaseTest
     {
         [TestMethod()]
         public void SendTemplateMessageTest()
         {
             var openId = "onh7q0DGM1dctSDbdByIHvX4imxA";
             var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                "在线购买",DateTime.Now,"图书众筹","1234567890",
+                "在线购买", SystemTime.Now,"图书众筹","1234567890",
                 100, "400-9939-858","http://sdk.senparc.weixin.com");
 
-           var result = TemplateApi.SendTemplateMessage(_appId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
+           var result = TemplateApi.SendTemplateMessage(_wxOpenAppId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
                 "keyword3");
 
             Assert.AreEqual(ReturnCode.请求成功,result.errcode);

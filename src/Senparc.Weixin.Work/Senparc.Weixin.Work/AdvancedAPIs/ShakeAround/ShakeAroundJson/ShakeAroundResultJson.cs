@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ShakeAroundResultJson.cs
     文件功能描述：摇一摇周边返回结果
@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ShakeAround
     /// <summary>
     /// 获取设备及用户信息返回结果
     /// </summary>
-    public class GetShakeInfoResult : QyJsonResult
+    public class GetShakeInfoResult : WorkJsonResult
     {
         public ShakeInfo_Data data { get; set; }
     }

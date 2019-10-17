@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ConcernApi.cs
     文件功能描述：二次验证接口
@@ -12,6 +12,13 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170712
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -19,8 +26,11 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -29,33 +39,46 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// </summary>
     public static class ConcernApi
     {
-        #region 同步请求
-       
+        #region 同步方法
+
         /// <summary>
         /// 二次验证
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static QyJsonResult TwoVerification(string accessToken, string userId)
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ConcernApi.TwoVerification", true)]
+        public static WorkJsonResult TwoVerification(string accessTokenOrAppKey, string userId)
         {
-            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
-            return Get.GetJson<QyJsonResult>(url);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+
         }
         #endregion
 
-        #region 异步请求
+
+        #region 异步方法
 
         /// <summary>
         /// 【异步方法】二次验证
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> TwoVerificationAsync(string accessToken, string userId)
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ConcernApi.TwoVerificationAsync", true)]
+        public static async Task<WorkJsonResult> TwoVerificationAsync(string accessTokenOrAppKey, string userId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-            return await Get.GetJsonAsync<QyJsonResult>(url);
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+
         }
         #endregion
     }

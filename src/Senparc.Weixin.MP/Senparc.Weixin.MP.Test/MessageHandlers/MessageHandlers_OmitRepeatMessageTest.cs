@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -21,25 +21,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Context;
+using Senparc.NeuChar.Context;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContexts.DefaultMpMessageContext>
     {
         public string RunStep { get; set; }
 
-        public OmitRepeatMessageMessageHandlers(XDocument requestDoc)
-            : base(requestDoc)
+
+        public OmitRepeatMessageMessageHandlers(XDocument requestDoc,PostModel postModel)
+            : base(requestDoc, postModel)
         {
         }
 
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
-        }
+    
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -75,53 +75,60 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 </xml>
 ";
 
+        private PostModel _postModel = new PostModel() { AppId = "appId" };
+
+
         [TestMethod]
-        public void OmitMessageTest()
+        public void OmitMessageTest_DifferentMsgId()
         {
-            {
-                //发送两条不同MsgId的消息
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+            //发送两条不同MsgId的消息
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "11", "Jeffrey")), _postModel);
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "2", "Su")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "12", "Su")), _postModel);
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
 
-            {
-                //发送两条相同MsgId的消息
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        [TestMethod]
+        public void OmitMessageTest_SameMsgId()
+        {
+            //发送两条相同MsgId的消息
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "21", "Jeffrey")), _postModel);
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Su")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNull(messageHandler.ResponseMessage);
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "21", "Su")), _postModel);
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNull(messageHandler.ResponseMessage);
 
-            {
-                //发送两条相同MsgId的消息，但是不启用忽略
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = false;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Su")));
-                messageHandler.OmitRepeatedMessage = false;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        //不使用去重
+        [TestMethod]
+        public void OmitMessageTest_NotOmit()
+        {
+            //发送两条相同MsgId的消息，但是不启用忽略
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "31", "Jeffrey")), _postModel);
+            messageHandler.OmitRepeatedMessage = false;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "31", "Su")), _postModel);
+            messageHandler.OmitRepeatedMessage = false;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+
         }
     }
 }

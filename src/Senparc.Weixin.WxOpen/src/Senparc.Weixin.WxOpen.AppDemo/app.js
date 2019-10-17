@@ -5,6 +5,32 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+
+    var isDebug = false;//调试状态使用本地服务器，非调试状态使用远程服务器
+    if(!isDebug){
+    //远程域名
+      wx.setStorageSync('domainName', "https://sdk.weixin.senparc.com")
+      wx.setStorageSync('wssDomainName', "wss://sdk.weixin.senparc.com")
+    }
+    else 
+    {
+    //本地测试域名
+      // wx.setStorageSync('domainName', "http://localhost:58936")
+      // wx.setStorageSync('wssDomainName', "ws://localhost:58936")
+
+      //使用.NET Core 2.2 Sample（Senparc.Weixin.MP.Sample.vs2017.sln）配置：
+      // wx.setStorageSync('domainName', "http://localhost:58936/VirtualPath")
+      // wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
+
+      //使用 .NET Core 3.0 Samole（Senparc.Weixin.Sample.NetCore3.vs2019.sln）配置：
+      wx.setStorageSync('domainName', "https://localhost:44381")
+      wx.setStorageSync('wssDomainName', "wss://localhost:44381")
+    }
+
+    // 打开调试
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // })
   },
   getUserInfo:function(cb){
     var that = this
@@ -16,8 +42,9 @@ App({
         success: function (res) {
           //换取openid & session_key
           wx.request({
-            url: 'https://sdk.weixin.senparc.com/WxOpen/OnLogin',
+            url: wx.getStorageSync('domainName') + '/WxOpen/OnLogin',
             method: 'POST',
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
             data: {
               code: res.code
             },
@@ -36,8 +63,9 @@ App({
 
                     //校验
                     wx.request({
-                      url: 'https://sdk.weixin.senparc.com/WxOpen/CheckWxOpenSignature',
+                      url: wx.getStorageSync('domainName') + '/WxOpen/CheckWxOpenSignature',
                       method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
                       data: {
                         sessionId: wx.getStorageSync('sessionId'),
                         rawData:userInfoRes.rawData,
@@ -50,8 +78,9 @@ App({
 
                     //解密数据（建议放到校验success回调函数中，此处仅为演示）
                     wx.request({
-                      url: 'https://sdk.weixin.senparc.com/WxOpen/DecodeEncryptedData',
+                      url: wx.getStorageSync('domainName') + '/WxOpen/DecodeEncryptedData',
                       method: 'POST',
+                      header: { 'content-type': 'application/x-www-form-urlencoded' },
                       data: {
                         'type':"userInfo",
                         sessionId: wx.getStorageSync('sessionId'),

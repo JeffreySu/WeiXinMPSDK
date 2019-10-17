@@ -8,24 +8,25 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.Test;
 using Senparc.Weixin.Open.Containers;
+using Senparc.CO2NET.Helpers;
 
 namespace Senparc.Weixin.Open.CommonAPIs.Tests
 {
     [TestClass()]
-    public class ComponentContainerTests : BaseTest
+    public class ComponentContainerTests : OpenBaseTest
     {
 
 
         [TestMethod()]
         public void RegisterTest()
         {
-            Func<string, string> getComponentVerifyTicketFunc = s =>
-            {
+            Func<string, Task<string>> getComponentVerifyTicketFunc = async s =>
+             {
                 //do something
                 return base._ticket;
-            };
+             };
 
-            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc,null,null);
+            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc, null, null);
 
             var fullCollections = ComponentContainer.GetAllItems();
             Assert.IsTrue(fullCollections.Count == 1);
@@ -48,8 +49,7 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             var preAuthCodeResult = ComponentContainer.GetPreAuthCodeResult(base._appId);
             Assert.IsTrue(preAuthCodeResult.expires_in > 0);
 
-            SerializerHelper serializerHelper=new SerializerHelper();
-            Console.Write(serializerHelper.GetJsonString(preAuthCodeResult));
+            Console.Write(SerializerHelper.GetJsonString(preAuthCodeResult));
         }
     }
 }

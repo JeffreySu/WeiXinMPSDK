@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,12 +18,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+
+    文件名：CardTest.cs
+    文件功能描述：卡券单元测试
+
+
+    创建标识：Senparc - 20180602
+
+    修改标识：Senparc - 20181226
+    修改描述：修改 DateTime 为 DateTimeOffset
+
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -32,7 +45,9 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.TenPayLib;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Helpers.Serializers;
+using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -40,42 +55,42 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     public class CardTest : CommonApiTest
     {
         protected Card_BaseInfoBase _BaseInfo = new Card_BaseInfoBase()
-            {
-                logo_url = "http:\\www.supadmin.cn/uploads/allimg/120216/1_120216214725_1.jpg",
-                brand_name = "海底捞",
-                code_type = Card_CodeType.CODE_TYPE_TEXT,
-                title = "132 元双人火锅套餐",
-                sub_title = "周末狂欢必备",
-                color = "Color010",
-                notice = "使用时向服务员出示此券",
-                service_phone = "020-88888888",
-                description = @"不可与其他优惠同享\n 如需团购券发票，请在消费时向商户提出\n 店内均可
+        {
+            logo_url = "http:\\www.supadmin.cn/uploads/allimg/120216/1_120216214725_1.jpg",
+            brand_name = "海底捞",
+            code_type = Card_CodeType.CODE_TYPE_TEXT,
+            title = "132 元双人火锅套餐",
+            sub_title = "周末狂欢必备",
+            color = "Color010",
+            notice = "使用时向服务员出示此券",
+            service_phone = "020-88888888",
+            description = @"不可与其他优惠同享\n 如需团购券发票，请在消费时向商户提出\n 店内均可
 使用，仅限堂食\n 餐前不可打包，餐后未吃完，可打包\n 本团购券不限人数，建议2 人使用，超过建议人
 数须另收酱料费5 元/位\n 本单谢绝自带酒水饮料",
-                date_info = new Card_BaseInfo_DateInfo()
-                {
-                    type = Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE.ToString(),
-                    begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
-                    end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
-                },
-                sku = new Card_BaseInfo_Sku()
-                {
-                    quantity = 5
-                },
-                use_limit = 1,
-                get_limit = 3,
-                use_custom_code = false,
-                bind_openid = false,
-                can_share = true,
-                can_give_friend = true,
-                url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
-                custom_url = "http://www.weiweihi.com",
-                source = "大众点评",
-                custom_url_name = "立即使用",
-                custom_url_sub_title = "6个汉字tips",
-                promotion_url_name = "更多优惠",
-                promotion_url = "http://www.qq.com",
-            };
+            date_info = new Card_BaseInfo_DateInfo()
+            {
+                type = Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE.ToString(),
+                begin_timestamp = DateTimeHelper.GetUnixDateTime(SystemTime.Now),
+                end_timestamp = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddDays(10)),
+            },
+            sku = new Card_BaseInfo_Sku()
+            {
+                quantity = 5
+            },
+            use_limit = 1,
+            get_limit = 3,
+            use_custom_code = false,
+            bind_openid = false,
+            can_share = true,
+            can_give_friend = true,
+            url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
+            custom_url = "http://www.weiweihi.com",
+            source = "大众点评",
+            custom_url_name = "立即使用",
+            custom_url_sub_title = "6个汉字tips",
+            promotion_url_name = "更多优惠",
+            promotion_url = "http://www.qq.com",
+        };
 
 
         [TestMethod]
@@ -84,13 +99,12 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             //测试序列化枚举为字符串
             CustomField customField = new CustomField
             {
-                 name_type = MemberCard_CustomField_NameType.FIELD_NAME_TYPE_ACHIEVEMEN,
-                 url = "https://weixin.senparc.com"
+                name_type = MemberCard_CustomField_NameType.FIELD_NAME_TYPE_ACHIEVEMEN,
+                url = "https://weixin.senparc.com"
             };
 
-            SerializerHelper serializerHelper = new SerializerHelper();
             JsonSetting jsonSetting = new JsonSetting();
-            var jsonString = serializerHelper.GetJsonString(customField, jsonSetting);
+            var jsonString = SerializerHelper.GetJsonString(customField, jsonSetting);
             Console.WriteLine(jsonString);
             Assert.IsTrue(jsonString.Contains("FIELD_NAME_TYPE_ACHIEVEMEN"));
             Assert.IsTrue(jsonString.Contains("https://weixin.senparc.com"));
@@ -101,10 +115,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var data = new Card_GrouponData()
-                {
-                    base_info = _BaseInfo,
-                    deal_detail = "测试"
-                };
+            {
+                base_info = _BaseInfo,
+                deal_detail = "测试"
+            };
 
             var result = CardApi.CreateCard(accessToken, data);
             Console.Write(result);
@@ -121,11 +135,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result3);
 
             var data2 = new Card_MeetingTicketData()
-                {
-                    base_info = _BaseInfo,
-                    //map_url = "http://localhost:18666/images/v2/logo%20.png",
-                    meeting_detail = "测试asdsasdsasdsa"
-                };
+            {
+                base_info = _BaseInfo,
+                //map_url = "http://localhost:18666/images/v2/logo%20.png",
+                meeting_detail = "测试asdsasdsasdsa"
+            };
 
             var result2 = CardApi.CreateCard(accessToken, data2);
             Assert.IsNotNull(result2);
@@ -137,7 +151,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
-            var result = CardApi.CardBatchGet(accessToken, 0, 5);
+            var result = CardApi.CardBatchGet(accessToken, 0, 5, null);
             Console.Write(result);
             Assert.IsNotNull(result);
             return result.card_id_list;
@@ -176,6 +190,39 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
+        }
+
+       /// <summary>
+       /// 测试枚举输出字符串
+       /// </summary>
+        [TestMethod]
+        public void EnumStringTest()
+        {
+            var obj = new Card_BaseInfoBase() {
+                 code_type = Card_CodeType.CODE_TYPE_BARCODE
+            };
+
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("CODE_TYPE_BARCODE"));
+
+        }
+
+        /// <summary>
+        /// 测试值为false时也序列化出来
+        /// </summary>
+        [TestMethod]
+        public void FalseValueSerializeTest()
+        {
+            var obj = new Card_MemberCardData()
+            {
+                supply_balance = false,
+                supply_bonus = false,
+            };
+            var str = obj.ToJson();
+            Console.WriteLine(str);
+            Assert.IsTrue(str.Contains("supply_balance"));
+            Assert.IsTrue(str.Contains("supply_bonus"));
         }
 
         //protected Store_Location _StoreLocation = new Store_Location()

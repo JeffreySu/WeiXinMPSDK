@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,6 +27,7 @@ using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System.Threading;
+using Senparc.CO2NET.Cache;
 
 namespace Senparc.Weixin.MP.Test.CacheTests
 {
@@ -43,10 +44,10 @@ namespace Senparc.Weixin.MP.Test.CacheTests
         public void LocalCacheDeadLockTest()
         {
             //测试本地缓存死锁问题：https://github.com/JeffreySu/WeiXinMPSDK/issues/402
-            CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
+           CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
 
             List<Task> taskList = new List<Task>();
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             for (int i = 0; i < 200; i++)
             {
                 var lastTask = new Task(LocalCacheDeadLockTestThreadFun);
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
                 taskList.Add(lastTask);
             }
             Task.WaitAll(taskList.ToArray());
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             Console.Write("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
         }
 
@@ -67,7 +68,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
             //测试死锁发生
             //Task.Factory.StartNew(() =>
             //{
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             for (int i = 0; i < 200; i++)
             {
                 Console.WriteLine("开始循环：{0}", i);
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.MP.Test.CacheTests
                 Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result.Result));
             }
 
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             Console.Write("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
 
             //}).Wait();

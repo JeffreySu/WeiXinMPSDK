@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>Senparc.Weixin.WxOpen.Tests</AssemblyName>
+
+    <RootNamespace>Senparc.Weixin.WxOpen.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
+    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.NetCore3.csproj" />
+    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />
+    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.NetCore3.csproj" />
+    <ProjectReference Include="..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
+    <ProjectReference Include="..\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.netcore3.csproj" />
+  </ItemGroup>
+
+</Project>

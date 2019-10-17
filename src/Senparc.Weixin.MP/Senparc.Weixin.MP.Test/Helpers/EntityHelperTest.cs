@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -25,8 +25,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
+    using Senparc.NeuChar;
+    using Senparc.NeuChar.Entities;
     using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
+    using Senparc.NeuChar.Helpers;
 
     [TestClass]
     public class EntityHelperTest
@@ -46,7 +48,7 @@ namespace Senparc.Weixin.MP.Test
         public void FillEntityWithXmlTest()
         {
             var doc = XDocument.Parse(xml);
-            var entity = RequestMessageFactory.GetRequestEntity(doc);
+            var entity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
             EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
 
             Assert.AreEqual("gh_a96a4a619366", entity.ToUserName);
@@ -56,7 +58,7 @@ namespace Senparc.Weixin.MP.Test
 
         #region 可为空对象测试
 
-        class NullableClass : RequestMessageBase, IResponseMessageBase
+        class NullableClass : ResponseMessageBase, IResponseMessageBase
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -65,7 +67,7 @@ namespace Senparc.Weixin.MP.Test
 
             public string ToUserName { get; set; }
             public string FromUserName { get; set; }
-            public DateTime CreateTime { get; set; }
+            public DateTimeOffset CreateTime { get; set; }
             public ResponseMsgType MsgType { get; }
         }
         [TestMethod]
@@ -82,7 +84,7 @@ namespace Senparc.Weixin.MP.Test
 </xml>";
             var doc = XDocument.Parse(nullableTestXml);
             var entity = new NullableClass();
-            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+            EntityHelper.FillEntityWithXml(entity as ResponseMessageBase, doc);
 
             Assert.AreEqual(10, entity.Id);
             Assert.AreEqual("Jeffrey Su", entity.Name);
@@ -91,12 +93,77 @@ namespace Senparc.Weixin.MP.Test
         }
         #endregion
 
+        #region 多层嵌套Entity测试
+
+        private string embedXml = @"<xml>
+    <ToUserName><![CDATA[gh_4d00ed8d6399]]></ToUserName>
+    <FromUserName><![CDATA[oV5CrjpxgaGXNHIQigzNlgLTnwic]]></FromUserName>
+    <CreateTime>1481013459</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+    <MsgID>1000001625</MsgID>
+    <Status><![CDATA[err(30003)]]></Status>
+    <TotalCount>0</TotalCount>
+    <FilterCount>0</FilterCount>
+    <SentCount>0</SentCount>
+    <ErrorCount>0</ErrorCount>
+    <CopyrightCheckResult>
+    <Count>2</Count>
+    <ResultList>
+        <item>
+        <ArticleIdx>1</ArticleIdx>
+        <UserDeclareState>0</UserDeclareState>
+        <AuditState>2</AuditState>
+        <OriginalArticleUrl><![CDATA[Url_1]]></OriginalArticleUrl>
+        <OriginalArticleType>1</OriginalArticleType>
+        <CanReprint>1</CanReprint>
+        <NeedReplaceContent>1</NeedReplaceContent>
+        <NeedShowReprintSource>1</NeedShowReprintSource>
+        </item>
+        <item>
+        <ArticleIdx>2</ArticleIdx>
+        <UserDeclareState>0</UserDeclareState>
+        <AuditState>2</AuditState>
+        <OriginalArticleUrl><![CDATA[Url_2]]></OriginalArticleUrl>
+        <OriginalArticleType>1</OriginalArticleType>
+        <CanReprint>1</CanReprint>
+        <NeedReplaceContent>1</NeedReplaceContent>
+        <NeedShowReprintSource>1</NeedShowReprintSource>
+        </item>
+    </ResultList>
+    <CheckState>2</CheckState>
+    </CopyrightCheckResult>
+</xml>";
+
+
+        /// <summary>
+        /// 测试多层复杂结构XML
+        /// </summary>
+        [TestMethod]
+        public void FillEntityWithEmbedXmlTest()
+        {
+            var doc = XDocument.Parse(embedXml);
+            var entity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
+            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+
+            Assert.AreEqual("gh_4d00ed8d6399", entity.ToUserName);
+            Assert.AreEqual(RequestMsgType.Event, entity.MsgType);
+
+            var strongEntity = entity as RequestMessageEvent_MassSendJobFinish;
+            Assert.IsNotNull(strongEntity);
+            Assert.AreEqual(2,strongEntity.CopyrightCheckResult.Count);
+            Assert.AreEqual("Url_1", strongEntity.CopyrightCheckResult.ResultList[0].item.OriginalArticleUrl);
+            Assert.AreEqual("Url_2", strongEntity.CopyrightCheckResult.ResultList[1].item.OriginalArticleUrl);
+        }
+
+        #endregion
+
 
         [TestMethod]
         public void ConvertEntityToXmlTest()
         {
             var doc = XDocument.Parse(xml);
-            var requestEntity = RequestMessageFactory.GetRequestEntity(doc);
+            var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
 
             {
                 //Text
@@ -145,7 +212,7 @@ namespace Senparc.Weixin.MP.Test
   <MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
 </xml>";
                 var doc = XDocument.Parse(imageRequestXML);
-                var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
+                var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageImage;
                 Assert.IsNotNull(requestEntity);
 
                 //var responseNews =
@@ -203,7 +270,7 @@ namespace Senparc.Weixin.MP.Test
   <MsgId>5847298622973403529</MsgId>
 </xml>";
             var doc = XDocument.Parse(voiceTest);
-            var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+            var requestEntity = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageVoice;
             Assert.IsNotNull(requestEntity);
 
             var responseMusic =
@@ -212,8 +279,8 @@ namespace Senparc.Weixin.MP.Test
 
             responseMusic.Music.Title = "测试Music";
             responseMusic.Music.Description = "测试Music的说明";
-            responseMusic.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
-            responseMusic.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Content/music2.mp3";
+            responseMusic.Music.MusicUrl = "https://sdk.weixin.senparc.com/Content/music1.mp3";
+            responseMusic.Music.HQMusicUrl = "https://sdk.weixin.senparc.com/Content/music2.mp3";
 
             var responseDoc = EntityHelper.ConvertEntityToXml(responseMusic);
             Console.WriteLine(responseDoc.ToString());

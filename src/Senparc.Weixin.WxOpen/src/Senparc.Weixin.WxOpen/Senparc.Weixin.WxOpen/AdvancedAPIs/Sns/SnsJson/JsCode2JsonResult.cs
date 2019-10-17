@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：JsCode2JsonResult.cs
     文件功能描述：JsCode2Json接口结果
     
     
     创建标识：Senparc - 20170105
+    
+    修改标识：Senparc - 20170810
+    修改描述：v1.4.3 添加JsCode2JsonResult.unionid
 
 ----------------------------------------------------------------*/
 using System;
@@ -50,5 +53,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// 会话密钥
         /// </summary>
         public string session_key { get; set; }
+        /// <summary>
+        /// 用户在开放平台的唯一标识符。本字段在满足一定条件的情况下才返回。具体参看：https://mp.weixin.qq.com/debug/wxadoc/dev/api/uinionID.html
+        /// </summary>
+        public string unionid { get; set; }
     }
 }

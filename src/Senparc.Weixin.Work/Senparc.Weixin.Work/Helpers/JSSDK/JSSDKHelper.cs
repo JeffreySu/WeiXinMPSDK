@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
@@ -9,8 +9,18 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20170516
+    修改描述：v4.2.4 修改JSSDKHelper.GetNoncestr()方法
+    
+    修改标识：Senparc - 20170522
+    修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
+
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections;
 using System.Text;
@@ -25,8 +35,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            Random random = new Random();
-            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         /// <summary>
@@ -38,7 +47,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <returns></returns>
         public static long GetTimestamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan ts = DateTimeOffset.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
             return Convert.ToInt64(ts.TotalSeconds);
         }
 
@@ -57,7 +66,7 @@ namespace Senparc.Weixin.Work.Helpers
              .Append("noncestr=").Append(noncestr).Append("&")
              .Append("timestamp=").Append(timestamp).Append("&")
              .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
+            return EncryptHelper.GetSha1(sb.ToString()).ToLower();
         }
 
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -24,8 +24,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
-    using Senparc.Weixin.MP.Entities.GoogleMap;
-    using Senparc.Weixin.MP.Helpers;
+    using Senparc.CO2NET.Helpers.GoogleMap;
+    using Senparc.CO2NET.Helpers;
 
     [TestClass]
     public class GoogleMapHelperTest

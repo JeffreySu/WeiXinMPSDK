@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Version>1.5.101</Version>
+    <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
+    <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - 微信支付 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2019</Copyright>
+    <PackageTags>微信,微信支付,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.TenPay.dll</Title>
+
+    <Summary>微信支付 SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1.0 从 Senparc.Weixin.MP 和 Senparc.Weixin.Work 抽象并分离独立的微信支付模块
+      v0.2.0 支持 Senparc.Weixin v6.0.1
+      v0.2.1 优化支付模板Html5Order方法
+
+      v1.0.0 Senparc.Weixin 6.1.4
+      v1.0.1 优化 TenPayV3Result.GetXmlValues() 方法
+      v1.1.0 完善子账号 SubMchId 相关参数
+      v1.3.0 停止对 .NET 3.5 和 .NET 4.0 的支持
+      v1.4.0 .NET Core 添加多证书注册功能
+      v1.4.2 修改“企业付款”接口（Transfers）的参数命名
+      v1.4.3 引用最新版本 CO2NET
+      v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
+      v1.4.5 添加 GetTransferInfoResult.payment_time 属性
+      v1.4.6 引用最新版本 CO2NET 和 Senparc.Weixin
+      v1.4.7
+      1、支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v1.5.0
+      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+      v1.5.101 提供 .Net Core 3.0 独立版本
+
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.TenPay.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.TenPay.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.Open.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+  </ItemGroup>
+</Project>

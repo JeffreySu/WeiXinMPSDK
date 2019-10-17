@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：UploadResultJson.cs
     文件功能描述：素材管理接口返回结果
@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.Entities;
 
@@ -17,7 +18,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
     /// <summary>
     /// 获取永久图文素材返回结果
     /// </summary>
-    public class GetForeverMpNewsResult : QyJsonResult
+    public class GetForeverMpNewsResult : WorkJsonResult
     {
         /// <summary>
         /// 类型
@@ -34,7 +35,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
     /// <summary>
     /// 获取素材总数返回结果
     /// </summary>
-    public class GetCountResult : QyJsonResult
+    public class GetCountResult : WorkJsonResult
     {
         /// <summary>
         /// 应用素材总数目
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
     /// <summary>
     /// 获取素材列表返回结果
     /// </summary>
-    public class BatchGetMaterialResult : QyJsonResult
+    public class BatchGetMaterialResult : WorkJsonResult
     {
         /// <summary>
         /// 素材类型，可以为图文(mpnews)、图片（image）、音频（voice）、视频（video）、文件（file）
@@ -105,7 +106,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
         public List<MpNewsArticle> articles { get; set; }
     }
 
-    public class UploadimgMediaResult
+    public class UploadimgMediaResult:WorkJsonResult
     {
         /// <summary>
         /// 图片url，可放置于图文消息中的正文

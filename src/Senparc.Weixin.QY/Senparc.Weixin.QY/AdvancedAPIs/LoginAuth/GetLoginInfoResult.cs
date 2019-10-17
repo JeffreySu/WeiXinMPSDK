@@ -123,7 +123,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         public string writable { get; set; }
     }
 
-    public class GetLoginUrlResult
+    public class GetLoginUrlResult : QyJsonResult
     {
         /// <summary>
         /// 登录跳转的url，一次性有效，不可多次使用

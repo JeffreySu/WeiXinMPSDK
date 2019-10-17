@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Senparc.Weixin.Work.Tencent;
+
 namespace MsgCryptTest
 {
     class Sample
@@ -14,7 +16,7 @@ namespace MsgCryptTest
             string sCorpID = "wx5823bf96d3bd56c7";
             string sEncodingAESKey = "jWmYm7qr5nMoAUwZRjGtBxmz3KA1tkAj3ykkR6q2B2C";
 
-            Tencent.WXBizMsgCrypt wxcpt = new Tencent.WXBizMsgCrypt(sToken, sEncodingAESKey, sCorpID);
+            WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(sToken, sEncodingAESKey, sCorpID);
             /*
              * 假定公众平台上开发者设置的Token
             1. 验证回调URL
@@ -89,7 +91,7 @@ namespace MsgCryptTest
             /*测试：
              * 将sEncryptMsg解密看看是否是原文
              * */
-            XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
             doc.LoadXml(sEncryptMsg);
             XmlNode root = doc.FirstChild;
             string sig = root["MsgSignature"].InnerText;

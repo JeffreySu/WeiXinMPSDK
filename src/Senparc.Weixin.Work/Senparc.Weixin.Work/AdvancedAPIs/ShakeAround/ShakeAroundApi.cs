@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
     
     
     创建标识：Senparc - 20150921
+
+    修改标识：Senparc - 20170712
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
 /*
@@ -13,6 +16,9 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -21,46 +27,59 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ShakeAroundApi
     {
-        #region 同步请求
-        
+        #region 同步方法
+
         /// <summary>
         /// 获取设备及用户信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetShakeInfoResult GetSuiteToken(string accessToken, string ticket, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ShakeAroundApi.GetSuiteToken", true)]
+        public static GetShakeInfoResult GetSuiteToken(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                ticket = ticket
-            };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
-            return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    ticket = ticket
+                };
+
+                return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
         #endregion
 
-        #region 异步请求
+
+        #region 异步方法
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessToken, string ticket, int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ShakeAroundApi.GetSuiteTokenAsync", true)]
+        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                ticket = ticket
-            };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/shakearound/getshakeinfo?access_token={0}", accessToken.AsUrlData());
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    ticket = ticket
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+
         }
         #endregion
     }

@@ -9,6 +9,9 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170712
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
  
 ----------------------------------------------------------------*/
 
@@ -33,12 +36,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     {
         private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/kf/send?access_token={0}";
         #region 同步请求
-        
-        
+
+
         /// <summary>
         /// 发送文本信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -46,34 +49,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendText(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static QyJsonResult SendText(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "text",
-                text = new
-                {
-                    content = content
-                }
-            };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "text",
+                    text = new
+                    {
+                        content = content
+                    }
+                };
+                return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 发送图片信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -81,34 +89,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendImage(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static QyJsonResult SendImage(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "image",
-                image = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "image",
+                    image = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 发送文件信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -116,34 +129,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendFile(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static QyJsonResult SendFile(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "file",
-                file = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "file",
+                    file = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 发送语音信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -151,50 +169,61 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendVoice(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static QyJsonResult SendVoice(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "voice",
-                voice = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "voice",
+                    voice = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 获取客服列表
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetKFListResult GetKFList(string accessToken, KF_Type? type = null, int timeOut = Config.TIME_OUT)
+        public static GetKFListResult GetKFList(string accessTokenOrAppKey, KF_Type? type = null, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
 
-            return CommonJsonSend.Send<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+                return CommonJsonSend.Send<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
         #endregion
 
+#if !NET35 && !NET40
         #region 异步请求
-         /// <summary>
+        /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -202,34 +231,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendTextAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<QyJsonResult> SendTextAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "text",
-                text = new
-                {
-                    content = content
-                }
-            };
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "text",
+                    text = new
+                    {
+                        content = content
+                    }
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 【异步方法】发送图片信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -237,34 +271,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendImageAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<QyJsonResult> SendImageAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "image",
-                image = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "image",
+                    image = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 【异步方法】发送文件信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -272,34 +311,39 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendFileAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<QyJsonResult> SendFileAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "file",
-                file = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "file",
+                    file = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 【异步方法】发送语音信息
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="senderType">发送人类型</param>
         /// <param name="senderId">发送人标志</param>
         /// <param name="receiverType">接收人类型</param>
@@ -307,43 +351,54 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendVoiceAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<QyJsonResult> SendVoiceAsync(string accessTokenOrAppKey, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                sender = new
+                var data = new
                 {
-                    type = senderType.ToString(),
-                    id = senderId
-                },
-                receiver = new
-                {
-                    type = receiverType.ToString(),
-                    id = receiverId
-                },
-                msgtype = "voice",
-                voice = new
-                {
-                    media_id = mediaId
-                }
-            };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+                    sender = new
+                    {
+                        type = senderType.ToString(),
+                        id = senderId
+                    },
+                    receiver = new
+                    {
+                        type = receiverType.ToString(),
+                        id = receiverId
+                    },
+                    msgtype = "voice",
+                    voice = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
 
         /// <summary>
         /// 获取客服列表
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="type">不填时，同时返回内部、外部客服列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetKFListResult> GetKFListAsync(string accessToken, KF_Type? type = null, int timeOut = Config.TIME_OUT)
+        public static async Task<GetKFListResult> GetKFListAsync(string accessTokenOrAppKey, KF_Type? type = null, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/kf/list?access_token={0}&type={1}", accessToken, type);
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, accessTokenOrAppKey);
+
+
         }
         #endregion
+#endif
     }
 }

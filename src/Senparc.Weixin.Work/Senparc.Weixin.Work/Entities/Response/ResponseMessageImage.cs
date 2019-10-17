@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ResponseMessageImage.cs
     文件功能描述：响应回复图片消息
@@ -11,11 +11,14 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.NeuChar.Entities;
+using Senparc.NeuChar;
+
 namespace Senparc.Weixin.Work.Entities
 {
-    public class ResponseMessageImage : ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageImage : WorkResponseMessageBase, IResponseMessageImage
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Image; }
         }

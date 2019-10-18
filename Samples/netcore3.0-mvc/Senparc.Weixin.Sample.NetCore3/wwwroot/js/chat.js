@@ -3,7 +3,7 @@
 document.getElementById("sendButton").disabled = true;
 
 var senparcWebsocket = require(["js/senparc.websocket.2.0"], function (senparcWebsocket) {
-    var hubPath = '/senparcHub';
+    var hubPath = '/SenparcHub';
 
     var onStart = function () {
         var li = document.createElement("li");

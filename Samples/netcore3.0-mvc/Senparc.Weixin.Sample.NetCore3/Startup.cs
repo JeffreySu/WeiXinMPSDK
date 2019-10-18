@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             app.UseEndpoints(endpoints =>
             {
                 //ÅäÖÃ×Ô¶¨Òå SenparcHub
-                endpoints.MapHub<SenparcHub>("/senparcHub");
+                endpoints.MapHub<SenparcHub>("/SenparcHub");
             });                                                                                  // DPBMARK_END
 
 

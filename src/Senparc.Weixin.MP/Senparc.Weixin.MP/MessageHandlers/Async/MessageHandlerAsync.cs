@@ -34,22 +34,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-using System;
-using System.IO;
-using System.Xml.Linq;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
-using System.Threading.Tasks;
-using Senparc.NeuChar;
-using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.Entities;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {

@@ -1241,6 +1241,10 @@ p.crowdfunding-note {
 }
 
 @media screen and (min-width:375px) and (max-width:767px) {
+    #noticearea {
+        display: none;
+    }
+
     .content {
         max-width: 100%;
     }

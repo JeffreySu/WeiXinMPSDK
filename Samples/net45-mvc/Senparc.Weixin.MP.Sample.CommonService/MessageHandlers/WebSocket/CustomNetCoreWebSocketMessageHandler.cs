@@ -1,6 +1,7 @@
 ﻿//DPBMARK_FILE WebSocket
 #if !NET45
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;

@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  //"AppType": "WeChat",
+  "messageHandler": {
+    //接收到文字请求
+    "onTextRequest": {
+      "items": [
+        //处理关键字
+        {
+          "keywords": [ "NeuChar" ],
+          "ignoreCase": true,
+          "result": {
+            "type": "text",
+            "content": "使用NeuChar返回，您刚才输入了XXXXXXX：{requestContent}"
+          }
+        },
+        {
+          "keywords": [ "1", "2", "3" ],
+          "ignoreCase": true,
+          "result": {
+            "type": "text",
+            "content": "使用NeuChar返回，您刚才输入了数字：{requestContent}"
+          }
+        }
+      ]
+    }
+  }
+}
+

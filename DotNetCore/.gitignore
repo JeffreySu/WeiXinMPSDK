@@ -1,8 +1,0 @@
-# git ignore file
-Nuget/
-bin/
-obj/
-*.[pdb]
-*.suo
-*.user
-.vs

@@ -1,0 +1,14 @@
+<!--pages/QrCode/QrCode.wxml-->
+<view class='note sceneCode' wx:if="{{sceneCode}}">
+<text>当前页面通过二维码进入的scene：{{sceneCode}}</text>
+</view>
+
+<view class='note'>
+<text>保存以下二维码，扫描打开后可以直接进入到本页面，并查看 scene 值：</text>
+</view>
+<view class='qrArea'>
+<image mode='aspectFit' src='{{qrCodeImg}}' bindtap='viewQrCode' show-menu-by-longpress='true'></image>
+</view>
+<view>
+<!-- <text>{{qrCodeImg}}</text> -->
+</view>

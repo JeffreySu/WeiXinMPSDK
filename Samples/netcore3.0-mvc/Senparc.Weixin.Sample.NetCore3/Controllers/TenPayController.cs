@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// 根据官方的Webforms Demo改写，所以可以看到直接result +=)之类的用法，实际项目中不提倡这么做。
     /// 注意：此Controller中的Demo为早期的微信支付，最新的V3微信支付请见TenPayV3Controller
     /// </summary>
-    public class TenPayController : Controller
+    public class TenPayController : BaseController
     {
         private static TenPayInfo _tenPayInfo;
 

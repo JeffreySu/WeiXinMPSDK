@@ -24,7 +24,7 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class MediaController : Controller
+    public class MediaController : BaseController
     {
         public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 

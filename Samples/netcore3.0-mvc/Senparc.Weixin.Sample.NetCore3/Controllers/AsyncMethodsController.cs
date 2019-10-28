@@ -17,7 +17,7 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class AsyncMethodsController : Controller
+    public class AsyncMethodsController : BaseController
     {
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;

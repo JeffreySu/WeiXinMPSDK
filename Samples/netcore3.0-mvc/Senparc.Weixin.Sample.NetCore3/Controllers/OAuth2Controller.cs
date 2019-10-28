@@ -27,7 +27,7 @@ using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class OAuth2Controller : Controller
+    public class OAuth2Controller : BaseController
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
         public readonly string appId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。

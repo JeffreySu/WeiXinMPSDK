@@ -61,7 +61,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// <summary>
     /// 根据官方的Webforms Demo改写，所以可以看到直接Response.Write()之类的用法，实际项目中不提倡这么做。
     /// </summary>
-    public class TenPayV3Controller : Controller
+    public class TenPayV3Controller : BaseController
     {
         private static TenPayV3Info _tenPayV3Info;
 

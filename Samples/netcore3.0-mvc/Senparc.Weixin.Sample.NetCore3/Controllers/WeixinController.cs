@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class WeixinController : Controller
+    public partial class WeixinController : BaseController
     {
         public static readonly string Token = Config.SenparcWeixinSetting.MpSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.MpSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。

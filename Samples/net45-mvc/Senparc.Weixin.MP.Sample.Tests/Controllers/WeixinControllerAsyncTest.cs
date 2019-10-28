@@ -202,7 +202,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                         repeatedMessageCount++;
                     }
 
-                    sb.AppendLine("RequestMessage数量：" + targetAsync.MessageHandler.GetCurrentMessageContext().RequestMessages.Count);
+                    sb.AppendLine("RequestMessage数量：" + targetAsync.MessageHandler.GetCurrentMessageContext().ConfigureAwait(false).GetAwaiter().GetResult().RequestMessages.Count);
                     sb.AppendLine("OpenId：" + targetAsync.MessageHandler.RequestMessage.FromUserName);
 
                     sb.AppendLine();

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.7.0.1</Version>
+		<Version>3.7.101</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -138,6 +138,9 @@
       2、提供带符号的 nuget 包（.snupkg)
       v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
       v3.7.0.1 修复消息请求出现 null 异常的问题
+      v3.7.101
+      1、提供 .Net Core 3.0 独立版本
+      2、优化 Container 异步注册方法
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -167,7 +170,13 @@
 		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.Work.xml</DocumentationFile>
 	</PropertyGroup>
 
-	<ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.Work.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+  <ItemGroup>
 		<Compile Remove="Properties\AssemblyInfo.cs" />
 	</ItemGroup>
 
@@ -190,7 +199,13 @@
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
 	</ItemGroup>
 
-	<!--存在重复的引用定义 && Microsoft.AspNetCore.Routing 也没有在该项目中使用-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+
+  <!--存在重复的引用定义 && Microsoft.AspNetCore.Routing 也没有在该项目中使用-->
 	<!--<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
@@ -214,7 +229,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="1.0.100" />
+	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
 	</ItemGroup>
 
 	<ItemGroup>

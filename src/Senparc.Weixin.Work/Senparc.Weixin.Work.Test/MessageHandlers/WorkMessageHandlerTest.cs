@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -64,6 +65,11 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
                 responseMessage.Content = "这是一条默认消息。";
                 return responseMessage;
             }
+
+            public override Task BuildResponseMessageAsync(CancellationToken cancellationToken)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private string testXml = @"<xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
@@ -79,13 +85,13 @@ namespace Senparc.Weixin.Work.Test.MessageHandlers
         {
             var postModel = new PostModel()
             {
-                Msg_Signature = "845997ceb6e4fd73edd9a377be227848ce20d34f",
-                Timestamp = "1412587525",
-                Nonce = "1501543730",
+                Msg_Signature = "",
+                Timestamp = "",
+                Nonce = "",
 
-                Token = "fzBsmSaI8XE1OwBh",
-                EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
-                CorpId = "wx7618c0a6d9358622"
+                Token = "",
+                EncodingAESKey = "",
+                CorpId = ""
             };
             var messageHandler = new CustomMessageHandlers(XDocument.Parse(testXml), postModel, 10);
             Assert.IsNotNull(messageHandler.RequestDocument);

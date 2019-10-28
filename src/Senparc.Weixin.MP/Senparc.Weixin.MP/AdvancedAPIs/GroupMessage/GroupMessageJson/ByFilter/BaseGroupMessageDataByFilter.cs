@@ -31,6 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 2011224
     修改描述：v14.8.12 完成群发接口添加clientmsgid属性
 
+    修改标识：Senparc - 20190928
+    修改描述：v16.9.101 更新过期类型，使用 GroupMessageByFilter_MediaId
+    
 ----------------------------------------------------------------*/
 
 using System;
@@ -88,12 +91,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_VoiceData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId voice { get; set; }
+        public GroupMessageByFilter_MediaId voice { get; set; }
     }
 
     public class GroupMessageByFilter_ImageData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId image { get; set; }
+        public GroupMessageByFilter_MediaId image { get; set; }
     }
 
     public class GroupMessageByFilter_TextData : BaseGroupMessageDataByFilter
@@ -103,12 +106,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_MpNewsData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId mpnews { get; set; }
+        public GroupMessageByFilter_MediaId mpnews { get; set; }
     }
 
     public class GroupMessageByFilter_MpVideoData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId mpvideo { get; set; }
+        public GroupMessageByFilter_MediaId mpvideo { get; set; }
     }
 
     public class GroupMessageByFilter_WxCardData : BaseGroupMessageDataByFilter

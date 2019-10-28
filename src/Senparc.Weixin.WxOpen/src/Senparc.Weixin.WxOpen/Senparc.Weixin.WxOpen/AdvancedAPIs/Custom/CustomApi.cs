@@ -199,7 +199,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "CustomApi.SendLinkAsnyc", true)]
-        public static async Task<WxJsonResult> SendLinkAsnyc(string accessTokenOrAppId, string openId, string title, string description, string url, string thumbUrl, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendLinkAsync(string accessTokenOrAppId, string openId, string title, string description, string url, string thumbUrl, int timeOut = Config.TIME_OUT)
         {
             object data = new
             {

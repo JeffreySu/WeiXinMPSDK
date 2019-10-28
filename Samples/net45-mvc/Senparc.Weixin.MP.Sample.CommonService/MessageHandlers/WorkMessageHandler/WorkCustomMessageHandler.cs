@@ -15,6 +15,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandler;
+using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.MessageHandlers;
 
@@ -22,6 +24,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
 {
     public class WorkCustomMessageHandler : WorkMessageHandler<WorkCustomMessageContext>
     {
+        /// <summary>
+        /// 为中间件提供生成当前类的委托
+        /// </summary>
+        public static Func<Stream, PostModel, int, WorkCustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount) => new WorkCustomMessageHandler(stream, postModel, maxRecordCount);
+
+
         public WorkCustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {
@@ -31,6 +39,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了消息：" + requestMessage.Content;
+
+            //发送一条客服消息
+            var weixinSetting = Config.SenparcWeixinSetting.WorkSetting;
+            var appKey = AccessTokenContainer.BuildingKey(weixinSetting.WeixinCorpId, weixinSetting.WeixinCorpSecret);
+            MassApi.SendText(appKey, weixinSetting.WeixinCorpAgentId, "这是一条客服消息，对应您发送的消息：" + requestMessage.Content, OpenId);
+
             return responseMessage;
         }
 

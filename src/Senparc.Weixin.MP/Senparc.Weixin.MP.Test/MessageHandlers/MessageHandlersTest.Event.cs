@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {

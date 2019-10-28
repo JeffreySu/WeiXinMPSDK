@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190525
     修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
 
+    修改标识：Senparc - 20190529
+    修改描述：v4.7.101 添加“开放平台-代码管理-加急审核”接口：CodeApi.SpeedupAudit()
+
 ----------------------------------------------------------------*/
 
 
@@ -46,6 +49,7 @@ using Senparc.CO2NET.HttpUtility;
 using System.IO;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
@@ -318,6 +322,42 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return CommonJsonSend.Send<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
+
+        /// <summary>
+        /// 查询服务商的当月提审限额（quota）和加急次数
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuota", true)]
+        public static QueryQuotaResultJson QueryQuota(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
+
+            object data = new { };
+
+            return CommonJsonSend.Send<QueryQuotaResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 加急审核申请
+        /// 有加急次数的第三方可以通过该接口，对已经提审的小程序进行加急操作，加急后的小程序预计2-12小时内审完。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="auditid">审核单ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAudit", true)]
+        public static WxJsonResult SpeedupAudit(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());
+
+            object data = new {
+                auditid = auditid
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
         #endregion
 
 
@@ -594,6 +634,41 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
 
             return await CommonJsonSend.SendAsync<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 查询服务商的当月提审限额（quota）和加急次数
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuotaAsync", true)]
+        public static async Task<QueryQuotaResultJson> QueryQuotaAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
+
+            object data = new { };
+
+            return await CommonJsonSend.SendAsync<QueryQuotaResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 加急审核申请
+        /// 有加急次数的第三方可以通过该接口，对已经提审的小程序进行加急操作，加急后的小程序预计2-12小时内审完。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="auditid">审核单ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAuditAsync", true)]
+        public static async Task<WxJsonResult> SpeedupAuditAsync(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());
+
+            object data = new
+            {
+                auditid = auditid
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

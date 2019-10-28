@@ -37,7 +37,7 @@ using Senparc.CO2NET;
 using Senparc.Weixin.Entities;
 using Senparc.WeixinTests;
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Hosting;
 #endif
 
@@ -57,14 +57,14 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
                     var filePath = "../../../Config/test.config";
 #else
                     var filePath = "../../Config/test.config";
 #endif
                     if (File.Exists(filePath))
                     {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
                         var stream = new FileStream(filePath, FileMode.Open);
                         var doc = XDocument.Load(stream);
                         stream.Dispose();
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.Work.Test.CommonApis
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
                 Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 
-                Senparc.Weixin.Cache.Redis.Register.RegisterDomainCache();//进行领域缓存注册
+                Senparc.Weixin.Cache.Redis.Register.ActivityDomainCache();//进行领域缓存注册
             }
 
 

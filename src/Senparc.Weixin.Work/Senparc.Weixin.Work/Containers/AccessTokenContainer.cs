@@ -82,6 +82,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190826
     修改描述：v3.5.13 优化 Register() 方法
 
+    修改标识：Senparc - 20190929
+    修改描述：v3.7.101 优化 Container 异步注册方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -374,7 +377,7 @@ namespace Senparc.Weixin.Work.Containers
 
             var registerProviderTask = ProviderTokenContainer.RegisterAsync(corpId, corpSecret);//连带注册ProviderTokenContainer
 
-            Task.WaitAll(new[] { registerTask, registerJsApiTask, registerProviderTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask, registerProviderTask });//等待所有任务完成
         }
 
 

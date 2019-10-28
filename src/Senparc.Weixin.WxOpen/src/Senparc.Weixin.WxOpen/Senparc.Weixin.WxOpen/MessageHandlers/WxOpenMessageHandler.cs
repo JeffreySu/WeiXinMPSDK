@@ -54,6 +54,8 @@ using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Tencent;
 using Senparc.NeuChar.Helpers;
+using System.Threading.Tasks;
+using System.Threading;
 //using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -65,6 +67,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     public abstract partial class WxOpenMessageHandler<TMC> : MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>
         where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
+        #region 属性设置
+
         /// <summary>
         /// 原始的加密请求（如果不加密则为null）
         /// </summary>
@@ -73,43 +77,18 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public new IRequestMessageBase RequestMessage
-        {
-            get
-            {
-                return base.RequestMessage as IRequestMessageBase;
-            }
-            set
-            {
-                base.RequestMessage = value;
-            }
-        }
+        public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
 
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public new IResponseMessageBase ResponseMessage
-        {
-            get
-            {
-                return base.ResponseMessage as IResponseMessageBase;
-            }
-            set
-            {
-                base.ResponseMessage = value;
-            }
-        }
+        public new IResponseMessageBase ResponseMessage { get => base.ResponseMessage as IResponseMessageBase; set => base.ResponseMessage = value; }
 
 
-        public override XDocument ResponseDocument
-        {
-            get
-            {
-                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
-            }
-        }
+        public override XDocument ResponseDocument => ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
+
 
         public override XDocument FinalResponseDocument
         {
@@ -130,7 +109,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string finalResponseXml = null;
-                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+                msgCrype.EncryptResponseMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
 
                 return XDocument.Parse(finalResponseXml);
             }
@@ -138,16 +117,17 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         private PostModel _postModel;
 
-
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlightener MessageEntityEnlightener { get { return WxOpenMessageEntityEnlightener.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener => WxOpenMessageEntityEnlightener.Instance;
         /// <summary>
         /// Api 接口定义
         /// </summary>
-        public override ApiEnlightener ApiEnlightener { get { return WxOpenApiEnlightener.Instance; } }
+        public override ApiEnlightener ApiEnlightener => WxOpenApiEnlightener.Instance;
 
+
+        #endregion
 
         #region 构造函数
 
@@ -162,9 +142,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
 
@@ -174,8 +155,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, postModel, maxRecordCount)
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
 
@@ -185,14 +167,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0)
-            : base(requestMessageBase, postModel, maxRecordCount)
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
         }
-
-        #endregion
-
-        #region 消息处理
 
         /// <summary>
         /// 初始化数据
@@ -236,6 +215,14 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
+            //检查是否限定只能用加密模式
+            if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
+            {
+                CancelExcute = true;
+                TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEcryptMessage 设置，只允许处理加密消息，以提高安全性！";
+                return null;
+            }
+
             RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {
@@ -247,10 +234,34 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
 
+        #endregion
+
+        #region 消息处理
+
+
+
+
+        [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
+        public virtual void OnExecuting()
+        {
+            throw new MessageHandlerException("请使用异步方法 OnExecutingAsync()");
+        }
+
+        [Obsolete("请使用异步方法 OnExecutedAsync()", true)]
+        public virtual void OnExecuted()
+        {
+            throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
+        }
+
+        #endregion
+
+        #region 异步方法
+
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
-        public override void BuildResponseMessage()
+        public override async Task BuildResponseMessageAsync(CancellationToken cancellationToken)
         {
             #region NeuChar 执行过程
 
@@ -266,7 +277,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Text:
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
@@ -276,16 +287,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     {
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
                                 OnImageRequest(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
                     break;
                 case RequestMsgType.Event:
                     {
-                        OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
                     }
                     break;
                 default:
@@ -295,19 +306,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             #endregion
         }
 
-        public virtual void OnExecuting()
-        {
-            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
-
-            base.OnExecuting();
-        }
-
-        public virtual void OnExecuted()
-        {
-            base.OnExecuted();
-        }
-
         #endregion
-
     }
 }

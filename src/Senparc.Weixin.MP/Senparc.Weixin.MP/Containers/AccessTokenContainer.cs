@@ -93,6 +93,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190826
     修改描述：v16.7.15 优化 Register() 方法
 
+    修改标识：Senparc - 20190929
+    修改描述：v16.9.101 优化 Container 异步注册方法
 ----------------------------------------------------------------*/
 
 /* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */
@@ -296,10 +298,7 @@ namespace Senparc.Weixin.MP.Containers
             //为JsApiTicketContainer进行自动注册
             var registerJsApiTask = JsApiTicketContainer.RegisterAsync(appId, appSecret, name);
 
-            //OAuthAccessTokenContainer进行自动注册
-            var registerOAuthTask = OAuthAccessTokenContainer.RegisterAsync(appId, appSecret, name);
-
-            Task.WaitAll(new[] { registerTask, registerJsApiTask, registerOAuthTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask });//等待所有任务完成
         }
 
         #region AccessToken

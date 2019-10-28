@@ -39,10 +39,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
-        }
+    
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {

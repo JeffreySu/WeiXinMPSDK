@@ -29,7 +29,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContexts.DefaultMpMessageContext>
     {
         public string RunStep { get; set; }
 
@@ -39,10 +39,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
-        }
+    
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {

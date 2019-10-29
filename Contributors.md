@@ -11,7 +11,7 @@ Senparc.Weixin SDK 项目贡献者
 
 贡献者名单
 -----------
-> 更新时间：2018年10月25日<br>
+> 更新时间：2019年10月11日<br>
 > 排名不分先后
 
 > 	1	.		2881099	<br>
@@ -60,7 +60,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	46	.	 	dyb628	<br>
 > 	47	.	 	e4ky	<br>
 > 	48	.	 	F2EVarMan	<br>
-> 	49	.	 	F2EVarMan 	<br>
 > 	50	.	 	fanyinghao	<br>
 > 	51	.	 	fdstar	<br>
 > 	52	.	 	fengrui358	<br>
@@ -92,7 +91,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	78	.	 	jefth	<br>
 > 	79	.	 	jianliulin	<br>
 > 	80	.	 	Jie	<br>
-> 	81	.	 	jiehanlin	<br>
 > 	82	.	 	jiehanlin 	<br>
 > 	83	.	 	joelz	<br>
 > 	84	.	 	joesjiang 	<br>
@@ -137,7 +135,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	129	.	 	Oswald	<br>
 > 	130	.	 	p041911070 	<br>
 > 	131	.	 	pbzyy	<br>
-> 	132	.	 	pekrr1e 	<br>
 > 	133	.	 	pekrr1e 	<br>
 > 	134	.	 	pengweiqhca 	<br>
 > 	135	.	 	pengxinzhe	<br>
@@ -155,7 +152,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	147	.	 	sharp-summit	<br>
 > 	148	.	 	sherlockleo	<br>
 > 	149	.	 	Single 	<br>
-> 	150	.	 	sipo1209	<br>
 > 	151	.	 	sipo1209 	<br>
 > 	152	.	 	snowfoxzx 	<br>
 > 	153	.	 	spadark	<br>
@@ -178,7 +174,6 @@ Senparc.Weixin SDK 项目贡献者
 > 	170	.	 	TYSZCC	<br>
 > 	171	.	 	uliian	<br>
 > 	172	.	 	ulswww	<br>
-> 	173	.	 	vejuhust	<br>
 > 	174	.	 	vejuhust 	<br>
 > 	175	.	 	vgiagiigi	<br>
 > 	176	.	 	warman007	<br>
@@ -284,4 +279,30 @@ Senparc.Weixin SDK 项目贡献者
 > 	278	.		郑贝贝	<br>
 > 	279	.		忠燕	<br>
 > 	280	.		周园	<br>
+> 	281	.		qideqian	<br>
+> 	282	.		JianChengSun	<br>
+> 	283	.		gendou	<br>
+> 	284	.		tangyangming	<br>
+> 	285	.		JianCheng	<br>
+> 	286	.		Dysheng	<br>
+> 	287	.		wtujvk	<br>
+> 	288	.		iXinwei	<br>
+> 	289	.		CdLian	<br>
+> 	290	.		​yueliuhun	<br>
+> 	291	.		cqwebwang	<br>
+> 	292	.		janywhere	<br>
+> 	293	.		xuefuruanjian	<br>
+> 	294	.		slwangzi	<br>
+> 	295	.		lxings	<br>
+> 	296	.		bxjg1987	<br>
+> 	297	.		Hsinky	<br>
+> 	298	.		dong900512	<br>
+> 	300	.		tongbenchuan	<br>
+> 	301	.		Liu-Ryan	<br>
+> 	302	.		luoyunchong	<br>
+> 	303	.		tony26050369	<br>
+> 	304	.		coolincy	<br>
+> 	305	.		jiuzhou2019	<br>
+> 	306	.		a673025	<br>
+> 	307	.		dupeng0811	<br>
 

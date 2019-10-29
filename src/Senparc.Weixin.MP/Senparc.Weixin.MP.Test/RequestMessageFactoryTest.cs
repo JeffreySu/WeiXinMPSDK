@@ -513,7 +513,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Text
                 var doc = XDocument.Parse(xmlText);
-                var result = RequestMessageFactory.GetRequestEntity(doc);
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc);
                 Assert.IsInstanceOfType(result, typeof(RequestMessageText));
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("TNT2", (result as RequestMessageText).Content);
@@ -522,7 +522,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Location
                 var doc = XDocument.Parse(xmlLocation);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageLocation;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageLocation;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(19, result.Scale);
@@ -531,7 +531,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Image
                 var doc = XDocument.Parse(xmlImage);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageImage;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("http://mmsns.qpic.cn/mmsns/ZxBXNzgHyUqazGkXUvujSPxexzynJAicf440qkyLibBd1OEO4saJiavLQ/0", result.PicUrl);
@@ -540,7 +540,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Voice
                 var doc = XDocument.Parse(xmlVoice);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageVoice;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("X1yfgB2XI-faU6R2jmKz0X1JZmPCxIvM-9ktt4K92BB9577SCi41S-qMl60q5DJo", result.MediaId);
@@ -549,7 +549,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Video
                 var doc = XDocument.Parse(xmlVideo);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVideo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageVideo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("mediaId", result.MediaId);
@@ -559,7 +559,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //ShortVideo
                 var doc = XDocument.Parse(xmlShortVideo);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageShortVideo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageShortVideo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual("media_id", result.MediaId);
@@ -569,7 +569,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Link
                 var doc = XDocument.Parse(xmlLink);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageLink;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageLink;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("公众平台官网链接", result.Title);
@@ -580,7 +580,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-ENTRY
                 var doc = XDocument.Parse(xmlEvent_Enter);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Enter;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Enter;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.ENTER, result.Event);
@@ -589,7 +589,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Location
                 var doc = XDocument.Parse(xmlEvent_Location);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Location;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.LOCATION, result.Event);
@@ -601,7 +601,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Subscribe
                 var doc = XDocument.Parse(xmlEvent_Subscribe);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Subscribe;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Subscribe;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.subscribe, result.Event);
@@ -610,7 +610,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Unsubscribe
                 var doc = XDocument.Parse(xmlEvent_Unsubscribe);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Unsubscribe;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Unsubscribe;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.unsubscribe, result.Event);
@@ -620,7 +620,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-CLICK
                 var doc = XDocument.Parse(xmlEvent_Click);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Click;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Click;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.CLICK, result.Event);
@@ -632,7 +632,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-scan
                 var doc = XDocument.Parse(xmlEvent_Scan);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scan;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Scan;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.scan, result.Event);
@@ -645,7 +645,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-VIEW
                 var doc = XDocument.Parse(xmlEvent_View);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_View;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_View;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.VIEW, result.Event);
@@ -656,7 +656,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Scancode_Push
                 var doc = XDocument.Parse(xmlEvent_Scancode_Push);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Push;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Scancode_Push;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.scancode_push, result.Event);
@@ -666,7 +666,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Scancode_Scancode_Waitmsg
                 var doc = XDocument.Parse(xmlEvent_Scancode_Waitmsg);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Waitmsg;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Scancode_Waitmsg;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.scancode_waitmsg, result.Event);
@@ -676,7 +676,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Scancode_Pic_Sysphoto
                 var doc = XDocument.Parse(xmlEvent_Pic_Sysphoto);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Sysphoto;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Pic_Sysphoto;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.pic_sysphoto, result.Event);
@@ -686,7 +686,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Scancode_Pic_Photo_Or_Album
                 var doc = XDocument.Parse(xmlEvent_Pic_Photo_Or_Album);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Photo_Or_Album;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Pic_Photo_Or_Album;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.pic_photo_or_album, result.Event);
@@ -696,7 +696,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Scancode_Pic_Weixin
                 var doc = XDocument.Parse(xmlEvent_Pic_Weixin);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Weixin;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Pic_Weixin;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.pic_weixin, result.Event);
@@ -706,7 +706,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Location_Select
                 var doc = XDocument.Parse(xmlEvent_Location_Select);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location_Select;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Location_Select;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.location_select, result.Event);
@@ -716,7 +716,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-MassSendJobFinish
                 var doc = XDocument.Parse(xmlEvent_MassSendJobFinish);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_MassSendJobFinish;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_MassSendJobFinish;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
@@ -729,7 +729,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Card_Pass_Check
                 var doc = XDocument.Parse(xmlEvent_Card_Pass_Check);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Pass_Check;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Card_Pass_Check;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.card_pass_check, result.Event);
@@ -740,7 +740,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Card_Not_Pass_Check
                 var doc = XDocument.Parse(xmlEvent_Card_Not_Pass_Check);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Not_Pass_Check;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Card_Not_Pass_Check;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.card_not_pass_check, result.Event);
@@ -751,7 +751,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-User_Get_Card
                 var doc = XDocument.Parse(xmlEvent_User_Get_Card);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Get_Card;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_User_Get_Card;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_get_card, result.Event);
@@ -762,7 +762,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-User_Del_Card
                 var doc = XDocument.Parse(xmlEvent_User_Del_Card);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Del_Card;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_User_Del_Card;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_del_card, result.Event);
@@ -773,7 +773,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Kf_Create_Session
                 var doc = XDocument.Parse(xmlEvent_Kf_Create_Session);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Create_Session;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Kf_Create_Session;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("touser", result.ToUserName);
                 Assert.AreEqual(Event.kf_create_session, result.Event);
@@ -783,7 +783,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Kf_Close_Session
                 var doc = XDocument.Parse(xmlEvent_Kf_Close_Session);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Close_Session;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Kf_Close_Session;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("touser", result.ToUserName);
                 Assert.AreEqual(Event.kf_close_session, result.Event);
@@ -793,7 +793,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Kf_Switch_Session
                 var doc = XDocument.Parse(xmlEvent_Kf_Switch_Session);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Switch_Session;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Kf_Switch_Session;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("touser", result.ToUserName);
                 Assert.AreEqual(Event.kf_switch_session, result.Event);
@@ -804,7 +804,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Poi_Check_Notify
                 var doc = XDocument.Parse(xmlEvent_Poi_Check_Notify);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Poi_Check_Notify;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Poi_Check_Notify;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.poi_check_notify, result.Event);
@@ -815,7 +815,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-WifiConnected
                 var doc = XDocument.Parse(xmlEvent_WifiConnected);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_WifiConnected;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_WifiConnected;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.WifiConnected, result.Event);
@@ -826,7 +826,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-User_Consume_Card
                 var doc = XDocument.Parse(xmlEvent_User_Consume_Card);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Consume_Card;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_User_Consume_Card;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_consume_card, result.Event);
@@ -836,7 +836,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-User_Enter_Session_From_Card
                 var doc = XDocument.Parse(xmlEvent_User_Enter_Session_From_Card);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Enter_Session_From_Card;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_User_Enter_Session_From_Card;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_enter_session_from_card, result.Event);
@@ -846,7 +846,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-User_View_Card
                 var doc = XDocument.Parse(xmlEvent_User_View_Card);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_View_Card;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_User_View_Card;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_view_card, result.Event);
@@ -856,7 +856,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Merchant_Order
                 var doc = XDocument.Parse(xmlEvent_Merchant_Order);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Merchant_Order;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Merchant_Order;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("weixin_media1", result.ToUserName);
                 Assert.AreEqual(Event.merchant_order, result.Event);
@@ -866,7 +866,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Submit_Membercard_User_Info
                 var doc = XDocument.Parse(xmlEvent_Submit_Membercard_User_Info);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Submit_Membercard_User_Info;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_Submit_Membercard_User_Info;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_3fcea188bf78", result.ToUserName);
                 Assert.AreEqual(Event.submit_membercard_user_info, result.Event);
@@ -876,7 +876,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-ShakearoundUserShake
                 var doc = XDocument.Parse(xmlEvent_ShakearoundUserShake);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_ShakearoundUserShake;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_ShakearoundUserShake;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.ShakearoundUserShake, result.Event);
@@ -889,7 +889,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Apply_Merchant_Audit_InfoRequest
                 var doc = XDocument.Parse(xmlEvent_Apply_Merchant_Audit_InfoRequest);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_ApplyMerchantAuditInfo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_ApplyMerchantAuditInfo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
                 Assert.AreEqual(Event.apply_merchant_audit_info, result.Event);
@@ -901,7 +901,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Apply_CreateMapPoiAuditInfo
                 var doc = XDocument.Parse(xmlEvent_Create_Map_Poi_Audit_Info);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_CreateMapPoiAuditInfo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_CreateMapPoiAuditInfo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
                 Assert.AreEqual(Event.create_map_poi_audit_info, result.Event);
@@ -918,7 +918,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Apply_AddStoreAuditInfo
                 var doc = XDocument.Parse(xmlEvent_Add_Store_Audit_Info);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_AddStoreAuditInfo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_AddStoreAuditInfo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
                 Assert.AreEqual(Event.add_store_audit_info, result.Event);
@@ -932,7 +932,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Event-Apply_AddStoreAuditInfo
                 var doc = XDocument.Parse(xmlEvent_Modify_Store_Audit_Info);
-                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_ModifyStoreAuditInfo;
+                var result = RequestMessageFactory.GetRequestEntity(new MessageContexts.DefaultMpMessageContext(), doc) as RequestMessageEvent_ModifyStoreAuditInfo;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_4346ac1514d8", result.ToUserName);
                 Assert.AreEqual(Event.modify_store_audit_info, result.Event);

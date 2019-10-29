@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +34,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
 #endif
 
@@ -44,8 +44,12 @@ namespace Senparc.WeixinTests
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETCOREAPP3_0
+            var mockEnv = new Mock<IWebHostEnvironment>();
+#else
             var mockEnv = new Mock<IHostingEnvironment>();
+#endif
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
             register = RegisterService.Start(mockEnv.Object, senparcSetting);
 
@@ -70,7 +74,7 @@ namespace Senparc.WeixinTests
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -92,7 +96,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             return @"..\..\..\";
 #else
             return @"..\..\";

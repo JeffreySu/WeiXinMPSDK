@@ -112,6 +112,28 @@ namespace Senparc.Weixin.Open.WxaAPIs
         }
 
         /// <summary>
+        /// 【同步接口】获取体验者列表 接口
+        /// </summary>
+        /// <param name="accessToken">authorizer_access_token</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.MemberAuth", true)]
+        public static MemberAuthJsonResult MemberAuth(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/memberauth?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                action = "get_experiencer"
+            };
+
+            return CommonJsonSend.Send<MemberAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+
+        /// <summary>
         /// 获取公众号/小程序所绑定的开放平台帐号
         /// </summary>
         /// <param name="accessToken"></param>
@@ -189,6 +211,28 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return await CommonJsonSend.SendAsync<TesterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 【异步方法】获取体验者列表 接口
+        /// </summary>
+        /// <param name="accessToken">authorizer_access_token</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TesterApi.MemberAuthAsync", true)]
+        public static async Task<MemberAuthJsonResult> MemberAuthAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/memberauth?access_token={0}", accessToken.AsUrlData());
+
+            object data;
+
+            data = new
+            {
+                action = "get_experiencer"
+            };
+
+            return await CommonJsonSend.SendAsync<MemberAuthJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+
 
         /// <summary>
         /// 获取公众号/小程序所绑定的开放平台帐号

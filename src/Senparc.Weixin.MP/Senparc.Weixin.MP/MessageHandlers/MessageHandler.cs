@@ -50,9 +50,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181117
     修改描述：v16.5.0 Execute() 重写方法名称改为 BuildResponseMessage()
+    
+    修改标识：Senparc - 20190917
+    修改描述：v16.8.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
@@ -68,6 +72,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.Tencent;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -77,27 +82,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract partial class MessageHandler<TC> :
-        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public abstract partial class MessageHandler<TMC> :
+        MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
-        /// <summary>
-        /// 上下文（仅限于当前MessageHandler基类内）
-        /// </summary>
-        public static GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase>();
-        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
-
-
-        /// <summary>
-        /// 全局消息上下文
-        /// </summary>
-        public override GlobalMessageContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalMessageContext
-        {
-            get
-            {
-                return GlobalWeixinContext;
-            }
-        }
+        #region 属性设置
 
         ///// <summary>
         ///// 原始的加密请求（如果不加密则为null）
@@ -108,13 +97,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
-        public override XDocument ResponseDocument
-        {
-            get
-            {
-                return ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
-            }
-        }
+        public override XDocument ResponseDocument => ResponseMessage != null ? EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase) : null;
 
         /// <summary>
         /// 最后返回的ResponseDocument。
@@ -139,7 +122,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string finalResponseXml = null;
-                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+                msgCrype.EncryptResponseMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
 
                 return XDocument.Parse(finalResponseXml);
             }
@@ -149,34 +132,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public new IRequestMessageBase RequestMessage
-        {
-            get
-            {
-                return base.RequestMessage as IRequestMessageBase;
-            }
-            set
-            {
-                base.RequestMessage = value;
-            }
-        }
+        public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
 
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public new IResponseMessageBase ResponseMessage
-        {
-            get
-            {
-                return base.ResponseMessage as IResponseMessageBase;
-            }
-            set
-            {
-                base.ResponseMessage = value;
-            }
-        }
+        public new IResponseMessageBase ResponseMessage { get => base.ResponseMessage as IResponseMessageBase; set => base.ResponseMessage = value; }
 
         private PostModel _postModel { get => base.PostModel as PostModel; set => base.PostModel = value; }
 
@@ -185,35 +148,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public DeveloperInfo DeveloperInfo { get; set; }
 
-
-        /// <summary>
-        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
-        /// </summary>
-        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
-
-
         /// <summary>
         /// 请求和响应消息定义
         /// </summary>
-        public override MessageEntityEnlightener MessageEntityEnlightener { get { return MpMessageEntityEnlightener.Instance; } }
+        public override MessageEntityEnlightener MessageEntityEnlightener => MpMessageEntityEnlightener.Instance;
         /// <summary>
         /// Api 接口定义
         /// </summary>
-        public override ApiEnlightener ApiEnlightener { get { return MpApiEnlightener.Instance; } }
-
-
-        #region 私有方法
-
-        /// <summary>
-        /// 标记为已重复消息
-        /// </summary>
-        private void MarkRepeatedMessage()
-        {
-            CancelExcute = true;//重复消息，取消执行
-            MessageIsRepeated = true;
-        }
+        public override ApiEnlightener ApiEnlightener => MpApiEnlightener.Instance;
 
         #endregion
+
+        #region 构造函数 / 初始化相关
 
         /// <summary>
         /// 构造MessageHandler
@@ -221,9 +167,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="inputStream">请求消息流</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(inputStream, postModel, maxRecordCount)
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -235,9 +182,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestDocument">请求消息的XML</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestDocument, postModel, maxRecordCount)
+        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -246,24 +194,26 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 直接传入IRequestMessageBase，For UnitTest
+        /// 直接传入 IRequestMessageBase，仅供单元测试使用！
         /// </summary>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
+        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
-            : base(requestMessageBase, postModel, maxRecordCount)
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false, DeveloperInfo developerInfo = null)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
         {
             DeveloperInfo = developerInfo;
             postModel = postModel ?? new PostModel();
 
             var postDataDocument = requestMessageBase.ConvertEntityToXml();
-            base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
+            base.CommonInitialize(postDataDocument, maxRecordCount, postModel, onlyAllowEcryptMessage);
         }
 
         /// <summary>
-        /// 初始化
+        /// 初始化，获取RequestDocument。（必须要完成 RequestMessage 数据赋值）。
+        /// Init中需要对上下文添加当前消息（如果使用上下文）；以及判断消息的加密情况，对解密信息进行解密
         /// </summary>
         /// <param name="postDataDocument"></param>
         /// <param name="postModel"></param>
@@ -292,6 +242,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     //验证没有通过，取消执行
                     CancelExcute = true;
+                    TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEcryptMessage 设置，只允许处理加密消息，以提高安全性！";
                     return null;
                 }
 
@@ -304,84 +255,59 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
-            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            //检查是否限定只能用加密模式
+            if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
+            {
+                CancelExcute = true;
+                TextResponseMessage = "当前 MessageHandler 只允许处理加密消息";
+                return null;
+            }
+
+            RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
             if (UsingEcryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
 
-
-            //TODO:分布式系统中本地的上下文会有同步问题，需要同步使用远程的储存
-            if (MessageContextGlobalConfig.UseMessageContext)
+            //消息去重的基本方法已经在基类 CommonInitialize() 中实现，此处定义特殊规则
+            base.SpecialDeduplicationAction = (requestMessage, messageHandler) =>
             {
-                var omit = OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage);
+                var currentMessageContext = messageHandler.GetCurrentMessageContext().ConfigureAwait(false).GetAwaiter().GetResult();
+                var lastMessage = currentMessageContext.RequestMessages[currentMessageContext.RequestMessages.Count - 1];
 
-                lock (MessageContextGlobalConfig.OmitRepeatLock)//TODO:使用分布式锁
-                {
-                    #region 消息去重
-
-                    if (omit &&
-                        OmitRepeatedMessage &&
-                        CurrentMessageContext.RequestMessages.Count > 0
-                         //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-                         )
-                    {
-                        //lastMessage必定有值（除非极端小的过期时间条件下，几乎不可能发生）
-                        var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 1];
-
-                        if (
-                            //使用MsgId去重
-                            (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId) ||
-                            //使用CreateTime去重（OpenId对象已经是同一个）
-                            (lastMessage.MsgId == RequestMessage.MsgId &&
-                                 lastMessage.CreateTime == RequestMessage.CreateTime &&
-                                 lastMessage.MsgType == RequestMessage.MsgType)
-                            )
-                        {
-                            MarkRepeatedMessage();//标记为已重复
-                        }
-
-                        //判断特殊事件
-                        if (!MessageIsRepeated &&
+                if (!MessageIsRepeated &&
                             lastMessage is RequestMessageEventBase &&
                             RequestMessage is RequestMessageEventBase &&
                             (lastMessage as RequestMessageEventBase).Event == (RequestMessage as RequestMessageEventBase).Event
                             )
-                        {
-                            var lastEventMessage = lastMessage as RequestMessageEventBase;
-                            var currentEventMessage = RequestMessage as RequestMessageEventBase;
-                            switch (lastEventMessage.Event)
-                            {
-
-                                case Event.user_get_card://领取事件推送
-                                    //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274
-                                    //问题反馈：https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
-                                    var lastGetUserCardMessage = lastMessage as RequestMessageEvent_User_Get_Card;
-                                    var currentGetUserCardMessage = RequestMessage as RequestMessageEvent_User_Get_Card;
-                                    if (lastGetUserCardMessage.UserCardCode == currentGetUserCardMessage.UserCardCode &&
-                                        lastGetUserCardMessage.CardId == currentGetUserCardMessage.CardId)
-                                    {
-                                        MarkRepeatedMessage();//标记为已重复
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-
-                    #endregion
-
-                    //在消息没有被去重的情况下记录上下文
-                    if (!MessageIsRepeated)
+                {
+                    var lastEventMessage = lastMessage as RequestMessageEventBase;
+                    var currentEventMessage = RequestMessage as RequestMessageEventBase;
+                    switch (lastEventMessage.Event)
                     {
-                        GlobalMessageContext.InsertMessage(RequestMessage);
+                        case Event.user_get_card://领取事件推送
+                                                 //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274
+                                                 //问题反馈：https://github.com/JeffreySu/WeiXinMPSDK/issues/1106
+                            var lastGetUserCardMessage = lastMessage as RequestMessageEvent_User_Get_Card;
+                            var currentGetUserCardMessage = RequestMessage as RequestMessageEvent_User_Get_Card;
+                            if (lastGetUserCardMessage.UserCardCode == currentGetUserCardMessage.UserCardCode &&
+                                lastGetUserCardMessage.CardId == currentGetUserCardMessage.CardId)
+                            {
+                                return true;
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
-            }
+                return false;
+            };
 
             return decryptDoc;
+            //消息上下文记录将在 base.CommonInitialize() 中根据去重等条件判断后进行添加
         }
+
+        #endregion
 
         #region 扩展
 
@@ -404,132 +330,23 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         #endregion
 
-
-        /// <summary>
-        /// 执行微信请求
-        /// </summary>
-        public override void BuildResponseMessage()
-        {
-            #region NeuChar 执行过程
-
-            #region 添加模拟数据
-
-            //var fakeMessageHandlerNode = new MessageHandlerNode()
-            //{
-            //    Name = "MessageHandlerNode",
-            //};
-
-            //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-            //{
-            //    Request = new Request
-            //    {
-            //        Type = RequestMsgType.Text,
-            //        Keywords = new List<string>() { "nc", "neuchar" }
-            //    },
-            //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息来自NeuChar\r\n\r\n当前时间：{now}" }
-            //});
-
-            //fakeMessageHandlerNode.Config.MessagePair.Add(new MessagePair()
-            //{
-            //    Request = new Request
-            //    {
-            //        Type = RequestMsgType.Text,
-            //        Keywords = new List<string>() { "senparc", "s" }
-            //    },
-            //    Response = new Response() { Type = ResponseMsgType.Text, Content = "这条消息同样来自NeuChar\r\n\r\n当前时间：{now}" }
-            //});
-
-            //neuralSystem.Root.SetChildNode(fakeMessageHandlerNode);//TODO：模拟添加（应当在初始化的时候就添加）
-
-            #endregion
-
-            var weixinAppId = this._postModel == null ? "" : this._postModel.AppId;
-
-            switch (RequestMessage.MsgType)
-            {
-                case RequestMsgType.Text:
-                    {
-                        var requestMessage = RequestMessage as RequestMessageText;
-
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(requestMessage, this, weixinAppId) ??
-                                            (OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage));
-                    }
-                    break;
-                case RequestMsgType.Location:
-                    ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                    break;
-                case RequestMsgType.Image:
-                    ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                        OnImageRequest(RequestMessage as RequestMessageImage);
-                    break;
-                case RequestMsgType.Voice:
-                    ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                    break;
-                case RequestMsgType.Video:
-                    ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
-                    break;
-                case RequestMsgType.Link:
-                    ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
-                    break;
-                case RequestMsgType.ShortVideo:
-                    ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
-                    break;
-                case RequestMsgType.File:
-                    ResponseMessage = OnFileRequest(RequestMessage as RequestMessageFile);
-                    break;
-                case RequestMsgType.NeuChar:
-                    ResponseMessage = OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).GetAwaiter().GetResult();
-                    break;
-                case RequestMsgType.Unknown:
-                    ResponseMessage = OnUnknownTypeRequest(RequestMessage as RequestMessageUnknownType);
-                    break;
-                case RequestMsgType.Event:
-                    {
-                        var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = CurrentMessageHandlerNode.Execute(RequestMessage, this, weixinAppId) ??
-                                            OnTextOrEventRequest(requestMessageText) ??
-                                                OnEventRequest(RequestMessage as IRequestMessageEventBase);
-                    }
-                    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-            }
-
-            #endregion
-        }
+        #region 消息处理
 
         /// <summary>
         /// OnExecuting
         /// </summary>
+        [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
         public override void OnExecuting()
         {
-            /* 
-             * 此处原消息去重逻辑已经转移到 Init() 方法中。
-             * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
-             * 如果有新消息加入，将导致去重算法失效。
-             * （当然这样情况发生的概率极低，一般只在测试中会发生，
-             * 为了确保各种测试环境下的可靠性，作此修改。  —— Jeffrey Su 2018.1.23
-             */
-
-            if (CancelExcute)
-            {
-                return;
-            }
-
-            base.OnExecuting();
-
-            //判断是否已经接入开发者信息
-            if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
-            {
-                //优先请求云端应用商店资源
-
-            }
+            throw new MessageHandlerException("请使用异步方法 OnExecutingAsync()");
         }
 
+        [Obsolete("请使用异步方法 OnExecutedAsync()", true)]
         public override void OnExecuted()
         {
-            base.OnExecuted();
+            throw new MessageHandlerException("请使用异步方法 OnExecutedAsync()");
         }
 
+        #endregion }
     }
 }

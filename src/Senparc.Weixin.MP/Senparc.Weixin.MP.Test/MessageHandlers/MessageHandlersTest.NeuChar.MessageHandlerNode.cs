@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

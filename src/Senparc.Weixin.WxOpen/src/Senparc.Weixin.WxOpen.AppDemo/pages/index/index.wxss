@@ -50,3 +50,15 @@
 .hide {display: none;}
 
 #websocket_buttons{margin: 10px 0 0 0;}
+
+.service-btn{
+  font-size: 15px;
+  line-height: 70rpx;
+  font-family: PingFang SC;
+  width: 240rpx;
+  height: 72rpx;
+  background-color: #ff8f00;
+  box-shadow: 1rpx 1rpx 8rpx 0rpx rgba(22, 22, 22, 0.35);
+  border-radius: 22rpx;
+  color: #fff;
+}

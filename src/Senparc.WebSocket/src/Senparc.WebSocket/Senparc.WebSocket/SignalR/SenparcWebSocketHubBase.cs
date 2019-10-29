@@ -1,4 +1,15 @@
-﻿#if NETSTANDARD2_0
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+
+    文件名：SenparcWebSocketHubBase.cs
+    文件功能描述：SenparcWebSocketHub 基类
+
+
+    创建标识：Senparc - 20190710
+
+----------------------------------------------------------------*/
+
+#if NETSTANDARD2_0 || NETCOREAPP3_0
 using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.Exceptions;
 using System;
@@ -10,6 +21,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.WebSocket.SignalR
 {
+    /// <summary>
+    /// SenparcWebSocketHub 基类
+    /// </summary>
     public abstract class SenparcWebSocketHubBase : Hub
     {
         protected WebSocketMessageHandler _webSocketMessageHandler;

@@ -2,10 +2,8 @@
 
 Senparc.Weixin —— 微信 .NET SDK 
 =================
-<!-- [![Build Status](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)](https://mysenparc.visualstudio.com/_apis/public/build/definitions/f7818b00-1914-4fdc-a630-6488357e33e9/3/badge)-->
-<!-- [![Build status](https://ci.appveyor.com/api/projects/status/eshwtou0h6xfwa1q/branch/master?svg=true)](https://ci.appveyor.com/project/JeffreySu/weixinmpsdk/branch/master) -->
-[![Build status](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_apis/build/status/Senparc.Weixin%20SDK-ASP.NET%20Core-CI)](https://mysenparc.visualstudio.com/Senparc.Weixin%20SDK/_build/latest?definitionId=7)<!-- [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)-->
-[![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.MP.svg)](https://www.nuget.org/packages/Senparc.Weixin.MP)
+[![Build status](https://mysenparc.visualstudio.com/Senparc%20SDK/_apis/build/status/Weixin%20SDK/Senparc.Weixin%20master-pipeline-status)](https://mysenparc.visualstudio.com/Senparc%20SDK/_build/latest?definitionId=40)
+[![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
@@ -14,7 +12,7 @@ Senparc.Weixin —— 微信 .NET SDK
 使用 Senparc.Weixin，您可以方便快速地开发微信全平台的应用（包括微信公众号、小程序、小游戏、企业号、开放平台、微信支付、JS-SDK、微信硬件/蓝牙，等等）。本项目的 Demo 同样适合初学者进行 .NET 编程学习。
 
 目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，并同时支持 
-[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架。
+[.NET 3.5 / 4.0 / 4.5 / .NET Standard 2.0 / .NET Core 2.2 / .NET Core 3.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) 多种框架。
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
@@ -23,7 +21,9 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
->  :trophy: 《[2018 年度盛派微信 SDK 优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》公布，请注意查看并登记信息 :smile:
+> 🥇 .NET Core 3.0 [Senparc.Weixin SDK 源码](/src) 及 [Demo](/Samples/netcore3.0-mvc) 已发布！
+
+>  :trophy: 《[2018-2019 年度盛派微信 SDK 优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》公布，请注意查看并登记信息 :smile:
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
@@ -177,14 +177,14 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 资源
 ----------------
-1. 官网地址：http://weixin.senparc.com/
-2. 在线 Demo 地址：http://sdk.weixin.senparc.com/
-3. 微信开发系列教程：http://www.cnblogs.com/szw/p/weixin-course-index.html
-4. 微信技术交流社区：http://weixin.senparc.com/QA
-5. 自定义菜单在线编辑工具：http://sdk.weixin.senparc.com/Menu
-6. 在线消息测试工具：http://sdk.weixin.senparc.com/SimulateTool
-7. 缓存测试工具：http://sdk.weixin.senparc.com/Cache/Test
-8. chm帮助文档下载：http://sdk.weixin.senparc.com/Document
+1. 官网地址：https://weixin.senparc.com/
+2. 在线 Demo 地址：https://sdk.weixin.senparc.com/
+3. 微信开发系列教程：https://www.cnblogs.com/szw/p/weixin-course-index.html
+4. 微信技术交流社区：https://weixin.senparc.com/QA
+5. 自定义菜单在线编辑工具：https://sdk.weixin.senparc.com/Menu
+6. 在线消息测试工具：https://sdk.weixin.senparc.com/SimulateTool
+7. 缓存测试工具：https://sdk.weixin.senparc.com/Cache/Test
+8. chm帮助文档下载：https://sdk.weixin.senparc.com/Document
 9. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 10. 微信开发资源集合：https://github.com/JeffreySu/WeixinResource
 11. 《微信开发深度解析》阅读辅助系统：https://book.weixin.senparc.com
@@ -217,7 +217,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 Senparc 官方图书教程
 ----------------
 
-<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" align="right">
+<img src="https://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="400" align="right">
 
 > 由 Jeffrey Su 和盛派团队耗时 2 年完成的微信开发图书已经出版，书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，全书配套辅助阅读系统已经上线： [BookHelper](http://book.weixin.senparc.com)。<br>
 > 欢迎购买正版图书：[【购买正版】](https://book.weixin.senparc.com/book/link?code=github-homepage)<br>

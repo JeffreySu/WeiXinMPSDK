@@ -100,6 +100,10 @@
     <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_NicknameAudit.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditDelay.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
@@ -111,6 +115,7 @@
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="MessageContexts\DefaultWxOpenMessageContext.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
@@ -127,16 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.8.9</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.5</Version>
+      <Version>1.0.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
-      <Version>6.4.13</Version>
+      <Version>6.6.102</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.7.13</Version>
+      <Version>16.9.102</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

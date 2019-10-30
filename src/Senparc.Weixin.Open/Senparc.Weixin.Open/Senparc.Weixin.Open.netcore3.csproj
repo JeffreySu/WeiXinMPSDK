@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>4.7.102.1-preview1</Version>
+    <Version>4.7.102.1-preview2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -173,7 +173,10 @@
       1、提供 .Net Core 3.0 独立版本
       2、添加“开放平台-代码管理-加急审核”接口：CodeApi.QueryQuota()、CodeApi.SpeedupAudit()
       v4.7.102 扫码关注组件，小程序支付后获取unionid
-
+      v4.7.102.1
+      1、修改 TryUpdateAuthorizationInfo() 相关方法，避免可能发生的 null 对象错误
+      2、修改 GetAuditStatus() 方法 auditid 参数类型（int -&gt; long)
+      
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

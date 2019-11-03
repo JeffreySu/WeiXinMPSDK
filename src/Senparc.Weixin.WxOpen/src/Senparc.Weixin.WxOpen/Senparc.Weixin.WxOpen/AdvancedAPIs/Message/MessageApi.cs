@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20191014
     
+        
+    修改标识：Senparc - 20190917
+    修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
 
 ----------------------------------------------------------------*/
@@ -75,7 +78,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                     page = page,
                     data = data
                 };
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, urlFormat, submitData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

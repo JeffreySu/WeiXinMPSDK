@@ -205,7 +205,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     #endregion
 
                     #endregion
-                })
+                }, true)
                 //สนำร Senparc.Weixin SDK
                 .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
                 {

@@ -228,6 +228,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
             responseMessage.Content = $"小程序被访问：{requestMessage.MenuId} - {requestMessage.EventKey}";
             return responseMessage;
         }
+   
     }
 
 }

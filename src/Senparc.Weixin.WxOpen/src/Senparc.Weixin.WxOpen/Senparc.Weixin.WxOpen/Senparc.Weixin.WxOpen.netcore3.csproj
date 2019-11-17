@@ -142,7 +142,7 @@
       1、小程序审核事件移动到 WxOpen
       2、订阅消息接口
       v3.7.102.1 修复订阅消息参数问题
-      v3.7.102.2 
+      v3.7.102.2 修复 GetWeAnalysisAppidUserPortraitResultJson 参数类型错误
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

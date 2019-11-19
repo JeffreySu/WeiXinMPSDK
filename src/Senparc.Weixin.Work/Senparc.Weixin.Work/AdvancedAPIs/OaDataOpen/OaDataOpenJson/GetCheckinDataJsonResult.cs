@@ -73,5 +73,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 打卡的附件media_id，可使用media/get获取附件
         /// </summary>
         public string[] mediaids { get; set; }
+        /// <summary>
+        /// 位置打卡地点纬度，是实际纬度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
+        /// </summary>
+        public int lat { get; set; }
+        /// <summary>
+        /// 位置打卡地点经度，是实际经度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
+        /// </summary>
+        public int lng { get; set; }
     }
 }

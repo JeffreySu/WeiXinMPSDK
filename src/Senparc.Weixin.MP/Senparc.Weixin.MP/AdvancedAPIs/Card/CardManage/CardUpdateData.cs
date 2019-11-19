@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CardUpdateData.cs
     文件功能描述：卡券更新需要的数据
@@ -93,6 +93,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string bonus_url { get; set; }
         /// <summary>
+        /// 积分信息类目对应的小程序 user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string bonus_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 积分入口小程序的页面路径 
+        /// </summary>
+        public string bonus_app_brand_pass { get; set; }
+        /// <summary>
         /// 初始设置积分 int型数据
         /// 非必填,null时显示查看
         /// </summary>
@@ -104,6 +112,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string balance_url { get; set; }
+        /// <summary>
+        /// 余额信息类目对应的小程序 user_name，格式为原始id+@app 小程序原始id可以在小程序的设置页面底部查看到
+        /// </summary>
+        public string balance_app_brand_user_name { get; set; }
+        /// <summary>
+        /// 余额入口小程序的页面路径
+        /// </summary>
+        public string balance_app_brand_pass { get; set; }
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
         /// 非必填

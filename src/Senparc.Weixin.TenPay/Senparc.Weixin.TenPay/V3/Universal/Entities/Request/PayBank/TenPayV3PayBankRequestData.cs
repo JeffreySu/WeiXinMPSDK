@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：TenPayV3PayBankRequestData.cs
     文件功能描述：企业付款到银行卡接口 请求参数
@@ -29,6 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180409
     修改描述：v14.11.0 添加“付款到银行卡”接口
 
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能；添加子商户号设置
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.TenPay.V3
@@ -48,6 +50,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// 商户号
         /// </summary>
         public string MchId { get; set; }
+        /// <summary>
+        /// 子商户号，如果没有则不用设置
+        /// </summary>
+        public string SubMchId { get; set; }
 
         /// <summary>
         /// 商户订单号，需保持唯一（只允许数字[0~9]或字母[A~Z]和[a~z]，最短8位，最长32位）
@@ -109,9 +115,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public readonly string Sign;
 
-        public TenPayV3PayBankRequestData(string mchId, string nonceStr, string key, string partnerTradeNumber, string encBankNumber, string encTrueName, string bankCode, string amount, string desc="")
+        public TenPayV3PayBankRequestData(string mchId, string nonceStr, string key, string partnerTradeNumber, string encBankNumber, string encTrueName, 
+            string bankCode, string amount, string desc="", string subMchId = null)
         {
-            this.MchId = mchId;
+            MchId = mchId;
+            SubMchId = subMchId;
             this.NonceStr = nonceStr;
             this.Key = key;
             this.PartnerTradeNumber = partnerTradeNumber;
@@ -131,13 +139,12 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("partner_trade_no", this.PartnerTradeNumber); //商户订单号
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId); //子商户号
             PackageRequestHandler.SetParameter("enc_bank_no", this.EncBankNumber);
             PackageRequestHandler.SetParameter("enc_true_name", this.EncTrueName);
             PackageRequestHandler.SetParameter("bank_code", this.BankCode);
             PackageRequestHandler.SetParameter("amount", this.Amount.ToString());
             PackageRequestHandler.SetParameterWhenNotNull("desc", this.Desc);
-
-
 
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名

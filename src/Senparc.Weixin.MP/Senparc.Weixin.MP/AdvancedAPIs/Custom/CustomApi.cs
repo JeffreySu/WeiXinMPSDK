@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -18,7 +18,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CustomAPI.cs
     文件功能描述：客服接口
@@ -52,10 +52,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：增加GetTypingStatus
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /* 
    API地址：http://mp.weixin.qq.com/wiki/1/70a29afed17f56d537c833f89be979c9.html
+   新地址（2019年3月）：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140547
 */
 
 
@@ -64,6 +69,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using System.Collections.Generic;
@@ -502,15 +508,74 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 发送小程序卡片（要求小程序与公众号已关联）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="title">小程序卡片的标题</param>
+        /// <param name="appid">小程序的appid，要求小程序的appid需要与公众号有关联关系</param>
+        /// <param name="pagepath">小程序的页面路径，跟app.json对齐，支持参数，比如pages/index/index?foo=bar</param>
+        /// <param name="thumb_media_id">小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416</param>
+        /// <param name="kfAccount"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPage", true)]
+        public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount="", int timeOut = Config.TIME_OUT)
+        {
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid=appid,
+                        pagepath= pagepath,
+                        thumb_media_id = thumb_media_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    },
+                    customservice = new
+                    {
+                        kf_account = kfAccount
+                    }
+
+                };
+            }
+
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 客服输入状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId"></param>
-        /// <param name="typingStatus"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.GetTypingStatus", true)]
-        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string touser, string typingStatus, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -518,7 +583,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    touser = cardId,
+                    touser = touser,
                     command = typingStatus
                 };
 
@@ -527,9 +592,39 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="menuList">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
+        /// <returns></returns>
+        public static WxJsonResult SendMenu(string accessTokenOrAppId, string openId,
+        string head, List<SendMenuContent> menuList, string tail,
+         int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = menuList,
+                    tail_content = tail
+                }
+            };
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+             {
+                 return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+             }, accessTokenOrAppId);
+        }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -579,9 +674,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -629,9 +724,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -678,9 +773,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -735,9 +830,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送音乐消息
@@ -798,9 +893,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -861,9 +956,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -912,9 +1007,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -946,21 +1041,83 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnoreNull = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 【异步方法】发送小程序卡片（要求小程序与公众号已关联）
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="title">小程序卡片的标题</param>
+        /// <param name="appid">小程序的appid，要求小程序的appid需要与公众号有关联关系</param>
+        /// <param name="pagepath">小程序的页面路径，跟app.json对齐，支持参数，比如pages/index/index?foo=bar</param>
+        /// <param name="thumb_media_id">小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416</param>
+        /// <param name="kfAccount"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.SendMiniProgramPageAsync", true)]
+        public static async Task<WxJsonResult> SendMiniProgramPageAsync(string accessTokenOrAppId, string openId, string title, string appid, string pagepath, string thumb_media_id, string kfAccount = "", int timeOut = Config.TIME_OUT)
+        {
+
+            object data = null;
+            if (kfAccount.IsNullOrWhiteSpace())
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    }
+                };
+            }
+            else
+            {
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "miniprogrampage",
+                    miniprogrampage = new
+                    {
+                        title = title,
+                        appid = appid,
+                        pagepath = pagepath,
+                        thumb_media_id = thumb_media_id
+                    },
+                    customservice = new
+                    {
+                        kf_account = kfAccount
+                    }
+
+                };
+            }
+
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
 
         /// <summary>
         /// 【异步方法】客服输入状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId"></param>
-        /// <param name="typingStatus"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.TypingAsync", true)]
-        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string touser, string typingStatus, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -968,21 +1125,56 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    card_id = cardId,
+                    touser = touser,
                     command = typingStatus
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】发送客户菜单消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">接受人员OPenid</param>
+        /// <param name="head">标题</param>
+        /// <param name="menuList">内容</param>
+        /// <param name="tail">结尾内容</param>
+        /// <param name="timeOut">超时时间</param>     
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SendMenuAsync(string accessTokenOrAppId, string openId,
+       string head, List<SendMenuContent> menuList, string tail,
+        int timeOut = Config.TIME_OUT)
+        {
+            var data = new
+            {
+                touser = openId,
+                msgtype = "msgmenu",
+                msgmenu = new
+                {
+                    head_content = head,
+                    list = menuList,
+                    tail_content = tail
+                }
+            };
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+              {
+                  return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+
+              }, accessTokenOrAppId).ConfigureAwait(false);
+
         }
 
         #endregion
-#endif
 
         /////
         ///// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
         /////
 
     }
+
+
 }

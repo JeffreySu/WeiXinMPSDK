@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
@@ -26,6 +26,11 @@
 
     修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
+
 
 ----------------------------------------------------------------*/
 
@@ -65,7 +70,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
-                return Get.GetJson<GetAppInfoResult>(url);
+                return CommonJsonSend.Send<GetAppInfoResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
         }
 
@@ -82,7 +87,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}";
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
@@ -102,16 +107,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
-
-                return Get.GetJson<GetAppListResult>(url);
+                string url = Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}";
+                return CommonJsonSend.Send<GetAppListResult>(accessToken, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -128,8 +132,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
 
-                return await Get.GetJsonAsync<GetAppInfoResult>(url);
-            }, accessTokenOrAppKey);
+               
+                return await CommonJsonSend.SendAsync<GetAppInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -146,15 +151,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 //TODO:需要对SetAppPostData中的null值过滤
-                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+                string url = Config.ApiWorkHost + "/cgi-bin/agent/set?access_token={0}";
 
                 //对SetAppPostData中的null值过滤
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, jsonSetting: jsonSetting);
-                //return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, jsonSetting: jsonSetting).ConfigureAwait(false);
 
-            }, accessTokenOrAppKey);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -168,14 +172,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
-
-                return await Get.GetJsonAsync<GetAppListResult>(url);
-            }, accessTokenOrAppKey);
+                string url = Config.ApiWorkHost + "/cgi-bin/agent/list?access_token={0}";
+                return await CommonJsonSend.SendAsync<GetAppListResult>(accessToken, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
         #endregion
-#endif
     }
 }

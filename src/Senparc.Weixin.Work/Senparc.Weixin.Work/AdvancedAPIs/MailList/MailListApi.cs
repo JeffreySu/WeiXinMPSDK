@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：通讯录同步接口
@@ -39,6 +39,12 @@
     修改标识：Senparc - 20171220
     修改描述：v1.2.9 为OAuth Url添加agendId参数（可选）
 
+    修改标识：Senparc - 20190214
+    修改描述：v3.3.7 MailListApi.UpdateDepartment() 方法中 parendId 参数设为可为 null 类型
+
+    修改标识：Senparc - 20190826
+    修改描述：v3.5.12 MailListApi.InviteMember() 已被官方弃用，标记为过期
+
 ----------------------------------------------------------------*/
 
 /*
@@ -49,8 +55,10 @@
     批量删除成员：http://work.weixin.qq.com/api/doc#10060
     获取部门成员：http://work.weixin.qq.com/api/doc#10061
     获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
+    手机号获取userid：https://work.weixin.qq.com/api/doc#90001/90143/91693
  */
 
+using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.CO2NET.HttpUtility;
@@ -113,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return Get.GetJson<GetMemberResult>(url);
+                return CommonJsonSend.Send<GetMemberResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -136,7 +144,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
 
 
@@ -163,7 +171,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return Get.GetJson<WorkJsonResult>(url);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -185,13 +193,35 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    useridlist = useridlist
+                    useridlist
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
+        }
 
+        /// <summary>
+        /// 手机号获取userid
+        /// 请确保手机号的正确性，若出错的次数较多，会导致1天不可调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="mobile">手机号码。长度为5 ~32个字节</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.GetUserid", true)]
+        public static GetUseridResult GetUserid(string accessTokenOrAppKey, string mobile, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserid?access_token={0}", accessToken.AsUrlData());
 
+                var data = new
+                {
+                    mobile
+                };
+
+                return CommonJsonSend.Send<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -215,7 +245,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
+                return CommonJsonSend.Send<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -242,7 +272,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return Get.GetJson<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
+                return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
         }
 
@@ -297,7 +327,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.UpdateDepartment", true)]
-        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, long id, string name, long parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateDepartment(string accessTokenOrAppKey, long id, string name, long? parentId = null, int order = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -332,7 +362,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id);
 
-                return Get.GetJson<WorkJsonResult>(url);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -356,7 +386,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     url += string.Format("&id={0}", id.Value);
                 }
 
-                return Get.GetJson<GetDepartmentListResult>(url);
+                return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -436,7 +466,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
-                return Get.GetJson<WorkJsonResult>(url);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -455,7 +485,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
-                return Get.GetJson<GetTagMemberResult>(url);
+                return CommonJsonSend.Send<GetTagMemberResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -534,7 +564,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
 
-                return Get.GetJson<GetTagListResult>(url);
+                return CommonJsonSend.Send<GetTagListResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -552,6 +582,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [Obsolete("请使用 Invite() 方法！")]
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteMember", true)]
         public static InviteMemberResult InviteMember(string accessTokenOrAppKey, string userId, int timeOut = Config.TIME_OUT)
         {
@@ -580,6 +611,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.Invite", true)]
         public static InviteMemberListResultJson Invite(string accessTokenOrAppKey, InviteMemberData data, int timeOut = Config.TIME_OUT)
         {
+            //API:https://work.weixin.qq.com/api/doc#90000/90135/90975
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/invite?access_token={0}", accessToken);
@@ -591,7 +623,31 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+        /// <summary>
+        /// 让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static WorkJsonResult AuthSucc(string accessTokenOrAppKey, string userId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+            }, accessTokenOrAppKey);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
+
+
         #region 异步方法
 
         #region 成员管理
@@ -612,7 +668,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = Config.ApiWorkHost + "/cgi-bin/user/create?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberCreateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
 
                 /*
                    返回结果：
@@ -621,7 +677,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                        "errmsg": "created"
                     }
                 */
-            }, accessTokenOrAppKey);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -637,8 +693,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/get?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return await Get.GetJsonAsync<GetMemberResult>(url);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetMemberResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -658,7 +714,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = Config.ApiWorkHost + "/cgi-bin/user/update?access_token={0}";
 
                 JsonSetting jsonSetting = new JsonSetting(true);
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, memberUpdateRequest, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }
 
             /*
@@ -668,7 +724,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                   "errmsg": "updated"
                }
            */
-            , accessTokenOrAppKey);
+            , accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -684,8 +740,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
 
-                return await Get.GetJsonAsync<WorkJsonResult>(url);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
@@ -705,15 +761,36 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var data = new
                 {
-                    useridlist = useridlist
+                    useridlist
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
-
-
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// 【异步方法】手机号获取userid
+        /// 请确保手机号的正确性，若出错的次数较多，会导致1天不可调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
+        /// <param name="mobile">手机号码。长度为5 ~32个字节</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.GetUseridAsync", true)]
+        public static async Task<GetUseridResult> GetUseridAsync(string accessTokenOrAppKey, string mobile, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/getuserid?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    mobile
+                };
+
+                return await CommonJsonSend.SendAsync<GetUseridResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// 【异步方法】获取部门成员【QY移植修改】
@@ -736,8 +813,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberResult>(url/*, maxJsonLength: maxJsonLength*/);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -763,8 +840,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
-                return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url/*, maxJsonLength: maxJsonLength*/);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -819,7 +896,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.UpdateDepartmentAsync", true)]
-        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, long id, string name, long parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateDepartmentAsync(string accessTokenOrAppKey, long id, string name, long? parentId = null, int order = 1, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -854,7 +931,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id);
 
-                return await Get.GetJsonAsync<WorkJsonResult>(url);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -878,7 +955,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     url += string.Format("&id={0}", id.Value);
                 }
 
-                return await Get.GetJsonAsync<GetDepartmentListResult>(url);
+                return await CommonJsonSend.SendAsync<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -958,7 +1035,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
-                return await Get.GetJsonAsync<WorkJsonResult>(url);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -978,7 +1055,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
 
-                return await Get.GetJsonAsync<GetTagMemberResult>(url);
+                return await CommonJsonSend.SendAsync<GetTagMemberResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -1057,7 +1134,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
 
-                return await Get.GetJsonAsync<GetTagListResult>(url);
+                return await CommonJsonSend.SendAsync<GetTagListResult>(null, url, null, CommonJsonSendType.GET);
             }, accessTokenOrAppKey);
 
 
@@ -1076,6 +1153,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
+        [Obsolete("请使用 InviteAsync() 方法！")]
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteMemberAsync", true)]
         public static async Task<InviteMemberResult> InviteMemberAsync(string accessTokenOrAppKey, string userId, int timeOut = Config.TIME_OUT)
         {
@@ -1088,8 +1166,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userid = userId,
                 };
 
-                return await CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -1104,16 +1182,42 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MailListApi.InviteAsync", true)]
         public static async Task<InviteMemberListResultJson> InviteAsync(string accessTokenOrAppKey, InviteMemberData data, int timeOut = Config.TIME_OUT)
         {
+            //API:https://work.weixin.qq.com/api/doc#90000/90135/90975
+
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/invite?access_token={0}", accessToken);
 
-                return await CommonJsonSend.SendAsync<InviteMemberListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<InviteMemberListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
 
+
+        /// <summary>
+        /// 【异步方法】让成员成功加入企业
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> AuthSuccAsync(string accessTokenOrAppKey, string userId)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId);
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+            /*
+             *  返回结果：
+                {
+                   "errcode": 0,
+                   "errmsg": "updated"
+                }
+            */
+        }
+
         #endregion
-#endif
     }
 }

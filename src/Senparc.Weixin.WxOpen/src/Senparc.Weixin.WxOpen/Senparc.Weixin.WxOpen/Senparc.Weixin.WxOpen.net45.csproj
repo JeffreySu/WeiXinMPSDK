@@ -32,18 +32,6 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.0.3.2\lib\net45\Senparc.NeuChar.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin, Version=6.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.6.1.11\lib\net45\Senparc.Weixin.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=16.4.12.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.16.4.12.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -68,8 +56,21 @@
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Message\MessageApi.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpApi.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\DownloadJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\GetJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbApi.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\ConflictMode.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\FileType.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxCloudFunctionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseCollectionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseMigrateJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxFileJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxQcloudTokenJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
@@ -85,8 +86,13 @@
     <Compile Include="CommonAPIs\WxOpenApiHandlerWapper.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
+    <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_NicknameAudit.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditDelay.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
@@ -98,6 +104,8 @@
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="MessageContexts\DefaultWxOpenMessageContext.cs" />
+    <Compile Include="MessageHandlers\Middleware\WxOpenMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
@@ -110,6 +118,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.Weixin.MP">
+      <Version>16.9.102</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

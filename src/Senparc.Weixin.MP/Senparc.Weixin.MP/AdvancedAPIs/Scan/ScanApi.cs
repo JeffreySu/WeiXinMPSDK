@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：ScanApi.cs
     文件功能描述：微信扫一扫
@@ -48,6 +48,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
@@ -296,7 +297,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取商户信息
@@ -310,8 +310,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -338,8 +338,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
 
               };
-              return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductCreateResultJson>(null, urlFormat, null, CommonJsonSendType.POST, timeOut: timeOut);
-          }, accessTokenOrAppId);
+              return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductCreateResultJson>(null, urlFormat, null, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+          }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】提交审核/取消发布商品
@@ -362,8 +362,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     keystr = keyStr,
                     status = status
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】设置测试人员白名单
@@ -384,8 +384,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid = openId,
                     userName = userName
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /*
         /// <summary>
@@ -430,8 +430,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     limit = limit,
                     status = status
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetListJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetListJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】清除商品信息
@@ -453,8 +453,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     keystr = keyStr
 
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         /// <summary>
         ///【异步方法】检查wxticket参数
@@ -475,8 +475,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     ticket = ticket
 
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -505,8 +505,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     qrcode_size
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetQrCodeJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -523,11 +523,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/scan/product/update?access_token={0}", accessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateBrandResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateBrandResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
-#endif
     }
 }

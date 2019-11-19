@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetMenuResult.cs
     文件功能描述：获取菜单返回的Json结果
@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20190606
+    修改描述：v6.4.8 为兼容新版本的 TryCommonApiBase<T>，添加不带参数的构造函数
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -54,5 +57,10 @@ namespace Senparc.Weixin.MP.Entities
         {
             menu = buttonGroupBase;
         }
+
+        /// <summary>
+        /// 请勿使用此构造函数创建对象
+        /// </summary>
+        public GetMenuResult() { }
     }
 }

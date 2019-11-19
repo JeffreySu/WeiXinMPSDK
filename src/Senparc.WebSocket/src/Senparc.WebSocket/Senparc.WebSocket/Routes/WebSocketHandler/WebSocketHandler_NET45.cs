@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：WebSocketHandler.cs
     文件功能描述：WebSocket处理程序
@@ -86,12 +86,12 @@ namespace Senparc.WebSocket
             {
                 if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
                 {
-                    await messageHandler.OnConnecting(webSocketHandler);//调用MessageHandler
+                    await messageHandler.OnConnecting(webSocketHandler).ConfigureAwait(false);//调用MessageHandler
                 }
             }
 
             //Checks WebSocket state.
-            await HandleMessage(webSocket);
+            await HandleMessage(webSocket).ConfigureAwait(false);
         }
 
         public void ProcessRequest(HttpContext context)

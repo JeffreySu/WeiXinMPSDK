@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
@@ -61,8 +61,10 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.NeuChar;
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
+using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -166,14 +168,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             try
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
-                object jsonResult = null;
-
-#if NET35 || NET40 || NET45
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                jsonResult = js.Deserialize<object>(jsonString);
-#else
-                jsonResult = Newtonsoft.Json.JsonConvert.DeserializeObject<object>(jsonString);
-#endif
+                object jsonResult = SerializerHelper.GetObject<object>(jsonString);
 
                 var fullResult = jsonResult as Dictionary<string, object>;
                 if (fullResult != null && fullResult.ContainsKey("menu"))
@@ -242,7 +237,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET35 || NET40 || NET45
+#if NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else
@@ -285,11 +280,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
-                return HttpUtility.Get.GetJson<WxJsonResult>(url);
+                return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
 
             }, accessTokenOrAppId);
 
         }
+
         #region 同步方法
 
         /// <summary>
@@ -305,7 +301,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
 
-                //return HttpUtility.Get.GetJson<SelfMenuConfigResult>(url);
                 return CommonJsonSend.Send<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -315,7 +310,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -331,13 +326,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
                 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

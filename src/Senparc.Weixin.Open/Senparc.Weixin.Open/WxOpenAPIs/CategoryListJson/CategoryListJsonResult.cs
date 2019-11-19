@@ -1,4 +1,38 @@
-﻿using System;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+  
+    文件名：Register.cs
+    文件功能描述：注册小程序信息
+    
+    
+    创建标识：Senparc - 20180716
+
+    修改标识：Senparc - 20190123
+    修改描述：v3.3.5.1 修改“获取账号可以设置的所有类目”接口参数（官方文档错误）
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +46,14 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.CategoryListJson
     /// </summary>
     [Serializable]
     public class CategoryListJsonResult : WxJsonResult
+    {
+        //微信文档写的参数名称是  category_list，实际上是 categories_list
+        //public IList<Category> categories { get; set; }
+
+        public CategoriesList categories_list { get; set; }
+    }
+
+    public class CategoriesList
     {
         public IList<Category> categories { get; set; }
     }

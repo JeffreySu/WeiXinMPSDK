@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Test.Utilities
             //    fs.Flush();//直接保存，无需处理指针
             //}
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -37,22 +37,22 @@ namespace Senparc.Weixin.MP.Test.Utilities
             Console.WriteLine("MediaId：" + result.media_id);
 
             //下载
-            var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
+            var url = "https://sdk.weixin.senparc.com/images/v2/ewm_01.png";
 
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
 #endif
 
-            var downloadResult = Senparc.Weixin.HttpUtility.Get.Download(url, filePath);
+            var downloadResult = Senparc.CO2NET.HttpUtility.Get.Download(url, filePath);
             Console.WriteLine(downloadResult);
 
             Assert.IsTrue(File.Exists(downloadResult));
 
             //完成之后通常需要强制修改文件名
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             File.Move(downloadResult, downloadResult + "core20.renamed.jpg");
 #else
             File.Move(downloadResult, downloadResult + ".net45.renamed.jpg");

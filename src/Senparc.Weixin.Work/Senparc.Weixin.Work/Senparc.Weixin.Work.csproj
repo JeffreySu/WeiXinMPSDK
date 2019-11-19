@@ -56,15 +56,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.4.4\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.2.2\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.5.5.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.5.5.2\lib\net45\Senparc.NeuChar.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -96,6 +87,7 @@
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\MakeOutInvoiceData.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\GetUseridResult.cs" />
     <Compile Include="AdvancedAPIs\Mobile\MobileApi.cs" />
     <Compile Include="AdvancedAPIs\Mobile\MobileApiResult.cs" />
     <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
@@ -126,6 +118,8 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
+    <Compile Include="AdvancedAPIs\Webhook\WebhookApi.cs" />
+    <Compile Include="AdvancedAPIs\Webhook\WebhookNews.cs" />
     <Compile Include="AdvancedAPIs\WorkApiEnlightener.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="Containers\JsApiTicketContainer.cs" />
@@ -144,7 +138,6 @@
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
     <Compile Include="Containers\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
-    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\JsonResult\ConvertToOpenIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
@@ -219,11 +212,16 @@
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Entities\Response\WorkResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageUnknownType.cs" />
+    <Compile Include="Entities\Response\WorkSuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="MessageContext\DefaultWorkMessageContext.cs" />
+    <Compile Include="MessageHandlers\Async\WorkMessageHandler.Async.cs" />
+    <Compile Include="MessageHandlers\Middleware\WorkMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -248,6 +246,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET">
+      <Version>1.0.102</Version>
+    </PackageReference>
+    <PackageReference Include="Senparc.NeuChar">
+      <Version>1.0.103</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

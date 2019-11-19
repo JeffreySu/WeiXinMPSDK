@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +12,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.RegisterServices;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,14 +34,22 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
+#endif
+
             //注册开始
             RegisterService register;
 
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETCOREAPP3_0
+            var mockEnv = new Mock<IWebHostEnvironment>();
+#else
             var mockEnv = new Mock<IHostingEnvironment>();
+#endif
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
             register = RegisterService.Start(mockEnv.Object, senparcSetting);
 
@@ -62,10 +71,10 @@ namespace Senparc.WeixinTests
 
             //注册微信
             var senparcWeixinSetting = new SenparcWeixinSetting(true);
-            register.UseSenparcWeixin(senparcWeixinSetting);
+            register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -75,7 +84,9 @@ namespace Senparc.WeixinTests
             var configBuilder = new ConfigurationBuilder();
             var config = configBuilder.Build();
             serviceCollection.AddSenparcGlobalServices(config);
+            serviceCollection.AddSenparcWeixinServices(config);
             serviceCollection.AddMemoryCache();//使用内存缓存
+
         }
 #endif
 
@@ -85,7 +96,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
             return @"..\..\..\";
 #else
             return @"..\..\";

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -48,6 +48,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180825
     修改描述：v15.2.4 微信支付 RequestHandler 增加 HMAC-SHA256 加密方式
 
+    -- 迁移至 Senparc.Weixin.TenPay 独立模块 -- 
+    
+    修改标识：Senparc - 20190214
+    修改描述：v1.2.0 CreateMd5Sign() 方法提供企业微信签名方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -56,7 +61,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
@@ -93,7 +98,7 @@ namespace Senparc.Weixin.TenPay.V3
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             this.HttpContext = httpContext ?? HttpContext.Current;
 #else
             this.HttpContext = httpContext ?? new DefaultHttpContext();
@@ -182,12 +187,13 @@ namespace Senparc.Weixin.TenPay.V3
 
         /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+        /// <para>key和value通常用于填充最后一组参数</para>
         /// </summary>
         /// <param name="key">参数名</param>
         /// <param name="value">参数值</param>
-        /// key和value通常用于填充最后一组参数
+        /// <param name="workPaySignType">企业支付签名（workwx_sign）类型，默认为 None</param>
         /// <returns></returns>
-        public virtual string CreateMd5Sign(string key, string value)
+        public virtual string CreateMd5Sign(string key, string value, WorkPaySignType workPaySignType= WorkPaySignType.None)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -202,6 +208,38 @@ namespace Senparc.Weixin.TenPay.V3
                     //&& "sign_type".CompareTo(k) != 0
                     && "key".CompareTo(k) != 0)
                 {
+
+                    //过滤企业支付特殊情况
+                    if (workPaySignType == WorkPaySignType.WorkSendRedPackage)
+                    {
+                        //企业支付微信红包，仅保留以下字段
+                        if ("act_name".CompareTo(k) != 0
+                            || "mch_billno".CompareTo(k) != 0
+                            || "mch_id".CompareTo(k) != 0
+                            || "nonce_str".CompareTo(k) != 0
+                            || "re_openid".CompareTo(k) != 0
+                            || "total_amount".CompareTo(k) != 0
+                            || "wxappid".CompareTo(k) != 0
+                            )
+                        {
+                            continue;
+                        }
+                    }else if (workPaySignType == WorkPaySignType.WorkPayApi)
+                    {
+                        //企业支付微信红包，仅保留以下字段
+                        if ("amount".CompareTo(k) != 0
+                            || "appid".CompareTo(k) != 0
+                            || "desc".CompareTo(k) != 0
+                            || "mch_id".CompareTo(k) != 0
+                            || "nonce_str".CompareTo(k) != 0
+                            || "openid".CompareTo(k) != 0
+                            || "partner_trade_no".CompareTo(k) != 0
+                            || "ww_msg_type".CompareTo(k) != 0
+                            )
+                        {
+                            continue;
+                        }
+                    }
                     sb.Append(k + "=" + v + "&");
                 }
             }
@@ -215,6 +253,8 @@ namespace Senparc.Weixin.TenPay.V3
 
             return sign;
         }
+
+        //public virtual string CreateMd5SignForWork(string corpPaySecret,string )
 
         /// <summary>
         /// 创建sha256摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
@@ -299,7 +339,7 @@ namespace Senparc.Weixin.TenPay.V3
 
         protected virtual string GetCharset()
         {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
             if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;

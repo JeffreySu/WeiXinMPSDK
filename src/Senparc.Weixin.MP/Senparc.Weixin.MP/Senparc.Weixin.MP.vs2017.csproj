@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
-    <Version>16.6.4</Version>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <Version>16.9.101</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -13,9 +13,8 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2018</Copyright>
+    <Copyright>Senparc Copyright © 2004~2019</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,JSSDK,微信支付,摇一摇周边</PackageTags>
-
 
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
@@ -451,6 +450,41 @@
       v16.5.2 优化 APM 和 MessageHandler 消息解密过程
       v16.6.0 支持最新基础库，使用 .NETStandard2.0 统一支持 .NET Core，放弃对 .NET Core 1.x 的单独适配
       v16.6.4 修复会员卡接口的枚举序列化字符串问题
+      v16.6.5 修复会员卡创建时supply_balance字段和supply_bonus字段为false不序列化
+      v16.6.6 添加卡券跳转小程序参数
+      v16.6.7 RequestMessageEvent_User_Get_Card 添加 UnionId 属性
+      v16.6.8 添加微信门店小程序接口
+      v16.6.9
+      1、修复：裂变红包 url 及参数不正确
+      v16.6.13 添加 SendMenu 相关接口，并打通消息回复响应
+      v16.6.14 支持最新版本 Senparc.Weixin
+      v16.6.15 Card_BaseInfoBase 添加 get_custom_code_mode 属性
+      v16.7.0
+      1、支持异步 Container
+      2、停止对 .NET 3.5 和 .NET 4.0 的支持
+      v16.7.2 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
+      v16.7.4 添加 MessageHandler 的“点击菜单跳转小程序的事件推送”功能
+      v16.7.7.1 修改 UserInfoJson.qr_scene 类型为 unit
+      v16.7.10 修复回复评论的参数bug，添加图文群发总数据的新字段
+      v16.7.11 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v16.7.12 修复：客服输入状态的参数错误，调整客服输入状态的参数名称
+      v16.7.13 完善同步方法的 xxContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+      v16.7.14 修复 AccessTokenContainer.RegisterAsync() 执行缓存更新时可能发生的线程死锁情况
+      v16.7.15 优化 xxContainer.Register() 方法
+      v16.7.16 解决卡券WxCardApiTicketContainer【异步方法】获取可用Ticket,type传值的问题
+      v16.7.17 添加 JsSdkAddCardUiPackage（JSSDK 卡券 AddCard API 调用的参数）
+      v16.7.18 引用最新版本 CO2NET 和 Senparc.Weixin
+      v16.8.0
+      1、消息上下文支持分布式缓存
+      2、提供带符号的 nuget 包（.snupkg)
+      v16.9.0
+      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      2、QrCodeApi.Create() 参数说明更改
+      v16.9.101
+      1、提供 .Net Core 3.0 独立版本
+      2、群发接口更新过期类型，使用 GroupMessageByFilter_MediaId
+      3、优化 Container 异步注册方法
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -471,18 +505,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net35|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net35\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net40|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
-
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net40\Senparc.Weixin.MP.xml</DocumentationFile>
@@ -491,6 +513,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.MP.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.MP.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -503,30 +530,6 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <!--<Reference Include="System.Net.Http" />-->
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
@@ -546,9 +549,18 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+
+
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.2.2" />
-    <PackageReference Include="Senparc.NeuChar" Version="0.5.5.2" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.6.102" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.6.102" />
   </ItemGroup>
 
   <ItemGroup>

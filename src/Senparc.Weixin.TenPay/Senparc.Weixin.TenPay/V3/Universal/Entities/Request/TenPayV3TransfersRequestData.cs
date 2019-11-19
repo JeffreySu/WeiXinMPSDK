@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,15 +19,21 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：TenPayV3TransfersRequestData.cs
-    文件功能描述：微信支付企业付款请求参数
+    文件功能描述：微信支付企业付款请求参数 https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2
     
     创建标识：Senparc - 20170215
       
     修改标识：Senparc - 20170404
     修改描述：14.3.141 修改amount为decimal类型
+
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能；添加子商户号设置
+
+    修改标识：Senparc - 20190609
+    修改描述：v1.4.2 修改“企业付款”接口（Transfers）的参数命名：mch_id -> mchid，appid -> mch_appid
 
 ----------------------------------------------------------------*/
 using System;
@@ -46,12 +52,20 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 微信分配的公众账号ID（企业号corpid即为此appId） [mch_appid]
         /// </summary>
-        public string MchAppId { get; set; }
+        public string AppId { get; set; }
+        /// <summary>
+        /// 子商户公众账号ID
+        /// </summary>
+        public string SubAppId { get; set; }
 
         /// <summary>
         /// 商户号 [mchid]
         /// </summary>
         public string MchId { get; set; }
+        /// <summary>
+        /// 子商户号，如果没有则不用设置
+        /// </summary>
+        public string SubMchId { get; set; }
 
         /// <summary>
         /// 微信支付分配的终端设备号 [device_info]
@@ -109,7 +123,8 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 企业付款
         /// </summary>
-        /// <param name="mchAppid">公众账号appid</param>
+        /// <param name="appId"></param>
+        /// <param name="appid">公众账号appid</param>
         /// <param name="mchId">商户号</param>
         /// <param name="deviceInfo">设备号</param>
         /// <param name="nonceStr">随机字符串</param>
@@ -121,10 +136,15 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="amount">金额（单位：元，小数点后不要超过2位，否则会被四舍五入到分）</param>
         /// <param name="desc">企业付款描述信息</param>
         /// <param name="spbillCreateIP">Ip地址</param>
-        public TenPayV3TransfersRequestData(string mchAppid, string mchId, string deviceInfo, string nonceStr, string outTradeNo, string openId, string key, string checkName, string reUserName, decimal amount, string desc, string spbillCreateIP)
+        /// <param name="subAppId"></param>
+        /// <param name="subMchId"></param>
+        public TenPayV3TransfersRequestData(string appId, string mchId, string deviceInfo, string nonceStr, string outTradeNo, string openId, string key, string checkName, 
+            string reUserName, decimal amount, string desc, string spbillCreateIP, string subAppId = null, string subMchId = null)
         {
-            MchAppId = mchAppid;
+            AppId = appId;
+            SubAppId = subAppId;
             MchId = mchId;
+            SubMchId = subMchId;
             DeviceInfo = deviceInfo;
             NonceStr = nonceStr;
             OutTradeNo = outTradeNo;
@@ -144,8 +164,11 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.Init();
 
             //设置package订单参数
-            PackageRequestHandler.SetParameter("mch_appid", this.MchAppId); //公众账号appid
+            PackageRequestHandler.SetParameter("mch_appid", this.AppId); //公众账号ID
+            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId); //子商户公众账号ID
             PackageRequestHandler.SetParameter("mchid", this.MchId); //商户号
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId); //子商户号
+            //https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=14_2
             PackageRequestHandler.SetParameter("device_info", this.DeviceInfo); //终端设备号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("partner_trade_no", this.OutTradeNo); //商户订单号

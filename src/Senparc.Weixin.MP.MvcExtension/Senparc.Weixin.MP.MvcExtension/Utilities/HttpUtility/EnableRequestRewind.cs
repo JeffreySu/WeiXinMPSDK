@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
 	文件名：EnableRequestRewindMiddleware.cs
 	文件功能描述：EnableRequestRewind中间件，开启.net core 2 中的 
@@ -31,13 +31,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 	创建标识：lishewen - 20180516
 
+    修改标识：Senparc - 20190929
+    修改描述：v7.4.101 支持 .NET Core 3.0，修改 Request.EnableRewind() 方法为 Request.EnableBuffering()
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+#if !NETCOREAPP3_0
 using Microsoft.AspNetCore.Http.Internal;
+#endif
 
 namespace Microsoft.AspNetCore.Http
 {
@@ -66,8 +71,12 @@ namespace Microsoft.AspNetCore.Http
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
+#if NETCOREAPP3_0
+            context.Request.EnableBuffering();//.NET Core 3.0 不再使用 EnableRewind()，改为 EnableBuffering()：https://github.com/aspnet/AspNetCore/issues/12505
+#else
             context.Request.EnableRewind();
-            await _next(context);
+#endif
+            await _next(context).ConfigureAwait(false);
         }
     }
 

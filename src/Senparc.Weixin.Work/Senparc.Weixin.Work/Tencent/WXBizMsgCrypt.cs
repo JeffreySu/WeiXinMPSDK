@@ -7,8 +7,13 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20191005
+    修改描述：合并更新官方最新示例（没有实质变化）：https://work.weixin.qq.com/api/doc#90000/90138/90307/c#%E5%BA%93
+
 ----------------------------------------------------------------*/
 
+using Senparc.CO2NET.Trace;
 using System;
 using System.Collections;
 using System.Security.Cryptography;
@@ -32,7 +37,7 @@ namespace Senparc.Weixin.Work.Tencent
     {
         string m_sToken;
         string m_sEncodingAESKey;
-        string m_sCorpID;
+        string m_sReceiveId;
         enum WXBizMsgCryptErrorCode
         {
             WXBizMsgCrypt_OK = 0,
@@ -49,13 +54,13 @@ namespace Senparc.Weixin.Work.Tencent
         };
 
         //构造函数
-        // @param sToken: 公众平台上，开发者设置的Token
-        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-        // @param sCorpID: 企业号的CorpID
-        public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sCorpID)
+        // @param sToken: 企业微信后台，开发者设置的Token
+        // @param sEncodingAESKey: 企业微信后台，开发者设置的EncodingAESKey
+        // @param sReceiveId: 不同场景含义不同，详见文档说明（消息加密时为 CorpId）
+        public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sReceiveId)
         {
             m_sToken = sToken;
-            m_sCorpID = sCorpID;
+            m_sReceiveId = sReceiveId;
             m_sEncodingAESKey = sEncodingAESKey;
         }
 
@@ -82,14 +87,14 @@ namespace Senparc.Weixin.Work.Tencent
             string cpid = "";
             try
             {
-                sReplyEchoStr = Cryptography.AES_decrypt(sEchoStr, m_sEncodingAESKey, ref cpid); //m_sCorpID);
+                sReplyEchoStr = Cryptography.AES_decrypt(sEchoStr, m_sEncodingAESKey, ref cpid); //m_sReceiveId);
             }
             catch (Exception)
             {
                 sReplyEchoStr = "";
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecryptAES_Error;
             }
-            if (cpid != m_sCorpID)
+            if (cpid != m_sReceiveId)
             {
                 sReplyEchoStr = "";
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateCorpid_Error;
@@ -144,7 +149,7 @@ namespace Senparc.Weixin.Work.Tencent
                 sMsg = "";
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_DecryptAES_Error;
             }
-            if (cpid != m_sCorpID)
+            if (cpid != m_sReceiveId)
                 return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_ValidateCorpid_Error;
             return 0;
         }
@@ -165,7 +170,7 @@ namespace Senparc.Weixin.Work.Tencent
             string raw = "";
             try
             {
-                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sCorpID);
+                raw = Cryptography.AES_encrypt(sReplyMsg, m_sEncodingAESKey, m_sReceiveId);
             }
             catch (Exception)
             {
@@ -194,7 +199,7 @@ namespace Senparc.Weixin.Work.Tencent
             return 0;
         }
 
-        public class DictionarySort : IComparer
+        public class DictionarySort : System.Collections.IComparer
         {
             public int Compare(object oLeft, object oRight)
             {
@@ -234,6 +239,7 @@ namespace Senparc.Weixin.Work.Tencent
 
         public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
+            //校验规则：https://work.weixin.qq.com/api/doc#90000/90139/90968/%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C
             ArrayList AL = new ArrayList();
             AL.Add(sToken);
             AL.Add(sTimeStamp);
@@ -246,14 +252,15 @@ namespace Senparc.Weixin.Work.Tencent
                 raw += AL[i];
             }
 
+            SHA1 sha;
             ASCIIEncoding enc;
             string hash = "";
             try
             {
 #if NET45
-                SHA1 sha = new SHA1CryptoServiceProvider();
+                sha = new SHA1CryptoServiceProvider();
 #else
-                SHA1 sha = SHA1.Create();
+                sha = SHA1.Create();
 #endif
                 enc = new ASCIIEncoding();
                 byte[] dataToHash = enc.GetBytes(raw);

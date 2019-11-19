@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -48,7 +49,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 <Event><![CDATA[qualification_verify_success]]></Event>
 <ExpiredTime>1442401156</ExpiredTime>
 </xml> ";
-            var messageHandler = VerifyEventTest<RequestMessageEvent_QualificationVerifySuccess>(xml,Event.qualification_verify_success);
+            var messageHandler = VerifyEventTest<RequestMessageEvent_QualificationVerifySuccess>(xml, Event.qualification_verify_success);
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_QualificationVerifySuccess;
             Assert.AreEqual("2015-09-16 18:59:16", requestMessage.ExpiredTime.ToString("yyyy-MM-dd HH:mm:ss"));
             Assert.AreEqual("success", messageHandler.TextResponseMessage);
@@ -142,6 +143,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         #endregion
 
+        #region 微信小程序打开
+
+
+        [TestMethod]
+        public void ViewMiniProgramTest()
+        {
+            var xml = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[view_miniprogram]]></Event>
+<EventKey><![CDATA[pages/index/index]]></EventKey>
+<MenuId>MENUID</MenuId>
+</xml>
+";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_View_Miniprogram>(xml, Event.view_miniprogram);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_View_Miniprogram;
+            Assert.IsNotNull(requestMessage);
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("小程序被访问：MENUID - pages/index/index", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
+
+
+        #endregion
+
         #region 卡券回调
 
 
@@ -210,6 +237,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.AreEqual("这里是 OnEvent_GiftCard_User_AcceptRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
         }
+
+
 
         #endregion
 

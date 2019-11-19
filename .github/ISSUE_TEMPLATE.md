@@ -1,5 +1,5 @@
-(*** 此版块专为反馈bug及提交需求服务，不负责解答开发问题，请勿发表开发问题，
-如果您需要这方面的帮助，请移步`问答社区`：https://weixin.senparc.com/QA ***)
+> ***此版块专为反馈 bug 及提交需求服务，不负责解答开发问题，请勿发表开发问题，
+如果您需要这方面的帮助，请移步`问答社区`：https://weixin.senparc.com/QA***
 
 ##### 问题描述
 
@@ -36,16 +36,15 @@
 - [ ] .net 4.5
 - [ ] .net standard 2.0
 - [ ] .net core 1.x
-- [x] .net core 2.x
+- [ ] .net core 2.x
+- [x] .net core 3.x
 
 ##### 开发环境
 
-- [ ] Visual Studio 2010
-- [ ] Visual Studio 2010 (SP1)
-- [ ] Visual Studio 2012
-- [ ] Visual Studio 2013
 - [ ] Visual Studio 2015
-- [x] Visual Studio 2017
+- [ ] Visual Studio 2017
+- [x] Visual Studio 2019
+- [ ] Visual Studio Code
 - [ ] 其他：
 
 ##### 缓存环境
@@ -53,7 +52,14 @@
 - [x] 服务器内存缓存（默认）
 - [ ] Redis 版本：
 - [ ] Memcached 版本：
-- [ ] 其他
+- [ ] 其他：
+
+##### 系统环境
+
+- [x] Windows，版本：
+- [ ] Linux，版本：
+- [ ] Mac，版本：
+- [ ] 其他：
 
 ##### 联系方式
 Email：

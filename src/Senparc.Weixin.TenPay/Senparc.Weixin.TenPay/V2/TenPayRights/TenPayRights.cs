@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
  
     文件名：TenPayRights.cs
     文件功能描述：微信支付维权接口
@@ -32,6 +32,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
 ----------------------------------------------------------------*/
 
 /*
@@ -40,6 +44,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -65,11 +70,11 @@ namespace Senparc.Weixin.TenPay.V2
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
-            return Get.GetJson<WxJsonResult>(url);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
          
         /// <summary>
@@ -84,9 +89,8 @@ namespace Senparc.Weixin.TenPay.V2
             var urlFormat = Config.ApiMpHost + "/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
             var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
 
-            return await Get.GetJsonAsync<WxJsonResult>(url);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
-#endif
     }
 }

@@ -52,7 +52,12 @@ namespace Senparc.Weixin.WxOpen
         /// 进入会话事件
         /// </summary>
         user_enter_tempsession,
-        add_nearby_poi_audit_info
+        add_nearby_poi_audit_info,
+        wxa_nickname_audit, //名称审核事件
+        weapp_audit_success,
+        weapp_audit_fail,
+        weapp_audit_delay
+
     }
 
     ///// <summary>

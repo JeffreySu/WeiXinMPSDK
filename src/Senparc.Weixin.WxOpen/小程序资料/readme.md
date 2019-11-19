@@ -30,8 +30,12 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 
     [mac](https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin&from=mpwiki&t=1474644089434)
 
-如果我想用破解的怎么办？
-----------
+## 如果我想用破解的怎么办？
+
+
+> 提示：现在新版本小程序开发工具已经可以提供测试账号，如果没有 AppId 也没有关系，已经无需破解，以下方法为旧版本的破解方法，仅供参考。
+
+
 破解的用处在于你可以不受“无AppID”带来的功能限制。
 
 1. 选择上述Windows或Mac版本进行安装（0.9），
@@ -47,8 +51,8 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 5. 完成
 
 
-界面界面截图
------------
+### 界面界面截图
+
 ![界面1](files/snapshot1.png)
 
 
@@ -60,11 +64,11 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 ![界面3](files/snapshot3.png)
 
 
-Demo下载
----------
+### Demo下载
+
 http://pan.baidu.com/s/1o8hJGeQ 密码：wlc4
 
 
-说明
-----------
+### 说明
+
 所有软件及信息均来自网络，仅供学习之用。

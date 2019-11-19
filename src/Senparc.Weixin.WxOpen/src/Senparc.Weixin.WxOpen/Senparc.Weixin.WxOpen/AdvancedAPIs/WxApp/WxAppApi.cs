@@ -575,6 +575,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionid", true)]
+        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string transaction_id, string mch_id="", string out_trade_no="", int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         #endregion
 
 
@@ -1089,6 +1133,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionidAsync", true)]
+        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
 
         #endregion
     }

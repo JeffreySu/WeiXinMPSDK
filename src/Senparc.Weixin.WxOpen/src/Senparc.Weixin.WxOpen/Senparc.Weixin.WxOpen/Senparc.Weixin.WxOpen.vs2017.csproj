@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>3.5.0</Version>
+    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <Version>3.7.101</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -13,7 +13,7 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2018</Copyright>
+    <Copyright>Senparc Copyright © 2004~2019</Copyright>
     <PackageTags>微信,weixin,小程序,wxopen,MiniProgram,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式</PackageTags>
 
     <Authors>Jeffrey Su</Authors>
@@ -128,6 +128,16 @@
       v3.4.8 修复附近的小程序添加地点
       v3.4.9 添加开放平台小程序的普通链接二维码接口
       v3.5.0 SessionContainer 添加 AddDecodedUserInfo() 方法，SessionBag 提供 DecodedUserInfo 属性
+      v3.5.1 优化 Container，修复在未注册的情况下直接尝试注册时可能造成线程死锁的情况
+      v3.5.2 引用最新版本 CO2NET
+      v3.5.3 引用最新版本 CO2NET 和 Senparc.Weixin
+      v3.5.4 修正 UniformSendData 参数
+      v3.5.5 引用最新版本 CO2NET 和 Senparc.Weixin
+      v3.6.0
+      1、消息上下文支持分布式缓存，支持最新版本 Senparc.Weixin
+      2、提供带符号的 nuget 包（.snupkg)
+      v3.7.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+      v3.7.101 提供 .Net Core 3.0 独立版本
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -152,6 +162,11 @@
     <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.WxOpen.xml</DocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -175,12 +190,20 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
 
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+  </ItemGroup>
+
+
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="0.7.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
   </ItemGroup>
 
   <ItemGroup>

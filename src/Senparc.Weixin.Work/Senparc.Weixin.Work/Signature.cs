@@ -18,19 +18,6 @@ namespace Senparc.Weixin.Work
     public static class Signature
     {
         /// <summary>
-        /// 在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
-        /// </summary>
-        public const string Token = "weixin";
-        /// <summary>
-        /// 在网站没有提供EncodingAESKey（或传入为null）的情况下的默认Token，建议在网站中进行配置。
-        /// </summary>
-        public const string EncodingAESKey = "8eKaVU1Ei6M3c3kGY21LKNObvepQuIyQLCLKIt5Zc8u";
-        /// <summary>
-        /// 在网站没有提供CorpId（或传入为null）的情况下的默认Token，建议在网站中进行配置。
-        /// </summary>
-        public const string CorpId = "Senparc";
-
-        /// <summary>
         /// 获取签名
         /// </summary>
         /// <param name="token"></param>

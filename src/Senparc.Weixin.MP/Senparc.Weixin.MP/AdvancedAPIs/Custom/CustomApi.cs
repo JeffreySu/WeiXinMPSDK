@@ -570,12 +570,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 客服输入状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId"></param>
-        /// <param name="typingStatus"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.GetTypingStatus", true)]
-        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetTypingStatus(string accessTokenOrAppId, string touser, string typingStatus, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -583,7 +583,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    touser = cardId,
+                    touser = touser,
                     command = typingStatus
                 };
 
@@ -1112,12 +1112,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】客服输入状态
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId"></param>
-        /// <param name="typingStatus"></param>
+        /// <param name="touser">普通用户（openid）</param>
+        /// <param name="typingStatus">"Typing"：对用户下发“正在输入"状态 "CancelTyping"：取消对用户的”正在输入"状态</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CustomApi.TypingAsync", true)]
-        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string cardId, string typingStatus, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetTypingStatusAsync(string accessTokenOrAppId, string touser, string typingStatus, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1125,7 +1125,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    card_id = cardId,
+                    touser = touser,
                     command = typingStatus
                 };
 

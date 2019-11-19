@@ -17,7 +17,13 @@
     修改描述：v5.0.8 SenparcWeixinSetting 构造函数提供 isDebug 参数
 
     修改标识：Senparc - 20180802
-    修改描述：v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+    修改描述：MP v15.2.0 SenparcWeixinSetting 添加 TenPayV3_WxOpenTenpayNotify 属性，用于设置小程序支付回调地址
+
+    修改标识：Senparc - 20191002
+    修改描述：v6.6.102 提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
+
+    修改标识：Senparc - 20191004
+    修改描述：添加 SenparcWeixinSetting.MpSetting 等一系列属性，用于快速筛选（限定）不同模块的指定参数
 
 ----------------------------------------------------------------*/
 
@@ -47,6 +53,31 @@ namespace Senparc.Weixin.Entities
         public SenparcWeixinSettingItemCollection Items { get; set; }
 
         /// <summary>
+        /// 从 Items 中获取对应键的参数
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public SenparcWeixinSettingItem this[string key]
+        {
+            get
+            {
+                return Items[key];
+            }
+            set
+            {
+                Items[key] = value;
+            }
+        }
+
+        public ISenparcWeixinSettingForMP MpSetting => this;
+        public ISenparcWeixinSettingForWxOpen WxOpenSetting => this;
+        public ISenparcWeixinSettingForWork WorkSetting => this;
+        public ISenparcWeixinSettingForOpen OpenSetting => this;
+        public ISenparcWeixinSettingForOldTenpay OldTenpaySettting => this;
+        public ISenparcWeixinSettingForTenpayV3 TenpayV3Setting => this;
+        public ISenparcWeixinSettingForExtension ExtensionSetting => this;
+
+        /// <summary>
         /// SenparcWeixinSetting 构造函数
         /// </summary>
         public SenparcWeixinSetting() : this(false)
@@ -56,6 +87,7 @@ namespace Senparc.Weixin.Entities
         /// SenparcWeixinSetting 构造函数
         /// </summary>
         /// <param name="isDebug">是否开启 Debug 模式</param>
+        /// <param name="isRoot">是否是根节点，如果是，将创建下级 Items 节点</param>
         public SenparcWeixinSetting(bool isDebug)
         {
             IsDebug = isDebug;
@@ -64,7 +96,8 @@ namespace Senparc.Weixin.Entities
             Items["Default"] = this;//储存第一个默认参数
         }
 
-#if !NETSTANDARD2_0 && !NETCOREAPP2_0 && !NETCOREAPP2_1 || NETCOREAPP2_2 && !NETSTANDARD2_0
+
+#if NET45
         /// <summary>
         /// 从 Web.Config 文件自动生成 SenparcWeixinSetting
         /// </summary>
@@ -116,7 +149,10 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.Component_EncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["Component_EncodingAESKey"];
             //微信企业号
             senparcWeixinSetting.WeixinCorpId = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"];
+            senparcWeixinSetting.WeixinCorpAgentId = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpAgentId"];
             senparcWeixinSetting.WeixinCorpSecret = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"];
+            senparcWeixinSetting.WeixinCorpToken = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpToken"];
+            senparcWeixinSetting.WeixinCorpEncodingAESKey = System.Configuration.ConfigurationManager.AppSettings["WeixinCorpEncodingAESKey"];
 
             //小程序
             //小程序消息URL对接信息

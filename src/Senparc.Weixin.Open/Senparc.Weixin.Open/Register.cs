@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180802
     修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterOpenComponent() 方法
+    
+    修改标识：Senparc - 20191003
+    修改描述：注册过程自动添加更多 SenparcSettingItem 信息
 
 ----------------------------------------------------------------*/
 
@@ -41,6 +44,7 @@ using Senparc.Weixin.Open.Containers;
 using Senparc.CO2NET.RegisterServices;
 using System;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open
 {
@@ -88,6 +92,12 @@ namespace Senparc.Weixin.Open
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForOpen);
+            }
+
             return RegisterOpenComponent(registerService, weixinSettingForOpen.Component_Appid, weixinSettingForOpen.Component_Secret,
                           getComponentVerifyTicketFunc,
                           getAuthorizerRefreshTokenFunc,

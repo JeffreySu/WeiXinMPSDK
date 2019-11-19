@@ -38,13 +38,13 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
         public OmitRepeatMessageMessageHandlers(XDocument requestDoc)
             : base(requestDoc, new PostModel()
                                 {
-                                    Msg_Signature = "845997ceb6e4fd73edd9a377be227848ce20d34f",
-                                    Timestamp = "1412587525",
-                                    Nonce = "1501543730",
+                                    Msg_Signature = "",
+                                    Timestamp = "",
+                                    Nonce = "",
 
-                                    Token = "fzBsmSaI8XE1OwBh",
-                                    EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
-                                    CorpId = "wx7618c0a6d9358622"
+                                    Token = "",
+                                    EncodingAESKey = "",
+                                    CorpId = ""
                                 })
         {
         }

@@ -10,9 +10,13 @@
     修改标识：Senparc - 20180802
     修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterWorkAccount() 方法
 
+    修改标识：Senparc - 20191003
+    修改描述：注册过程自动添加更多 SenparcSettingItem 信息
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.RegisterServices;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Work.Containers;
 
 namespace Senparc.Weixin.Work
@@ -45,6 +49,11 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static IRegisterService RegisterWorkAccount(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForWork weixinSettingForWork, string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForWork);
+            }
             return RegisterWorkAccount(registerService, weixinSettingForWork.WeixinCorpId, weixinSettingForWork.WeixinCorpSecret, name ?? weixinSettingForWork.ItemKey);
         }
     }

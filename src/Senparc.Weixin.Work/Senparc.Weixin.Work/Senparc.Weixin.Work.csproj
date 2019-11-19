@@ -87,6 +87,7 @@
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\MakeOutInvoiceData.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\GetUseridResult.cs" />
     <Compile Include="AdvancedAPIs\Mobile\MobileApi.cs" />
     <Compile Include="AdvancedAPIs\Mobile\MobileApiResult.cs" />
     <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
@@ -211,11 +212,16 @@
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Entities\Response\WorkResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageUnknownType.cs" />
+    <Compile Include="Entities\Response\WorkSuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="MessageContext\DefaultWorkMessageContext.cs" />
+    <Compile Include="MessageHandlers\Async\WorkMessageHandler.Async.cs" />
+    <Compile Include="MessageHandlers\Middleware\WorkMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,8 +248,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET">
+      <Version>1.0.102</Version>
+    </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.4</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

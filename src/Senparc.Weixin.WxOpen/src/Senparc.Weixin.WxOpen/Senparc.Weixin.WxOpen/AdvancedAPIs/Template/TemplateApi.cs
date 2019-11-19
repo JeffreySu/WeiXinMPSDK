@@ -138,6 +138,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSend", true)]
         public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
+            //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";
@@ -305,6 +306,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.UniformSendAsync", true)]
         public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
+            //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/uniform_send?access_token={0}";

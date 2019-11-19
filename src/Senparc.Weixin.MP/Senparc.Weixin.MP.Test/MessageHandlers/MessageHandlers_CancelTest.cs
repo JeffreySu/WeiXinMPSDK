@@ -19,17 +19,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class CancelMessageHandlers : MessageHandler<MessageContexts.DefaultMpMessageContext>
     {
         public string RunStep { get; set; }
 
@@ -38,17 +43,21 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
-        public override void OnExecuting()
+        public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
+            Console.WriteLine("1");
+
             RunStep = "OnExecuting";
             CancelExcute = true;//取消执行
-            base.OnExecuting();
+            await base.OnExecutingAsync(cancellationToken);
+            Console.WriteLine("2");
+
         }
 
-        public override void OnExecuted()
+        public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
             RunStep = "OnExecuted";
-            base.OnExecuted();
+            await base.OnExecutedAsync(cancellationToken);
         }
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
@@ -56,6 +65,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             RunStep = "Execute";
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "文字信息";
+            return responseMessage;
+        }
+
+        public override async Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
+        {
+            RunStep = "Execute";
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "文字信息-来自异步方法";
             return responseMessage;
         }
 
@@ -73,38 +90,46 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlers_CancelTest
+    public class MessageHandlers_CancelTest:BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
-    <CreateTime>1357986928</CreateTime>
+    <CreateTime>{1}</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
     <Content><![CDATA[TNT2]]></Content>
-    <MsgId>5832509444155992350</MsgId>
+    <MsgId>{0}</MsgId>
 </xml>
 ";
 
         [TestMethod]
-        public void CancelTest()
+        public async Task CancelTest()
         {
+            CancellationToken cancellationToken = new CancellationToken();
             var postModel = new PostModel() { AppId = "appId" };
             {
                 //一开始就取消
-                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText), postModel);
+                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText.FormatWith(SystemTime.NowTicks,DateTimeHelper.GetUnixDateTime(SystemTime.Now))), postModel);
                 messageHandler.CancelExcute = true;
-                messageHandler.Execute();
+
+                //缺少异步方法重写的时候，使用同步方法
+                messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+                await messageHandler.ExecuteAsync(cancellationToken);
 
                 Assert.AreEqual(null, messageHandler.RunStep);
             }
 
             {
                 //OnExecuting中途取消
-                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText), postModel);
-                messageHandler.Execute();
+                var messageHandler = new CancelMessageHandlers(XDocument.Parse(xmlText.FormatWith(SystemTime.NowTicks, DateTimeHelper.GetUnixDateTime(SystemTime.Now))), postModel);
+                await messageHandler.ExecuteAsync(cancellationToken);
 
                 Assert.AreEqual("OnExecuting", messageHandler.RunStep);
+                Assert.IsNotNull(messageHandler.RequestDocument);
+                Console.WriteLine(messageHandler.RequestDocument.ToString());
+                Console.WriteLine(messageHandler.RequestMessage.ToJson(true));
+                Assert.IsNull(messageHandler.ResponseMessage);
             }
         }
     }

@@ -80,7 +80,7 @@ senparc.menu = {
             $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
 
             //一级菜单提示
-            if (row == 5) {
+            if (row === 5) {
                 $('#rootButtonNotice').show();
             } else {
                 $('#rootButtonNotice').hide();

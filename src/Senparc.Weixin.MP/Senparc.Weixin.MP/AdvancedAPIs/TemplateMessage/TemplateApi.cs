@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170707
     修改描述：v14.5.4 添加“一次性订阅消息”相关接口
 
+    修改标识：RongjieAAA - 20191129
+    修改描述：重载SendTemplateMessageAsync方法，规范、简化入参。
+
 ----------------------------------------------------------------*/
 
 /*
@@ -325,6 +328,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
                 templateMessageData.Url, templateMessageData, miniProgram, timeOut).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】模板消息接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="model">模板消息</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessageAsync", true)]
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, TemplateMessageModel model, int timeOut = Config.TIME_OUT)
+        {
+            //准备发送给微信的data
+            var data = new
+            {
+                model.touser,
+                model.template_id,
+                model.url,
+                model.miniprogram,
+                data = new Dictionary<string, TemplateMessage_Keywords>()
+            };
+
+            //开头标题数据
+            if (model.first != null)
+                data.data["first"] = model.first;
+
+            //模板内容数据
+            if (model.keywords != null)
+                for (int i = 0; i < model.keywords.Count; i++)
+                    data.data["keyword" + (i + 1)] = model.keywords[i];
+
+            //结尾留言数据
+            if (model.remark != null)
+                data.data["remark"] = model.remark;
+
+            //发送数据给微信
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
+                return await CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, data, timeOut: 10000).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>

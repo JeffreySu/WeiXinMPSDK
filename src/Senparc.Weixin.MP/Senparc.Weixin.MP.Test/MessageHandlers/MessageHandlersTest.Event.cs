@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         #endregion
 
-        #region 微信
+        #region 微信小程序打开
 
 
         [TestMethod]
@@ -237,6 +237,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.AreEqual("这里是 OnEvent_GiftCard_User_AcceptRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
         }
+
+
 
         #endregion
 

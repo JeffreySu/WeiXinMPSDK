@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>1.5.102</Version>
+    <Version>1.5.103.1</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -47,6 +47,8 @@
       1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
       2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
       v1.5.101 提供 .Net Core 3.0 独立版本
+      v1.5.103 提供 .Net Core 3.0 独立版本
+      v1.5.103.1 增加微信支付小程序：发送红包API
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>

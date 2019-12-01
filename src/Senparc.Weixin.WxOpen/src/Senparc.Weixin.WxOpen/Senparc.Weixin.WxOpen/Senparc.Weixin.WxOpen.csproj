@@ -132,16 +132,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>1.0.102</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
       <Version>1.0.103</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin">
-      <Version>6.6.102</Version>
+      <Version>6.6.103</Version>
     </PackageReference>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.9.102</Version>
+      <Version>16.9.103.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

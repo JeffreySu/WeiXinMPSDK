@@ -1,52 +1,38 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using System.IO;
 
 using Senparc.CO2NET;
 using Senparc.CO2NET.Cache;
-using Senparc.Weixin.RegisterServices;
-using Senparc.CO2NET.RegisterServices;
-using Senparc.Weixin.Entities;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
-using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
-using Senparc.CO2NET.Cache.Redis;//DPBMARK Redis DPBMARK_END
-using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
-using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
-using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
-using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
-using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
-using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
-using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
-using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
-
 using Senparc.CO2NET.Utilities;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Senparc.CO2NET.Extensions;
+using Senparc.NeuChar.MessageHandlers;
+using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
+using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using System.Text;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.NeuChar.Middlewares;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.MessageContexts;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
-using Senparc.Weixin.Work.MessageHandlers.Middleware;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
-using Senparc.NeuChar.Context;
+using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
+using Senparc.Weixin.RegisterServices;
+using Senparc.Weixin.Sample.NetCore3.WebSocket.Hubs;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.TenPay;//DPBMARK TenPay DPBMARK_END
+using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.Work.MessageHandlers.Middleware;
+using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 
 namespace Senparc.Weixin.Sample.NetCore3
 {

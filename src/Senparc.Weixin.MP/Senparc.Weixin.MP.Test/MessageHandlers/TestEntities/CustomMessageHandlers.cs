@@ -165,6 +165,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
 
         #endregion
 
+
         /// <summary>
         /// 默认消息
         /// </summary>
@@ -173,7 +174,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您发送的消息类型暂未被识别。";
+            responseMessage.Content = $"您发送的消息类型暂未被识别。RequestMessage Type：{requestMessage.GetType().Name}";
             return responseMessage;
         }
 
@@ -190,6 +191,8 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities
 
         public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
         {
+            System.Console.WriteLine("进入重写同步订阅");
+
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "欢迎关注";
             return responseMessage;

@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xml));
             Assert.IsNotNull(messageHandlers.RequestDocument);
-            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
+            //messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.TextResponseMessage);
 

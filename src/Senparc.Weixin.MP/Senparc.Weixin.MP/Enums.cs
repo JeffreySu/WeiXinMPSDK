@@ -93,6 +93,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181018
     修改描述：添加Reimburse_Status枚举【发票报销状态】
 
+    修改标识：Senparc - 20191206
+    修改描述：AutoReplyType 添加卡券（card）枚举
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -680,6 +683,7 @@ namespace Senparc.Weixin.MP
 
     /// <summary>
     /// 自动回复规则类型
+    /// 以及关键词的类型
     /// </summary>
     public enum AutoReplyType
     {
@@ -703,6 +707,10 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         news = 4,
+        /// <summary>
+        /// 卡券
+        /// </summary>
+        card = 5
     }
 
     /// <summary>

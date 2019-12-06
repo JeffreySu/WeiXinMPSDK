@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>16.9.104</Version>
+    <Version>16.9.104.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -489,6 +489,7 @@
       2、正式启用 OAuthAccessTokenContainer
       v16.9.103 解决 MessageHandler 初始化无响应的问题
       v16.9.104 优化 MessageHandler 同步方法兼容策略
+      v16.9.104.1 AutoReplyType 添加卡券（card）枚举
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

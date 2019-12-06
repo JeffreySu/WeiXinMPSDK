@@ -489,7 +489,9 @@
       2、正式启用 OAuthAccessTokenContainer
       v16.9.103 解决 MessageHandler 初始化无响应的问题
       v16.9.104 优化 MessageHandler 同步方法兼容策略
-      v16.9.104.1 AutoReplyType 添加卡券（card）枚举
+      v16.9.104.1
+      1、AutoReplyType 添加卡券（card）枚举
+      2、CommonApi.Token() 方法设置异常抛出机制
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

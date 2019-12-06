@@ -372,7 +372,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
                                          o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                      // DPBMARK_END
+                                                                                                  // DPBMARK_END
 
             #endregion
         }
@@ -399,7 +399,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
 
-                //发送模板消息给管理员                             -- DPBMARK Redis
+                //发送模板消息给管理员                                   -- DPBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
                 await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };

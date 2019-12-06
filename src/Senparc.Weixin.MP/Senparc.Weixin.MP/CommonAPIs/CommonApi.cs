@@ -50,6 +50,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：添加Clear_quota
+
+    修改标识：Senparc - 20191206
+    修改描述：CommonApi.Token() 方法设置异常抛出机制
+
+
 ----------------------------------------------------------------*/
 
 /*

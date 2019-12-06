@@ -143,7 +143,7 @@
       2、优化 Container 异步注册方法
       v3.7.103.1 新增“获取打卡数据”接口返回值新增经纬度信息
       v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
-
+      v3.7.104.1 CommonApi.Token() 方法设置异常抛出机制
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

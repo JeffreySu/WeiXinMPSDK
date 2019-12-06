@@ -206,7 +206,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredFunc,
                                 accessTokenContainer_GetAccessTokenResultFunc,
                                 invalidCredentialValue,
-                                fun, accessToken, false);
+                                fun, appId, false);
                 }
                 else
                 {

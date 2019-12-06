@@ -93,6 +93,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181018
     修改描述：添加Reimburse_Status枚举【发票报销状态】
 
+    修改标识：Senparc - 20191206
+    修改描述：AutoReplyType 添加卡券（card）枚举
+
 ----------------------------------------------------------------*/
 
 using System;

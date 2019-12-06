@@ -680,6 +680,7 @@ namespace Senparc.Weixin.MP
 
     /// <summary>
     /// 自动回复规则类型
+    /// 以及关键词的类型
     /// </summary>
     public enum AutoReplyType
     {
@@ -703,6 +704,10 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         news = 4,
+        /// <summary>
+        /// 卡券
+        /// </summary>
+        card = 5
     }
 
     /// <summary>

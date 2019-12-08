@@ -295,7 +295,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
 
             //修改文字内容
-            if (requestMessaageDoc.Root.Element("MsgType").Value.ToUpper() == "TEXT")
+            if (requestMessaageDoc.Root.Element("MsgType") != null && requestMessaageDoc.Root.Element("MsgType").Value.ToUpper() == "TEXT")
             {
                 var values = requestMessaageDoc.Root.Element("Content").Value.Split('|').Select(z => z.Trim()).ToList();
                 if (values.Count == 1)

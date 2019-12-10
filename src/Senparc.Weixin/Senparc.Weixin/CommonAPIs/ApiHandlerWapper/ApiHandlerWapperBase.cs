@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190606
     修改描述：v6.4.8 TryCommonApiBase<T> 中 T 参数添加 new() 约束
+    
+    修改标识：Senparc - 20191206
+    修改描述：v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
 
 ----------------------------------------------------------------*/
 using System;
@@ -358,7 +361,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
                                 invalidCredentialValue,
-                                fun, appId, false).ConfigureAwait(false);
+                                fun, accessToken, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }
                 else

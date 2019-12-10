@@ -33,6 +33,8 @@ using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.MP;
+using Senparc.Weixin.Entities.TemplateMessage;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {
@@ -233,7 +235,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
 {ex.ToString()}
 ");
             }
-            
+
             //检验水印
             var checkWatermark = false;
             if (decodedEntity != null)
@@ -421,6 +423,49 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             {
                 //返回文件流
                 return File(ms, "image/jpeg");
+            }
+        }
+
+        /// <summary>
+        /// 订阅消息
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> SubscribeMessage(string sessionId, string templateId = "xWclWkOqDrxEgWF4DExmb9yUe10pfmSSt2KM6pY7ZlU")
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            if (sessionBag == null)
+            {
+                return Json(new { success = false, msg = "请先登录！" });
+            }
+
+            await Task.Delay(1000);//停1秒钟，实际开发过程中可以将权限存入数据库，任意时间发送。
+
+            var templateMessageData = new TemplateMessageData();
+            templateMessageData["thing1"] = new TemplateMessageDataValue("微信公众号+小程序快速开发");
+            templateMessageData["time5"] = new TemplateMessageDataValue(SystemTime.Now.ToString("yyyy年MM月dd日 HH:mm"));
+            templateMessageData["thing6"] = new TemplateMessageDataValue("盛派网络研究院");
+            templateMessageData["thing7"] = new TemplateMessageDataValue("第二部分课程正在准备中，尽情期待");
+
+            var page = "pages/index/index";
+            //templateId也可以由后端指定
+
+            try
+            {
+                var result = await Weixin.WxOpen.AdvancedAPIs.MessageApi.SendSubscribeAsync(WxOpenAppId, sessionBag.OpenId, templateId, templateMessageData, page);
+                if (result.errcode == ReturnCode.请求成功)
+                {
+                    return Json(new { success = true, msg = "消息已发送，请注意查收" });
+                }
+                else
+                {
+                    return Json(new { success = false, msg = result.errmsg });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
             }
         }
     }

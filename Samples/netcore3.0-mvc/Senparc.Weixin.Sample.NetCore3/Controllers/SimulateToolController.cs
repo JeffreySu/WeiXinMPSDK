@@ -34,6 +34,7 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.Tencent;
 using Senparc.CO2NET.Trace;
 using Senparc.CO2NET.Cache;
+using System.Linq;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -43,6 +44,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     public class SimulateToolController : BaseController
     {
         #region 私有方法
+
+
+        private string _responseMessageXml = null;
 
         /// <summary>
         /// 获取请求XML
@@ -271,6 +275,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return requestMessaage.ConvertEntityToXml();
         }
 
+        private Random _random = new Random();
+
         /// <summary>
         /// 模拟并发请求
         /// </summary>
@@ -279,17 +285,36 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="requestMessaageDoc"></param>
         /// <param name="autoFillUrlParameters">是否自动填充Url中缺少的参数（signature、timestamp、nonce），默认为 true</param>
         /// <returns></returns>
-        private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int sleepMillionSeconds = 0)
+        private async Task<string> TestAsyncTask(string url, string token, XDocument requestMessaageDoc, bool autoFillUrlParameters, int index, int sleepMillionSeconds = 0)
         {
             //修改MsgId，防止被去重
+            var msgId = DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(_random.Next(0, 9999999))).ToString();
             if (requestMessaageDoc.Root.Element("MsgId") != null)
             {
-                requestMessaageDoc.Root.Element("MsgId").Value =
-                    DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(token.GetHashCode())).ToString();
+                requestMessaageDoc.Root.Element("MsgId").Value = msgId;
+            }
+
+            //修改文字内容
+            if (requestMessaageDoc.Root.Element("MsgType") != null && requestMessaageDoc.Root.Element("MsgType").Value.ToUpper() == "TEXT")
+            {
+                var values = requestMessaageDoc.Root.Element("Content").Value.Split('|').Select(z => z.Trim()).ToList();
+                if (values.Count == 1)
+                {
+                    values.Add(msgId);
+                    values.Add(index.ToString());
+                }
+                else
+                {
+                    values[1] = msgId;
+                    values[2] = index.ToString();
+                }
+                requestMessaageDoc.Root.Element("Content").Value = string.Join(" | ", values);
             }
 
             var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
+
+            _responseMessageXml = responseMessageXml;
             return responseMessageXml;
         }
 
@@ -362,28 +387,35 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 //参数如：signature=330ed3b64e363dc876f35e54a79e59b48739f567&timestamp=1570075722&nonce=863153744&openid=olPjZjsXuQPJoV0HlruZkNzKc91E&encrypt_type=aes&msg_signature=71dc359205a4660bc3b3046b643452c994b5897d
 
                 var dt1 = SystemTime.Now;
-                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
 
-                if (string.IsNullOrEmpty(responseMessageXml))
-                {
-                    responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
-                }
 
                 try
                 {
+                    dt1 = SystemTime.Now;
                     if (testConcurrence)
                     {
-                        dt1 = SystemTime.Now;
+                        //异步方法
                         testConcurrenceCount = testConcurrenceCount > 30 ? 30 : testConcurrenceCount;//设定最高限额
 
                         //模拟并发请求
                         List<Task<string>> taskList = new List<Task<string>>();
                         for (int i = 0; i < testConcurrenceCount; i++)
                         {
-                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, sleepMillionSeconds: 100);
+                            var task = TestAsyncTask(url, token, requestMessaageDoc, autoFillUrlParameters: false, index: i, sleepMillionSeconds: 0);
                             taskList.Add(task);
                         }
                         Task.WaitAll(taskList.ToArray(), 1500 * 10);
+                    }
+                    else
+                    {
+                        //同步方法，立即发送
+                        _responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
+                    }
+
+
+                    if (string.IsNullOrEmpty(_responseMessageXml))
+                    {
+                        _responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
                     }
 
                     var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
@@ -391,7 +423,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     {
                         Success = true,
                         LoadTime = SystemTime.DiffTotalMS(dt1, "f4"),
-                        Result = responseMessageXml,
+                        Result = _responseMessageXml,
                         CacheType = cache.GetType().Name,
                         ConcurrenceCount = testConcurrenceCount
                     };

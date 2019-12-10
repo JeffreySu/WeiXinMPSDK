@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.netcore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.netcore3", "..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj", "{85FEFE9E-1418-48D1-9D72-9F95C7D82EA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WebSocket.NetCore3", "..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.NetCore3.csproj", "{18AACD60-9851-46DD-ACAA-98D44B543C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WebSocket.NetCore3", "..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.netcore3.csproj", "{18AACD60-9851-46DD-ACAA-98D44B543C08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.netcore3", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj", "{6FE907A7-B306-48C6-9239-D3AABEC39B0C}"
 EndProject

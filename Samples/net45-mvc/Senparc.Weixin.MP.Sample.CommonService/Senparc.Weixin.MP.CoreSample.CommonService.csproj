@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.101" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
     <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
   </ItemGroup>
 

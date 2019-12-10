@@ -11,7 +11,7 @@
 /*
      重要提示
      
-  1. 当前 Controller 展示了有特殊自定义需求的 MessageHandler 处理方案，
+  1. 当前 Controller 中的 2 个 Get() 和 Post() 方法展示了有特殊自定义需求的 MessageHandler 处理方案，
      可以高度控制消息处理过程的每一个细节，
      如果仅常规项目使用，可以直接使用中间件方式，参考 startup.cs：
      app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options => ...);
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class WeixinController : Controller
+    public partial class WeixinController : BaseController
     {
         public static readonly string Token = Config.SenparcWeixinSetting.MpSetting.Token;//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.MpSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。

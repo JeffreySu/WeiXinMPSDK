@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180101
     
+    
+    修改标识：Senparc - 20191117
+    修改描述：v3.7.102.2 修复 GetWeAnalysisAppidUserPortraitResultJson 参数类型错误
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -48,11 +52,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <summary>
         /// 新用户
         /// </summary>
-        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv> visit_uv_new { get; set; }
+        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv visit_uv_new { get; set; }
         /// <summary>
         /// 活跃用户
         /// </summary>
-        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv> visit_uv { get; set; }
+        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv visit_uv { get; set; }
     }
 
     /// <summary>
@@ -63,27 +67,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <summary>
         /// 省份，如北京、广东等
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item province { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> province { get; set; }
         /// <summary>
         /// 城市，如北京、广州等
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item city { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> city { get; set; }
         /// <summary>
         /// 性别，包括男、女、未知
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item genders { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> genders { get; set; }
         /// <summary>
         /// 终端类型，包括iPhone, android,其他
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item platforms { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> platforms { get; set; }
         /// <summary>
         /// 机型，如苹果iPhone6, OPPO R9等
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item devices { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> devices { get; set; }
         /// <summary>
         /// 年龄，包括17岁以下、18-24岁等区间
         /// </summary>
-        public GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item ages { get; set; }
+        public List<GetWeAnalysisAppidUserPortraitResultJson_visit_uv_item> ages { get; set; }
     }
 
     /// <summary>

@@ -14,7 +14,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// <summary>
     /// JSSDK的演示
     /// </summary>
-    public class WeixinJSSDKController : Controller
+    public class WeixinJSSDKController : BaseController
     {
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;

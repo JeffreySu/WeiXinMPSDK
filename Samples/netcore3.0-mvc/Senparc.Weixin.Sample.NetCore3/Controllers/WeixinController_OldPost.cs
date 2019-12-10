@@ -34,7 +34,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     //using Senparc.Weixin.MP.CoreSample.Service;
     //using Senparc.Weixin.MP.CoreSample.CustomerMessageHandler;
 
-    public partial class WeixinController : Controller
+    public partial class WeixinController : BaseController
     {
         /// <summary>
         /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML

@@ -9,7 +9,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// <summary>
     /// 插件项目相关：
     /// </summary>
-    public class PluginsController : Controller
+    public class PluginsController : BaseController
     {
         public ActionResult Index()
         {

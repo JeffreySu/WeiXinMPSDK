@@ -1,8 +1,10 @@
 ﻿//DPBMARK_FILE WebSocket
 #if !NET45
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Extensions;
 using Senparc.WebSocket;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.WxOpen.Containers;
@@ -51,16 +53,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
             try
             {
             
-                var sessionBag = SessionContainer.GetSession(receivedMessage.SessionId);
+                var sessionBag = SessionContainer.GetSession(receivedMessage.SessionId??"-");
 
                 //临时演示使用固定openId
-                var openId = sessionBag != null ? sessionBag.OpenId : "onh7q0DGM1dctSDbdByIHvX4imxA";// "用户未正确登陆";
+                var openId = sessionBag != null ? sessionBag.OpenId : receivedMessage.SessionId;// "用户未正确登陆小程序，或是在网页上发起";
+                openId = openId ?? "[未登录用户]";
 
                 //await webSocketHandler.SendMessage("OpenId：" + openId, webSocketHandler.WebSocket.Clients.Caller);
                 //await webSocketHandler.SendMessage("FormId：" + formId);
 
                 //群发
-                await webSocketHandler.SendMessage($"[群发消息] [来自 OpenId：***{openId.Substring(openId.Length - 10, 10)}，昵称：{sessionBag.DecodedUserInfo?.nickName}]：{message}", webSocketHandler.WebSocket.Clients.All);
+
+                var shotOpenId = openId.Length > 10 ? $"***{openId.Substring(openId.Length - 10, 10)}" : openId;
+
+                await webSocketHandler.SendMessage($"[群发消息] [来自 OpenId：{shotOpenId}，昵称：{(sessionBag?.DecodedUserInfo?.nickName)??"[未登录]"}]：{message}", webSocketHandler.WebSocket.Clients.All);
 
                 //发送模板消息
 
@@ -68,20 +74,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 //    "在线购买", SystemTime.Now, "图书众筹", "1234567890",
                 //    100, "400-9939-858", "http://sdk.senparc.weixin.com");
 
-                var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
-
-                var data = new
+                if (sessionBag!=null)
                 {
-                    keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息（测试数据）"),
-                    keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
-                    keyword3 = new TemplateDataItem($"来自 Senparc.Weixin SDK 小程序 .Net Core WebSocket 触发\r\n您刚才发送了文字：{message}"),
-                    keyword4 = new TemplateDataItem(SystemTime.NowTicks.ToString()),
-                    keyword5 = new TemplateDataItem(100.ToString("C")),
-                    keyword6 = new TemplateDataItem("400-031-8816"),
-                };
+                    var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
 
-                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
-                         null);
+                    var data = new
+                    {
+                        keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息（测试数据）"),
+                        keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
+                        keyword3 = new TemplateDataItem($"来自 Senparc.Weixin SDK 小程序 .Net Core WebSocket 触发\r\n您刚才发送了文字：{message}"),
+                        keyword4 = new TemplateDataItem(SystemTime.NowTicks.ToString()),
+                        keyword5 = new TemplateDataItem(100.ToString("C")),
+                        keyword6 = new TemplateDataItem("400-031-8816"),
+                    };
+
+                    var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
+                             null);
+                }
             }
             catch (Exception ex)
             {

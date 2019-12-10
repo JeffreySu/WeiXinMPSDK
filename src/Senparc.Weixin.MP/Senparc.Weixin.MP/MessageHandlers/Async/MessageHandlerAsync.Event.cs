@@ -231,6 +231,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
+
+            string d = null;
+            string s = null;
+            string n = s ?? d ?? "1";
+
             return responseMessage;
         }
 

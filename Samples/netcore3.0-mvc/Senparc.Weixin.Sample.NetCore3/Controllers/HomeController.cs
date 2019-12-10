@@ -39,7 +39,7 @@ using Senparc.Weixin.Sample.NetCore3.Models;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         IHostingEnvironment _env;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class WebSocketController : Controller
+    public class WebSocketController : BaseController
     {
         public IActionResult Index()
         {

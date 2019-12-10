@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
-    public class CaseCollectionController : Controller
+    public class CaseCollectionController : BaseController
     {
         private readonly IHostingEnvironment _env;
 

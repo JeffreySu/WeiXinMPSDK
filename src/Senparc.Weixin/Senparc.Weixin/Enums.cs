@@ -75,6 +75,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190529
     修改描述：配合 Open v4.7.101 添加“开放平台-代码管理-加急审核”接口：CodeApi.QueryQuota()、CodeApi.SpeedupAudit()，添加返回消息枚举类型 ReturnCode
 
+    修改标识：Senparc - 20191014
+    修改描述：配合 WxOpen v3.7.102 添加小程序订阅消息的 ReturnCode
+
 ----------------------------------------------------------------*/
 
 
@@ -203,6 +206,12 @@ namespace Senparc.Weixin
         需要POST请求 = 43002,
         需要HTTPS请求 = 43003,
         需要接收者关注 = 43004,
+
+        /// <summary>
+        /// [小程序订阅消息]用户拒绝接受消息，如果用户之前曾经订阅过，则表示用户取消了订阅关系
+        /// </summary>
+        用户拒绝接受消息 = 43101,
+
         需要好友关系 = 43005,
         多媒体文件为空 = 44001,
         POST的数据包为空 = 44002,
@@ -226,6 +235,12 @@ namespace Senparc.Weixin
         不存在的菜单版本 = 46002,
         不存在的菜单数据 = 46003,
         解析JSON_XML内容错误 = 47001,
+
+        /// <summary>
+        /// [小程序订阅消息]模板参数不准确，可能为空或者不满足规则，errmsg会提示具体是哪个字段出错
+        /// </summary>
+        模板参数不准确 = 47003,
+
         api功能未授权 = 48001,
         用户未授权该api = 50001,
         参数错误invalid_parameter = 61451,

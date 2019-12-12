@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170328
     修改描述：添加对小程序的支持
+    
+    修改标识：RongJieAAA - 20191212
+    修改描述：添加对小程序的支持
 
 ----------------------------------------------------------------*/
 
@@ -94,4 +97,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// </summary>
         public string pagepath { get; set; }
     }
+
+    /// <summary>
+    /// 模版内容
+    /// </summary>
+    public class TemplateModel_Data
+    {
+        /// <summary>
+        /// 是否必填：是
+        /// 说明：模版内容
+        /// </summary>
+        public string value { get; set; }
+
+        /// <summary>
+        /// 是否必填：否
+        /// 说明：模板内容字体颜色，不填默认为黑色
+        /// </summary>
+        public string color { get; set; }
+    }
+
+
 }

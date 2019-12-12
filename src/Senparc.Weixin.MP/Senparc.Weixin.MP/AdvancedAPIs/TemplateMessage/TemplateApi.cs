@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：RongjieAAA - 20191129
     修改描述：重载SendTemplateMessageAsync方法，规范、简化入参。
 
+    修改标识：RongjieAAA - 20191212
+    修改描述：重新优化20191129的重载方法SendTemplateMessageAsync，改为以Dictionary<string, Model>入参
+
 ----------------------------------------------------------------*/
 
 /*
@@ -318,6 +321,36 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】模板消息接口
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId">填接收消息的用户openid</param>
+        /// <param name="templateId">订阅消息模板ID</param>
+        /// <param name="url">（非必须）点击消息跳转的链接，需要有ICP备案</param>
+        /// <param name="data">消息正文，value为消息内容文本（200字以内），没有固定格式，可用\n换行，color为整段消息内容的字体颜色（目前仅支持整段消息为一种颜色）</param>
+        /// <param name="miniProgram">（非必须）跳小程序所需数据，不需跳小程序可不用传该数据</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessageAsync", true)]
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, Dictionary<string, TemplateModel_Data> data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
+                var msgData = new TempleteModel()
+                {
+                    touser = openId,
+                    template_id = templateId,
+                    url = url,
+                    miniprogram = miniProgram,
+                    data = data,
+                };
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】模板消息接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="templateMessageData"></param>
@@ -328,47 +361,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
                 templateMessageData.Url, templateMessageData, miniProgram, timeOut).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// 【异步方法】模板消息接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="model">模板消息</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessageAsync", true)]
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, TemplateMessageModel model, int timeOut = Config.TIME_OUT)
-        {
-            //准备发送给微信的data
-            var data = new
-            {
-                model.touser,
-                model.template_id,
-                model.url,
-                model.miniprogram,
-                data = new Dictionary<string, TemplateMessage_Keywords>()
-            };
-
-            //开头标题数据
-            if (model.first != null)
-                data.data["first"] = model.first;
-
-            //模板内容数据
-            if (model.keywords != null)
-                for (int i = 0; i < model.keywords.Count; i++)
-                    data.data["keyword" + (i + 1)] = model.keywords[i];
-
-            //结尾留言数据
-            if (model.remark != null)
-                data.data["remark"] = model.remark;
-
-            //发送数据给微信
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
-                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
-                return await CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, data, timeOut: 10000).ConfigureAwait(false);
-            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>

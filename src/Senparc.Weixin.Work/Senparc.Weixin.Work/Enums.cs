@@ -140,6 +140,10 @@ namespace Senparc.Weixin.Work
         /// 通讯录变更事件
         /// </summary>
         change_contact,
+        /// <summary>
+        /// 外部联系人变更事件
+        /// </summary>
+        CHANGE_EXTERNAL_CONTACT
     }
 
     public enum ThirdPartyInfo

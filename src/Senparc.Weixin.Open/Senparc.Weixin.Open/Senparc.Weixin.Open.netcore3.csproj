@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>4.7.103</Version>
+    <Version>4.7.104</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -176,7 +176,8 @@
       v4.7.102.1
       1、修改 TryUpdateAuthorizationInfo() 相关方法，避免可能发生的 null 对象错误
       2、修改 GetAuditStatus() 方法 auditid 参数类型（int -&gt; long)
-      
+      v4.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -245,7 +246,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.103" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.104" />
   </ItemGroup>
 
   <ItemGroup>

@@ -50,6 +50,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：添加Clear_quota
+
+    修改标识：Senparc - 20191206
+    修改描述：CommonApi.Token() 方法设置异常抛出机制
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -57,14 +62,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
  */
 
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -91,6 +97,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
             AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
+                throw unregisterAppIdEx;//抛出异常
+            }
+
             return result;
         }
 
@@ -208,6 +221,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
             AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
+                throw unregisterAppIdEx;//抛出异常
+            }
+
             return result;
         }
 

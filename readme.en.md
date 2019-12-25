@@ -63,13 +63,19 @@ Index
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
 
+
+
+
+* 使用 Visual Studio 2017/2019 打开 Demo（支持所有版本）：[Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)
+* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
+* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+
+
 * Use Visual Studio 2017 to open the Demo (support all versions)
-: [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
+: [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
-[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* Open Demo with Visual Studio 2010 SP1 (support.net 4.5 only) :
-[Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/Senparc.Weixin.MP.Sample.Consoles)
+[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
 
 
 SDK Modules

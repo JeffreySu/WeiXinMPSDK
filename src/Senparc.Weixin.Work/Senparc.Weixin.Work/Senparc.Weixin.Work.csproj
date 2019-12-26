@@ -165,6 +165,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Change_Contact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ExternalContact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />

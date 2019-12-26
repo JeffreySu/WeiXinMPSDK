@@ -1,4 +1,15 @@
-﻿using Senparc.NeuChar;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：ScheduleApi.cs
+    文件功能描述：日程相关API
+    
+    
+    创建标识：lishewen - 20191226
+    
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using System;
 using System.Collections.Generic;
 using System.Linq;

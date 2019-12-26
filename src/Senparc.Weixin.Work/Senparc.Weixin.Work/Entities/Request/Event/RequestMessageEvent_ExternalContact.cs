@@ -1,8 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：RequestMessageEvent_Change_ExternalContact.cs
+    文件功能描述：上报企业客户变更事件
+    
+    
+    创建标识：OrchesAdam - 2019119
+    
+    修改标识：Senparc - 20191226
+    修改描述：整理格式，添加注释，分配版本号：v3.7.104.2 添加“上报企业客户变更事件”
+
+----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities.Request.Event
 {
@@ -57,11 +65,7 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_Add_Half : RequestMessageEvent_Change_ExternalContact_Add
     {
-        public override ExternalContactChangeType ChangeType
-        {
-            get { return ExternalContactChangeType.add_half_external_contact; };
-
-        }
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.add_half_external_contact;
     }
 
     /// <summary>
@@ -69,10 +73,8 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_Del : RequestMessageEvent_Change_ExternalContact_Base
     {
-        public override ExternalContactChangeType ChangeType
-        {
-            get { return ExternalContactChangeType.del_external_contact; }
-        }
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.del_external_contact;
+     
         /// <summary>
         /// 企业服务人员的UserID
         /// </summary>
@@ -88,10 +90,7 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_Del_FollowUser : RequestMessageEvent_Change_ExternalContact_Del
     {
-        public override ExternalContactChangeType ChangeType
-        {
-            get { return ExternalContactChangeType.del_follow_user; }
-        }
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.del_follow_user;
     }
 
     /// <summary>
@@ -99,10 +98,7 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_MsgAudit : RequestMessageEvent_Change_ExternalContact_Add
     {
-        public override ExternalContactChangeType ChangeType
-        {
-            get { return ExternalContactChangeType.msg_audit_approved; }
-        }
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.msg_audit_approved;
     }
 
 

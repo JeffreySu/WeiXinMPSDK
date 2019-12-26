@@ -3,6 +3,7 @@
 Nuget/
 bin/
 obj/
+_ReSharper.Caches/
 .vscode/
 *.[pdb]
 *.suo

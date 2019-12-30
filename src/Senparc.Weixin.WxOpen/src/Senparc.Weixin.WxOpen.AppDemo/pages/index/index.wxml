@@ -26,11 +26,12 @@
   </view>
   <!-- 进入客服 -->
    <view class="btn-contact">
-      <contact-button 
+      <button 
         size="20"
         session-from="Senparc.Weixin" 
         open-type='contact'
-        >（←点图标）进入客服，查看消息接口</contact-button>
+        class='service-btn'
+        >进入客服</button>
   </view>
 
   <view class="flex-wrp" style="flex-direction:row;">
@@ -67,8 +68,30 @@
 
 <view class="flex-wrp" style="flex-direction:row;">
   <view class="flex-item">
+    <!-- 自定义二维码1 -->
+    <button bindtap='openQrCodePage' type="primary" data-codetype="1"
+    class="btn-DoRequest" hover-class="other-button-hover" >生成二维码1</button>
+  </view>
+<view class="flex-item">
+    <!-- 自定义二维码2 -->
+    <button bindtap='openQrCodePage' type="primary" data-codetype="2"
+    class="btn-DoRequest" hover-class="other-button-hover" >生成二维码2</button>
+  </view>
+</view>
+
+<view class="flex-wrp" style="flex-direction:row;">
+ <view class="flex-item">
+    <!-- 一次性订阅消息 -->
+    <button bindtap='subscribeMessage' type="primary"
+    class="btn-DoRequest" hover-class="other-button-hover" >订阅消息</button>
+  </view>
+</view>
+
+<view class="flex-wrp" style="flex-direction:row;">
+
+  <view class="flex-item">
     <!-- Live Pusher  -->
-    <button type="primary" bindtap="openLivePusher" 
+    <button bindtap="openLivePusher" 
     hover-class="other-button-hover" class="btn-DoRequest">Live Pusher</button>
   </view>
 </view>

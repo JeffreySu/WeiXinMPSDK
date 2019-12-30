@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
              1、支持异步 Container
              2、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
 
+    修改标识：Senparc - 20190712
+    修改描述：v3.5.0 SessionContainer 添加 AddDecodedUserInfo() 方法，SessionBag 提供 DecodedUserInfo 属性
+    
 ----------------------------------------------------------------*/
 
 
@@ -53,6 +56,7 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Containers
@@ -121,6 +125,8 @@ namespace Senparc.Weixin.WxOpen.Containers
         //private string _openId;
         //private string _sessionKey;
         //private DateTimeOffset _expireTime;
+
+        public DecodedUserInfo DecodedUserInfo { get; set; }
 
         /// <summary>
         /// ComponentBag
@@ -202,6 +208,17 @@ namespace Senparc.Weixin.WxOpen.Containers
             //}
         }
 
+        /// <summary>
+        /// 添加解码后的用户信息
+        /// </summary>
+        /// <param name="bag"></param>
+        /// <param name="decodedUserInfo"></param>
+        public static void AddDecodedUserInfo(SessionBag bag, DecodedUserInfo decodedUserInfo)
+        {
+            bag.DecodedUserInfo = decodedUserInfo;
+            Update(bag.Key, bag, bag.ExpireTime - SystemTime.Now);
+        }
+
         #endregion
 
         #region 异步方法
@@ -260,6 +277,18 @@ namespace Senparc.Weixin.WxOpen.Containers
             return sessionBag;
             //}
         }
+
+        /// <summary>
+        /// 【异步方法】添加解码后的用户信息
+        /// </summary>
+        /// <param name="bag"></param>
+        /// <param name="decodedUserInfo"></param>
+        public static async Task AddDecodedUserInfoAsync(SessionBag bag, DecodedUserInfo decodedUserInfo)
+        {
+            bag.DecodedUserInfo = decodedUserInfo;
+            await UpdateAsync(bag.Key, bag, bag.ExpireTime - SystemTime.Now).ConfigureAwait(false);
+        }
+
 
         #endregion
     }

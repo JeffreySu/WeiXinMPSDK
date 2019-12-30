@@ -8,6 +8,9 @@
     创建标识：Senparc - 20170617
 
 
+    修改标识：Senparc - 20191119
+    修改描述：v3.7.103.1 新增“获取打卡数据”接口返回值新增经纬度信息
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -73,5 +76,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// 打卡的附件media_id，可使用media/get获取附件
         /// </summary>
         public string[] mediaids { get; set; }
+        /// <summary>
+        /// 位置打卡地点纬度，是实际纬度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
+        /// </summary>
+        public int lat { get; set; }
+        /// <summary>
+        /// 位置打卡地点经度，是实际经度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
+        /// </summary>
+        public int lng { get; set; }
     }
 }

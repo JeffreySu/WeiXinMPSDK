@@ -54,5 +54,12 @@ MP项目为例：
         case RequestMsgType.File:
             ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
             break;
+```
 
+8. 在 DefaultXXMessageContext.cs 中，GetRequestEntityMappingResult() 方法内，添加对应类型的 switch 判断，如：
+
+``` C#
+        case RequestMsgType.Text:
+            requestMessage = new RequestMessageText();
+            break;
 ```

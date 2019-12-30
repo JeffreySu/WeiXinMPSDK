@@ -48,9 +48,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
               可设置是否全局扫描扩展缓存（扫描会增加系统启动时间）
     修改描述：v5.0.10 UseSenparcWeixin() 添加 SenparcSetting 参数
 
+    修改标识：Senparc - 20191002
+    修改描述：v6.6.102 添加 UseSenparcWeixin() 新方法
+
+    修改标识：Senparc - 20191005
+    修改描述：v6.6.102 添加 UseSenparcWeixin() 包含 CO2NET 全局注册的新方法
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_0 || NETCOREAPP3_0
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;
@@ -81,7 +89,7 @@ namespace Senparc.Weixin
         public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, SenparcSetting senparcSetting = null)
         {
             senparcWeixinSetting = senparcWeixinSetting ?? new SenparcWeixinSetting();
-            senparcSetting = senparcSetting ?? new SenparcSetting();
+            senparcSetting = (senparcSetting ?? CO2NET.Config.SenparcSetting) ?? new SenparcSetting();
 
             //Senparc.Weixin SDK 配置
             Senparc.Weixin.Config.SenparcWeixinSetting = senparcWeixinSetting;
@@ -144,8 +152,7 @@ namespace Senparc.Weixin
                 }
             }
 
-            var dt2 = SystemTime.Now;
-            var exCacheLog = "微信扩展缓存注册总用时：{0}ms\r\n扩展缓存：{1}".FormatWith((dt2 - dt1).TotalMilliseconds, cacheTypes);
+            var exCacheLog = $"微信扩展缓存注册总用时：{SystemTime.DiffTotalMS(dt1, "f4")}ms\r\n扩展缓存：{cacheTypes}";
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
@@ -155,5 +162,55 @@ namespace Senparc.Weixin
 
             return registerService;
         }
+
+
+        #region v6.6.102+ 新方法 
+
+        /// <summary>
+        /// 开始 Senparc.Weixin SDK 初始化参数流程
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="senparcWeixinSetting"></param>
+        /// <param name="registerConfigure"></param>
+        /// <returns></returns>
+        public static IRegisterService UseSenparcWeixin(this IRegisterService registerService, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> registerConfigure)
+        {
+            var register = registerService.UseSenparcWeixin(senparcWeixinSetting, senparcSetting: null);
+
+            //由于 registerConfigure 内可能包含了 app.UseSenparcWeixinCacheRedis() 等注册代码，需要在在 registerService.UseSenparcWeixin() 自动加载 Redis 后进行
+            //因此必须在 registerService.UseSenparcWeixin() 之后执行。
+
+            registerConfigure?.Invoke(registerService);
+            return register;
+        }
+
+#if NETSTANDARD2_0 || NETCOREAPP3_0
+        /// <summary>
+        /// <para>开始包含 CO2NET 注册在内的 Senparc.Weixin SDK 初始化参数流程</para>
+        /// <para>注意：本方法集成了 CON2ET 全局注册以及 Senparc.Weixin SDK 微信注册过程，提供给对代码行数有极限追求的开发者使用，常规情况下为了提高代码可读性和可维护性，并不推荐使用此方法。</para>
+        /// </summary>
+        /// <param name="registerService"></param>
+        /// <param name="senparcWeixinSetting"></param>
+        /// <param name="registerConfigure"></param>
+        /// <returns></returns>
+        public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
+#if NETSTANDARD2_0
+            IHostingEnvironment env,
+#else
+            IWebHostEnvironment env,
+#endif
+            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
+             //CO2NET 全局设置
+             bool autoScanExtensionCacheStrategies = false, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+            )
+        {
+            //注册 CO2NET 全局
+            var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
+            //注册微信
+            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
+            return register;
+        }
+#endif
+        #endregion
     }
 }

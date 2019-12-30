@@ -179,6 +179,8 @@ namespace Senparc.Weixin.Containers
         /// 进行注册过程的委托集合
         /// </summary>
         protected static Dictionary<string, Func<Task<TBag>>> RegisterFuncCollection { get; set; } = new Dictionary<string, Func<Task<TBag>>>(StringComparer.OrdinalIgnoreCase);
+        //TODO:同一个 appId 可能会对应 AccessToken、JsTicket 等多种 Container 情况。
+
 
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
@@ -355,7 +357,7 @@ namespace Senparc.Weixin.Containers
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
-                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());
             }
 
             Update(bag.Key, bag, expiry);
@@ -564,7 +566,7 @@ namespace Senparc.Weixin.Containers
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
-                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
             }
 
             await UpdateAsync(bag.Key, bag, expiry).ConfigureAwait(false);

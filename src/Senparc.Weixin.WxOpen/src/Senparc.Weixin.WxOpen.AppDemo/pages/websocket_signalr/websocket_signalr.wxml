@@ -1,0 +1,33 @@
+<view class="container">
+<text>{{messageTip}}</text>
+
+ <scroll-view scroll-y="true" style="height: 260px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+ <!-- 消息列表 -->
+ <block wx:for="{{messageTextArr}}"
+        wx:for-index="index"
+        wx:key="{{index}}" 
+        wx:for-item="msgItem">
+  <view class="messageItem">
+    <text class="messageTime">{{msgItem.time}}</text>
+    <text class="messageContext">{{msgItem.content}}</text>
+  </view>
+ </block>
+  </scroll-view>
+</view>
+
+<view>
+<form bindsubmit="formSubmit" report-submit="true">
+<view class="flex-wrp" style="flex-direction:column;">
+  <view class="flex-item submitContent">
+    <input placeholder="输入内容" name="messageContent" class="txtContent" value="{{messageContent}}" />
+  </view>
+  <view class="flex-item submitButton">
+    <button type="primary" formType="submit" class="btnSubmit">
+    发送
+    </button>
+  </view>
+</view>
+</form>
+</view>
+<view>
+</view>

@@ -45,7 +45,7 @@ using Senparc.NeuChar.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public abstract partial class MessageHandler<TC>
+    public abstract partial class MessageHandler<TMC>
     {
         #region 默认方法及未知类型方法
 
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnNeuCharRequestAsync(RequestMessageNeuChar requestMessage)
         {
             //return await DefaultAsyncMethod(requestMessage,async () => await OnNeuCharRequest(requestMessage).ConfigureAwait(false)).ConfigureAwait(false);
-           return  await OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
+           return  await base.OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
         }
 
         #endregion

@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180106
     修改描述：完成接口-附近的小程序API
 
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -137,7 +140,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码 不限制
+        /// 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -176,7 +179,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -285,22 +288,40 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 添加地点
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
-        /// <param name="relatedCredential">经营资质证件号</param>
-        /// <param name="relatedAddress">经营资质地址</param>
-        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="pic_list">门店图片，最多9张，最少1张，上传门店图片如门店外景、环境设施、商品服务等，图片将展示在微信客户端的门店页。图片链接通过文档https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729中的《上传图文消息内的图片获取URL》接口获取。必填，文件格式为bmp、png、jpeg、jpg或gif，大小不超过5M pic_list是字符串，内容是一个json！</param>
+        /// <param name="service_infos">服务标签列表 选填，需要填写服务标签ID、APPID、对应服务落地页的path路径，详细字段格式见下方示例</param>
+        /// <param name="store_name">门店名字 必填，门店名称需按照所选地理位置自动拉取腾讯地图门店名称，不可修改，如需修改请重新选择地图地点或重新创建地点</param>
+        /// <param name="hour">营业时间，格式11:11-12:12 必填</param>
+        /// <param name="credential">资质号 必填, 15位营业执照注册号或9位组织机构代码</param>
+        /// <param name="address">地址 必填</param>
+        /// <param name="company_name">主体名字 必填</param>
+        /// <param name="qualification_list">证明材料 必填 如果company_name和该小程序主体不一致，需要填qualification_list，详细规则见附近的小程序使用指南-如何证明门店的经营主体跟公众号或小程序帐号主体相关http://kf.qq.com/faq/170401MbUnim17040122m2qY.html</param>
+        /// <param name="kf_info">客服信息 选填，可自定义服务头像与昵称，具体填写字段见下方示例kf_info pic_list是字符串，内容是一个json！</param>
+        /// <param name="poi_id">如果创建新的门店，poi_id字段为空 如果更新门店，poi_id参数则填对应门店的poi_id 选填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoi", true)]
-        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name,string hour, string credential, string address, string company_name, string qualification_list="", string kf_info="", string poi_id="", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+                var data = new {
+                    is_comm_nearby = "1", //必填,写死为"1"
+                    pic_list = pic_list,
+                    service_infos = service_infos,
+                    store_name = store_name,
+                    hour = hour,
+                    credential = credential,
+                    address = address,
+                    company_name = company_name,
+                    qualification_list = qualification_list,
+                    kf_info = kf_info,
+                    poi_id = poi_id
+                };
 
                 return CommonJsonSend.Send<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
@@ -320,12 +341,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
-                string url = string.Format(urlFormat, accessToken);
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}&page={1}&page_rows={2}";
+                string url = string.Format(urlFormat, accessToken, page, page_rows);
 
-                var data = new { page = page, page_rows = page_rows };
+                //var data = new { page = page, page_rows = page_rows };
 
-                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, url, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -554,6 +575,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionid", true)]
+        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string transaction_id, string mch_id="", string out_trade_no="", int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         #endregion
 
 
@@ -592,7 +657,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 【异步方法】获取小程序页面的小程序码 不受限制
+        /// 【异步方法】获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -631,7 +696,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 【异步方法】获取小程序页面的小程序码
+        /// 【异步方法】获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -778,30 +843,48 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
-
         /// <summary>
         /// 【异步方法】添加地点
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
-        /// <param name="relatedCredential">经营资质证件号</param>
-        /// <param name="relatedAddress">经营资质地址</param>
-        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="pic_list">门店图片，最多9张，最少1张，上传门店图片如门店外景、环境设施、商品服务等，图片将展示在微信客户端的门店页。图片链接通过文档https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729中的《上传图文消息内的图片获取URL》接口获取。必填，文件格式为bmp、png、jpeg、jpg或gif，大小不超过5M pic_list是字符串，内容是一个json！</param>
+        /// <param name="service_infos">服务标签列表 选填，需要填写服务标签ID、APPID、对应服务落地页的path路径，详细字段格式见下方示例</param>
+        /// <param name="store_name">门店名字 必填，门店名称需按照所选地理位置自动拉取腾讯地图门店名称，不可修改，如需修改请重新选择地图地点或重新创建地点</param>
+        /// <param name="hour">营业时间，格式11:11-12:12 必填</param>
+        /// <param name="credential">资质号 必填, 15位营业执照注册号或9位组织机构代码</param>
+        /// <param name="address">地址 必填</param>
+        /// <param name="company_name">主体名字 必填</param>
+        /// <param name="qualification_list">证明材料 必填 如果company_name和该小程序主体不一致，需要填qualification_list，详细规则见附近的小程序使用指南-如何证明门店的经营主体跟公众号或小程序帐号主体相关http://kf.qq.com/faq/170401MbUnim17040122m2qY.html</param>
+        /// <param name="kf_info">客服信息 选填，可自定义服务头像与昵称，具体填写字段见下方示例kf_info pic_list是字符串，内容是一个json！</param>
+        /// <param name="poi_id">如果创建新的门店，poi_id字段为空 如果更新门店，poi_id参数则填对应门店的poi_id 选填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoiAsync", true)]
-        public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string pic_list, string service_infos, string store_name, string hour, string credential, string address, string company_name, string qualification_list = "", string kf_info = "", string poi_id = "", int timeOut = Config.TIME_OUT)
         {
-            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+                var data = new
+                {
+                    is_comm_nearby = "1", //必填,写死为"1"
+                    pic_list = pic_list,
+                    service_infos = service_infos,
+                    store_name = store_name,
+                    hour = hour,
+                    credential = credential,
+                    address = address,
+                    company_name = company_name,
+                    qualification_list = qualification_list,
+                    kf_info = kf_info,
+                    poi_id = poi_id
+                };
 
-                return await CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+                return CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
-            }, accessTokenOrAppId).ConfigureAwait(false);
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -817,12 +900,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
-                string url = string.Format(urlFormat, accessToken);
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}&page={1}&page_rows={2}";
+                string url = string.Format(urlFormat, accessToken, page, page_rows);
 
-                var data = new { page = page, page_rows = page_rows };
+                //var data = new { page = page, page_rows = page_rows };
 
-                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, url, null, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -1050,6 +1133,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionidAsync", true)]
+        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
 
         #endregion
     }

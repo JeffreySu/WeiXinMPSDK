@@ -110,6 +110,10 @@
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleApi.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\AddScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\GetScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\Schedule.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Change_Contact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ExternalContact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />

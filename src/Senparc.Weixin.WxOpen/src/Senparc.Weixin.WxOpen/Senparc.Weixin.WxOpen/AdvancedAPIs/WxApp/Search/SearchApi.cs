@@ -1,10 +1,18 @@
-﻿using Senparc.NeuChar;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：SearchApi.cs
+    文件功能描述：小程序搜索
+    
+    
+    创建标识：lishewen - 20191221
+    
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Search

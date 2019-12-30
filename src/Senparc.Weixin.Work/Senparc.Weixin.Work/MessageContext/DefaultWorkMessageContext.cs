@@ -1,4 +1,17 @@
-﻿
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：DefaultWorkMessageContext.cs
+    文件功能描述：企业微信上下文的默认实现
+    
+    
+    创建标识：Senparc - 20190915
+    
+    修改标识：OrchesAdam - 2019119
+    修改描述：v3.7.104.2 添加“上报企业客户变更事件”
+
+----------------------------------------------------------------*/
+
 using Senparc.NeuChar;
 using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
@@ -11,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.Weixin.Work.Entities.Request.Event;
 
 namespace Senparc.Weixin.Work.MessageContexts
 {
@@ -120,6 +134,29 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     requestMessage = new RequestMessageEvent_Change_Contact_Tag_Update();
                                     break;
                                 default://其他意外类型（也可以选择抛出异常）
+                                    requestMessage = new RequestMessageEventBase();
+                                    break;
+                            }
+                            break;
+                        case "CHANGE_EXTERNAL_CONTACT"://客户变更回调
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "ADD_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add();
+                                    break;
+                                case "ADD_HALF_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add_Half();
+                                    break;
+                                case "DEL_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del();
+                                    break;
+                                case "DEL_FOLLOW_USER":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del_FollowUser();
+                                    break;
+                                case "MSG_AUDIT_APPROVED":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
+                                    break;
+                                default:
                                     requestMessage = new RequestMessageEventBase();
                                     break;
                             }

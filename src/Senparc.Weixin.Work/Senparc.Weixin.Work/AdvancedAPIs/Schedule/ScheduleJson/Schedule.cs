@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
+    
+    文件名：Schedule.cs
+    文件功能描述：日程信息
+    
+    
+    创建标识：lishewen - 20191226
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

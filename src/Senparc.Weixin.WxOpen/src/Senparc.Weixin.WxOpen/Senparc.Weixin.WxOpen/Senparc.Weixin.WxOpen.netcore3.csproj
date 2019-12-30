@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>3.7.104.1-preview1</Version>
+    <Version>3.7.104.2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -144,7 +144,7 @@
       v3.7.102.1 修复订阅消息参数问题
       v3.7.102.2 修复 GetWeAnalysisAppidUserPortraitResultJson 参数类型错误
       v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
-
+      v3.7.104.2 添加小程序搜索接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

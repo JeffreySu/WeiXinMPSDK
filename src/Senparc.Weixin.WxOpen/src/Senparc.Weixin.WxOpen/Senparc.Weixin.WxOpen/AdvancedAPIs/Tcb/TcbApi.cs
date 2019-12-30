@@ -313,6 +313,29 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
             }, accessTokenOrAppId);
         }
         /// <summary>
+        /// 数据库聚合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseAggregate", true)]
+        public static WxDatabaseAggregateJsonResult DatabaseAggregate(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseaggregate?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return CommonJsonSend.Send<WxDatabaseAggregateJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
         /// 统计集合记录数或统计查询语句对应的结果记录数
         /// </summary>
         /// <param name="accessTokenOrAppId">接口调用凭证</param>
@@ -689,6 +712,29 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
                     query
                 };
                 return await CommonJsonSend.SendAsync<WxDatabaseQueryJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 【异步方法】数据库聚合
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="env">云环境ID</param>
+        /// <param name="query">数据库操作语句</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.DatabaseAggregateAsync", true)]
+        public static async Task<WxDatabaseAggregateJsonResult> DatabaseAggregateAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/tcb/databaseaggregate?access_token={0}";
+                var postBody = new
+                {
+                    env,
+                    query
+                };
+                return await CommonJsonSend.SendAsync<WxDatabaseAggregateJsonResult>(accessToken, urlFormat, postBody, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

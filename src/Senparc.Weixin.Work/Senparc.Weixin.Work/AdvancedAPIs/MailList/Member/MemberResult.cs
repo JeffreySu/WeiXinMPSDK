@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 上级字段，标识是否为上级。第三方暂不支持
         /// </summary>
-        public int isleader { get; set; }
+        public int is_leader_in_dept { get; set; }
         /// <summary>
         /// 头像url。注：小图将url最后的"/0"改成"/64"
         /// </summary>

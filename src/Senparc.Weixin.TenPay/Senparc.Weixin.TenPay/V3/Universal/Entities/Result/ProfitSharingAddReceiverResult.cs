@@ -276,7 +276,7 @@ namespace Senparc.Weixin.TenPay.V3
     /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_3&index=4 或者 
     /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_3&index=4 
     /// </summary>
-    public class AddReceiverResult: Result
+    public class ProfitSharingAddReceiverResult: Result
     {
         /// <summary>
         /// 分账接收方
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.TenPay.V3
         { get; set; }
 
 
-        public AddReceiverResult(string resultXml)
+        public ProfitSharingAddReceiverResult(string resultXml)
             : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())

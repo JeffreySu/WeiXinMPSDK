@@ -282,7 +282,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// 分账接收方
         /// 分账接收方对象（不包含分账接收方全称）
         /// </summary>
-        public TenpayV3ProfitShareingAddReceiver_ReceiverInfo receiver
+        public TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo receiver
         { get; set; }
 
 
@@ -292,7 +292,7 @@ namespace Senparc.Weixin.TenPay.V3
             if (base.IsReturnCodeSuccess())
             {
                 var receivers = GetXmlValue("receiver");
-                this.receiver = JsonConvert.DeserializeObject<TenpayV3ProfitShareingAddReceiver_ReceiverInfo>(receivers);
+                this.receiver = JsonConvert.DeserializeObject<TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo>(receivers);
             }
         }
     }

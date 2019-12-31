@@ -15,7 +15,7 @@ namespace Senparc.Weixin.TenPay.V3
     /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_3&index=4
     /// 2019-12-30
     /// </summary>
-    public class TenpayV3ProfitShareingAddReceiver
+    public class TenpayV3ProfitShareingAddReceiverRequestData
     {
         /// <summary>
         /// 公众账号ID
@@ -55,13 +55,13 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 分账接收方对象，json格式
         /// </summary>
-        public TenpayV3ProfitShareingAddReceiver_ReceiverInfo Receiver { get; set; }
+        public TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo Receiver { get; set; }
 
 
         /// <summary>
         /// 此不带参数的构造函数是为了反序列化的实例初始化，提交数据时请使用其他构造函数
         /// </summary>
-        public TenpayV3ProfitShareingAddReceiver() 
+        public TenpayV3ProfitShareingAddReceiverRequestData() 
         {
         }
 
@@ -101,9 +101,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// 并且特约商户需要在 产品中心-我授权的商品中给服务商授权才可以使用分账功能;
         /// 普通商户需要 产品中心-我的产品 中开通分账功能；
         /// </param>
-        public TenpayV3ProfitShareingAddReceiver(
+        public TenpayV3ProfitShareingAddReceiverRequestData(
             string appId, string mchId, string subappid, string submchid, string key, string nonceStr,
-            TenpayV3ProfitShareingAddReceiver_ReceiverInfo receiver
+            TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo receiver
         )
         {
             AppId = appId;

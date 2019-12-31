@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.TenPay.V3
 {
     /// <summary>
-    /// 分账接收方的信息<see cref="TenpayV3ProfitShareingAddReceiver.Receiver"/>
+    /// 分账接收方的信息<see cref="TenpayV3ProfitShareingAddReceiverRequestData.Receiver"/>
     /// </summary>
-    public class TenpayV3ProfitShareingAddReceiver_ReceiverInfo
+    public class TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo
     {        
         /// <summary>
         /// 

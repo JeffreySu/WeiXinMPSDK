@@ -509,7 +509,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="dataInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AddReceiverResult AddReceiver(TenpayV3ProfitShareingAddReceiver dataInfo,
+        public static AddReceiverResult ProfitSharingAddReceiver(TenpayV3ProfitShareingAddReceiver dataInfo,
             int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/pay/profitsharingaddreceiver");

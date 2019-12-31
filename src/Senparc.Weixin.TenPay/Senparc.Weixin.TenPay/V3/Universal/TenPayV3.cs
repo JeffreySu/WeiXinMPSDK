@@ -501,6 +501,29 @@ namespace Senparc.Weixin.TenPay.V3
             //  }
         }
 
+
+        /// <summary>
+        /// 服务商代子商户发起添加分账接收方请求，
+        /// 后续可通过发起分账请求将结算后的钱分到该分账接收方
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddReceiverResult AddReceiver(TenpayV3ProfitShareingAddReceiver dataInfo,
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/pay/profitsharingaddreceiver");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new AddReceiverResult(resultXml);
+        }
+
+
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)

@@ -75,6 +75,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190925
     修改描述：v1.5.0 商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
 
+    修改标识：Hesi726 - 20191230
+    修改描述: 添加分账接收方的操作结果 （AddReceiverResult）
+
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -83,6 +87,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 
@@ -265,6 +270,32 @@ namespace Senparc.Weixin.TenPay.V3
     }
 
     #endregion
+
+    /// <summary>
+    /// 添加分账接收方的操作结果
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_3&index=4 或者 
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_3&index=4 
+    /// </summary>
+    public class AddReceiverResult: Result
+    {
+        /// <summary>
+        /// 分账接收方
+        /// 分账接收方对象（不包含分账接收方全称）
+        /// </summary>
+        public TenpayV3ProfitShareingAddReceiver_ReceiverInfo receiver
+        { get; set; }
+
+
+        public AddReceiverResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                var receivers = GetXmlValue("receiver");
+                this.receiver = JsonConvert.DeserializeObject<TenpayV3ProfitShareingAddReceiver_ReceiverInfo>(receivers);
+            }
+        }
+    }
 
     /// <summary>
     /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回详细信息

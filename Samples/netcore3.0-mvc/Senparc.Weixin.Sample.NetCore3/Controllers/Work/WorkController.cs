@@ -39,6 +39,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
+using Senparc.CO2NET.AspNet.HttpUtility;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

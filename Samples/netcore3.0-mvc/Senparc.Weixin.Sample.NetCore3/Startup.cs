@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 using Senparc.CO2NET;
+using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;

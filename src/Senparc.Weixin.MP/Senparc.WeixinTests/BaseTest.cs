@@ -51,7 +51,7 @@ namespace Senparc.WeixinTests
             var mockEnv = new Mock<IHostingEnvironment>();
 #endif
             mockEnv.Setup(z => z.ContentRootPath).Returns(() => UnitTestHelper.RootPath);
-            register = RegisterService.Start(mockEnv.Object, senparcSetting);
+            register = Senparc.CO2NET.AspNet.RegisterServices.RegisterService.Start(mockEnv.Object, senparcSetting);
 
             RegisterServiceCollection();
 #else

@@ -32,6 +32,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
+    using Senparc.CO2NET.AspNet.HttpUtility;
     using Senparc.CO2NET.Cache;
     using Senparc.CO2NET.HttpUtility;
     using Senparc.CO2NET.Utilities;

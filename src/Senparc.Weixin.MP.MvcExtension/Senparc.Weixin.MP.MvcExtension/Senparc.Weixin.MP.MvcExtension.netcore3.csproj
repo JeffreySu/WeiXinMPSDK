@@ -167,10 +167,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.104" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.1.100-preview1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />
   </ItemGroup>
 </Project>

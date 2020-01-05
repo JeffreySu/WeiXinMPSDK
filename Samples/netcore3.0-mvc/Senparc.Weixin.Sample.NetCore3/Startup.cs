@@ -208,13 +208,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
                     if (UseRedis(senparcSetting.Value, out _))
                     {
-                        app.UseSenparcWeixinCacheRedis();
+                        weixinRegister.UseSenparcWeixinCacheRedis();
                     }                                                                                     // DPBMARK_END
 
                     // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached
                     if (UseMemcached(senparcSetting.Value, out _))
                     {
-                        app.UseSenparcWeixinCacheMemcached();
+                        app.UseEnyimMemcached();
+                        weixinRegister.UseSenparcWeixinCacheMemcached();
                     }                                                                                      // DPBMARK_END
 
                     #endregion

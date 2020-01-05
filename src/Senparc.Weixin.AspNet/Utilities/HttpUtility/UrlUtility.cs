@@ -60,7 +60,7 @@ using Microsoft.AspNetCore.Http;
 #endif
 using Senparc.Weixin.Exceptions;
 
-namespace Senparc.Weixin.AspNet.HttpUtility
+namespace Senparc.Weixin.AspNetHttpUtility
 {
     /// <summary>
     /// URL工具类
@@ -108,7 +108,6 @@ namespace Senparc.Weixin.AspNet.HttpUtility
             var scheme = urlData.Scheme;//协议
             var host = urlData.Host.Host;//主机名（不带端口）
             var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
-            string portSetting = null;//Url中的端口部分
             string schemeUpper = scheme.ToUpper();//协议（大写）
             string baseUrl = httpContext.Request.PathBase;//子站点应用路径
 #endif

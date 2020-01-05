@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         }
     }
 
-#region 证明泛型可以用在中间件中
+    #region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-#endregion
+    #endregion
 }
 #endif
 

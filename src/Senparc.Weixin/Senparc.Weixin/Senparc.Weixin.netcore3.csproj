@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
     <Version>6.6.104.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
@@ -352,11 +352,11 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -377,7 +377,8 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
 
     <!--<Reference Include="System.Net.Http" />-->
     <Reference Include="System.Runtime.Serialization" />
@@ -426,8 +427,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />-->
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
@@ -436,8 +436,8 @@
   </ItemGroup>
 
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.0'">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netstandard2.1'">-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />

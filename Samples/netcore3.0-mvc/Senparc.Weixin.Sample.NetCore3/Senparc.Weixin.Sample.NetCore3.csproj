@@ -45,6 +45,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.netcore3.csproj" />
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.netcore3.csproj" />

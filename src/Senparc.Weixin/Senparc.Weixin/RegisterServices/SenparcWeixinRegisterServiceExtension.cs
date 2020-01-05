@@ -32,7 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_0
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.RegisterServices;
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.RegisterServices
     /// </summary>
     public static class RegisterServiceExtension
     {
-#if NETSTANDARD2_0 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_0
         /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>

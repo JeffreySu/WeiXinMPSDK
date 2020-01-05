@@ -97,4 +97,12 @@
       <Version>3.1.0</Version>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.1.100-preview1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
+  </ItemGroup>
 </Project>

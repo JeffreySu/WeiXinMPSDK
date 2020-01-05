@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <Version>0.1.100-preivew1</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
@@ -83,7 +83,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions">
       <Version>2.2.0</Version>
     </PackageReference>
@@ -96,6 +96,10 @@
     <PackageReference Include="Microsoft.Extensions.Hosting">
       <Version>3.1.0</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>

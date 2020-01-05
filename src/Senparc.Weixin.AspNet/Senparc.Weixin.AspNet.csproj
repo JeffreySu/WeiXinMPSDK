@@ -61,6 +61,10 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Weixin.AspNet.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.1\Senparc.Weixin.AspNet.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="AdvancedAPIs\Card\Store\**" />
     <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />

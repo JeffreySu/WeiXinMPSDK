@@ -58,7 +58,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{6DDD51
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.AspNet", "..\..\src\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.csproj", "{962AFA6E-4A23-4676-9E05-231792FA1672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Middleware", "..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.csproj", "{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Middleware", "..\..\src\Senparc.Weixin.MP.Middleware\Senparc.Weixin.MP.Middleware.csproj", "{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen.Middleware", "..\..\src\Senparc.Weixin.WxOpen.Middleware\Senparc.Weixin.WxOpen.Middleware.csproj", "{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -444,6 +446,24 @@ Global
 		{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54}.Test|x64.Build.0 = Debug|Any CPU
 		{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54}.Test|x86.ActiveCfg = Debug|Any CPU
 		{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54}.Test|x86.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|x64.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Debug|x86.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|x64.ActiveCfg = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|x64.Build.0 = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|x86.ActiveCfg = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Release|x86.Build.0 = Release|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|x64.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|x64.Build.0 = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|x86.ActiveCfg = Debug|Any CPU
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -472,6 +492,7 @@ Global
 		{6DDD51DD-6029-4F4B-994A-4CD3231BC5B7} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{962AFA6E-4A23-4676-9E05-231792FA1672} = {6DDD51DD-6029-4F4B-994A-4CD3231BC5B7}
 		{0C3EF5BE-A56B-4352-ACB8-CA30BEE8ED54} = {6DDD51DD-6029-4F4B-994A-4CD3231BC5B7}
+		{22617C27-0DA2-4EEE-8CE6-A5AF58058F6B} = {6DDD51DD-6029-4F4B-994A-4CD3231BC5B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

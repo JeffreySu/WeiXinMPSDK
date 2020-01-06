@@ -29,7 +29,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         }
     }
 
-    #region 证明泛型可以用在中间件中
+#region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-    #endregion
+#endregion
 }
 #endif
 

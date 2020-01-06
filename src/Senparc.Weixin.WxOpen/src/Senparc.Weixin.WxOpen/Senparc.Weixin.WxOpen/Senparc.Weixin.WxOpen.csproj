@@ -68,6 +68,7 @@
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Message\MessageApi.cs" />
     <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpApi.cs" />
     <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\DownloadJsonResult.cs" />
     <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\GetJsonResult.cs" />
@@ -89,6 +90,8 @@
     <Compile Include="AdvancedAPIs\Template\TemplateJson\ListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\LineColor.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\Search\Pages.cs" />
+    <Compile Include="AdvancedAPIs\WxApp\Search\SearchApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\AddNearByPoiJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppJson\PluginJsonResult.cs" />

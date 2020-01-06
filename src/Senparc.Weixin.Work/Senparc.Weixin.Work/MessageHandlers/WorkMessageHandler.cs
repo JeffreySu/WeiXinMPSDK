@@ -39,6 +39,9 @@
     修改标识：Senparc - 20190917
     修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
+    修改标识：OrchesAdam - 2019119
+    修改描述：v3.7.104.2 添加“上报企业客户变更事件”
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -53,6 +56,7 @@ using Senparc.Weixin.Work.Tencent;
 using Senparc.NeuChar;
 using Senparc.NeuChar.ApiHandlers;
 using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.Entities.Request.Event;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
@@ -405,6 +409,37 @@ namespace Senparc.Weixin.Work.MessageHandlers
                             throw new UnknownRequestMsgTypeException("未知的Event.change_contact下属请求信息", null);
                     }
                     break;
+                //外部联系人事件相关
+                case Event.CHANGE_EXTERNAL_CONTACT:
+                    var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
+                    switch (cecRequestMessage.ChangeType)
+                    {
+                        case ExternalContactChangeType.add_external_contact:
+                            responseMessage =
+                                OnEvent_ChangeExternalContactAddRequest(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
+                            break;
+                        case ExternalContactChangeType.add_half_external_contact:
+                            responseMessage =
+                                OnEvent_ChangeExternalContactAddHalfRequest(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Add_Half);
+                            break;
+                        case ExternalContactChangeType.del_external_contact:
+                            responseMessage =
+                                OnEvent_ChangeExternalContactDelRequest(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_Del);
+                            break;
+                        case ExternalContactChangeType.del_follow_user:
+                            responseMessage = OnEvent_ChangeExternalContactDelFollowUserRequest(
+                                RequestMessage as RequestMessageEvent_Change_ExternalContact_Del_FollowUser);
+                            break;
+                        case ExternalContactChangeType.msg_audit_approved:
+                            responseMessage =
+                                OnEvent_ChangeExternalContactMsgAudit(
+                                    RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
+                            break;
+                    }
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -590,6 +625,61 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_ChangeContactUpdateTagRequest(RequestMessageEvent_Change_Contact_Tag_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 添加企业客户事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactAddRequest(
+            RequestMessageEvent_Change_ExternalContact_Add requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 外部联系人免验证添加成员事件 推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactAddHalfRequest(
+            RequestMessageEvent_Change_ExternalContact_Add_Half requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 删除企业客户事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactDelRequest(
+            RequestMessageEvent_Change_ExternalContact_Del requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 删除跟进成员事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactDelFollowUserRequest(
+            RequestMessageEvent_Change_ExternalContact_Del_FollowUser requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户同意消息存档事件（灰度）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactMsgAudit(
+            RequestMessageEvent_Change_ExternalContact_MsgAudit requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

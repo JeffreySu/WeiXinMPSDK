@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.6.102</Version>
+    <Version>6.6.104.1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -48,11 +48,11 @@
       v3.0.0
       .NET框架升级到4.0
 
-      v 3.3.4
+      v3.3.4
       区分企业号与公众号的返回码
       post表单处理修改
 
-      v 3.3.6
+      v3.3.6
       修改HttpUtility方法
 
       v3.3.7 添加 验证服务器证书回调自动验证功能
@@ -312,6 +312,8 @@
       1、添加 UseSenparcWeixin() 新方法
       2、提供 SenparcWeixinSetting[key] 快捷索引器，对 Items 内容进行索引
       3、提供 SenparcWeixinSettingItem 快速创建构造函数
+      v6.6.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+      v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -369,8 +371,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.0.102" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.0.103" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.0.104" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

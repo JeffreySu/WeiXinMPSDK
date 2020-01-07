@@ -181,7 +181,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
             await base.OnExecutingAsync(cancellationToken).ConfigureAwait(false);
 
-            var currentMessageContext = await base.GetCurrentMessageContext();
+            var currentMessageContext = await GetCurrentMessageContext().ConfigureAwait(false);
+
             //判断是否已经接入开发者信息
             if (DeveloperInfo != null || currentMessageContext.AppStoreState == AppStoreState.Enter)
             {

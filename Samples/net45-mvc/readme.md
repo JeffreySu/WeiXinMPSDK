@@ -1,6 +1,6 @@
 # Senparc.Weixin.MP.Sample 项目说明
 
-本项目为 .NET Framework 4.5 的 Demo，可以直接编译并发布运行。
+本项目为 .NET Framework 4.5 的 Demo，可以直接编译并发布运行（[在线示例](http://net45.sdk.weixin.senparc.com/)）。
 
 > 注意： .NET Framework 4.5 Sample 已于 2019 年 9 月 1 日起停止小版本更新（大版本更新仍将保持同步，.NET 4.5 所有库更新不受影响）。
 
@@ -13,7 +13,7 @@
 
 ## .NET Core 及所有版本 Demo
 
-返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.0-mvc/) (.Net Core 3.0)。
+返回上一级后见目录：[Senparc.Weixin.MP.Sample.vs2017.sln](../netcore2.2-mvc/) (.Net Core 2.2) / [Senparc.Weixin.Sample.NetCore3.vs2019.sln](../netcore3.0-mvc/) (.Net Core 3.0，推荐)。
 
 
 ## 其他说明

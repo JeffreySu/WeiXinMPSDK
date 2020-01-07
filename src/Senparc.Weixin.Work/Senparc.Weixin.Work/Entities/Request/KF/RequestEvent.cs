@@ -8,6 +8,6 @@ namespace Senparc.Weixin.Work.Entities.Request.KF
         {
             this.MsgType = RequestMsgType.Event;
         }
-        public Event Event { get; set; }
+        public Senparc.Weixin.Work.Event Event { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-		<Version>3.7.102</Version>
+		<Version>3.7.104.2</Version>
 		<AssemblyName>Senparc.Weixin.Work</AssemblyName>
 		<RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -141,6 +141,12 @@
       v3.7.101
       1、提供 .Net Core 3.0 独立版本
       2、优化 Container 异步注册方法
+      v3.7.103.1 新增“获取打卡数据”接口返回值新增经纬度信息
+      v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
+      v3.7.104.1 CommonApi.Token() 方法设置异常抛出机制
+      v3.7.104.2 
+      1、添加“上报企业客户变更事件”
+      2、添加日程相关API
     </PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>
@@ -233,7 +239,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Senparc.NeuChar" Version="1.0.102" />
+	  <PackageReference Include="Senparc.NeuChar" Version="1.0.104" />
 	</ItemGroup>
 
 	<ItemGroup>

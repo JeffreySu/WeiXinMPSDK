@@ -113,6 +113,7 @@
     <Compile Include="V3\Universal\Entities\Request\TenPayV3TransfersRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3UnifiedorderRequestData.cs" />
     <Compile Include="V3\Universal\Entities\Request\TenPayV3UnifiedorderRequestData_SceneInfo.cs" />
+    <Compile Include="V3\Universal\Entities\Result\MiniAppRedPackResult.cs" />
     <Compile Include="V3\Universal\Entities\Result\NormalRedPackResult.cs" />
     <Compile Include="V3\Universal\Entities\Result\PayBank\TenPayV3Results.PayBank.cs" />
     <Compile Include="V3\Universal\Entities\Result\SearchRedPackResult.cs" />
@@ -141,7 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>1.0.102</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

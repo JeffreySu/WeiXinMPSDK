@@ -21,6 +21,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xml));
             Assert.IsNotNull(messageHandlers.RequestDocument);
+            //messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.TextResponseMessage);
 
@@ -34,6 +35,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return messageHandlers;
         }
 
+        #region 微信订阅消息
+
+        [TestMethod]
+        public void SubscribeTest()
+        {
+            var xml = @"<xml>
+  <Event>subscribe</Event>
+  <EventKey><![CDATA[]]></EventKey>
+  <Ticket><![CDATA[]]></Ticket>
+  <MsgType>Event</MsgType>
+  <EventType />
+  <EventName><![CDATA[subscribe]]></EventName>
+  <MsgId>637109853628154800</MsgId>
+  <Encrypt><![CDATA[]]></Encrypt>
+  <ToUserName><![CDATA[ToUserNameValue]]></ToUserName>
+  <FromUserName><![CDATA[FromUserName(OpenId)]]></FromUserName>
+  <CreateTime>1575361182</CreateTime>
+</xml>";
+            var messageHandler = VerifyEventTest<RequestMessageEvent_Subscribe>(xml, Event.subscribe);
+            var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_Subscribe;
+            Assert.IsInstanceOfType( messageHandler.ResponseMessage,typeof(ResponseMessageText));
+            Assert.AreEqual("欢迎关注", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+
+        }
+
+        #endregion
 
         #region 微信认证事件推送
 
@@ -143,7 +170,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
         #endregion
 
-        #region 微信
+        #region 微信小程序打开
 
 
         [TestMethod]
@@ -237,6 +264,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.AreEqual("这里是 OnEvent_GiftCard_User_AcceptRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);
         }
+
+
 
         #endregion
 

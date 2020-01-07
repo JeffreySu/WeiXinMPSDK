@@ -95,6 +95,9 @@
 
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features">
+      <Version>3.1.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
@@ -105,5 +108,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features">
+      <Version>3.1.0</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

@@ -174,6 +174,16 @@ namespace Senparc.Weixin.TenPay.V3
             }
             if (HttpContext.Request.ContentLength > 0)
             {
+
+                //https://github.com/aspnet/AspNetCore/issues/7644
+                //解决.Net Core 3.0以上版本 Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead
+                var syncIOFeature = HttpContext.Features.Get<IHttpBodyControlFeature>();
+
+                if (syncIOFeature != null)
+                {
+                    syncIOFeature.AllowSynchronousIO = true;
+                }
+
                 var xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
                 xmlDoc.XmlResolver = null;
                 //xmlDoc.Load(HttpContext.Request.Body);

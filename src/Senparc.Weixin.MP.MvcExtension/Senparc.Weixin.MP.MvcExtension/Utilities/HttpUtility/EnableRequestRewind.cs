@@ -36,11 +36,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if !NET45
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-#if !NETCOREAPP3_0
+#if !NETCOREAPP3_1
 using Microsoft.AspNetCore.Http.Internal;
 #endif
 
@@ -71,7 +71,7 @@ namespace Microsoft.AspNetCore.Http
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
-#if NETCOREAPP3_0
+#if NETCOREAPP3_1
             context.Request.EnableBuffering();//.NET Core 3.0 不再使用 EnableRewind()，改为 EnableBuffering()：https://github.com/aspnet/AspNetCore/issues/12505
 #else
             context.Request.EnableRewind();

@@ -71,10 +71,10 @@ namespace Microsoft.AspNetCore.Http
         /// <returns></returns>
         public async Task Invoke(HttpContext context)
         {
-#if NETCOREAPP3_1
-            context.Request.EnableBuffering();//.NET Core 3.0 不再使用 EnableRewind()，改为 EnableBuffering()：https://github.com/aspnet/AspNetCore/issues/12505
-#else
+#if NETSTANDARD2_0
             context.Request.EnableRewind();
+#else
+            context.Request.EnableBuffering();//.NET Core 3.0 不再使用 EnableRewind()，改为 EnableBuffering()：https://github.com/aspnet/AspNetCore/issues/12505
 #endif
             await _next(context).ConfigureAwait(false);
         }

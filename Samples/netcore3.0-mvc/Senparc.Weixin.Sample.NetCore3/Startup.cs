@@ -346,7 +346,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     return false;//系统层面抛出异常
                 };
             });                                                                                   // DPBMARK_END
-
+            
             //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
@@ -371,7 +371,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
             //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket
             app.UseEndpoints(endpoints =>
             {

@@ -1,5 +1,9 @@
 ﻿@using Senparc.Weixin.Sample.NetCore3.Models
 @*DPBMARK_FILE TenPay*@
+
+
+@*提示：当前过程模拟的是订单支付过程（订单已经生成），不能对同一个订单号重复支付 *@
+
 @{
     Layout = null;
 }
@@ -141,6 +145,7 @@
                 </div>
             }
             <h1 class="title">点击提交可体验微信支付</h1>
+            <p>提示：支付成功后可退款，并体验退款流程</p>
         </a>
     </div>
 </body>

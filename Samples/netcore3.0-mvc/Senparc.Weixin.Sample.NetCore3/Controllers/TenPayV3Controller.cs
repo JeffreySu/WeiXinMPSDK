@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -29,7 +29,6 @@ using System.Text;
 
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -938,7 +937,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
 
             //判断是否正在微信端
-            if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
+            if (Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
                 return RedirectToAction("JsApi", new { productId = productId, hc = hc });

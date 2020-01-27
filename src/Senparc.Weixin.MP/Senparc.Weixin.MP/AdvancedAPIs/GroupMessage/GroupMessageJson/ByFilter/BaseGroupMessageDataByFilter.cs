@@ -20,7 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：BaseGroupMessageByFilter.cs
     文件功能描述：根据筛选条件（GroupId、TagId）群发消息数据的基类

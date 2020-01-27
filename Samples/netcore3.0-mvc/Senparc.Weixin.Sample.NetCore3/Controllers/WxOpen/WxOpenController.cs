@@ -35,6 +35,7 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.Exceptions;
+using Senparc.CO2NET.AspNet.HttpUtility;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {

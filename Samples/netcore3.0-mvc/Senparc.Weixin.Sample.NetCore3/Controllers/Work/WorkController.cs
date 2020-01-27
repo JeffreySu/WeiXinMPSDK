@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：WorkController.cs
     文件功能描述：企业号对接测试（从QYController.cs移植）
@@ -39,6 +39,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
+using Senparc.CO2NET.AspNet.HttpUtility;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

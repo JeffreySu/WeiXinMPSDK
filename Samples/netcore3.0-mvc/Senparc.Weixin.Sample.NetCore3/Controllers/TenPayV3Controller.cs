@@ -170,6 +170,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
                     sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
+
+                    //注意：以上订单号仅作为演示使用，如果访问量比较大，建议增加订单流水号的去重检查。
                 }
                 else
                 {
@@ -614,9 +616,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 #endregion
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
-
-
-                return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
+                ViewData["Message"] = $"退款结果：{result.result_code} {result.err_code_des}。您可以刷新当前页面查看最新结果。";
+                return View();
                 //return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

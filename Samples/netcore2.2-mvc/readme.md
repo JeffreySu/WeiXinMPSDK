@@ -1,4 +1,6 @@
-# Senparc.Weixin.MP.Sample.vs2017 项目说明
+# 注意：当前 Demo 不再更新，请查看 [.NET Core 3.1 Sample](../netcore3.0-mvc/)
+
+## Senparc.Weixin.MP.Sample.vs2017 项目说明
 
 > 注意： 当前版本 Sample（Senparc.Weixin.MP.Sample.vs2017） 已于 2019 年 10 月 1 日起停止小版本更新（大版本更新仍将保持同步，.NET 4.5、.NET Standard 2.0 / .NET Core 2.x 所有库更新不受影响）。<br>
 > 最新版本 Sample 请见：[Senparc.Weixin.Sample.NetCore3.vs2019](../netcore3.0-mvc/)。
@@ -15,11 +17,11 @@
 
 https://sdk.weixin.senparc.com 官方在线示例已经使用此完整 Sample 项目。
 
-## 使用 .NET Core 3.0 Demo（推荐）
+### 使用 .NET Core 3.0 Demo（推荐）
 
 返回上一级后见：[netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3](../netcore3.0-mvc)。
 
-## 使用 .NET Framework 4.5 Demo
+## #使用 .NET Framework 4.5 Demo
 
 返回上一级后见：[net45-mvc/Senparc.Weixin.MP.Sample](../net45-mvc)。
 

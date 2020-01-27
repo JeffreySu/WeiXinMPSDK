@@ -35,6 +35,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
 
         private XDocument GetXDocument()
         {
+            var databaseFilePath = GetDatabaseFilePath();
+            if (!File.Exists(databaseFilePath))
+            {
+                //如果不存在则新建
+                var config = new Config()
+                {
+                    QrCodeId = 0,
+                    DownloadCount = 0,
+                    Versions = new List<string>(),
+                    WebVersions = new List<string>()
+                };
+                Save(config);
+            }
             var doc = XDocument.Load(GetDatabaseFilePath());
             return doc;
         }

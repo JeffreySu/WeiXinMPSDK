@@ -60,4 +60,10 @@
     <ProjectReference Include="..\..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="App_Data\Document\Config.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

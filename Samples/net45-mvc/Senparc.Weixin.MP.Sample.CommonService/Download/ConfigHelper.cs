@@ -54,8 +54,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
                 var root = new XElement("Config");
                 root.Add(new XElement("QrCodeId", config.QrCodeId));
                 root.Add(new XElement("DownloadCount", config.DownloadCount));
-                root.Add(new XElement("Versions", config.Versions.First()));
-                root.Add(new XElement("WebVersions", config.WebVersions.First()));
+                root.Add(new XElement("Versions", new XElement("Version", config.Versions.First())));
+                root.Add(new XElement("WebVersions", new XElement("Version", config.Versions.First())));
                 newDoc.Add(root);
                 using (FileStream fs = new FileStream(databaseFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {

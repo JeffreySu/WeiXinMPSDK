@@ -46,8 +46,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
                 {
                     QrCodeId = 0,
                     DownloadCount = 0,
-                    Versions = new List<string>(),
-                    WebVersions = new List<string>()
+                    Versions = new List<string>() { "0.0.0"},
+                    WebVersions = new List<string>() { "0.0.0"}
                 };
 
                 XDocument newDoc = new XDocument();
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
                 root.Add(new XElement("DownloadCount", config.DownloadCount));
                 root.Add(new XElement("Versions", ""));
                 root.Add(new XElement("WebVersions", ""));
-
+                newDoc.Add(root);
                 using (FileStream fs = new FileStream(databaseFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
                     newDoc.Save(fs);

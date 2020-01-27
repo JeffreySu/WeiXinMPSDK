@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：RequestMessageEvent_Change_ExternalContact.cs
     文件功能描述：上报企业客户变更事件

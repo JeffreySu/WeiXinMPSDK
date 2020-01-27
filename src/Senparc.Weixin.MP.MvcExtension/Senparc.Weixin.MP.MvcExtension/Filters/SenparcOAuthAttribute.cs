@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：SenparcOAuthAttribute.cs
     文件功能描述：自动判断OAuth授权状态

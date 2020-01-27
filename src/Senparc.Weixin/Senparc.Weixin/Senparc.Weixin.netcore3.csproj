@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.6.104.1</Version>
+    <Version>6.7.100-preview1</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -14,7 +14,7 @@
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
-    <Copyright>Senparc Copyright © 2004~2019</Copyright>
+    <Copyright>Senparc Copyright © 2004~2020</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
 
     <Authors>Jeffrey Su</Authors>
@@ -352,11 +352,11 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -371,13 +371,14 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.0.103" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.0.104" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.1.100-preview1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.1.100-preview1.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
 
     <!--<Reference Include="System.Net.Http" />-->
     <Reference Include="System.Runtime.Serialization" />
@@ -426,8 +427,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />-->
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
@@ -436,8 +436,8 @@
   </ItemGroup>
 
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netcoreapp3.0'">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  <!--<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' or '$(TargetFramework)' == 'netstandard2.1'">-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />

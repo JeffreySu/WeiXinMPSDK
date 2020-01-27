@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -82,10 +82,17 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
-            //文档下载版本
-            var configHelper = new ConfigHelper();
-            var config = configHelper.GetConfig();
-            TempData["NewestDocumentVersion"] = config.Versions.First();
+            try
+            {
+                //文档下载版本
+                var configHelper = new ConfigHelper();
+                var config = configHelper.GetConfig();
+                TempData["NewestDocumentVersion"] = config.Versions.First();
+            }
+            catch (Exception)
+            {
+                TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
+            }
 
             Weixin.WeixinTrace.SendCustomLog("首页被访问",
                     string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));

@@ -19,17 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
-    文件名：MpMessageHandlerMiddleware.cs
+    文件名：WxOpenMessageHandlerMiddleware.cs
     文件功能描述：公众号 MessageHandler 中间件
     
     
-    创建标识：Senparc - 20191003
+    创建标识：Senparc - 20191004
     
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
@@ -43,8 +43,9 @@ using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageContexts;
+using Senparc.Weixin.WxOpen.Entities.Request;
+using Senparc.Weixin.WxOpen.MessageContexts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,18 +57,18 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 {
     /// <summary>
-    /// 公众号 MessageHandler 中间件
+    /// 小程序 MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC">上下文类型</typeparam>
-    public class MpMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForMP>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForMP>
-                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public class WxOpenMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>
+                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public MpMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
+        public WxOpenMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
             : base(next, messageHandler, options)
         {
 
@@ -128,9 +129,9 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
             PostModel postModel = new PostModel()
             {
-                Token = senparcWeixinSetting.Token,
-                AppId = senparcWeixinSetting.WeixinAppId,
-                EncodingAESKey = senparcWeixinSetting.EncodingAESKey,
+                Token = senparcWeixinSetting.WxOpenToken,
+                AppId = senparcWeixinSetting.WxOpenAppId,
+                EncodingAESKey = senparcWeixinSetting.WxOpenEncodingAESKey,
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"],
@@ -160,16 +161,16 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseMessageHandlerForMp<TMC>(this IApplicationBuilder builder, PathString pathMatch,
+        public static IApplicationBuilder UseMessageHandlerForWxOpen<TMC>(this IApplicationBuilder builder, PathString pathMatch,
             Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
-                where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
+                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {
-            return builder.UseMessageHandler<MpMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForMP>(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<WxOpenMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForWxOpen>(pathMatch, messageHandler, options);
         }
     }
 
-    #region 证明泛型可以用在中间件中
+#region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -200,7 +201,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-    #endregion
+#endregion
 }
 #endif
 

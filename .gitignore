@@ -77,3 +77,4 @@ packages/
 /Samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3/App_Data/SenparcTraceLog
 /Samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3/Properties/PublishProfiles/FolderProfile.pubxml
 /.opencollective.json
+/Senparc.Weixin.MP.BuildOutPut

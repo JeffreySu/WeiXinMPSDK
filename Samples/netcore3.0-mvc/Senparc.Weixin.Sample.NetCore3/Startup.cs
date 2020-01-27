@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 using Senparc.CO2NET;
+using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
@@ -101,23 +102,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket
-            app.UseEndpoints(endpoints =>
-            {
-                //配置自定义 SenparcHub
-                endpoints.MapHub<SenparcHub>("/SenparcHub");
-            });                                                                                  // DPBMARK_END
-
-
+            
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
@@ -207,13 +192,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
                     if (UseRedis(senparcSetting.Value, out _))
                     {
-                        app.UseSenparcWeixinCacheRedis();
+                        weixinRegister.UseSenparcWeixinCacheRedis();
                     }                                                                                     // DPBMARK_END
 
                     // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached
                     if (UseMemcached(senparcSetting.Value, out _))
                     {
-                        app.UseSenparcWeixinCacheMemcached();
+                        app.UseEnyimMemcached();
+                        weixinRegister.UseSenparcWeixinCacheMemcached();
                     }                                                                                      // DPBMARK_END
 
                     #endregion
@@ -360,7 +346,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     return false;//系统层面抛出异常
                 };
             });                                                                                   // DPBMARK_END
-
+            
             //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
@@ -372,9 +358,28 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
                                          o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                  // DPBMARK_END
+                                                                                                      // DPBMARK_END
 
             #endregion
+
+
+            app.UseAuthorization();//需要在注册微信 SDK 之后执行
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            
+            //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket
+            app.UseEndpoints(endpoints =>
+            {
+                //配置自定义 SenparcHub
+                endpoints.MapHub<SenparcHub>("/SenparcHub");
+            });                                                                                  // DPBMARK_END
+
+
         }
 
 

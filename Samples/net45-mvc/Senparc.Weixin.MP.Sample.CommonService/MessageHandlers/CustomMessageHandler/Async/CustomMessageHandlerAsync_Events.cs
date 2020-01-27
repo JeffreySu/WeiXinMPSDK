@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler

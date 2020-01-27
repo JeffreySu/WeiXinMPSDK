@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：WxOpenMessageHandlerMiddleware.cs
     文件功能描述：公众号 MessageHandler 中间件
@@ -29,46 +29,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.Trace;
-using Senparc.NeuChar;
-using Senparc.NeuChar.App.AppStore;
 using Senparc.NeuChar.Context;
-using Senparc.NeuChar.Entities;
-using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.MessageContexts;
-using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.WxOpen.MessageContexts;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageContexts;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.MessageHandlers.Middleware
+namespace Senparc.Weixin.Work.MessageHandlers.Middleware
 {
     /// <summary>
-    /// 小程序 MessageHandler 中间件
+    /// 企业号 MessageHandler 中间件
     /// </summary>
     /// <typeparam name="TMC">上下文类型</typeparam>
-    public class WxOpenMessageHandlerMiddleware<TMC> : MessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>, IMessageHandlerMiddleware<TMC, PostModel, ISenparcWeixinSettingForWxOpen>
-                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public class WorkMessageHandlerMiddleware<TMC>
+        : MessageHandlerMiddleware<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase, PostModel, ISenparcWeixinSettingForWork>,
+          IMessageHandlerMiddleware<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase, PostModel, ISenparcWeixinSettingForWork>
+                where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
         /// <summary>
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public WxOpenMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
+        public WorkMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
             : base(next, messageHandler, options)
         {
 
@@ -76,27 +68,33 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
         public override async Task<bool> GetCheckSignature(HttpContext context)
         {
+            //Url 参数：msg_signature=64d481da37981dd88ab9926a82534f0222905286&timestamp=1570283669&nonce=1569937039&echostr=XwdIMYbHVlZl1V2ckFg6P4ScQytQrDaOG00fgu0SStDQWQstJ2ApLFdYV%2F2BtzZB1%2FISW0KhLqPBiQSaAVabVQ%3D%3D
+
             var postModel = GetPostModel(context);
-            if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
+            var echostr = this.GetEchostr(context);
+            var canCheck = !string.IsNullOrEmpty(postModel.Msg_Signature) && !string.IsNullOrEmpty(postModel.Timestamp) && !string.IsNullOrEmpty(postModel.Nonce) && !string.IsNullOrEmpty(echostr);
+
+            string verifyUrl = null;
+            if (canCheck)
+            {
+                verifyUrl = Work.Signature.VerifyURL(postModel.Token, postModel.EncodingAESKey, postModel.CorpId, postModel.Msg_Signature /*这里调用方法的参数名称不明确*/,
+                     postModel.Timestamp, postModel.Nonce, echostr);
+            }
+
+            if (verifyUrl != null)
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";
-                var echostr = GetEchostr(context);
-                if (string.IsNullOrEmpty(echostr))
-                {
-                    await context.Response.WriteAsync("未提供 echostr 参数！").ConfigureAwait(false);
-                    return false;
-                }
-                else
-                {
-                    await context.Response.WriteAsync(echostr).ConfigureAwait(false);
-                    return true;
-                }
+                await context.Response.WriteAsync(verifyUrl).ConfigureAwait(false);//返回解密后的随机字符串则表示验证通过
+                return true;
             }
             else
             {
                 context.Response.ContentType = "text/html;charset=utf-8";
-                var correctSignature = CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, postModel.Token);
-                var msgTip = base.GetGetCheckFaildMessage(context, postModel.Signature, correctSignature);
+
+                var correctSignature = !canCheck
+                            ? "企业号中，Url 中的 timestamp, nonce, echostr 参数必须提供，否则无法进行签名验证！"
+                            : Work.Signature.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.Msg_Signature/*此参数不能为空*/);
+                var msgTip = base.GetGetCheckFaildMessage(context, postModel.Msg_Signature, correctSignature);
                 await context.Response.WriteAsync(msgTip);
                 return false;
             }
@@ -105,11 +103,15 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
         public override async Task<bool> PostCheckSignature(HttpContext context)
         {
+            //Url 参数：msg_signature=3eea248d554c5ce1586f897ca3ca6b390d698254&timestamp=1570287086&nonce=1570089610
+
             var postModel = GetPostModel(context);
 
-            //CO2NET.Trace.SenparcTrace.SendCustomLog("PostCheckSignature", postModel.ToJson(true));
+            Senparc.Weixin.Work.Tencent.WXBizMsgCrypt crypt = new Senparc.Weixin.Work.Tencent.WXBizMsgCrypt(postModel.Token, postModel.EncodingAESKey, postModel.CorpId);
+            string replyEchoStr = null;
+            var result = Senparc.Weixin.Work.Tencent.WXBizMsgCrypt.GenarateSinature(postModel.Token, postModel.Timestamp, postModel.Nonce, postModel.EncodingAESKey, ref replyEchoStr);
 
-            if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, postModel.Token))
+            if (result != 0)
             {
                 context.Response.ContentType = "text/plain;charset=utf-8";
                 await context.Response.WriteAsync("签名校验失败！").ConfigureAwait(false);
@@ -129,9 +131,10 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
 
             PostModel postModel = new PostModel()
             {
-                Token = senparcWeixinSetting.WxOpenToken,
-                AppId = senparcWeixinSetting.WxOpenAppId,
-                EncodingAESKey = senparcWeixinSetting.WxOpenEncodingAESKey,
+                Token = senparcWeixinSetting.WeixinCorpToken,
+                CorpId = senparcWeixinSetting.WeixinCorpId,
+                CorpAgentId = senparcWeixinSetting.WeixinCorpAgentId,
+                EncodingAESKey = senparcWeixinSetting.WeixinCorpEncodingAESKey,
                 Signature = context.Request.Query["signature"],
                 Timestamp = context.Request.Query["timestamp"],
                 Nonce = context.Request.Query["nonce"],
@@ -161,16 +164,16 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="messageHandler"></param>
         /// <param name="options"></param>
         /// <returns></returns>
-        public static IApplicationBuilder UseMessageHandlerForWxOpen<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
-            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
-                where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+        public static IApplicationBuilder UseMessageHandlerForWork<TMC>(this IApplicationBuilder builder, PathString pathMatch,
+            Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+            Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
+                where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {
-            return builder.UseMessageHandler<WxOpenMessageHandlerMiddleware<TMC>, TMC, PostModel, ISenparcWeixinSettingForWxOpen>(pathMatch, messageHandler, options);
+            return builder.UseMessageHandler<WorkMessageHandlerMiddleware<TMC>, IWorkRequestMessageBase, IWorkResponseMessageBase, TMC, PostModel, ISenparcWeixinSettingForWork>(pathMatch, messageHandler, options);
         }
     }
 
-    #region 证明泛型可以用在中间件中
+#region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -201,7 +204,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-    #endregion
+#endregion
 }
 #endif
 

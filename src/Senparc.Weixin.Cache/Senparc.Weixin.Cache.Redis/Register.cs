@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// 注册 Senparc.Weixin.Cache.Redis
         /// </summary>
-        /// <param name="app"></param>
+        /// <param name="register"></param>
         public static IRegisterService UseSenparcWeixinCacheRedis(this IRegisterService register)
         {
             ActivityDomainCache();

@@ -182,6 +182,7 @@ namespace Senparc.Weixin.TenPay.V3
                 try
                 {
                     var requestStream = HttpContext.Request.GetRequestMemoryStream();
+                    requestStream.Seek(0, System.IO.SeekOrigin.Begin);
                     xmlDoc.Load(requestStream);
 
                     //using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))

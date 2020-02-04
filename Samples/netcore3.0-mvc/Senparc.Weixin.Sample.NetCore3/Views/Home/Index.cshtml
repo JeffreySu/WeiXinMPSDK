@@ -211,7 +211,7 @@
                     </tr>
                     <tr>
                         <td>@(++i)</td>
-                        <td>Redis 缓存</td>
+                        <td>Redis 缓存<br />StackExchange.Redis</td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis" target="_blank">
                                 Senparc.Weixin.Cache.Redis
@@ -228,6 +228,26 @@
                         <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
                         <td><img title=".NET Standard 2.0" alt=".NET Core" src="https://img.shields.io/badge/standard2.0-Y-brightgreen.svg" /></td>
                     </tr>
+                    <tr>
+                        <td>@(++i)</td>
+                        <td>Redis 缓存<br />CsRedis</td>
+                        <td>
+                            <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Cache.CsRedis" target="_blank">
+                                Senparc.Weixin.Cache.Redis
+                            </a>
+                        </td>
+                        <td>
+                            <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Cache.CsRedis" target="_blank">
+                                <img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.CsRedis.svg?style=flat" />
+                            </a>
+                        </td>
+                        <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["CsRedisCacheVersion"] ?? "未引用")</a></td>
+                        <td><img title=".NET 3.5" alt=".NET 3.5" src="https://img.shields.io/badge/3.5-N-lightgrey.svg" /></td>
+                        <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
+                        <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-Y-brightgreen.svg" /></td>
+                        <td><img title=".NET Standard 2.0" alt=".NET Core" src="https://img.shields.io/badge/standard2.0-Y-brightgreen.svg" /></td>
+                    </tr>
+
                     <tr>
                         <td>@(++i)</td>
                         <td>Memcached 缓存</td>
@@ -306,7 +326,7 @@
                         <td>@*<img title=".NET Core 2.2" alt=".NET Standard 2.0" src="https://img.shields.io/badge/core2.2-Y-brightgreen.svg" />*@</td>
                     </tr>
 
-            </table>
+</table>
         </div>
         <div class="clear"></div>
     </div>

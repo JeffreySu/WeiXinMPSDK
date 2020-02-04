@@ -1,20 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Cache;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Containers;
+using Senparc.Weixin.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Web;
-using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.Containers;
-using Senparc.Weixin.Helpers;
-using Senparc.CO2NET.MessageQueue;
-using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Redis;
-using Senparc.CO2NET.Trace;
 using System.Threading.Tasks;
-using Senparc.CO2NET.Extensions;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -55,8 +48,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// </summary>
     public class CacheController : BaseController
     {
-        public ActionResult Test()
+        public ActionResult Test(int id = 0)
         {
+            ViewData["id"] = id;
             return View();
         }
 
@@ -65,17 +59,21 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //测试Redis ItemCollection缓存更新功能
 
             var sb = new StringBuilder();
-            if (id == 1)
+            switch (id)
             {
-                sb.Append("使用Redis<br>");
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+                case 1:
+                    sb.Append("使用Redis（StackExchange.Redis）<br>");
+                    CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.Redis.RedisObjectCacheStrategy.Instance);
+                    break;
+                case 2:
+                    sb.Append("使用Redis（CsRedis）<br>");
+                    CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.CsRedis.RedisObjectCacheStrategy.Instance);
+                    break;
+                default:
+                    sb.Append("使用本地缓存<br>");
+                    CacheStrategyFactory.RegisterObjectCacheStrategy(null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
+                    break;
             }
-            else
-            {
-                sb.Append("使用本地缓存<br>");
-                CacheStrategyFactory.RegisterObjectCacheStrategy(null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
-            }
-
 
             //var cacheKey = TestContainer1.GetContainerCacheKey();
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
@@ -115,13 +113,29 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         #region 新方法
 
         [HttpPost]
-        public async Task<IActionResult> RunTest()
+        public async Task<IActionResult> RunTest(int id = 0)
         {
             var sb = new StringBuilder();
 
             try
             {
-                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+                IContainerCacheStrategy containerCacheStrategy;
+                switch (id)
+                {
+                    case 1:
+                        containerCacheStrategy = Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy.Instance;
+                        break;
+                    case 2:
+                        containerCacheStrategy = Senparc.Weixin.Cache.CsRedis.RedisContainerCacheStrategy.Instance;
+                        break;
+                    case -1:
+                        containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
+                        break;
+                    default:
+                        containerCacheStrategy = Senparc.Weixin.Cache.LocalContainerCacheStrategy.Instance;
+                        break;
+                }
+
                 var currentSystemCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
                 sb.AppendFormat($"当前系统缓存策略：{containerCacheStrategy.GetType().Name}<br /><br />");
                 var currentSystemContainerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -133,7 +147,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                                 };
                 try
                 {
-                    caches[RedisObjectCacheStrategy.Instance] = RedisContainerCacheStrategy.Instance;
+                    caches[CO2NET.Cache.Redis.RedisObjectCacheStrategy.Instance] = Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy.Instance;
+                    caches[CO2NET.Cache.CsRedis.RedisObjectCacheStrategy.Instance] = Senparc.Weixin.Cache.CsRedis.RedisContainerCacheStrategy.Instance;
                 }
                 catch (Exception)
                 {

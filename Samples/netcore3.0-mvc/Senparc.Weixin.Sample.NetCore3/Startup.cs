@@ -17,6 +17,7 @@ using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.Cache.CsRedis;
 using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
@@ -102,7 +103,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             app.UseStaticFiles();
             app.UseRouting();
 
-            
+
             // 启动 CO2NET 全局注册，必须！
             // 关于 UseSenparcGlobal() 的更多用法见 CO2NET Demo：https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
@@ -120,18 +121,29 @@ namespace Senparc.Weixin.Sample.NetCore3
                     if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//这里为了方便不同环境的开发者进行配置，做成了判断的方式，实际开发环境一般是确定的，这里的if条件可以忽略
                     {
                         /* 说明：
-                        * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
+                         * 1、Redis 的连接字符串信息会从 Config.SenparcSetting.Cache_Redis_Configuration 自动获取并注册，如不需要修改，下方方法可以忽略
                         /* 2、如需手动修改，可以通过下方 SetConfigurationOption 方法手动设置 Redis 链接信息（仅修改配置，不立即启用）
-                        */
-                        Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
+                         */
+                        Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
 
                         //以下会立即将全局缓存设置为 Redis
-                        Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                                                                                  //Senparc.CO2NET.Cache.Redis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+                        //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                         //也可以通过以下方式自定义当前需要启用的缓存策略
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
+
+                        #region 注册 StackExchange.Redis
+
+                        /* 如果需要使用 StackExchange.Redis，则可以使用 Senparc.CO2NET.Cache.Redis 库
+                         * 注意：这一步注册和上述 CsRedis 库两选一即可，本 Sample 需要同时演示两个库，因此才都进行注册
+                         */
+                        
+                        //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
+                        //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
+
+                        #endregion
                     }
                     //如果这里不进行Redis缓存启用，则目前还是默认使用内存缓存 
 
@@ -188,11 +200,13 @@ namespace Senparc.Weixin.Sample.NetCore3
                     */
 
                     #region 微信缓存（按需，必须放在配置开头，以确保其他可能依赖到缓存的注册过程使用正确的配置）
+                    //注意：如果使用非本地缓存，而不执行本块注册代码，将会收到“当前扩展缓存策略没有进行注册”的异常
 
                     //微信的 Redis 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）         -- DPBMARK Redis
                     if (UseRedis(senparcSetting.Value, out _))
                     {
-                        weixinRegister.UseSenparcWeixinCacheRedis();
+                        weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis，两选一
+                        weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis，两选一
                     }                                                                                     // DPBMARK_END
 
                     // 微信的 Memcached 缓存，如果不使用则注释掉（开启前必须保证配置有效，否则会抛错）    -- DPBMARK Memcached
@@ -346,7 +360,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     return false;//系统层面抛出异常
                 };
             });                                                                                   // DPBMARK_END
-            
+
             //使用 小程序 MessageHandler 中间件                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
@@ -371,7 +385,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
             //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket
             app.UseEndpoints(endpoints =>
             {

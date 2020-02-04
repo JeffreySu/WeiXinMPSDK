@@ -20,7 +20,7 @@
 
 using Senparc.CO2NET.RegisterServices;
 
-namespace Senparc.Weixin.Cache.Redis
+namespace Senparc.Weixin.Cache.CsRedis
 {
     /// <summary>
     /// Senparc.Weixin.Cache.Redis 注册类
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// 注册 Senparc.Weixin.Cache.Redis
         /// </summary>
         /// <param name="register"></param>
-        public static IRegisterService UseSenparcWeixinCacheRedis(this IRegisterService register)
+        public static IRegisterService UseSenparcWeixinCacheCsRedis(this IRegisterService register)
         {
             ActivityDomainCache();
             return register;

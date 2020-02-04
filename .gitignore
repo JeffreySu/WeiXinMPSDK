@@ -81,3 +81,4 @@ packages/
 /Senparc.Weixin.MP.BuildOutPut/netstandard2.1
 /Senparc.Weixin.MP.BuildOutPut/*.snupkg
 
+/src/ProjectFileManager

@@ -73,6 +73,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
             TempData["WorkVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Work.Register));//DPBMARK Work DPBMARK_END
             TempData["RedisCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Redis.Register));//DPBMARK Redis DPBMARK_END
+            TempData["CsRedisCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.CsRedis.Register));//DPBMARK Redis DPBMARK_END
             TempData["MemcachedCacheVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.Cache.Memcached.Register));//DPBMARK Memcached DPBMARK_END
             TempData["WxOpenVersion"] = getTypeVersionInfo(typeof(Senparc.Weixin.WxOpen.Register));//DPBMARK MiniProgram DPBMARK_END
             TempData["WebSocketVersion"] = getTypeVersionInfo(typeof(Senparc.WebSocket.WebSocketConfig));//DPBMARK WebSocket DPBMARK_END

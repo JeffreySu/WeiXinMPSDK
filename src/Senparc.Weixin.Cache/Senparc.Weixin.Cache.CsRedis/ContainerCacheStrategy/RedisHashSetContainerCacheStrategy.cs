@@ -37,11 +37,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache.CsRedis;
 using Senparc.Weixin.Helpers;
 
 
-namespace Senparc.Weixin.Cache.Redis
+namespace Senparc.Weixin.Cache.CsRedis
 {
     /// <summary>
     /// Redis容器缓存策略
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.Cache.Redis
 
             foreach (var item in allHashEntry)
             {
-                var fullKey = key + ":" + item.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                var fullKey = key + ":" + item.Key;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
                 //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
                 dic[fullKey] = item.Value.ToString().DeserializeFromCache<TBag>();
             }
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.Cache.Redis
 
             foreach (var item in allHashEntry)
             {
-                var fullKey = key + ":" + item.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                var fullKey = key + ":" + item.Key;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
                 //dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
                 dic[fullKey] = item.Value.ToString().DeserializeFromCache<TBag>();
             }

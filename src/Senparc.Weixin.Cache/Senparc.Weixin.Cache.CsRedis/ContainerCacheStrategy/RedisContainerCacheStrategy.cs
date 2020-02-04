@@ -44,15 +44,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Redlock.CSharp;
 using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Cache.CsRedis;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.MessageQueue;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using StackExchange.Redis;
 
 
-namespace Senparc.Weixin.Cache.Redis
+namespace Senparc.Weixin.Cache.CsRedis
 {
     /// <summary>
     /// Redis容器缓存策略

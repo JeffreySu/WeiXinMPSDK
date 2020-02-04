@@ -48,6 +48,7 @@ using System.Xml;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.CO2NET.Trace;
 
 #if NET45
 using System.Web;
@@ -178,21 +179,29 @@ namespace Senparc.Weixin.TenPay.V3
                 var xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
                 xmlDoc.XmlResolver = null;
                 //xmlDoc.Load(HttpContext.Request.Body);
-
-                var requestStream = HttpContext.Request.GetRequestMemoryStream();
-                xmlDoc.Load(requestStream);
-
-                //using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
-                //{
-                //    xmlDoc.Load(reader);
-                //}
-
-                var root = xmlDoc.SelectSingleNode("xml");
-
-                foreach (XmlNode xnf in root.ChildNodes)
+                try
                 {
-                    SetParameter(xnf.Name, xnf.InnerText);
+                    var requestStream = HttpContext.Request.GetRequestMemoryStream();
+                    xmlDoc.Load(requestStream);
+
+                    //using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                    //{
+                    //    xmlDoc.Load(reader);
+                    //}
+
+                    var root = xmlDoc.SelectSingleNode("xml");
+
+                    foreach (XmlNode xnf in root.ChildNodes)
+                    {
+                        SetParameter(xnf.Name, xnf.InnerText);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    var weixinEx = new WeixinException("微信支付ResponseHandler错误", ex, true);
+                    Senparc.Weixin.WeixinTrace.WeixinExceptionLog(weixinEx);
+                }
+                
             }
 #endif
         }

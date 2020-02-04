@@ -56,12 +56,15 @@
 
         #cacheNote a {
             color: darkcyan;
-           text-decoration-line:underline;
+            text-decoration-line: underline;
         }
+
+        p#testCacheType{padding:8px; text-align:center;}
+        p#testCacheType a{text-decoration:underline;}
     </style>
     <script>
         $(function() {
-            $.post('@Url.Action("RunTest")', function(html) {
+            $.post('@Url.Action("RunTest")', {id:@ViewData["id"]}, function(html) {
                 $('#resultText').html(html);
             });
         });
@@ -84,6 +87,12 @@
     </div>
     <div class="result">
         <h1>测试结果：</h1>
+        <p id="testCacheType">
+            @Html.ActionLink("本地缓存", "Test", "Cache", new { id = (string)null }) |
+            @Html.ActionLink("StackExchange.Redis", "Test", "Cache", new { id = 1 }) |
+            @Html.ActionLink("CsRedis", "Test", "Cache", new { id = 2 }) |
+            @Html.ActionLink("和当前系统一致", "Test", "Cache", new { id = -1 }) |
+        </p>
         <p id="resultText">缓存测试运行中……@*@Html.Raw(ViewData["Result"])*@</p>
     </div>
 </div>

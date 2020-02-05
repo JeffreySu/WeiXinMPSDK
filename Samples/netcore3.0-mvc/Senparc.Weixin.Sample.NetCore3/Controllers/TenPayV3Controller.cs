@@ -627,7 +627,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 throw;
             }
 
-
             #region 原始方法
 
             //RequestHandler packageReqHandler = new RequestHandler(null);

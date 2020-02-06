@@ -82,3 +82,4 @@ packages/
 /Senparc.Weixin.MP.BuildOutPut/*.snupkg
 
 /src/ProjectFileManager
+/Samples/net45-webforms/Senparc.Weixin.MP.Sample.WebForms/App_Data/SenparcTraceLog

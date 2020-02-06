@@ -115,6 +115,9 @@
     <Reference Include="Senparc.Weixin.MP, Version=16.10.100.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.Weixin.MP.16.10.100-preview1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension, Version=7.5.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\net45-webforms\packages\Senparc.Weixin.MP.MVC.7.5.100-preview1\lib\net45\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
     <Reference Include="Senparc.Weixin.Open, Version=4.7.104.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.Weixin.Open.4.7.104\lib\net45\Senparc.Weixin.Open.dll</HintPath>
     </Reference>

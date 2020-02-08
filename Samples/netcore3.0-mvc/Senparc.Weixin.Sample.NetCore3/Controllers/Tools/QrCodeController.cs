@@ -51,6 +51,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var tempDir = Path.Combine(qrCodeDir, tempDirName);
             Directory.CreateDirectory(tempDir);//创建临时目录
 
+            var readmeFile = Path.Combine(qrCodeDir, "readme.txt");
+            System.IO.File.Copy(readmeFile, Path.Combine(tempDir, "readme.txt"));
+
             //便利所有二维码内容
             foreach (var code in codes)
             {
@@ -91,7 +94,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             SenparcTrace.SendCustomLog("二维码生成结束", tempZipFileFullPath);
 
             var dt1 = SystemTime.Now;
-            while (Directory.GetFiles(tempDir).Length < i && SystemTime.NowDiff(dt1) < TimeSpan.FromSeconds(30)/*最多等待时间*/)
+            while (Directory.GetFiles(tempDir).Length < i + 1/* readme.txt */ && SystemTime.NowDiff(dt1) < TimeSpan.FromSeconds(30)/*最多等待时间*/)
             {
                 Thread.Sleep(1000);
             }

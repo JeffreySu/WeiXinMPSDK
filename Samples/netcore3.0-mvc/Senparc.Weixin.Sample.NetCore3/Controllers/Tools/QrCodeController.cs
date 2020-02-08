@@ -39,18 +39,20 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 Directory.CreateDirectory(qrCodeDir);
             }
 
+            //定义文件名和路径
             var tempId = SystemTime.Now.ToString("yyyy-MM-dd-HHmmss");
             var tempDirName = $"{tempId}_{Guid.NewGuid().ToString("n")}";
             var tempZipFileName = $"{tempDirName}.zip";
             var tempZipFileFullPath = Path.Combine(qrCodeDir, tempZipFileName);
             var tempDir = Path.Combine(qrCodeDir, tempDirName);
-            Directory.CreateDirectory(tempDir);
+            Directory.CreateDirectory(tempDir);//创建临时目录
 
+            //便利所有二维码内容
             foreach (var code in codes)
             {
                 i++;
 
-                var finalCode = code.Length > 100 ? code.Substring(0, 100) : code;
+                var finalCode = code.Length > 100 ? code.Substring(0, 100) : code;//约束长度
 
                 BitMatrix bitMatrix;
                 bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE, 600, 600);
@@ -70,8 +72,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     bitmap.UnlockBits(bitmapData);
                 }
 
-                var fileName = Path.Combine(tempDir, $"{i}.jpg");//需要确保文件夹存在！
-                SenparcTrace.SendCustomLog("二维码生成", fileName);
+                var fileName = Path.Combine(tempDir, $"{i}.jpg");
 
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 {
@@ -79,6 +80,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     fileStream.Close();
                 }
             }
+            SenparcTrace.SendCustomLog("二维码生成结束", tempZipFileFullPath);
 
             var dt1 = SystemTime.Now;
             while (Directory.GetFiles(tempDir).Length < i && SystemTime.NowDiff(dt1) < TimeSpan.FromSeconds(30)/*最多等待时间*/)
@@ -89,6 +91,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             ZipFile.CreateFromDirectory(tempDir, tempZipFileFullPath, CompressionLevel.Fastest, false);
 
             var dt2 = SystemTime.Now;
+            var success = false;
             while (SystemTime.NowDiff(dt2) < TimeSpan.FromSeconds(10)/*最多等待时间*/)
             {
                 FileStream fs = null;
@@ -104,15 +107,22 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 if (fs != null)
                 {
+                    success = true;
                     fs.Close();
                     break;
                 }
             }
 
+            if (success)
+            {
+                return File($"~/App_Data/QrCode/{tempZipFileName}"/*tempZipFileFullPath*/, "application/x-zip-compressed", $"SenparcQrCode_{tempId}.zip");
+                //TOOD:完成后删除文件
+            }
+            else
+            {
+                return Content("打包文件失败！");
+            }
 
-            return File(tempZipFileFullPath, "application/x-zip-compressed", $"SenparcQrCode_{tempId}");
-
-            //TOOD:完成后删除文件
         }
     }
 }

@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "二维码生成器";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+    </style>
+    <script>
+        function submitForm() {
+            if ($('#codesStr').val().trim().length === 0 ) {
+                alert('请输入内容！');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+}
+<div class="wrapper">
+    <div id="qrCodeArea">
+        <h2 id="doc-download">二维码生成</h2>
+        <div class="qrcode">
+            <form action="Index" method="post" onsubmit="return submitForm()">
+                <textarea name="codesStr" style="width:50%;height:150px;" id="codesStr"></textarea>
+                <input type="submit" value="生成" />
+            </form>
+            <div class="notice">注意：每行内容将生成一个独立的二维码，最多100行，每行最多100个字符。</div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

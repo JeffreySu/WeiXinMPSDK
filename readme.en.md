@@ -287,12 +287,12 @@ Senparc official tutorials
 
 ## Demo folder description (under Samples folder)
 
-| Folder | Description |
-|--------|--------|
-|[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
-|[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		  |Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
-|[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			  |Demo, can be released directly(.NET Core 2.0 + MVC)|
-|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			| Console Demo（.NET Core）|
+| Folder | Description | SDK Library Reference
+|--------|--------|-------|
+|[Senparc.Weixin.MP.Sample](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
+|[Senparc.Weixin.MP.Sample.WebForms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
+|[Senparc.Weixin.MP.Sample.vs2019](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 2.0 + MVC)| Source Code
+|[Senparc.Weixin.MP.Sample.Consoles.vs2019](Samples/console)			| Console Demo（.NET Core）| Source Code
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

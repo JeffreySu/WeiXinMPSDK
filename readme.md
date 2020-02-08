@@ -280,12 +280,12 @@ Senparc 官方视频教程
 
 ## Demo 文件夹说明（Samples文件夹下）
 
-| 文件夹 | 说明 |
-|--------|--------|
-|[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
-|[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		|可以直接发布使用的Demo（.NET Framework 4.5 + + ASP.NET WebForms）|
-|[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			|可以直接发布使用的Demo（.NET Core + MVC）|
-|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			|命令行 Console Demo（.NET Core）|
+| 文件夹 | 说明 |  SDK 引用方式
+|--------|--------|----|
+|[Senparc.Weixin.MP.Sample](Samples/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
+|[Senparc.Weixin.MP.Sample.WebForms](Samples/net45-webforms)		|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET WebForms）| Nuget 包
+|[Senparc.Weixin.MP.Sample.vs2019](Samples/netcore3.0-mvc)			|可以直接发布使用的Demo（.NET Core + MVC）| 源码
+|[Senparc.Weixin.MP.Sample.Consoles.vs2019](Samples/console)			|命令行 Console Demo（.NET Core）| 源码
 
 
 ## Senparc.Weixin.MP.Sample中的关键代码说明

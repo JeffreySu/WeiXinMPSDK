@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System;
@@ -13,6 +14,9 @@ using ZXing.Common;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
+    /// <summary>
+    /// 二维码批量下载
+    /// </summary>
     public class QrCodeController : Controller
     {
         [HttpGet]
@@ -50,6 +54,10 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //便利所有二维码内容
             foreach (var code in codes)
             {
+                if (code.IsNullOrEmpty())
+                {
+                    continue;
+                }
                 i++;
 
                 var finalCode = code.Length > 100 ? code.Substring(0, 100) : code;//约束长度
@@ -91,7 +99,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             ZipFile.CreateFromDirectory(tempDir, tempZipFileFullPath, CompressionLevel.Fastest, false);
 
             var dt2 = SystemTime.Now;
-            var success = false;
             while (SystemTime.NowDiff(dt2) < TimeSpan.FromSeconds(10)/*最多等待时间*/)
             {
                 FileStream fs = null;
@@ -107,22 +114,11 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 if (fs != null)
                 {
-                    success = true;
-                    fs.Close();
-                    break;
+                    return File(fs/*$"~/App_Data/QrCode/{tempZipFileName}"*/ /*tempZipFileFullPath*/, "application/x-zip-compressed", $"SenparcQrCode_{tempId}.zip");
                 }
             }
 
-            if (success)
-            {
-                return File($"~/App_Data/QrCode/{tempZipFileName}"/*tempZipFileFullPath*/, "application/x-zip-compressed", $"SenparcQrCode_{tempId}.zip");
-                //TOOD:完成后删除文件
-            }
-            else
-            {
-                return Content("打包文件失败！");
-            }
-
+            return Content("打包文件失败！");
         }
     }
 }

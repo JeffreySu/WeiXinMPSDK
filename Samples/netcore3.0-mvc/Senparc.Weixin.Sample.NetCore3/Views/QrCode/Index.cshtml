@@ -21,10 +21,11 @@
     <div id="qrCodeArea">
         <h2 id="doc-download">二维码生成</h2>
         <div class="qrcode">
-            @Html.BeginForm("Index", "QrCode", FormMethod.Post, new { onsubmit = "return submitForm()" })
-            <textarea name="codesStr" style="width:50%;height:150px;" id="codesStr"></textarea>
-            <input type="submit" value="生成" />
-            @Html.EndForm()
+            @using (Html.BeginForm("Index", "QrCode", FormMethod.Post, new { onsubmit = "return submitForm()" }))
+            {
+                <textarea name="codesStr" style="width:50%;height:150px;" id="codesStr"></textarea>
+                <input type="submit" value="生成" />
+            }
             <div class="notice">注意：每行内容将生成一个独立的二维码，最多100行，每行最多100个字符。</div>
         </div>
     </div>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using ZXing;
 using ZXing.Common;
@@ -32,14 +33,18 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 codes = codes.Take(100).ToArray();
             }
 
-            var tempDir = Path.Combine(CO2NET.Config.RootDictionaryPath, "App_Data", "QrCode");
-            if (!Directory.Exists(tempDir))
+            var qrCodeDir = Path.Combine(CO2NET.Config.RootDictionaryPath, "App_Data", "QrCode");
+            if (!Directory.Exists(qrCodeDir))
             {
-                Directory.CreateDirectory(tempDir);
+                Directory.CreateDirectory(qrCodeDir);
             }
-            var tempDirName = Guid.NewGuid().ToString("n");
-            var zipFileName = Path.Combine(tempDir, $"{tempDirName}.zip");
-            tempDir = Path.Combine(tempDir, tempDirName);
+
+            var tempId = SystemTime.Now.ToString("yyyy-MM-dd-HHmmss");
+            var tempDirName = $"{tempId}_{Guid.NewGuid().ToString("n")}";
+            var tempZipFileName = $"{tempDirName}.zip";
+            var tempZipFileFullPath = Path.Combine(qrCodeDir, tempZipFileName);
+            var tempDir = Path.Combine(qrCodeDir, tempDirName);
+            Directory.CreateDirectory(tempDir);
 
             foreach (var code in codes)
             {
@@ -71,13 +76,43 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 {
                     bitmap.Save(fileStream, System.Drawing.Imaging.ImageFormat.Png);
+                    fileStream.Close();
                 }
             }
-            
-            ZipFile.CreateFromDirectory(tempDir, zipFileName, CompressionLevel.Fastest, false);
+
+            var dt1 = SystemTime.Now;
+            while (Directory.GetFiles(tempDir).Length < i && SystemTime.NowDiff(dt1) < TimeSpan.FromSeconds(30)/*最多等待时间*/)
+            {
+                Thread.Sleep(1000);
+            }
+
+            ZipFile.CreateFromDirectory(tempDir, tempZipFileFullPath, CompressionLevel.Fastest, false);
+
+            var dt2 = SystemTime.Now;
+            while (SystemTime.NowDiff(dt2) < TimeSpan.FromSeconds(10)/*最多等待时间*/)
+            {
+                FileStream fs = null;
+                try
+                {
+                    fs = new FileStream(tempZipFileFullPath, FileMode.Open, FileAccess.Read, FileShare.None);
+                }
+                catch
+                {
+                    Thread.Sleep(500);
+                    continue;
+                }
+
+                if (fs != null)
+                {
+                    fs.Close();
+                    break;
+                }
+            }
 
 
-            return File(zipFileName, "application/x-zip-compressed", $"SenparcQrCode_{SystemTime.Now.ToString("yyyy-MM-dd-HHmmss")}");
+            return File(tempZipFileFullPath, "application/x-zip-compressed", $"SenparcQrCode_{tempId}");
+
+            //TOOD:完成后删除文件
         }
     }
 }

@@ -40,7 +40,7 @@
             @using (Html.BeginForm("Index", "QrCode", FormMethod.Post, new { onsubmit = "return submitForm()" }))
             {
                 <textarea name="codesStr" style="width:50%;height:150px;" id="codesStr"></textarea><br />
-                <div class="notice">注意：每行内容将生成一个独立的二维码，最多100行，每行最多100个字符，多余内容将被截断。</div>
+                <div class="notice">注意：每行内容将生成一个独立的二维码，最多200行，每行最多100个字符，多余内容将被截断。</div>
                 <input type="submit" value="生成并下载" class="application" />
             }
         </div>

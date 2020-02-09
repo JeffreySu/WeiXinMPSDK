@@ -68,22 +68,23 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var finalCode = code.Length > 100 ? code.Substring(0, 100) : code;//约束长度
 
                 //二维码生成开始
-                BitMatrix bitMatrix;
-                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE, 600, 600);
+                BitMatrix bitMatrix;//定义像素矩阵对象
+                bitMatrix = new MultiFormatWriter().encode(finalCode, BarcodeFormat.QR_CODE /*条码或二维码标准*/, 600/*宽度*/, 600/*高度*/);
                 var bw = new ZXing.BarcodeWriterPixelData();
 
                 var pixelData = bw.Write(bitMatrix);
-                var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);//预绘制32bit标准的位图片
 
-                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height)/*绘制矩形区域及偏移量*/, 
+                    System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
                 try
                 {
-                    // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                    //假设位图的 row stride = 4 字节 * 图片的宽度
                     System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
                 }
                 finally
                 {
-                    bitmap.UnlockBits(bitmapData);
+                    bitmap.UnlockBits(bitmapData);//从内存 Unlock bitmap 对象
                 }
                 //二维码生成结束
 
@@ -93,7 +94,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 {
                     bitmap.Save(fileStream, System.Drawing.Imaging.ImageFormat.Png);
-                    fileStream.Close();
+                    fileStream.Close();//一定要关闭文件刘
                 }
             }
             SenparcTrace.SendCustomLog("二维码生成结束", $"耗时：{SystemTime.DiffTotalMS(dt0)} ms，临时文件：{tempZipFileFullPath}");//记录日志
@@ -101,10 +102,10 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var dt1 = SystemTime.Now;
             while (Directory.GetFiles(tempDir).Length < i + 1/* readme.txt */ && SystemTime.NowDiff(dt1) < TimeSpan.FromSeconds(30)/*最多等待时间*/)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(1000);//重试等待时间
             }
 
-            ZipFile.CreateFromDirectory(tempDir, tempZipFileFullPath, CompressionLevel.Fastest, false);
+            ZipFile.CreateFromDirectory(tempDir, tempZipFileFullPath, CompressionLevel.Fastest, false);//创建压缩文件
 
             var dt2 = SystemTime.Now;
             while (SystemTime.NowDiff(dt2) < TimeSpan.FromSeconds(10)/*最多等待时间*/)

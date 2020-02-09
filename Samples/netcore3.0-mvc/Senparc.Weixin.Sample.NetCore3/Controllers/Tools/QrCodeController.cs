@@ -2,10 +2,13 @@
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using ZXing;
 using ZXing.Common;
 
@@ -16,6 +19,17 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
     /// </summary>
     public class QrCodeController : Controller
     {
+        private string[] GetCodes(string codesStr)
+        {
+            var codes = codesStr.Split(new[] { Environment.NewLine,"\r\n","\n" }, StringSplitOptions.RemoveEmptyEntries);
+            //限制个数
+            if (codes.Length > 200)
+            {
+                codes = codes.Take(200).ToArray();
+            }
+            return codes;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -25,14 +39,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         [HttpPost]
         public ActionResult Index(string codesStr)
         {
-            var codes = codesStr.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            var i = 0;
-
-            //限制个数
-            if (codes.Length > 200)
-            {
-                codes = codes.Take(100).ToArray();
-            }
+            var codes = GetCodes(codesStr);
 
             var dt0 = SystemTime.Now;
 
@@ -56,6 +63,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             System.IO.File.Copy(readmeFile, Path.Combine(tempDir, "readme.txt"));
 
             //便利所有二维码内容
+            var i = 0;
             foreach (var code in codes)
             {
                 if (code.IsNullOrEmpty())
@@ -64,7 +72,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 }
                 i++;//计数器
 
-                
+
                 var finalCode = code.Length > 100 ? code.Substring(0, 100) : code;//约束长度
 
                 //二维码生成开始
@@ -75,7 +83,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var pixelData = bw.Write(bitMatrix);
                 var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);//预绘制32bit标准的位图片
 
-                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height)/*绘制矩形区域及偏移量*/, 
+                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height)/*绘制矩形区域及偏移量*/,
                     System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
                 try
                 {
@@ -94,7 +102,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
                 {
                     bitmap.Save(fileStream, System.Drawing.Imaging.ImageFormat.Png);
-                    fileStream.Close();//一定要关闭文件刘
+                    fileStream.Close();//一定要关闭文件流
                 }
             }
             SenparcTrace.SendCustomLog("二维码生成结束", $"耗时：{SystemTime.DiffTotalMS(dt0)} ms，临时文件：{tempZipFileFullPath}");//记录日志
@@ -129,6 +137,61 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
 
             return Content("打包文件失败！");
+        }
+
+        /// <summary>
+        /// 生成短址
+        /// </summary>
+        /// <param name="codesStr"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetShortUrl(string codesStr)
+        {
+            var codes = GetCodes(codesStr);
+
+            ConcurrentDictionary<int, string> dic = new ConcurrentDictionary<int, string>();
+            List<Task> tasks = new List<Task>();
+            List<Exception> exceptions = new List<Exception>();
+            var totalCount = codes.Length;
+            var successCount = 0;
+            var finishedCount = 0;
+
+            for (int i = 0; i < totalCount; i++)
+            {
+                var index = i;
+                try
+                {
+                    var task = Senparc.Weixin.MP.AdvancedAPIs.UrlApi.ShortUrlAsync(Config.SenparcWeixinSetting.MpSetting.WeixinAppId, "long2short", codes[index])
+                    .ContinueWith(weixinResult =>
+                    {
+                        dic[index] = weixinResult.Result.short_url;
+                        successCount++;
+                    })
+                    .ConfigureAwait(false);
+
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                    dic[index] = "";
+                }
+                finally
+                {
+                    finishedCount++;
+                }
+
+                //tasks.Add(task);
+            }
+
+            //Task.WaitAll(tasks.ToArray(), TimeSpan.FromMinutes(1));
+            var dt1 = SystemTime.Now;
+            while (successCount < codes.Length && SystemTime.NowDiff(dt1).TotalSeconds < 60)
+            {
+                Thread.Sleep(1000);
+            }
+
+            var result = string.Join(Environment.NewLine, dic.OrderBy(z => z.Key).Select(z => z.Value));
+            return Json(new { result = result, totalCount = totalCount, successCount = successCount, errors = string.Join(" , ", exceptions.Select(z => z.Message).ToArray()) });
         }
     }
 }

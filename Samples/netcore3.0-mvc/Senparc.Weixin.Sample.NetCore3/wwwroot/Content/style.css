@@ -347,6 +347,10 @@ h2.weixin-item-title {
     background: #bbf0ff;
 }
 
+    .weixin-bottom-table th {
+        vertical-align: middle;
+    }
+
 .weixin-item-left {
     float: left;
     margin-right: 20px;

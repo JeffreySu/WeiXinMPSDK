@@ -84,7 +84,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 Title = "Senparc.Weixin SDK 的 ASP.NET 运行时基础库",
                 Description = "这些库基于 ASP.NET 运行时，依赖 ASP.NET 一些特性完成一系列基于 ASP.NET 及 ASP.NET Core 的操作。<br />" +
-                "分离出这些库的另外一个原因，是为了使 Senparc.Weixin SDK 核心库可以不依赖于 ASP.NET 运行时，以便部署在轻量级的容器等环境中。"
+                "分离出这些库的另外一个原因，是为了使 Senparc.Weixin SDK 核心库可以不依赖于 ASP.NET 运行时，<br />" +
+                "以便部署在轻量级的容器等环境中。"
             };
             var aspnetList = new List<Home_IndexVD_AssemblyModel>();
             aspnetList.Add(new Home_IndexVD_AssemblyModel("ASP.NET<br />运行时基础库", "Senparc.Weixin.AspNet", typeof(Senparc.Weixin.AspNet.WeixinRegister)));//AspNet 运行时基础库

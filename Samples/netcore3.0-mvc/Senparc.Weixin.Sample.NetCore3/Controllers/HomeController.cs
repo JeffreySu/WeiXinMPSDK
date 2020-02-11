@@ -111,7 +111,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 Title = "跨平台支持库：Senparc.NeuChar",
                 Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、丁丁、QQ小程序、百度小程序，等等），<br />" +
-                "使用一套代码，同时服务多平台。目前 Senparc.Weixin SDK 就是基于 NeuChar 标准在微信领域内的一个实现分支，您也可以使用 NeuChar 扩展到更多的平台。<br />" +
+                "使用一套代码，同时服务多平台。目前 Senparc.Weixin SDK 就是基于 NeuChar 标准在微信领域内的一个实现分支，<br />" +
+                "您也可以使用 NeuChar 扩展到更多的平台。<br />" +
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"
             };
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
@@ -123,7 +124,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 Title = "底层公共基础库：Senparc.CO2NET",
                 Description = "Senparc.CO2NET 是一个支持 .NET Framework 和 .NET Core 的公共基础扩展库，包含常规开发所需要的基础帮助类。<br />" +
-                "开发者可以直接使用 CO2NET 为项目提供公共基础方法，免去重复准备和维护公共代码的痛苦。你可以在几乎任何项目中使用 CO2NET。"
+                "开发者可以直接使用 CO2NET 为项目提供公共基础方法，免去重复准备和维护公共代码的痛苦。<br />" + 
+                "您可以在几乎任何项目中使用 CO2NET。"
             };
             var co2netList = new List<Home_IndexVD_AssemblyModel>();
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config)));//CO2NET 基础库版本信息

@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Models.VD
 {
     public class Home_IndexVD
     {
-        public Dictionary<string, List<Home_IndexVD_AssemblyModel>> AssemblyModelCollection { get; set; }
+        public Dictionary<Home_IndexVD_GroupInfo, List<Home_IndexVD_AssemblyModel>> AssemblyModelCollection { get; set; }
+    }
+
+    public class Home_IndexVD_GroupInfo {
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 
     public class Home_IndexVD_AssemblyModel
@@ -21,8 +27,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Models.VD
         public bool SupportStandard21 { get; set; }
         public bool SupportNetCore22 => SupportStandard20;
         public bool SupportNetCore31 => SupportStandard21;
+        public string GitHubUrl { get; set; }
 
-        public Home_IndexVD_AssemblyModel(string title, string name, Type versionType, string nugetName = null, bool supportNet45 = true, bool supportStandard20 = true, bool supportStandard21 = true)
+        public Home_IndexVD_AssemblyModel(string title, string name, Type versionType,  string nugetName = null, string gitHubUrl = null, bool supportNet45 = true, bool supportStandard20 = true, bool supportStandard21 = true)
         {
             Func<Version, string> getDisplayVersion = version => Regex.Match(version.ToString(), @"\d+\.\d+\.\d+").Value;
 
@@ -41,6 +48,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Models.VD
             SupportNet45 = supportNet45;
             SupportStandard20 = supportStandard20;
             SupportStandard21 = supportStandard21;
+            GitHubUrl = gitHubUrl;
         }
     }
 }

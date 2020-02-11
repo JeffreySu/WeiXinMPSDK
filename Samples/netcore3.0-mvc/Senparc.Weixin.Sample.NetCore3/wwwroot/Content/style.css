@@ -186,7 +186,7 @@
 .contatc-img {
     float: left;
     margin-right: 7px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
     display: inline;
 }
 
@@ -206,7 +206,7 @@
 }*/
 
 a.qqGroup_tip {
-   text-decoration: underline;
+    text-decoration: underline;
 }
 
 .catalog {
@@ -308,6 +308,38 @@ img.official-img {
     float: left;
 }
 
+h2.weixin-item-title {
+    font-size: 200%;
+    font-weight: bold;
+    margin-top: 3px;
+    color: #1966a2;
+}
+
+.weixin-bottom-group {
+    margin: 10px auto 20px auto;
+    padding: 15px;
+    background: #e4faff;
+    border: solid 2px #46c6ff;
+    border-left: solid 6px #46c6ff;
+    /*line-height: 200%;*/
+    border-radius:15px;
+}
+
+.weixin-bottom-description {
+    margin: 10px auto;
+    width: 100%;
+    background: #bbeaff;
+    padding: 10px 10%;
+    line-height: 200%;
+    color: #545556;
+    font-size: 105%;
+    border-radius: 6px;
+}
+
+.weixin-bottom-table {
+    border-radius: 6px;
+    background: #bbf0ff;
+}
 
 .weixin-item-left {
     float: left;
@@ -729,6 +761,8 @@ p.crowdfunding-note {
 .test_bs {
     display: none;
 }
+
+
 
 @media screen and (min-width:1000px) {
     .content {

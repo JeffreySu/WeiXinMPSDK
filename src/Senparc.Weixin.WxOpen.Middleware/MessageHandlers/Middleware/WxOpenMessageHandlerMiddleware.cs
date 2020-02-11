@@ -43,6 +43,7 @@ using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.NeuChar.Middlewares;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.MessageContexts;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.MessageContexts;
@@ -54,7 +55,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.MessageHandlers.Middleware
+namespace Senparc.Weixin.WxOpen.MessageHandlers.Middleware
 {
     /// <summary>
     /// 小程序 MessageHandler 中间件

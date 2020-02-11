@@ -342,6 +342,7 @@ h2.weixin-item-title {
     border-radius: 6px;
 }
 
+
 .weixin-bottom-table {
     border-radius: 6px;
     background: #bbf0ff;
@@ -645,6 +646,7 @@ h2.weixin-item-title {
 
 .tbVersion tbody > tr:hover {
     background: #abe0ff;
+    box-shadow: 0 0 10px #0A9CD2;
 }
 
 .tbVersion img {

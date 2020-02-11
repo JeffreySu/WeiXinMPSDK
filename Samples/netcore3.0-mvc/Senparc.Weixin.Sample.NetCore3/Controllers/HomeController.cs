@@ -10,30 +10,15 @@ using System.Collections.Generic;
     创建标识：Senparc - 20190926
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-//using System.Text.RegularExpressions;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 //DPBMARK MP
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;//DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-//DPBMARK Open
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.Sample.NetCore3.Models.VD;
@@ -53,7 +38,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
         public IActionResult Index()
         {
-
+            #region 程序集信息
 
             var vd = new Home_IndexVD()
             {
@@ -61,22 +46,22 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             };
 
             //Senparc.Weixin SDK
-            var gitHubUrl = "https://github.com/JeffreySu/WeiXinMPSDK";
+            var sdkGitHubUrl = "https://github.com/JeffreySu/WeiXinMPSDK";
             var sdkGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "Senparc.Weixin SDK",
-                Description="对应于每一个微信平台的基础 SDK，包含了目前微信平台的绝大部分 API，进行微信开发重点是对这些库的使用。"
+                Description = "对应于每一个微信平台的基础 SDK，包含了目前微信平台的绝大部分 API，进行微信开发重点是对这些库的使用。"
             };
             var sdkList = new List<Home_IndexVD_AssemblyModel>();
-            sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", this.GetType(),gitHubUrl: gitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.Config), gitHubUrl: gitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.Config), gitHubUrl: gitHubUrl));//DPBMARK TenPay DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.Register), "Senparc.Weixin.MP.Mvc", gitHubUrl: gitHubUrl));//DPBMARK MP DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: gitHubUrl));//DPBMARK MiniProgram DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult), gitHubUrl: gitHubUrl));//DPBMARK MP DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("开放平台", "Senparc.Weixin.Open", typeof(Senparc.Weixin.Open.Register), gitHubUrl: gitHubUrl));//DPBMARK Open DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", this.GetType(), gitHubUrl: sdkGitHubUrl));
+            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.Config), gitHubUrl: sdkGitHubUrl));
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.Config), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.Register), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("开放平台", "Senparc.Weixin.Open", typeof(Senparc.Weixin.Open.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Open DPBMARK_END
             //TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));//已经停止更新
-            sdkList.Add(new Home_IndexVD_AssemblyModel("企业微信", "Senparc.Weixin.Work", typeof(Senparc.Weixin.Work.Register), gitHubUrl: gitHubUrl));//DPBMARK Work DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("企业微信", "Senparc.Weixin.Work", typeof(Senparc.Weixin.Work.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Work DPBMARK_END
             vd.AssemblyModelCollection[sdkGroup] = sdkList;
 
 
@@ -84,13 +69,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 Title = "Senparc.Weixin SDK 的 ASP.NET 运行时基础库",
                 Description = "这些库基于 ASP.NET 运行时，依赖 ASP.NET 一些特性完成一系列基于 ASP.NET 及 ASP.NET Core 的操作。<br />" +
-                "分离出这些库的另外一个原因，是为了使 Senparc.Weixin SDK 核心库可以不依赖于 ASP.NET 运行时，以便部署在轻量级的容器等环境中。"
+                "分离出这些库的另外一个原因，是为了使 Senparc.Weixin SDK 核心库可以不依赖于 ASP.NET 运行时，<br />" +
+                "以便部署在轻量级的容器等环境中。"
             };
             var aspnetList = new List<Home_IndexVD_AssemblyModel>();
-            aspnetList.Add(new Home_IndexVD_AssemblyModel("ASP.NET<br />运行时基础库", "Senparc.Weixin.AspNet", typeof(Senparc.Weixin.AspNet.WeixinRegister)));//AspNet 运行时基础库
-            aspnetList.Add(new Home_IndexVD_AssemblyModel("公众号消息中间件", "Senparc.Weixin.MP.Middleware", typeof(Senparc.Weixin.MP.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension)));//DPBMARK MP DPBMARK_END
-            aspnetList.Add(new Home_IndexVD_AssemblyModel("小程序消息中间件", "Senparc.Weixin.WxOpen.Middleware", typeof(Senparc.Weixin.WxOpen.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension)));//DPBMARK MiniProgram DPBMARK_END
-            aspnetList.Add(new Home_IndexVD_AssemblyModel("企业微信消息中间件", "Senparc.Weixin.Work.Middleware", typeof(Senparc.Weixin.Work.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension)));//DPBMARK Work DPBMARK_END
+            aspnetList.Add(new Home_IndexVD_AssemblyModel("ASP.NET<br />运行时基础库", "Senparc.Weixin.AspNet", typeof(Senparc.Weixin.AspNet.WeixinRegister), gitHubUrl: sdkGitHubUrl));//AspNet 运行时基础库
+            aspnetList.Add(new Home_IndexVD_AssemblyModel("公众号消息中间件", "Senparc.Weixin.MP.Middleware", typeof(Senparc.Weixin.MP.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            aspnetList.Add(new Home_IndexVD_AssemblyModel("小程序消息中间件", "Senparc.Weixin.WxOpen.Middleware", typeof(Senparc.Weixin.WxOpen.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
+            aspnetList.Add(new Home_IndexVD_AssemblyModel("企业微信消息中间件", "Senparc.Weixin.Work.Middleware", typeof(Senparc.Weixin.Work.MessageHandlers.Middleware.MessageHandlerMiddlewareExtension), gitHubUrl: sdkGitHubUrl));//DPBMARK Work DPBMARK_END
             vd.AssemblyModelCollection[aspnetGroup] = aspnetList;
 
             var cacheAndExtensionGroup = new Home_IndexVD_GroupInfo()
@@ -101,12 +87,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 "因此，您也可以自行扩展，并对接到微信 SDK 或其他系统中，<br />"
             };
             var cacheAndExtensionList = new List<Home_IndexVD_AssemblyModel>();
-            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Redis 缓存<br />（StackExchange.Redis）", "Senparc.Weixin.Cache.Redis", typeof(Senparc.Weixin.Cache.Redis.Register)));//DPBMARK Redis DPBMARK_END
-            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Redis 缓存<br />（CsRedis）", "Senparc.Weixin.Cache.CsRedis", typeof(Senparc.Weixin.Cache.CsRedis.Register)));//DPBMARK CsRedis DPBMARK_END
-            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Memcached 缓存", "Senparc.Weixin.Cache.Memcached", typeof(Senparc.Weixin.Cache.Memcached.Register)));//DPBMARK Memcached DPBMARK_END
-            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("WebSocket 模块", "Senparc.WebSocket", typeof(Senparc.WebSocket.WebSocketConfig)));//DPBMARK WebSocket DPBMARK_END
+            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Redis 缓存<br />（StackExchange.Redis）", "Senparc.Weixin.Cache.Redis", typeof(Senparc.Weixin.Cache.Redis.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Redis DPBMARK_END
+            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Redis 缓存<br />（CsRedis）", "Senparc.Weixin.Cache.CsRedis", typeof(Senparc.Weixin.Cache.CsRedis.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK CsRedis DPBMARK_END
+            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("Memcached 缓存", "Senparc.Weixin.Cache.Memcached", typeof(Senparc.Weixin.Cache.Memcached.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Memcached DPBMARK_END
+            cacheAndExtensionList.Add(new Home_IndexVD_AssemblyModel("WebSocket 模块", "Senparc.WebSocket", typeof(Senparc.WebSocket.WebSocketConfig), gitHubUrl: sdkGitHubUrl));//DPBMARK WebSocket DPBMARK_END
             vd.AssemblyModelCollection[cacheAndExtensionGroup] = cacheAndExtensionList;
 
+            var neucharGitHubUrl = "https://github.com/Senparc/NeuChar";
             var neucharGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "跨平台支持库：Senparc.NeuChar",
@@ -116,25 +103,27 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"
             };
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
-            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo)));// NeuChar 基础库
-            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType)));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             vd.AssemblyModelCollection[neucharGroup] = neucharList;
 
+            var co2netGitHubUrl = "https://github.com/Senparc/Senparc.CO2NET";
             var co2netGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "底层公共基础库：Senparc.CO2NET",
                 Description = "Senparc.CO2NET 是一个支持 .NET Framework 和 .NET Core 的公共基础扩展库，包含常规开发所需要的基础帮助类。<br />" +
-                "开发者可以直接使用 CO2NET 为项目提供公共基础方法，免去重复准备和维护公共代码的痛苦。<br />" + 
+                "开发者可以直接使用 CO2NET 为项目提供公共基础方法，免去重复准备和维护公共代码的痛苦。<br />" +
                 "您可以在几乎任何项目中使用 CO2NET。"
             };
             var co2netList = new List<Home_IndexVD_AssemblyModel>();
-            co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config)));//CO2NET 基础库版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("APM 库", "Senparc.CO2NET.APM", typeof(CO2NET.APM.Config)));//CO2NET.APM 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register)));//CO2NET.Cache.Redis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register)));//CO2NET.Cache.CsRedis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register)));//CO2NET.Cache.Memcached 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config), gitHubUrl: co2netGitHubUrl));//CO2NET 基础库版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("APM 库", "Senparc.CO2NET.APM", typeof(CO2NET.APM.Config), gitHubUrl: co2netGitHubUrl));//CO2NET.APM 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息
             vd.AssemblyModelCollection[co2netGroup] = cacheAndExtensionList;
 
+            #endregion
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();

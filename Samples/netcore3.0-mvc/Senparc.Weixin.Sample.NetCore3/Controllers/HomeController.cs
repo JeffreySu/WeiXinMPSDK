@@ -10,30 +10,15 @@ using System.Collections.Generic;
     创建标识：Senparc - 20190926
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-//using System.Text.RegularExpressions;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 using Senparc.Weixin.Cache;
 //DPBMARK MP
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;//DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
-//DPBMARK Open
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.Sample.NetCore3.Models.VD;

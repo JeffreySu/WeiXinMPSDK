@@ -210,7 +210,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.1.100-preview1.1" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.1.100.2-preview2" />
   </ItemGroup>
 
   <ItemGroup>

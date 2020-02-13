@@ -104,7 +104,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.1.0-preview1" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.1.0-preview2" />
   </ItemGroup>
 
   <ItemGroup>

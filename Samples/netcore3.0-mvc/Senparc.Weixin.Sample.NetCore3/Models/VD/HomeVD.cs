@@ -11,7 +11,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Models.VD
         public Dictionary<Home_IndexVD_GroupInfo, List<Home_IndexVD_AssemblyModel>> AssemblyModelCollection { get; set; }
     }
 
-    public class Home_IndexVD_GroupInfo {
+    public class Home_IndexVD_GroupInfo
+    {
         public string Title { get; set; }
         public string Description { get; set; }
     }
@@ -29,26 +30,24 @@ namespace Senparc.Weixin.Sample.NetCore3.Models.VD
         public bool SupportNetCore31 => SupportStandard21;
         public string GitHubUrl { get; set; }
 
-        public Home_IndexVD_AssemblyModel(string title, string name, Type versionType,  string nugetName = null, string gitHubUrl = null, bool supportNet45 = true, bool supportStandard20 = true, bool supportStandard21 = true)
+        public Home_IndexVD_AssemblyModel(string title, string name, Type versionType, string nugetName = null, string gitHubUrl = null, bool supportNet45 = true, bool supportStandard20 = true, bool supportStandard21 = true)
         {
-            Func<Version, string> getDisplayVersion = version => Regex.Match(version.ToString(), @"\d+\.\d+\.\d+").Value;
-
-
-            Func<Type, string> getTypeVersionInfo = type =>
-            {
-                var version = System.Reflection.Assembly.GetAssembly(type).GetName().Version;
-                return getDisplayVersion(version);
-            };
-
-
             Title = title;
             AssemblyName = name;
-            Version = getTypeVersionInfo(versionType);
+            Version = GetTypeVersionInfo(versionType);
             NugetName = nugetName ?? AssemblyName;
             SupportNet45 = supportNet45;
             SupportStandard20 = supportStandard20;
             SupportStandard21 = supportStandard21;
             GitHubUrl = gitHubUrl;
         }
+
+        internal static Func<Version, string> GetDisplayVersion = version => Regex.Match(version.ToString(), @"\d+\.\d+\.\d+").Value;
+
+        internal static Func<Type, string> GetTypeVersionInfo = type =>
+         {
+             var version = System.Reflection.Assembly.GetAssembly(type).GetName().Version;
+             return GetDisplayVersion(version);
+         };
     }
 }

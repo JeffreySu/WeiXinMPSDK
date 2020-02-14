@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.Sample.NetCore3.Models.VD;
+using System.Reflection;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -105,6 +106,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 的 ASP.NET<br />运行时支持库", "Senparc.NeuChar.AspNet", typeof(Senparc.NeuChar.Middlewares.MessageHandlerMiddlewareExtension), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             vd.AssemblyModelCollection[neucharGroup] = neucharList;
 
             var co2netGitHubUrl = "https://github.com/Senparc/Senparc.CO2NET";
@@ -121,9 +123,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息
             co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息
             co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息
-            vd.AssemblyModelCollection[co2netGroup] = cacheAndExtensionList;
+            co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
+            vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
             #endregion
+
+            //当前 Sample 版本
+
+            TempData["SampleVersion"] =  Home_IndexVD_AssemblyModel.GetDisplayVersion(Assembly.GetExecutingAssembly().GetName().Version);
 
             //缓存
             //var containerCacheStrategy  = CacheStrategyFactory.GetContainerCacheStrategyInstance();

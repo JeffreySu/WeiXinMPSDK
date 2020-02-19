@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：SenparcOAuthAttribute.cs
     文件功能描述：自动判断OAuth授权状态
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-                    var callbackUrl = Senparc.Weixin.HttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext, _oauthCallbackUrl);
+                    var callbackUrl = Senparc.Weixin.AspNetHttpUtility.UrlUtility.GenerateOAuthCallbackUrl(filterContext.HttpContext, _oauthCallbackUrl);
                     var state = string.Format("{0}|{1}", "FromSenparc", SystemTime.Now.Ticks);
 
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);

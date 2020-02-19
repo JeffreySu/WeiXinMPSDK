@@ -100,7 +100,6 @@ namespace Senparc.Weixin.Cache
             await baseCacheStrategy.UpdateAsync(key, bag, expiry, isFullKey).ConfigureAwait(false);
         }
 
-
         #endregion
 
         #endregion

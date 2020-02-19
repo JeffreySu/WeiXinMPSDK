@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
  
     文件名：ResponseHandler.cs
     文件功能描述：微信支付V3 响应处理
@@ -47,6 +47,8 @@ using System.Xml;
 
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.CO2NET.Trace;
 
 #if NET45
 using System.Web;
@@ -177,16 +179,30 @@ namespace Senparc.Weixin.TenPay.V3
                 var xmlDoc = new Senparc.CO2NET.ExtensionEntities.XmlDocument_XxeFixed();
                 xmlDoc.XmlResolver = null;
                 //xmlDoc.Load(HttpContext.Request.Body);
-                using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                try
                 {
-                    xmlDoc.Load(reader);
-                }
-                var root = xmlDoc.SelectSingleNode("xml");
+                    var requestStream = HttpContext.Request.GetRequestMemoryStream();
+                    requestStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    xmlDoc.Load(requestStream);
 
-                foreach (XmlNode xnf in root.ChildNodes)
-                {
-                    SetParameter(xnf.Name, xnf.InnerText);
+                    //using (var reader = new System.IO.StreamReader(HttpContext.Request.Body))
+                    //{
+                    //    xmlDoc.Load(reader);
+                    //}
+
+                    var root = xmlDoc.SelectSingleNode("xml");
+
+                    foreach (XmlNode xnf in root.ChildNodes)
+                    {
+                        SetParameter(xnf.Name, xnf.InnerText);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    var weixinEx = new WeixinException("微信支付ResponseHandler错误", ex, true);
+                    Senparc.Weixin.WeixinTrace.WeixinExceptionLog(weixinEx);
+                }
+                
             }
 #endif
         }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -29,7 +29,6 @@ using System.Text;
 
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -127,7 +126,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     //实际上可以存任何想传递的数据，比如用户ID
                     return Content("验证失败！请从正规途径进入！1001");
                 }
-               
+
                 //通过，用code换取access_token
                 var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
                 if (openIdResult.errcode != ReturnCode.请求成功)
@@ -171,6 +170,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
                     sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, SystemTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
+
+                    //注意：以上订单号仅作为演示使用，如果访问量比较大，建议增加订单流水号的去重检查。
                 }
                 else
                 {
@@ -615,9 +616,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 #endregion
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
-
-
-                return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
+                ViewData["Message"] = $"退款结果：{result.result_code} {result.err_code_des}。您可以刷新当前页面查看最新结果。";
+                return View();
                 //return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -626,7 +626,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 throw;
             }
-
 
             #region 原始方法
 
@@ -730,7 +729,10 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     string refund_account = decodeDoc.Root.Element("refund_account").Value;
                     string refund_request_source = decodeDoc.Root.Element("refund_request_source").Value;
 
-                    //进行业务处理
+
+                    WeixinTrace.SendCustomLog("RefundNotifyUrl被访问", "验证通过");
+
+                    //进行后续业务处理
                 }
             }
             catch (Exception ex)
@@ -938,7 +940,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             }
 
             //判断是否正在微信端
-            if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
+            if (Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
                 return RedirectToAction("JsApi", new { productId = productId, hc = hc });

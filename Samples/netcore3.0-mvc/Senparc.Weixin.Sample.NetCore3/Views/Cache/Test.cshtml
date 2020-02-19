@@ -15,7 +15,7 @@
             padding: 0px 0px 0px 30px;
             font-size: 110%;
             float: right;
-            width: 50%;
+            width: 55%;
         }
 
             .result h1 {
@@ -31,7 +31,7 @@
 
         .description {
             float: left;
-            width: 50%;
+            width: 45%;
             padding: 40px 0;
         }
 
@@ -56,15 +56,27 @@
 
         #cacheNote a {
             color: darkcyan;
-           text-decoration-line:underline;
+            text-decoration-line: underline;
         }
+
+        p#testCacheType{padding:8px; text-align:center;}
+        p#testCacheType a{text-decoration:underline;}
+
+        .currentTestCache{font-weight:bold;}
     </style>
     <script>
         $(function() {
-            $.post('@Url.Action("RunTest")', function(html) {
+            runTest(@ViewData["id"]);
+        });
+
+        function runTest(id) {
+            id = id || 0;
+            $('#cacheTest_' + id).addClass('currentTestCache').siblings().removeClass('currentTestCache');
+            $('#resultText').html('缓存测试运行中……');
+            $.post('@Url.Action("RunTest")', {id:id}, function(html) {
                 $('#resultText').html(html);
             });
-        });
+        }
     </script>
 }
 <div class="wrapper">
@@ -84,7 +96,13 @@
     </div>
     <div class="result">
         <h1>测试结果：</h1>
-        <p id="resultText">缓存测试运行中……@*@Html.Raw(ViewData["Result"])*@</p>
+        <p id="testCacheType">
+            <a href="javascript:void(0)" onclick="runTest('')" id="cacheTest_0">本地缓存</a> |
+            <a href="javascript:void(0)" onclick="runTest('1')" id="cacheTest_1">StackExchange.Redis</a> [<a href="http://nuget.org/packages/Senparc.Weixin.Cache.Redis" target="_blank">nuget</a>] |
+            <a href="javascript:void(0)" onclick="runTest('2')" id="cacheTest_2">CsRedis</a> [<a href="http://nuget.org/packages/Senparc.Weixin.Cache.CsRedis" target="_blank">nuget</a>] |
+            <a href="javascript:void(0)" onclick="runTest('-1')" id="cacheTest_-1">当前系统</a>
+        </p>
+        <p id="resultText"></p>
     </div>
 </div>
 <div class="clear"></div>

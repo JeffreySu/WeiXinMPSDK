@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers

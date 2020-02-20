@@ -230,7 +230,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
 
-                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(CommonDI.CommonSP, url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;

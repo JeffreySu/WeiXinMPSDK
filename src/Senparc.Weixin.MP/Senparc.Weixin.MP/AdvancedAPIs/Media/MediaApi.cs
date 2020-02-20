@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiMpFileHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                CO2NET.HttpUtility.Get.Download(url, stream);
+                CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, stream);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
         }
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiMpFileHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                var str = CO2NET.HttpUtility.Get.Download(url, dir);
+                var str = CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, dir);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
             }, accessTokenOrAppId);
             return result.errmsg;
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    CO2NET.HttpUtility.Get.Download(urlFormat, stream);
+                    CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, urlFormat, stream);
                 }
 
                 return new WxJsonResult() { errcode = ReturnCode.不合法的媒体文件id, errmsg = "invalid media_id" };//错误情况下的返回
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
                 fileDictionary["media"] = file;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 fileDictionary["media"] = file;
                 fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    CO2NET.HttpUtility.Post.Download(urlFormat, data.ToJson(), stream);
+                    CO2NET.HttpUtility.Post.Download(CommonDI.CommonSP, urlFormat, data.ToJson(), stream);
                 }
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId);
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadImgResult>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -598,7 +598,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(url, null, fileDictionary, null, null, null, false, timeOut: timeOut).ConfigureAwait(false);
+               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(CommonDI.CommonSP,url, null, fileDictionary, null, null, null, false, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -638,7 +638,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                await CO2NET.HttpUtility.Get.DownloadAsync(url, stream).ConfigureAwait(false);
+                await CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP, url, stream).ConfigureAwait(false);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -656,7 +656,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                var str = await CO2NET.HttpUtility.Get.DownloadAsync(url, dir).ConfigureAwait(false);
+                var str = await CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP,url, dir).ConfigureAwait(false);
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
             }, accessTokenOrAppId).ConfigureAwait(false);
             return result.errmsg;
@@ -680,7 +680,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    await CO2NET.HttpUtility.Get.DownloadAsync(urlFormat, stream).ConfigureAwait(false);
+                    await CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP,urlFormat, stream).ConfigureAwait(false);
                 }
 
                 return new WxJsonResult() { errcode = ReturnCode.不合法的媒体文件id, errmsg = "invalid media_id" };//错误情况下的返回
@@ -741,7 +741,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var fileDictionary = new Dictionary<string, string>();
                //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
                fileDictionary["media"] = file;
-               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadForeverMediaResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId);
         }
@@ -765,7 +765,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                fileDictionary["media"] = file;
                fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
-               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+               return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadForeverMediaResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -815,7 +815,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    await CO2NET.HttpUtility.Post.DownloadAsync(urlFormat, data.ToJson(), stream).ConfigureAwait(false);
+                    await CO2NET.HttpUtility.Post.DownloadAsync(CommonDI.CommonSP, urlFormat, data.ToJson(), stream).ConfigureAwait(false);
                 }
                 return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
             }, accessTokenOrAppId).ConfigureAwait(false);
@@ -985,7 +985,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<UploadImgResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

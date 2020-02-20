@@ -152,11 +152,10 @@ namespace Senparc.Weixin.CommonAPIs
             try
             {
                 var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
-
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
+                        return Get.GetJson<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -168,7 +167,7 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return Post.PostGetJson<T>(url, null, ms,
+                            return Post.PostGetJson<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult);
@@ -229,7 +228,7 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction).ConfigureAwait(false);
+                        return await Get.GetJsonAsync<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction).ConfigureAwait(false);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -241,7 +240,7 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return await Post.PostGetJsonAsync<T>(url, null, ms,
+                            return await Post.PostGetJsonAsync<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult).ConfigureAwait(false);

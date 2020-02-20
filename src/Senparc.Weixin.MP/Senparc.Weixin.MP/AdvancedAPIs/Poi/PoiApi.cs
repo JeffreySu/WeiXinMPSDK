@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return Post.PostFileGetJson<PoiUploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<PoiUploadImageResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -258,7 +258,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await Post.PostFileGetJsonAsync<PoiUploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<PoiUploadImageResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

@@ -71,8 +71,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnUnknownTypeRequestAsync(RequestMessageUnknownType requestMessage)
         {
-            var msgType = MsgTypeHelper.GetRequestMsgTypeString(requestMessage.RequestDocument);
-            throw new UnknownRequestMsgTypeException("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！".FormatWith(msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
+            return await DefaultAsyncMethod(requestMessage, () => OnUnknownTypeRequest(requestMessage)).ConfigureAwait(false);
+
         }
 
         #endregion
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual async Task<IResponseMessageBase> OnNeuCharRequestAsync(RequestMessageNeuChar requestMessage)
         {
             //return await DefaultAsyncMethod(requestMessage,async () => await OnNeuCharRequest(requestMessage).ConfigureAwait(false)).ConfigureAwait(false);
-           return  await base.OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
+            return await base.OnNeuCharRequestAsync(requestMessage).ConfigureAwait(false);
         }
 
         #endregion

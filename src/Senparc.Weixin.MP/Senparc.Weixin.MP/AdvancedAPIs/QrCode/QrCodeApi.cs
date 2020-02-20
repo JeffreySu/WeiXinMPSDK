@@ -209,7 +209,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            Get.Download(url, stream);
+            Get.Download(CommonDI.CommonSP, url, stream);
         }
 
         #endregion
@@ -336,7 +336,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
+            await Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);
         }
 
         #endregion

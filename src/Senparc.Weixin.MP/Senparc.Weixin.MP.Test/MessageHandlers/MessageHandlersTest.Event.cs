@@ -3,10 +3,11 @@ using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.TestEntities;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public partial class MessageHandlersTest
+    public partial class MessageHandlersTest : BaseTest
     {
 
         /// <summary>
@@ -20,6 +21,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             where T : RequestMessageEventBase
         {
             var messageHandlers = new CustomMessageHandlers(XDocument.Parse(xml));
+            messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             Assert.IsNotNull(messageHandlers.RequestDocument);
             //messageHandlers.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
             messageHandlers.Execute();
@@ -55,7 +57,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 </xml>";
             var messageHandler = VerifyEventTest<RequestMessageEvent_Subscribe>(xml, Event.subscribe);
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_Subscribe;
-            Assert.IsInstanceOfType( messageHandler.ResponseMessage,typeof(ResponseMessageText));
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("欢迎关注", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
         }
@@ -238,6 +240,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var requestMessage = messageHandler.RequestMessage as RequestMessageEvent_GiftCard_Send_To_Friend;
 
             Assert.IsInstanceOfType(requestMessage, typeof(RequestMessageEvent_GiftCard_Send_To_Friend));
+
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
 
             Assert.AreEqual("这里是 OnEvent_GiftCard_Send_To_FriendRequest", (messageHandler.ResponseMessage as ResponseMessageText).Content);

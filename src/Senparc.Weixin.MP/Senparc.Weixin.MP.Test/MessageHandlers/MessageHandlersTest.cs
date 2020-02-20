@@ -383,7 +383,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
-            Assert.AreEqual("您发送的消息类型暂未被识别。", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+            Assert.AreEqual("您发送的消息类型暂未被识别。RequestMessage Type：RequestMessageLocation", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
 
 
@@ -406,8 +406,10 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 var fileXml = requestXmlFormat.FormatWith("JeffreySu", type);
 
                 var messageHandler = new CustomMessageHandlers(XDocument.Parse(fileXml));
+                messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                 messageHandler.OmitRepeatedMessage = false;//禁用去重机制
                 messageHandler.Execute();
+
                 Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
                 Assert.AreEqual("未知消息类型：{0}".FormatWith(type), ((ResponseMessageText)messageHandler.ResponseMessage).Content);
             }

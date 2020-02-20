@@ -4703,7 +4703,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //    var url = string.Format(Config.ApiMpHost + "/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
         //    var fileDictionary = new Dictionary<string, string>();
         //    fileDictionary["media"] = file;
-        //    return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+        //    return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, timeOut: timeOut);
         //}
 
         #endregion

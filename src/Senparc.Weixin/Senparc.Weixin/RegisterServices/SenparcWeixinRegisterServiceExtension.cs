@@ -32,11 +32,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Senparc.CO2NET;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using System;
 #endif
 
 namespace Senparc.Weixin.RegisterServices
@@ -46,21 +48,26 @@ namespace Senparc.Weixin.RegisterServices
     /// </summary>
     public static class RegisterServiceExtension
     {
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
         /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>
         /// <param name="serviceCollection">IServiceCollection</param>
         /// <param name="configuration">IConfiguration</param>
         /// <returns></returns>
-        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceProvider AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
+            serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
+
             if (!CO2NET.RegisterServices.RegisterServiceExtension.SenparcGlobalServicesRegistered)
             {
-                serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+               return serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+            }
+            else
+            {
+                return SenparcDI.GlobalServiceProvider;
             }
 
-            serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
             /*
              * appsettings.json 中添加节点：
@@ -107,8 +114,6 @@ namespace Senparc.Weixin.RegisterServices
     "Cache_Memcached_Configuration": "Memcached配置"
   }
   */
-
-            return serviceCollection;
         }
 #endif
     }

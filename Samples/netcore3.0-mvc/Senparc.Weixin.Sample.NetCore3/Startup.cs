@@ -49,7 +49,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
@@ -75,8 +75,10 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
-                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
+            //Senparc.WebSocket 注册（按需）
+            services.AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();
+            //Senparc.Weixin 注册，并返回全局公共的 ServiceProvider（必须写在返回值前面）
+            return services.AddSenparcWeixinServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,7 +131,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                         //以下会立即将全局缓存设置为 Redis
                         Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                        //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                                                                                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                         //也可以通过以下方式自定义当前需要启用的缓存策略
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
@@ -140,7 +142,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                         /* 如果需要使用 StackExchange.Redis，则可以使用 Senparc.CO2NET.Cache.Redis 库
                          * 注意：这一步注册和上述 CsRedis 库两选一即可，本 Sample 需要同时演示两个库，因此才都进行注册
                          */
-                        
+
                         //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
                         //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 

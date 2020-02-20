@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.7.100-preview2</Version>
+    <Version>6.7.100</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -357,7 +357,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Senparc.CO2NET" Version="1.1.100" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.1.100.2-preview2" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.1.100.2" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Reference Include="System.Core" />

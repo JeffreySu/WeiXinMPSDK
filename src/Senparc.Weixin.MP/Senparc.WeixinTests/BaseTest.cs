@@ -83,10 +83,11 @@ namespace Senparc.WeixinTests
             var serviceCollection = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();
             var config = configBuilder.Build();
-            serviceCollection.AddSenparcGlobalServices(config);
-            serviceCollection.AddSenparcWeixinServices(config);
+            //serviceCollection.AddSenparcGlobalServices(config);
             serviceCollection.AddMemoryCache();//使用内存缓存
 
+            //已经包含 AddSenparcGlobalServices()，注意：必须在所有注册完成后执行
+            var serviceProvider = serviceCollection.AddSenparcWeixinServices(config);
         }
 #endif
 

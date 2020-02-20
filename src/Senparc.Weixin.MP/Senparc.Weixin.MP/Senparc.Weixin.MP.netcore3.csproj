@@ -546,7 +546,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.7.100-preview2" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.7.100" />
     <PackageReference Include="Senparc.NeuChar" Version="1.1.100.2-preview2" />
     <PackageReference Include="Senparc.NeuChar.App" Version="0.7.100.1-preview2" />
   </ItemGroup>

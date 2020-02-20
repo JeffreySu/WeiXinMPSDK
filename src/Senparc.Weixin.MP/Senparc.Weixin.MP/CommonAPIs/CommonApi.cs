@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+            AccessTokenResult result = Get.GetJson<AccessTokenResult>(CommonDI.CommonSP, url);//此处为最原始接口，不再使用重试获取的封装
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(CommonDI.CommonSP, url);//此处为最原始接口，不再使用重试获取的封装
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {

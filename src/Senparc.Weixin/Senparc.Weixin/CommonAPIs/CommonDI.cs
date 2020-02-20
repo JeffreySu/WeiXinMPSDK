@@ -19,7 +19,7 @@ namespace Senparc.Weixin
 #if !NET45
                 if (_commonSP == null)
                 {
-                    _commonSP = Senparc.CO2NET.SenparcDI.GlobalServiceProvider();
+                    _commonSP = Senparc.CO2NET.SenparcDI.GetServiceProvider();
                 }
 #endif
                 return _commonSP;

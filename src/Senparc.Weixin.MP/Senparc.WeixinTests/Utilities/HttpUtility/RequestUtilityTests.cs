@@ -56,7 +56,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = RequestUtility.HttpPost(url,
+            var result = RequestUtility.HttpPost(CommonDI.CommonSP, url,
                 cookieContainer, stream, useAjax: true);
 
             Console.WriteLine(result);
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = RequestUtility.HttpResponsePost(url,
+            var result = RequestUtility.HttpResponsePost(CommonDI.CommonSP, url,
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);

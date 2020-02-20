@@ -49,6 +49,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Trace;
+using Senparc.CO2NET;
 
 #if NET45
 using System.Web;
@@ -158,7 +159,9 @@ namespace Senparc.Weixin.TenPay.V3
             //#if NETSTANDARD2_0 || NETCOREAPP3_1
             //            HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
             //#else
-            HttpContext = httpContext ?? CO2NET.SenparcDI.GetService<IHttpContextAccessor>()?.HttpContext;
+
+            var serviceProvider = SenparcDI.GetServiceProvider();
+            HttpContext = httpContext ?? serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext;
             //#endif
 
             //post data

@@ -599,7 +599,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["pdf"] = file;
 
-                return Post.PostFileGetJson<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<SetPDFResultJson>(CommonDI.CommonSP,urlFormat, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1262,7 +1262,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["pdf"] = file;
 
-                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(urlFormat, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<SetPDFResultJson>(CommonDI.CommonSP,urlFormat, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

@@ -44,7 +44,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             try
             {
                 //这里因为参数错误，系统会返回错误信息
-                WxJsonResult resultFail = CO2NET.HttpUtility.Post.PostGetJson<WxJsonResult>(url, cookieContainer: null, formData: null, encoding: null);
+                WxJsonResult resultFail = CO2NET.HttpUtility.Post.PostGetJson<WxJsonResult>(CommonDI.CommonSP, url, cookieContainer: null, formData: null, encoding: null);
                 Assert.Fail();//上一步就应该已经抛出异常
             }
             catch (ErrorJsonResultException ex)
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             try
             {
                 WxJsonResult resultFail =
-                    await CO2NET.HttpUtility.Post.PostGetJsonAsync<WxJsonResult>(url, cookieContainer: null, formData: null,
+                    await CO2NET.HttpUtility.Post.PostGetJsonAsync<WxJsonResult>(CommonDI.CommonSP, url, cookieContainer: null, formData: null,
                             encoding: null);
                 //这里因为参数错误，系统会返回错误信息
                 Assert.Fail(); //上一步就应该已经抛出异常
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 var formData = new Dictionary<string, string>();
                 formData["appKey"] = "test";
                 formData["secret"] = "test2";
-                var resultFail = CO2NET.HttpUtility.Post.PostGetJson<object>(url, formData: formData);
+                var resultFail = CO2NET.HttpUtility.Post.PostGetJson<object>(CommonDI.CommonSP, url, formData: formData);
             }
             catch (ErrorJsonResultException ex)
             {

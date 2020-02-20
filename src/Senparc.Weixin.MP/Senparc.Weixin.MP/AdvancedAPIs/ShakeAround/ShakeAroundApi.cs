@@ -410,7 +410,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<UploadImageResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1449,7 +1449,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/shakearound/material/add?access_token={0}", accessToken.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return await Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadImageResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

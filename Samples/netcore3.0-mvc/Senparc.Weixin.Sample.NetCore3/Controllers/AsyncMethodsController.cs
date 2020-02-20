@@ -93,7 +93,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         public ActionResult DeadLockTest()
         {
             var result =
-                RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+                RequestUtility.HttpGetAsync(CommonDI.CommonSP, "https://sdk.weixin.senparc.com",
                     cookieContainer: null).Result;
             return Content(result);
         }
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <returns></returns>
         public async Task<ActionResult> NoDeadLockTest()
         {
-            var result = await RequestUtility.HttpGetAsync("https://sdk.weixin.senparc.com",
+            var result = await RequestUtility.HttpGetAsync(CommonDI.CommonSP, "https://sdk.weixin.senparc.com",
                 cookieContainer: null);
             return Content(result);
         }

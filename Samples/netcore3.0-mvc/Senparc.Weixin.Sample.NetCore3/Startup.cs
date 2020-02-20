@@ -49,7 +49,7 @@ namespace Senparc.Weixin.Sample.NetCore3
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
@@ -75,10 +75,9 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            //Senparc.WebSocket 注册（按需）
-            services.AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();
-            //Senparc.Weixin 注册，并返回全局公共的 ServiceProvider（必须写在返回值前面）
-            return services.AddSenparcWeixinServices(Configuration);
+            
+            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>(); //Senparc.WebSocket 注册（按需）
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

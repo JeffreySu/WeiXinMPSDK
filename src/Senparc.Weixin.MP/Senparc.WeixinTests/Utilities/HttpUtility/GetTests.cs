@@ -58,7 +58,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             {
                 var url = "http://apistore.baidu.com/microservice/cityinfo?cityname=苏州";
-                var result = Senparc.CO2NET.HttpUtility.Get.GetJson<dynamic>(url);
+                var result = Senparc.CO2NET.HttpUtility.Get.GetJson<dynamic>(CommonDI.CommonSP, url);
                 Assert.IsNotNull(result);
                 Assert.AreEqual(0, result["errNum"]);
                 Assert.AreEqual("苏州", result["retData"]["cityName"]);
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 try
                 {
                     //这里因为参数错误，系统会返回错误信息
-                    WxJsonResult resultFail = Senparc.CO2NET.HttpUtility.Get.GetJson<WxJsonResult>(url);
+                    WxJsonResult resultFail = Senparc.CO2NET.HttpUtility.Get.GetJson<WxJsonResult>(CommonDI.CommonSP, url);
                     Assert.Fail(); //上一步就应该已经抛出异常
                 }
                 catch (ErrorJsonResultException ex)
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             try
             {
                 //这里因为参数错误，系统会返回错误信息
-                WxJsonResult resultFail = await Senparc.CO2NET.HttpUtility.Get.GetJsonAsync<WxJsonResult>(url);
+                WxJsonResult resultFail = await Senparc.CO2NET.HttpUtility.Get.GetJsonAsync<WxJsonResult>(CommonDI.CommonSP, url);
                 Assert.Fail(); //上一步就应该已经抛出异常
             }
             catch (ErrorJsonResultException ex)

@@ -262,7 +262,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return Post.PostFileGetJson<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<WxJsonResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -610,7 +610,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var url = string.Format(Config.ApiMpHost + "/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
-               return await Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+               return await Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
 
            }, accessTokenOrAppId).ConfigureAwait(false);
         }

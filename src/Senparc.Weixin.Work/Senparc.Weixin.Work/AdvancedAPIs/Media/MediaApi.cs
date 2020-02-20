@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<UploadTemporaryResultJson>(CommonDI.CommonSP, url, null, fileDictionary, null, null, null, false, timeOut: timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -193,7 +193,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, null, timeOut);
+                return Post.PostFileGetJson<UploadForeverResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, null, null, false, null, timeOut);
             }, accessTokenOrAppKey);
 
 
@@ -370,7 +370,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = imgFile;
-                return Post.PostFileGetJson<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<UploadimgMediaResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppKey);
 
@@ -397,7 +397,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, false, null, timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, null, null, false, null, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
@@ -471,7 +471,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = media;
-                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, false, null, timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(CommonDI.CommonSP,url, null, fileDictionary, null, null, null, false, null, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
@@ -651,7 +651,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = imgFile;
-                return await Post.PostFileGetJsonAsync<UploadimgMediaResult>(url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
+                return await Post.PostFileGetJsonAsync<UploadimgMediaResult>(CommonDI.CommonSP,url, null, fileDictionary, null, timeOut: timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
 

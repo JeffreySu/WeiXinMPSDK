@@ -28,11 +28,12 @@ using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Agents
 {
     [TestClass]
-    public class MessageAgentTest
+    public class MessageAgentTest : BaseTest
     {
         [TestMethod]
         public void RequestXmlTest()
@@ -65,16 +66,16 @@ namespace Senparc.Weixin.MP.Test.Agents
         {
             var url = "https://sdk.weixin.senparc.com/weixin";
             var token = "weixin";
-            var result = MessageAgent.CheckUrlAndToken(url, token);
+            var result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsTrue(result);
 
             token = "wrong_token";
-            result = MessageAgent.CheckUrlAndToken(url, token);
+            result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsFalse(false);
 
             url = "wrong_url";
             token = "weixin";
-            result = MessageAgent.CheckUrlAndToken(url, token);
+            result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsFalse(false);
         }
     }

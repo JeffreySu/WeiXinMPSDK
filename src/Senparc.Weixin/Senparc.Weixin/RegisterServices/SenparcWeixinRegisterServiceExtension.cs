@@ -55,7 +55,8 @@ namespace Senparc.Weixin.RegisterServices
         /// <param name="serviceCollection">IServiceCollection</param>
         /// <param name="configuration">IConfiguration</param>
         /// <returns></returns>
-        public static IServiceProvider AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+
         {
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.RegisterServices
             }
             else
             {
-                return SenparcDI.GlobalServiceProvider;
+                return serviceCollection;
             }
 
 

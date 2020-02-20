@@ -76,7 +76,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);

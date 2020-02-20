@@ -92,7 +92,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
               accessToken.AsUrlData(), mediaId.AsUrlData());
 
-                CO2NET.HttpUtility.Get.Download(url, stream);//todo 异常处理
+                CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, stream);//todo 异常处理
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-                var fileName = CO2NET.HttpUtility.Get.Download(url, dir);
+                var fileName = CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, dir);
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = fileName };
             }, accessTokenOrAppKey);
             return result.errmsg;
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 if (stream != null)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    CO2NET.HttpUtility.Get.Download(urlFormat, stream);
+                    CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, urlFormat, stream);
                 }
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.不合法的媒体文件id, errmsg = "invalid media_id" };//错误情况下的返回
@@ -239,7 +239,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
-                Senparc.CO2NET.HttpUtility.Get.Download(url, stream);//todo 异常处理
+                Senparc.CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, stream);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey);
         }
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken.AsUrlData(), mediaId.AsUrlData());
-                await CO2NET.HttpUtility.Get.DownloadAsync(url, stream).ConfigureAwait(false);//todo 异常处理
+                await CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);//todo 异常处理
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
@@ -516,7 +516,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     Config.ApiWorkHost + "/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
-                await Senparc.CO2NET.HttpUtility.Get.DownloadAsync(url, stream).ConfigureAwait(false);//todo 异常处理
+                await Senparc.CO2NET.HttpUtility.Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);//todo 异常处理
 
                 return new WorkJsonResult() { errcode = ReturnCode_Work.请求成功, errmsg = "ok" };
             }, accessTokenOrAppKey).ConfigureAwait(false);

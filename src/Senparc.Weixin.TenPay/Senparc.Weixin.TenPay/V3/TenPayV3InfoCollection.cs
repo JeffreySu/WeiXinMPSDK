@@ -179,7 +179,7 @@ namespace Senparc.Weixin.TenPay.V3
                 throw;
             }
             finally {
-                SenparcDI.ResetGlobalIServiceProvider();
+                SenparcDI.ResetGlobalIServiceProvider(SenparcDI.GlobalServiceCollection);
             }
 #endif
         }

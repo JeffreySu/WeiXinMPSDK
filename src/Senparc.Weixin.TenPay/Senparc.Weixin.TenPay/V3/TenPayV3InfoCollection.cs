@@ -65,8 +65,6 @@ namespace Senparc.Weixin.TenPay.V3
     /// </summary>
     public class TenPayV3InfoCollection : Dictionary<string, TenPayV3Info>
     {
-        public static IServiceProvider TenPayV3ServiceProvider { get; set; }
-
         /// <summary>
         /// 微信支付信息集合，Key为商户号（MchId）
         /// </summary>
@@ -118,74 +116,6 @@ namespace Senparc.Weixin.TenPay.V3
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppId = tenPayV3Info.Sub_AppId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppSecret = tenPayV3Info.Sub_AppSecret;
             }
-
-            //进行证书注册
-#if !NET45
-            try
-            {
-                var certName = key;
-                var certPassword = tenPayV3Info.CertSecret;
-                var certPath = tenPayV3Info.CertPath;
-
-                //添加注册
-
-                //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
-
-                #region 添加证书
-
-                //添加注册
-
-                if (!string.IsNullOrEmpty(certPath))
-                {
-
-                    if (File.Exists(certPath))
-                    {
-                        try
-                        {
-                            var services = SenparcDI.GlobalServiceCollection;
-
-                            var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-                            var checkValidationResult = false;
-                            //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
-                            services.AddHttpClient(certName)
-                                    .ConfigurePrimaryHttpMessageHandler(() =>
-                                    {
-                                        var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
-
-                                        httpClientHandler.ClientCertificates.Add(cert);
-
-                                        if (checkValidationResult)
-                                        {
-                                            httpClientHandler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(RequestUtility.CheckValidationResult);
-                                        }
-
-                                        return httpClientHandler;
-                                    });
-                        }
-                        catch (Exception ex)
-                        {
-                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", $"certName:{certName},certPath:{certPath}");
-                            Senparc.CO2NET.Trace.SenparcTrace.BaseExceptionLog(ex);
-                        }
-                    }
-                    else
-                    {
-                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"已设置微信支付证书，但无法找到文件", $"certName:{certName},certPath:{certPath}");
-                    }
-                }
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                TenPayV3ServiceProvider = SenparcDI.GlobalServiceCollection.BuildServiceProvider();
-
-                //SenparcDI.ResetGlobalIServiceProvider(SenparcDI.GlobalServiceCollection);
-            }
-#endif
         }
 
         /// <summary>

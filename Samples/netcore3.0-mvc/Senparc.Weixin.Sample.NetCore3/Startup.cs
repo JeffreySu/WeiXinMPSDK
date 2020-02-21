@@ -78,6 +78,9 @@ namespace Senparc.Weixin.Sample.NetCore3
             
             services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>(); //Senparc.WebSocket 注册（按需）
+
+
+            //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -249,7 +252,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                             .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
                             //注册最新微信支付版本（V3）（可注册多个）
-                            .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            .RegisterTenpayV3( senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            /* 特别注意：
+                             * 在 services.AddSenparcWeixinServices() 代码中，已经自动为当前的 
+                             * senparcWeixinSetting  对应的TenpayV3 配置进行了 Cert 证书配置，
+                             * 如果此处注册的微信支付信息和默认 senparcWeixinSetting 信息不同，
+                             * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 
+                             * 添加对应证书。
+                             */
 
                     #endregion                          // DPBMARK_END
 

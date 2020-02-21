@@ -77,7 +77,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// 默认微信配置
         /// </summary>
-        [Obsolete("请使用 SenparcWeixinSetting")]
+        [Obsolete("请使用 SenparcWeixinSetting", true)]
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get => SenparcWeixinSetting; set { SenparcWeixinSetting = value; } }
 
         /// <summary>

@@ -35,10 +35,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Senparc.CO2NET;
+using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using System;
+using System.IO;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 #endif
 
 namespace Senparc.Weixin.RegisterServices
@@ -48,7 +55,7 @@ namespace Senparc.Weixin.RegisterServices
     /// </summary>
     public static class RegisterServiceExtension
     {
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
+#if !NET45
         /// <summary>
         /// 注册 IServiceCollection，并返回 RegisterService，开始注册流程
         /// </summary>
@@ -60,16 +67,22 @@ namespace Senparc.Weixin.RegisterServices
         {
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
+            var services = serviceCollection;
             if (!CO2NET.RegisterServices.RegisterServiceExtension.SenparcGlobalServicesRegistered)
             {
-               return serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+                services = serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
             }
-            else
+
+            //注册 HttpClient
+            using (var scope = serviceCollection.BuildServiceProvider().CreateScope())
             {
-                return serviceCollection;
+                var senparcWeixinSetting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting; ;
+                serviceCollection.AddCertHttpClient(senparcWeixinSetting.TenPayV3_Key, senparcWeixinSetting.TenPayV3_CertSecret, senparcWeixinSetting.TenPayV3_CertPath);
             }
 
+            return services;
 
+            #region appsettings.json 中添加节点
             /*
              * appsettings.json 中添加节点：
   //Senparc.Weixin SDK 设置
@@ -115,6 +128,78 @@ namespace Senparc.Weixin.RegisterServices
     "Cache_Memcached_Configuration": "Memcached配置"
   }
   */
+            #endregion
+        }
+
+        /// <summary>
+        /// 注册 HttpClient 请求证书
+        /// </summary>
+        /// <returns></returns>
+        public static IServiceCollection AddCertHttpClient(this IServiceCollection services, string certName,string certPassword,string certPath)
+        {
+            try
+            {
+                //var certName = key;
+                //var certPassword = tenPayV3Info.CertSecret;
+                //var certPath = tenPayV3Info.CertPath;
+
+                //添加注册
+
+                //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
+
+                #region 添加证书
+
+                //添加注册
+
+                if (!string.IsNullOrEmpty(certPath))
+                {
+
+                    if (File.Exists(certPath))
+                    {
+                        try
+                        {
+
+                            var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+                            var checkValidationResult = false;
+                            //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
+                            services.AddHttpClient(certName)
+                                    .ConfigurePrimaryHttpMessageHandler(() =>
+                                    {
+                                        var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
+
+                                        httpClientHandler.ClientCertificates.Add(cert);
+
+                                        if (checkValidationResult)
+                                        {
+                                            httpClientHandler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(RequestUtility.CheckValidationResult);
+                                        }
+
+                                        return httpClientHandler;
+                                    });
+                        }
+                        catch (Exception ex)
+                        {
+                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", $"certName:{certName},certPath:{certPath}");
+                            Senparc.CO2NET.Trace.SenparcTrace.BaseExceptionLog(ex);
+                        }
+                    }
+                    else
+                    {
+                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"已设置微信支付证书，但无法找到文件", $"certName:{certName},certPath:{certPath}");
+                    }
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                //SenparcDI.ResetGlobalIServiceProvider(SenparcDI.GlobalServiceCollection);
+            }
+
+            return services;
         }
 #endif
     }

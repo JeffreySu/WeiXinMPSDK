@@ -24,6 +24,10 @@ namespace Senparc.Weixin
 #endif
                 return _commonSP;
             }
+            set
+            {
+                _commonSP = value;
+            }
         }
     }
 }

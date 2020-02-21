@@ -26,7 +26,7 @@ namespace Senparc.Weixin
             }
             set
             {
-                _commonSP = vale;
+                _commonSP = value;
             }
         }
     }

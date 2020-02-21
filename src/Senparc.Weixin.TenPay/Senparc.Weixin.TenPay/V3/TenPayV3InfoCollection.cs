@@ -48,7 +48,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-#if NETSTANDARD2_0 || NETCOREAPP3_1
+#if NETSTANDARD2_0 || NETSTANDARD2_1
 using Microsoft.Extensions.DependencyInjection;
 #endif
 using Senparc.CO2NET;
@@ -65,6 +65,8 @@ namespace Senparc.Weixin.TenPay.V3
     /// </summary>
     public class TenPayV3InfoCollection : Dictionary<string, TenPayV3Info>
     {
+        public static IServiceProvider TenPayV3ServiceProvider { get; set; }
+
         /// <summary>
         /// 微信支付信息集合，Key为商户号（MchId）
         /// </summary>
@@ -179,7 +181,8 @@ namespace Senparc.Weixin.TenPay.V3
             }
             finally
             {
-                CommonDI.CommonSP = null;//下次访问将会自动重新Build
+                TenPayV3ServiceProvider = SenparcDI.GlobalServiceCollection.BuildServiceProvider();
+
                 //SenparcDI.ResetGlobalIServiceProvider(SenparcDI.GlobalServiceCollection);
             }
 #endif

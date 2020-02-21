@@ -118,10 +118,9 @@ namespace Senparc.Weixin.TenPay.V3
             }
 
             //进行证书注册
-#if NETSTANDARD2_0 || NETCOREAPP3_1
+#if !NET45
             try
             {
-                var service = SenparcDI.GlobalServiceCollection;
                 var certName = key;
                 var certPassword = tenPayV3Info.CertSecret;
                 var certPath = tenPayV3Info.CertPath;
@@ -130,7 +129,7 @@ namespace Senparc.Weixin.TenPay.V3
 
                 //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
 
-                #region 测试添加证书
+                #region 添加证书
 
                 //添加注册
 
@@ -141,12 +140,12 @@ namespace Senparc.Weixin.TenPay.V3
                     {
                         try
                         {
+                            var services = SenparcDI.GlobalServiceCollection;
+
                             var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
                             var checkValidationResult = false;
-
-                            var serviceCollection = SenparcDI.GlobalServiceCollection;
                             //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
-                            serviceCollection.AddHttpClient(certName)
+                            services.AddHttpClient(certName)
                                     .ConfigurePrimaryHttpMessageHandler(() =>
                                     {
                                         var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
@@ -178,7 +177,9 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 throw;
             }
-            finally {
+            finally
+            {
+                CommonDI.CommonSP = null;//下次访问将会自动重新Build
                 //SenparcDI.ResetGlobalIServiceProvider(SenparcDI.GlobalServiceCollection);
             }
 #endif

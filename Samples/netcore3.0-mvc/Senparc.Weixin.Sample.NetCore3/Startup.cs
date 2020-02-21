@@ -249,7 +249,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                             .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
                             //注册最新微信支付版本（V3）（可注册多个）
-                            .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            .RegisterTenpayV3( senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
 
                     #endregion                          // DPBMARK_END
 

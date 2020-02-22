@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -41,6 +41,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -63,21 +64,26 @@ namespace Senparc.Weixin.RegisterServices
         /// <param name="configuration">IConfiguration</param>
         /// <returns></returns>
         public static IServiceCollection AddSenparcWeixinServices(this IServiceCollection serviceCollection, IConfiguration configuration)
-
         {
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
             var services = serviceCollection;
+
+            //全局注册 CO2NET
             if (!CO2NET.RegisterServices.RegisterServiceExtension.SenparcGlobalServicesRegistered)
             {
-                services = serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+                services = services.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
             }
 
             //注册 HttpClient
-            using (var scope = serviceCollection.BuildServiceProvider().CreateScope())
+            using (var scope = services.BuildServiceProvider().CreateScope())
             {
-                var senparcWeixinSetting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting; ;
-                serviceCollection.AddCertHttpClient(senparcWeixinSetting.TenPayV3_Key, senparcWeixinSetting.TenPayV3_CertSecret, senparcWeixinSetting.TenPayV3_CertPath);
+                //var serviceProvider = serviceCollection.BuildServiceProvider();
+                var tenPayV3Setting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting;
+
+                var key = TenPayHelper.GetRegisterKey(tenPayV3Setting);
+
+                services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
             }
 
             return services;
@@ -139,26 +145,16 @@ namespace Senparc.Weixin.RegisterServices
         {
             try
             {
-                //var certName = key;
-                //var certPassword = tenPayV3Info.CertSecret;
-                //var certPath = tenPayV3Info.CertPath;
-
-                //添加注册
-
-                //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
-
                 #region 添加证书
 
                 //添加注册
 
                 if (!string.IsNullOrEmpty(certPath))
                 {
-
                     if (File.Exists(certPath))
                     {
                         try
                         {
-
                             var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
                             var checkValidationResult = false;
                             //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
@@ -176,6 +172,7 @@ namespace Senparc.Weixin.RegisterServices
 
                                         return httpClientHandler;
                                     });
+                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"成功添加 cert 证书", $"certName:{certName},certPath:{certPath}");
                         }
                         catch (Exception ex)
                         {

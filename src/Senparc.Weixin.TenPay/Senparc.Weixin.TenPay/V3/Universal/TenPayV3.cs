@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -107,6 +107,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.TenPay;
 
@@ -192,7 +193,7 @@ namespace Senparc.Weixin.TenPay.V3
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = RequestUtility.HttpPost(
                     serviceProvider,
                     url,
@@ -219,7 +220,7 @@ namespace Senparc.Weixin.TenPay.V3
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = await RequestUtility.HttpPostAsync(
                     serviceProvider,
                     url,

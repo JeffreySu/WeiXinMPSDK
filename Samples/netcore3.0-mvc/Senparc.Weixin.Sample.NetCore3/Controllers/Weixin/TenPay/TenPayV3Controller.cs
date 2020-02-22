@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 if (_tenPayV3Info == null)
                 {
-                    var key = TenPayV3InfoCollection.GetKey(Config.SenparcWeixinSetting);
+                    var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
                     _tenPayV3Info =
                         TenPayV3InfoCollection.Data[key];
@@ -602,7 +602,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 string outTradeNo = HttpContext.Session.GetString("BillNo");
 
                 WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
-
 
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));

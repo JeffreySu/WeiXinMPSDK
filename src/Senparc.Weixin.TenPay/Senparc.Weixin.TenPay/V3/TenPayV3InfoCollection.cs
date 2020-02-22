@@ -50,6 +50,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.TenPay.V3
 {
@@ -64,34 +65,13 @@ namespace Senparc.Weixin.TenPay.V3
         public static TenPayV3InfoCollection Data = new TenPayV3InfoCollection();
 
         /// <summary>
-        /// 获取完整件
-        /// </summary>
-        /// <param name="mchId"></param>
-        /// <param name="subMchId"></param>
-        /// <returns></returns>
-        public static string GetKey(string mchId, string subMchId)
-        {
-            return mchId + "_" + subMchId;
-        }
-
-        /// <summary>
-        /// 获取完整件
-        /// </summary>
-        /// <param name="senparcWeixinSettingForTenpayV3">ISenparcWeixinSettingForTenpayV3，也可以直接传入 SenparcWeixinSetting</param>
-        /// <returns></returns>
-        public static string GetKey(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
-        {
-            return GetKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
-        }
-
-        /// <summary>
         /// 注册TenPayV3Info信息
         /// </summary>
         /// <param name="tenPayV3Info"></param>
         /// <param name="name">公众号唯一标识（或名称）</param>
         public static void Register(TenPayV3Info tenPayV3Info, string name)
         {
-            var key = GetKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
+            var key = TenPayHelper.GetRegisterKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
             Data[key] = tenPayV3Info;
 
             //添加到全局变量

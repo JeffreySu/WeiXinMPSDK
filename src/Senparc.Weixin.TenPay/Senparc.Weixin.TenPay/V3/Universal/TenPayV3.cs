@@ -107,6 +107,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.TenPay;
 
@@ -192,7 +193,7 @@ namespace Senparc.Weixin.TenPay.V3
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = RequestUtility.HttpPost(
                     serviceProvider,
                     url,
@@ -219,7 +220,7 @@ namespace Senparc.Weixin.TenPay.V3
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = await RequestUtility.HttpPostAsync(
                     serviceProvider,
                     url,

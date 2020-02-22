@@ -41,6 +41,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -67,17 +68,22 @@ namespace Senparc.Weixin.RegisterServices
             serviceCollection.Configure<SenparcWeixinSetting>(configuration.GetSection("SenparcWeixinSetting"));
 
             var services = serviceCollection;
+
+            //全局注册 CO2NET
             if (!CO2NET.RegisterServices.RegisterServiceExtension.SenparcGlobalServicesRegistered)
             {
-                services = serviceCollection.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
+                services = services.AddSenparcGlobalServices(configuration);//自动注册 SenparcGlobalServices
             }
 
             //注册 HttpClient
-            //using (var scope = services.BuildServiceProvider().CreateScope())
+            using (var scope = services.BuildServiceProvider().CreateScope())
             {
-                var serviceProvider = services.BuildServiceProvider();
-                var senparcWeixinSetting = serviceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting;
-                services.AddCertHttpClient(senparcWeixinSetting.TenPayV3_Key, senparcWeixinSetting.TenPayV3_CertSecret, senparcWeixinSetting.TenPayV3_CertPath);
+                //var serviceProvider = serviceCollection.BuildServiceProvider();
+                var tenPayV3Setting = scope.ServiceProvider.GetService<IOptions<SenparcWeixinSetting>>().Value.TenpayV3Setting;
+
+                var key = TenPayHelper.GetRegisterKey(tenPayV3Setting);
+
+                services.AddCertHttpClient(key, tenPayV3Setting.TenPayV3_CertSecret, tenPayV3Setting.TenPayV3_CertPath);
             }
 
             return services;

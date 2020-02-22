@@ -44,17 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
 #if NETSTANDARD2_0 || NETSTANDARD2_1
 using Microsoft.Extensions.DependencyInjection;
 #endif
-using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 

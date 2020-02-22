@@ -603,7 +603,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
 
-
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
@@ -619,7 +618,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 #endregion
 
                 #region 新方法（Senparc.Weixin v6.4.4+）
-                var result = TenPayV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
+                var result = TenPayV3.Refund(CommonDI.CommonSP, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
                 #endregion
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());

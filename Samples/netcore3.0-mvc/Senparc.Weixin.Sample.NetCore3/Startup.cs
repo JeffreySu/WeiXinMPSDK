@@ -288,29 +288,29 @@ namespace Senparc.Weixin.Sample.NetCore3
                                     }
                                 },
 
-                            //getAuthorizerRefreshTokenFunc
-                            async (componentAppId, auhtorizerId) =>
-                            {
-                                var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
-                                if (!Directory.Exists(dir))
+                                //getAuthorizerRefreshTokenFunc
+                                async (componentAppId, auhtorizerId) =>
                                 {
-                                    Directory.CreateDirectory(dir);
-                                }
+                                    var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                                    if (!Directory.Exists(dir))
+                                    {
+                                        Directory.CreateDirectory(dir);
+                                    }
 
-                                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                                if (!File.Exists(file))
-                                {
-                                    return null;
-                                }
+                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                                    if (!File.Exists(file))
+                                    {
+                                        return null;
+                                    }
 
-                                using (Stream fs = new FileStream(file, FileMode.Open))
-                                {
-                                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                                    fs.Close();
-                                    return result.authorizer_refresh_token;
-                                }
-                            },
+                                    using (Stream fs = new FileStream(file, FileMode.Open))
+                                    {
+                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                                        var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                                        fs.Close();
+                                        return result.authorizer_refresh_token;
+                                    }
+                                },
 
                                 //authorizerTokenRefreshedFunc
                                 (componentAppId, auhtorizerId, refreshResult) =>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：SenparcWeixinSetting.cs
     文件功能描述：Senparc.Weixin JSON 配置

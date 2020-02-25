@@ -1,11 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>2.5.0</Version>
+    <Version>2.5-preview2</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
-    
     <Description>微信公众账号 - Memcached 模块
 
 Senparc.Weixin SDK 开源项目：
@@ -13,14 +11,11 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Copyright>Senparc Copyright © 2004~2019</Copyright>
     <PackageTags>微信,weixin,公众号,WeChat,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Memcached</PackageTags>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-
-
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
     <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
     <Title>Senparc.Weixin.Cache.Memcached.dll</Title>
-    
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
@@ -75,17 +70,14 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       1、支持最新版本 Senparc.Weixin
       2、提供带符号的 nuget 包（.snupkg)
       v2.5.0 使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-    </PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
-
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
@@ -95,30 +87,22 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>-->
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>
-
-
-
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>-->
-
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -136,34 +120,27 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
       <Version>1.0.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
     <PackageReference Include="EnyimMemcachedCore" Version="2.1.10" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="packages\**" />
     <EmbeddedResource Remove="packages\**" />
     <None Remove="packages\**" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="MamcachedCacheLock.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.4.102.1" />
   </ItemGroup>
-
   <ItemGroup>
-     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 </Project>

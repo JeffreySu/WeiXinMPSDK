@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：EventService.cs
     文件功能描述：事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             {
                 var appId = Config.SenparcWeixinSetting.WeixinAppId;
 
-                string openId = "";//收到通知的管理员OpenId
+                string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                 var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                 string service = null;
                 string message = ex.Message;
@@ -165,8 +165,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     //修改OpenId、启用以下代码后即可收到模板消息
                     if (!string.IsNullOrEmpty(openId))
                     {
-                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                        var result = Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                           url, data);
+                        Task.WaitAll(new[] { result });
+                        if (result.IsFaulted)
+                        {
+                            Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程模板消息发送异常", result.Exception?.Message + "\r\n" + result.Exception?.StackTrace);
+                        }
                     }
                 }                           // DPBMARK_END
             }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CodeApi.cs
     文件功能描述：代码管理
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
-            Get.Download(url, stream);
+            Get.Download(CommonDI.CommonSP, url, stream);
             return new CodeResultJson()
             {
                 errcode = ReturnCode.请求成功
@@ -403,7 +403,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
-            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
+            await Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);
             return new CodeResultJson()
             {
                 errcode = ReturnCode.请求成功

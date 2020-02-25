@@ -70,6 +70,7 @@
                                 <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台授权测试</a></li>
                                 <li><a href="@Url.Action("Index", "TenPayV3")">微信支付测试（PC端）</a></li>
                                 <li><a href="@Url.Action("Index", "Plugins")">扩展插件</a></li>
+                                <li><a href="@Url.Action("Index", "QrCode")">二维码生成器（新）</a></li>
                                 <li><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a></li>
                             </ul>
                         </li>
@@ -266,7 +267,7 @@
         <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
                 @*QQ:<a href="javascript:;">498977166</a>*@
 
-                当前框架：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc" target="_blank">.NET Core 3.0</a> |
+                当前框架：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc" target="_blank">.NET Core 3.1</a> |
                 <a href="http://net45.sdk.weixin.senparc.com/">切换至 .NET Framework 4.5 Sample</a> |
                 当前缓存策略：@ViewData["CacheType"]
             </p>
@@ -282,8 +283,6 @@
                     var s = document.getElementsByTagName("script")[0];
                     s.parentNode.insertBefore(hm, s);
                 })();
-
-
             </script>
         </div>
     </div>

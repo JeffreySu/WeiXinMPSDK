@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
  
     文件名：TenPayV3.cs
     文件功能描述：微信支付V3接口
@@ -107,6 +107,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.TenPay;
 
@@ -139,6 +140,7 @@ namespace Senparc.Weixin.TenPay.V3
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 string responseContent = RequestUtility.HttpPost(
+                    CommonDI.CommonSP, 
                     url,
                     postStream: ms,
                     cer: cer,
@@ -167,6 +169,7 @@ namespace Senparc.Weixin.TenPay.V3
                 X509Certificate2 cer = new X509Certificate2(cert, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
                 string responseContent = await RequestUtility.HttpPostAsync(
+                    CommonDI.CommonSP,
                     url,
                     postStream: ms,
                     cer: cer,
@@ -185,13 +188,14 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="url">Url</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        private static string CertPost_NetCore(string mchId,string subMchId, string data, string url, int timeOut = Config.TIME_OUT)
+        private static string CertPost_NetCore(IServiceProvider serviceProvider, string mchId, string subMchId, string data, string url, int timeOut = Config.TIME_OUT)
         {
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = RequestUtility.HttpPost(
+                    serviceProvider,
                     url,
                     postStream: ms,
                     certName: certName,
@@ -211,13 +215,14 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="url">Url</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        private static async Task<string> CertPost_NetCoreAsync(string mchId,string subMchId, string data, string url, int timeOut = Config.TIME_OUT)
+        private static async Task<string> CertPost_NetCoreAsync(IServiceProvider serviceProvider, string mchId, string subMchId, string data, string url, int timeOut = Config.TIME_OUT)
         {
             var dataBytes = Encoding.UTF8.GetBytes(data);
             using (MemoryStream ms = new MemoryStream(dataBytes))
             {
-                var certName = TenPayV3InfoCollection.GetKey(mchId, subMchId);
+                var certName = TenPayHelper.GetRegisterKey(mchId, subMchId);
                 string responseContent = await RequestUtility.HttpPostAsync(
+                    serviceProvider,
                     url,
                     postStream: ms,
                     certName: certName,
@@ -237,9 +242,9 @@ namespace Senparc.Weixin.TenPay.V3
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 
-#endregion
+        #endregion
 
-#region 同步方法
+        #region 同步方法
 
         /// <summary>
         /// 获取验签秘钥API
@@ -259,7 +264,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = RequestUtility.HttpPost(url, null, ms, timeOut: timeOut);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms, timeOut: timeOut);
             return new TenpayV3GetSignKeyResult(resultXml);
         }
 
@@ -279,7 +284,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>
@@ -299,7 +304,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);
         }
 
@@ -323,7 +328,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);*/
         }
 
@@ -380,7 +385,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
 
@@ -397,7 +402,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new OrderQueryResult(resultXml);
         }
 
@@ -415,7 +420,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
         /// <summary>
@@ -432,7 +437,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new CloseOrderResult(resultXml);
         }
 
@@ -450,7 +455,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
 
@@ -468,7 +473,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new ReverseResult(resultXml);
         }
 
@@ -480,7 +485,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword">证书密码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo,
+        public static ReverseResult Reverse(
+            IServiceProvider serviceProvider,
+            TenPayV3ReverseRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -495,7 +502,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent  = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
             return new ReverseResult(responseContent);
             //  }
@@ -517,7 +524,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static RefundResult Refund(TenPayV3RefundRequestData dataInfo,
+        public static RefundResult Refund(
+            IServiceProvider serviceProvider,
+            TenPayV3RefundRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -540,7 +549,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
                 string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-                string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+                string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
                 return new RefundResult(responseContent);
             }
@@ -560,7 +569,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
         /// <summary>
@@ -577,7 +586,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new RefundQueryResult(resultXml);
         }
 
@@ -596,7 +605,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
         /// <summary>
@@ -618,7 +627,7 @@ namespace Senparc.Weixin.TenPay.V3
             //TODO:根据GZIP参数判断是否压缩：https://github.com/JeffreySu/WeiXinMPSDK/issues/670
 
 
-            return RequestUtility.HttpPost(urlFormat, null, ms, encoding: Encoding.UTF8);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, encoding: Encoding.UTF8);
         }
 
         /// <summary>
@@ -635,7 +644,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
         /// <summary>
@@ -651,7 +660,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new ShortUrlResult(resultXml);
         }
 
@@ -670,7 +679,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         }
 
         /// <summary>
@@ -689,7 +698,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
         }
 
 
@@ -700,7 +709,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="dataInfo">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static TransfersResult Transfers(TenPayV3TransfersRequestData dataInfo,
+        public static TransfersResult Transfers(
+            IServiceProvider serviceProvider,
+            TenPayV3TransfersRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -711,7 +722,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
             return new TransfersResult(responseContent);
         }
@@ -724,7 +735,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static TransfersResult PayToWorker(TenPayV3PayToWorkerRequestData dataInfo,
+        public static TransfersResult PayToWorker(
+            IServiceProvider serviceProvider,
+            TenPayV3PayToWorkerRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -735,7 +748,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
             return new TransfersResult(responseContent);
         }
@@ -756,7 +769,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
         }
 
 
@@ -766,7 +779,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="dataInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetTransferInfoResult GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo,
+        public static GetTransferInfoResult GetTransferInfo(
+            IServiceProvider serviceProvider,
+            TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -779,7 +794,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
             return new GetTransferInfoResult(responseContent);
         }
@@ -792,7 +807,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetTransferInfoResult QueryPayLog(TenPayV3GetTransferInfoRequestData dataInfo,
+        public static GetTransferInfoResult QueryPayLog(
+            IServiceProvider serviceProvider,
+            TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -804,7 +821,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = CertPost_NetCore(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
 #endif
             return new GetTransferInfoResult(responseContent);
         }
@@ -825,14 +842,14 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new MicropayResult(resultXml);
         }
 
-#endregion
+        #endregion
 
 
-#region 异步方法
+        #region 异步方法
 
         /// <summary>
         /// 获取验签秘钥API
@@ -852,7 +869,7 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = await RequestUtility.HttpPostAsync(url, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, url, null, ms, timeOut: timeOut).ConfigureAwait(false);
             return new TenpayV3GetSignKeyResult(resultXml);
         }
 
@@ -872,7 +889,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
         }
 
 
@@ -891,7 +908,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
             return new UnifiedorderResult(resultXml);
         }
 
@@ -915,7 +932,7 @@ namespace Senparc.Weixin.TenPay.V3
             await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);*/
         }
 
@@ -928,7 +945,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<RefundResult> RefundAsync(TenPayV3RefundRequestData dataInfo,
+        public static async Task<RefundResult> RefundAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3RefundRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -946,7 +965,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new RefundResult(responseContent);
         }
@@ -965,7 +984,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
 
@@ -983,7 +1002,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new OrderQueryResult(resultXml);
         }
 
@@ -1001,7 +1020,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
 
@@ -1019,7 +1038,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new CloseOrderResult(resultXml);
         }
 
@@ -1037,7 +1056,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
 
@@ -1055,7 +1074,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resutlXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resutlXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new ReverseResult(resutlXml);
         }
 
@@ -1067,7 +1086,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="certPassword">证书密码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo,
+        public static async Task<ReverseResult> ReverseAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3ReverseRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -1082,7 +1103,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new ReverseResult(responseContent);
             //}
@@ -1102,7 +1123,7 @@ namespace Senparc.Weixin.TenPay.V3
         //    MemoryStream ms = new MemoryStream();
         //    ms.Write(formDataBytes, 0, formDataBytes.Length);
         //    ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
         //}
 
         /// <summary>
@@ -1119,7 +1140,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1135,7 +1156,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new RefundQueryResult(resultXml);
         }
 
@@ -1153,7 +1174,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1169,7 +1190,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1186,7 +1207,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1202,7 +1223,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new ShortUrlResult(resultXml);
         }
 
@@ -1221,7 +1242,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1240,7 +1261,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1250,7 +1271,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="dataInfo">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<TransfersResult> TransfersAsync(TenPayV3TransfersRequestData dataInfo,
+        public static async Task<TransfersResult> TransfersAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3TransfersRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -1261,7 +1284,7 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new TransfersResult(responseContent);
         }
@@ -1281,7 +1304,7 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
+            return await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1290,7 +1313,9 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="dataInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetTransferInfoResult> GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo,
+        public static async Task<GetTransferInfoResult> GetTransferInfoAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3GetTransferInfoRequestData dataInfo,
 #if NET45
             string cert, string certPassword, 
 #endif
@@ -1301,12 +1326,12 @@ namespace Senparc.Weixin.TenPay.V3
 #if NET45
             string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
 #else
-            string responseContent = await CertPost_NetCoreAsync(dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
 #endif
             return new GetTransferInfoResult(responseContent);
         }
 
-       
+
         /// <summary>
         /// 【异步方法】刷卡支付
         /// 提交被扫支付
@@ -1321,10 +1346,10 @@ namespace Senparc.Weixin.TenPay.V3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms).ConfigureAwait(false);
+            var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms).ConfigureAwait(false);
             return new MicropayResult(resultXml);
         }
 
-#endregion
+        #endregion
     }
 }

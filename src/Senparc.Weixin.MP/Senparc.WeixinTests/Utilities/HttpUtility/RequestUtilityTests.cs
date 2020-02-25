@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = RequestUtility.HttpPost(url,
+            var result = RequestUtility.HttpPost(CommonDI.CommonSP, url,
                 cookieContainer, stream, useAjax: true);
 
             Console.WriteLine(result);
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             var cookieContainer = new CookieContainer();
             var url = "http://localhost:65395/ForTest/PostTest";//使用.NET 4.5的Sample
-            var result = RequestUtility.HttpResponsePost(url,
+            var result = RequestUtility.HttpResponsePost(CommonDI.CommonSP, url,
                 cookieContainer, stream, useAjax: true);
 
             Assert.IsNotNull(result);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Trace;
 
 #if NET45
 using System.Web;
@@ -35,6 +36,35 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
 
         private XDocument GetXDocument()
         {
+            var databaseFilePath = GetDatabaseFilePath();
+            if (!File.Exists(databaseFilePath))
+            {
+                SenparcTrace.SendCustomLog("Config.xml", $"初始化新建：{databaseFilePath}");
+
+                //如果不存在则新建
+                var config = new Config()
+                {
+                    QrCodeId = 0,
+                    DownloadCount = 0,
+                    Versions = new List<string>() { "0.0.0"},
+                    WebVersions = new List<string>() { "0.0.0"}
+                };
+
+                XDocument newDoc = new XDocument();
+                var root = new XElement("Config");
+                root.Add(new XElement("QrCodeId", config.QrCodeId));
+                root.Add(new XElement("DownloadCount", config.DownloadCount));
+                root.Add(new XElement("Versions", new XElement("Version", config.Versions.First())));
+                root.Add(new XElement("WebVersions", new XElement("Version", config.Versions.First())));
+                newDoc.Add(root);
+                using (FileStream fs = new FileStream(databaseFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    newDoc.Save(fs);
+                }
+                SenparcTrace.SendCustomLog("Config.xml", $"初始化完成");
+                return newDoc;
+            }
+
             var doc = XDocument.Load(GetDatabaseFilePath());
             return doc;
         }

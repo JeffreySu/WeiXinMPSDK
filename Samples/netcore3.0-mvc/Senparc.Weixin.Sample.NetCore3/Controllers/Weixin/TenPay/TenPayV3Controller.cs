@@ -49,6 +49,7 @@ using Senparc.Weixin.Sample.NetCore3.Filters;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.MP;
 using Senparc.CO2NET;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -230,45 +231,56 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <returns></returns>
         public ActionResult Native()
         {
-            RequestHandler nativeHandler = new RequestHandler(null);
-            string timeStamp = TenPayV3Util.GetTimestamp();
-            string nonceStr = TenPayV3Util.GetNoncestr();
-
-            //商品Id，用户自行定义
-            string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
-
-            nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
-            nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
-            nativeHandler.SetParameter("time_stamp", timeStamp);
-            nativeHandler.SetParameter("nonce_str", nonceStr);
-            nativeHandler.SetParameter("product_id", productId);
-            string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-
-            var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
-
-            BitMatrix bitMatrix;
-            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
-            var bw = new ZXing.BarcodeWriterPixelData();
-
-            var pixelData = bw.Write(bitMatrix);
-            var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-
-            var fileStream = new MemoryStream();
-
-            var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
             try
             {
-                // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
-                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
-            }
-            finally
-            {
-                bitmap.UnlockBits(bitmapData);
-            }
-            bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
-            fileStream.Seek(0, SeekOrigin.Begin);
+                RequestHandler nativeHandler = new RequestHandler(null);
+                string timeStamp = TenPayV3Util.GetTimestamp();
+                string nonceStr = TenPayV3Util.GetNoncestr();
 
-            return File(fileStream, "image/png");
+                //商品Id，用户自行定义
+                string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
+
+                nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
+                nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+                nativeHandler.SetParameter("time_stamp", timeStamp);
+                nativeHandler.SetParameter("nonce_str", nonceStr);
+                nativeHandler.SetParameter("product_id", productId);
+                string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+
+                var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
+
+                BitMatrix bitMatrix;
+                bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+                var bw = new ZXing.BarcodeWriterPixelData();
+
+                var pixelData = bw.Write(bitMatrix);
+                var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+
+                var fileStream = new MemoryStream();
+
+                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                try
+                {
+                    // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                    System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                }
+                finally
+                {
+                    bitmap.UnlockBits(bitmapData);
+                }
+                bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
+                fileStream.Seek(0, SeekOrigin.Begin);
+
+                return File(fileStream, "image/png");
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.SendCustomLog("TenPayV3.Native 执行出错", ex.Message);
+                SenparcTrace.BaseExceptionLog(ex);
+
+                throw;
+            }
+           
         }
 
         public ActionResult NativeNotifyUrl()

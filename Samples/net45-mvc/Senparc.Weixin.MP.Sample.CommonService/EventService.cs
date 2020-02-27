@@ -136,6 +136,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.参数错误invalid_parameter,
                                 ReturnCode.接口调用超过限制,
                                 ReturnCode.需要接收者关注,//43004
+                                ReturnCode.超出响应数量限制,//43004 - out of response count limit，一般只允许连续接收20条客服消息
 
                                 //其他更多可能的情况
                             };

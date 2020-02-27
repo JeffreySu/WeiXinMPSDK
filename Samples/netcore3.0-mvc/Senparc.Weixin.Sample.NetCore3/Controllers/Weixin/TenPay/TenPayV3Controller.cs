@@ -269,9 +269,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     bitmap.UnlockBits(bitmapData);
                 }
                 bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
-                fileStream.Seek(0, SeekOrigin.Begin);
+                _fileStream.Seek(0, SeekOrigin.Begin);
 
-                return File(fileStream, "image/png");
+                return File(_fileStream, "image/png");
             }
             catch (Exception ex)
             {

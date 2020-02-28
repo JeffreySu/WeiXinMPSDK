@@ -57,7 +57,6 @@ namespace Senparc.Weixin.Entities
         /// <param name="propertyName"></param>
         /// <returns></returns>
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
-
         {
             if (object.Equals(storage, value)) return false;
 

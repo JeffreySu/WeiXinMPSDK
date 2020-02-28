@@ -282,33 +282,35 @@ namespace Senparc.Weixin.Sample.NetCore3
                                         using (var sr = new StreamReader(fs))
                                         {
                                             var ticket = await sr.ReadToEndAsync();
+                                            sr.Close();
                                             return ticket;
                                         }
                                     }
                                 },
 
-                            //getAuthorizerRefreshTokenFunc
-                            async (componentAppId, auhtorizerId) =>
-                            {
-                                var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
-                                if (!Directory.Exists(dir))
+                                //getAuthorizerRefreshTokenFunc
+                                async (componentAppId, auhtorizerId) =>
                                 {
-                                    Directory.CreateDirectory(dir);
-                                }
+                                    var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                                    if (!Directory.Exists(dir))
+                                    {
+                                        Directory.CreateDirectory(dir);
+                                    }
 
-                                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                                if (!File.Exists(file))
-                                {
-                                    return null;
-                                }
+                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                                    if (!File.Exists(file))
+                                    {
+                                        return null;
+                                    }
 
-                                using (Stream fs = new FileStream(file, FileMode.Open))
-                                {
-                                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                                    return result.authorizer_refresh_token;
-                                }
-                            },
+                                    using (Stream fs = new FileStream(file, FileMode.Open))
+                                    {
+                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                                        var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                                        fs.Close();
+                                        return result.authorizer_refresh_token;
+                                    }
+                                },
 
                                 //authorizerTokenRefreshedFunc
                                 (componentAppId, auhtorizerId, refreshResult) =>
@@ -326,6 +328,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                                         var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                                         binFormat.Serialize(fs, refreshResult);
                                         fs.Flush();
+                                    fs.Close();
                                     }
                                 }, "【盛派网络】开放平台")
 

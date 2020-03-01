@@ -99,7 +99,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     return null;
                 }
 
-                if (!UsingEcryptMessage)
+                if (!UsingEncryptMessage)
                 {
                     return ResponseDocument;
                 }
@@ -142,10 +142,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="inputStream">XML流（后期会支持JSON）</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -155,9 +155,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(requestDocument, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -167,9 +167,9 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="onlyAllowEcryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
-        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
+        public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
         }
 
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
             {
                 //使用了加密
-                UsingEcryptMessage = true;
+                UsingEncryptMessage = true;
                 EcryptRequestDocument = postDataDocument;
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
@@ -209,22 +209,22 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 if (postDataDocument.Root.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("FromUserName").Value))
                 {
                     //TODO：使用了兼容模式，进行验证即可
-                    UsingCompatibilityModelEcryptMessage = true;
+                    UsingCompatibilityModelEncryptMessage = true;
                 }
 
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
             //检查是否限定只能用加密模式
-            if (OnlyAllowEcryptMessage && !UsingEcryptMessage)
+            if (OnlyAllowEncryptMessage && !UsingEncryptMessage)
             {
                 CancelExcute = true;
-                TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEcryptMessage 设置，只允许处理加密消息，以提高安全性！";
+                TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEncryptMessage 设置，只允许处理加密消息，以提高安全性！";
                 return null;
             }
 
             RequestMessage = RequestMessageFactory.GetRequestEntity(new TMC(), decryptDoc);
-            if (UsingEcryptMessage)
+            if (UsingEncryptMessage)
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }

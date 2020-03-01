@@ -119,6 +119,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             try
             {
+                //选择要测试的缓存类型
                 IContainerCacheStrategy containerCacheStrategy;
                 switch (id)
                 {
@@ -140,7 +141,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 sb.AppendFormat($"当前测试缓存策略：{baseCache.GetType().FullName}<br /><br />");
                 var containerCache = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
                 sb.AppendFormat($"当前测试容器缓存（领域缓存）策略：{containerCache.GetType().FullName}<br /><br />");
-
 
                 var cacheExpire = TimeSpan.FromSeconds(1);
                 const string successTag = "<span style=\"color:green\">成功</span>";

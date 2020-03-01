@@ -73,6 +73,7 @@ namespace Senparc.WeixinTests
             //注册微信
             var senparcWeixinSetting = new SenparcWeixinSetting(true);
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
+            register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
 #if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1

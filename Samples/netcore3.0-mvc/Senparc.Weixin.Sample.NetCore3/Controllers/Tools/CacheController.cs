@@ -136,103 +136,88 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                         break;
                 }
 
-                var currentSystemCacheStrategy = containerCacheStrategy.BaseCacheStrategy();
-                sb.AppendFormat($"当前系统缓存策略：{containerCacheStrategy.GetType().Name}<br /><br />");
-                var currentSystemContainerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
-                sb.AppendFormat($"当前系统容器缓存（领域缓存）策略：{currentSystemContainerCacheStrategy.GetType().Name}<br /><br />");
+                var baseCache = containerCacheStrategy.BaseCacheStrategy();
+                sb.AppendFormat($"当前测试缓存策略：{baseCache.GetType().FullName}<br /><br />");
+                var containerCache = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
+                sb.AppendFormat($"当前测试容器缓存（领域缓存）策略：{containerCache.GetType().FullName}<br /><br />");
 
-
-                var caches = new Dictionary<IBaseObjectCacheStrategy, IContainerCacheStrategy> {
-                                    { LocalObjectCacheStrategy.Instance, LocalContainerCacheStrategy.Instance }
-                                };
-                try
-                {
-                    caches[CO2NET.Cache.Redis.RedisObjectCacheStrategy.Instance] = Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy.Instance;
-                    caches[CO2NET.Cache.CsRedis.RedisObjectCacheStrategy.Instance] = Senparc.Weixin.Cache.CsRedis.RedisContainerCacheStrategy.Instance;
-                }
-                catch (Exception)
-                {
-                    sb.Append("==== 当前系统未配置 Reis，跳过 Redis测试 ====<br /><br />");
-                }
 
                 var cacheExpire = TimeSpan.FromSeconds(1);
+                const string successTag = "<span style=\"color:green\">成功</span>";
+                const string faildTag = "<span style=\"color:red\">失败</span>";
 
-                foreach (var cacheSet in caches)
+                bool testSuccess = false;
+                TestContainerBag1 cacheBag = null;
+
+                sb.AppendFormat($"==== 开始指定调用缓存策略：{baseCache.GetType().FullName} ====<br /><br />");
+
+                sb.Append($"----- 测试写入（先异步后同步） -----<br />");
+                var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "." + cacheExpire.GetHashCode();//创建不重复的Key
+                var finalBagKey = baseCache.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var bag = new TestContainerBag1()
                 {
-                    bool testSuccess = false;
-                    TestContainerBag1 cacheBag = null;
-                    var baseCache = cacheSet.Key;
-                    var containerCache = cacheSet.Value;
-                    sb.AppendFormat($"==== 开始指定调用缓存策略：{baseCache.GetType().Name} ====<br /><br />");
+                    Key = shortBagKey,
+                    DateTime = SystemTime.Now
+                };
+                var dt1 = SystemTime.Now;
+                await baseCache.SetAsync(finalBagKey, bag, expiry: null, true);//不设置过期时间
+                sb.Append($"异步写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    sb.Append($"----- 测试写入（先异步后同步） -----<br />");
-                    var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss") + "." + cacheExpire.GetHashCode();//创建不重复的Key
-                    var finalBagKey = baseCache.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
-                    var bag = new TestContainerBag1()
-                    {
-                        Key = shortBagKey,
-                        DateTime = SystemTime.Now
-                    };
-                    var dt1 = SystemTime.Now;
-                    await baseCache.SetAsync(finalBagKey, bag, expiry: null, true);//不设置过期时间
-                    sb.Append($"异步写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
+                dt1 = SystemTime.Now;
+                baseCache.Set(finalBagKey, bag, expiry: null, true);//不设置过期时间
+                sb.Append($"同步写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
+                sb.Append($"----- 写入测试完成 -----<br /><br />");
 
-                    dt1 = SystemTime.Now;
-                    baseCache.Set(finalBagKey, bag, expiry: null, true);//不设置过期时间
-                    sb.Append($"同步写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
-                    sb.Append($"----- 写入测试完成 -----<br /><br />");
-
-                    sb.Append($"----- 检查缓存读取（先同步后异步） -----<br />");
+                sb.Append($"----- 检查缓存读取（先同步后异步） -----<br />");
 
 
-                    dt1 = SystemTime.Now;
-                    cacheBag = baseCache.Get<TestContainerBag1>(finalBagKey, true);
-                    sb.Append($"同步读取完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
+                dt1 = SystemTime.Now;
+                cacheBag = baseCache.Get<TestContainerBag1>(finalBagKey, true);
+                sb.Append($"同步读取完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    dt1 = SystemTime.Now;
-                    cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
-                    testSuccess = cacheBag != null;
-                    sb.Append($"异步读取完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
+                dt1 = SystemTime.Now;
+                cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                testSuccess = cacheBag != null;
+                sb.Append($"异步读取完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    testSuccess &= cacheBag != null && cacheBag.DateTime == bag.DateTime && bag.Key == shortBagKey;
-                    sb.Append($"----- 检查结果：{(testSuccess ? "成功" : "失败")} -----<br /><br />");
+                testSuccess &= cacheBag != null && cacheBag.DateTime == bag.DateTime && bag.Key == shortBagKey;
+                sb.Append($"----- 检查结果：{(testSuccess ? successTag : faildTag)} -----<br /><br />");
 
 
-                    sb.Append($"----- 容器缓存（领域缓存）修改测试 -----<br />");
-                    dt1 = SystemTime.Now;
-                    cacheBag.DateTime = SystemTime.Now;
-                    await TestContainer1.UpdateAsync(cacheBag, cacheExpire);//设置过期时间
-                    sb.Append($"写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
+                sb.Append($"----- 容器缓存（领域缓存）修改测试 -----<br />");
+                dt1 = SystemTime.Now;
+                cacheBag.DateTime = SystemTime.Now;
+                await TestContainer1.UpdateAsync(cacheBag, cacheExpire);//设置过期时间
+                sb.Append($"写入完成：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    var dt2 = SystemTime.Now;
-                    var containerResult1 = await TestContainer1.TryGetItemAsync<TestContainerBag1>(shortBagKey, z => z);
-                    sb.Append($"使用 ContainerCacheStrategy 读取完成：{SystemTime.NowDiff(dt2).TotalMilliseconds.ToString("f4")} ms<br />");
+                var dt2 = SystemTime.Now;
+                var containerResult1 = await TestContainer1.TryGetItemAsync<TestContainerBag1>(shortBagKey, z => z);
+                sb.Append($"使用 ContainerCacheStrategy 读取完成：{SystemTime.NowDiff(dt2).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    dt2 = SystemTime.Now;
-                    var containerResult2 = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
-                    sb.Append($"使用 BaseContainerStrategy 读取完成：{SystemTime.NowDiff(dt2).TotalMilliseconds.ToString("f4")} ms<br />");
+                dt2 = SystemTime.Now;
+                var containerResult2 = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                sb.Append($"使用 BaseContainerStrategy 读取完成：{SystemTime.NowDiff(dt2).TotalMilliseconds.ToString("f4")} ms<br />");
 
-                    testSuccess = containerResult1 != null && containerResult2 != null && containerResult1.Key == containerResult2.Key && containerResult1.DateTime == containerResult2.DateTime;
-                    sb.Append($"----- 测试结果：{(testSuccess ? "成功" : "失败")}（总耗时：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms） -----<br /><br />");
+                testSuccess = containerResult1 != null && containerResult2 != null && containerResult1.Key == containerResult2.Key && containerResult1.DateTime == containerResult2.DateTime;
+                sb.Append($"----- 测试结果：{(testSuccess ? successTag : faildTag)}（总耗时：{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms） -----<br /><br />");
 
-                    sb.Append($"----- 检查缓存过期 -----<br />");
-                    var sleepTime = cacheExpire.Add(TimeSpan.FromMilliseconds(500));
-                    sb.Append($"线程休眠：{sleepTime.TotalSeconds.ToString("f2")}s<br />");
-                    await Task.Delay(sleepTime);
-                    cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
-                    sb.Append($"----- 检查结果：{(cacheBag == null ? "成功" : "失败")} -----<br /><br />");
+                sb.Append($"----- 检查缓存过期 -----<br />");
+                var sleepTime = cacheExpire.Add(TimeSpan.FromMilliseconds(500));
+                sb.Append($"线程休眠：{sleepTime.TotalSeconds.ToString("f2")}s<br />");
+                await Task.Delay(sleepTime);
+                cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                sb.Append($"----- 检查结果：{(cacheBag == null ? successTag : faildTag)} -----<br /><br />");
 
-                    sb.Append($"----- 检查缓存删除 -----<br />");
-                    await baseCache.UpdateAsync(finalBagKey, bag, cacheExpire, true);
-                    cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
-                    testSuccess = cacheBag != null;
-                    sb.Append($"写入待删除项目：{(cacheBag != null ? "成功" : "失败")}<br />");
-                    dt1 = SystemTime.Now;
-                    await baseCache.RemoveFromCacheAsync(finalBagKey, true);
-                    sb.Append($"删除项目（{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms）<br />");
-                    cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
-                    sb.Append($"----- 删除结果检查：{(cacheBag == null ? "成功" : "失败")} -----<br /><br /><br />");
-                }
+                //sb.Append($"----- 检查缓存删除 -----<br />");
+                //await baseCache.UpdateAsync(finalBagKey, bag, cacheExpire, true);
+                //cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                //testSuccess = cacheBag != null;
+                //sb.Append($"写入待删除项目：{(cacheBag != null ? successTag : faildTag)}<br />");
+                //dt1 = SystemTime.Now;
+                //await baseCache.RemoveFromCacheAsync(finalBagKey, true);
+                //sb.Append($"删除项目（{SystemTime.NowDiff(dt1).TotalMilliseconds.ToString("f4")} ms）<br />");
+                //cacheBag = await baseCache.GetAsync<TestContainerBag1>(finalBagKey, true);
+                //sb.Append($"----- 删除结果检查：{(cacheBag == null ? successTag : faildTag)} -----<br /><br /><br />");
             }
             catch (Exception ex)
             {
@@ -318,7 +303,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         //    }
 
         //    sb.AppendFormat("<br />============<br /><br />");
-        //    sb.AppendFormat("{0}：{1}<br />", "测试结果", !finalExisted ? "失败" : "成功");
+        //    sb.AppendFormat("{0}：{1}<br />", "测试结果", !finalExisted ? faildTag : successTag);
 
         //    return Content(sb.ToString());
         //    //ViewData["Result"] = sb.ToString();

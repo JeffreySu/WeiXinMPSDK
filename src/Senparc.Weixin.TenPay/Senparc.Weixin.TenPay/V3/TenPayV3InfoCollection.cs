@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -44,19 +44,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-#if NETSTANDARD2_0 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETSTANDARD2_1
 using Microsoft.Extensions.DependencyInjection;
 #endif
-using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.TenPay.V3
 {
@@ -71,34 +65,13 @@ namespace Senparc.Weixin.TenPay.V3
         public static TenPayV3InfoCollection Data = new TenPayV3InfoCollection();
 
         /// <summary>
-        /// 获取完整件
-        /// </summary>
-        /// <param name="mchId"></param>
-        /// <param name="subMchId"></param>
-        /// <returns></returns>
-        public static string GetKey(string mchId, string subMchId)
-        {
-            return mchId + "_" + subMchId;
-        }
-
-        /// <summary>
-        /// 获取完整件
-        /// </summary>
-        /// <param name="senparcWeixinSettingForTenpayV3">ISenparcWeixinSettingForTenpayV3，也可以直接传入 SenparcWeixinSetting</param>
-        /// <returns></returns>
-        public static string GetKey(ISenparcWeixinSettingForTenpayV3 senparcWeixinSettingForTenpayV3)
-        {
-            return GetKey(senparcWeixinSettingForTenpayV3.TenPayV3_MchId, senparcWeixinSettingForTenpayV3.TenPayV3_SubMchId);
-        }
-
-        /// <summary>
         /// 注册TenPayV3Info信息
         /// </summary>
         /// <param name="tenPayV3Info"></param>
         /// <param name="name">公众号唯一标识（或名称）</param>
         public static void Register(TenPayV3Info tenPayV3Info, string name)
         {
-            var key = GetKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
+            var key = TenPayHelper.GetRegisterKey(tenPayV3Info.MchId, tenPayV3Info.Sub_MchId);
             Data[key] = tenPayV3Info;
 
             //添加到全局变量
@@ -116,72 +89,6 @@ namespace Senparc.Weixin.TenPay.V3
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppId = tenPayV3Info.Sub_AppId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].TenPayV3_SubAppSecret = tenPayV3Info.Sub_AppSecret;
             }
-
-            //进行证书注册
-#if NETSTANDARD2_0 || NETCOREAPP3_0
-            try
-            {
-                var service = SenparcDI.GlobalServiceCollection;
-                var certName = key;
-                var certPassword = tenPayV3Info.CertSecret;
-                var certPath = tenPayV3Info.CertPath;
-
-                //添加注册
-
-                //service.AddSenparcHttpClientWithCertificate(certName, certPassword, certPath, false);
-
-                #region 测试添加证书
-
-                //添加注册
-
-                if (!string.IsNullOrEmpty(certPath))
-                {
-
-                    if (File.Exists(certPath))
-                    {
-                        try
-                        {
-                            var cert = new X509Certificate2(certPath, certPassword, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-                            var checkValidationResult = false;
-
-                            var serviceCollection = SenparcDI.GlobalServiceCollection;
-                            //serviceCollection.AddHttpClient<SenparcHttpClient>(certName)
-                            serviceCollection.AddHttpClient(certName)
-                                    .ConfigurePrimaryHttpMessageHandler(() =>
-                                    {
-                                        var httpClientHandler = HttpClientHelper.GetHttpClientHandler(null, RequestUtility.SenparcHttpClientWebProxy, System.Net.DecompressionMethods.None);
-
-                                        httpClientHandler.ClientCertificates.Add(cert);
-
-                                        if (checkValidationResult)
-                                        {
-                                            httpClientHandler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(RequestUtility.CheckValidationResult);
-                                        }
-
-                                        return httpClientHandler;
-                                    });
-                        }
-                        catch (Exception ex)
-                        {
-                            Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"添加微信支付证书发生异常", $"certName:{certName},certPath:{certPath}");
-                            Senparc.CO2NET.Trace.SenparcTrace.BaseExceptionLog(ex);
-                        }
-                    }
-                    else
-                    {
-                        Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog($"已设置微信支付证书，但无法找到文件", $"certName:{certName},certPath:{certPath}");
-                    }
-                }
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally {
-                SenparcDI.ResetGlobalIServiceProvider();
-            }
-#endif
         }
 
         /// <summary>

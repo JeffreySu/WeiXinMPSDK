@@ -188,7 +188,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             _postModel = postModel as PostModel ?? new PostModel();
 
 
-            UsingEcryptMessage = true;//Work中消息都是强制加密的
+            UsingEncryptMessage = true;//Work中消息都是强制加密的
             var postDataStr = postDataDocument.ToString();
             EncryptPostData = RequestMessageFactory.GetEncryptPostData(postDataStr);
 

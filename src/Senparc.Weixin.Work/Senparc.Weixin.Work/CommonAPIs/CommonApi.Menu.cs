@@ -189,7 +189,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
 
-                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(CommonDI.CommonSP, url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;

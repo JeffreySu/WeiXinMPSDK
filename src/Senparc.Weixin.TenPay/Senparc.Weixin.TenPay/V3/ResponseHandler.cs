@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -49,6 +49,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.AspNet.HttpUtility;
 using Senparc.CO2NET.Trace;
+using Senparc.CO2NET;
 
 #if NET45
 using System.Web;
@@ -155,10 +156,12 @@ namespace Senparc.Weixin.TenPay.V3
 #else
             Parameters = new Hashtable();
 
-            //#if NETSTANDARD2_0 || NETCOREAPP3_0
+            //#if NETSTANDARD2_0 || NETSTANDARD2_1
             //            HttpContext = httpContext ?? throw new WeixinException(".net standard 2.0 环境必须传入HttpContext的实例");
             //#else
-            HttpContext = httpContext ?? CO2NET.SenparcDI.GetService<IHttpContextAccessor>()?.HttpContext;
+
+            var serviceProvider = SenparcDI.GetServiceProvider();
+            HttpContext = httpContext ?? serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext;
             //#endif
 
             //post data

@@ -48,6 +48,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Senparc.Weixin.Sample.NetCore3.Filters;
 using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.MP;
+using Senparc.CO2NET;
+using Senparc.CO2NET.Trace;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -77,13 +79,19 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 if (_tenPayV3Info == null)
                 {
-                    var key = TenPayV3InfoCollection.GetKey(Config.SenparcWeixinSetting);
+                    var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
                     _tenPayV3Info =
                         TenPayV3InfoCollection.Data[key];
                 }
                 return _tenPayV3Info;
             }
+        }
+
+        private readonly IServiceProvider _serviceProvider;
+        public TenPayV3Controller(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -223,45 +231,56 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <returns></returns>
         public ActionResult Native()
         {
-            RequestHandler nativeHandler = new RequestHandler(null);
-            string timeStamp = TenPayV3Util.GetTimestamp();
-            string nonceStr = TenPayV3Util.GetNoncestr();
-
-            //商品Id，用户自行定义
-            string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
-
-            nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
-            nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
-            nativeHandler.SetParameter("time_stamp", timeStamp);
-            nativeHandler.SetParameter("nonce_str", nonceStr);
-            nativeHandler.SetParameter("product_id", productId);
-            string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-
-            var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
-
-            BitMatrix bitMatrix;
-            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
-            var bw = new ZXing.BarcodeWriterPixelData();
-
-            var pixelData = bw.Write(bitMatrix);
-            var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-
-            var fileStream = new MemoryStream();
-
-            var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
             try
             {
-                // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
-                System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
-            }
-            finally
-            {
-                bitmap.UnlockBits(bitmapData);
-            }
-            bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
-            fileStream.Seek(0, SeekOrigin.Begin);
+                RequestHandler nativeHandler = new RequestHandler(null);
+                string timeStamp = TenPayV3Util.GetTimestamp();
+                string nonceStr = TenPayV3Util.GetNoncestr();
 
-            return File(fileStream, "image/png");
+                //商品Id，用户自行定义
+                string productId = SystemTime.Now.ToString("yyyyMMddHHmmss");
+
+                nativeHandler.SetParameter("appid", TenPayV3Info.AppId);
+                nativeHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+                nativeHandler.SetParameter("time_stamp", timeStamp);
+                nativeHandler.SetParameter("nonce_str", nonceStr);
+                nativeHandler.SetParameter("product_id", productId);
+                string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+
+                var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
+
+                BitMatrix bitMatrix;
+                bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+                var bw = new ZXing.BarcodeWriterPixelData();
+
+                var pixelData = bw.Write(bitMatrix);
+                var bitmap = new System.Drawing.Bitmap(pixelData.Width, pixelData.Height, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+
+                var fileStream = new MemoryStream();
+
+                var bitmapData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, pixelData.Width, pixelData.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                try
+                {
+                    // we assume that the row stride of the bitmap is aligned to 4 byte multiplied by the width of the image   
+                    System.Runtime.InteropServices.Marshal.Copy(pixelData.Pixels, 0, bitmapData.Scan0, pixelData.Pixels.Length);
+                }
+                finally
+                {
+                    bitmap.UnlockBits(bitmapData);
+                }
+                bitmap.Save(_fileStream, System.Drawing.Imaging.ImageFormat.Png);
+                _fileStream.Seek(0, SeekOrigin.Begin);
+
+                return File(_fileStream, "image/png");
+            }
+            catch (Exception ex)
+            {
+                SenparcTrace.SendCustomLog("TenPayV3.Native 执行出错", ex.Message);
+                SenparcTrace.BaseExceptionLog(ex);
+
+                throw;
+            }
+           
         }
 
         public ActionResult NativeNotifyUrl()
@@ -596,7 +615,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 WeixinTrace.SendCustomLog("进入退款流程", "2 outTradeNo：" + outTradeNo);
 
-
                 string outRefundNo = "OutRefunNo-" + SystemTime.Now.Ticks;
                 int totalFee = int.Parse(HttpContext.Session.GetString("BillFee"));
                 int refundFee = totalFee;
@@ -612,7 +630,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 #endregion
 
                 #region 新方法（Senparc.Weixin v6.4.4+）
-                var result = TenPayV3.Refund(dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
+                var result = TenPayV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
                 #endregion
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());

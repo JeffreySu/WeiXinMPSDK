@@ -75,8 +75,12 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册
-                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>();//Senparc.WebSocket 注册（按需）
+            
+            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>(); //Senparc.WebSocket 注册（按需）
+
+
+            //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,7 +133,7 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                         //以下会立即将全局缓存设置为 Redis
                         Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
-                        //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
+                                                                                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet储存格式的缓存策略
 
                         //也可以通过以下方式自定义当前需要启用的缓存策略
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//键值对
@@ -140,7 +144,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                         /* 如果需要使用 StackExchange.Redis，则可以使用 Senparc.CO2NET.Cache.Redis 库
                          * 注意：这一步注册和上述 CsRedis 库两选一即可，本 Sample 需要同时演示两个库，因此才都进行注册
                          */
-                        
+
                         //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
                         //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//键值对缓存策略（推荐）
 
@@ -248,7 +252,14 @@ namespace Senparc.Weixin.Sample.NetCore3
                             .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
                             //注册最新微信支付版本（V3）（可注册多个）
-                            .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            .RegisterTenpayV3( senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            /* 特别注意：
+                             * 在 services.AddSenparcWeixinServices() 代码中，已经自动为当前的 
+                             * senparcWeixinSetting  对应的TenpayV3 配置进行了 Cert 证书配置，
+                             * 如果此处注册的微信支付信息和默认 senparcWeixinSetting 信息不同，
+                             * 请在 ConfigureServices() 方法中使用 services.AddCertHttpClient() 
+                             * 添加对应证书。
+                             */
 
                     #endregion                          // DPBMARK_END
 
@@ -271,33 +282,35 @@ namespace Senparc.Weixin.Sample.NetCore3
                                         using (var sr = new StreamReader(fs))
                                         {
                                             var ticket = await sr.ReadToEndAsync();
+                                            sr.Close();
                                             return ticket;
                                         }
                                     }
                                 },
 
-                            //getAuthorizerRefreshTokenFunc
-                            async (componentAppId, auhtorizerId) =>
-                            {
-                                var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
-                                if (!Directory.Exists(dir))
+                                //getAuthorizerRefreshTokenFunc
+                                async (componentAppId, auhtorizerId) =>
                                 {
-                                    Directory.CreateDirectory(dir);
-                                }
+                                    var dir = Path.Combine(ServerUtility.ContentRootMapPath("~/App_Data/AuthorizerInfo/" + componentAppId));
+                                    if (!Directory.Exists(dir))
+                                    {
+                                        Directory.CreateDirectory(dir);
+                                    }
 
-                                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                                if (!File.Exists(file))
-                                {
-                                    return null;
-                                }
+                                    var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                                    if (!File.Exists(file))
+                                    {
+                                        return null;
+                                    }
 
-                                using (Stream fs = new FileStream(file, FileMode.Open))
-                                {
-                                    var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                                    return result.authorizer_refresh_token;
-                                }
-                            },
+                                    using (Stream fs = new FileStream(file, FileMode.Open))
+                                    {
+                                        var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                                        var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                                        fs.Close();
+                                        return result.authorizer_refresh_token;
+                                    }
+                                },
 
                                 //authorizerTokenRefreshedFunc
                                 (componentAppId, auhtorizerId, refreshResult) =>
@@ -315,6 +328,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                                         var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                                         binFormat.Serialize(fs, refreshResult);
                                         fs.Flush();
+                                    fs.Close();
                                     }
                                 }, "【盛派网络】开放平台")
 

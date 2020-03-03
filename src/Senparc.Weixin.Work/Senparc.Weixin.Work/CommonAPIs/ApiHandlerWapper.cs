@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -47,6 +47,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190606
     修改描述：TryCommonApiBase<T> 中 T 参数添加 new() 约束
+
+    修改标识：Senparc - 20200229
+    修改描述：v3.7.301.1 改进 ApiHandlerWapper 对无效 AccessToken 的判断条件
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -100,7 +104,7 @@ namespace Senparc.Weixin.Work
                     return AccessTokenContainer.GetTokenResult(appKey, getNewToken);
                 };
 
-            int invalidCredentialValue = (int)ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
@@ -150,7 +154,7 @@ namespace Senparc.Weixin.Work
                     return AccessTokenContainer.GetTokenResultAsync(appKey, getNewToken);
                 };
 
-            int invalidCredentialValue = (int)ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+            int invalidCredentialValue = (int)ReturnCode.不合法的access_token;//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(

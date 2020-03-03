@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.NetCore3.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
     <ProjectReference Include="..\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
   </ItemGroup>

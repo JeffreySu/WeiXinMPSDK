@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -231,6 +231,9 @@ namespace Senparc.Weixin
         系统分组不允许修改 = 45016,
         分组名字过长 = 45017,
         分组数量超过上限 = 45018,
+        超出响应数量限制 = 45047,//out of response count limit，一般只允许连续接收20条客服消息
+
+
         不存在媒体数据 = 46001,
         不存在的菜单版本 = 46002,
         不存在的菜单数据 = 46003,

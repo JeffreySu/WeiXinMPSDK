@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+﻿#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +24,7 @@ namespace Senparc.WeixinTests
     /// </summary>
     public class BaseTest
     {
+        protected static IServiceProvider serviceProvider;
         public BaseTest()
         {
             RegisterStart();
@@ -34,7 +35,7 @@ namespace Senparc.WeixinTests
         /// </summary>
         protected void RegisterStart()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//支持 GB2312
 #endif
 
@@ -44,8 +45,8 @@ namespace Senparc.WeixinTests
             //注册 CON2ET 全局
             var senparcSetting = new SenparcSetting() { IsDebug = true };
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
-#if NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
+#if NETCOREAPP3_1
             var mockEnv = new Mock<IWebHostEnvironment>();
 #else
             var mockEnv = new Mock<IHostingEnvironment>();
@@ -72,9 +73,10 @@ namespace Senparc.WeixinTests
             //注册微信
             var senparcWeixinSetting = new SenparcWeixinSetting(true);
             register.UseSenparcWeixin(senparcWeixinSetting, senparcSetting);
+            register.ChangeDefaultCacheNamespace("Senparc.Weixin Test Cache");
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
         /// <summary>
         /// 注册 IServiceCollection 和 MemoryCache
         /// </summary>
@@ -83,10 +85,13 @@ namespace Senparc.WeixinTests
             var serviceCollection = new ServiceCollection();
             var configBuilder = new ConfigurationBuilder();
             var config = configBuilder.Build();
-            serviceCollection.AddSenparcGlobalServices(config);
-            serviceCollection.AddSenparcWeixinServices(config);
+            //serviceCollection.AddSenparcGlobalServices(config);
             serviceCollection.AddMemoryCache();//使用内存缓存
 
+            //已经包含 AddSenparcGlobalServices()，注意：必须在所有注册完成后执行
+            serviceCollection.AddSenparcWeixinServices(config);
+
+            serviceProvider = serviceCollection.BuildServiceProvider();
         }
 #endif
 
@@ -96,7 +101,7 @@ namespace Senparc.WeixinTests
         /// <returns></returns>
         protected string GetParentRootRelativePath()
         {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
             return @"..\..\..\";
 #else
             return @"..\..\";

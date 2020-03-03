@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static void ShowQrCode(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            Get.Download(url, stream);
+            Get.Download(CommonDI.CommonSP, url, stream);
         }
 
         #endregion
@@ -336,7 +336,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task ShowQrCodeAsync(string ticket, Stream stream)
         {
             var url = GetShowQrCodeUrl(ticket);
-            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
+            await Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);
         }
 
         #endregion

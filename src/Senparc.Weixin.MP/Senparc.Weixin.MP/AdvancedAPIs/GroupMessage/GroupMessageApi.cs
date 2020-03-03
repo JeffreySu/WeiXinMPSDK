@@ -412,7 +412,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
+                //官方API地址为https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/mass/delete?access_token={0}";
 
                 var data = new

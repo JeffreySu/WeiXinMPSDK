@@ -122,13 +122,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 if (ex is ErrorJsonResultException)
                 {
                     var jsonEx = (ErrorJsonResultException)ex;
-                    service = jsonEx.Url;
+                    service = $"{jsonEx.JsonResult?.errcode}:{jsonEx.JsonResult?.errmsg} - {jsonEx.Url?.Replace("https://api.weixin.qq.com/cgi-bin", "ApiUrl")}".Substring(0, 30);
                     message = jsonEx.Message;
 
                     //需要忽略的类型
                     var ignoreErrorCodes = new[]
                     {
                                 ReturnCode.获取access_token时AppSecret错误或者access_token无效,
+                                ReturnCode.access_token超时,
                                 ReturnCode.template_id不正确,
                                 ReturnCode.缺少access_token参数,
                                 ReturnCode.api功能未授权,

@@ -132,6 +132,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.access_token超时,
                                 ReturnCode.template_id不正确,
                                 ReturnCode.缺少access_token参数,
+                                ReturnCode.回复时间超过限制,
                                 ReturnCode.api功能未授权,
                                 ReturnCode.用户未授权该api,
                                 ReturnCode.参数错误invalid_parameter,

@@ -35,6 +35,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190917
     修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
+      
+    修改标识：Senparc - 20200303
+    修改描述：v3.8.304.1 优化 MessageHandler 的异步方法调用
 
 ----------------------------------------------------------------*/
 
@@ -277,7 +280,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Text:
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
                                 OnTextRequest(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
@@ -287,16 +290,16 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     {
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId) ??
+                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
                                 OnImageRequest(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:
-                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar);
+                    ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Event:
                     {
-                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase);
+                        await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false);
                     }
                     break;
                 default:

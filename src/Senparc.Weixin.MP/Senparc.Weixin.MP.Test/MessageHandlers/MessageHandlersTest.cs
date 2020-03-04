@@ -80,8 +80,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.ResponseDocument.ToString());
 
@@ -119,8 +119,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.WriteLine(messageHandlers.ResponseDocument.ToString());
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
@@ -155,7 +155,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void CompatibilityModelEcryptMessageRequestTest()
+        public void CompatibilityModelEncryptMessageRequestTest()
         {
             //兼容模式测试
             var ecryptXml = @"<xml>
@@ -185,15 +185,15 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
-            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
-            Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
+            Assert.IsTrue(messageHandlers.UsingEncryptMessage);
+            Assert.IsTrue(messageHandlers.UsingCompatibilityModelEncryptMessage);
 
 
 
         }
 
         [TestMethod]
-        public async Task PureEcryptMessageRequestTest()
+        public async Task PureEncryptMessageRequestTest()
         {
             //纯安全模式测试
             var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -222,8 +222,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
-            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
+            Assert.IsTrue(messageHandlers.UsingEncryptMessage);
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);
 
             Console.WriteLine("RequestMessage:");
             Console.WriteLine(messageHandlers.RequestMessage.ToJson(true));
@@ -553,8 +553,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNull(messageHandlers.ResponseMessage);
             Assert.IsNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.TextResponseMessage);
         }
@@ -578,8 +578,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.ResponseDocument.ToString());
         }

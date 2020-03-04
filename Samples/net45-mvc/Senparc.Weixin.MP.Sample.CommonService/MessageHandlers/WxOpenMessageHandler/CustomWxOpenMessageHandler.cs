@@ -131,13 +131,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 var result = new StringBuilder();
                 result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                if (CurrentMessageContext.RequestMessages.Count > 1)
+                var messageContext = GetCurrentMessageContext().ConfigureAwait(false).GetAwaiter().GetResult();
+                if (messageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                        CurrentMessageContext.StorageData);
-                    for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", messageContext.RequestMessages.Count,
+                        messageContext.StorageData);
+                    for (int i = messageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
-                        var historyMessage = CurrentMessageContext.RequestMessages[i];
+                        var historyMessage = messageContext.RequestMessages[i];
                         string content = null;
                         if (historyMessage is RequestMessageText)
                         {

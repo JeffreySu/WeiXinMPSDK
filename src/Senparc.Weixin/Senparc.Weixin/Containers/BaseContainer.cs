@@ -482,8 +482,6 @@ namespace Senparc.Weixin.Containers
                 .ToList();
         }
 
-
-
         /// <summary>
         /// 尝试获取某一项Bag
         /// </summary>

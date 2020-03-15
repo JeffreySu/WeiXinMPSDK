@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
-    <Version>2.7-preview2</Version>
+    <Version>2.7.400</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

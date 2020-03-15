@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Version>1.5.101-preview2</Version>
+    <Version>1.5.400</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>

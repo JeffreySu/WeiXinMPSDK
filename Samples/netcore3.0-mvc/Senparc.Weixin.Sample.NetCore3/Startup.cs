@@ -407,10 +407,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //配置自定义 SenparcHub
                 endpoints.MapHub<SenparcHub>("/SenparcHub");
             });                                                                                  // DPBMARK_END
-
-
         }
-
 
         /// <summary>
         /// 配置微信跟踪日志（演示，按需）

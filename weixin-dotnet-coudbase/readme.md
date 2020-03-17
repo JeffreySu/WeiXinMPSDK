@@ -57,8 +57,7 @@ app.UseSenparcGlobal(env, senparcSetting.Value, null, true)
 .UseSenparcWeixin(senparcWeixinSetting.Value,
 weixinRegister =>
 {
-    weixinRegister.RegisterWxOpenAccount(senparcWeixinSetting.Value,
-"【云函数】小程序");
+    weixinRegister.RegisterWxOpenAccount(senparcWeixinSetting.Value, "【云函数】小程序");
 });
 ```
 
@@ -73,12 +72,10 @@ weixinRegister =>
 在小程序开发工具的客户端配置完后，直接在需要触发的代码位置，调用接口：
 
 ``` C#
-var wxOpenSetting =
-Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting;
+var wxOpenSetting = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting;
 var envId= "senparc-robot-5f5128";
 var result = Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
-              .TcbApi.DatabaseCollectionGet(wxOpenSetting.WxOpenAppId,
-envId);
+              .TcbApi.DatabaseCollectionGet(wxOpenSetting.WxOpenAppId, envId);
 ```
 其中，wxOpenSetting 是通过 startup.cs 中代码自动进行了全局配置的全套小程序配置参数，evnId 是云函数的环境ID。
 

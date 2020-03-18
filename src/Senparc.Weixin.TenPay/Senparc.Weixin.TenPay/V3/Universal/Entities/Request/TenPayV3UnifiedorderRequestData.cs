@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181226
     修改描述：v1.1.1 修改 DateTime 为 DateTimeOffset
+
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPay;

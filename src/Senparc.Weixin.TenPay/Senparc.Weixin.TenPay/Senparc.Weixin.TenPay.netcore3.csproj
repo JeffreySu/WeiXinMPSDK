@@ -45,7 +45,8 @@
       v1.5.101 提供 .Net Core 3.0 独立版本
       v1.5.103 提供 .Net Core 3.0 独立版本
       v1.5.103.1 增加微信支付小程序：发送红包API
-</PackageReleaseNotes>
+      v1.5.401 实现分账接口
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

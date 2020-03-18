@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：lishewen - 20190530
-   
+
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 更新接口：UpdateIndex()、DatabaseAggregate()
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;

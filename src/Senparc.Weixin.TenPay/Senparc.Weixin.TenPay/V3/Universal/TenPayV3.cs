@@ -90,7 +90,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190521
     修改描述：v1.4.0 .NET Core 添加多证书注册功能
-    
+ 
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口，添加方法：MultiProfitSharing()、ProfitSharingFinish()、ProfitSharingAddReceiver()、ProfitSharingRemoveReceiver()、ProfitSharingQuery()
+
 ----------------------------------------------------------------*/
 
 /*
@@ -1012,7 +1015,6 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         #endregion
-
 
         #region 异步方法
 

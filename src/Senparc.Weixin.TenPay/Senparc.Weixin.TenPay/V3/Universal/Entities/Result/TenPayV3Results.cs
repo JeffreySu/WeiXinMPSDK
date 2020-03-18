@@ -74,6 +74,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190925
     修改描述：v1.5.0 商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+    
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口，添加 ProfitSharingResult、ProfitSharingAddReceiverResult、ProfitSharingRemoveReceiverResult、ProfitSharingQueryResult、ProfitSharingQueryResult
 
 ----------------------------------------------------------------*/
 

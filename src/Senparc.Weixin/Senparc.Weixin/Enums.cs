@@ -78,6 +78,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191014
     修改描述：配合 WxOpen v3.7.102 添加小程序订阅消息的 ReturnCode
 
+    修改标识：Senparc - 20191014
+    修改描述：v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
+
 ----------------------------------------------------------------*/
 
 

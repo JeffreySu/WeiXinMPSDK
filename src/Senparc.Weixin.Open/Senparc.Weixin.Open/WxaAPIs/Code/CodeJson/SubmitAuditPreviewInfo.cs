@@ -21,22 +21,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
     
-    文件名：GetAuditResultJson.cs
-    文件功能描述：审核ID返回结果
+    文件名：SubmitAuditPageInfo.cs
+    文件功能描述：小程序页面返回结果
     
     
     创建标识：Senparc - 20170726
     
-    修改标识：Senparc - 20190525
-    修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
-
-    修改标识：mc7246 - 20200318
-    修改描述：v4.7.401 第三方小程序，提交审核接口更新
 
 ----------------------------------------------------------------*/
 
 
-using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,26 +39,19 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
-    public class GetAuditResultJson : WxJsonResult
+    /// <summary>
+    /// 预览信息（小程序页面截图和操作录屏）
+    /// </summary>
+    public class SubmitAuditPreviewInfo
     {
+        /// <summary>
+        /// 录屏mediaid列表，可以通过提审素材上传接口获得
+        /// </summary>
+        public string[] video_id_list { get; set; }
 
         /// <summary>
-        /// 最新的审核ID，只在使用GetLatestAuditStatus接口时才有返回值
+        /// 截屏mediaid列表，可以通过提审素材上传接口获得
         /// </summary>
-        public string auditid { get; set; }
-        /// <summary>
-        /// 审核状态，其中0为审核成功，1为审核失败，2为审核中，3为已撤回，4为审核延后
-        /// </summary>
-        public int status { get; set; }
-
-        /// <summary>
-        /// 当status=1，审核被拒绝时，返回的拒绝原因
-        /// </summary>
-        public string reason { get; set; }
-
-        /// <summary>
-        /// 当 status = 1 时，会返回审核失败的小程序截图示例。用 | 分隔的 media_id 的列表，可通过获取永久素材接口拉取截图内容
-        /// </summary>
-        public string screenshot { get; set; }
+        public string pic_id_list { get; set; }
     }
 }

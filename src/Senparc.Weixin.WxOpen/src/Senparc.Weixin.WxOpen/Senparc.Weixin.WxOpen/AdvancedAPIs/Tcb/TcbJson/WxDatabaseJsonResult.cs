@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：lishewen - 20190530
    
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 新增 WxDatabaseAggregateJsonResult 
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -88,6 +91,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// 分页信息
         /// </summary>
         public Pager pager { get; set; }
+        /// <summary>
+        /// 记录数组
+        /// </summary>
+        public string[] data { get; set; }
+    }
+
+    /// <summary>
+    /// 数据库聚合 返回结果
+    /// </summary>
+    public class WxDatabaseAggregateJsonResult : WxJsonResult
+    {
         /// <summary>
         /// 记录数组
         /// </summary>

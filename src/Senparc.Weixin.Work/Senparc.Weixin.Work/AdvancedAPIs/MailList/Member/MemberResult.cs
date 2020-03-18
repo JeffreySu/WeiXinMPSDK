@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20171017
     修改描述：v1.2.0 部门id改为long类型
+
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 修改 is_leader_in_dept 属性命名和类型
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -66,7 +70,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// <summary>
         /// 上级字段，标识是否为上级。第三方暂不支持
         /// </summary>
-        public int isleader { get; set; }
+        public int[] is_leader_in_dept { get; set; }
         /// <summary>
         /// 头像url。注：小图将url最后的"/0"改成"/64"
         /// </summary>

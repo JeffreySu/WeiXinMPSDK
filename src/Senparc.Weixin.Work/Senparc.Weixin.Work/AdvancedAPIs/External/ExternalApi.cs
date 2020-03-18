@@ -6,7 +6,9 @@
     
     
     创建标识：Senparc - 20181009
-    
+   
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 新增“获取客户群列表”“获取客户群详情” API
     
 ----------------------------------------------------------------*/
 
@@ -73,7 +75,50 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
 
         }
+        /// <summary>
+        /// 获取客户群列表
+        /// 权限说明:
+        /// 企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用。
+        /// 暂不支持第三方调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="data">查询参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatList", true)]
+        public static GroupChatListResult GroupChatList(string accessTokenOrAppKey, GroupChatListParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/list?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GroupChatListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
 
+        }
+        /// <summary>
+        /// 获取客户群详情
+        /// 权限说明:
+        /// 企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用。
+        /// 暂不支持第三方调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="chat_id">客户群ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatGet", true)]
+        public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
+                var data = new
+                {
+                    chat_id
+                };
+                return CommonJsonSend.Send<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+        }
         #endregion
 
 
@@ -123,7 +168,50 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
+        /// <summary>
+        /// 【异步方法】获取客户群列表
+        /// 权限说明:
+        /// 企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用（accesstoken如何获取？）。
+        /// 暂不支持第三方调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="data">查询参数</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatListAsync", true)]
+        public static async Task<GroupChatListResult> GroupChatListAsync(string accessTokenOrAppKey, GroupChatListParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/list?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GroupChatListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
+        }
+        /// <summary>
+        /// 【异步方法】获取客户群详情
+        /// 权限说明:
+        /// 企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用。
+        /// 暂不支持第三方调用。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="chat_id">客户群ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatGetAsync", true)]
+        public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/get?access_token={0}", accessToken);
+                var data = new
+                {
+                    chat_id
+                };
+                return await CommonJsonSend.SendAsync<GroupChatGetResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+        }
         #endregion
     }
 }

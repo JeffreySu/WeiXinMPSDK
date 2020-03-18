@@ -90,7 +90,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190521
     修改描述：v1.4.0 .NET Core 添加多证书注册功能
-    
+ 
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口，添加方法：MultiProfitSharing()、ProfitSharingFinish()、ProfitSharingAddReceiver()、ProfitSharingRemoveReceiver()、ProfitSharingQuery()
+
 ----------------------------------------------------------------*/
 
 /*
@@ -439,6 +442,171 @@ namespace Senparc.Weixin.TenPay.V3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms);
             return new CloseOrderResult(resultXml);
+        }
+
+        /// <summary>
+        /// 单次分账接口
+        /// 服务商(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1
+        /// 境内普通商户(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_1&index=1
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
+        /// <param name="certPassword">证书密码</param>
+        /// <returns></returns>
+        public static ProfitSharingResult ProfitSharing
+            (
+            IServiceProvider serviceProvider, TenpayV3ProtfitSharingRequestData dataInfo,
+#if NET45
+           string cert, string certPassword,
+#endif
+            int timeOut = Config.TIME_OUT
+            )
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/profitsharing");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            //var dataBytes = Encoding.UTF8.GetBytes(data);
+            //using (MemoryStream ms = new MemoryStream(dataBytes))
+            //{
+            //调用证书
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+            return new ProfitSharingResult(responseContent);
+        }
+
+
+        /// <summary>
+        /// 多次分账接口
+        /// 服务商(多次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_6&index=2
+        /// 境内普通商户(多次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_6&index=2
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param> 
+        /// <param name="certPassword">证书密码</param>
+        /// <returns></returns>
+        public static ProfitSharingResult MultiProfitSharing(
+            IServiceProvider serviceProvider, TenpayV3ProtfitSharingRequestData dataInfo,
+#if NET45
+            string cert, string certPassword,
+#endif
+            int timeOut = Config.TIME_OUT
+        )
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/multiprofitsharing");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            //var dataBytes = Encoding.UTF8.GetBytes(data);
+            //using (MemoryStream ms = new MemoryStream(dataBytes))
+            //{
+            //调用证书
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+            return new ProfitSharingResult(responseContent);
+        }
+
+
+        /// <summary>
+        /// 完结分账
+        /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_5&index=6
+        /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_5&index=6
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ProfitSharingResult ProfitSharingFinish(
+            IServiceProvider serviceProvider, TenpayV3ProtfitSharingFinishRequestData dataInfo,
+#if NET45
+            string cert, string certPassword,
+#endif
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/secapi/{0}pay/profitsharingfinish");
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            //var dataBytes = Encoding.UTF8.GetBytes(data);
+            //using (MemoryStream ms = new MemoryStream(dataBytes))
+            //{
+            //调用证书
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+            return new ProfitSharingResult(responseContent);
+        }
+
+        /// <summary>
+        /// 服务商代子商户发起添加分账接收方请求，
+        /// 后续可通过发起分账请求将结算后的钱分到该分账接收方
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ProfitSharingAddReceiverResult ProfitSharingAddReceiver(TenpayV3ProfitShareingAddReceiverRequestData dataInfo,
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingaddreceiver");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+           // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new ProfitSharingAddReceiverResult(resultXml);
+        }
+
+
+        /// <summary>
+        ///  删除分账接收方
+        /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_4&index=5
+        /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_4&index=5
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ProfitSharingRemoveReceiverResult ProfitSharingRemoveReceiver(TenpayV3ProfitShareingRemoveReceiverRequestData dataInfo,
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingremovereceiver");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new ProfitSharingRemoveReceiverResult(resultXml);
+        }
+
+
+
+        /// <summary>
+        /// 分账查询
+        /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_2&index=3
+        /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_2&index=3
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ProfitSharingQueryResult ProfitSharingQuery(TenpayV3ProtfitSharingQueryRequestData dataInfo,
+            int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/profitsharingquery");
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
+            // var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new ProfitSharingQueryResult(resultXml);
         }
 
         /// <summary>
@@ -847,7 +1015,6 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         #endregion
-
 
         #region 异步方法
 

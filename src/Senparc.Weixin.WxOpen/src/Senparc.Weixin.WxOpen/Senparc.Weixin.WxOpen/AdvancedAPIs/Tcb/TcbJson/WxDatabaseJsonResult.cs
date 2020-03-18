@@ -95,6 +95,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
     }
 
     /// <summary>
+    /// 数据库聚合 返回结果
+    /// </summary>
+    public class WxDatabaseAggregateJsonResult : WxJsonResult
+    {
+        /// <summary>
+        /// 记录数组
+        /// </summary>
+        public string[] data { get; set; }
+    }
+
+    /// <summary>
     /// 统计集合记录数或统计查询语句对应的结果记录数 返回结果
     /// </summary>
     public class WxDatabaseCountJsonResult : WxJsonResult

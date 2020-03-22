@@ -100,8 +100,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
             }
 
             return result;
@@ -224,8 +225,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
             }
 
             return result;

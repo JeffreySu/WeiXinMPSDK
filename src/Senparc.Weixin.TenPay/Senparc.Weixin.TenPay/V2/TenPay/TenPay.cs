@@ -131,7 +131,6 @@ namespace Senparc.Weixin.TenPay.V2
         }
         #endregion
 
-
         #region 异步方法
         /// <summary>
         /// 【异步方法】发货通知

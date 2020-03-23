@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：WxDatabaseJsonResult.cs
     文件功能描述：数据库操作记录的各类返回结果
@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：lishewen - 20190530
    
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 新增 WxDatabaseAggregateJsonResult 
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -88,6 +91,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// 分页信息
         /// </summary>
         public Pager pager { get; set; }
+        /// <summary>
+        /// 记录数组
+        /// </summary>
+        public string[] data { get; set; }
+    }
+
+    /// <summary>
+    /// 数据库聚合 返回结果
+    /// </summary>
+    public class WxDatabaseAggregateJsonResult : WxJsonResult
+    {
         /// <summary>
         /// 记录数组
         /// </summary>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -9,20 +9,16 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MiniProgram
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.WxOpen.MessageHandlers;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.NeuChar.Entities;
-using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.WxOpen.MessageHandlers;
 using System;
+using System.IO;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 #if NET45
 using System.Web.Configuration;
@@ -131,13 +127,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 var result = new StringBuilder();
                 result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                if (CurrentMessageContext.RequestMessages.Count > 1)
+                var messageContext = GetCurrentMessageContext().ConfigureAwait(false).GetAwaiter().GetResult();
+                if (messageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                        CurrentMessageContext.StorageData);
-                    for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", messageContext.RequestMessages.Count,
+                        messageContext.StorageData);
+                    for (int i = messageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
-                        var historyMessage = CurrentMessageContext.RequestMessages[i];
+                        var historyMessage = messageContext.RequestMessages[i];
                         string content = null;
                         if (historyMessage is RequestMessageText)
                         {

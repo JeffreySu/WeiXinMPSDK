@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：UrlUtility.cs
     文件功能描述：URL工具类
@@ -46,19 +46,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v6.3.6 支持在子程序环境下获取 OAuth 回调地址
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.CO2NET.Extensions;
-#if NET45
-using System.Web;
-#else
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-#endif
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -73,46 +61,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="httpContext"></param>
         /// <param name="oauthCallbackUrl"></param>
         /// <returns></returns>
-#if NET45
-        public static string GenerateOAuthCallbackUrl(HttpContextBase httpContext, string oauthCallbackUrl)
-#else
-        public static string GenerateOAuthCallbackUrl(HttpContext httpContext, string oauthCallbackUrl)
-#endif
+        public static string GenerateOAuthCallbackUrl(string scheme, string host, int port, string baseUrl, string returnUrl, string oauthCallbackUrl)
         {
-
-#if NET45
-
-            if (httpContext.Request.Url == null)
-            {
-                throw new WeixinNullReferenceException("httpContext.Request.Url 不能为null！", httpContext.Request);
-            }
-
-            var returnUrl = httpContext.Request.Url.ToString();
-            var urlData = httpContext.Request.Url;
-            var scheme = urlData.Scheme;//协议
-            var host = urlData.Host;//主机名（不带端口）
-            var port = urlData.Port;//端口
+            var schemeUpper = scheme.ToUpper();
             string portSetting = null;//Url中的端口部分
-            string schemeUpper = scheme.ToUpper();//协议（大写）
-            string baseUrl = httpContext.Request.ApplicationPath;//子站点应用路径
-#else
-            if (httpContext.Request == null)
-            {
-                throw new WeixinNullReferenceException("httpContext.Request 不能为null！", httpContext);
-            }
-
-            var request = httpContext.Request;
-            //var location = new Uri($"{request.Scheme}://{request.Host}{request.Path}{request.QueryString}");
-            //var returnUrl = location.AbsoluteUri; //httpContext.Request.Url.ToString();    
-            var returnUrl = request.AbsoluteUri();
-            var urlData = httpContext.Request;
-            var scheme = urlData.Scheme;//协议
-            var host = urlData.Host.Host;//主机名（不带端口）
-            var port = urlData.Host.Port ?? -1;//端口（因为从.NET Framework移植，因此不直接使用urlData.Host）
-            string portSetting = null;//Url中的端口部分
-            string schemeUpper = scheme.ToUpper();//协议（大写）
-            string baseUrl = httpContext.Request.PathBase;//子站点应用路径
-#endif
             if (port == -1 || //这个条件只有在 .net core 中， Host.Port == null 的情况下才会发生
                 (schemeUpper == "HTTP" && port == 80) ||
                 (schemeUpper == "HTTPS" && port == 443))

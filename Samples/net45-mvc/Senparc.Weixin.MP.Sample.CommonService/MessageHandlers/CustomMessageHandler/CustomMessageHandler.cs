@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -85,14 +85,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public static Func<Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount)
                         => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */);
 
-        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEcryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEcryptMessage)
+        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
             GlobalMessageContext.ExpireMinutes = 3;
-
-            OnlyAllowEcryptMessage = true;//是否只允许接收加密消息，默认为 false
+            
+            OnlyAllowEncryptMessage = true;//是否只允许接收加密消息，默认为 false
 
             if (!string.IsNullOrEmpty(postModel.AppId))
             {

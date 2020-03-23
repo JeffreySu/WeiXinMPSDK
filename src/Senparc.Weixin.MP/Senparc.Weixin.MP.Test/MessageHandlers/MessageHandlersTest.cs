@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -80,8 +80,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.ResponseDocument.ToString());
 
@@ -119,8 +119,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.WriteLine(messageHandlers.ResponseDocument.ToString());
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
@@ -155,7 +155,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void CompatibilityModelEcryptMessageRequestTest()
+        public void CompatibilityModelEncryptMessageRequestTest()
         {
             //兼容模式测试
             var ecryptXml = @"<xml>
@@ -185,15 +185,15 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
-            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
-            Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
+            Assert.IsTrue(messageHandlers.UsingEncryptMessage);
+            Assert.IsTrue(messageHandlers.UsingCompatibilityModelEncryptMessage);
 
 
 
         }
 
         [TestMethod]
-        public async Task PureEcryptMessageRequestTest()
+        public async Task PureEncryptMessageRequestTest()
         {
             //纯安全模式测试
             var ecryptXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -222,8 +222,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
-            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
+            Assert.IsTrue(messageHandlers.UsingEncryptMessage);
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);
 
             Console.WriteLine("RequestMessage:");
             Console.WriteLine(messageHandlers.RequestMessage.ToJson(true));
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
-            Assert.AreEqual("您发送的消息类型暂未被识别。", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+            Assert.AreEqual("您发送的消息类型暂未被识别。RequestMessage Type：RequestMessageLocation", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
 
 
@@ -406,8 +406,10 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 var fileXml = requestXmlFormat.FormatWith("JeffreySu", type);
 
                 var messageHandler = new CustomMessageHandlers(XDocument.Parse(fileXml));
+                messageHandler.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                 messageHandler.OmitRepeatedMessage = false;//禁用去重机制
                 messageHandler.Execute();
+
                 Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
                 Assert.AreEqual("未知消息类型：{0}".FormatWith(type), ((ResponseMessageText)messageHandler.ResponseMessage).Content);
             }
@@ -551,8 +553,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNull(messageHandlers.ResponseMessage);
             Assert.IsNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.TextResponseMessage);
         }
@@ -576,8 +578,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
-            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+            Assert.IsFalse(messageHandlers.UsingEncryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEncryptMessage);//没有加密模式，所以也没有兼容模式
 
             Console.Write(messageHandlers.ResponseDocument.ToString());
         }

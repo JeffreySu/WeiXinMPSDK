@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.Cache.Redis 注册类
@@ -13,11 +13,12 @@
     修改标识：Senparc - 20191002
     修改描述：v2.7.102 RegisterDomainCache() 方法重命名为 ActivityDomainCache()
 
+    修改标识：Senparc - 20191002
+    修改描述：v2.8.100 UseSenparcWeixinCacheRedis() 扩展方法 this 类型由 IApplicationBuilder 改为 IRegisterService
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
-using Microsoft.AspNetCore.Builder;
-#endif
+using Senparc.CO2NET.RegisterServices;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -26,19 +27,15 @@ namespace Senparc.Weixin.Cache.Redis
     /// </summary>
     public static class Register
     {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
-
         /// <summary>
         /// 注册 Senparc.Weixin.Cache.Redis
         /// </summary>
-        /// <param name="app"></param>
-        public static IApplicationBuilder UseSenparcWeixinCacheRedis(this IApplicationBuilder app)
+        /// <param name="register"></param>
+        public static IRegisterService UseSenparcWeixinCacheRedis(this IRegisterService register)
         {
             ActivityDomainCache();
-            return app;
+            return register;
         }
-#endif
-
 
         /// <summary>
         /// 激活领域缓存

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：SenparcWebSocketHubBase.cs
     文件功能描述：SenparcWebSocketHub 基类
@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP3_0
+#if !NET45
 using Microsoft.AspNetCore.SignalR;
 using Senparc.WebSocket.Exceptions;
 using System;

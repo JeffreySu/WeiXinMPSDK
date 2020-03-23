@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：WeixinRegister.cs
     文件功能描述：Senparc.Weixin 快捷注册流程（包括Thread、TraceLog等）
@@ -54,11 +54,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191005
     修改描述：v6.6.102 添加 UseSenparcWeixin() 包含 CO2NET 全局注册的新方法
 
+    修改标识：Senparc - 20200228
+    修改描述：v6.7.300 添加 CsRedis 的注册
+
 ----------------------------------------------------------------*/
 
-#if NETSTANDARD2_0 || NETCOREAPP3_0
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;
@@ -117,11 +118,23 @@ namespace Senparc.Weixin
             {
                 try
                 {
-                    var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Redis", "Senparc.Weixin.Cache.Redis", "RedisContainerCacheStrategy", "Instance");
-                    if (redisInstance != null)
                     {
-                        //officialTypes.Add(redisInstance.GetType());
-                        cacheTypes += "\r\n" + redisInstance.GetType();
+                        //StackExchange.Redis
+                        var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.Redis", "Senparc.Weixin.Cache.Redis", "RedisContainerCacheStrategy", "Instance");
+                        if (redisInstance != null)
+                        {
+                            //officialTypes.Add(redisInstance.GetType());
+                            cacheTypes += "\r\n" + redisInstance.GetType();
+                        }
+                    }
+                    {
+                        //CsRedis
+                        var redisInstance = ReflectionHelper.GetStaticMember("Senparc.Weixin.Cache.CsRedis", "Senparc.Weixin.Cache.CsRedis", "RedisContainerCacheStrategy", "Instance");
+                        if (redisInstance != null)
+                        {
+                            //officialTypes.Add(redisInstance.GetType());
+                            cacheTypes += "\r\n" + redisInstance.GetType();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -164,7 +177,7 @@ namespace Senparc.Weixin
         }
 
 
-        #region v6.6.102+ 新方法 
+        #region v6.6.102+ 新方法
 
         /// <summary>
         /// 开始 Senparc.Weixin SDK 初始化参数流程
@@ -184,33 +197,34 @@ namespace Senparc.Weixin
             return register;
         }
 
-#if NETSTANDARD2_0 || NETCOREAPP3_0
-        /// <summary>
-        /// <para>开始包含 CO2NET 注册在内的 Senparc.Weixin SDK 初始化参数流程</para>
-        /// <para>注意：本方法集成了 CON2ET 全局注册以及 Senparc.Weixin SDK 微信注册过程，提供给对代码行数有极限追求的开发者使用，常规情况下为了提高代码可读性和可维护性，并不推荐使用此方法。</para>
-        /// </summary>
-        /// <param name="registerService"></param>
-        /// <param name="senparcWeixinSetting"></param>
-        /// <param name="registerConfigure"></param>
-        /// <returns></returns>
-        public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
-#if NETSTANDARD2_0
-            IHostingEnvironment env,
-#else
-            IWebHostEnvironment env,
-#endif
-            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
-             //CO2NET 全局设置
-             bool autoScanExtensionCacheStrategies = false, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
-            )
-        {
-            //注册 CO2NET 全局
-            var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
-            //注册微信
-            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
-            return register;
-        }
-#endif
+        //从 v6.7.100 开始分离到 Senparc.Weixin.AspNet
+        //#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP3_1
+        //        /// <summary>
+        //        /// <para>开始包含 CO2NET 注册在内的 Senparc.Weixin SDK 初始化参数流程</para>
+        //        /// <para>注意：本方法集成了 CON2ET 全局注册以及 Senparc.Weixin SDK 微信注册过程，提供给对代码行数有极限追求的开发者使用，常规情况下为了提高代码可读性和可维护性，并不推荐使用此方法。</para>
+        //        /// </summary>
+        //        /// <param name="registerService"></param>
+        //        /// <param name="senparcWeixinSetting"></param>
+        //        /// <param name="registerConfigure"></param>
+        //        /// <returns></returns>
+        //        public static IRegisterService UseSenparcWeixin(this IApplicationBuilder app,
+        //#if NETSTANDARD2_0 || NETSTANDARD2_1
+        //            IHostingEnvironment env,
+        //#else
+        //            IWebHostEnvironment env,
+        //#endif
+        //            SenparcSetting senparcSetting, SenparcWeixinSetting senparcWeixinSetting, Action<IRegisterService> globalRegisterConfigure, Action<IRegisterService> weixinRegisterConfigure,
+        //             //CO2NET 全局设置
+        //             bool autoScanExtensionCacheStrategies = false, Func<IList<IDomainExtensionCacheStrategy>> extensionCacheStrategiesFunc = null
+        //            )
+        //        {
+        //            //注册 CO2NET 全局
+        //            var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
+        //            //注册微信
+        //            register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
+        //            return register;
+        //        }
+        //#endif
         #endregion
     }
 }

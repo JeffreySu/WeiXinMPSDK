@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -38,13 +38,13 @@ namespace Senparc.Weixin.HttpUtility.Tests
             var url = "https://sdk.weixin.senparc.com/images/v2/ewm_01.png";
             using (FileStream fs = new FileStream(string.Format("qr-{0}.jpg", SystemTime.Now.Ticks), FileMode.OpenOrCreate))
             {
-                Senparc.CO2NET.HttpUtility.Get.Download(url, fs);//下载
+                Senparc.CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, fs);//下载
                 fs.Flush();//直接保存，无需处理指针
             }
 
             using (MemoryStream ms = new MemoryStream())
             {
-                Senparc.CO2NET.HttpUtility.Get.Download(url, ms);//下载
+                Senparc.CO2NET.HttpUtility.Get.Download(CommonDI.CommonSP, url, ms);//下载
                 ms.Seek(0, SeekOrigin.Begin);//将指针放到流的开始位置
                 string base64Img = Convert.ToBase64String(ms.ToArray());//输出图片base64编码
                 Console.WriteLine(base64Img);
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
 
             {
                 var url = "http://apistore.baidu.com/microservice/cityinfo?cityname=苏州";
-                var result = Senparc.CO2NET.HttpUtility.Get.GetJson<dynamic>(url);
+                var result = Senparc.CO2NET.HttpUtility.Get.GetJson<dynamic>(CommonDI.CommonSP, url);
                 Assert.IsNotNull(result);
                 Assert.AreEqual(0, result["errNum"]);
                 Assert.AreEqual("苏州", result["retData"]["cityName"]);
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 try
                 {
                     //这里因为参数错误，系统会返回错误信息
-                    WxJsonResult resultFail = Senparc.CO2NET.HttpUtility.Get.GetJson<WxJsonResult>(url);
+                    WxJsonResult resultFail = Senparc.CO2NET.HttpUtility.Get.GetJson<WxJsonResult>(CommonDI.CommonSP, url);
                     Assert.Fail(); //上一步就应该已经抛出异常
                 }
                 catch (ErrorJsonResultException ex)
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             try
             {
                 //这里因为参数错误，系统会返回错误信息
-                WxJsonResult resultFail = await Senparc.CO2NET.HttpUtility.Get.GetJsonAsync<WxJsonResult>(url);
+                WxJsonResult resultFail = await Senparc.CO2NET.HttpUtility.Get.GetJsonAsync<WxJsonResult>(CommonDI.CommonSP, url);
                 Assert.Fail(); //上一步就应该已经抛出异常
             }
             catch (ErrorJsonResultException ex)

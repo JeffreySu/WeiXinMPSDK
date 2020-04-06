@@ -49,7 +49,7 @@ namespace Senparc.Weixin.TenPay.V2
     /// </summary>
     public static class TenPay
     {
-        #region 同步方法
+         #region 同步方法
         
        /*此接口不提供异步方法*/
         /// <summary>

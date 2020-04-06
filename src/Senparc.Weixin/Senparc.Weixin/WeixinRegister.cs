@@ -63,15 +63,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Microsoft.Extensions.Options;
 #endif
 using Senparc.CO2NET;
-using Senparc.CO2NET.Cache;
-using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.RegisterServices;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Senparc.Weixin
 {

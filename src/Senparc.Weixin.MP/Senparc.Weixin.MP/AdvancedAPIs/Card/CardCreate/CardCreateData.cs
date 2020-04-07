@@ -248,6 +248,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
         /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell3 { get; set; }
+        /// <summary>
         /// 会员卡背景图片，非必填
         /// </summary>
         public string background_pic_url { get; set; }

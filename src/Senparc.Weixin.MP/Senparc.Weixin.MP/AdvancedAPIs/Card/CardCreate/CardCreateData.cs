@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171117
     修改描述：v14.8.6 修改Card_MemberCardData.wx_activate_after_submit_url为string类型
 
+    修改标识：Senparc - 20200407
+    修改描述：v16.10.402 添加会员卡接口自定义cell参数
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers.Serializers;

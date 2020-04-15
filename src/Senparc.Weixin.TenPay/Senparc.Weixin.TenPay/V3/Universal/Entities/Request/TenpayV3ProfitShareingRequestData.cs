@@ -49,7 +49,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 接口版本号 version 是 String(32) 1.0 新增字段，接口版本号，区分原接口，默认填写1.0。入参新增version后，则支付通知接口也将返回单品优惠信息字段promotion_detail，请确保支付通知的签名验证能通过。
         /// </summary>
-        public string  Version ="1.0"
+        public string  Version ="1.0";
  
         /// <summary>
         /// 公众账号ID

@@ -26,6 +26,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：hesi815 - 20200318
 
+    修改标识：15989221023 - 20200416
+    修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+    
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -34,7 +37,6 @@ using System;
 
 namespace Senparc.Weixin.TenPay.V3
 {
-
     /// <summary>
     /// 分账请求
     /// 服务商(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1
@@ -45,12 +47,6 @@ namespace Senparc.Weixin.TenPay.V3
     /// </summary>
     public class TenpayV3ProtfitSharingRequestData
     {
-
-        /// <summary>
-        /// 接口版本号 version 是 String(32) 1.0 新增字段，接口版本号，区分原接口，默认填写1.0。入参新增version后，则支付通知接口也将返回单品优惠信息字段promotion_detail，请确保支付通知的签名验证能通过。
-        /// </summary>
-        public string  Version ="1.0";
- 
         /// <summary>
         /// 公众账号ID
         /// </summary>
@@ -673,7 +669,7 @@ namespace Senparc.Weixin.TenPay.V3
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
             
-            PackageRequestHandler.SetParameter("version", this.Version);   
+            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion); 
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

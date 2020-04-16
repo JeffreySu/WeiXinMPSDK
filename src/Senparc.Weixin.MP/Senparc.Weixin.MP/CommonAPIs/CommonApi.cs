@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191206
     修改描述：CommonApi.Token() 方法设置异常抛出机制
 
+    修改标识：wtujvk - 20200416
+    修改描述：v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
+
 
 ----------------------------------------------------------------*/
 
@@ -100,8 +103,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
             }
 
             return result;
@@ -224,8 +228,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_OfficialAccount}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
             }
 
             return result;

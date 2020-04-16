@@ -10,6 +10,9 @@
     修改标识：Senparc - 20191003
     修改描述：注册过程自动添加更多 SenparcSettingItem 信息
 
+    修改标识：15989221023 - 20200416
+    修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.RegisterServices;
@@ -25,6 +28,10 @@ namespace Senparc.Weixin.TenPay
 {
     public static class Register
     {
+        /// <summary>
+        /// 接口版本号 version 是 String(32) 1.0 新增字段，接口版本号，区分原接口，默认填写1.0。入参新增version后，则支付通知接口也将返回单品优惠信息字段promotion_detail，请确保支付通知的签名验证能通过。
+        /// </summary>
+        public static string TenpayV3ProtfitRequestDataVersion { get; set; } = "1.0";
 
         /// <summary>
         /// 注册微信支付Tenpay（注意：新注册账号请使用RegisterTenpayV3！

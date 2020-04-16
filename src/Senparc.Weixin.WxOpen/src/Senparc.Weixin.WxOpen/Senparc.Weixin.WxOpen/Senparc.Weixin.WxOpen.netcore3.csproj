@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.8.500</Version>
+    <Version>3.8.501</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -142,7 +142,8 @@
       v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
       v3.7.104.2 添加小程序搜索接口
       v3.8.401 添加小程序UpdateIndex()、DatabaseAggregate()接口
-</PackageReleaseNotes>
+      v3.8.501 fix bug：支付后获取用户 Unionid 接口没有传入 openId
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

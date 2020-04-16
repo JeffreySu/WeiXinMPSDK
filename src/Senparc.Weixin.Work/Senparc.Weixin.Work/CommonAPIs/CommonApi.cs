@@ -45,6 +45,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Exceptions;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
@@ -93,9 +94,9 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {
-                throw new ErrorJsonResultException(
+                throw new WeixinWorkException(
                  string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
-                     (int)result.errcode, result.errmsg), null, result);
+                     (int)result.errcode, result.errmsg), null);
             }
 
             return result;
@@ -217,9 +218,9 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {
-                throw new ErrorJsonResultException(
-                                 string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
-                                     (int)result.errcode, result.errmsg), null, result);
+                throw new WeixinWorkException(
+                  string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                      (int)result.errcode, result.errmsg), null);
             }
 
             return result;

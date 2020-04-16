@@ -33,9 +33,6 @@ Copyright(C) 2017 Senparc
 修改标识：Senparc - 20161225
 修改描述：v4.9.7 完善日志记录
 
-修改标识：Senparc - 20200416
-修改描述：v4.9.7 完善日志记录
-
 ----------------------------------------------------------------*/
 
 using System;
@@ -51,7 +48,7 @@ namespace Senparc.Weixin.Exceptions
         /// <summary>
         /// JsonResult
         /// </summary>
-        public BaseJsonResult JsonResult { get; set; }
+        public WxJsonResult JsonResult { get; set; }
         /// <summary>
         /// 接口 URL
         /// </summary>
@@ -64,7 +61,7 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="inner">内部异常</param>
         /// <param name="jsonResult">WxJsonResult</param>
         /// <param name="url">API地址</param>
-        public ErrorJsonResultException(string message, Exception inner, BaseJsonResult jsonResult, string url = null)
+        public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult, string url = null)
             : base(message, inner, true)
         {
             JsonResult = jsonResult;

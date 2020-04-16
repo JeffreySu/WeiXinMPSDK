@@ -38,7 +38,6 @@ using System;
 
 namespace Senparc.Weixin.TenPay.V3
 {
-
     /// <summary>
     /// 分账请求
     /// 服务商(单次分账): https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1

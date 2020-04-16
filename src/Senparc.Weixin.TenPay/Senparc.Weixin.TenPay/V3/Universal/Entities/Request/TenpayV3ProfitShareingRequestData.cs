@@ -26,6 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：hesi815 - 20200318
 
+    修改标识：15989221023 - 20200416
+    修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;

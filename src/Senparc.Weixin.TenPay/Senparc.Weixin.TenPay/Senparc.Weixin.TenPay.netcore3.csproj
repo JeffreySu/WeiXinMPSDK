@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.5.401</Version>
+    <Version>1.5.401.1</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -46,6 +46,7 @@
       v1.5.103 提供 .Net Core 3.0 独立版本
       v1.5.103.1 增加微信支付小程序：发送红包API
       v1.5.401 实现分账接口
+      v1.5.402 添加 TenpayV3ProtfitSharingRequestData 的 Version 属性
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
@@ -50,6 +50,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180928
     修改描述：添加Clear_quota
+
+    修改标识：Senparc - 20191206
+    修改描述：CommonApi.Token() 方法设置异常抛出机制
+
+    修改标识：wtujvk - 20200416
+    修改描述：v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -57,14 +65,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
  */
 
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -90,7 +99,15 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+            AccessTokenResult result = Get.GetJson<AccessTokenResult>(CommonDI.CommonSP, url);//此处为最原始接口，不再使用重试获取的封装
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
+            }
+
             return result;
         }
 
@@ -207,7 +224,15 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type.AsUrlData(), appid.AsUrlData(), secret.AsUrlData());
 
-            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(url);//此处为最原始接口，不再使用重试获取的封装
+            AccessTokenResult result = await Get.GetJsonAsync<AccessTokenResult>(CommonDI.CommonSP, url);//此处为最原始接口，不再使用重试获取的封装
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode.请求成功)
+            {
+                throw new ErrorJsonResultException(
+                    string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                        (int)result.errcode, result.errmsg), null, result);
+            }
+
             return result;
         }
 

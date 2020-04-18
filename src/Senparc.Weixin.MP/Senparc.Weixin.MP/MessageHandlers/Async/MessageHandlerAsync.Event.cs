@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：MessageHandlerAsync.Event.cs
     文件功能描述：微信请求【异步方法】的集中处理方法：Event相关
@@ -43,7 +43,7 @@ using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public abstract partial class MessageHandler<TC>
+    public abstract partial class MessageHandler<TMC>
     {
         /// <summary>
         /// 【异步方法】Event事件类型请求
@@ -199,19 +199,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.verify_expired://认证过期失效通知
                     responseMessage = await OnEvent_VerifyExpiredRequestAsync(RequestMessage as RequestMessageEvent_VerifyExpired).ConfigureAwait(false);
                     break;
-#endregion
+                #endregion
 
-#region 小程序审核事件推送
+                #region 小程序审核事件推送
+                //该事件已移动到Senparc.Weixin.WxOpen
+                //case Event.weapp_audit_success://
+                //    responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess).ConfigureAwait(false);
+                //    break;
+                //case Event.weapp_audit_fail://
+                //    responseMessage = await OnEvent_WeAppAuditFailRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditFail).ConfigureAwait(false);
+                //    break;
+                #endregion
 
-                case Event.weapp_audit_success://
-                    responseMessage = await OnEvent_WeAppAuditSuccessRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditSuccess).ConfigureAwait(false);
-                    break;
-                case Event.weapp_audit_fail://
-                    responseMessage = await OnEvent_WeAppAuditFailRequestAsync(RequestMessage as RequestMessageEvent_WeAppAuditFail).ConfigureAwait(false);
-                    break;
-#endregion
-
-#region 卡券回调
+                #region 卡券回调
 
                 case Event.giftcard_pay_done:
                     responseMessage = await OnEvent_GiftCard_Pay_DoneRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_Pay_Done).ConfigureAwait(false);
@@ -231,6 +231,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
+
+            string d = null;
+            string s = null;
+            string n = s ?? d ?? "1";
+
             return responseMessage;
         }
 
@@ -651,15 +656,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_VerifyExpiredRequest(requestMessage)).ConfigureAwait(false);
         }
 
-#endregion
+        #endregion
 
-#region 小程序审核事件推送
+        #region 小程序审核事件推送
 
         /// <summary>
         /// 【异步方法】小程序审核失败通知
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.WxOpen.MessageHandlers.OnEvent_WeAppAuditFailRequestAsync")]
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditFailRequestAsync(RequestMessageEvent_WeAppAuditFail requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage)).ConfigureAwait(false);
@@ -669,6 +675,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.WxOpen.MessageHandlers.OnEvent_WeAppAuditSuccessRequestAsync")]
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditSuccessRequestAsync(RequestMessageEvent_WeAppAuditSuccess requestMessage)
         {
             return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage)).ConfigureAwait(false);

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -93,6 +93,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190826
     修改描述：v16.7.15 优化 Register() 方法
 
+    修改标识：Senparc - 20190929
+    修改描述：v16.9.101 优化 Container 异步注册方法
 ----------------------------------------------------------------*/
 
 /* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */
@@ -296,10 +298,7 @@ namespace Senparc.Weixin.MP.Containers
             //为JsApiTicketContainer进行自动注册
             var registerJsApiTask = JsApiTicketContainer.RegisterAsync(appId, appSecret, name);
 
-            //OAuthAccessTokenContainer进行自动注册
-            var registerOAuthTask = OAuthAccessTokenContainer.RegisterAsync(appId, appSecret, name);
-
-            Task.WaitAll(new[] { registerTask, registerJsApiTask, registerOAuthTask });//等待所有任务完成
+            await Task.WhenAll(new[] { registerTask, registerJsApiTask });//等待所有任务完成
         }
 
         #region AccessToken

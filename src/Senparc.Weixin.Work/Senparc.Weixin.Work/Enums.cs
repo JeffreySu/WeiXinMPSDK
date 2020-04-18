@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -140,6 +140,10 @@ namespace Senparc.Weixin.Work
         /// 通讯录变更事件
         /// </summary>
         change_contact,
+        /// <summary>
+        /// 外部联系人变更事件
+        /// </summary>
+        CHANGE_EXTERNAL_CONTACT
     }
 
     public enum ThirdPartyInfo

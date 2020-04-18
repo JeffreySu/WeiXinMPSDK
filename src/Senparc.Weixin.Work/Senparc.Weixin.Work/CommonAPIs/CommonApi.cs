@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -21,6 +21,12 @@
     
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+    
+    修改标识：Senparc - 20191206
+    修改描述：CommonApi.Token() 方法设置异常抛出机制
+
+    修改标识：Senparc - 20200416
+    修改描述：v3.7.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 
 ----------------------------------------------------------------*/
 
@@ -35,9 +41,11 @@ using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Exceptions;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
@@ -82,7 +90,16 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            return CommonJsonSend.Send<AccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            var result = CommonJsonSend.Send<AccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
+            {
+                throw new WeixinWorkException(
+                 string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                     (int)result.errcode, result.errmsg), null);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -197,7 +214,17 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            return await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST).ConfigureAwait(false);
+            var result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST).ConfigureAwait(false);
+
+            if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
+            {
+                throw new WeixinWorkException(
+                  string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                      (int)result.errcode, result.errmsg), null);
+            }
+
+            return result;
+
         }
 
         /// <summary>

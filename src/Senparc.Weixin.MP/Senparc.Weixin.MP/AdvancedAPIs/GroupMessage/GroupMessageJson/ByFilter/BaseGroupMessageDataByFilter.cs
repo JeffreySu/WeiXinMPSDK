@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -20,7 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：BaseGroupMessageByFilter.cs
     文件功能描述：根据筛选条件（GroupId、TagId）群发消息数据的基类
@@ -31,6 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 2011224
     修改描述：v14.8.12 完成群发接口添加clientmsgid属性
 
+    修改标识：Senparc - 20190928
+    修改描述：v16.9.101 更新过期类型，使用 GroupMessageByFilter_MediaId
+    
 ----------------------------------------------------------------*/
 
 using System;
@@ -88,12 +91,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_VoiceData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId voice { get; set; }
+        public GroupMessageByFilter_MediaId voice { get; set; }
     }
 
     public class GroupMessageByFilter_ImageData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId image { get; set; }
+        public GroupMessageByFilter_MediaId image { get; set; }
     }
 
     public class GroupMessageByFilter_TextData : BaseGroupMessageDataByFilter
@@ -103,12 +106,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByFilter_MpNewsData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId mpnews { get; set; }
+        public GroupMessageByFilter_MediaId mpnews { get; set; }
     }
 
     public class GroupMessageByFilter_MpVideoData : BaseGroupMessageDataByFilter
     {
-        public GroupMessageByGroupId_MediaId mpvideo { get; set; }
+        public GroupMessageByFilter_MediaId mpvideo { get; set; }
     }
 
     public class GroupMessageByFilter_WxCardData : BaseGroupMessageDataByFilter

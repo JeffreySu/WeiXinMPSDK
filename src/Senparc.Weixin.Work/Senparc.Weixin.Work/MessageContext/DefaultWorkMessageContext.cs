@@ -161,6 +161,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     break;
                             }
                             break;
+                        case "CHANGE_EXTERNAL_CHAT"://客户群变更事件推送
+                            requestMessage = new RequestMessageEvent_Change_External_Chat();
+                            break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();
                             break;

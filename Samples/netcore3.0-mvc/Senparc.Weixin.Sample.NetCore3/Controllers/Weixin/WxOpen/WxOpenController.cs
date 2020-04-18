@@ -268,6 +268,8 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         [HttpPost]
         public async Task<IActionResult> TemplateTest(string sessionId, string formId)
         {
+            //注意：2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。
+
             var templateMessageService = new TemplateMessageService();
             try
             {

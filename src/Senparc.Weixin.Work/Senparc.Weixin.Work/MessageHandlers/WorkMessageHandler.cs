@@ -441,7 +441,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     }
                     break;
                 case Event.CHANGE_EXTERNAL_CHAT://客户群变更事件
-                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
+                    responseMessage = OnEvent_ChangeExternalChatRequest(RequestMessage as RequestMessageEvent_Change_External_Chat);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);

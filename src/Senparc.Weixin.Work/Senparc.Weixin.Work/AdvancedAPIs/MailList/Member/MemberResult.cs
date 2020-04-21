@@ -99,6 +99,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 关注微信插件的状态: 1=已关注，0=未关注
         /// </summary>
         public string wxplugin_status { get; set; }
+
+        /// <summary>
+        /// 员工个人二维码，扫描可添加为外部联系人(注意返回的是一个url，可在浏览器上打开该url以展示二维码)；第三方仅通讯录应用可获取
+        /// </summary>
+        public string qr_code { get; set; }
     }
 
     public class GetDepartmentMemberResult : WorkJsonResult

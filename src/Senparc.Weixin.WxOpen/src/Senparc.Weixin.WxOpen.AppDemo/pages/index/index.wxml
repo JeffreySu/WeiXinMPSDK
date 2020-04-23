@@ -1,6 +1,8 @@
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
+    <text class="auth-notice" wx:if="{{!hasUserInfo && canIUse}}">当前小程序为 Senparc.Weixin SDK 的功能体验小程序，包括了订阅消息、获取用户授权信息、手机号、WebSocket、客服消息等演示内容，大部分内容需要授权后进行，点击【获取头像昵称】按钮进行授权，才能进入测试页面。</text>
+    <text class="auth-notice" wx:if="{{!hasUserInfo && canIUse}}">如果您不希望授权，请直接关闭此页面。</text>
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
     

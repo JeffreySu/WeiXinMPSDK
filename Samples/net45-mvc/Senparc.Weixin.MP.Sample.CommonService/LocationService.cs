@@ -7,6 +7,7 @@
     
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
+//DPBMARK_FILE MP
 
 using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;

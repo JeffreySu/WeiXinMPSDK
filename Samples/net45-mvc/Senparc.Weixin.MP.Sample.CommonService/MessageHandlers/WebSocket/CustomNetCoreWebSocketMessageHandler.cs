@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.WebSocket;
-using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.WxOpen.Containers;//DPBMARK MiniProgram DPBMARK_END
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 {
@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
             var appId = Config.SenparcWeixinSetting.WxOpenAppId;//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
+            //DPBMARK MiniProgram
             try
             {
             
@@ -100,6 +101,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
                 WeixinTrace.SendCustomLog("WebSocket OnMessageReceiced()过程出错", msg);
             }
+            //DPBMARK_END
         }
     }
 }

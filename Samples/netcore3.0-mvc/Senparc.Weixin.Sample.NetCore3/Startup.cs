@@ -17,16 +17,16 @@ using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.Cache.CsRedis;
+using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
@@ -77,8 +77,8 @@ namespace Senparc.Weixin.Sample.NetCore3
 
             
             services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
-                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>(); //Senparc.WebSocket 注册（按需）
-
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
+                    ;
 
             //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
         }
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //启用 GB2312（按需）
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //引入EnableRequestRewind中间件（按需）
-            app.UseEnableRequestRewind();
+            app.UseEnableRequestRewind();//DPBMARK MP DPBMARK_END
             //使用 Session（按需，本示例中需要用到）
             app.UseSession();
 
@@ -225,8 +225,9 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #region 注册公众号或小程序（按需）
 
-                    //注册公众号（可注册多个）                                                    -- DPBMARK MP
                     weixinRegister
+                            //注册公众号（可注册多个）                                                    -- DPBMARK MP
+
                             .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
 
 
@@ -436,6 +437,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             };
         }
 
+        // -- DPBMARK Redis
         /// <summary>
         /// 判断当前配置是否满足使用 Redis（根据是否已经修改了默认配置字符串判断）
         /// </summary>
@@ -447,7 +449,9 @@ namespace Senparc.Weixin.Sample.NetCore3
             var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*默认值，不启用*/;
             return useRedis;
         }
+        // -- DPBMARK_END
 
+        // -- DPBMARK Memcached
         /// <summary>
         /// 初步判断当前配置是否满足使用 Memcached（根据是否已经修改了默认配置字符串判断）
         /// </summary>
@@ -459,5 +463,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
             return useMemcached;
         }
+        // -- DPBMARK_END
+
     }
 }

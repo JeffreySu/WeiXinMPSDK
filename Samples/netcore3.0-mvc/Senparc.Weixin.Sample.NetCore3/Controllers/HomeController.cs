@@ -118,9 +118,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var co2netList = new List<Home_IndexVD_AssemblyModel>();
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config), gitHubUrl: co2netGitHubUrl));//CO2NET 基础库版本信息
             co2netList.Add(new Home_IndexVD_AssemblyModel("APM 库", "Senparc.CO2NET.APM", typeof(CO2NET.APM.Config), gitHubUrl: co2netGitHubUrl));//CO2NET.APM 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息  -- DPBMARK CsRedis DPBMARK_END
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息        -- DPBMARK CsRedis DPBMARK_END
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息               -- DPBMARK Memcached DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
             vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
@@ -135,6 +135,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
+            #region DPBMARK MP
             try
             {
                 //文档下载版本
@@ -146,6 +147,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
             }
+            #endregion  DPBMARK_END
 
             Weixin.WeixinTrace.SendCustomLog("首页被访问",
                                 string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));

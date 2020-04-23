@@ -10,6 +10,7 @@
     修改标识：Senparc - 20150312
     修改描述：TestUploadMediaFile() 方法专为Senparc.Weixin.MP.Test/HttpUtility/RequestUtilityTest.cs/HttpPostTest 提供上传测试目标
 ----------------------------------------------------------------*/
+//DPBMARK_FILE MP
 
 using System;
 using System.Collections.Generic;

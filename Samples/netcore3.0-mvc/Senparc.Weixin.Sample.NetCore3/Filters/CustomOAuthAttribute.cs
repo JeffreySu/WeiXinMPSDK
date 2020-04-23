@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Web;
+﻿//DPBMARK_FILE MP
+
 using Microsoft.AspNetCore.Http;
-using Senparc.CO2NET;
-using Senparc.CO2NET.Trace;
 using Senparc.Weixin.MP.MvcExtension;
 
 namespace Senparc.Weixin.Sample.NetCore3.Filters

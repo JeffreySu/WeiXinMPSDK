@@ -14,8 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
-//DPBMARK MP
-using Senparc.Weixin.MP.Containers;//DPBMARK_END
+using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -158,6 +157,34 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return View(vd);
         }
 
+        #region MP 测试 -- DPBMARK MP
+        public ActionResult GetAccessTokenBags()
+        {
+            if (!Request.IsLocal())
+            {
+                return new UnauthorizedResult();//只允许本地访问
+            }
+            var accessTokenBags = AccessTokenContainer.GetAllItems();
+            return Json(accessTokenBags);
+        }
+
+        /// <summary>
+        /// 测试未经注册的TryGetAccessToken同步方法
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TryGetAccessTokenTest()
+        {
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
+            var appId = Config.SenparcWeixinSetting.WeixinAppId;
+            var appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
+            var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
+
+            return Content($"AccessToken: {result?.Substring(0, 10) }...");
+        }
+        #endregion  //DPBMARK_END
+
+
         public ActionResult WeChatSampleBuilder()
         {
             return View();
@@ -180,37 +207,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return Content("Debug状态已关闭。");
         }
 
-        public ActionResult GetAccessTokenBags()
-        {
-            if (!Request.IsLocal())
-            {
-                return new UnauthorizedResult();//只允许本地访问
-            }
-            var accessTokenBags = AccessTokenContainer.GetAllItems();
-            return Json(accessTokenBags);
-        }
-
 
         public ActionResult TestPath()
         {
             return Content(HttpContext.Request.PathBase);
         }
 
-        /// <summary>
-        /// 测试未经注册的TryGetAccessToken同步方法
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult TryGetAccessTokenTest()
-        {
-            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
-            var appId = Config.SenparcWeixinSetting.WeixinAppId;
-            var appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
-            var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
-            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
-
-            return Content($"AccessToken: {result?.Substring(0, 10) }...");
-        }
-
+       
         public IActionResult Privacy()
         {
             return View();

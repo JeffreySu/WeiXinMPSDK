@@ -90,7 +90,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //启用 GB2312（按需）
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //引入EnableRequestRewind中间件（按需）
-            app.UseEnableRequestRewind();
+            app.UseEnableRequestRewind();//DPBMARK MP DPBMARK_END
             //使用 Session（按需，本示例中需要用到）
             app.UseSession();
 

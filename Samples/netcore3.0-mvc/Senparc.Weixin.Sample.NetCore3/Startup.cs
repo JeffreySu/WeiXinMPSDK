@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
@@ -36,6 +32,9 @@ using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.Work.MessageHandlers.Middleware;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPBMARK_END
+using System;
+using System.IO;
+using System.Text;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -75,7 +74,7 @@ namespace Senparc.Weixin.Sample.NetCore3
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            
+
             services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin 注册（必须）
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
@@ -253,7 +252,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                             .RegisterTenpayOld(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//这里的 name 和第一个 RegisterMpAccount() 中的一致，会被记录到同一个 SenparcWeixinSettingItem 对象中
 
                             //注册最新微信支付版本（V3）（可注册多个）
-                            .RegisterTenpayV3( senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
+                            .RegisterTenpayV3(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")//记录到同一个 SenparcWeixinSettingItem 对象中
                             /* 特别注意：
                              * 在 services.AddSenparcWeixinServices() 代码中，已经自动为当前的 
                              * senparcWeixinSetting  对应的TenpayV3 配置进行了 Cert 证书配置，
@@ -329,7 +328,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                                         var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                                         binFormat.Serialize(fs, refreshResult);
                                         fs.Flush();
-                                    fs.Close();
+                                        fs.Close();
                                     }
                                 }, "【盛派网络】开放平台")
 

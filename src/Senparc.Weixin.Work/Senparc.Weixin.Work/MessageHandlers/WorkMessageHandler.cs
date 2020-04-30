@@ -419,6 +419,10 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                 OnEvent_ChangeExternalContactAddRequest(
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
                             break;
+                        case ExternalContactChangeType.edit_external_contact:
+                            OnEvent_ChangeExternalContactUpdateRequest(
+                                requestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+                            break;
                         case ExternalContactChangeType.add_half_external_contact:
                             responseMessage =
                                 OnEvent_ChangeExternalContactAddHalfRequest(
@@ -438,6 +442,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                 OnEvent_ChangeExternalContactMsgAudit(
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
                             break;
+                        default:
+                            throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
                     }
                     break;
                 default:
@@ -636,6 +642,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
         /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactAddRequest(
             RequestMessageEvent_Change_ExternalContact_Add requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactUpdateRequest(
+            RequestMessageEvent_Change_ExternalContact_Modified requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

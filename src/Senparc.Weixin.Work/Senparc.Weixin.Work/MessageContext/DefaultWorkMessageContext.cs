@@ -147,6 +147,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                                 case "ADD_HALF_EXTERNAL_CONTACT":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Add_Half();
                                     break;
+                                case "EDIT_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Modified();
+                                    break;
                                 case "DEL_EXTERNAL_CONTACT":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Del();
                                     break;

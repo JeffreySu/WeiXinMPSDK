@@ -144,7 +144,10 @@
       2、添加日程相关API
       v3.7.401 新增“获取客户群列表”“获取客户群详情” 接口
       v3.7.402 fix bug：ChatApi.CreateChat() 接口传入AccessToken有错误
-</PackageReleaseNotes>
+      v3.7.502
+      1.企业微信状态码转换失败导致返回始终是成功，新增企业微信类型判断
+      2.成员缺少二维码字段
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

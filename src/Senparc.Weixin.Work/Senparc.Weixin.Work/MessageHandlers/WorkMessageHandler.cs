@@ -449,6 +449,9 @@ namespace Senparc.Weixin.Work.MessageHandlers
                             throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
                     }
                     break;
+                case Event.CHANGE_EXTERNAL_CHAT://客户群变更事件
+                    responseMessage = OnEvent_ChangeExternalChatRequest(RequestMessage as RequestMessageEvent_Change_External_Chat);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -704,9 +707,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        #endregion
-
-
+        /// <summary>
+        /// 客户群变更事件 推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatRequest(
+            RequestMessageEvent_Change_External_Chat requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion //Event 下属分类
         #endregion
 
         #region 第三方回调事件

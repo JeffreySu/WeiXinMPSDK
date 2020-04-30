@@ -42,6 +42,9 @@
     修改标识：OrchesAdam - 2019119
     修改描述：v3.7.104.2 添加“上报企业客户变更事件”
 
+    修改标识：OrchesAdam - 20200430
+    修改描述：添加“外部联系人编辑企业客户”消息推送
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -646,6 +649,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 外部联系人编辑企业客户
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactUpdateRequest(
             RequestMessageEvent_Change_ExternalContact_Modified requestMessage)
         {

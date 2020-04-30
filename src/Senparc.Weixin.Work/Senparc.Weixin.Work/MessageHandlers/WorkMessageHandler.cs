@@ -42,6 +42,12 @@
     修改标识：OrchesAdam - 2019119
     修改描述：v3.7.104.2 添加“上报企业客户变更事件”
 
+    修改标识：OrchesAdam - 20200430
+    修改描述：添加“外部联系人编辑企业客户”消息推送
+
+    修改标识：OrchesAdam - 20200430
+    修改描述：添加“客户群变更事件”（OnEvent_ChangeExternalChatRequest）
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -419,6 +425,10 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                 OnEvent_ChangeExternalContactAddRequest(
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_Add);
                             break;
+                        case ExternalContactChangeType.edit_external_contact:
+                            OnEvent_ChangeExternalContactUpdateRequest(
+                                requestMessage as RequestMessageEvent_Change_ExternalContact_Modified);
+                            break;
                         case ExternalContactChangeType.add_half_external_contact:
                             responseMessage =
                                 OnEvent_ChangeExternalContactAddHalfRequest(
@@ -438,7 +448,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
                                 OnEvent_ChangeExternalContactMsgAudit(
                                     RequestMessage as RequestMessageEvent_Change_ExternalContact_MsgAudit);
                             break;
+                        default:
+                            throw new UnknownRequestMsgTypeException("未知的外部联系人事件Event.CHANGE_EXTERNAL_CONTACT下属请求信息", null);
                     }
+                    break;
+                case Event.CHANGE_EXTERNAL_CHAT://客户群变更事件
+                    responseMessage = OnEvent_ChangeExternalChatRequest(RequestMessage as RequestMessageEvent_Change_External_Chat);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -641,6 +656,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         /// <summary>
+        /// 外部联系人编辑企业客户
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalContactUpdateRequest(
+            RequestMessageEvent_Change_ExternalContact_Modified requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
         /// 外部联系人免验证添加成员事件 推送
         /// </summary>
         /// <param name="requestMessage"></param>
@@ -684,9 +710,17 @@ namespace Senparc.Weixin.Work.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        #endregion
-
-
+        /// <summary>
+        /// 客户群变更事件 推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatRequest(
+            RequestMessageEvent_Change_External_Chat requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion //Event 下属分类
         #endregion
 
         #region 第三方回调事件

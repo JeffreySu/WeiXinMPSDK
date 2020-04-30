@@ -46,6 +46,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191206
     修改描述：v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
 
+    修改标识：WangDrama - 20200430
+    修改描述：v6.7.502 新增企业微信状态码转换失败判断
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -91,6 +94,10 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             if (result is WxJsonResult)
             {
                 (result as WxJsonResult).errcode = jsonResult.errcode;
+            }
+            else if (result is WorkJsonResult)
+            {
+                (result as WorkJsonResult).errcode = (ReturnCode_Work)jsonResult.ErrorCodeValue;
             }
             return result;
         }

@@ -81,6 +81,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191014
     修改描述：v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
 
+    修改标识：Senparc - 20200430
+    修改描述：v6.7.502 添加 40164 错误编码
+
 ----------------------------------------------------------------*/
 
 
@@ -184,6 +187,7 @@ namespace Senparc.Weixin
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
+        调用接口的IP地址不在白名单中 = 40164,//GitHub#2166 https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html 
 
         小程序Appid不存在 = 40166,
 

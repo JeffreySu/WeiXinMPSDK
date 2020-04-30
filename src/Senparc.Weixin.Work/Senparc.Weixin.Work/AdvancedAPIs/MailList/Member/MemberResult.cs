@@ -19,6 +19,9 @@
     修改标识：lishewen - 20200318
     修改描述：v3.7.401 修改 is_leader_in_dept 属性命名和类型
 
+    修改标识：WangDrama - 20200430
+    修改描述：v3.7.502 GetMemberResult 补充二维码属性
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -99,6 +102,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 关注微信插件的状态: 1=已关注，0=未关注
         /// </summary>
         public string wxplugin_status { get; set; }
+
+        /// <summary>
+        /// 员工个人二维码，扫描可添加为外部联系人(注意返回的是一个url，可在浏览器上打开该url以展示二维码)；第三方仅通讯录应用可获取
+        /// </summary>
+        public string qr_code { get; set; }
     }
 
     public class GetDepartmentMemberResult : WorkJsonResult

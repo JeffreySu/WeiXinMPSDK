@@ -313,7 +313,9 @@
       v6.7.303 BaseContainerCacheStrategy.UpdateContainerBag() 方法自动更新 CacheTime 值
       v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
       v6.7.500 修改 ErrorJsonResultException 属性
-      v6.7.502 添加 40164 错误编码
+      v6.7.502
+      1、添加 40164 错误编码
+      2、新增企业微信状态码转换失败判断
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

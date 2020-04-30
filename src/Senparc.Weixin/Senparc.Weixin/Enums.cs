@@ -184,7 +184,8 @@ namespace Senparc.Weixin
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
-
+        调用接口的IP地址不在白名单中 = 40164,
+        
         小程序Appid不存在 = 40166,
 
         缺少access_token参数 = 41001,

@@ -92,6 +92,10 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             {
                 (result as WxJsonResult).errcode = jsonResult.errcode;
             }
+            else if (result is WorkJsonResult)
+            {
+                (result as WorkJsonResult).errcode = (ReturnCode_Work)jsonResult.ErrorCodeValue;
+            }
             return result;
         }
 

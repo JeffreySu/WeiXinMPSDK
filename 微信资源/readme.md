@@ -30,3 +30,8 @@
 > 
 > 共计 60 课时，配有番外篇。<br>
 > 目前视频已经在网易云课堂上线，课程制作精良、内容充实，被选为“A”级课程，[【观看视频】](https://book.weixin.senparc.com/book/videolinknetease?code=github-homepage)，[【查看课程代码及课件】](https://github.com/JeffreySu/WechatVideoCourse)。
+
+
+# 简易版消息处理（MessageHandler） Sample
+[进入 WechatMessageSample](https://github.com/OpenSenparc/WechatMessageSample)
+

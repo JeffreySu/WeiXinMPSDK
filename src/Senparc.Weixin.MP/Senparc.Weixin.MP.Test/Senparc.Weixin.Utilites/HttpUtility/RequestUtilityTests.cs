@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
             var url = Config.ApiMpHost + "/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
             var exceptResult = @"{""errcode"":40013,""errmsg"":""invalid appid""}";
-            var actualResult = RequestUtility.HttpGet(url, null);
+            var actualResult = RequestUtility.HttpGet(CommonDI.CommonSP, url, null);
             Assert.AreEqual(exceptResult, actualResult);
         }
 
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
 
                 //获取字符串结果
-                var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), fs, encoding: null);
+                var actualResult = RequestUtility.HttpPost(CommonDI.CommonSP, url, new CookieContainer(), fs, encoding: null);
                 Assert.IsNotNull(actualResult);
                 Console.WriteLine(actualResult);
 
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                     url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
 
                     //获取字符串结果
-                    var actualResult = await RequestUtility.HttpPostAsync(url, new CookieContainer(), fs, encoding: null);
+                    var actualResult = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, url, new CookieContainer(), fs, encoding: null);
                     Assert.IsNotNull(actualResult);
                     Console.WriteLine(actualResult);
 

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：AutoReplyResultJson.cs
     文件功能描述：获取自动回复规则返回结果
@@ -123,11 +123,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
     public class KeywordListInfoItem
     {
         /// <summary>
-        /// 自动回复的类型。关注后自动回复和消息自动回复的类型仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
+        ///  关键词的类型，仅支持文本（text）、图片（img）、语音（voice）、视频（video），关键词自动回复则还多了图文消息（news）
         /// </summary>
         public AutoReplyType type { get; set; }
         /// <summary>
-        /// 回复模式，reply_all代表全部回复，random_one代表随机回复其中一条
+        /// 关键词匹配模式，contain = 0 消息中含有该关键词即可， equal = 1 消息内容必须和关键词严格相同
         /// </summary>
         public AutoReplyMatchMode match_mode { get; set; }
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：Register.cs
     文件功能描述：Senparc.Weixin.MP 快捷注册流程
@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20180802
     修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterMpAccount()、RegisterTenpayOld()、RegisterTenpayV3() 方法
+
+    修改标识：Senparc - 20191003
+    修改描述：注册过程自动添加更多 SenparcSettingItem 信息
 
 ----------------------------------------------------------------*/
 using Senparc.Weixin.MP.Containers;
@@ -50,6 +53,11 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static IRegisterService RegisterMpAccount(this IRegisterService registerService, ISenparcWeixinSettingForMP weixinSettingForMP, string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForMP);
+            }
             return RegisterMpAccount(registerService, weixinSettingForMP.WeixinAppId, weixinSettingForMP.WeixinAppSecret, name ?? weixinSettingForMP.ItemKey);
         }
 

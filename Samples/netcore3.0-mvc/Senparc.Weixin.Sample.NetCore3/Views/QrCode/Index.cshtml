@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "二维码生成器（纯净绿色二维码，不中转，不截流）";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        #qrCodeArea {
+            margin: 40px auto;
+            text-align: center;
+        }
+
+            #qrCodeArea h2 {
+                font-size: 200%;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            #qrCodeArea .notice {
+                margin: 10px auto;
+                color: #777;
+            }
+    </style>
+    <script>
+        function submitForm() {
+            if ($('#codesStr').val().trim().length === 0) {
+                alert('请输入内容！');
+                return false;
+            }
+
+            return true;
+        }
+
+        function getShorturl(e) {
+
+            var codeStr = $('#codesStr').val().trim();
+            if (codeStr.length === 0) {
+                alert('请输入内容！');
+                return false;
+            }
+
+            var btn = $(e);
+            btn.attr('disable', 'disable').val('生成中，请等待...');
+
+            $.post('@Url.Action("GetShortUrl")', { codesStr: codeStr }, function (json) {
+                alert('生成完成，共尝试转换 ' + json.totalCount + ' 条网址，成功转换 ' + json.successCount + ' 条！');
+
+                btn.attr('disable', '').val('生成短址');
+
+                if (json.successCount!=json.totalCount) {
+                    alert('错误信息：'+ json.errors);
+                }
+
+                 $('#codesStr').val(json.result);
+
+                if (json.successCount == 0) {
+                    return;
+                }
+
+            });
+        }
+    </script>
+}
+<div class="wrapper">
+    <div id="qrCodeArea">
+        <h2 id="doc-download">@ViewBag.Title</h2>
+        <div class="qrcode">
+            @using (Html.BeginForm("Index", "QrCode", FormMethod.Post, new { onsubmit = "return submitForm()" }))
+            {
+            <textarea name="codesStr" style="width:50%;height:150px;" id="codesStr"></textarea><br />
+            <div class="notice">注意：每行内容将生成一个独立的二维码，最多200行，每行最多100个字符，多余内容将被截断。</div>
+
+            <div>
+                <input type="button" value="生成短址" class="application" id="btnShortUrl" onclick="getShorturl(this)" />
+
+
+            </div>
+
+            <input type="submit" value="生成二维码并下载" class="application" />
+            }
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

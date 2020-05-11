@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
  
     文件名：TenPayV3Results.cs
     文件功能描述：微信支付V3返回结果
@@ -69,6 +69,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20181028
     修改描述：v1.0.1 优化 TenPayV3Result.GetXmlValues() 方法
 
+    修改标识：Senparc - 20190906
+    修改描述：v1.4.5 添加 GetTransferInfoResult.payment_time 属性
+
+    修改标识：Senparc - 20190925
+    修改描述：v1.5.0 商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+    
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口，添加 ProfitSharingResult、ProfitSharingAddReceiverResult、ProfitSharingRemoveReceiverResult、ProfitSharingQueryResult、ProfitSharingQueryResult
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -77,6 +86,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 
@@ -1116,6 +1126,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         public string desc { get; set; }
 
+        /// <summary>
+        /// 企业付款成功时间，如：2015-04-21 20:01:00	
+        /// </summary>
+        public string payment_time { get; set; }
+
         public GetTransferInfoResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())
@@ -1135,6 +1150,7 @@ namespace Senparc.Weixin.TenPay.V3
                     payment_amount = int.Parse(GetXmlValue("payment_amount"));
                     transfer_time = GetXmlValue("transfer_time") ?? "";
                     desc = GetXmlValue("desc") ?? "";
+                    payment_time = GetXmlValue("payment_time") ?? "";
                 }
             }
         }
@@ -1181,6 +1197,202 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 mch_id = GetXmlValue("mch_id") ?? "";
                 sandbox_signkey = GetXmlValue("sandbox_signkey") ?? "";
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 单次分账操作结果
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1 或者 
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_1&index=1 
+    /// </summary>
+    public class ProfitSharingResult : Result
+    {
+        /// <summary>
+        /// 微信订单号 
+        /// </summary>
+        public string transaction_id
+        { get; set; }
+
+        /// <summary>
+        /// 商户分账单号,调用接口提供的商户系统内部的分账单号 
+        /// </summary>
+        public string out_order_no
+        { get; set; }
+
+        /// <summary>
+        /// 微信分账单号,微信分账单号，微信系统返回的唯一标识 
+        /// </summary>
+        public string order_id
+        { get; set; }
+
+        /// <summary>
+        /// 分账接收方
+        /// 分账接收方对象（不包含分账接收方全称）
+        /// </summary>
+        public TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                transaction_id = GetXmlValue("transaction_id");
+                out_order_no = GetXmlValue("out_order_no");
+                order_id = GetXmlValue("order_id");
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 添加分账接收方的操作结果操作结果
+    /// 服务商特约商户新增分账接收方https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_3&index=4 或者 
+    /// 服务商特约商户新增分账接收方https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_3&index=4 
+    /// </summary>
+    public class ProfitSharingAddReceiverResult : Result
+    {
+        /// <summary>
+        /// 分账接收方
+        /// </summary>
+        public TenpayV3ProfitShareing_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingAddReceiverResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                var receiverJsonString = GetXmlValue("receiver"); //xml中包含有Json字符串,但是 CommonJson
+                this.receiver = SerializerHelper.GetObject<TenpayV3ProfitShareing_ReceiverInfo>(receiverJsonString);
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 删除分账接收方的操作结果
+    /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_4&index=5
+    /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_4&index=5
+    /// </summary>
+    public class ProfitSharingRemoveReceiverResult : Result
+    {
+        /// <summary>
+        /// 分账接收方
+        /// </summary>
+        public TenpayV3ProfitShareing_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingRemoveReceiverResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                var receiverJsonString = GetXmlValue("receiver"); //xml中包含有Json字符串,但是 CommonJson
+                this.receiver = SerializerHelper.GetObject<TenpayV3ProfitShareing_ReceiverInfo>(receiverJsonString);
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 分账查询的操作结果
+    /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_2&index=3
+    /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_2&index=3
+    /// </summary>
+    public class ProfitSharingQueryResult : Result
+    {
+        /// <summary>
+        /// 微信支付订单号 
+        /// </summary>
+        public string transaction_id
+        { get; set; }
+
+        /// <summary>
+        /// 商户系统内部的分账单号，在商户系统内部唯一（单次分账、多次分账、完结分账应使用不同的商户分账单号），
+        /// 同一分账单号多次请求等同一次。
+        /// 只能是数字、大小写字母_-|*@  
+        /// </summary>
+        public string order_id
+        { get; set; }
+
+        /// <summary>
+        /// 微信分账单号
+        /// </summary>
+        public string out_order_no
+        { get; set; }
+
+        /// <summary>
+        /// 分账单状态： 
+        /// ACCEPTED—受理成功
+        /// PROCESSING—处理中
+        /// FINISHED—处理完成
+        /// CLOSED—处理失败，已关单
+        /// </summary>
+        public string status
+        { get; set; }
+
+        /// <summary>
+        /// 关单原因 
+        /// </summary>
+        public string close_reason
+        { get; set; }
+
+        /// <summary>
+        /// 分账接收方的分账信息
+        /// </summary>
+        public TenpayV3ProfitShareingQuery_ReceiverInfo[] receivers
+        { get; set; }
+
+
+        /// <summary>
+        /// 分账完结的原因描述，仅当查询分账完结的执行结果时，存在本字段 
+        /// </summary>
+        public string description
+        { get; set; }
+
+
+        /// <summary>
+        /// 分账完结的分账金额，单位为分， 仅当查询分账完结的执行结果时，存在本字段 
+        /// </summary>
+        public int? amount
+        { get; set; }
+
+        public ProfitSharingQueryResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                this.transaction_id = GetXmlValue("transaction_id");
+                this.out_order_no = GetXmlValue("out_order_no");
+                this.order_id = GetXmlValue("order_id");
+
+                this.status = GetXmlValue("status");
+                this.close_reason = GetXmlValue("close_reason");
+
+                if (this.status == "FINISHED")
+                {
+                    var amount = GetXmlValue("amount");
+                    if (!string.IsNullOrEmpty(amount))
+                    {
+                        var iamount = 0;
+                        if (Int32.TryParse(amount, out iamount))
+                        {
+                            this.amount = iamount;
+                        }
+                    }
+                    this.description = GetXmlValue("description");
+                }
+
+
+                var receiverJsonString = GetXmlValue("receivers"); //xml中包含有Json字符串,但是 CommonJson
+                this.receivers = SerializerHelper.GetObject<TenpayV3ProfitShareingQuery_ReceiverInfo[]>(receiverJsonString);
+
             }
         }
     }

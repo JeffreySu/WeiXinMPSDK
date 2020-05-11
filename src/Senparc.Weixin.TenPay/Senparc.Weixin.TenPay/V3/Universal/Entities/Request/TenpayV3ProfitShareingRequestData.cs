@@ -28,7 +28,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：15989221023 - 20200416
     修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
-    
+
+    修改标识：15989221023 - 2020511
+    修改描述：v1.5.502.1 添加 TenPayV3UnifiedorderRequestData Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2174
+   
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;

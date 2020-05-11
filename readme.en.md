@@ -17,12 +17,12 @@ Now, Senparc.Weixin has been supported almost all of the API for Wechat's all mo
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than six years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than seven years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
 ## Notice 
-> 🥇 .NET Core 3.0 [Senparc.Weixin SDK source code](/src) and [Demo](/Samples/netcore3.0-mvc) has been released!
+> 🥇 .NET Core 3.1 [Senparc.Weixin SDK source code](/src) and [Demo](/Samples/netcore3.0-mvc) has been released!
 
 >  :trophy: 《[2018-2019 WeChat SDK Outstanding Contributors Shortlist](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》 has been published. Please check and register the information :smile:
 

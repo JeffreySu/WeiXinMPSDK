@@ -1058,9 +1058,11 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     var nonceStr = TenPayV3Util.GetNoncestr();
 
                     var body = product == null ? "test" : product.Name;
-                    var price = product == null ? 100 : (int)product.Price * 100;
+                    var price = product == null ? 100 : (int)(product.Price * 100);
                     //var ip = Request.Params["REMOTE_ADDR"];
                     var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
+                    
+                    SenparcTrace.SendCustomLog("H5Pay接口请求", xmlDataInfo.ToJson());
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
                                                                   //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -1069,6 +1071,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                      * result:{"device_info":"","trade_type":"MWEB","prepay_id":"wx20170810143223420ae5b0dd0537136306","code_url":"","mweb_url":"https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20170810143223420ae5b0dd0537136306\u0026package=1505175207","appid":"wx669ef95216eef885","mch_id":"1241385402","sub_appid":"","sub_mch_id":"","nonce_str":"juTchIZyhXvZ2Rfy","sign":"5A37D55A897C854F64CCCC4C94CDAFE3","result_code":"SUCCESS","err_code":"","err_code_des":"","return_code":"SUCCESS","return_msg":null}
                      */
                     //return Json(result, JsonRequestBehavior.AllowGet);
+
+                    SenparcTrace.SendCustomLog("H5Pay接口返回", result.ToJson());
 
                     var package = string.Format("prepay_id={0}", result.prepay_id);
 
@@ -1086,7 +1090,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                             productId, hc);
 
                     var mwebUrl = result.mweb_url;
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    if (!string.IsNullOrEmpty(mwebUrl))
                     {
                         mwebUrl += string.Format("&redirect_url={0}", returnUrl.AsUrlData());
                     }

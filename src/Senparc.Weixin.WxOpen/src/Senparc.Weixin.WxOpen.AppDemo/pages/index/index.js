@@ -55,6 +55,13 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
+      wx.showModal({
+        title: '模板消息 API 已过期',
+        content: '2020年01月10日起，新发布的小程序将不能使用模板消息，请使用“订阅消息”功能。',
+        showCancel:false
+      })
+      return;
+      //以下代码 API 已过期
        var submitData = {
           sessionId:wx.getStorageSync("sessionId"),
           formId:e.detail.formId

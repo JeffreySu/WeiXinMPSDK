@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.10.304</Version>
+    <Version>16.10.502</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -488,6 +488,9 @@
       v16.9.104.1
       1、AutoReplyType 添加卡券（card）枚举
       2、CommonApi.Token() 方法设置异常抛出机制
+      v16.10.402 添加会员卡接口自定义cell参数
+      v16.10.403 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
+      v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -546,7 +549,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.9.103" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.9.104" />
     <PackageReference Include="Senparc.NeuChar" Version="1.2.105" />
     <PackageReference Include="Senparc.NeuChar.App" Version="0.8.105" />
   </ItemGroup>

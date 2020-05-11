@@ -2,7 +2,7 @@
 
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
-using Senparc.Weixin.TenPay.V3;
+using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.WxOpen.Containers;
 using System;
 using System.Threading.Tasks;
@@ -26,6 +26,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 formId = formId.Replace("prepay_id=", "");
                 title = "这是来自小程序支付的模板消息（仅测试接收，数据不一定真实）";
 
+                //DPBMARK TenPay
                 var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
                 var unifiedorderRequestData = await cacheStrategy.GetAsync<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
                 var unifedorderResult = await cacheStrategy.GetAsync<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
@@ -36,12 +37,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     productName = unifiedorderRequestData.Body + "/缓存获取 prepay_id 成功";
                     orderNumber = unifiedorderRequestData.OutTradeNo;
                 }
-                else
+                else//DPBMARK_END
                 {
                     productName = "缓存获取 prepay_id 失败";
                     orderNumber = "1234567890";
                 }
-                productName += " | 注意：这条消息是从小程序发起的！仅作为UI上支付成功的演示！不能确定支付真实成功！ | prepay_id：" + unifedorderResult.prepay_id;
+                productName += " | 注意：这条消息是从小程序发起的！仅作为UI上支付成功的演示！不能确定支付真实成功！ | prepay_id：";
+                productName += unifedorderResult.prepay_id;//DPBMARK TenPay DPBMARK_END
             }
             else
             {

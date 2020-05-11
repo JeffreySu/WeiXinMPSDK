@@ -181,11 +181,17 @@ Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](h
 
 ## Personalize your WeChat project Sample
 
-1. Methods: login <a href = "https://weixin.senparc.com/User" target ="_blank"> https://weixin.senparc.com/User </a> to download WeChatSampleBuilder tool, and view the instructions;
-2. Open the WeChatSampleBuilder.exe file, then choose the root directory path of this cloned project for the `Source Peoject Path'.  According to the need to configure the Sample project type, .NET versions, WeChat modules, and the cache types;
-3. Click the Build button, then in the same directory you can see ` OutputSample ` folder, and automatically open the solution!
 
-<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png" width="700" alt="WeChatSampleBuilder" />
+1. Web version：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">view course</a>。
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+
+2. Desktop App: Login <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a> to download WeChatSampleBuilder tool, and view description。
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+> Notice: using the WeChatSampleBuilder tool simply makes it easier for you to test and learn the Sample code, not to generate a complete production environment project. If you need to build a production environment project, refer to the full Demo or other tutorials. It is recommended to use an existing system framework, such as [SenparcCoreFramework](https://github.com/SenparcCoreFramework/SCF).
 
 
 resources

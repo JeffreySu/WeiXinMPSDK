@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181226
     修改描述：v1.1.1 修改 DateTime 为 DateTimeOffset
+
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPay;
@@ -195,6 +198,16 @@ namespace Senparc.Weixin.TenPay.V3
 
         #endregion
 
+        /// <summary>
+        /// 是否需要分账
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=24_3&index=3
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=26_3
+        /// "Y" -- 需要分账, null 或者 "N"-不需要分账,
+        /// 服务商需要在 产品中心--特约商户授权产品 申请特约商户授权,
+        /// 并且特约商户需要在 产品中心-我授权的商品中给服务商授权才可以使用分账功能;
+        /// 普通商户需要 产品中心-我的产品 中开通分账功能；
+        /// </summary>
+        public string ProfitSharing { get; set; }
 
         /// <summary>
         /// 
@@ -228,18 +241,28 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
         /// <param name="sceneInfo">场景信息。该字段用于上报场景信息，目前支持上报实际门店信息。</param>
+        /// <param name="profitSharing">        
+        /// 是否需要分账
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=24_3&index=3
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=26_3
+        /// "Y" -- 需要分账, null 或者 "N"-不需要分账,
+        /// 服务商需要在 产品中心--特约商户授权产品 申请特约商户授权,
+        /// 并且特约商户需要在 产品中心-我授权的商品中给服务商授权才可以使用分账功能;
+        /// 普通商户需要 产品中心-我的产品 中开通分账功能；
+        /// </param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
             string deviceInfo = null, DateTimeOffset? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false,
-            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
+            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null,
+            string profitSharing = null
              ) : this(appId, mchId, null, null, body, outTradeNo, totalFee, spbillCreateIp,
                  notifyUrl, tradeType, openid, null, key, nonceStr,
                  deviceInfo, timeStart, timeExpire, detail, attach, feeType, goodsTag,
                  productId, limitPay,
-                 sceneInfo)
+                 sceneInfo, profitSharing)
         {
 
         }
@@ -278,13 +301,23 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
         /// <param name="sceneInfo">场景信息。该字段用于上报场景信息，目前支持上报实际门店信息。</param>
+        /// <param name="profitSharing">        
+        /// 是否需要分账
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=24_3&index=3
+        /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=26_3
+        /// "Y" -- 需要分账, null 或者 "N"-不需要分账,
+        /// 服务商需要在 产品中心--特约商户授权产品 申请特约商户授权,
+        /// 并且特约商户需要在 产品中心-我授权的商品中给服务商授权才可以使用分账功能;
+        /// 普通商户需要 产品中心-我的产品 中开通分账功能；
+        /// </param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string subOpenid, string key, string nonceStr,
             string deviceInfo = null, DateTimeOffset? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false,
-            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null
+            TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null,
+            string profitSharing = null
              )
         {
             AppId = appId;
@@ -312,6 +345,7 @@ namespace Senparc.Weixin.TenPay.V3
             SubMchId = submchid;
             SubOpenid = subOpenid;
             SceneInfo = sceneInfo;
+            ProfitSharing = profitSharing;
 
 
             #region 设置RequestHandler
@@ -346,6 +380,7 @@ namespace Senparc.Weixin.TenPay.V3
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
             PackageRequestHandler.SetParameterWhenNotNull("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             PackageRequestHandler.SetParameterWhenNotNull("sub_openid", this.SubOpenid);              //用户子标识
+            PackageRequestHandler.SetParameterWhenNotNull("profit_sharing", this.ProfitSharing);      //是否需要分账标识
             if (SceneInfo != null)
             {
                 PackageRequestHandler.SetParameter("scene_info", SceneInfo.ToString());   //场景信息

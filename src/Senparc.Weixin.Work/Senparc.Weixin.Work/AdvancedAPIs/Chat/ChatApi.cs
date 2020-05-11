@@ -22,21 +22,23 @@
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 
+    修改标识：Senparc - 20200322
+    修改描述：fix bug：ChatApi.CreateChat() 接口传入AccessToken有错误
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：https://work.weixin.qq.com/api/doc#13308
  */
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Chat;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -75,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return CommonJsonSend.Send<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<CreateChatResult>(accessToken, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -342,7 +344,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-
                 var data = new
                 {
                     chatid = chatId,
@@ -351,7 +352,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return await CommonJsonSend.SendAsync<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<CreateChatResult>(accessToken, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 

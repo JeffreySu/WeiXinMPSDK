@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190525
     修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
 
+    修改标识：mc7246 - 20200318
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
+
 ----------------------------------------------------------------*/
 
 
@@ -50,7 +53,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         public string auditid { get; set; }
         /// <summary>
-        /// 审核状态，其中0为审核成功，1为审核失败，2为审核中
+        /// 审核状态，其中0为审核成功，1为审核失败，2为审核中，3为已撤回，4为审核延后
         /// </summary>
         public int status { get; set; }
 
@@ -58,5 +61,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// 当status=1，审核被拒绝时，返回的拒绝原因
         /// </summary>
         public string reason { get; set; }
+
+        /// <summary>
+        /// 当 status = 1 时，会返回审核失败的小程序截图示例。用 | 分隔的 media_id 的列表，可通过获取永久素材接口拉取截图内容
+        /// </summary>
+        public string screenshot { get; set; }
     }
 }

@@ -14,8 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Cache;
-//DPBMARK MP
-using Senparc.Weixin.MP.Containers;//DPBMARK_END
+using Senparc.Weixin.MP.Containers;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,10 +53,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 Description = "对应于每一个微信平台的基础 SDK，包含了目前微信平台的绝大部分 API，进行微信开发重点是对这些库的使用。"
             };
             var sdkList = new List<Home_IndexVD_AssemblyModel>();
-            sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", this.GetType(), gitHubUrl: sdkGitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.Config), gitHubUrl: sdkGitHubUrl));
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.Config), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
-            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.Register), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("SDK 公共基础库", "Senparc.Weixin", typeof(Senparc.Weixin.WeixinRegister), gitHubUrl: sdkGitHubUrl));
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号<br />JSSDK<br />摇一摇周边", "Senparc.Weixin.MP", typeof(Senparc.Weixin.MP.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK TenPay DPBMARK_END
+            sdkList.Add(new Home_IndexVD_AssemblyModel("公众号MvcExtension", "Senparc.Weixin.MP.MvcExtension", typeof(Senparc.Weixin.MP.MvcExtension.WeixinResult), "Senparc.Weixin.MP.Mvc", gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("小程序", "Senparc.Weixin.WxOpen", typeof(Senparc.Weixin.WxOpen.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK MiniProgram DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("微信支付", "Senparc.Weixin.TenPay", typeof(Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult), gitHubUrl: sdkGitHubUrl));//DPBMARK MP DPBMARK_END
             sdkList.Add(new Home_IndexVD_AssemblyModel("开放平台", "Senparc.Weixin.Open", typeof(Senparc.Weixin.Open.Register), gitHubUrl: sdkGitHubUrl));//DPBMARK Open DPBMARK_END
@@ -120,9 +118,9 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var co2netList = new List<Home_IndexVD_AssemblyModel>();
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 基础库", "Senparc.CO2NET", typeof(CO2NET.Config), gitHubUrl: co2netGitHubUrl));//CO2NET 基础库版本信息
             co2netList.Add(new Home_IndexVD_AssemblyModel("APM 库", "Senparc.CO2NET.APM", typeof(CO2NET.APM.Config), gitHubUrl: co2netGitHubUrl));//CO2NET.APM 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息
-            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（StackExchange.Redis）", "Senparc.CO2NET.Cache.Redis", typeof(Senparc.CO2NET.Cache.Redis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Redis 版本信息  -- DPBMARK CsRedis DPBMARK_END
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Redis 库<br />（CSRedis）", "Senparc.CO2NET.Cache.CsRedis", typeof(Senparc.CO2NET.Cache.CsRedis.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.CsRedis 版本信息        -- DPBMARK CsRedis DPBMARK_END
+            co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息               -- DPBMARK Memcached DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
             vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
@@ -137,6 +135,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
+            #region DPBMARK MP
             try
             {
                 //文档下载版本
@@ -148,6 +147,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             {
                 TempData["NewestDocumentVersion"] = new Senparc.Weixin.MP.Sample.CommonService.Download.Config();
             }
+            #endregion  DPBMARK_END
 
             Weixin.WeixinTrace.SendCustomLog("首页被访问",
                                 string.Format("Url：{0}\r\nIP：{1}", Request.Host, HttpContext.Connection.RemoteIpAddress));
@@ -158,6 +158,34 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             return View(vd);
         }
+
+        #region MP 测试 -- DPBMARK MP
+        public ActionResult GetAccessTokenBags()
+        {
+            if (!Request.IsLocal())
+            {
+                return new UnauthorizedResult();//只允许本地访问
+            }
+            var accessTokenBags = AccessTokenContainer.GetAllItems();
+            return Json(accessTokenBags);
+        }
+
+        /// <summary>
+        /// 测试未经注册的TryGetAccessToken同步方法
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TryGetAccessTokenTest()
+        {
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
+            var appId = Config.SenparcWeixinSetting.WeixinAppId;
+            var appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
+            var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
+            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
+
+            return Content($"AccessToken: {result?.Substring(0, 10) }...");
+        }
+        #endregion  //DPBMARK_END
+
 
         public ActionResult WeChatSampleBuilder()
         {
@@ -181,37 +209,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             return Content("Debug状态已关闭。");
         }
 
-        public ActionResult GetAccessTokenBags()
-        {
-            if (!Request.IsLocal())
-            {
-                return new UnauthorizedResult();//只允许本地访问
-            }
-            var accessTokenBags = AccessTokenContainer.GetAllItems();
-            return Json(accessTokenBags);
-        }
-
 
         public ActionResult TestPath()
         {
             return Content(HttpContext.Request.PathBase);
         }
 
-        /// <summary>
-        /// 测试未经注册的TryGetAccessToken同步方法
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult TryGetAccessTokenTest()
-        {
-            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = false;//如果错误，不抛出异常
-            var appId = Config.SenparcWeixinSetting.WeixinAppId;
-            var appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
-            var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
-            Senparc.Weixin.Config.ThrownWhenJsonResultFaild = true;
-
-            return Content($"AccessToken: {result?.Substring(0, 10) }...");
-        }
-
+       
         public IActionResult Privacy()
         {
             return View();

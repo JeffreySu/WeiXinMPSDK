@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -22,7 +23,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         //
         // GET: /JSSDK/
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             #region v13.6.4之前的写法
             ////获取时间戳
@@ -39,7 +40,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             //ViewData["Signature"] = signature;
             #endregion
 
-            var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, appSecret, Request.AbsoluteUri());
+            var jssdkUiPackage = await JSSDKHelper.GetJsSdkUiPackageAsync(appId, appSecret, Request.AbsoluteUri());
             //ViewData["JsSdkUiPackage"] = jssdkUiPackage;
             //ViewData["AppId"] = appId;
             //ViewData["Timestamp"] = jssdkUiPackage.Timestamp;

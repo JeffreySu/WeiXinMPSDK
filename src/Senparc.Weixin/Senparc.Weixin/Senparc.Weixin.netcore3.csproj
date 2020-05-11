@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>6.7.305</Version>
+    <Version>6.7.502</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -311,7 +311,12 @@
       v6.6.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
       v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
       v6.7.303 BaseContainerCacheStrategy.UpdateContainerBag() 方法自动更新 CacheTime 值
-</PackageReleaseNotes>
+      v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
+      v6.7.500 修改 ErrorJsonResultException 属性
+      v6.7.502
+      1、添加 40164 错误编码
+      2、新增企业微信状态码转换失败判断
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -357,7 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.3.103" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.3.104" />
     <PackageReference Include="Senparc.NeuChar" Version="1.2.105" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">

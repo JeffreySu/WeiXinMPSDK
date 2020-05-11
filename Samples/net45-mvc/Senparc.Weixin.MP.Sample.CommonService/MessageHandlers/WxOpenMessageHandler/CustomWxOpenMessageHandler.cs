@@ -9,20 +9,16 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MiniProgram
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Senparc.Weixin.WxOpen;
-using Senparc.Weixin.WxOpen.MessageHandlers;
+using Senparc.CO2NET.Utilities;
+using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.NeuChar.Entities;
-using Senparc.CO2NET.Utilities;
+using Senparc.Weixin.WxOpen.MessageHandlers;
 using System;
+using System.IO;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 #if NET45
 using System.Web.Configuration;

@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20171117
     修改描述：v14.8.6 修改Card_MemberCardData.wx_activate_after_submit_url为string类型
 
+    修改标识：Senparc - 20200407
+    修改描述：v16.10.402 添加会员卡接口自定义cell参数
+
 ----------------------------------------------------------------*/
 
 using Senparc.CO2NET.Helpers.Serializers;
@@ -248,7 +251,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
         /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell3 { get; set; }
+        /// <summary>
         /// 会员卡背景图片，非必填
+        /// <para>string(128) 商家自定义会员卡背景图，须 先调用 上传图片接口 将背景图上传至CDN，否则报错， 卡面设计请遵循 微信会员卡自定义背景设计规范 ,像素大小控制在 1000像素*600像素以下</para>
         /// </summary>
         public string background_pic_url { get; set; }
 

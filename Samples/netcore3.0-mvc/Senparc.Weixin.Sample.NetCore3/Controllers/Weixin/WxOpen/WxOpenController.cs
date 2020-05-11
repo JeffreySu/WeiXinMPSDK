@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
@@ -27,14 +26,13 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.IO;
-using Senparc.Weixin.TenPay.V3;
+using Senparc.Weixin.TenPay.V3;//DPBMARK TenPay DPBMARK_END
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.CO2NET.Utilities;
 using System.Threading.Tasks;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Entities.TemplateMessage;
-using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.AspNet.HttpUtility;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
@@ -268,6 +266,8 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         [HttpPost]
         public async Task<IActionResult> TemplateTest(string sessionId, string formId)
         {
+            //注意：2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。
+
             var templateMessageService = new TemplateMessageService();
             try
             {
@@ -333,6 +333,8 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             }
         }
 
+        #region DPBMARK TenPay 
+
         public ActionResult GetPrepayid(string sessionId)
         {
             try
@@ -386,6 +388,9 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 });
             }
         }
+
+        #endregion DPBMARK_END
+
 
         /// <summary>
         /// 获取二维码

@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2019 Senparc
 
     文件名：WeixinRegister.cs
     文件功能描述：Senparc.Weixin 快捷注册流程（包括Thread、TraceLog等）
@@ -73,7 +93,7 @@ namespace Senparc.Weixin
             var cache = LocalContainerCacheStrategy.Instance;//只要引用就可以被激活
             cacheTypes += typeof(LocalContainerCacheStrategy);
 
-            DateTime dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
 
             //官方扩展缓存注册
 
@@ -82,7 +102,10 @@ namespace Senparc.Weixin
             //自动注册 Redis 和 Memcached
             //Redis
             var redisConfiguration = senparcSetting.Cache_Redis_Configuration;
-            if ((!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置"))
+            if (!string.IsNullOrEmpty(redisConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                redisConfiguration != "Redis配置" &&
+                redisConfiguration != "#{Cache_Redis_Configuration}#")
             {
                 try
                 {
@@ -101,7 +124,10 @@ namespace Senparc.Weixin
 
             //Memcached
             var memcachedConfiguration = senparcSetting.Cache_Memcached_Configuration;
-            if ((!string.IsNullOrEmpty(memcachedConfiguration) && memcachedConfiguration != "Memcached配置"))
+            if (!string.IsNullOrEmpty(memcachedConfiguration) &&
+                /*缓存配置默认值，不启用*/
+                memcachedConfiguration != "Memcached配置" &&
+                memcachedConfiguration != "#{Cache_Memcached_Configuration}#")
             {
                 try
                 {
@@ -118,14 +144,14 @@ namespace Senparc.Weixin
                 }
             }
 
-            DateTime dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             var exCacheLog = "微信扩展缓存注册总用时：{0}ms\r\n扩展缓存：{1}".FormatWith((dt2 - dt1).TotalMilliseconds, cacheTypes);
             WeixinTrace.SendCustomLog("微信扩展缓存注册完成", exCacheLog);
 
             /* 扩展缓存注册结束 */
 
             //ApiBind 自动扫描
-            Senparc.NeuChar.Register.RegisterApiBind();
+            Senparc.NeuChar.Register.RegisterApiBind(false);
 
             return registerService;
         }

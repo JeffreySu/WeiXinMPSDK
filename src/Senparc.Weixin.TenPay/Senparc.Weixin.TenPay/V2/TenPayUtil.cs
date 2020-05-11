@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.TenPay.V2
 
         public static string GetTimestamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan ts = DateTimeOffset.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
 
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.TenPay.V2
 
                 try
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.TenPay.V2
                 }
                 catch (Exception ex)
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlEncode(instr);
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.TenPay.V2
 
                 try
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlDecode(instr);
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.TenPay.V2
                 }
                 catch (Exception ex)
                 {
-#if NET35 || NET40 || NET45 || NET461
+#if NET45
                     return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlDecode(instr);
@@ -145,11 +145,11 @@ namespace Senparc.Weixin.TenPay.V2
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
-#if NET35 || NET40 || NET45 || NET461
-            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-#else
-            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
-#endif
+//#if NET45
+//            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+//#else
+            TimeSpan ts = SystemTime.Now - new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
+//#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 

@@ -39,17 +39,8 @@
       <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\BinaryFormatter.2.1.4\lib\netstandard1.1\BinaryFormatter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.3.0.2\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Redis, Version=3.2.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Redis.3.2.1.3\lib\net45\Senparc.CO2NET.Cache.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET.Cache.Redis.RedLock, Version=1.1.0.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.Cache.Redis.RedLock.1.1.0.3\lib\net45\Senparc.CO2NET.Cache.Redis.RedLock.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>
@@ -101,17 +92,9 @@
       <Project>{6313dc35-40ab-4b24-81bb-2f742e2e915e}</Project>
       <Name>Senparc.Weixin.MP.Test</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
-      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
-      <Name>Senparc.Weixin.MP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.csproj">
       <Project>{232a67f2-cd89-4a20-8da9-daed76412b33}</Project>
       <Name>Senparc.WeixinTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
       <Project>{379D8C97-4F96-45AF-9F91-6BD160514495}</Project>

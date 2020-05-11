@@ -32,18 +32,6 @@
     <DocumentationFile>..\..\..\..\src\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.WxOpen.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.CO2NET, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.CO2NET.0.2.16\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.NeuChar.0.3.2\lib\net45\Senparc.NeuChar.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin, Version=6.1.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.6.1.11\lib\net45\Senparc.Weixin.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=16.4.12.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.MP.16.4.12.1\lib\net45\Senparc.Weixin.MP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -85,6 +73,7 @@
     <Compile Include="CommonAPIs\WxOpenApiHandlerWapper.cs" />
     <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\DecodedPhoneNumber.cs" />
+    <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
@@ -110,6 +99,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.Weixin.MP">
+      <Version>16.7.9</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

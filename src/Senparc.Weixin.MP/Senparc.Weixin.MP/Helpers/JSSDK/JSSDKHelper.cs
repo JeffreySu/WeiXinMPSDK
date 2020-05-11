@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20171010
     修改描述：v14.8.1 修复几处GetNoncestr还在使用GBK编码
+
+    修改标识：Senparc - 20181226
+    修改描述：v16.6.2 修改 DateTime 为 DateTimeOffset
 
 ----------------------------------------------------------------*/
 
@@ -89,7 +92,7 @@ namespace Senparc.Weixin.MP.Helpers
         {
             //var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             //return Convert.ToInt64(ts.TotalSeconds).ToString();
-            var ts = DateTimeHelper.GetWeixinDateTime(DateTime.Now);
+            var ts = DateTimeHelper.GetUnixDateTime(SystemTime.Now);
             return ts.ToString();
         }
 
@@ -281,7 +284,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -297,7 +300,7 @@ namespace Senparc.Weixin.MP.Helpers
             var timestamp = GetTimestamp();
             //获取随机码
             string nonceStr = GetNoncestr();
-            string ticket = await JsApiTicketContainer.TryGetJsApiTicketAsync(appId, appSecret);
+            string ticket = await JsApiTicketContainer.TryGetJsApiTicketAsync(appId, appSecret).ConfigureAwait(false);
             //获取签名
             string signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, url);
             //返回信息包
@@ -305,7 +308,6 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         #endregion
-#endif
     }
 }
 

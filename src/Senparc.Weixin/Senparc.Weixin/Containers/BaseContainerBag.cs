@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）
@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180614
     修改描述：CO2NET v0.1.0 ContainerBag 取消属性变动通知机制，使用手动更新缓存
+
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
+
 
 ----------------------------------------------------------------*/
 
@@ -67,7 +71,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 当前对象被缓存的时间
         /// </summary>
-        DateTime CacheTime { get; set; }
+        DateTimeOffset CacheTime { get; set; }
     }
 
     /// <summary>
@@ -119,48 +123,48 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 缓存时间，不使用属性变化监听
         /// </summary>
-        public DateTime CacheTime { get; set; }
+        public DateTimeOffset CacheTime { get; set; }
 
 
-//        private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-//        {
-//            var containerBag = (IBaseContainerBag)sender;
-//            var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", sender.GetType(), containerBag.Key, "UpdateContainerBag");
+        //        private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //        {
+        //            var containerBag = (IBaseContainerBag)sender;
+        //            var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", sender.GetType(), containerBag.Key, "UpdateContainerBag");
 
-//            //获取对应Container的缓存相关
+        //            //获取对应Container的缓存相关
 
-//            //加入消息队列，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
-//            SenparcMessageQueue mq = new SenparcMessageQueue();
-//            mq.Add(mqKey, () =>
-//            {
-//                //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
-//                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
-//                var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
-//                containerBag.CacheTime = DateTime.Now;//记录缓存时间
+        //            //加入消息队列，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
+        //            SenparcMessageQueue mq = new SenparcMessageQueue();
+        //            mq.Add(mqKey, () =>
+        //            {
+        //                //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+        //                var containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance()/*.ContainerCacheStrategy*/;
+        //                var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
+        //                containerBag.CacheTime = DateTimeOffset.Now;//记录缓存时间
 
-//                //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
-//                containerCacheStrategy.UpdateContainerBag(itemCacheKey, containerBag);
-//            });
-//        }
+        //                //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
+        //                containerCacheStrategy.UpdateContainerBag(itemCacheKey, containerBag);
+        //            });
+        //        }
 
 
-//        /// <summary>
-//        /// 设置Container属性
-//        /// </summary>
-//        /// <typeparam name="T"></typeparam>
-//        /// <param name="storage"></param>
-//        /// <param name="value"></param>
-//        /// <param name="propertyName"></param>
-//        /// <returns></returns>
-//#if NET35 || NET40
-//        protected bool SetContainerProperty<T>(ref T storage, T value, String propertyName)
-//#else
-//        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
-//#endif
-//        {
-//            var result = base.SetProperty(ref storage, value, propertyName);
-//            return result;
-//        }
+        //        /// <summary>
+        //        /// 设置Container属性
+        //        /// </summary>
+        //        /// <typeparam name="T"></typeparam>
+        //        /// <param name="storage"></param>
+        //        /// <param name="value"></param>
+        //        /// <param name="propertyName"></param>
+        //        /// <returns></returns>
+        //#if NET35 || NET40
+        //        protected bool SetContainerProperty<T>(ref T storage, T value, String propertyName)
+        //#else
+        //        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        //#endif
+        //        {
+        //            var result = base.SetProperty(ref storage, value, propertyName);
+        //            return result;
+        //        }
 
         public BaseContainerBag()
         {

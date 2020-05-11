@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -90,7 +90,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 授权成功通知
         /// </summary>
-        authorized
+        authorized,
+        /// <summary>
+        /// 小程序注册审核事件推送
+        /// </summary>
+        notify_third_fasteregister,
+        /// <summary>
+        /// 小程序名称设置及改名审核事件推送
+        /// </summary>
+        wxa_nickname_audit
     }
 
     /// <summary>
@@ -268,5 +276,15 @@ namespace Senparc.Weixin.Open
         仅展示公众号 = 1,
         仅展示小程序 = 2,
         表示公众号和小程序都展示 = 3
+    }
+
+    /// <summary>
+    /// 企业代码类型 1：统一社会信用代码（18位） 2：组织机构代码（9位xxxxxxxx-x） 3：营业执照注册号(15位)
+    /// </summary>
+    public enum CodeType
+    {
+        统一社会信用代码 =1,
+        组织机构代码=2,
+        营业执照注册号=3
     }
 }

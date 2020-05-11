@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：OAuth2Controller.cs
     文件功能描述：提供OAuth2.0授权测试（关注微信公众号：盛派网络小助手，点击菜单【功能体验】 【OAuth2.0授权测试】即可体验）
@@ -22,6 +22,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Text;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         /// <returns></returns>
         public ActionResult Index(string returnUrl)
         {
-            var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
+            var state = "JeffreySu-" + SystemTime.Now.Millisecond;//随机数，用于识别请求可靠性
             HttpContext.Session.SetString("State", state);//储存随机数到Session
 
             ViewData["returnUrl"] = returnUrl;
@@ -94,7 +95,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-            HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+            HttpContext.Session.SetString("OAuthAccessTokenStartTime", SystemTime.Now.ToString());
             HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
@@ -147,7 +148,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
                 //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
-                HttpContext.Session.SetString("OAuthAccessTokenStartTime", DateTime.Now.ToString());
+                HttpContext.Session.SetString("OAuthAccessTokenStartTime", SystemTime.Now.ToString());
                 HttpContext.Session.SetString("OAuthAccessToken", result.ToJson());
 
                 //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下
@@ -170,7 +171,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 {
                     //未关注，只能授权，无法得到详细信息
                     //这里的 ex.JsonResult 可能为："{\"errcode\":40003,\"errmsg\":\"invalid openid\"}"
-                    return Content("用户已授权，授权Token：" + result);
+                    return Content("用户已授权，授权Token：" + result, "text/html", Encoding.UTF8);
                 }
             }
             catch (Exception ex)
@@ -187,14 +188,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public ActionResult TestReturnUrl()
         {
             string msg = "OAuthAccessTokenStartTime：" + HttpContext.Session.GetString("OAuthAccessTokenStartTime");
-            //注意：OAuthAccessTokenStartTime这里只是为了方便识别和演示，
-            //OAuthAccessToken千万千万不能传输到客户端！
+            //注意：OAuthAccessTokenStartTime 这里只是为了方便识别和演示，
+            //OAuthAccessToken 千万千万不能传输到客户端！
 
             msg += "<br /><br />" +
                    "此页面为returnUrl功能测试页面，可以进行刷新（或后退），不会得到code不可用的错误。<br />测试不带returnUrl效果，请" +
                    string.Format("<a href=\"{0}\">点击这里</a>。", Url.Action("Index"));
 
-            return Content(msg, "text/html");
+            return Content(msg, "text/html",Encoding.UTF8);
         }
     }
 }

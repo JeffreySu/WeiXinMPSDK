@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -36,6 +36,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20180106
     修改描述：完成接口-附近的小程序API
 
+    修改标识：Senparc - 20190615
+    修改描述：修复附近的小程序添加地点
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,7 +48,7 @@ using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 //using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Extensions;
-using Senparc.Weixin.HttpUtility;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson;
 using Senparc.CO2NET.Helpers;
@@ -137,7 +140,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码 不限制
+        /// 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -176,7 +179,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         /// <summary>
-        /// 获取小程序页面的小程序码
+        /// 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -285,22 +288,40 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 添加地点
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
-        /// <param name="relatedCredential">经营资质证件号</param>
-        /// <param name="relatedAddress">经营资质地址</param>
-        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="pic_list">门店图片，最多9张，最少1张，上传门店图片如门店外景、环境设施、商品服务等，图片将展示在微信客户端的门店页。图片链接通过文档https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729中的《上传图文消息内的图片获取URL》接口获取。必填，文件格式为bmp、png、jpeg、jpg或gif，大小不超过5M pic_list是字符串，内容是一个json！</param>
+        /// <param name="service_infos">服务标签列表 选填，需要填写服务标签ID、APPID、对应服务落地页的path路径，详细字段格式见下方示例</param>
+        /// <param name="store_name">门店名字 必填，门店名称需按照所选地理位置自动拉取腾讯地图门店名称，不可修改，如需修改请重新选择地图地点或重新创建地点</param>
+        /// <param name="hour">营业时间，格式11:11-12:12 必填</param>
+        /// <param name="credential">资质号 必填, 15位营业执照注册号或9位组织机构代码</param>
+        /// <param name="address">地址 必填</param>
+        /// <param name="company_name">主体名字 必填</param>
+        /// <param name="qualification_list">证明材料 必填 如果company_name和该小程序主体不一致，需要填qualification_list，详细规则见附近的小程序使用指南-如何证明门店的经营主体跟公众号或小程序帐号主体相关http://kf.qq.com/faq/170401MbUnim17040122m2qY.html</param>
+        /// <param name="kf_info">客服信息 选填，可自定义服务头像与昵称，具体填写字段见下方示例kf_info pic_list是字符串，内容是一个json！</param>
+        /// <param name="poi_id">如果创建新的门店，poi_id字段为空 如果更新门店，poi_id参数则填对应门店的poi_id 选填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoi", true)]
-        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name,string hour, string credential, string address, string company_name, string qualification_list="", string kf_info="", string poi_id="", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+                var data = new {
+                    is_comm_nearby = "1", //必填,写死为"1"
+                    pic_list = pic_list,
+                    service_infos = service_infos,
+                    store_name = store_name,
+                    hour = hour,
+                    credential = credential,
+                    address = address,
+                    company_name = company_name,
+                    qualification_list = qualification_list,
+                    kf_info = kf_info,
+                    poi_id = poi_id
+                };
 
                 return CommonJsonSend.Send<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
@@ -320,12 +341,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
-                string url = string.Format(urlFormat, accessToken);
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}&page={1}&page_rows={2}";
+                string url = string.Format(urlFormat, accessToken, page, page_rows);
 
-                var data = new { page = page, page_rows = page_rows };
+                //var data = new { page = page, page_rows = page_rows };
 
-                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetNearbyPoiListJsonResult>(accessToken, url, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -556,7 +577,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -577,14 +598,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeAsync(accessTokenOrAppId, ms, path, width, auto_color, lineColor, isHyaline, timeOut);
+                var result = await WxAppApi.GetWxaCodeAsync(accessTokenOrAppId, ms, path, width, auto_color, lineColor, isHyaline, timeOut).ConfigureAwait(false);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
                 using (var fs = new FileStream(filePath, FileMode.CreateNew))
                 {
-                    await ms.CopyToAsync(fs);
-                    await fs.FlushAsync();
+                    await ms.CopyToAsync(fs).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
                 }
                 return result;
             }
@@ -592,7 +613,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         /// <summary>
-        /// 【异步方法】获取小程序页面的小程序码 不受限制
+        /// 【异步方法】获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存小程序码的流</param>
@@ -621,17 +642,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
                 };
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// 【异步方法】获取小程序页面的小程序码
+        /// 【异步方法】获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
@@ -650,14 +671,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut);
+                var result = await WxAppApi.GetWxaCodeUnlimitAsync(accessTokenOrAppId, ms, scene, page, width, auto_color, lineColor, isHyaline, timeOut).ConfigureAwait(false);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
                 using (var fs = new FileStream(filePath, FileMode.CreateNew))
                 {
-                    await ms.CopyToAsync(fs);
-                    await fs.FlushAsync();
+                    await ms.CopyToAsync(fs).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
                 }
                 return result;
             }
@@ -691,13 +712,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                await CO2NET.HttpUtility.Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
                 };
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -719,13 +740,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream);
+                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
                 };
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -742,14 +763,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.CreateWxQrCodeAsync(accessTokenOrAppId, ms, path, width);
+                var result = await WxAppApi.CreateWxQrCodeAsync(accessTokenOrAppId, ms, path, width).ConfigureAwait(false);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
                 using (var fs = new FileStream(filePath, FileMode.CreateNew))
                 {
-                    await ms.CopyToAsync(fs);
-                    await fs.FlushAsync();
+                    await ms.CopyToAsync(fs).ConfigureAwait(false);
+                    await fs.FlushAsync().ConfigureAwait(false);
                 }
                 return result;
             }
@@ -774,32 +795,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var signature = EncryptHelper.GetHmacSha256("", sessionKey);
                 var url = urlFormat.FormatWith(accessToken, signature, openId, sigMethod);
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
-
 
         /// <summary>
         /// 【异步方法】添加地点
         /// </summary>
-        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="relatedName">经营资质主体(与小程序同主体--不填,与小程序非同主体--必填)</param>
-        /// <param name="relatedCredential">经营资质证件号</param>
-        /// <param name="relatedAddress">经营资质地址</param>
-        /// <param name="relatedProofMaterial">相关证明材料照片临时素材mediaid(与小程序同主体--不填,与小程序非同主体--必填)</param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="pic_list">门店图片，最多9张，最少1张，上传门店图片如门店外景、环境设施、商品服务等，图片将展示在微信客户端的门店页。图片链接通过文档https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729中的《上传图文消息内的图片获取URL》接口获取。必填，文件格式为bmp、png、jpeg、jpg或gif，大小不超过5M pic_list是字符串，内容是一个json！</param>
+        /// <param name="service_infos">服务标签列表 选填，需要填写服务标签ID、APPID、对应服务落地页的path路径，详细字段格式见下方示例</param>
+        /// <param name="store_name">门店名字 必填，门店名称需按照所选地理位置自动拉取腾讯地图门店名称，不可修改，如需修改请重新选择地图地点或重新创建地点</param>
+        /// <param name="hour">营业时间，格式11:11-12:12 必填</param>
+        /// <param name="credential">资质号 必填, 15位营业执照注册号或9位组织机构代码</param>
+        /// <param name="address">地址 必填</param>
+        /// <param name="company_name">主体名字 必填</param>
+        /// <param name="qualification_list">证明材料 必填 如果company_name和该小程序主体不一致，需要填qualification_list，详细规则见附近的小程序使用指南-如何证明门店的经营主体跟公众号或小程序帐号主体相关http://kf.qq.com/faq/170401MbUnim17040122m2qY.html</param>
+        /// <param name="kf_info">客服信息 选填，可自定义服务头像与昵称，具体填写字段见下方示例kf_info pic_list是字符串，内容是一个json！</param>
+        /// <param name="poi_id">如果创建新的门店，poi_id字段为空 如果更新门店，poi_id参数则填对应门店的poi_id 选填</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoiAsync", true)]
-        public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string relatedName, string relatedCredential, string relatedAddress, string relatedProofMaterial, int timeOut = Config.TIME_OUT)
+        public static async Task<AddNearbyPoiJsonResult> AddNearbyPoiAsync(string accessTokenOrAppId, string pic_list, string service_infos, string store_name, string hour, string credential, string address, string company_name, string qualification_list = "", string kf_info = "", string poi_id = "", int timeOut = Config.TIME_OUT)
         {
-            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new { related_name = relatedName, related_credential = relatedCredential, related_address = relatedAddress, related_proof_material = relatedProofMaterial };
+                var data = new
+                {
+                    is_comm_nearby = "1", //必填,写死为"1"
+                    pic_list = pic_list,
+                    service_infos = service_infos,
+                    store_name = store_name,
+                    hour = hour,
+                    credential = credential,
+                    address = address,
+                    company_name = company_name,
+                    qualification_list = qualification_list,
+                    kf_info = kf_info,
+                    poi_id = poi_id
+                };
 
-                return await CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.SendAsync<AddNearbyPoiJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -817,14 +856,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}";
-                string url = string.Format(urlFormat, accessToken);
+                string urlFormat = Config.ApiMpHost + "/wxa/getnearbypoilist?access_token={0}&page={1}&page_rows={2}";
+                string url = string.Format(urlFormat, accessToken, page, page_rows);
 
-                var data = new { page = page, page_rows = page_rows };
+                //var data = new { page = page, page_rows = page_rows };
 
-                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetNearbyPoiListJsonResult>(accessToken, url, null, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -844,9 +883,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { poi_id = poi_id };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -867,9 +906,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { poi_id = poi_id, status = status };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -889,9 +928,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var data = new { content = content };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -911,9 +950,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -938,9 +977,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     plugin_appid = pluginAppid
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -967,9 +1006,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     num
                 };
 
-                return await CommonJsonSend.SendAsync<DevPluginResultJson>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<DevPluginResultJson>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -994,9 +1033,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     appid = appId
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1019,9 +1058,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     action = "list"
                 };
 
-                return await CommonJsonSend.SendAsync<GetPluginListResultJson>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<GetPluginListResultJson>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1046,12 +1085,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                     plugin_appid = appId
                 };
 
-                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
-#endif
     }
 }

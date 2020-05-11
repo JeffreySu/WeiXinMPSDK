@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             var guid = Guid.NewGuid().ToString("n");
             ViewData["Guid"] = guid;
 
-            var configHelper = new ConfigHelper(this.HttpContext);
+            var configHelper = new ConfigHelper();
 
             try
             {
@@ -134,8 +134,8 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 var codeRecord = ConfigHelper.CodeCollection[guid];
                 codeRecord.Used = true;
                 //codeRecord.AllowDownload = false;//这里如果只允许一次下载，有的浏览器插件或者防护软件会自动访问页面上的链接，导致用户真实的下载时效
-                var configHelper = new ConfigHelper(this.HttpContext);
-                var filePath = configHelper.Download(codeRecord.Version, codeRecord.IsWebVersion).Replace("/","\\");
+                var configHelper = new ConfigHelper();
+                var filePath = configHelper.Download(codeRecord.Version, codeRecord.IsWebVersion).Replace("/", "\\");
                 //var file = File(filePath, "application/octet-stream");（此方法在.net core中会失败）
 
                 //使用流的方式来发送
@@ -146,11 +146,15 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
                 var file = File(ms, "application/octet-stream");
 
-                file.FileDownloadName = string.Format("Senparc.Weixin{0}-v{1}.rar",
+                var fileName = string.Format("Senparc.Weixin{0}-v{1}.{2}",
                     codeRecord.IsWebVersion ? "-Web" : "",
-                    codeRecord.Version);
+                    codeRecord.Version,
+                    filePath.Split('.').Last()//同步扩展名
+                    );
 
-                WeixinTrace.SendCustomLog("download-path", filePath+" , "+ file.FileDownloadName);
+                file.FileDownloadName = fileName;
+
+                WeixinTrace.SendCustomLog("download-path", filePath + " , " + file.FileDownloadName);
 
                 return file;
             }

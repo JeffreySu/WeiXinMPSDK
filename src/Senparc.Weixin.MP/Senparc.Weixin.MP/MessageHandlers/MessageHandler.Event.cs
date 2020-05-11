@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -29,7 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170114
     修改描述：v14.3.119 OnEvent_ShakearoundUserShake接口默认返回ResponseMessageNoResponse信息
-    
+
+    修改标识：Senparc - 20190515
+    修改描述：v16.7.4 添加“微信认证事件推送”功能
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -158,6 +161,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 case Event.card_pay_order://券点流水详情事件：当商户朋友的券券点发生变动时
                     responseMessage = OnEvent_Card_Pay_OrderRequest(RequestMessage as RequestMessageEvent_Card_Pay_Order);
+                    break;
+                case Event.apply_merchant_audit_info://创建门店小程序审核事件
+                    responseMessage = OnEvent_Apply_Merchant_Audit_InfoRequest(RequestMessage as RequestMessageEvent_ApplyMerchantAuditInfo);
+                    break;
+                case Event.add_store_audit_info://门店小程序中创建门店审核事件
+                    responseMessage = OnEvent_Add_Store_Audit_Info(RequestMessage as RequestMessageEvent_AddStoreAuditInfo);
+                    break;
+                case Event.create_map_poi_audit_info://从腾讯地图中创建门店审核事件
+                    responseMessage = OnEvent_Create_Map_Poi_Audit_Info(RequestMessage as RequestMessageEvent_CreateMapPoiAuditInfo);
+                    break;
+                case Event.modify_store_audit_info://修改门店图片审核事件
+                    responseMessage = OnEvent_Modify_Store_Audit_Info(RequestMessage as RequestMessageEvent_ModifyStoreAuditInfo);
+                    break;
+                case Event.view_miniprogram://点击菜单跳转小程序的事件推送
+                    responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
 
                 #region 卡券回调
@@ -515,6 +533,52 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_Card_Pay_OrderRequest(RequestMessageEvent_Card_Pay_Order requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 创建门店小程序审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Apply_Merchant_Audit_InfoRequest(RequestMessageEvent_ApplyMerchantAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 从腾讯地图中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Create_Map_Poi_Audit_Info(RequestMessageEvent_CreateMapPoiAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 门店小程序中创建门店审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Add_Store_Audit_Info(RequestMessageEvent_AddStoreAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 修改门店图片审核事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Modify_Store_Audit_Info(RequestMessageEvent_ModifyStoreAuditInfo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 点击菜单跳转小程序的事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

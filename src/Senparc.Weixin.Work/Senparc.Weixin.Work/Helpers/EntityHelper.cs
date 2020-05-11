@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -15,6 +15,9 @@
    
     修改标识：Senparc - 20180623
     修改描述：v2.0.3 支持 Senparc.Weixin v5.0.3，EntityHelper.FillEntityWithXml() 支持 int[] 和 long[]
+
+    修改标识：Senparc - 20181226
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
 
 ----------------------------------------------------------------*/
 
@@ -58,6 +61,7 @@ namespace Senparc.Weixin.Work.Helpers
                         //case "String":
                         //    goto default;
                         case "DateTime":
+                        case "DateTimeOffset":
                         case "Int32":
                         case "Int32[]": //增加int[]
                         case "Int64":
@@ -175,22 +179,10 @@ namespace Senparc.Weixin.Work.Helpers
                         case "AgentType":
                             {
                                 AgentType tp;
-#if NET35
-                                try
-                                {
-                                    tp = (AgentType)Enum.Parse(typeof(AgentType), root.Element(propName).Value, true);
-                                    prop.SetValue(entity, tp, null);
-                                }
-                                catch
-                                {
-
-                                }
-#else
                                 if (Enum.TryParse(root.Element(propName).Value, out tp))
                                 {
                                     prop.SetValue(entity, tp, null);
                                 }
-#endif
                                 break;
                             }
                         case "Receiver":
@@ -219,19 +211,7 @@ namespace Senparc.Weixin.Work.Helpers
                             {
                                 RequestMsgType type = RequestMsgType.Unknown;
                                 var parseSuccess = false;
-#if NET35
-                                try
-                                {
-                                    type = (RequestMsgType)Enum.Parse(typeof(RequestMsgType), msgTypeEle.Value, true);
-                                    parseSuccess = true;
-                                }
-                                catch
-                                {
-
-                                }
-#else
                                 parseSuccess = Enum.TryParse(msgTypeEle.Value, true, out type);
-#endif
                                 if (parseSuccess)
                                 {
                                     switch (type)
@@ -385,7 +365,10 @@ namespace Senparc.Weixin.Work.Helpers
                                              new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
                         case "DateTime":
-                            root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
+                            root.Add(new XElement(propName, DateTimeHelper.GetUnixDateTime((DateTime)prop.GetValue(entity, null))));
+                            break;
+                        case "DateTimeOffset":
+                            root.Add(new XElement(propName, DateTimeHelper.GetUnixDateTime((DateTimeOffset)prop.GetValue(entity, null))));
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")

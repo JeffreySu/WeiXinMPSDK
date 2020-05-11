@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-#if NET40 || NET45
+#if NET45
 using System.Web;
 #endif
 
@@ -12,7 +12,7 @@ namespace Microsoft.AspNetCore.Http
 
         public static string GetAbsoluteUri(this HttpRequest request)
         {
-#if NET40 || NET45
+#if NET45
             return request.Url.PathAndQuery;
 #else
                  return new StringBuilder()

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：MediaController.cs
     文件功能描述：根据mediaId获取语音
@@ -18,6 +18,7 @@ using System.Linq;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
@@ -61,7 +62,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
 
             //储存文件，对比是否上传成功
-            using (FileStream ms = new FileStream(Server.GetMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
+            using (FileStream ms = new FileStream(ServerUtility.ContentRootMapPath("~/TestUploadMediaFile.jpg"), FileMode.OpenOrCreate))
             {
                 inputStream.CopyTo(ms, 256);
             }

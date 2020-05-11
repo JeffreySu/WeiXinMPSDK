@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -27,6 +27,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20170522
+    修改描述：v6.3.2 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -115,7 +119,7 @@ namespace Senparc.Weixin.Tencent
             string[] arr = codeSerial.Split(',');
             string code = "";
             int randValue = -1;
-            Random rand = new Random(unchecked((int)DateTime.Now.Ticks));
+            Random rand = new Random(unchecked((int)SystemTime.Now.Ticks));
             for (int i = 0; i < codeLen; i++)
             {
                 randValue = rand.Next(0, arr.Length - 1);
@@ -126,7 +130,7 @@ namespace Senparc.Weixin.Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-#if NET35 || NET40 || NET45
+#if NET45
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();
@@ -158,7 +162,7 @@ namespace Senparc.Weixin.Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-#if NET35 || NET40 || NET45
+#if NET45
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();
@@ -234,7 +238,7 @@ namespace Senparc.Weixin.Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-#if NET35 || NET40 || NET45
+#if NET45
             var aes = new RijndaelManaged();
 #else
             var aes = Aes.Create();

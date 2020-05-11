@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -39,7 +39,10 @@ namespace Senparc.Weixin.Cache.Tests
             //这里给一个实例是因为还有一个基类，需要微程序提供良好的弹性
             var stragety = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance().BaseCacheStrategy();
 
-            using (new LocalCacheLock(stragety as LocalObjectCacheStrategy, "Test", "LocalCache"))  //1、等待并抢得锁
+            //强是指用本地缓存
+            CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);
+
+            using (stragety.BeginCacheLock("Test", "LocalCache"))  //1、等待并抢得锁
             {                                               //2、已获得锁，开始享受独占
                 //操作公共资源                              //3、开始干活
             }                                               //4、打完收工，释放锁，下一个

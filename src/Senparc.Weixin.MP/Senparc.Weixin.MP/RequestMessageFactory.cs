@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -218,6 +218,22 @@ namespace Senparc.Weixin.MP
                                 break;
                             case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
                                 requestMessage = new RequestMessageEvent_Card_Pay_Order();
+                                break;
+                            case "APPLY_MERCHANT_AUDIT_INFO"://创建门店小程序审核事件
+                                requestMessage = new RequestMessageEvent_ApplyMerchantAuditInfo();
+                                break;
+                            case "CREATE_MAP_POI_AUDIT_INFO"://从腾讯地图中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_CreateMapPoiAuditInfo();
+                                break;
+                            case "ADD_STORE_AUDIT_INFO"://门店小程序中创建门店审核事件
+                                requestMessage = new RequestMessageEvent_AddStoreAuditInfo();
+                                break;
+                            case "MODIFY_STORE_AUDIT_INFO"://修改门店图片审核事件
+                                requestMessage = new RequestMessageEvent_ModifyStoreAuditInfo();
+                                break;
+
+                            case "VIEW_MINIPROGRAM"://微信点击菜单跳转小程序的事件推送的事件
+                                requestMessage = new RequestMessageEvent_View_Miniprogram();
                                 break;
 
                             #region 卡券回调

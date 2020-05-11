@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：WorkController.cs
     文件功能描述：企业号对接测试（从QYController.cs移植）
@@ -23,6 +23,7 @@ using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.CO2NET.HttpUtility;
+using Senparc.CO2NET.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
@@ -83,7 +84,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             //var sr = new StreamReader(ms);
             //var xml = sr.ReadToEnd();
             //var doc = XDocument.Parse(xml);
-            //doc.Save(Server.GetMapPath("~/App_Data/TestWork.log"));
+            //doc.Save(ServerUtility.ContentRootMapPath("~/App_Data/TestWork.log"));
             //return null;
             #endregion
 
@@ -109,7 +110,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.GetMapPath("~/App_Data/Work_Error_" + DateTime.Now.Ticks + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Work_Error_" + SystemTime.Now.Ticks + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

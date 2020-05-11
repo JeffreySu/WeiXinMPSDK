@@ -1,12 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：WebSocketHelper.cs
     文件功能描述：WebSocket处理类
 
 
     创建标识：Senparc - 20170127
-
+    
+    修改标识：Senparc - 20170522
+    修改描述：v0.7.0 修改 DateTime 为 DateTimeOffset
 ----------------------------------------------------------------*/
 
 using System;
@@ -63,15 +65,15 @@ namespace Senparc.WebSocket
             var data = new
             {
                 content = message,
-                time = DateTime.Now.ToString()
+                time = DateTimeOffset.Now.DateTime.ToString()
             };
 
             var newString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-            //String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
+            //String.Format("Hello, " + receiveString + " ! Time {0}", DateTimeOffset.Now.ToString());
 
             Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
             await _webSocket.SendAsync(new ArraySegment<byte>(bytes),
-                              WebSocketMessageType.Text, true, _cancellationToken);
+                              WebSocketMessageType.Text, true, _cancellationToken).ConfigureAwait(false);
         }
     }
 }

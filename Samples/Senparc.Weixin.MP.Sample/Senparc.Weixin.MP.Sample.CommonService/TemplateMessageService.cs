@@ -5,15 +5,15 @@ using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.TenPay.V3;
 using Senparc.Weixin.WxOpen.Containers;
 using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Sample.CommonService
 {
     public class TemplateMessageService
     {
-        public SessionBag RunTemplateTest(string wxOpenAppId, string sessionId, string formId)
+        public async Task<SessionBag> RunTemplateTestAsync(string wxOpenAppId, string sessionId, string formId)
         {
-
-            var sessionBag = SessionContainer.GetSession(sessionId);
+            var sessionBag = await SessionContainer.GetSessionAsync(sessionId);
             var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
 
             string title = null;
@@ -27,8 +27,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 title = "这是来自小程序支付的模板消息（仅测试接收，数据不一定真实）";
 
                 var cacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance();
-                var unifiedorderRequestData = cacheStrategy.Get<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
-                var unifedorderResult = cacheStrategy.Get<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
+                var unifiedorderRequestData = await cacheStrategy.GetAsync<TenPayV3UnifiedorderRequestData>($"WxOpenUnifiedorderRequestData-{openId}");//获取订单请求信息缓存
+                var unifedorderResult = await cacheStrategy.GetAsync<UnifiedorderResult>($"WxOpenUnifiedorderResultData-{openId}");//获取订单信息缓存
 
                 if (unifedorderResult != null && formId == unifedorderResult.prepay_id)
                 {
@@ -50,16 +50,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 orderNumber = "9876543210";
             }
 
-            var data = new WxOpenTemplateMessage_PaySuccessNotice(title, DateTime.Now, productName, orderNumber, price,
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(title, SystemTime.Now, productName, orderNumber, price,
                             "400-031-8816", "https://sdk.senparc.weixin.com");
 
-            Senparc.Weixin.WxOpen.AdvancedAPIs
-                .Template.TemplateApi
-                .SendTemplateMessage(
-                    wxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
+            await Senparc.Weixin.WxOpen.AdvancedAPIs
+                 .Template.TemplateApi
+                 .SendTemplateMessageAsync(
+                     wxOpenAppId, openId, data.TemplateId, data, formId, "pages/index/index", "图书", "#fff00");
 
             return sessionBag;
 
+        }
+
+        [Obsolete("建议使用 RunTemplateTestAsync 方法")]
+        public SessionBag RunTemplateTest(string wxOpenAppId, string sessionId, string formId)
+        {
+            var sessionBag = RunTemplateTestAsync(wxOpenAppId, sessionId, formId).ConfigureAwait(false).GetAwaiter().GetResult();
+            return sessionBag;
         }
     }
 }

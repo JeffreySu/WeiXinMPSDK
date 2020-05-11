@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -54,34 +54,34 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //获取Token完整结果（包括当前过期秒数）
-            DateTime dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             var tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId).Result;
-            DateTime dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
 
             Assert.IsNotNull(tokenResult);
             Console.WriteLine(tokenResult.access_token);
             Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
 
             //只获取Token字符串
-            dt1 = DateTime.Now;
+            dt1 = SystemTime.Now;
             var token = AccessTokenContainer.GetAccessTokenAsync(base._appId).Result;
-            dt2 = DateTime.Now;
+            dt2 = SystemTime.Now;
             Assert.AreEqual(tokenResult.access_token, token);
             Console.WriteLine(tokenResult.access_token);
             Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
 
             //getNewToken
             {
-                dt1 = DateTime.Now;
+                dt1 = SystemTime.Now;
                 token = AccessTokenContainer.TryGetAccessTokenAsync(base._appId, base._appSecret, false).Result;
-                dt2 = DateTime.Now;
+                dt2 = SystemTime.Now;
                 Assert.AreEqual(tokenResult.access_token, token);
                 Console.WriteLine(tokenResult.access_token);
 
                 Console.WriteLine("强制重新获取AccessToken");
-                dt1 = DateTime.Now;
+                dt1 = SystemTime.Now;
                 token = AccessTokenContainer.TryGetAccessTokenAsync(base._appId, base._appSecret, true).Result;
-                dt2 = DateTime.Now;
+                dt2 = SystemTime.Now;
                 Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
                 Console.WriteLine(tokenResult.access_token);
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
@@ -90,9 +90,9 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             {
                 tokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId).Result;
                 Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
-                dt1 = DateTime.Now;
+                dt1 = SystemTime.Now;
                 var allItems = AccessTokenContainer.GetAllItems();
-                dt2 = DateTime.Now;
+                dt2 = SystemTime.Now;
                 Assert.IsTrue(allItems.Count > 0);
                 Assert.AreSame(tokenResult, allItems[0].AccessTokenResult);//证明缓存成功
                 Console.WriteLine("All Items:{0}", allItems.Count);
@@ -135,15 +135,15 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             //同步
             TimeSpan syncTime =new TimeSpan();
-            var dt1 = DateTime.Now;
+            var dt1 = SystemTime.Now;
             for (int j = 0; j < round; j++)
             {
                 Console.WriteLine("同步第{0}轮", j+1);
                 Parallel.For(0, threadsCount, (i) =>
                 {
-                    var dts = DateTime.Now;
+                    var dts = SystemTime.Now;
                     var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
-                    var dte = DateTime.Now;
+                    var dte = SystemTime.Now;
                     accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
 
                     Console.WriteLine("{0}同步线程耗时：{1}ms", i, (dte - dts).TotalMilliseconds);
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 });
             }
           
-            var dt2 = DateTime.Now;
+            var dt2 = SystemTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", syncTime.TotalMilliseconds);
             Console.WriteLine("{0}线程{1}轮同步时间：{2}ms", threadsCount, round,(dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("=================");
@@ -160,15 +160,15 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             //异步
             TimeSpan asyncTime =new TimeSpan();
-            var dt3 = DateTime.Now;
+            var dt3 = SystemTime.Now;
             for (int j = 0; j < round; j++)
             {
                 Console.WriteLine("异步第{0}轮", j+1);
                 Parallel.For(0, threadsCount, (i) =>
                 {
-                    var dts = DateTime.Now;
+                    var dts = SystemTime.Now;
                     var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId, true).Result;
-                    var dte = DateTime.Now;
+                    var dte = SystemTime.Now;
                     accessTokenList.Add(accessTokenResult.access_token); //同时多次获取
 
                     Console.WriteLine("{0}异步线程耗时：{1}ms", i, (dte - dts).TotalMilliseconds);
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                     //Console.WriteLine(accessTokenResult.access_token);
                 });
             }
-            var dt4 = DateTime.Now;
+            var dt4 = SystemTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", asyncTime.TotalMilliseconds);
             Console.WriteLine("{0}个线程{1}轮异步时间：{2}ms", threadsCount, round,(dt4 - dt3).TotalMilliseconds);
 

@@ -20,13 +20,13 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
         [TestMethod()]
         public void RegisterTest()
         {
-            Func<string, string> getComponentVerifyTicketFunc = s =>
-            {
+            Func<string, Task<string>> getComponentVerifyTicketFunc = async s =>
+             {
                 //do something
                 return base._ticket;
-            };
+             };
 
-            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc,null,null);
+            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc, null, null);
 
             var fullCollections = ComponentContainer.GetAllItems();
             Assert.IsTrue(fullCollections.Count == 1);

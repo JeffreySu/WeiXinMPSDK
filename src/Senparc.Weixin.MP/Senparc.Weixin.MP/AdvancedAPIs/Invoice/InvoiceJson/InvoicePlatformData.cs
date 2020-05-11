@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：InvoicePlatformData.cs
     文件功能描述：开票平台接口post数据
@@ -234,18 +234,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             get
             {
-#if !NET35
                 if (System.Enum.TryParse(this.reimburse_status, out Reimburse_Status status))
                 {
                     return status;
                 }
-#else
-                try
-                {
-                    return (Reimburse_Status)System.Enum.Parse(typeof(Reimburse_Status), this.reimburse_status);
-                }
-                catch { }
-#endif
                 return null;
             }
         }

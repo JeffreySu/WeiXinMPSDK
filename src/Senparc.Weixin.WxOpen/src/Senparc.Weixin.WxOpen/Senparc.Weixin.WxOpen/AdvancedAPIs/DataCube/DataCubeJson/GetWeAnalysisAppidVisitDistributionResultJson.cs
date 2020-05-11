@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：GetWeAnalysisAppidVisitDistributionResultJson.cs
     文件功能描述：小程序“数据分析”接口 - 访问趋势：访问分布 返回结果
@@ -27,6 +27,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180101
     
+    添加访问分析接口的 access_source_visit_uv 属性（该场景 id 访问 uv）
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -98,6 +100,10 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// value 场景下的值（均为整数型）
         /// </summary>
         public int value { get; set; }
+        /// <summary>
+        /// 该场景 id 访问 uv	
+        /// </summary>
+        public int access_source_visit_uv { get; set; }
 
         /*
          key对应关系如下：

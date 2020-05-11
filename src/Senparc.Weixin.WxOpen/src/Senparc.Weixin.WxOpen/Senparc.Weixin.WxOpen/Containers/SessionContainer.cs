@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2018 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -20,7 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 
 /*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：SessionContainer.cs
     文件功能描述：小程序 Session 容器
@@ -33,6 +33,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20180701
     修改描述：V2.0.3 SessionBag 添加 UnionId 属性
+
+    修改标识：Senparc - 20170522
+    修改描述：v3.3.2 修改 DateTime 为 DateTimeOffset
+    
+    修改标识：Senparc - 20190422
+    修改描述：v3.4.0 
+             1、支持异步 Container
+             2、SessionBag 默认有效期由 2 天调整为 5 天，并提供外部设置参数
 
 ----------------------------------------------------------------*/
 
@@ -99,7 +107,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <summary>
         /// 过期时间
         /// </summary>
-        public DateTime ExpireTime { get; set; }
+        public DateTimeOffset ExpireTime { get; set; }
         //        {
         //            get { return _expireTime; }
         //#if NET35 || NET40
@@ -112,7 +120,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         //private string _key;
         //private string _openId;
         //private string _sessionKey;
-        //private DateTime _expireTime;
+        //private DateTimeOffset _expireTime;
 
         /// <summary>
         /// ComponentBag
@@ -134,7 +142,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <returns></returns>
         private static TimeSpan GetExpireTime()
         {
-            return TimeSpan.FromDays(2);//有效期2天
+            return TimeSpan.FromDays(5);//有效期5天
         }
 
         #region 同步方法
@@ -152,7 +160,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 return null;
             }
 
-            if (bag.ExpireTime < DateTime.Now)
+            if (bag.ExpireTime < SystemTime.Now)
             {
                 //已经过期
                 Cache.RemoveFromCache(key);
@@ -161,7 +169,7 @@ namespace Senparc.Weixin.WxOpen.Containers
 
             //using (FlushCache.CreateInstance())
             //{
-            bag.ExpireTime = DateTime.Now.Add(GetExpireTime());//滚动过期时间
+            bag.ExpireTime = SystemTime.Now.Add(GetExpireTime());//滚动过期时间
             Update(key, bag, GetExpireTime());
             //}
             return bag;
@@ -175,7 +183,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <param name="sessionKey">SessionKey</param>
         /// <param name="uniondId">UnionId</param>
         /// <returns></returns>
-        public static SessionBag UpdateSession(string key, string openId, string sessionKey, string uniondId)
+        public static SessionBag UpdateSession(string key, string openId, string sessionKey, string uniondId, TimeSpan? expireTime = null)
         {
             key = key ?? SessionHelper.GetNewThirdSessionName();
 
@@ -187,14 +195,72 @@ namespace Senparc.Weixin.WxOpen.Containers
                 OpenId = openId,
                 UnionId = uniondId,
                 SessionKey = sessionKey,
-                ExpireTime = DateTime.Now.Add(GetExpireTime())
+                ExpireTime = SystemTime.Now.Add(expireTime ?? GetExpireTime())
             };
-            Update(key, sessionBag, GetExpireTime());
+            Update(key, sessionBag, expireTime ?? GetExpireTime());
             return sessionBag;
             //}
         }
 
         #endregion
 
+        #region 异步方法
+
+        /// <summary>
+        /// 获取Session
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static async Task<SessionBag> GetSessionAsync(string key)
+        {
+            var bag = await TryGetItemAsync(key).ConfigureAwait(false);
+            if (bag == null)
+            {
+                return null;
+            }
+
+            if (bag.ExpireTime < SystemTime.Now)
+            {
+                //已经过期
+                await Cache.RemoveFromCacheAsync(key).ConfigureAwait(false);
+                return null;
+            }
+
+            //using (FlushCache.CreateInstance())
+            //{
+            bag.ExpireTime = SystemTime.Now.Add(GetExpireTime());//滚动过期时间
+            await UpdateAsync(key, bag, GetExpireTime()).ConfigureAwait(false);
+            //}
+            return bag;
+        }
+
+        /// <summary>
+        /// 更新或插入SessionBag
+        /// </summary>
+        /// <param name="key">如果留空，则新建一条记录</param>
+        /// <param name="openId">OpenId</param>
+        /// <param name="sessionKey">SessionKey</param>
+        /// <param name="uniondId">UnionId</param>
+        /// <returns></returns>
+        public static async Task<SessionBag> UpdateSessionAsync(string key, string openId, string sessionKey, string uniondId, TimeSpan? expireTime = null)
+        {
+            key = key ?? SessionHelper.GetNewThirdSessionName();
+
+            //using (FlushCache.CreateInstance())
+            //{
+            var sessionBag = new SessionBag()
+            {
+                Key = key,
+                OpenId = openId,
+                UnionId = uniondId,
+                SessionKey = sessionKey,
+                ExpireTime = SystemTime.Now.Add(expireTime ?? GetExpireTime())
+            };
+            await UpdateAsync(key, sessionBag, expireTime ?? GetExpireTime()).ConfigureAwait(false);
+            return sessionBag;
+            //}
+        }
+
+        #endregion
     }
 }

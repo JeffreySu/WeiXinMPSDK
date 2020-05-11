@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：LoginAuthApi.cs
     文件功能描述：企业号登录授权接口
@@ -13,6 +13,10 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20190129
+    修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
+
+
 ----------------------------------------------------------------*/
 
 /*
@@ -21,6 +25,7 @@
 
 using System.Threading.Tasks;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.Work.CommonAPIs;
@@ -59,7 +64,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -83,12 +88,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     agentid = agentid
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
 
         }
         #endregion
-#endif
 
     }
 }

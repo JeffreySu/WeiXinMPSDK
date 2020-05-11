@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：GetAuthorizerInfoResult.cs
     文件功能描述：获取授权方的账户信息返回结果
@@ -18,6 +18,9 @@
 
     修改标识：Senparc - 20180101
     修改描述：v4.2.2 添加 GetAuthorizerInfoResult 中的 MiniProgramInfo 属性
+
+    修改标识：Senparc - 20181223
+    修改描述：v4.3.1 修正 MiniProgramInfo 中的 categories 属性类型
 
 ----------------------------------------------------------------*/
 

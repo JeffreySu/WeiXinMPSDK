@@ -18,9 +18,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
     {
-        private DateTime _dateTime;
+        private DateTimeOffset _dateTime;
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
         //{
         //    get { return _dateTime; }
         //    set { this.SetContainerProperty(ref _dateTime, value); }
@@ -83,11 +83,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
-            var bagKey = "Redis." + DateTime.Now.ToString("yyyy-MM-dd--HH-mm-ss-ffff");
+            var bagKey = "Redis." + SystemTime.Now.ToString("yyyy-MM-dd--HH-mm-ss-ffff");
             var bag = new TestContainerBag1()
             {
                 Key = bagKey,
-                DateTime = DateTime.Now
+                DateTime = SystemTime.Now
             };
 
             TestContainer1.Update(bagKey, bag, TimeSpan.FromHours(1));//更新到缓存（立即更新）
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             if (itemCollection != null)
             {
-                itemCollection[DateTime.Now.Ticks.ToString()] = bag;
+                itemCollection[SystemTime.Now.Ticks.ToString()] = bag;
             }
 
             itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();//如果是分布式缓存，这里的数字通常不会变
@@ -121,19 +121,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
-                var shortBagKey = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+                var shortBagKey = SystemTime.Now.ToString("yyyyMMdd-HHmmss");
                 var finalBagKey = baseCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,
-                    DateTime = DateTime.Now
+                    DateTime = SystemTime.Now
                 };
                 TestContainer1.Update(shortBagKey, bag,TimeSpan.FromHours(1)); //更新到缓存（立即更新）
                 sb.AppendFormat("{0}：{1}<br />", "bag.DateTime", bag.DateTime.ToString("o"));
 
                 Thread.Sleep(1);
 
-                bag.DateTime = DateTime.Now; //进行修改
+                bag.DateTime = SystemTime.Now; //进行修改
 
                 //读取队列
                 var mq = new SenparcMessageQueue();
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);
-                finalExisted = existed && itemCollection[finalBagKey].CacheTime.Date == DateTime.Now.Date;
+                finalExisted = existed && itemCollection[finalBagKey].CacheTime.Date == SystemTime.Now.Date;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
                     !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToString("o")); //应为当前加入到缓存的最新时间

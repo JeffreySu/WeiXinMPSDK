@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -35,6 +35,8 @@ using Senparc.CO2NET.Helpers;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Entities;
 using Senparc.NeuChar.Agents;
+using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.Extensions;
 
 #if NET45
 using System.Web;
@@ -112,7 +114,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null)
+            if (CurrentMessageContext.StorageData == null || (CurrentMessageContext.StorageData is int))
             {
                 CurrentMessageContext.StorageData = 0;
             }
@@ -128,6 +130,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <summary>
         /// 处理文字请求
         /// </summary>
+        /// <param name="requestMessage">请求消息</param>
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -188,9 +191,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     defaultResponseMessage.Content =
                     @"您正在进行微信内置浏览器约束判断测试。您可以：
-<a href=""http://sdk.weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
+<a href=""https://sdk.weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：https://sdk.weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
 或：
-<a href=""http://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
+<a href=""https://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：https://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
                     return defaultResponseMessage;
                 }).
                 //匹配任一关键字
@@ -199,19 +202,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                     //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
 
-                    DateTime dt1 = DateTime.Now; //计时开始
+                    var dt1 = SystemTime.Now; //计时开始
 
                     var agentXml = RequestDocument.ToString();
 
                     #region 暂时转发到SDK线上Demo
 
-                    agentUrl = "http://sdk.weixin.senparc.com/weixin";
+                    agentUrl = "https://sdk.weixin.senparc.com/weixin";
                     //agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                     //修改内容，防止死循环
                     var agentDoc = XDocument.Parse(agentXml);
                     agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
-                    agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetWeixinDateTime(DateTime.Now));//修改时间，防止去重
+                    agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetUnixDateTime(SystemTime.Now));//修改时间，防止去重
                     agentDoc.Root.Element("MsgId").SetValue("123");//防止去重
                     agentXml = agentDoc.ToString();
 
@@ -226,7 +229,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     */
                     //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
 
-                    DateTime dt2 = DateTime.Now; //计时结束
+                    var dt2 = SystemTime.Now; //计时结束
 
                     //转成实体。
                     /* 如果要写成一行，可以直接用：
@@ -268,12 +271,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     //异步并发测试（提供给单元测试使用）
 #if NET45
-                    DateTime begin = DateTime.Now;
+                    var begin = SystemTime.Now;
                     int t1, t2, t3;
                     System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
                     System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
                     System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
-                    DateTime end = DateTime.Now;
+                    var end = SystemTime.Now;
                     var thread = System.Threading.Thread.CurrentThread;
                     defaultResponseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                             thread.ManagedThreadId,
@@ -291,13 +294,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
                     openResponseMessage.Articles.Add(new Article()
                     {
-                        Title = "开放平台微信授权测试",
+                        Title = "开放平台微信授权测试！",
                         Description = @"点击进入Open授权页面。
 
 授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。
 
 测试完成后，您可以登陆公众号后台取消授权。",
-                        Url = "http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
+                        Url = "https://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
                     });
                     return openResponseMessage;
                 })
@@ -312,7 +315,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
                     var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                     faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
-                        DateTime.Now.Ticks);
+                        SystemTime.Now.Ticks);
                     return faultTolerantResponseMessage;
                 })
                 .Keyword("TM", () =>
@@ -336,7 +339,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Keyword("EX", () =>
                 {
                     var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
-                    defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
+                    defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + SystemTime.Now.ToString();
                     return defaultResponseMessage;
                 })
                 .Keyword("MUTE", () => //不回复任何消息
@@ -357,12 +360,39 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 })
                 .Keyword("JSSDK", () =>
                 {
-                    defaultResponseMessage.Content = "点击打开：http://sdk.weixin.senparc.com/WeixinJsSdk";
+                    defaultResponseMessage.Content = "点击打开：https://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
+
+
+                //选择菜单，关键字：101（微信服务器端最终格式：id="s:101",content="满意"）
+                .SelectMenuKeyword("101", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们会一如既往为提高企业和开发者生产力而努力！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：102（微信服务器端最终格式：id="s:102",content="一般"）
+                .SelectMenuKeyword("102", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！希望我们的服务能让您越来越满意！";
+                    return defaultResponseMessage;
+                })
+                //选择菜单，关键字：103（微信服务器端最终格式：id="s:103",content="不满意"）
+                .SelectMenuKeyword("103", () =>
+                {
+                    defaultResponseMessage.Content = $"感谢您的评价（{requestMessage.Content}）！我们需要您的意见或建议，欢迎向我们反馈！ <a href=\"https://github.com/JeffreySu/WeiXinMPSDK/issues/new\">点击这里</a>";
+                    return defaultResponseMessage;
+                })
+                .SelectMenuKeywords(new[] { "110", "111" }, () =>
+                {
+                    defaultResponseMessage.Content = $"这里只是演示，可以同时支持多个选择菜单";
+                    return defaultResponseMessage;
+                })
+
                 //Default不一定要在最后一个
                 .Default(() =>
                 {
+
                     var result = new StringBuilder();
                     result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
@@ -388,9 +418,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         GlobalMessageContext.ExpireMinutes, GlobalMessageContext.MaxRecordCount);
                     result.AppendLine("\r\n");
                     result.AppendLine(
-                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
+                        "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：https://sdk.weixin.senparc.com");
 
                     defaultResponseMessage.Content = result.ToString();
+
                     return defaultResponseMessage;
                 })
                 //“一次订阅消息”接口测试
@@ -445,14 +476,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Title = "您刚才发送了图片信息",
                     Description = "您发送的图片将会显示在边上",
                     PicUrl = requestMessage.PicUrl,
-                    Url = "http://sdk.weixin.senparc.com"
+                    Url = "https://sdk.weixin.senparc.com"
                 });
                 responseMessage.Articles.Add(new Article()
                 {
                     Title = "第二条",
                     Description = "第二条带连接的内容",
                     PicUrl = requestMessage.PicUrl,
-                    Url = "http://sdk.weixin.senparc.com"
+                    Url = "https://sdk.weixin.senparc.com"
                 });
 
                 return responseMessage;
@@ -476,7 +507,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //上传缩略图
             //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
-                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+                                                         ServerUtility.ContentRootMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
@@ -511,8 +542,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             Task.Factory.StartNew(async () =>
              {
-                 //上传素材
-                 var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+             //上传素材
+             var dir = ServerUtility.ContentRootMapPath("~/App_Data/TempVideo/");
                  var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
                  var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
                  await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
@@ -571,7 +602,7 @@ MD5:{3}", requestMessage.Title, requestMessage.Description, requestMessage.FileT
         public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
         {
             var eventResponseMessage = base.OnEventRequest(requestMessage);//对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
-            //TODO: 对Event信息进行统一操作
+                                                                           //TODO: 对Event信息进行统一操作
             return eventResponseMessage;
         }
 

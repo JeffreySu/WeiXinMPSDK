@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs.Tests
         [TestMethod()]
         public void GetAuthorizeUrlTest()
         {
-            var returnUrl = "http://sdk.weixin.senparc.com?a=1&b=a";
+            var returnUrl = "https://sdk.weixin.senparc.com?a=1&b=a";
             var result = OAuthAPIs.OAuthApi.GetAuthorizeUrl("appId", "componentAppId", returnUrl, "Jeffrey Su", new[] { OAuthScope.snsapi_userinfo });
 
             Console.WriteLine(result);

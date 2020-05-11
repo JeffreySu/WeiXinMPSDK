@@ -54,17 +54,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.0.3.0.2\lib\net45\Senparc.CO2NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.CO2NET.APM, Version=0.1.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.CO2NET.APM.0.1.3.3\lib\net45\Senparc.CO2NET.APM.dll</HintPath>
-    </Reference>
-    <Reference Include="Senparc.NeuChar, Version=0.4.4.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Senparc.NeuChar.0.4.4.4\lib\net45\Senparc.NeuChar.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Samples\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -134,6 +125,7 @@
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
     <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\Custom\SendMenuContent.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\BaseGroupMessageDataByFilter.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\ByFilter\GroupMessageByTagId.cs" />
@@ -246,7 +238,7 @@
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreBaseInfo.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\PoiUploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\AddtemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetIndustryJsonResult.cs" />
@@ -278,27 +270,14 @@
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
-    <Compile Include="AppStore\Api.cs" />
-    <Compile Include="AppStore\Api\ApiConnection.cs" />
-    <Compile Include="AppStore\Api\ApiContainer.cs" />
-    <Compile Include="AppStore\Api\BaseApi.cs" />
-    <Compile Include="AppStore\Api\MemberApi.cs" />
-    <Compile Include="AppStore\AppStoreManager.cs" />
-    <Compile Include="AppStore\Config.cs" />
-    <Compile Include="AppStore\DeveloperInfo.cs" />
-    <Compile Include="AppStore\Entities\AppResult\AppResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\GetMemberResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\NormalAppResult.cs" />
-    <Compile Include="AppStore\Entities\AppResult\PassportResult.cs" />
-    <Compile Include="AppStore\Entities\OAuthAccessTokenResult.cs" />
-    <Compile Include="AppStore\Entities\Passport.cs" />
-    <Compile Include="AppStore\Entities\WxJsonResult.cs" />
-    <Compile Include="AppStore\Enums.cs" />
-    <Compile Include="AppStore\AppStoreOAuth.cs" />
-    <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
-    <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
-    <Compile Include="AppStore\ReturnResult.cs" />
-    <Compile Include="AppStore\Utility\AppUtility.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\AddStoreJsonData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\ApplyMerchantData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\DistrictResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\MerchantAuditInfo.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\MerchatResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\PoiInMap.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\MerchantJson\StoreData.cs" />
+    <Compile Include="AdvancedAPIs\Wxa\WxaApi.cs" />
     <Compile Include="Containers\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -322,6 +301,7 @@
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Pay_Done.cs" />
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_Send_To_Friend.cs" />
     <Compile Include="Entities\Request\Event\GiftCard\RequestMessageEvent_GiftCard_User_Accept.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_View_Miniprogram.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\Event\WeApp\RequestMessageEvent_WeAppAuditFail.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Update_Member_Card.cs" />
@@ -353,6 +333,10 @@
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\Kf\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_AddStoreAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_ApplyMerchantAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_CreateMapPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\Wxa\RequestMessageEvent_ModifyStoreAuditInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageFile.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
@@ -375,7 +359,6 @@
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
-    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\GetMenuResultFull.cs" />
@@ -480,6 +463,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NeuChar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Senparc.CO2NET.APM">
+      <Version>0.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Senparc.NeuChar">
+      <Version>0.7.4</Version>
+    </PackageReference>
+    <PackageReference Include="Senparc.NeuChar.App">
+      <Version>0.5.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

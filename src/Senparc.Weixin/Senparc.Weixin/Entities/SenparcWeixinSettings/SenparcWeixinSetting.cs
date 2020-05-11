@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2018 Senparc
+    Copyright (C) 2019 Senparc
     
     文件名：SenparcWeixinSetting.cs
     文件功能描述：Senparc.Weixin JSON 配置
@@ -98,8 +98,12 @@ namespace Senparc.Weixin.Entities
             senparcWeixinSetting.TenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
             senparcWeixinSetting.TenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
             senparcWeixinSetting.TenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+            senparcWeixinSetting.TenPayV3_SubAppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_SubAppId"];
+            senparcWeixinSetting.TenPayV3_SubAppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_SubAppSecret"];
             senparcWeixinSetting.TenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
             senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_WxOpenTenpayNotify"];
+            senparcWeixinSetting.TenPayV3_CertPath = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_CertPath"];//.net 4.5 实际不需要使用此配置
+            senparcWeixinSetting.TenPayV3_CertSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_CertSecret"];//.net 4.5 实际不需要使用此配置
             if (string.IsNullOrEmpty(senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify))
             {
                 senparcWeixinSetting.TenPayV3_WxOpenTenpayNotify = senparcWeixinSetting.TenPayV3_TenpayNotify + "WxOpen";//设置默认值

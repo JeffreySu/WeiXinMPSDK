@@ -17,6 +17,7 @@ using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    using Senparc.CO2NET.Utilities;
     using Senparc.Weixin.MP.MvcExtension;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
@@ -26,7 +27,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public static readonly string EncodingAESKey = Config.SenparcWeixinSetting.EncodingAESKey;//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = Config.SenparcWeixinSetting.WeixinAppId;//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => SystemTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
         public WeixinController()
         {
@@ -34,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://sdk.weixin.senparc.com/weixin
+        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：https://sdk.weixin.senparc.com/weixin
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
@@ -105,7 +106,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 #region 异常处理
                 WeixinTrace.Log("MessageHandler错误：{0}", ex.Message);
 
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(ServerUtility.ContentRootMapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
@@ -174,12 +175,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult ForTest()
         {
             //异步并发测试（提供给单元测试使用）
-            DateTime begin = DateTime.Now;
+            var begin = SystemTime.Now;
             int t1, t2, t3;
             System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
             System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
             System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.5));
-            DateTime end = DateTime.Now;
+            var end = SystemTime.Now;
             var thread = System.Threading.Thread.CurrentThread;
             var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
                     thread.ManagedThreadId,

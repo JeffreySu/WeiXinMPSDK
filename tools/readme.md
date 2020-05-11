@@ -11,6 +11,9 @@ ClearDotNetCoreBadFiles.exe 用于解决当项目在.NET Core（或.NET Standard
 
 
 ## SupportNet35And40
+
+> 当前最新版本已经不支持 .NET 3.5 和 4.0，使用最新源代码时，此工具可以忽略。
+
 SupportNet35And40.exe 用于项目提供 .NET 3.5/4.0支持的文件自动处理，目前已经结束。
 
 使用方法：执行 SupportNet35And40.exe，等待扫描结束，文件会被自动修改。

@@ -56,8 +56,21 @@
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitDistributionResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidVisitPageResultJson.cs" />
     <Compile Include="AdvancedAPIs\DataCube\DataCubeJson\GetWeAnalysisAppidWeeklyVisitTrendResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Message\MessageApi.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpApi.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\DownloadJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\QrCodeJump\QrCodeJumpJson\GetJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Sns\SnsJson\JsCode2JsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbApi.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\ConflictMode.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\FileType.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxCloudFunctionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseCollectionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxDatabaseMigrateJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxFileJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Tcb\TcbJson\WxQcloudTokenJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\LibraryGetJsonResult.cs" />
@@ -76,6 +89,10 @@
     <Compile Include="Entities\DecodedRunData.cs" />
     <Compile Include="Entities\DecodedUserInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_AddNearbyPoiAuditInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_NicknameAudit.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditDelay.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditFail.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WeAppAuditSuccess.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageText.cs" />
@@ -87,6 +104,8 @@
     <Compile Include="Exceptions\WxOpenException.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="MessageContexts\DefaultWxOpenMessageContext.cs" />
+    <Compile Include="MessageHandlers\Middleware\WxOpenMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />
@@ -102,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.Weixin.MP">
-      <Version>16.7.9</Version>
+      <Version>16.9.102</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

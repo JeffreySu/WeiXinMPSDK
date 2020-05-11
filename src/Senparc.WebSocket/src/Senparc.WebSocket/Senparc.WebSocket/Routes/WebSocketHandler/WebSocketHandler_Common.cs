@@ -11,12 +11,14 @@ using System.Web.Script.Serialization;
 #else
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Senparc.WebSocket.SignalR;
 #endif
 
 namespace Senparc.WebSocket
 {
     public partial class WebSocketHandler
     {
+#if NET45
         private static async Task HandleMessage(System.Net.WebSockets.WebSocket webSocket)
         {
             //Gets the current WebSocket object.
@@ -88,7 +90,7 @@ namespace Senparc.WebSocket
                                 receivedMessage = js.Deserialize<ReceivedMessage>(receiveString);
 #else
                                 receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
-                                #endif
+#endif
 
                                 
                             }
@@ -109,5 +111,21 @@ namespace Senparc.WebSocket
                 }
             }
         }
+#else
+        //.NET Core（SignalR）不需要
+
+        //protected static async Task HandleMessage(SenparcWebSocketHubBase webSocket, string message)
+        //{
+        //    var cancellationToken = new CancellationToken();
+        //    WebSocketHelper webSocketHandler = new WebSocketHelper(webSocket, /*webSocketContext, */cancellationToken);
+        //    var receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(message);
+        //    var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
+        //    //messageHandler.OnMessageReceiced(webSocketHandler,)
+        //}
+#endif
+
+
+
+
     }
 }

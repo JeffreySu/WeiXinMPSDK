@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -81,6 +81,15 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20190504
     修改描述：v4.5.1 完善 Container 注册委托的储存类型，解决多账户下的注册冲突问题
 
+    修改标识：Senparc - 20190822
+    修改描述：v4.5.9 完善同步方法的 AuthorizerContainer.Register() 对异步方法的调用，避免可能的线程锁死问题
+
+    修改标识：Senparc - 20190826
+    修改描述：v4.5.10 优化 Register() 方法
+
+    修改标识：Senparc - 20191030
+    修改描述：v4.7.102.1 修改 TryUpdateAuthorizationInfo() 相关方法，避免可能发生的 null 对象错误
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -105,32 +114,11 @@ namespace Senparc.Weixin.Open.Containers
         /// 授权方AppId，缓存中实际的Key
         /// </summary>
         public string AuthorizerAppId { get; set; }
-        //        {
-        //            get { return _authorizerAppId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _authorizerAppId, value, "AuthorizerAppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _authorizerAppId, value); }
-        //#endif
-        //        }
 
         /// <summary>
         /// 第三方平台AppId
         /// </summary>
         public string ComponentAppId { get; set; }
-        //        {
-        //            get { return _componentAppId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentAppId, value); }
-        //#endif
-        //        }
-
-        ///// <summary>
-        ///// 从ComponentContainer取过来的对应ComponentAppId的ComponentBag
-        ///// </summary>
-        //public ComponentBag ComponentBag { get; set; }
 
         /// <summary>
         /// 授权信息
@@ -149,83 +137,28 @@ namespace Senparc.Weixin.Open.Containers
         }
 
 
-        public JsApiTicketResult JsApiTicketResult { get; set; }
-        //        {
-        //            get { return _jsApiTicketResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-        //#endif
-        //        }
+        public JsApiTicketResult JsApiTicketResult { get; set; } = new JsApiTicketResult();
 
         public DateTimeOffset JsApiTicketExpireTime { get; set; }
-        //        {
-        //            get { return _jsApiTicketExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
-        //#endif
-        //}
 
         /// <summary>
         /// 授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
         /// </summary>
-        public AuthorizationInfo AuthorizationInfo { get; set; }
-        //        {
-        //            get { return _authorizationInfo; }
-        //            //set
-        //            //{
-        //            //    base.SetContainerProperty(ref _authorizationInfo, value);
-        //            //    //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
-        //            //}
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _authorizationInfo, value, "AuthorizationInfo"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _authorizationInfo, value); }
-        //#endif
-
-        //        }
+        public AuthorizationInfo AuthorizationInfo { get; set; } = new AuthorizationInfo();
 
         public DateTimeOffset AuthorizationInfoExpireTime { get; set; }
-        //        {
-        //            get { return _authorizationInfoExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value, "AuthorizationInfoExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
-        //#endif
-        //        }
 
         /// <summary>
         /// 授权方资料信息
         /// </summary>
-        public AuthorizerInfo AuthorizerInfo { get; set; }
-        //        {
-        //            get { return _authorizerInfo; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _authorizerInfo, value, "AuthorizerInfo"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _authorizerInfo, value); }
-        //#endif
-        //        }
-
-        //public DateTimeOffset AuthorizerInfoExpireTime { get; set; }
-
+        public AuthorizerInfo AuthorizerInfo { get; set; } = new AuthorizerInfo();
 
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
         internal object Lock = new object();
 
-        //private string _authorizerAppId;
-        //private string _componentAppId;
-        //private JsApiTicketResult _jsApiTicketResult;
-        //private DateTimeOffset _jsApiTicketExpireTime;
-        //private AuthorizationInfo _authorizationInfo;
-        //private DateTimeOffset _authorizationInfoExpireTime;
-        //private AuthorizerInfo _authorizerInfo;
+        public AuthorizerBag() { }
     }
 
     /// <summary>
@@ -247,7 +180,12 @@ namespace Senparc.Weixin.Open.Containers
         [Obsolete("请使用 RegisterAsync() 方法")]
         private static void Register(string componentAppId, string authorizerAppId, string name = null)
         {
-            RegisterAsync(componentAppId, authorizerAppId, name).Wait();
+            var task = RegisterAsync(componentAppId, authorizerAppId, name);
+            Task.WaitAll(new[] { task }, 10000);
+            //Task.Factory.StartNew(() =>
+            //{
+            //    RegisterAsync(componentAppId, authorizerAppId, name).ConfigureAwait(false);
+            //}).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -387,10 +325,11 @@ namespace Senparc.Weixin.Open.Containers
             {
                 var authorizerBag = TryGetItem(authorizerAppid);
 
-                var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
-                                         authorizationInfo.authorizer_access_token
-                                           || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
-                                              authorizationInfo.authorizer_refresh_token;
+                var refreshTokenChanged = authorizerBag == null
+                                                      || authorizerBag.AuthorizationInfo.authorizer_access_token != authorizationInfo.authorizer_access_token
+                                                      || authorizerBag.AuthorizationInfo.authorizer_refresh_token != authorizationInfo.authorizer_refresh_token;
+
+                authorizerBag = authorizerBag ?? new AuthorizerBag();
 
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
@@ -426,10 +365,11 @@ namespace Senparc.Weixin.Open.Containers
                 {
                     var authorizerBag = TryGetItem(authorizerAppid);
 
-                    var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
-                                              authorizerAccessToken
-                                              || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
-                                              authorizerRefreshToken;
+                    var refreshTokenChanged = authorizerBag == null
+                                              || authorizerBag.AuthorizationInfo.authorizer_access_token != authorizerAccessToken
+                                              || authorizerBag.AuthorizationInfo.authorizer_refresh_token != authorizerRefreshToken;
+
+                    authorizerBag = authorizerBag ?? new AuthorizerBag();
 
                     authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
                     authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
@@ -711,10 +651,11 @@ namespace Senparc.Weixin.Open.Containers
             {
                 var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
 
-                var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
-                                         authorizationInfo.authorizer_access_token
-                                           || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
-                                              authorizationInfo.authorizer_refresh_token;
+                var refreshTokenChanged = authorizerBag == null
+                                           || authorizerBag.AuthorizationInfo.authorizer_access_token != authorizationInfo.authorizer_access_token
+                                           || authorizerBag.AuthorizationInfo.authorizer_refresh_token != authorizationInfo.authorizer_refresh_token;
+
+                authorizerBag = authorizerBag ?? new AuthorizerBag();
 
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
@@ -751,10 +692,11 @@ namespace Senparc.Weixin.Open.Containers
                 {
                     var authorizerBag = await TryGetItemAsync(authorizerAppid).ConfigureAwait(false);
 
-                    var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
-                                              authorizerAccessToken
-                                              || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
-                                              authorizerRefreshToken;
+                    var refreshTokenChanged = authorizerBag == null
+                                              || authorizerBag.AuthorizationInfo.authorizer_access_token != authorizerAccessToken
+                                              || authorizerBag.AuthorizationInfo.authorizer_refresh_token != authorizerRefreshToken;
+
+                    authorizerBag = authorizerBag ?? new AuthorizerBag();
 
                     authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
                     authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;

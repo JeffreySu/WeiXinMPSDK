@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/websocket/websocket",
     "pages/LivePusher/LivePusher",
-    "pages/QrCode/QrCode"
+    "pages/QrCode/QrCode",
+    "pages/websocket_signalr/websocket_signalr"
   ],
   "window": {
     "backgroundTextStyle": "light",

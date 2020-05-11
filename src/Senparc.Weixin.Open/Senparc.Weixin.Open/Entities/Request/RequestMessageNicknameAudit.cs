@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：RequestMessageNicknameAudit.cs
     文件功能描述：推送取消授权通知

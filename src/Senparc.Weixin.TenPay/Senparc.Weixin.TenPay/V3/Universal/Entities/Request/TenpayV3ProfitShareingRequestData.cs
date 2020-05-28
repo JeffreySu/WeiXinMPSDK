@@ -29,9 +29,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：15989221023 - 20200416
     修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
 
-    修改标识：15989221023 - 2020511
+    修改标识：15989221023 - 20200511
     修改描述：v1.5.502.1 添加 TenPayV3UnifiedorderRequestData Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2174
    
+    修改标识：Senparc - 20200528
+    修改描述：v1.5.502.2 fix bug:必须指定待分账的接收方列表 判断有误 https://github.com/JeffreySu/WeiXinMPSDK/issues/2181
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -149,7 +152,7 @@ namespace Senparc.Weixin.TenPay.V3
             SubMchId = submchid;
             Receivers = receivers;
 
-            if (Receivers != null || Receivers.Length == 0)
+            if (Receivers == null || Receivers.Length == 0)
             {
                 throw new ArgumentNullException("必须指定待分账的接收方列表");
             }

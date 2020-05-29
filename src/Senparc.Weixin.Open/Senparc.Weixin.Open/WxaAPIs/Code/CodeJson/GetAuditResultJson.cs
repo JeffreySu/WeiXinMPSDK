@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190525
     修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
 
+    修改标识：mc7246 - 20200318
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
+
 ----------------------------------------------------------------*/
 
 

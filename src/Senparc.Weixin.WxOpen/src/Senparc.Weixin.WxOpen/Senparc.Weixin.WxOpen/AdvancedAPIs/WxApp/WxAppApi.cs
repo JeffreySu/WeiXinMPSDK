@@ -583,13 +583,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
         /// <param name="transaction_id">微信支付订单号</param>
         /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
         /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionid", true)]
-        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string transaction_id, string mch_id="", string out_trade_no="", int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -601,6 +602,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         mch_id = mch_id,
                         out_trade_no = out_trade_no
                     };
@@ -609,6 +611,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         transaction_id = transaction_id
                     };
                 }
@@ -1142,13 +1145,14 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
         /// <param name="transaction_id">微信支付订单号</param>
         /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
         /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionidAsync", true)]
-        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -1160,6 +1164,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         mch_id = mch_id,
                         out_trade_no = out_trade_no
                     };
@@ -1168,6 +1173,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 {
                     data = new
                     {
+                        openid = openId,
                         transaction_id = transaction_id
                     };
                 }

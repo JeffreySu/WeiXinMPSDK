@@ -1,7 +1,4 @@
-using System;
-using System.IO;
-using System.Text;
-using Microsoft.AspNetCore.Builder;
+ï»¿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-
 using Senparc.CO2NET;
 using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
@@ -17,16 +13,16 @@ using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
-using Senparc.Weixin.Cache.CsRedis;
+using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.Weixin.Cache.Redis;//DPBMARK Redis DPBMARK_END
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP;//DPBMARK MP DPBMARK_END
 using Senparc.Weixin.MP.MessageHandlers.Middleware;//DPBMARK MP DPBMARK_END
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;//DPBMARK MP DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;//DPBMARK WebSocket DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;//DPBMARK Work DPBMARK_END
+using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.Open;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.Open.ComponentAPIs;//DPBMARK Open DPBMARK_END
 using Senparc.Weixin.RegisterServices;
@@ -36,6 +32,9 @@ using Senparc.Weixin.Work;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.Work.MessageHandlers.Middleware;//DPBMARK Work DPBMARK_END
 using Senparc.Weixin.WxOpen;//DPBMARK MiniProgram DPBMARK_END
 using Senparc.Weixin.WxOpen.MessageHandlers.Middleware;//DPBMARK MiniProgram DPBMARK_END
+using System;
+using System.IO;
+using System.Text;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -51,47 +50,47 @@ namespace Senparc.Weixin.Sample.NetCore3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();//Ê¹ÓÃSession£¨Êµ¼ùÖ¤Ã÷ĞèÒªÔÚÅäÖÃ Mvc Ö®Ç°£©
+            services.AddSession();//ä½¿ç”¨Sessionï¼ˆå®è·µè¯æ˜éœ€è¦åœ¨é…ç½® Mvc ä¹‹å‰ï¼‰
 
             services.AddControllersWithViews()
-                    .AddNewtonsoftJson()// Ö§³Ö NewtonsoftJson
+                    .AddNewtonsoftJson()// æ”¯æŒ NewtonsoftJson
                     .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
-            //Èç¹û²¿ÊğÔÚlinuxÏµÍ³ÉÏ£¬ĞèÒª¼ÓÉÏÏÂÃæµÄÅäÖÃ£º
+            //å¦‚æœéƒ¨ç½²åœ¨linuxç³»ç»Ÿä¸Šï¼Œéœ€è¦åŠ ä¸Šä¸‹é¢çš„é…ç½®ï¼š
             //services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
-            //Èç¹û²¿ÊğÔÚIISÉÏ£¬ĞèÒª¼ÓÉÏÏÂÃæµÄÅäÖÃ£º
+            //å¦‚æœéƒ¨ç½²åœ¨IISä¸Šï¼Œéœ€è¦åŠ ä¸Šä¸‹é¢çš„é…ç½®ï¼š
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddMemoryCache();//Ê¹ÓÃ±¾µØ»º´æ±ØĞëÌí¼Ó
+            services.AddMemoryCache();//ä½¿ç”¨æœ¬åœ°ç¼“å­˜å¿…é¡»æ·»åŠ 
 
-            services.AddSignalR();//Ê¹ÓÃ SignalR   -- DPBMARK WebSocket DPBMARK_END
+            services.AddSignalR();//ä½¿ç”¨ SignalR   -- DPBMARK WebSocket DPBMARK_END
 
             /*
-             * CO2NET ÊÇ´Ó Senparc.Weixin ·ÖÀëµÄµ×²ã¹«¹²»ù´¡Ä£¿é£¬¾­¹ıÁË³¤´ï 6 ÄêµÄµü´úÓÅ»¯£¬ÎÈ¶¨¿É¿¿¡£
-             * ¹ØÓÚ CO2NET ÔÚËùÓĞÏîÄ¿ÖĞµÄÍ¨ÓÃÉèÖÃ¿É²Î¿¼ CO2NET µÄ Sample£º
+             * CO2NET æ˜¯ä» Senparc.Weixin åˆ†ç¦»çš„åº•å±‚å…¬å…±åŸºç¡€æ¨¡å—ï¼Œç»è¿‡äº†é•¿è¾¾ 6 å¹´çš„è¿­ä»£ä¼˜åŒ–ï¼Œç¨³å®šå¯é ã€‚
+             * å…³äº CO2NET åœ¨æ‰€æœ‰é¡¹ç›®ä¸­çš„é€šç”¨è®¾ç½®å¯å‚è€ƒ CO2NET çš„ Sampleï¼š
              * https://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore/Startup.cs
              */
 
-            
-            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin ×¢²á£¨±ØĞë£©
-                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>(); //Senparc.WebSocket ×¢²á£¨°´Ğè£©
 
+            services.AddSenparcWeixinServices(Configuration)//Senparc.Weixin æ³¨å†Œï¼ˆå¿…é¡»ï¼‰
+                    .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket æ³¨å†Œï¼ˆæŒ‰éœ€ï¼‰  -- DPBMARK WebSocket DPBMARK_END
+                    ;
 
-            //services.AddCertHttpClient("name", "pwd", "path");//´Ë´¦¿ÉÒÔÌí¼Ó¸ü¶à Cert Ö¤Êé
+            //services.AddCertHttpClient("name", "pwd", "path");//æ­¤å¤„å¯ä»¥æ·»åŠ æ›´å¤š Cert è¯ä¹¦
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
                 IOptions<SenparcSetting> senparcSetting, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
-            //ÆôÓÃ GB2312£¨°´Ğè£©
+            //å¯ç”¨ GB2312ï¼ˆæŒ‰éœ€ï¼‰
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //ÒıÈëEnableRequestRewindÖĞ¼ä¼ş£¨°´Ğè£©
-            app.UseEnableRequestRewind();
-            //Ê¹ÓÃ Session£¨°´Ğè£¬±¾Ê¾ÀıÖĞĞèÒªÓÃµ½£©
+            //å¼•å…¥EnableRequestRewindä¸­é—´ä»¶ï¼ˆæŒ‰éœ€ï¼‰
+            app.UseEnableRequestRewind();//DPBMARK MP DPBMARK_END
+            //ä½¿ç”¨ Sessionï¼ˆæŒ‰éœ€ï¼Œæœ¬ç¤ºä¾‹ä¸­éœ€è¦ç”¨åˆ°ï¼‰
             app.UseSession();
 
             if (env.IsDevelopment())
@@ -109,68 +108,68 @@ namespace Senparc.Weixin.Sample.NetCore3
             app.UseRouting();
 
 
-            // Æô¶¯ CO2NET È«¾Ö×¢²á£¬±ØĞë£¡
-            // ¹ØÓÚ UseSenparcGlobal() µÄ¸ü¶àÓÃ·¨¼û CO2NET Demo£ºhttps://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
+            // å¯åŠ¨ CO2NET å…¨å±€æ³¨å†Œï¼Œå¿…é¡»ï¼
+            // å…³äº UseSenparcGlobal() çš„æ›´å¤šç”¨æ³•è§ CO2NET Demoï¼šhttps://github.com/Senparc/Senparc.CO2NET/blob/master/Sample/Senparc.CO2NET.Sample.netcore3/Startup.cs
             var registerService = app.UseSenparcGlobal(env, senparcSetting.Value, globalRegister =>
                 {
-                    #region CO2NET È«¾ÖÅäÖÃ
+                    #region CO2NET å…¨å±€é…ç½®
 
-                    #region È«¾Ö»º´æÅäÖÃ£¨°´Ğè£©
+                    #region å…¨å±€ç¼“å­˜é…ç½®ï¼ˆæŒ‰éœ€ï¼‰
 
-                    //µ±Í¬Ò»¸ö·Ö²¼Ê½»º´æÍ¬Ê±·şÎñÓÚ¶à¸öÍøÕ¾£¨Ó¦ÓÃ³ÌĞò³Ø£©Ê±£¬¿ÉÒÔÊ¹ÓÃÃüÃû¿Õ¼ä½«Æä¸ôÀë£¨·Ç±ØĞë£©
+                    //å½“åŒä¸€ä¸ªåˆ†å¸ƒå¼ç¼“å­˜åŒæ—¶æœåŠ¡äºå¤šä¸ªç½‘ç«™ï¼ˆåº”ç”¨ç¨‹åºæ± ï¼‰æ—¶ï¼Œå¯ä»¥ä½¿ç”¨å‘½åç©ºé—´å°†å…¶éš”ç¦»ï¼ˆéå¿…é¡»ï¼‰
                     globalRegister.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
 
-                    #region ÅäÖÃºÍÊ¹ÓÃ Redis          -- DPBMARK Redis
+                    #region é…ç½®å’Œä½¿ç”¨ Redis          -- DPBMARK Redis
 
-                    //ÅäÖÃÈ«¾ÖÊ¹ÓÃRedis»º´æ£¨°´Ğè£¬¶ÀÁ¢£©
-                    if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//ÕâÀïÎªÁË·½±ã²»Í¬»·¾³µÄ¿ª·¢Õß½øĞĞÅäÖÃ£¬×ö³ÉÁËÅĞ¶ÏµÄ·½Ê½£¬Êµ¼Ê¿ª·¢»·¾³Ò»°ãÊÇÈ·¶¨µÄ£¬ÕâÀïµÄifÌõ¼ş¿ÉÒÔºöÂÔ
+                    //é…ç½®å…¨å±€ä½¿ç”¨Redisç¼“å­˜ï¼ˆæŒ‰éœ€ï¼Œç‹¬ç«‹ï¼‰
+                    if (UseRedis(senparcSetting.Value, out string redisConfigurationStr))//è¿™é‡Œä¸ºäº†æ–¹ä¾¿ä¸åŒç¯å¢ƒçš„å¼€å‘è€…è¿›è¡Œé…ç½®ï¼Œåšæˆäº†åˆ¤æ–­çš„æ–¹å¼ï¼Œå®é™…å¼€å‘ç¯å¢ƒä¸€èˆ¬æ˜¯ç¡®å®šçš„ï¼Œè¿™é‡Œçš„ifæ¡ä»¶å¯ä»¥å¿½ç•¥
                     {
-                        /* ËµÃ÷£º
-                         * 1¡¢Redis µÄÁ¬½Ó×Ö·û´®ĞÅÏ¢»á´Ó Config.SenparcSetting.Cache_Redis_Configuration ×Ô¶¯»ñÈ¡²¢×¢²á£¬Èç²»ĞèÒªĞŞ¸Ä£¬ÏÂ·½·½·¨¿ÉÒÔºöÂÔ
-                        /* 2¡¢ÈçĞèÊÖ¶¯ĞŞ¸Ä£¬¿ÉÒÔÍ¨¹ıÏÂ·½ SetConfigurationOption ·½·¨ÊÖ¶¯ÉèÖÃ Redis Á´½ÓĞÅÏ¢£¨½öĞŞ¸ÄÅäÖÃ£¬²»Á¢¼´ÆôÓÃ£©
+                        /* è¯´æ˜ï¼š
+                         * 1ã€Redis çš„è¿æ¥å­—ç¬¦ä¸²ä¿¡æ¯ä¼šä» Config.SenparcSetting.Cache_Redis_Configuration è‡ªåŠ¨è·å–å¹¶æ³¨å†Œï¼Œå¦‚ä¸éœ€è¦ä¿®æ”¹ï¼Œä¸‹æ–¹æ–¹æ³•å¯ä»¥å¿½ç•¥
+                        /* 2ã€å¦‚éœ€æ‰‹åŠ¨ä¿®æ”¹ï¼Œå¯ä»¥é€šè¿‡ä¸‹æ–¹ SetConfigurationOption æ–¹æ³•æ‰‹åŠ¨è®¾ç½® Redis é“¾æ¥ä¿¡æ¯ï¼ˆä»…ä¿®æ”¹é…ç½®ï¼Œä¸ç«‹å³å¯ç”¨ï¼‰
                          */
                         Senparc.CO2NET.Cache.CsRedis.Register.SetConfigurationOption(redisConfigurationStr);
 
-                        //ÒÔÏÂ»áÁ¢¼´½«È«¾Ö»º´æÉèÖÃÎª Redis
-                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//¼üÖµ¶Ô»º´æ²ßÂÔ£¨ÍÆ¼ö£©
-                                                                                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSet´¢´æ¸ñÊ½µÄ»º´æ²ßÂÔ
+                        //ä»¥ä¸‹ä¼šç«‹å³å°†å…¨å±€ç¼“å­˜è®¾ç½®ä¸º Redis
+                        Senparc.CO2NET.Cache.CsRedis.Register.UseKeyValueRedisNow();//é”®å€¼å¯¹ç¼“å­˜ç­–ç•¥ï¼ˆæ¨èï¼‰
+                                                                                    //Senparc.CO2NET.Cache.CsRedis.Register.UseHashRedisNow();//HashSetå‚¨å­˜æ ¼å¼çš„ç¼“å­˜ç­–ç•¥
 
-                        //Ò²¿ÉÒÔÍ¨¹ıÒÔÏÂ·½Ê½×Ô¶¨Òåµ±Ç°ĞèÒªÆôÓÃµÄ»º´æ²ßÂÔ
-                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//¼üÖµ¶Ô
+                        //ä¹Ÿå¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹å¼è‡ªå®šä¹‰å½“å‰éœ€è¦å¯ç”¨çš„ç¼“å­˜ç­–ç•¥
+                        //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//é”®å€¼å¯¹
                         //CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisHashSetObjectCacheStrategy.Instance);//HashSet
 
-                        #region ×¢²á StackExchange.Redis
+                        #region æ³¨å†Œ StackExchange.Redis
 
-                        /* Èç¹ûĞèÒªÊ¹ÓÃ StackExchange.Redis£¬Ôò¿ÉÒÔÊ¹ÓÃ Senparc.CO2NET.Cache.Redis ¿â
-                         * ×¢Òâ£ºÕâÒ»²½×¢²áºÍÉÏÊö CsRedis ¿âÁ½Ñ¡Ò»¼´¿É£¬±¾ Sample ĞèÒªÍ¬Ê±ÑİÊ¾Á½¸ö¿â£¬Òò´Ë²Å¶¼½øĞĞ×¢²á
+                        /* å¦‚æœéœ€è¦ä½¿ç”¨ StackExchange.Redisï¼Œåˆ™å¯ä»¥ä½¿ç”¨ Senparc.CO2NET.Cache.Redis åº“
+                         * æ³¨æ„ï¼šè¿™ä¸€æ­¥æ³¨å†Œå’Œä¸Šè¿° CsRedis åº“ä¸¤é€‰ä¸€å³å¯ï¼Œæœ¬ Sample éœ€è¦åŒæ—¶æ¼”ç¤ºä¸¤ä¸ªåº“ï¼Œå› æ­¤æ‰éƒ½è¿›è¡Œæ³¨å†Œ
                          */
 
                         //Senparc.CO2NET.Cache.Redis.Register.SetConfigurationOption(redisConfigurationStr);
-                        //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//¼üÖµ¶Ô»º´æ²ßÂÔ£¨ÍÆ¼ö£©
+                        //Senparc.CO2NET.Cache.Redis.Register.UseKeyValueRedisNow();//é”®å€¼å¯¹ç¼“å­˜ç­–ç•¥ï¼ˆæ¨èï¼‰
 
                         #endregion
                     }
-                    //Èç¹ûÕâÀï²»½øĞĞRedis»º´æÆôÓÃ£¬ÔòÄ¿Ç°»¹ÊÇÄ¬ÈÏÊ¹ÓÃÄÚ´æ»º´æ 
+                    //å¦‚æœè¿™é‡Œä¸è¿›è¡ŒRedisç¼“å­˜å¯ç”¨ï¼Œåˆ™ç›®å‰è¿˜æ˜¯é»˜è®¤ä½¿ç”¨å†…å­˜ç¼“å­˜ 
 
                     #endregion                        // DPBMARK_END
 
-                    #region ÅäÖÃºÍÊ¹ÓÃ Memcached      -- DPBMARK Memcached
+                    #region é…ç½®å’Œä½¿ç”¨ Memcached      -- DPBMARK Memcached
 
-                    //ÅäÖÃMemcached»º´æ£¨°´Ğè£¬¶ÀÁ¢£©
-                    if (UseMemcached(senparcSetting.Value, out string memcachedConfigurationStr)) //ÕâÀïÎªÁË·½±ã²»Í¬»·¾³µÄ¿ª·¢Õß½øĞĞÅäÖÃ£¬×ö³ÉÁËÅĞ¶ÏµÄ·½Ê½£¬Êµ¼Ê¿ª·¢»·¾³Ò»°ãÊÇÈ·¶¨µÄ£¬ÕâÀïµÄifÌõ¼ş¿ÉÒÔºöÂÔ
+                    //é…ç½®Memcachedç¼“å­˜ï¼ˆæŒ‰éœ€ï¼Œç‹¬ç«‹ï¼‰
+                    if (UseMemcached(senparcSetting.Value, out string memcachedConfigurationStr)) //è¿™é‡Œä¸ºäº†æ–¹ä¾¿ä¸åŒç¯å¢ƒçš„å¼€å‘è€…è¿›è¡Œé…ç½®ï¼Œåšæˆäº†åˆ¤æ–­çš„æ–¹å¼ï¼Œå®é™…å¼€å‘ç¯å¢ƒä¸€èˆ¬æ˜¯ç¡®å®šçš„ï¼Œè¿™é‡Œçš„ifæ¡ä»¶å¯ä»¥å¿½ç•¥
                     {
                         app.UseEnyimMemcached();
 
-                        /* ËµÃ÷£º
-                        * 1¡¢Memcached µÄÁ¬½Ó×Ö·û´®ĞÅÏ¢»á´Ó Config.SenparcSetting.Cache_Memcached_Configuration ×Ô¶¯»ñÈ¡²¢×¢²á£¬Èç²»ĞèÒªĞŞ¸Ä£¬ÏÂ·½·½·¨¿ÉÒÔºöÂÔ
-                    /* 2¡¢ÈçĞèÊÖ¶¯ĞŞ¸Ä£¬¿ÉÒÔÍ¨¹ıÏÂ·½ SetConfigurationOption ·½·¨ÊÖ¶¯ÉèÖÃ Memcached Á´½ÓĞÅÏ¢£¨½öĞŞ¸ÄÅäÖÃ£¬²»Á¢¼´ÆôÓÃ£©
+                        /* è¯´æ˜ï¼š
+                        * 1ã€Memcached çš„è¿æ¥å­—ç¬¦ä¸²ä¿¡æ¯ä¼šä» Config.SenparcSetting.Cache_Memcached_Configuration è‡ªåŠ¨è·å–å¹¶æ³¨å†Œï¼Œå¦‚ä¸éœ€è¦ä¿®æ”¹ï¼Œä¸‹æ–¹æ–¹æ³•å¯ä»¥å¿½ç•¥
+                    /* 2ã€å¦‚éœ€æ‰‹åŠ¨ä¿®æ”¹ï¼Œå¯ä»¥é€šè¿‡ä¸‹æ–¹ SetConfigurationOption æ–¹æ³•æ‰‹åŠ¨è®¾ç½® Memcached é“¾æ¥ä¿¡æ¯ï¼ˆä»…ä¿®æ”¹é…ç½®ï¼Œä¸ç«‹å³å¯ç”¨ï¼‰
                         */
                         Senparc.CO2NET.Cache.Memcached.Register.SetConfigurationOption(memcachedConfigurationStr);
 
-                        //ÒÔÏÂ»áÁ¢¼´½«È«¾Ö»º´æÉèÖÃÎª Memcached
+                        //ä»¥ä¸‹ä¼šç«‹å³å°†å…¨å±€ç¼“å­˜è®¾ç½®ä¸º Memcached
                         Senparc.CO2NET.Cache.Memcached.Register.UseMemcachedNow();
 
-                        //Ò²¿ÉÒÔÍ¨¹ıÒÔÏÂ·½Ê½×Ô¶¨Òåµ±Ç°ĞèÒªÆôÓÃµÄ»º´æ²ßÂÔ
+                        //ä¹Ÿå¯ä»¥é€šè¿‡ä»¥ä¸‹æ–¹å¼è‡ªå®šä¹‰å½“å‰éœ€è¦å¯ç”¨çš„ç¼“å­˜ç­–ç•¥
                         CacheStrategyFactory.RegisterObjectCacheStrategy(() => MemcachedObjectCacheStrategy.Instance);
                     }
 
@@ -178,43 +177,43 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #endregion
 
-                    #region ×¢²áÈÕÖ¾£¨°´Ğè£¬½¨Òé£©
+                    #region æ³¨å†Œæ—¥å¿—ï¼ˆæŒ‰éœ€ï¼Œå»ºè®®ï¼‰
 
-                    globalRegister.RegisterTraceLog(ConfigTraceLog);//ÅäÖÃTraceLog
+                    globalRegister.RegisterTraceLog(ConfigTraceLog);//é…ç½®TraceLog
 
                     #endregion
 
-                    #region APM ÏµÍ³ÔËĞĞ×´Ì¬Í³¼Æ¼ÇÂ¼ÅäÖÃ
+                    #region APM ç³»ç»Ÿè¿è¡ŒçŠ¶æ€ç»Ÿè®¡è®°å½•é…ç½®
 
-                    //²âÊÔAPM»º´æ¹ıÆÚÊ±¼ä£¨Ä¬ÈÏÇé¿öÏÂ¿ÉÒÔ²»ÓÃÉèÖÃ£©
-                    CO2NET.APM.Config.EnableAPM = true;//Ä¬ÈÏÒÑ¾­Îª¿ªÆô£¬Èç¹ûĞèÒª¹Ø±Õ£¬ÔòÉèÖÃÎª false
+                    //æµ‹è¯•APMç¼“å­˜è¿‡æœŸæ—¶é—´ï¼ˆé»˜è®¤æƒ…å†µä¸‹å¯ä»¥ä¸ç”¨è®¾ç½®ï¼‰
+                    CO2NET.APM.Config.EnableAPM = true;//é»˜è®¤å·²ç»ä¸ºå¼€å¯ï¼Œå¦‚æœéœ€è¦å…³é—­ï¼Œåˆ™è®¾ç½®ä¸º false
                     CO2NET.APM.Config.DataExpire = TimeSpan.FromMinutes(60);
 
                     #endregion
 
                     #endregion
                 }, true)
-                //Ê¹ÓÃ Senparc.Weixin SDK
+                //ä½¿ç”¨ Senparc.Weixin SDK
                 .UseSenparcWeixin(senparcWeixinSetting.Value, weixinRegister =>
                 {
-                    #region Î¢ĞÅÏà¹ØÅäÖÃ
+                    #region å¾®ä¿¡ç›¸å…³é…ç½®
 
-                    /* Î¢ĞÅÅäÖÃ¿ªÊ¼
+                    /* å¾®ä¿¡é…ç½®å¼€å§‹
                     * 
-                    * ½¨Òé°´ÕÕÒÔÏÂË³Ğò½øĞĞ×¢²á£¬ÓÈÆäĞë½«»º´æ·ÅÔÚµÚÒ»Î»£¡
+                    * å»ºè®®æŒ‰ç…§ä»¥ä¸‹é¡ºåºè¿›è¡Œæ³¨å†Œï¼Œå°¤å…¶é¡»å°†ç¼“å­˜æ”¾åœ¨ç¬¬ä¸€ä½ï¼
                     */
 
-                    #region Î¢ĞÅ»º´æ£¨°´Ğè£¬±ØĞë·ÅÔÚÅäÖÃ¿ªÍ·£¬ÒÔÈ·±£ÆäËû¿ÉÄÜÒÀÀµµ½»º´æµÄ×¢²á¹ı³ÌÊ¹ÓÃÕıÈ·µÄÅäÖÃ£©
-                    //×¢Òâ£ºÈç¹ûÊ¹ÓÃ·Ç±¾µØ»º´æ£¬¶ø²»Ö´ĞĞ±¾¿é×¢²á´úÂë£¬½«»áÊÕµ½¡°µ±Ç°À©Õ¹»º´æ²ßÂÔÃ»ÓĞ½øĞĞ×¢²á¡±µÄÒì³£
+                    #region å¾®ä¿¡ç¼“å­˜ï¼ˆæŒ‰éœ€ï¼Œå¿…é¡»æ”¾åœ¨é…ç½®å¼€å¤´ï¼Œä»¥ç¡®ä¿å…¶ä»–å¯èƒ½ä¾èµ–åˆ°ç¼“å­˜çš„æ³¨å†Œè¿‡ç¨‹ä½¿ç”¨æ­£ç¡®çš„é…ç½®ï¼‰
+                    //æ³¨æ„ï¼šå¦‚æœä½¿ç”¨éæœ¬åœ°ç¼“å­˜ï¼Œè€Œä¸æ‰§è¡Œæœ¬å—æ³¨å†Œä»£ç ï¼Œå°†ä¼šæ”¶åˆ°â€œå½“å‰æ‰©å±•ç¼“å­˜ç­–ç•¥æ²¡æœ‰è¿›è¡Œæ³¨å†Œâ€çš„å¼‚å¸¸
 
-                    //Î¢ĞÅµÄ Redis »º´æ£¬Èç¹û²»Ê¹ÓÃÔò×¢ÊÍµô£¨¿ªÆôÇ°±ØĞë±£Ö¤ÅäÖÃÓĞĞ§£¬·ñÔò»áÅ×´í£©         -- DPBMARK Redis
+                    //å¾®ä¿¡çš„ Redis ç¼“å­˜ï¼Œå¦‚æœä¸ä½¿ç”¨åˆ™æ³¨é‡Šæ‰ï¼ˆå¼€å¯å‰å¿…é¡»ä¿è¯é…ç½®æœ‰æ•ˆï¼Œå¦åˆ™ä¼šæŠ›é”™ï¼‰         -- DPBMARK Redis
                     if (UseRedis(senparcSetting.Value, out _))
                     {
-                        weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedis£¬Á½Ñ¡Ò»
-                        weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redis£¬Á½Ñ¡Ò»
+                        weixinRegister.UseSenparcWeixinCacheCsRedis();//CsRedisï¼Œä¸¤é€‰ä¸€
+                        weixinRegister.UseSenparcWeixinCacheRedis();//StackExchange.Redisï¼Œä¸¤é€‰ä¸€
                     }                                                                                     // DPBMARK_END
 
-                    // Î¢ĞÅµÄ Memcached »º´æ£¬Èç¹û²»Ê¹ÓÃÔò×¢ÊÍµô£¨¿ªÆôÇ°±ØĞë±£Ö¤ÅäÖÃÓĞĞ§£¬·ñÔò»áÅ×´í£©    -- DPBMARK Memcached
+                    // å¾®ä¿¡çš„ Memcached ç¼“å­˜ï¼Œå¦‚æœä¸ä½¿ç”¨åˆ™æ³¨é‡Šæ‰ï¼ˆå¼€å¯å‰å¿…é¡»ä¿è¯é…ç½®æœ‰æ•ˆï¼Œå¦åˆ™ä¼šæŠ›é”™ï¼‰    -- DPBMARK Memcached
                     if (UseMemcached(senparcSetting.Value, out _))
                     {
                         app.UseEnyimMemcached();
@@ -223,49 +222,50 @@ namespace Senparc.Weixin.Sample.NetCore3
 
                     #endregion
 
-                    #region ×¢²á¹«ÖÚºÅ»òĞ¡³ÌĞò£¨°´Ğè£©
+                    #region æ³¨å†Œå…¬ä¼—å·æˆ–å°ç¨‹åºï¼ˆæŒ‰éœ€ï¼‰
 
-                    //×¢²á¹«ÖÚºÅ£¨¿É×¢²á¶à¸ö£©                                                    -- DPBMARK MP
                     weixinRegister
-                            .RegisterMpAccount(senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿¹«ÖÚºÅ")// DPBMARK_END
+                            //æ³¨å†Œå…¬ä¼—å·ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰                                                    -- DPBMARK MP
+
+                            .RegisterMpAccount(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å…¬ä¼—å·")// DPBMARK_END
 
 
-                            //×¢²á¶à¸ö¹«ÖÚºÅ»òĞ¡³ÌĞò£¨¿É×¢²á¶à¸ö£©                                        -- DPBMARK MiniProgram
-                            .RegisterWxOpenAccount(senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿Ğ¡³ÌĞò")// DPBMARK_END
+                            //æ³¨å†Œå¤šä¸ªå…¬ä¼—å·æˆ–å°ç¨‹åºï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰                                        -- DPBMARK MiniProgram
+                            .RegisterWxOpenAccount(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å°ç¨‹åº")// DPBMARK_END
 
-                            //³ı´ËÒÔÍâ£¬ÈÔÈ»¿ÉÒÔÔÚ³ÌĞòÈÎÒâµØ·½×¢²á¹«ÖÚºÅ»òĞ¡³ÌĞò£º
-                            //AccessTokenContainer.Register(appId, appSecret, name);//ÃüÃû¿Õ¼ä£ºSenparc.Weixin.MP.Containers
+                            //é™¤æ­¤ä»¥å¤–ï¼Œä»ç„¶å¯ä»¥åœ¨ç¨‹åºä»»æ„åœ°æ–¹æ³¨å†Œå…¬ä¼—å·æˆ–å°ç¨‹åºï¼š
+                            //AccessTokenContainer.Register(appId, appSecret, name);//å‘½åç©ºé—´ï¼šSenparc.Weixin.MP.Containers
                     #endregion
 
-                    #region ×¢²áÆóÒµºÅ£¨°´Ğè£©           -- DPBMARK Work
+                    #region æ³¨å†Œä¼ä¸šå·ï¼ˆæŒ‰éœ€ï¼‰           -- DPBMARK Work
 
-                            //×¢²áÆóÒµÎ¢ĞÅ£¨¿É×¢²á¶à¸ö£©
-                            .RegisterWorkAccount(senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂç¡¿ÆóÒµÎ¢ĞÅ")
+                            //æ³¨å†Œä¼ä¸šå¾®ä¿¡ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
+                            .RegisterWorkAccount(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œã€‘ä¼ä¸šå¾®ä¿¡")
 
-                            //³ı´ËÒÔÍâ£¬ÈÔÈ»¿ÉÒÔÔÚ³ÌĞòÈÎÒâµØ·½×¢²áÆóÒµÎ¢ĞÅ£º
-                            //AccessTokenContainer.Register(corpId, corpSecret, name);//ÃüÃû¿Õ¼ä£ºSenparc.Weixin.Work.Containers
+                            //é™¤æ­¤ä»¥å¤–ï¼Œä»ç„¶å¯ä»¥åœ¨ç¨‹åºä»»æ„åœ°æ–¹æ³¨å†Œä¼ä¸šå¾®ä¿¡ï¼š
+                            //AccessTokenContainer.Register(corpId, corpSecret, name);//å‘½åç©ºé—´ï¼šSenparc.Weixin.Work.Containers
                     #endregion                          // DPBMARK_END
 
-                    #region ×¢²áÎ¢ĞÅÖ§¸¶£¨°´Ğè£©        -- DPBMARK TenPay
+                    #region æ³¨å†Œå¾®ä¿¡æ”¯ä»˜ï¼ˆæŒ‰éœ€ï¼‰        -- DPBMARK TenPay
 
-                            //×¢²á¾ÉÎ¢ĞÅÖ§¸¶°æ±¾£¨V2£©£¨¿É×¢²á¶à¸ö£©
-                            .RegisterTenpayOld(senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿¹«ÖÚºÅ")//ÕâÀïµÄ name ºÍµÚÒ»¸ö RegisterMpAccount() ÖĞµÄÒ»ÖÂ£¬»á±»¼ÇÂ¼µ½Í¬Ò»¸ö SenparcWeixinSettingItem ¶ÔÏóÖĞ
+                            //æ³¨å†Œæ—§å¾®ä¿¡æ”¯ä»˜ç‰ˆæœ¬ï¼ˆV2ï¼‰ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
+                            .RegisterTenpayOld(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å…¬ä¼—å·")//è¿™é‡Œçš„ name å’Œç¬¬ä¸€ä¸ª RegisterMpAccount() ä¸­çš„ä¸€è‡´ï¼Œä¼šè¢«è®°å½•åˆ°åŒä¸€ä¸ª SenparcWeixinSettingItem å¯¹è±¡ä¸­
 
-                            //×¢²á×îĞÂÎ¢ĞÅÖ§¸¶°æ±¾£¨V3£©£¨¿É×¢²á¶à¸ö£©
-                            .RegisterTenpayV3( senparcWeixinSetting.Value, "¡¾Ê¢ÅÉÍøÂçĞ¡ÖúÊÖ¡¿¹«ÖÚºÅ")//¼ÇÂ¼µ½Í¬Ò»¸ö SenparcWeixinSettingItem ¶ÔÏóÖĞ
-                            /* ÌØ±ğ×¢Òâ£º
-                             * ÔÚ services.AddSenparcWeixinServices() ´úÂëÖĞ£¬ÒÑ¾­×Ô¶¯Îªµ±Ç°µÄ 
-                             * senparcWeixinSetting  ¶ÔÓ¦µÄTenpayV3 ÅäÖÃ½øĞĞÁË Cert Ö¤ÊéÅäÖÃ£¬
-                             * Èç¹û´Ë´¦×¢²áµÄÎ¢ĞÅÖ§¸¶ĞÅÏ¢ºÍÄ¬ÈÏ senparcWeixinSetting ĞÅÏ¢²»Í¬£¬
-                             * ÇëÔÚ ConfigureServices() ·½·¨ÖĞÊ¹ÓÃ services.AddCertHttpClient() 
-                             * Ìí¼Ó¶ÔÓ¦Ö¤Êé¡£
+                            //æ³¨å†Œæœ€æ–°å¾®ä¿¡æ”¯ä»˜ç‰ˆæœ¬ï¼ˆV3ï¼‰ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
+                            .RegisterTenpayV3(senparcWeixinSetting.Value, "ã€ç››æ´¾ç½‘ç»œå°åŠ©æ‰‹ã€‘å…¬ä¼—å·")//è®°å½•åˆ°åŒä¸€ä¸ª SenparcWeixinSettingItem å¯¹è±¡ä¸­
+                            /* ç‰¹åˆ«æ³¨æ„ï¼š
+                             * åœ¨ services.AddSenparcWeixinServices() ä»£ç ä¸­ï¼Œå·²ç»è‡ªåŠ¨ä¸ºå½“å‰çš„ 
+                             * senparcWeixinSetting  å¯¹åº”çš„TenpayV3 é…ç½®è¿›è¡Œäº† Cert è¯ä¹¦é…ç½®ï¼Œ
+                             * å¦‚æœæ­¤å¤„æ³¨å†Œçš„å¾®ä¿¡æ”¯ä»˜ä¿¡æ¯å’Œé»˜è®¤ senparcWeixinSetting ä¿¡æ¯ä¸åŒï¼Œ
+                             * è¯·åœ¨ ConfigureServices() æ–¹æ³•ä¸­ä½¿ç”¨ services.AddCertHttpClient() 
+                             * æ·»åŠ å¯¹åº”è¯ä¹¦ã€‚
                              */
 
                     #endregion                          // DPBMARK_END
 
-                    #region ×¢²áÎ¢ĞÅµÚÈı·½Æ½Ì¨£¨°´Ğè£©  -- DPBMARK Open
+                    #region æ³¨å†Œå¾®ä¿¡ç¬¬ä¸‰æ–¹å¹³å°ï¼ˆæŒ‰éœ€ï¼‰  -- DPBMARK Open
 
-                            //×¢²áµÚÈı·½Æ½Ì¨£¨¿É×¢²á¶à¸ö£©
+                            //æ³¨å†Œç¬¬ä¸‰æ–¹å¹³å°ï¼ˆå¯æ³¨å†Œå¤šä¸ªï¼‰
                             .RegisterOpenComponent(senparcWeixinSetting.Value,
                                 //getComponentVerifyTicketFunc
                                 async componentAppId =>
@@ -324,59 +324,59 @@ namespace Senparc.Weixin.Sample.NetCore3
                                     var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
                                     using (Stream fs = new FileStream(file, FileMode.Create))
                                     {
-                                        //ÕâÀï´æÁËÕû¸ö¶ÔÏó£¬Êµ¼ÊÉÏÖ»´æRefreshTokenÒ²¿ÉÒÔ£¬ÓĞÁËRefreshToken¾ÍÄÜË¢ĞÂµ½×îĞÂµÄAccessToken
+                                        //è¿™é‡Œå­˜äº†æ•´ä¸ªå¯¹è±¡ï¼Œå®é™…ä¸Šåªå­˜RefreshTokenä¹Ÿå¯ä»¥ï¼Œæœ‰äº†RefreshTokenå°±èƒ½åˆ·æ–°åˆ°æœ€æ–°çš„AccessToken
                                         var binFormat = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                                         binFormat.Serialize(fs, refreshResult);
                                         fs.Flush();
-                                    fs.Close();
+                                        fs.Close();
                                     }
-                                }, "¡¾Ê¢ÅÉÍøÂç¡¿¿ª·ÅÆ½Ì¨")
+                                }, "ã€ç››æ´¾ç½‘ç»œã€‘å¼€æ”¾å¹³å°")
 
-                        //³ı´ËÒÔÍâ£¬ÈÔÈ»¿ÉÒÔÔÚ³ÌĞòÈÎÒâµØ·½×¢²á¿ª·ÅÆ½Ì¨£º
-                        //ComponentContainer.Register();//ÃüÃû¿Õ¼ä£ºSenparc.Weixin.Open.Containers
+                        //é™¤æ­¤ä»¥å¤–ï¼Œä»ç„¶å¯ä»¥åœ¨ç¨‹åºä»»æ„åœ°æ–¹æ³¨å†Œå¼€æ”¾å¹³å°ï¼š
+                        //ComponentContainer.Register();//å‘½åç©ºé—´ï¼šSenparc.Weixin.Open.Containers
                     #endregion                          // DPBMARK_END
 
                         ;
 
-                    /* Î¢ĞÅÅäÖÃ½áÊø */
+                    /* å¾®ä¿¡é…ç½®ç»“æŸ */
 
                     #endregion
                 });
 
-            #region Ê¹ÓÃ MessageHadler ÖĞ¼ä¼ş£¬ÓÃÓÚÈ¡´ú´´½¨¶ÀÁ¢µÄ Controller
-            //MessageHandler ÖĞ¼ä¼ş½éÉÜ£ºhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
+            #region ä½¿ç”¨ MessageHadler ä¸­é—´ä»¶ï¼Œç”¨äºå–ä»£åˆ›å»ºç‹¬ç«‹çš„ Controller
+            //MessageHandler ä¸­é—´ä»¶ä»‹ç»ï¼šhttps://www.cnblogs.com/szw/p/Wechat-MessageHandler-Middleware.html
 
-            //Ê¹ÓÃ¹«ÖÚºÅµÄ MessageHandler ÖĞ¼ä¼ş£¨²»ÔÙĞèÒª´´½¨ Controller£©                       --DPBMARK MP
+            //ä½¿ç”¨å…¬ä¼—å·çš„ MessageHandler ä¸­é—´ä»¶ï¼ˆä¸å†éœ€è¦åˆ›å»º Controllerï¼‰                       --DPBMARK MP
             app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
             {
-                //ËµÃ÷£º´Ë´úÂë¿éÖĞÑİÊ¾ÁË½ÏÎªÈ«ÃæµÄ¹¦ÄÜµã£¬¼ò»¯µÄÊ¹ÓÃ¿ÉÒÔ²Î¿¼ÏÂÃæĞ¡³ÌĞòºÍÆóÒµÎ¢ĞÅ
+                //è¯´æ˜ï¼šæ­¤ä»£ç å—ä¸­æ¼”ç¤ºäº†è¾ƒä¸ºå…¨é¢çš„åŠŸèƒ½ç‚¹ï¼Œç®€åŒ–çš„ä½¿ç”¨å¯ä»¥å‚è€ƒä¸‹é¢å°ç¨‹åºå’Œä¼ä¸šå¾®ä¿¡
 
-                #region ÅäÖÃ SenparcWeixinSetting ²ÎÊı£¬ÒÔ×Ô¶¯Ìá¹© Token¡¢EncodingAESKey µÈ²ÎÊı
+                #region é…ç½® SenparcWeixinSetting å‚æ•°ï¼Œä»¥è‡ªåŠ¨æä¾› Tokenã€EncodingAESKey ç­‰å‚æ•°
 
-                //´Ë´¦ÎªÎ¯ÍĞ£¬¿ÉÒÔ¸ù¾İÌõ¼ş¶¯Ì¬ÅĞ¶ÏÊäÈëÌõ¼ş£¨±ØĞë£©
+                //æ­¤å¤„ä¸ºå§”æ‰˜ï¼Œå¯ä»¥æ ¹æ®æ¡ä»¶åŠ¨æ€åˆ¤æ–­è¾“å…¥æ¡ä»¶ï¼ˆå¿…é¡»ï¼‰
                 options.AccountSettingFunc = context =>
-                //·½·¨Ò»£ºÊ¹ÓÃÄ¬ÈÏÅäÖÃ
+                //æ–¹æ³•ä¸€ï¼šä½¿ç”¨é»˜è®¤é…ç½®
                     senparcWeixinSetting.Value;
 
-                //·½·¨¶ş£ºÊ¹ÓÃÖ¸¶¨ÅäÖÃ£º
+                //æ–¹æ³•äºŒï¼šä½¿ç”¨æŒ‡å®šé…ç½®ï¼š
                 //Config.SenparcWeixinSetting["<Your SenparcWeixinSetting's name filled with Token, AppId and EncodingAESKey>"]; 
 
-                //·½·¨Èı£º½áºÏ context ²ÎÊı¶¯Ì¬ÅĞ¶Ï·µ»ØSettingÖµ
+                //æ–¹æ³•ä¸‰ï¼šç»“åˆ context å‚æ•°åŠ¨æ€åˆ¤æ–­è¿”å›Settingå€¼
 
                 #endregion
 
-                //¶Ô MessageHandler ÄÚÒì²½·½·¨Î´Ìá¹©ÖØĞ´Ê±£¬µ÷ÓÃÍ¬²½·½·¨£¨°´Ğè£©
+                //å¯¹ MessageHandler å†…å¼‚æ­¥æ–¹æ³•æœªæä¾›é‡å†™æ—¶ï¼Œè°ƒç”¨åŒæ­¥æ–¹æ³•ï¼ˆæŒ‰éœ€ï¼‰
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
-                //¶Ô·¢ÉúÒì³£½øĞĞ´¦Àí£¨¿ÉÑ¡£©
+                //å¯¹å‘ç”Ÿå¼‚å¸¸è¿›è¡Œå¤„ç†ï¼ˆå¯é€‰ï¼‰
                 options.AggregateExceptionCatch = ex =>
                 {
-                    //Âß¼­´¦Àí...
-                    return false;//ÏµÍ³²ãÃæÅ×³öÒì³£
+                    //é€»è¾‘å¤„ç†...
+                    return false;//ç³»ç»Ÿå±‚é¢æŠ›å‡ºå¼‚å¸¸
                 };
             });                                                                                   // DPBMARK_END
 
-            //Ê¹ÓÃ Ğ¡³ÌĞò MessageHandler ÖĞ¼ä¼ş                                                   // -- DPBMARK MiniProgram
+            //ä½¿ç”¨ å°ç¨‹åº MessageHandler ä¸­é—´ä»¶                                                   // -- DPBMARK MiniProgram
             app.UseMessageHandlerForWxOpen("/WxOpenAsync", CustomWxOpenMessageHandler.GenerateMessageHandler, options =>
                 {
                     options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
@@ -384,15 +384,15 @@ namespace Senparc.Weixin.Sample.NetCore3
                 }
             );                                                                                    // DPBMARK_END
 
-            //Ê¹ÓÃ ÆóÒµÎ¢ĞÅ MessageHandler ÖĞ¼ä¼ş                                                 // -- DPBMARK Work
+            //ä½¿ç”¨ ä¼ä¸šå¾®ä¿¡ MessageHandler ä¸­é—´ä»¶                                                 // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
-                                         o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//×î¼ò»¯µÄ·½Ê½
+                                         o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//æœ€ç®€åŒ–çš„æ–¹å¼
                                                                                                       // DPBMARK_END
 
             #endregion
 
 
-            app.UseAuthorization();//ĞèÒªÔÚ×¢²áÎ¢ĞÅ SDK Ö®ºóÖ´ĞĞ
+            app.UseAuthorization();//éœ€è¦åœ¨æ³¨å†Œå¾®ä¿¡ SDK ä¹‹åæ‰§è¡Œ
 
             app.UseEndpoints(endpoints =>
             {
@@ -401,58 +401,58 @@ namespace Senparc.Weixin.Sample.NetCore3
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //Ê¹ÓÃ SignalR£¨.NET Core 3.0£©                                                      -- DPBMARK WebSocket
+            //ä½¿ç”¨ SignalRï¼ˆ.NET Core 3.0ï¼‰                                                      -- DPBMARK WebSocket
             app.UseEndpoints(endpoints =>
             {
-                //ÅäÖÃ×Ô¶¨Òå SenparcHub
+                //é…ç½®è‡ªå®šä¹‰ SenparcHub
                 endpoints.MapHub<SenparcHub>("/SenparcHub");
             });                                                                                  // DPBMARK_END
-
-
         }
 
-
         /// <summary>
-        /// ÅäÖÃÎ¢ĞÅ¸ú×ÙÈÕÖ¾£¨ÑİÊ¾£¬°´Ğè£©
+        /// é…ç½®å¾®ä¿¡è·Ÿè¸ªæ—¥å¿—ï¼ˆæ¼”ç¤ºï¼ŒæŒ‰éœ€ï¼‰
         /// </summary>
         private void ConfigTraceLog()
         {
-            //ÕâÀïÉèÎªDebug×´Ì¬Ê±£¬/App_Data/WeixinTraceLog/Ä¿Â¼ÏÂ»áÉú³ÉÈÕÖ¾ÎÄ¼ş¼ÇÂ¼ËùÓĞµÄAPIÇëÇóÈÕÖ¾£¬ÕıÊ½·¢²¼°æ±¾½¨Òé¹Ø±Õ
+            //è¿™é‡Œè®¾ä¸ºDebugçŠ¶æ€æ—¶ï¼Œ/App_Data/WeixinTraceLog/ç›®å½•ä¸‹ä¼šç”Ÿæˆæ—¥å¿—æ–‡ä»¶è®°å½•æ‰€æœ‰çš„APIè¯·æ±‚æ—¥å¿—ï¼Œæ­£å¼å‘å¸ƒç‰ˆæœ¬å»ºè®®å…³é—­
 
-            //Èç¹ûÈ«¾ÖµÄIsDebug£¨Senparc.CO2NET.Config.IsDebug£©Îªfalse£¬´Ë´¦¿ÉÒÔµ¥¶ÀÉèÖÃtrue£¬·ñÔò×Ô¶¯Îªtrue
-            CO2NET.Trace.SenparcTrace.SendCustomLog("ÏµÍ³ÈÕÖ¾", "ÏµÍ³Æô¶¯");//Ö»ÔÚSenparc.Weixin.Config.IsDebug = trueµÄÇé¿öÏÂÉúĞ§
+            //å¦‚æœå…¨å±€çš„IsDebugï¼ˆSenparc.CO2NET.Config.IsDebugï¼‰ä¸ºfalseï¼Œæ­¤å¤„å¯ä»¥å•ç‹¬è®¾ç½®trueï¼Œå¦åˆ™è‡ªåŠ¨ä¸ºtrue
+            CO2NET.Trace.SenparcTrace.SendCustomLog("ç³»ç»Ÿæ—¥å¿—", "ç³»ç»Ÿå¯åŠ¨");//åªåœ¨Senparc.Weixin.Config.IsDebug = trueçš„æƒ…å†µä¸‹ç”Ÿæ•ˆ
 
-            //È«¾Ö×Ô¶¨ÒåÈÕÖ¾¼ÇÂ¼»Øµ÷
+            //å…¨å±€è‡ªå®šä¹‰æ—¥å¿—è®°å½•å›è°ƒ
             CO2NET.Trace.SenparcTrace.OnLogFunc = () =>
             {
-                //¼ÓÈëÃ¿´Î´¥·¢LogºóĞèÒªÖ´ĞĞµÄ´úÂë
+                //åŠ å…¥æ¯æ¬¡è§¦å‘Logåéœ€è¦æ‰§è¡Œçš„ä»£ç 
             };
 
-            //µ±·¢Éú»ùÓÚWeixinExceptionµÄÒì³£Ê±´¥·¢
+            //å½“å‘ç”ŸåŸºäºWeixinExceptionçš„å¼‚å¸¸æ—¶è§¦å‘
             WeixinTrace.OnWeixinExceptionFunc = async ex =>
             {
-                //¼ÓÈëÃ¿´Î´¥·¢WeixinExceptionLogºóĞèÒªÖ´ĞĞµÄ´úÂë
+                //åŠ å…¥æ¯æ¬¡è§¦å‘WeixinExceptionLogåéœ€è¦æ‰§è¡Œçš„ä»£ç 
 
-                //·¢ËÍÄ£°åÏûÏ¢¸ø¹ÜÀíÔ±                                   -- DPBMARK Redis
+                //å‘é€æ¨¡æ¿æ¶ˆæ¯ç»™ç®¡ç†å‘˜                                   -- DPBMARK Redis
                 var eventService = new Senparc.Weixin.MP.Sample.CommonService.EventService();
                 await eventService.ConfigOnWeixinExceptionFunc(ex);      // DPBMARK_END
             };
         }
 
+        // -- DPBMARK Redis
         /// <summary>
-        /// ÅĞ¶Ïµ±Ç°ÅäÖÃÊÇ·ñÂú×ãÊ¹ÓÃ Redis£¨¸ù¾İÊÇ·ñÒÑ¾­ĞŞ¸ÄÁËÄ¬ÈÏÅäÖÃ×Ö·û´®ÅĞ¶Ï£©
+        /// åˆ¤æ–­å½“å‰é…ç½®æ˜¯å¦æ»¡è¶³ä½¿ç”¨ Redisï¼ˆæ ¹æ®æ˜¯å¦å·²ç»ä¿®æ”¹äº†é»˜è®¤é…ç½®å­—ç¬¦ä¸²åˆ¤æ–­ï¼‰
         /// </summary>
         /// <param name="senparcSetting"></param>
         /// <returns></returns>
         private bool UseRedis(SenparcSetting senparcSetting, out string redisConfigurationStr)
         {
             redisConfigurationStr = senparcSetting.Cache_Redis_Configuration;
-            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*Ä¬ÈÏÖµ£¬²»ÆôÓÃ*/;
+            var useRedis = !string.IsNullOrEmpty(redisConfigurationStr) && redisConfigurationStr != "#{Cache_Redis_Configuration}#"/*é»˜è®¤å€¼ï¼Œä¸å¯ç”¨*/;
             return useRedis;
         }
+        // -- DPBMARK_END
 
+        // -- DPBMARK Memcached
         /// <summary>
-        /// ³õ²½ÅĞ¶Ïµ±Ç°ÅäÖÃÊÇ·ñÂú×ãÊ¹ÓÃ Memcached£¨¸ù¾İÊÇ·ñÒÑ¾­ĞŞ¸ÄÁËÄ¬ÈÏÅäÖÃ×Ö·û´®ÅĞ¶Ï£©
+        /// åˆæ­¥åˆ¤æ–­å½“å‰é…ç½®æ˜¯å¦æ»¡è¶³ä½¿ç”¨ Memcachedï¼ˆæ ¹æ®æ˜¯å¦å·²ç»ä¿®æ”¹äº†é»˜è®¤é…ç½®å­—ç¬¦ä¸²åˆ¤æ–­ï¼‰
         /// </summary>
         /// <param name="senparcSetting"></param>
         /// <returns></returns>
@@ -462,5 +462,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             var useMemcached = !string.IsNullOrEmpty(memcachedConfigurationStr) && memcachedConfigurationStr != "#{Cache_Memcached_Configuration}#";
             return useMemcached;
         }
+        // -- DPBMARK_END
+
     }
 }

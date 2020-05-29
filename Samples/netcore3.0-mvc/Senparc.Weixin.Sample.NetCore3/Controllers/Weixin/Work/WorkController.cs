@@ -23,23 +23,14 @@
 
 
 //DPBMARK_FILE Work
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
+using Senparc.CO2NET.AspNet.HttpUtility;
+using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers;
 using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
-using Senparc.Weixin.HttpUtility;
-using Senparc.CO2NET.HttpUtility;
-using Senparc.CO2NET.Utilities;
-using Senparc.Weixin.Entities;
-using Senparc.CO2NET.AspNet.HttpUtility;
+using System;
+using System.IO;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

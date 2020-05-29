@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//DPBMARK_FILE Redis
+//DPBMARK_FILE Memcached
+using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
@@ -61,14 +63,15 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var sb = new StringBuilder();
             switch (id)
             {
-                case 1:
+                
+                case 1://DPBMARK Redis
                     sb.Append("使用Redis（StackExchange.Redis）<br>");
                     CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.Redis.RedisObjectCacheStrategy.Instance);
-                    break;
-                case 2:
+                    break;//DPBMARK_END
+                case 2://DPBMARK Redis
                     sb.Append("使用Redis（CsRedis）<br>");
                     CacheStrategyFactory.RegisterObjectCacheStrategy(() => Senparc.CO2NET.Cache.CsRedis.RedisObjectCacheStrategy.Instance);
-                    break;
+                    break;//DPBMARK_END
                 default:
                     sb.Append("使用本地缓存<br>");
                     CacheStrategyFactory.RegisterObjectCacheStrategy(null);//注意：此处不能输入()=>null，这样仍然是一个有内容的委托！
@@ -123,12 +126,12 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 IContainerCacheStrategy containerCacheStrategy;
                 switch (id)
                 {
-                    case 1:
+                    case 1://DPBMARK Redis
                         containerCacheStrategy = Senparc.Weixin.Cache.Redis.RedisContainerCacheStrategy.Instance;
-                        break;
-                    case 2:
+                        break;//DPBMARK_END
+                    case 2://DPBMARK Redis
                         containerCacheStrategy = Senparc.Weixin.Cache.CsRedis.RedisContainerCacheStrategy.Instance;
-                        break;
+                        break;//DPBMARK_END
                     case -1:
                         containerCacheStrategy = ContainerCacheStrategyFactory.GetContainerCacheStrategyInstance();
                         break;

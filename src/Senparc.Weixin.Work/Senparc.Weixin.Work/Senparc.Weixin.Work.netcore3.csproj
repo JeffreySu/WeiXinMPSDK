@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.7.304</Version>
+    <Version>3.7.502</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -139,10 +139,16 @@
       v3.7.103.1 新增“获取打卡数据”接口返回值新增经纬度信息
       v3.7.104 引用新版本 NeuChar，优化 MessageHandler 同步方法兼容策略
       v3.7.104.1 CommonApi.Token() 方法设置异常抛出机制
-      v3.7.104.2 
+      v3.7.104.2
       1、添加“上报企业客户变更事件”
       2、添加日程相关API
-</PackageReleaseNotes>
+      v3.7.401 新增“获取客户群列表”“获取客户群详情” 接口
+      v3.7.402 fix bug：ChatApi.CreateChat() 接口传入AccessToken有错误
+      v3.7.502
+      1、GetMemberResult 补充二维码属性
+      2、添加“企业内部开发外部联系人- 编辑企业客户事件”
+      3、添加“企业内部开发外部联系人- 回调事件”
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

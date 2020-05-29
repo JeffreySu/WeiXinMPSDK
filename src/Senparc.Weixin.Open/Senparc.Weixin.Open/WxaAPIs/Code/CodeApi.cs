@@ -39,6 +39,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191030
     修改描述：v4.7.102.1 修改 GetAuditStatus() 方法 auditid 参数类型（int -> long)
 
+    修改标识：mc7246 - 20200318
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
+
 ----------------------------------------------------------------*/
 
 

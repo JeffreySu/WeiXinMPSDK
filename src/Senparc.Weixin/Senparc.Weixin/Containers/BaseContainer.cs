@@ -238,7 +238,7 @@ namespace Senparc.Weixin.Containers
                 case PlatformType.Work:
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
             }
 
             if (appId == null)
@@ -447,6 +447,7 @@ namespace Senparc.Weixin.Containers
                 case PlatformType.Work:
                     break;
                 default:
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
                     break;
             }
 
@@ -481,8 +482,6 @@ namespace Senparc.Weixin.Containers
                 //.Select(z => z)
                 .ToList();
         }
-
-
 
         /// <summary>
         /// 尝试获取某一项Bag

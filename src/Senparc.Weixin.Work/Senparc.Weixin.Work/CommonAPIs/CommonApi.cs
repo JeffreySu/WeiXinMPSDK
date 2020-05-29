@@ -24,6 +24,10 @@
     
     修改标识：Senparc - 20191206
     修改描述：CommonApi.Token() 方法设置异常抛出机制
+
+    修改标识：Senparc - 20200416
+    修改描述：v3.7.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
+
 ----------------------------------------------------------------*/
 
 /*
@@ -41,6 +45,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Exceptions;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
@@ -89,8 +94,9 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_Work}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new WeixinWorkException(
+                 string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                     (int)result.errcode, result.errmsg), null);
             }
 
             return result;
@@ -212,8 +218,9 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {
-                var unregisterAppIdEx = new UnRegisterAppIdException(null, $"尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！模块：{NeuChar.PlatformType.WeChat_Work}");
-                throw unregisterAppIdEx;//抛出异常
+                throw new WeixinWorkException(
+                  string.Format("微信请求发生错误（CommonApi.GetToken）！错误代码：{0}，说明：{1}",
+                      (int)result.errcode, result.errmsg), null);
             }
 
             return result;

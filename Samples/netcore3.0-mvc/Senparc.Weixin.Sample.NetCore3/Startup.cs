@@ -233,6 +233,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                             //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
                             .RegisterWxOpenAccount(senparcWeixinSetting.Value, "【盛派网络小助手】小程序")// DPBMARK_END
 
+                            //使用 appsettings.json 中的多重配置，再注册一个小程序（其他公众号、企业号类同）                             -- DPBMARK MiniProgram
+                            .RegisterWxOpenAccount(senparcWeixinSetting.Value.Items["第二个小程序"], "第二个【盛派网络小助手】小程序")   // DPBMARK_END
+
                             //除此以外，仍然可以在程序任意地方注册公众号或小程序：
                             //AccessTokenContainer.Register(appId, appSecret, name);//命名空间：Senparc.Weixin.MP.Containers
                     #endregion

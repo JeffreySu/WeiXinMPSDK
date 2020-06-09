@@ -94,6 +94,7 @@ Copyright(C) 2018 Senparc
 
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
@@ -123,6 +124,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 授权信息
         /// </summary>
+        [JsonIgnore]
         public GetAuthorizerInfoResult FullAuthorizerInfoResult
         {
             get

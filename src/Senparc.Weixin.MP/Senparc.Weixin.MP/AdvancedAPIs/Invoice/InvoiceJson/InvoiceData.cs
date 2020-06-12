@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 开票来源，app：app开票，web：微信h5开票，wxa：小程序开发票，wap：普通网页开票
         /// </summary>
-        public SourceType source { get; set; }
+        public string source { get; set; }
         /// <summary>
         /// 授权成功后跳转页面
         /// </summary>

@@ -6,6 +6,7 @@ Senparc.Weixin —— 微信 .NET SDK
 [![NuGet](https://img.shields.io/nuget/dt/Senparc.Weixin.svg)](https://www.nuget.org/packages/Senparc.Weixin)
 [![GitHub commit activity the past week, 4 weeks, year](https://img.shields.io/github/commit-activity/4w/JeffreySu/WeiXinMPSDK.svg)](https://github.com/JeffreySu/WeiXinMPSDK/commits/master)
 [![license](https://img.shields.io/github/license/JeffreySu/WeiXinMPSDK.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Financial Contributors on Open Collective](https://opencollective.com/weixinmpsdk/all/badge.svg?label=financial+contributors)](https://opencollective.com/weixinmpsdk) 
 
 [[English Version]](readme.en.md)
 
@@ -557,6 +558,30 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 
 ## Star 数量统计 
 [![Stargazers over time](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK.svg)](https://starcharts.herokuapp.com/JeffreySu/WeiXinMPSDK)
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+
+<a href="https://github.com/JeffreySu/weixinmpsdk/graphs/contributors"><img src="https://opencollective.com/weixinmpsdk/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/weixinmpsdk/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/weixinmpsdk"><img src="https://opencollective.com/weixinmpsdk/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/weixinmpsdk/contribute)]
+
+<a href="https://opencollective.com/weixinmpsdk/organization/0/website"><img src="https://opencollective.com/weixinmpsdk/organization/0/avatar.svg"></a>
+
+
 
 License
 --------------

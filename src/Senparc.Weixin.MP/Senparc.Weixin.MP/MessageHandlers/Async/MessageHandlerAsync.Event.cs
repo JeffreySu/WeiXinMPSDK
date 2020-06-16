@@ -40,6 +40,7 @@ using Senparc.NeuChar.MessageHandlers;
 using System.Threading.Tasks;
 using System;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Exceptions;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -225,7 +226,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = await OnEvent_GiftCard_User_AcceptRequestAsync(RequestMessage as RequestMessageEvent_GiftCard_User_Accept).ConfigureAwait(false);
                     break;
 
-#endregion
+                #endregion
+                #region 微信电子发票
+                case Event.user_authorize_invoice:
+                    responseMessage = await OnEvent_User_Authorize_InvoiceAsync(RequestMessage as RequestMessageEvent_User_Authorize_Invoice).ConfigureAwait(false);
+                    break;
+                #endregion
 
 
                 default:
@@ -710,8 +716,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
 
-#endregion
+        #endregion
 
-#endregion
+        #region 微信电子发票
+        public virtual async Task<IResponseMessageBase> OnEvent_User_Authorize_InvoiceAsync(RequestMessageEvent_User_Authorize_Invoice requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_User_Authorize_Invoice(requestMessage)).ConfigureAwait(false);
+        }
+
+        #endregion
+        #endregion
     }
 }

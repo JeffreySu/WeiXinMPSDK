@@ -375,6 +375,14 @@ namespace Senparc.Weixin.MP
         /// </summary>
         giftcard_user_accept,
         #endregion
+
+        #region 微信电子发票
+        /// <summary>
+        /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
+        /// </summary>
+        user_authorize_invoice
+
+        #endregion
     }
 
 

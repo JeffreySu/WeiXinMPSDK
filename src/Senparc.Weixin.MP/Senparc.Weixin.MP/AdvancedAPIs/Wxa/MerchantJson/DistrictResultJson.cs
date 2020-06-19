@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
 {
-    public class DistrictResultJson 
+    public class DistrictResultJson : WxJsonResult
     {
         public int status { get; set; }
 

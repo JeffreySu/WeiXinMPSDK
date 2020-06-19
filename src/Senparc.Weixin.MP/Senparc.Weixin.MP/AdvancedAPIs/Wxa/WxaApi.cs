@@ -93,6 +93,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 从腾讯地图拉取省市区信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut">请求超时时长</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetDistrict", true)]
+        public static DistrictResultJson GetDistrict(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/get_district?access_token={0}", accessToken.AsUrlData());
+                return CommonJsonSend.Send<DistrictResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
         /// 在腾讯地图中搜索门店
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -108,6 +124,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/wxa/search_map_poi?access_token={0}", accessToken.AsUrlData());
                 return CommonJsonSend.Send<SearchMapPoiJson>(null, url, new { districtid, keyword }, CommonJsonSendType.GET, timeOut);
 
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 在腾讯地图中创建门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="data">门店数据</param>
+        /// <param name="timeout">请求超时时长</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.CreateMapPoi", true)]
+        public static CreateMapPoiJsonResult CreateMapPoi(string accessTokenOrAppId, CreateMapPoiData data, int timeout =
+            Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}", accessToken.AsUrlData());
+                return CommonJsonSend.Send<CreateMapPoiJsonResult>(null, url, data, CommonJsonSendType.POST, timeout);
             }, accessTokenOrAppId);
         }
 
@@ -279,6 +313,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// [异步方法] 从腾讯地图拉取省市区信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="timeOut">请求超时时长</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.GetDistrict", true)]
+        public static async Task<DistrictResultJson> GetDistrictAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/get_district?access_token={0}", accessToken.AsUrlData());
+                return await CommonJsonSend.SendAsync<DistrictResultJson>(null, url, null, CommonJsonSendType.GET, timeOut)
+                .ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// 在腾讯地图中搜索门店
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
@@ -312,6 +363,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format(Config.ApiMpHost + "/wxa/add_store?access_token={0}", accessToken.AsUrlData());
                 return await CommonJsonSend.SendAsync<AddStoreJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
 
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 【异步方法】在腾讯地图中创建门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="data">门店数据</param>
+        /// <param name="timeout">请求超时时长</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "WxaApi.CreateMapPoi", true)]
+        public static async Task<CreateMapPoiJsonResult> CreateMapPoiAsync(string accessTokenOrAppId, CreateMapPoiData data, int timeout =
+            Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}", accessToken.AsUrlData());
+                return await CommonJsonSend.SendAsync<CreateMapPoiJsonResult>(null, url, data, CommonJsonSendType.POST, timeout)
+                .ConfigureAwait(false);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
 

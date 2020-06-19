@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=set_auth_field&access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=get_auth_field&access_token={0}", accessToken.AsUrlData());
                 var data = new { };
                 return CommonJsonSend.Send<AuthFieldResultJson>(null, urlFormat, data, timeOut: timeOut);
 
@@ -807,7 +807,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=set_auth_field&access_token={0}", accessToken.AsUrlData());
+                var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/setbizattr?action=get_auth_field&access_token={0}", accessToken.AsUrlData());
                 var data = new { };
                 return await CommonJsonSend.SendAsync<AuthFieldResultJson>(null, urlFormat, data, timeOut: timeOut);
 

@@ -98,10 +98,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// </summary>
         public string error { get; set; }
 
-        public MapPoiInfo data { get; set; }
+        public CreateMapPoiJsonResult_Data data { get; set; }
     }
 
-    public class MapPoiInfo
+    public class CreateMapPoiJsonResult_Data
     {
         /// <summary>
         /// 审核单id

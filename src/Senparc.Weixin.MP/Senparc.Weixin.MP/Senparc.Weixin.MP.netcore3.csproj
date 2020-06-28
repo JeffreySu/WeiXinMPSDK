@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.10.502</Version>
+    <Version>16.10.502.1</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -491,7 +491,11 @@
       v16.10.402 添加会员卡接口自定义cell参数
       v16.10.403 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
       v16.10.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
-</PackageReleaseNotes>
+      v16.10.502.1
+      1、新增从腾讯地图拉取省市区信息
+      2、在腾讯地图中创建门店
+      3、修复查询授权页字段信息请求微信URL错误
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -20,12 +20,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 经度，必填
         /// </summary>
-        public double longitude { get; set; }
+        public string longitude { get; set; }
 
         /// <summary>
         /// 纬度，必填
         /// </summary>
-        public double latitude { get; set; }
+        public string latitude { get; set; }
 
         /// <summary>
         /// 省份，必填
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 详细地址，必填
         /// </summary>
-        public string  address { get; set; }
+        public string address { get; set; }
 
         /// <summary>
         /// 类目，比如美食:中餐厅，必填
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 门店图片url，必填
         /// </summary>
-        public string phone { get; set; }
+        public string photo { get; set; }
 
         /// <summary>
         /// 营业执照url，必填
@@ -80,12 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 如果是迁移门店， 必须填 poi_id字段,选填
         /// </summary>
-        public string poi_id { get; set; }
-
-        /// <summary>
-        /// 调用接口凭证,必填
-        /// </summary>
-        public string access_token { get; set; }
+        //public string poi_id { get; set; }
     }
 
     /// <summary>
@@ -106,8 +101,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 审核单id
         /// </summary>
-        public string base_id { get; set; }
+        public long base_id { get; set; }
 
-        public string rich_id { get; set; }
+        public long rich_id { get; set; }
     }
 }

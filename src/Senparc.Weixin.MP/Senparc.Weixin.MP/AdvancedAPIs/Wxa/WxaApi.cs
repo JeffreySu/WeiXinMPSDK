@@ -33,12 +33,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
 ----------------------------------------------------------------*/
 
+using Newtonsoft.Json;
 using Senparc.CO2NET.Extensions;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -175,9 +181,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}", accessToken.AsUrlData());
-                return CommonJsonSend.Send<CreateMapPoiJsonResult>(null, url, data, CommonJsonSendType.POST, timeout);
+                string urlFormat = Config.ApiMpHost + "/wxa/create_map_poi?access_token={0}";
+
+                return CommonJsonSend.Send<CreateMapPoiJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeout);
+
             }, accessTokenOrAppId);
+
         }
 
         /// <summary>
@@ -276,7 +285,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
         #region 异步方法
 
-                /// <summary>
+        /// <summary>
         /// 拉取门店小程序类目
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>

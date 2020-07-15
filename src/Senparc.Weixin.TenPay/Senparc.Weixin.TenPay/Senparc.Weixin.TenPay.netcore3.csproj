@@ -47,7 +47,8 @@
       v1.5.103.1 增加微信支付小程序：发送红包API
       v1.5.401 实现分账接口
       v1.5.402 添加 TenpayV3ProtfitSharingRequestData 的 Version 属性
-</PackageReleaseNotes>
+      v1.5.403 增加服务商模式SubAppId、SubMchId字段重载
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

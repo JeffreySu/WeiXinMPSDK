@@ -284,8 +284,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-
-        //////////////////////////////////////////////////////////////////////////////////
+        
         /// <summary>
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1421823488&token=&lang=zh_CN
         /// 获取调用微信JS接口的临时票据 OPEN

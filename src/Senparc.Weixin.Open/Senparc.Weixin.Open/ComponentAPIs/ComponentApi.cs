@@ -30,13 +30,12 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318587&lang=zh_CN
  */
 
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -116,7 +115,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAppId.AsUrlData(), preAuthCode.AsUrlData(), redirectUrl.AsUrlData());
 
             if (authType != LoginAuthType.默认)
-                url = string.Format("{0}&auth_type={1}", url, (int) authType);
+                url = string.Format("{0}&auth_type={1}", url, (int)authType);
 
             if (!string.IsNullOrEmpty(bizAppId))
                 url = string.Format("{0}&biz_appid={1}", url, bizAppId);
@@ -285,8 +284,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-
-        //////////////////////////////////////////////////////////////////////////////////
+        
         /// <summary>
         /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1421823488&token=&lang=zh_CN
         /// 获取调用微信JS接口的临时票据 OPEN

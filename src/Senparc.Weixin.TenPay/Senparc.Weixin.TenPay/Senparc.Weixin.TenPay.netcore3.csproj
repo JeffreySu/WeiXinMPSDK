@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.5.502.3</Version>
+    <Version>1.5.502.4</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -22,33 +22,34 @@
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
     <PackageReleaseNotes>
-      v0.1.0 从 Senparc.Weixin.MP 和 Senparc.Weixin.Work 抽象并分离独立的微信支付模块
-      v0.2.0 支持 Senparc.Weixin v6.0.1
-      v0.2.1 优化支付模板Html5Order方法
+		v0.1.0 从 Senparc.Weixin.MP 和 Senparc.Weixin.Work 抽象并分离独立的微信支付模块
+		v0.2.0 支持 Senparc.Weixin v6.0.1
+		v0.2.1 优化支付模板Html5Order方法
 
-      v1.0.0 Senparc.Weixin 6.1.4
-      v1.0.1 优化 TenPayV3Result.GetXmlValues() 方法
-      v1.1.0 完善子账号 SubMchId 相关参数
-      v1.3.0 停止对 .NET 3.5 和 .NET 4.0 的支持
-      v1.4.0 .NET Core 添加多证书注册功能
-      v1.4.2 修改“企业付款”接口（Transfers）的参数命名
-      v1.4.3 引用最新版本 CO2NET
-      v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
-      v1.4.5 添加 GetTransferInfoResult.payment_time 属性
-      v1.4.6 引用最新版本 CO2NET 和 Senparc.Weixin
-      v1.4.7
-      1、支持最新版本 Senparc.Weixin
-      2、提供带符号的 nuget 包（.snupkg)
-      v1.5.0
-      1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
-      2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
-      v1.5.101 提供 .Net Core 3.0 独立版本
-      v1.5.103 提供 .Net Core 3.0 独立版本
-      v1.5.103.1 增加微信支付小程序：发送红包API
-      v1.5.401 实现分账接口
-      v1.5.402 添加 TenpayV3ProtfitSharingRequestData 的 Version 属性
-      v1.5.403 增加服务商模式SubAppId、SubMchId字段重载
-    </PackageReleaseNotes>
+		v1.0.0 Senparc.Weixin 6.1.4
+		v1.0.1 优化 TenPayV3Result.GetXmlValues() 方法
+		v1.1.0 完善子账号 SubMchId 相关参数
+		v1.3.0 停止对 .NET 3.5 和 .NET 4.0 的支持
+		v1.4.0 .NET Core 添加多证书注册功能
+		v1.4.2 修改“企业付款”接口（Transfers）的参数命名
+		v1.4.3 引用最新版本 CO2NET
+		v1.4.4 引用最新版本 CO2NET 和 Senparc.Weixin
+		v1.4.5 添加 GetTransferInfoResult.payment_time 属性
+		v1.4.6 引用最新版本 CO2NET 和 Senparc.Weixin
+		v1.4.7
+		1、支持最新版本 Senparc.Weixin
+		2、提供带符号的 nuget 包（.snupkg)
+		v1.5.0
+		1、使用最新版本 Senparc.Weixin，支持 .NET Core 3.0
+		2、商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+		v1.5.101 提供 .Net Core 3.0 独立版本
+		v1.5.103 提供 .Net Core 3.0 独立版本
+		v1.5.103.1 增加微信支付小程序：发送红包API
+		v1.5.401 实现分账接口
+		v1.5.402 添加 TenpayV3ProtfitSharingRequestData 的 Version 属性
+		v1.5.403 增加服务商模式SubAppId、SubMchId字段重载
+		v1.5.502.4 添加支付退款详情列表
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

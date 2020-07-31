@@ -496,6 +496,7 @@
 		2、在腾讯地图中创建门店
 		3、修复查询授权页字段信息请求微信URL错误
 		v16.10.502.2 添加微信电子发票 2.3 接收授权完成事件的处理
+		v16.10.502.3 "获取授权页链接数据开票来源"属性的枚举类型序列化字符串优化
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

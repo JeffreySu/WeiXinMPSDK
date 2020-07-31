@@ -6,8 +6,14 @@
     
     
     创建标识：Senparc - 20180930
+
+    修改标识：Senparc - 20200731
+    修改描述：v16.10.502.3 "获取授权页链接数据开票来源"属性的枚举类型序列化字符串优化
+
 ----------------------------------------------------------------*/
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -171,10 +177,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 时间戳
         /// </summary>
         public int timestamp { get; set; }
+        
         /// <summary>
         /// 开票来源，app：app开票，web：微信h5开票，wxa：小程序开发票，wap：普通网页开票
         /// </summary>
-        public SourceType source { get; set; }
+        public string source { get; set; }
+        //[JsonConverter(typeof(StringEnumConverter))]
+        //public SourceType source { get; set; }
+        
         /// <summary>
         /// 授权成功后跳转页面
         /// </summary>

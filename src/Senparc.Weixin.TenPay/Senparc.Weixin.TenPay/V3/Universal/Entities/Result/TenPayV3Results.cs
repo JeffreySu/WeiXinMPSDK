@@ -78,6 +78,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：hesi815 - 20200318
     修改描述：v1.5.401 实现分账接口，添加 ProfitSharingResult、ProfitSharingAddReceiverResult、ProfitSharingRemoveReceiverResult、ProfitSharingQueryResult、ProfitSharingQueryResult
 
+    修改标识：anhuisunfei - 20200731
+    修改描述：v1.5.502.4 添加支付退款详情列表
+
 ----------------------------------------------------------------*/
 
 using System;

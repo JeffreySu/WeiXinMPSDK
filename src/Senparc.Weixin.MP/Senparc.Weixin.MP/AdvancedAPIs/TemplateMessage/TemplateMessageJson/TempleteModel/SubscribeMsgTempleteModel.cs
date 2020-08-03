@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
     
-    文件名：SubscribeMsgTempleteModel.cs
+    文件名：SubscribeMsgTemplateModel.cs
     文件功能描述：模板消息接口需要的数据
     
     
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     /// <summary>
     /// 一次性订阅消息模板
     /// </summary>
-    public class SubscribeMsgTempleteModel: TempleteModel
+    public class SubscribeMsgTemplateModel: TemplateModel
     {
         /// <summary>
         /// 消息标题，15字以内
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// </summary>
         public string scene { get; set; }
 
-        public SubscribeMsgTempleteModel() : base()
+        public SubscribeMsgTemplateModel() : base()
         {
         }
     }

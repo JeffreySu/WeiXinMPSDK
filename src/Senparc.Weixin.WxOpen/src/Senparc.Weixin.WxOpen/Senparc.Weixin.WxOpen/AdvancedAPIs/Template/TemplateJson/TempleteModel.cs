@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
     
-    文件名：TempleteModel.cs
+    文件名：TemplateModel.cs
     文件功能描述：小程序模板消息接口需要的数据
     
     
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     /// <summary>
     /// 模板消息Post数据
     /// </summary>
-    public class TempleteModel
+    public class TemplateModel
     {
         /// <summary>
         /// 目标用户OpenId
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
 
 
 
-        public TempleteModel()
+        public TemplateModel()
         {
         }
     }

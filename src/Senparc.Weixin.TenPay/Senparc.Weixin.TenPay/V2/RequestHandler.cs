@@ -1,4 +1,4 @@
-#region Apache License Version 2.0
+ï»¿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -21,17 +21,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
  
-    ÎÄ¼şÃû£ºRequestHandler.cs
-    ÎÄ¼ş¹¦ÄÜÃèÊö£ºÎ¢ĞÅÖ§¸¶ ÇëÇó´¦Àí
+    æ–‡ä»¶åï¼šRequestHandler.cs
+    æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜ è¯·æ±‚å¤„ç†
     
     
-    ´´½¨±êÊ¶£ºSenparc - 20150211
+    åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
     
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20150303
-    ĞŞ¸ÄÃèÊö£ºÕûÀí½Ó¿Ú
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+    ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
     
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20170623
-    ĞŞ¸ÄÃèÊö£ºÊ¹ÓÃ ASCII ×ÖµäÅÅĞò
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20170623
+    ä¿®æ”¹æè¿°ï¼šä½¿ç”¨ ASCII å­—å…¸æ’åº
 ----------------------------------------------------------------*/
 
 using System;
@@ -49,17 +49,17 @@ using Microsoft.AspNetCore.Http;
 namespace Senparc.Weixin.TenPay.V2
 {
     /**
-    'Ç©Ãû¹¤¾ßÀà
+    'ç­¾åå·¥å…·ç±»
      ============================================================================/// <summary>
-    'apiËµÃ÷£º
+    'apiè¯´æ˜ï¼š
     'Init();
-    '³õÊ¼»¯º¯Êı£¬Ä¬ÈÏ¸øÒ»Ğ©²ÎÊı¸³Öµ¡£
-    'SetKey(key_)'ÉèÖÃÉÌ»§ÃÜÔ¿
-    'CreateMd5Sign(signParams);×ÖµäÉú³ÉMd5Ç©Ãû
-    'GenPackage(packageParams);»ñÈ¡package°ü
-    'CreateSHA1Sign(signParams);´´½¨Ç©ÃûSHA1
-    'ParseXML();Êä³öxml
-    'GetDebugInfo(),»ñÈ¡debugĞÅÏ¢
+    'åˆå§‹åŒ–å‡½æ•°ï¼Œé»˜è®¤ç»™ä¸€äº›å‚æ•°èµ‹å€¼ã€‚
+    'SetKey(key_)'è®¾ç½®å•†æˆ·å¯†é’¥
+    'CreateMd5Sign(signParams);å­—å…¸ç”ŸæˆMd5ç­¾å
+    'GenPackage(packageParams);è·å–packageåŒ…
+    'CreateSHA1Sign(signParams);åˆ›å»ºç­¾åSHA1
+    'ParseXML();è¾“å‡ºxml
+    'GetDebugInfo(),è·å–debugä¿¡æ¯
      * 
      * ============================================================================
      */
@@ -77,30 +77,30 @@ namespace Senparc.Weixin.TenPay.V2
 #endif
         }
         /// <summary>
-        /// ÃÜÔ¿
+        /// å¯†é’¥
         /// </summary>
         private string Key;
 
         protected HttpContext HttpContext;
 
         /// <summary>
-        /// ÇëÇóµÄ²ÎÊı
+        /// è¯·æ±‚çš„å‚æ•°
         /// </summary>
         protected Hashtable Parameters;
 
         /// <summary>
-        /// debugĞÅÏ¢
+        /// debugä¿¡æ¯
         /// </summary>
         private string DebugInfo;
 
         /// <summary>
-        /// ³õÊ¼»¯º¯Êı
+        /// åˆå§‹åŒ–å‡½æ•°
         /// </summary>
         public virtual void Init()
         {
         }
         /// <summary>
-        /// »ñÈ¡debugĞÅÏ¢
+        /// è·å–debugä¿¡æ¯
         /// </summary>
         /// <returns></returns>
         public String GetDebugInfo()
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.TenPay.V2
             return DebugInfo;
         }
         /// <summary>
-        /// »ñÈ¡ÃÜÔ¿
+        /// è·å–å¯†é’¥
         /// </summary>
         /// <returns></returns>
         public string GetKey()
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.TenPay.V2
             return Key;
         }
         /// <summary>
-        /// ÉèÖÃÃÜÔ¿
+        /// è®¾ç½®å¯†é’¥
         /// </summary>
         /// <param name="key"></param>
         public void SetKey(string key)
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.TenPay.V2
         }
 
         /// <summary>
-        /// ÉèÖÃ²ÎÊıÖµ
+        /// è®¾ç½®å‚æ•°å€¼
         /// </summary>
         /// <param name="parameter"></param>
         /// <param name="parameterValue"></param>
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.TenPay.V2
 
 
         /// <summary>
-        /// »ñÈ¡package´ø²ÎÊıµÄÇ©Ãû°ü
+        /// è·å–packageå¸¦å‚æ•°çš„ç­¾ååŒ…
         /// </summary>
         /// <returns></returns>
         public string GetRequestURL()
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.TenPay.V2
                 }
             }
 
-            //È¥µô×îºóÒ»¸ö&
+            //å»æ‰æœ€åä¸€ä¸ª&
             if (sb.Length > 0)
             {
                 sb.Remove(sb.Length - 1, 1);
@@ -174,7 +174,7 @@ namespace Senparc.Weixin.TenPay.V2
         }
 
         /// <summary>
-        /// ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊıÃû³Æa-zÅÅĞò,Óöµ½¿ÕÖµµÄ²ÎÊı²»²Î¼ÓÇ©Ãû
+        /// åˆ›å»ºmd5æ‘˜è¦,è§„åˆ™æ˜¯:æŒ‰å‚æ•°åç§°a-zæ’åº,é‡åˆ°ç©ºå€¼çš„å‚æ•°ä¸å‚åŠ ç­¾å
         /// </summary>
         protected virtual void CreateSign()
         {
@@ -198,13 +198,13 @@ namespace Senparc.Weixin.TenPay.V2
 
             this.SetParameter("sign", sign);
 
-            //debugĞÅÏ¢
+            //debugä¿¡æ¯
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
         }
 
 
         /// <summary>
-        /// ´´½¨packageÇ©Ãû
+        /// åˆ›å»ºpackageç­¾å
         /// </summary>
         /// <returns></returns>
         public virtual string CreateMd5Sign()
@@ -230,7 +230,7 @@ namespace Senparc.Weixin.TenPay.V2
 
 
         /// <summary>
-        /// ´´½¨sha1Ç©Ãû
+        /// åˆ›å»ºsha1ç­¾å
         /// </summary>
         /// <returns></returns>
         public string CreateSHA1Sign()
@@ -257,14 +257,14 @@ namespace Senparc.Weixin.TenPay.V2
             }
             string paySign = EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
-            //debugĞÅÏ¢
+            //debugä¿¡æ¯
             this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);
             return paySign;
         }
 
 
         /// <summary>
-        /// Êä³öXML
+        /// è¾“å‡ºXML
         /// </summary>
         /// <returns></returns>
         public string ParseXML()
@@ -292,7 +292,7 @@ namespace Senparc.Weixin.TenPay.V2
 
 
         /// <summary>
-        /// ÉèÖÃdebugĞÅÏ¢
+        /// è®¾ç½®debugä¿¡æ¯
         /// </summary>
         /// <param name="debugInfo"></param>
         public void SetDebugInfo(String debugInfo)

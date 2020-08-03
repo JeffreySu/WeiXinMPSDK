@@ -21,7 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
     
-    文件名：TempleteModel.cs
+    文件名：TemplateModel.cs
     文件功能描述：模板消息接口需要的数据
     
     
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     /// <summary>
     /// 普通模板消息参数
     /// </summary>
-    public class TempleteModel
+    public class TemplateModel
     {
         /// <summary>
         /// 目标用户OpenId
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <summary>
         /// 跳小程序所需数据，不需跳小程序可不用传该数据
         /// </summary>
-        public TempleteModel_MiniProgram miniprogram { get; set; }
+        public TemplateModel_MiniProgram miniprogram { get; set; }
 
         /// <summary>
         /// 数据
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         public object data { get; set; }
 
 
-        public TempleteModel()
+        public TemplateModel()
         {
             topcolor = "#FF0000";
         }
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     /// 小程序定义
     /// </summary>
     //[Senparc.Weixin.Helpers.JsonSetting.IgnoreValue(false)]
-    public class TempleteModel_MiniProgram
+    public class TemplateModel_MiniProgram
     {
         /// <summary>
         /// 小程序AppId

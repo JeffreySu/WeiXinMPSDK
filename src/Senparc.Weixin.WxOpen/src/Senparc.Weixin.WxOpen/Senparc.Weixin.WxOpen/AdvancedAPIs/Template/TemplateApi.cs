@@ -83,7 +83,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -280,7 +280,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/wxopen/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,

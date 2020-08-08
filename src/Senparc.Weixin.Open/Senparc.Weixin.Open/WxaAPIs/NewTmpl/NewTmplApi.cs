@@ -24,10 +24,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：TemplateApi.cs
     文件功能描述：小程序模板消息
     
-    创建标识：Senparc - 20171215
-    
-    修改标识：Senparc - 20180107
-    修改描述：v2.8.5 将接口迁移至 WxOpen 中
+    创建标识：Senparc - 20200731
+
+    修改标识：Senparc - 20200731
+    修改描述：v3.8.502.1 小程序订阅消息模板的管理
 
 ----------------------------------------------------------------*/
 
@@ -40,8 +40,10 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
 {
+    //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.addTemplate.html
+
     /// <summary>
-    /// 小程序模板消息接口
+    /// 小程序订阅消息模板的管理
     /// </summary>
     public static class NewTmplApi
     {
@@ -166,7 +168,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="limit">用于分页，表示拉取 limit 条记录。最大为 30。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitles", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitlesAsync", true)]
         public static async Task<GetPubTemplateTitlesJsonResult> GetPubTemplateTitlesAsync(string accessToken, string ids, int start, int limit, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatetitles?access_token={0}";
@@ -182,7 +184,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="tid">模板标题 id，可通过接口获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsById", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsByIdAsync", true)]
         public static async Task<GetPubTemplateKeyWordsByIdJsonResult> GetPubTemplateKeyWordsByIdAsync(string accessToken, string tid, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatekeywords?access_token={0}";
@@ -200,7 +202,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplate", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplateAsync", true)]
         public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList, string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
@@ -228,7 +230,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetTemplateList", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetTemplateListAsync", true)]
         public static async Task<GetTemplateListJsonResult> GetTemplateListAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/gettemplate?access_token={0}";
@@ -242,7 +244,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="priTmplId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.DelTemplate", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.DelTemplateAsync", true)]
         public static async Task<WxJsonResult> DelTemplateAsync(string accessToken, string priTmplId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/deltemplate?access_token={0}";

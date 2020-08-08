@@ -48,8 +48,6 @@ using Senparc.CO2NET.Helpers.Serializers;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.HttpUtility;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Senparc.Weixin.CommonAPIs
 {
@@ -93,26 +91,26 @@ namespace Senparc.Weixin.CommonAPIs
         /// </summary>
         static Action<string, string> postFailAction = (apiUrl, returnText) =>
         {
-            if (returnText.Contains("errcode"))
-            {
-                //可能发生错误
-                WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
-                ErrorJsonResultException ex = null;
-                if (errorResult.errcode != ReturnCode.请求成功)
-                {
-                    //发生错误，记录异常
-                    throw new ErrorJsonResultException(
-                         string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
-                                       (int)errorResult.errcode,
-                                       errorResult.errmsg),
-                         null, errorResult, apiUrl);
-                }
+             if (returnText.Contains("errcode"))
+             {
+                 //可能发生错误
+                 WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                 ErrorJsonResultException ex = null;
+                 if (errorResult.errcode != ReturnCode.请求成功)
+                 {
+                     //发生错误，记录异常
+                     throw new ErrorJsonResultException(
+                          string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
+                                        (int)errorResult.errcode,
+                                        errorResult.errmsg),
+                          null, errorResult, apiUrl);
+                 }
 
-                if (Config.ThrownWhenJsonResultFaild && ex != null)
-                {
-                    throw ex;//抛出异常
-                }
-            }
+                 if (Config.ThrownWhenJsonResultFaild && ex != null)
+                 {
+                     throw ex;//抛出异常
+                 }
+             }
         };
 
         #endregion
@@ -232,11 +230,6 @@ namespace Senparc.Weixin.CommonAPIs
                     case CommonJsonSendType.GET:
                         return await Get.GetJsonAsync<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction).ConfigureAwait(false);
                     case CommonJsonSendType.POST:
-                        if (data is Dictionary<string, string> dictionary)
-                            return await Post.PostGetJsonAsync<T>(CommonDI.CommonSP, url, null, dictionary,
-                                timeOut: timeOut,
-                                afterReturnText: postFailAction).ConfigureAwait(false);
-
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {

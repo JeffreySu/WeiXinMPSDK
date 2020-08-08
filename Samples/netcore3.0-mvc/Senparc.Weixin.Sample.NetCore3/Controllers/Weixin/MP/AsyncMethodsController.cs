@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
-                var miniProgram = new TempleteModel_MiniProgram()
+                var miniProgram = new TemplateModel_MiniProgram()
                 {
                     appid = "wxfcb0a0031394a51c",//【盛派互动（BookHelper）】小程序
                     pagepath = "pages/index/index"

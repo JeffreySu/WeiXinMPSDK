@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试");
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video");
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", 100000);
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video", 100000);
 
             Assert.IsNotNull(result.media_id);
 

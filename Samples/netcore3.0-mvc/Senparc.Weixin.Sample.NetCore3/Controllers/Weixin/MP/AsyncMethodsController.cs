@@ -1,19 +1,12 @@
 ﻿//DPBMARK_FILE MP
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {

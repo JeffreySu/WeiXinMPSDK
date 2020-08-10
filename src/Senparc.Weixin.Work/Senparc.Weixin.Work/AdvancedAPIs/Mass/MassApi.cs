@@ -23,7 +23,7 @@
     修改描述：MP 14.5.1 AccessToken HandlerWaper改造
 
     修改标识：lishewen - 20190427
-    修改描述：v3.5.0 发送Markdown消息和任务卡片消息
+    修改描述：v3.7.502.1 “更新任务卡片”接口更新返回类型
 ----------------------------------------------------------------*/
 
 /*
@@ -461,7 +461,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTaskCard", true)]
-        public static MassResult SendTaskCard(string accessTokenOrAppKey, SendTaskcardNoticeData data, int timeOut = Config.TIME_OUT)
+        public static MassResult SendTaskCard(string accessTokenOrAppKey, SendTaskCardNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -478,13 +478,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCard", true)]
-        public static MassResult UpdateTaskCard(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        public static UpdateTaskCardResultJson UpdateTaskCard(string accessTokenOrAppKey, UpdateTaskCardData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
             }, accessTokenOrAppKey);
         }
         #endregion
@@ -890,7 +890,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.SendTaskCardAsync", true)]
-        public static async Task<MassResult> SendTaskCardAsync(string accessTokenOrAppKey, SendTaskcardNoticeData data, int timeOut = Config.TIME_OUT)
+        public static async Task<MassResult> SendTaskCardAsync(string accessTokenOrAppKey, SendTaskCardNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -908,13 +908,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "MassApi.UpdateTaskCardAsync", true)]
-        public static async Task<MassResult> UpdateTaskCardAsync(string accessTokenOrAppKey, UpdateTaskcardData data, int timeOut = Config.TIME_OUT)
+        public static async Task<UpdateTaskCardResultJson> UpdateTaskCardAsync(string accessTokenOrAppKey, UpdateTaskCardData data, int timeOut = Config.TIME_OUT)
         {
+            //https://work.weixin.qq.com/api/doc/90000/90135/91579
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateTaskCardResultJson>(accessToken, _taskUrlFormat, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         #endregion

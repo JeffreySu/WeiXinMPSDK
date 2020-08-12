@@ -281,7 +281,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
                         ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                OnTextRequest(RequestMessage as RequestMessageText);
+                              await OnTextRequestAsync(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
 
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Image:
                     {
                         ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                OnImageRequest(RequestMessage as RequestMessageImage);
+                             await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:

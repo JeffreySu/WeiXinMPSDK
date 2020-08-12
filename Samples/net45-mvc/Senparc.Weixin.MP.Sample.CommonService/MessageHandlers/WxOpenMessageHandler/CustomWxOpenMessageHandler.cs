@@ -85,13 +85,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             var currentMessageContext = await base.GetCurrentMessageContext();
             currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
         }
-
-
+        
         /// <summary>
         /// 处理文字请求
         /// </summary>
         /// <returns></returns>
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        public override Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
@@ -119,7 +118,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             {
                 Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendText(appId, OpenId, "您即将进入客服");
                 var responseMessage = base.CreateResponseMessage<ResponseMessageTransfer_Customer_Service>();
-                return responseMessage;
+                return Task.FromResult<IResponseMessageBase>(responseMessage); ;
             }
             else
             {
@@ -168,7 +167,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 //Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
             }
 
-            return new SuccessResponseMessage();
+            return Task.FromResult<IResponseMessageBase>(new SuccessResponseMessage()); 
 
             //和公众号一样回复XML是无效的：
             //            return new SuccessResponseMessage()
@@ -184,7 +183,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             //            };
         }
 
-        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        public override Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
             //发来图片，进行处理
             Task.Factory.StartNew(async () =>
@@ -192,7 +191,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, "刚才您发送了这张图片：");
                 await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.MediaId);
             });
-            return DefaultResponseMessage(requestMessage);
+            return Task.FromResult(DefaultResponseMessage(requestMessage)) ;
         }
 
         public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)

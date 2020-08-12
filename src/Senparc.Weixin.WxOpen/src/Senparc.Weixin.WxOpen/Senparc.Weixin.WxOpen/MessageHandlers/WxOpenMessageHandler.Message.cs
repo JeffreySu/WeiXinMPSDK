@@ -29,9 +29,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
+using System;
+using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -39,7 +42,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     public abstract partial class WxOpenMessageHandler<TMC>
     {
         #region 接收消息方法
-
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
@@ -51,25 +53,36 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         //    return responseMessage;
         //}
 
-     
+
         /// <summary>
         /// 文字类型请求
         /// </summary>
+        [Obsolete("请使用异步方法 OnTextRequestAsync()", true)]
         public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            throw new MessageHandlerException("请使用异步方法 OnTextRequestAsync()");
         }
 
-     
+
         /// <summary>
         /// 图片类型请求
         /// </summary>
+        [Obsolete("请使用异步方法 OnImageRequestAsync()", true)]
         public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            throw new MessageHandlerException("请使用异步方法 OnImageRequestAsync()");
         }
 
 
+        public virtual Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
+        {
+            return Task.FromResult(DefaultResponseMessage(requestMessage));
+        }
+
+        public virtual Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
+        {
+            return Task.FromResult(DefaultResponseMessage(requestMessage));
+        }
         #endregion
 
     }

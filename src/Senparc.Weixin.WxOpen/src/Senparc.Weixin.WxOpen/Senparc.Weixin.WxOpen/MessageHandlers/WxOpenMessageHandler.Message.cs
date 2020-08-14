@@ -29,12 +29,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
 ----------------------------------------------------------------*/
 
-using System;
 using System.Threading.Tasks;
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Trace;
 using Senparc.NeuChar.Entities;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
@@ -57,31 +53,31 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 文字类型请求
         /// </summary>
-        [Obsolete("请使用异步方法 OnTextRequestAsync()", true)]
         public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            throw new MessageHandlerException("请使用异步方法 OnTextRequestAsync()");
+            return DefaultResponseMessage(requestMessage);
         }
 
 
         /// <summary>
         /// 图片类型请求
         /// </summary>
-        [Obsolete("请使用异步方法 OnImageRequestAsync()", true)]
         public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
-            throw new MessageHandlerException("请使用异步方法 OnImageRequestAsync()");
+            return DefaultResponseMessage(requestMessage);
         }
 
 
-        public virtual Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
+        public async virtual Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
         {
-            return Task.FromResult(DefaultResponseMessage(requestMessage));
+            
+            return await DefaultAsyncMethod(requestMessage, () => OnImageRequest(requestMessage)).ConfigureAwait(false);
+            
         }
 
-        public virtual Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
+        public async virtual Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
         {
-            return Task.FromResult(DefaultResponseMessage(requestMessage));
+            return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage)).ConfigureAwait(false);
         }
         #endregion
 

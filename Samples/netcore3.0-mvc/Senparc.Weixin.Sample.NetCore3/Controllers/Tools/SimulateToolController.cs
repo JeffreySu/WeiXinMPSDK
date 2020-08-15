@@ -320,6 +320,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
         #endregion
 
+        IServiceProvider _serviceProvider;
+
+        public SimulateToolController(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
         /// <summary>
         /// 默认页面
         /// </summary>
@@ -409,7 +416,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     else
                     {
                         //同步方法，立即发送
-                        _responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
+                        _responseMessageXml = MessageAgent.RequestXml(null, _serviceProvider, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
                     }
 
 

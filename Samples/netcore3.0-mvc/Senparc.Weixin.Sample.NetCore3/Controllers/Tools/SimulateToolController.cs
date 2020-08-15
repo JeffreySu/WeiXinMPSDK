@@ -395,7 +395,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 var dt1 = SystemTime.Now;
 
-
                 try
                 {
                     dt1 = SystemTime.Now;

@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Agents;
@@ -243,7 +244,7 @@ QQ群：289181996
                     {
                         //获取返回的XML
                         var dt1 = SystemTime.Now;
-                        reponseMessage = MessageAgent.RequestResponseMessage(this, agentUrl, agentToken, RequestDocument.ToString());
+                        reponseMessage = MessageAgent.RequestResponseMessage(this, SenparcDI.GetServiceProvider(), agentUrl, agentToken, RequestDocument.ToString());
                         //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                         var dt2 = SystemTime.Now;
@@ -259,7 +260,7 @@ QQ群：289181996
                 case "Member"://托管代理会员信息
                     {
                         //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
-                        reponseMessage = this.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        reponseMessage = this.RequestResponseMessage(SenparcDI.GetServiceProvider(), agentUrl, agentToken, RequestDocument.ToString());
                     }
                     break;
                 case "OAuth"://OAuth授权测试

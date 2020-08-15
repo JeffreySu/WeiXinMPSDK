@@ -311,7 +311,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 requestMessaageDoc.Root.Element("Content").Value = string.Join(" | ", values);
             }
 
-            var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
+            var responseMessageXml = await MessageAgent.RequestXmlAsync(null, _serviceProvider, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
 
             _responseMessageXml = responseMessageXml;

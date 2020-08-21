@@ -10,6 +10,9 @@
     修改标识：Senparc - 20191226
     修改描述：整理格式，添加注释，分配版本号：v3.7.104.2 添加“上报企业客户变更事件”
 
+    修改标识：OrchesAdam  - 20200430
+    修改描述：v3.7.502 添加编辑企业客户事件
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities.Request.Event
@@ -58,6 +61,27 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         /// 欢迎语code，可用于发送欢迎语
         /// </summary>
         public string WelcomeCode { get; set; }
+    }
+
+    /// <summary>
+    /// 编辑企业客户事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_Modified : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.edit_external_contact;
+
+        /// <summary>
+        /// 企业服务人员的UserID
+        /// </summary>
+        public string UserID { get; set; }
+        /// <summary>
+        /// 外部联系人的userid，注意不是企业成员的帐号
+        /// </summary>
+        public string ExternalUserID { get; set; }
+        /// <summary>
+        /// 添加此用户的「联系我」方式配置的state参数，可用于识别添加此用户的渠道
+        /// </summary>
+        public string State { get; set; }
     }
 
     /// <summary>
@@ -115,6 +139,10 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         /// 外部联系人免验证添加成员事件
         /// </summary>
         add_half_external_contact,
+        /// <summary>
+        /// 编辑企业客户事件
+        /// </summary>
+        edit_external_contact,
         /// <summary>
         /// 删除企业客户事件
         /// </summary>

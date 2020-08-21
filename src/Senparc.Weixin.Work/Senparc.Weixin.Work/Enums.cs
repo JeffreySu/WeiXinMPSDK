@@ -26,6 +26,9 @@
     修改标识：Senparc - 20180909
     修改描述：v3.1.2 枚举 ThirdPartyInfo.CONTACT_SYNC 改名为 ThirdPartyInfo.CHANGE_CONTACT；
 
+    修改标识：jiehanlin - 20200430
+    修改描述：v3.7.502 添加枚举“客户群变更事件”（CHANGE_EXTERNAL_CHAT）
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work
@@ -143,7 +146,11 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 外部联系人变更事件
         /// </summary>
-        CHANGE_EXTERNAL_CONTACT
+        CHANGE_EXTERNAL_CONTACT,
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        CHANGE_EXTERNAL_CHAT
     }
 
     public enum ThirdPartyInfo

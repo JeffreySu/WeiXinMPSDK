@@ -9,6 +9,12 @@
     
     修改标识：OrchesAdam - 2019119
     修改描述：v3.7.104.2 添加“上报企业客户变更事件”
+    
+    修改标识：OrchesAdam - 20200430
+    修改描述：v3.7.502 添加企业内部开发外部联系人
+
+    修改标识：jiehanlin - 20200430
+    修改描述：v3.7.502 添加客户群变更事件推送（CHANGE_EXTERNAL_CHAT）
 
 ----------------------------------------------------------------*/
 
@@ -147,6 +153,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                                 case "ADD_HALF_EXTERNAL_CONTACT":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Add_Half();
                                     break;
+                                case "EDIT_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Modified();
+                                    break;
                                 case "DEL_EXTERNAL_CONTACT":
                                     requestMessage = new RequestMessageEvent_Change_ExternalContact_Del();
                                     break;
@@ -160,6 +169,9 @@ namespace Senparc.Weixin.Work.MessageContexts
                                     requestMessage = new RequestMessageEventBase();
                                     break;
                             }
+                            break;
+                        case "CHANGE_EXTERNAL_CHAT"://客户群变更事件推送
+                            requestMessage = new RequestMessageEvent_Change_External_Chat();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

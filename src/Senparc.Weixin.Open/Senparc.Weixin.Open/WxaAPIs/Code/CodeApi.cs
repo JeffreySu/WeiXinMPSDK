@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：mc7246 - 20200318
     修改描述：v4.7.401 第三方小程序，提交审核接口更新
 
+    修改标识：mc7246 - 20200810
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
+
 ----------------------------------------------------------------*/
 
 
@@ -202,6 +205,22 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return CommonJsonSend.Send<GetAuditResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
+		
+        /// <summary>
+        /// 小程序审核撤回
+        /// 注意：单个帐号每天审核撤回次数最多不超过 1 次，一个月不超过 10 次
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAudit", true)]
+        public static CodeResultJson UndoCodeAudit(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
+            object data = new { };
+            return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.GET, timeOut);
+        }
+		
         /// <summary>
         /// 发布已通过审核的小程序
         /// </summary>
@@ -526,6 +545,22 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return await CommonJsonSend.SendAsync<GetAuditResultJson>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
+		
+        /// <summary>
+        /// 小程序审核撤回
+        /// 注意：单个帐号每天审核撤回次数最多不超过 1 次，一个月不超过 10 次
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAuditAsync", true)]
+        public static async Task<CodeResultJson> UndoCodeAuditAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
+            object data = new { };
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+        }
+		
         /// <summary>
         /// 发布已通过审核的小程序
         /// </summary>

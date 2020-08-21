@@ -28,6 +28,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20161227
     修改描述：v14.3.100 修改类名为TenPayV3CloseOrderRequestData.cs
+
+    修改标识：Senparc - 20200628
+    修改描述：v14.3.100 增加服务商模式SubAppId、SubMchId字段重载
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -51,6 +54,16 @@ namespace Senparc.Weixin.TenPay.V3
         /// 商户号
         /// </summary>
         public string MchId { get; set; }
+
+        /// <summary>
+        /// 子商户公众账号Id
+        /// </summary>
+        public string SubAppId { get; set; }
+
+        /// <summary>
+        /// 子商户号
+        /// </summary>
+        public string SubMchId { get; set; }
 
         /// <summary>
         /// 随机字符串
@@ -109,6 +122,46 @@ namespace Senparc.Weixin.TenPay.V3
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 
+            #endregion
+        }
+
+        /// <summary>
+        /// 关闭订单 请求参数(子商户)
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="mchId"></param>
+        /// <param name="outTradeNo"></param>
+        /// <param name="key"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="signType"></param>
+        public TenPayV3CloseOrderRequestData(string appId, string mchId, string subAppId, string subMchId, string outTradeNo, string key, string nonceStr,
+            string signType = "MD5")
+        {
+            SubAppId = subAppId;
+            SubMchId = subMchId;
+            AppId = appId;
+            MchId = mchId;
+            NonceStr = nonceStr;
+            OutTradeNo = outTradeNo;
+            SignType = signType;
+            Key = key;
+
+            #region 设置RequestHandler
+
+            //创建支付应答对象
+            PackageRequestHandler = new RequestHandler(null);
+            //初始化
+            PackageRequestHandler.Init();
+
+            //设置package订单参数
+            PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
+            PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameter("sub_appid", this.SubAppId); //子商户公众账号Id
+            PackageRequestHandler.SetParameter("sub_mch_id", this.SubMchId); //子商户号
+            PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo); //填入商家订单号
+            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
+            Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+            PackageRequestHandler.SetParameter("sign", Sign); //签名
             #endregion
         }
     }

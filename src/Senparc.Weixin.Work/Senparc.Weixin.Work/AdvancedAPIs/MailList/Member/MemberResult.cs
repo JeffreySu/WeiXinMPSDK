@@ -19,6 +19,9 @@
     修改标识：lishewen - 20200318
     修改描述：v3.7.401 修改 is_leader_in_dept 属性命名和类型
 
+    修改标识：WangDrama - 20200430
+    修改描述：v3.7.502 GetMemberResult 补充二维码属性
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

@@ -99,20 +99,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /* 异步单元测试：https://github.com/OpenSenparc/UnitTestBasket/blob/10017bff083223f63ee11c7b31c818b8c204f30d/UnitTestBasket/ThreadAndAsyncTests/FuncAsyncTests.cs#L17 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.CO2NET.CacheUtility;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.CO2NET.Extensions;
+using Senparc.Weixin.Containers;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Containers
 {

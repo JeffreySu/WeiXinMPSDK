@@ -1,13 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
 {
-    public class DistrictResultJson 
+    /// <summary>
+    /// 从腾讯地图拉取省市区信息返回值
+    /// </summary>
+    public class DistrictResultJson : WxJsonResult
     {
+        /// <summary>
+        /// status
+        /// </summary>
         public int status { get; set; }
-
+        /// <summary>
+        /// message
+        /// </summary>
         public string message { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string data_version { get; set; }
         /// <summary>
         /// result[0]是省 result[1]是市 result[2]是区

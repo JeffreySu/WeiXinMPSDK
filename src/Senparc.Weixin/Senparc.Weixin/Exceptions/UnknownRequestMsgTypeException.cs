@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Exceptions
     /// <summary>
     /// 未知请求类型异常
     /// </summary>
-    public class UnknownRequestMsgTypeException : MessageHandlerException //ArgumentOutOfRangeException
+    public class UnknownRequestMsgTypeException : NeuChar.Exceptions.UnknownRequestMsgTypeException //ArgumentOutOfRangeException
     {
         public UnknownRequestMsgTypeException(string message)
             : this(message, null)

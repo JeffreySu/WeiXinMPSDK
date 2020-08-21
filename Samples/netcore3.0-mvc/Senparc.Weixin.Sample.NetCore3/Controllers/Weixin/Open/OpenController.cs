@@ -118,10 +118,10 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 return Content(messageHandler.ResponseMessageText);
             }
-            catch (Exception ex)
+            catch //(Exception ex)
             {
                 throw;
-                return Content("error：" + ex.Message);
+                //return Content("error：" + ex.Message);
             }
         }
 
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <param name="appId"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Callback(Senparc.Weixin.MP.Entities.Request.PostModel postModel)
+        public async Task<ActionResult> Callback(Senparc.Weixin.MP.Entities.Request.PostModel postModel)
         {
             //此处的URL格式类型为：http://sdk.weixin.senparc.com/Open/Callback/$APPID$， 在RouteConfig中进行了配置，你也可以用自己的格式，只要和开放平台设置的一致。
 
@@ -165,7 +165,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 messageHandler.SaveRequestMessageLog();//记录 Request 日志（可选）
 
-                messageHandler.Execute();//执行微信处理过程（关键）
+                await messageHandler.ExecuteAsync(new System.Threading.CancellationToken());//执行微信处理过程（关键）
 
                 messageHandler.SaveResponseMessageLog();//记录 Response 日志（可选）
 

@@ -28,7 +28,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：15989221023 - 20200416
     修改描述：v1.5.402 添加 Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
-    
+
+    修改标识：15989221023 - 20200511
+    修改描述：v1.5.502.1 添加 TenPayV3UnifiedorderRequestData Version 参数 https://github.com/JeffreySu/WeiXinMPSDK/pull/2174
+   
+    修改标识：Senparc - 20200528
+    修改描述：v1.5.502.2 fix bug:必须指定待分账的接收方列表 判断有误 https://github.com/JeffreySu/WeiXinMPSDK/issues/2181
+
+    修改标识：Senparc - 20200601
+    修改描述：v1.5.502.3 fix bug:必须指定待分账的接收方列表 判断有误 https://github.com/JeffreySu/WeiXinMPSDK/issues/2184
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -146,7 +155,7 @@ namespace Senparc.Weixin.TenPay.V3
             SubMchId = submchid;
             Receivers = receivers;
 
-            if (Receivers != null || Receivers.Length == 0)
+            if (Receivers == null || Receivers.Length == 0)
             {
                 throw new ArgumentNullException("必须指定待分账的接收方列表");
             }
@@ -540,7 +549,10 @@ namespace Senparc.Weixin.TenPay.V3
             SubAppId = subappid;
             SubMchId = submchid;
             Receiver = receiver;
-            if (Receiver != null) throw new ArgumentNullException("必须指定待添加的分账接收方");
+            if (Receiver == null)
+            {
+                throw new ArgumentNullException("必须指定待添加的分账接收方");
+            }
 
             #region 设置RequestHandler
 
@@ -656,7 +668,10 @@ namespace Senparc.Weixin.TenPay.V3
             SubAppId = subappid;
             SubMchId = submchid;
             Receiver = receiver;
-            if (Receiver != null) throw new ArgumentNullException("必须指定待删除的分账接收方");
+            if (Receiver == null)
+            {
+                throw new ArgumentNullException("必须指定待删除的分账接收方");
+            }
 
 
             #region 设置RequestHandler
@@ -668,8 +683,8 @@ namespace Senparc.Weixin.TenPay.V3
 
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-            
-            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion); 
+
+            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion);
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

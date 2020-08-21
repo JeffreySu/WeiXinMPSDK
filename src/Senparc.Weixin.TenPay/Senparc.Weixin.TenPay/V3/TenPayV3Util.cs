@@ -1,4 +1,4 @@
-#region Apache License Version 2.0
+ï»¿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -21,27 +21,27 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
  
-    ÎÄ¼şÃû£ºTenPayV3Util.cs
-    ÎÄ¼ş¹¦ÄÜÃèÊö£ºÎ¢ĞÅÖ§¸¶V3ÅäÖÃÎÄ¼ş
+    æ–‡ä»¶åï¼šTenPayV3Util.cs
+    æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜V3é…ç½®æ–‡ä»¶
     
     
-    ´´½¨±êÊ¶£ºSenparc - 20150211
+    åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
     
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20150303
-    ĞŞ¸ÄÃèÊö£ºÕûÀí½Ó¿Ú
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+    ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
 
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20161014
-    ĞŞ¸ÄÃèÊö£ºĞŞ¸ÄTenPayUtil.BuildRandomStr()·½·¨
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20161014
+    ä¿®æ”¹æè¿°ï¼šä¿®æ”¹TenPayUtil.BuildRandomStr()æ–¹æ³•
 
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20170516
-    ĞŞ¸ÄÃèÊö£ºv14.4.8 1¡¢ÍêÉÆTenPayLibV3.GetNoncestr()·½·¨
-                      2¡¢ÓÅ»¯BuildRandomStr()·½·¨
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20170516
+    ä¿®æ”¹æè¿°ï¼šv14.4.8 1ã€å®Œå–„TenPayLibV3.GetNoncestr()æ–¹æ³•
+                      2ã€ä¼˜åŒ–BuildRandomStr()æ–¹æ³•
              
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20170522
-    ĞŞ¸ÄÃèÊö£ºv14.4.9 ĞŞ¸ÄTenPayUtil.GetNoncestr()·½·¨£¬½«±àÂëÓÉGBK¸ÄÎªUTF8
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20170522
+    ä¿®æ”¹æè¿°ï¼šv14.4.9 ä¿®æ”¹TenPayUtil.GetNoncestr()æ–¹æ³•ï¼Œå°†ç¼–ç ç”±GBKæ”¹ä¸ºUTF8
 
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20180331
-    ĞŞ¸ÄÃèÊö£ºv14.4.9 ĞŞ¸ÄTenPayUtil.GetNoncestr()·½·¨£¬½«±àÂëÓÉGBK¸ÄÎªUTF8
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20180331
+    ä¿®æ”¹æè¿°ï¼šv14.4.9 ä¿®æ”¹TenPayUtil.GetNoncestr()æ–¹æ³•ï¼Œå°†ç¼–ç ç”±GBKæ”¹ä¸ºUTF8
 
 ----------------------------------------------------------------*/
 
@@ -54,14 +54,14 @@ using Senparc.CO2NET.Helpers;
 namespace Senparc.Weixin.TenPay.V3
 {
     /// <summary>
-    /// Î¢ĞÅÖ§¸¶¹¤¾ßÀà
+    /// å¾®ä¿¡æ”¯ä»˜å·¥å…·ç±»
     /// </summary>
     public class TenPayV3Util
     {
         public static Random random = new Random();
 
         /// <summary>
-        /// Ëæ»úÉú³ÉNoncestr
+        /// éšæœºç”ŸæˆNoncestr
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
-        /// »ñÈ¡Î¢ĞÅÊ±¼ä¸ñÊ½
+        /// è·å–å¾®ä¿¡æ—¶é—´æ ¼å¼
         /// </summary>
         /// <returns></returns>
         public static string GetTimestamp()
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞURL±àÂë
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLç¼–ç 
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞURL½âÂë
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLè§£ç 
         /// </summary>
         /// <param name="instr"></param>
         /// <param name="charset"></param>
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.TenPay.V3
 
 
         /// <summary>
-        /// È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êı,Ìæ»»½»Ò×µ¥ºÅÖĞµÄºó10Î»Á÷Ë®ºÅ
+        /// å–æ—¶é—´æˆ³ç”Ÿæˆéšå³æ•°,æ›¿æ¢äº¤æ˜“å•å·ä¸­çš„å10ä½æµæ°´å·
         /// </summary>
         /// <returns></returns>
         public static UInt32 UnixStamp()
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
-        /// È¡Ëæ»úÊı
+        /// å–éšæœºæ•°
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
@@ -199,36 +199,36 @@ namespace Senparc.Weixin.TenPay.V3
         }
 
         /// <summary>
-        /// ´´½¨µ±ÌìÄÚ²»»áÖØ¸´µÄÊı×Ö
+        /// åˆ›å»ºå½“å¤©å†…ä¸ä¼šé‡å¤çš„æ•°å­—
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
         public static string BuildDailyRandomStr(int length)
         {
-            var stringFormat = SystemTime.Now.ToString("HHmmss0000");//¹²10Î»
+            var stringFormat = SystemTime.Now.ToString("HHmmss0000");//å…±10ä½
 
             return stringFormat;
         }
 
 
         /// <summary>
-        /// ¶ÔÍË¿îÍ¨ÖªÏûÏ¢½øĞĞ½âÃÜ
+        /// å¯¹é€€æ¬¾é€šçŸ¥æ¶ˆæ¯è¿›è¡Œè§£å¯†
         /// </summary>
         /// <param name="reqInfo"></param>
         /// <param name="mchKey"></param>
         /// <returns></returns>
         public static string DecodeRefundReqInfo(string reqInfo, string mchKey)
         {
-            //²Î¿¼ÎÄµµ£ºhttps://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
+            //å‚è€ƒæ–‡æ¡£ï¼šhttps://pay.weixin.qq.com/wiki/doc/api/native.php?chapter=9_16&index=11
             /*
-               ½âÃÜ²½ÖèÈçÏÂ£º 
-                £¨1£©¶Ô¼ÓÃÜ´®A×öbase64½âÂë£¬µÃµ½¼ÓÃÜ´®B
-                £¨2£©¶ÔÉÌ»§key×ömd5£¬µÃµ½32Î»Ğ¡Ğ´key* ( keyÉèÖÃÂ·¾¶£ºÎ¢ĞÅÉÌ»§Æ½Ì¨(pay.weixin.qq.com)-->ÕË»§ÉèÖÃ-->API°²È«-->ÃÜÔ¿ÉèÖÃ )
+               è§£å¯†æ­¥éª¤å¦‚ä¸‹ï¼š 
+                ï¼ˆ1ï¼‰å¯¹åŠ å¯†ä¸²Aåšbase64è§£ç ï¼Œå¾—åˆ°åŠ å¯†ä¸²B
+                ï¼ˆ2ï¼‰å¯¹å•†æˆ·keyåšmd5ï¼Œå¾—åˆ°32ä½å°å†™key* ( keyè®¾ç½®è·¯å¾„ï¼šå¾®ä¿¡å•†æˆ·å¹³å°(pay.weixin.qq.com)-->è´¦æˆ·è®¾ç½®-->APIå®‰å…¨-->å¯†é’¥è®¾ç½® )
 
-                £¨3£©ÓÃkey*¶Ô¼ÓÃÜ´®B×öAES-256-ECB½âÃÜ£¨PKCS7Padding£©
+                ï¼ˆ3ï¼‰ç”¨key*å¯¹åŠ å¯†ä¸²BåšAES-256-ECBè§£å¯†ï¼ˆPKCS7Paddingï¼‰
              */
             //var base64Encode = Encoding.UTF8.GetString(Convert.FromBase64String(reqInfo));//(1)
-            var base64Encode = reqInfo;//(1) EncryptHelper.AESDecrypt ·½·¨ÄÚ²¿»á½øĞĞÒ»´Îbase64½âÂë£¬Òò´ËÕâÀï²»ÔÙĞèÒª½âÂë
+            var base64Encode = reqInfo;//(1) EncryptHelper.AESDecrypt æ–¹æ³•å†…éƒ¨ä¼šè¿›è¡Œä¸€æ¬¡base64è§£ç ï¼Œå› æ­¤è¿™é‡Œä¸å†éœ€è¦è§£ç 
             var md5Str = EncryptHelper.GetLowerMD5(mchKey, Encoding.UTF8);//(2)
             var result = EncryptHelper.AESDecrypt(base64Encode, md5Str);//(3)
             return result;

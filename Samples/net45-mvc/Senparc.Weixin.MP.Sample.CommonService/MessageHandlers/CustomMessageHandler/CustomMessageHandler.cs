@@ -204,7 +204,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     #endregion
 
-                    var responseXml = MessageAgent.RequestXml(this, Senparc.CO2NET.SenparcDI.GetServiceProvider(), agentUrl, agentToken, agentXml);
+                    var responseXml = MessageAgent.RequestXml(this,
+#if NET45
+                        null,
+#else
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
+#endif
+                        agentUrl, agentToken, agentXml);
                     //获取返回的XML
                     //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 

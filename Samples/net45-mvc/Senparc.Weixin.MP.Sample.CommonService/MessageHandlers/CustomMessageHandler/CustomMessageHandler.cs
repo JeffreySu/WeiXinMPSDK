@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
             GlobalMessageContext.ExpireMinutes = 3;
-            
+
             OnlyAllowEncryptMessage = true;//是否只允许接收加密消息，默认为 false
 
             if (!string.IsNullOrEmpty(postModel.AppId))
@@ -204,7 +204,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                     #endregion
 
-                    var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, agentXml);
+                    var responseXml = MessageAgent.RequestXml(this,
+#if NET45
+                        null,
+#else
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
+#endif
+                        agentUrl, agentToken, agentXml);
                     //获取返回的XML
                     //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 

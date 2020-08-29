@@ -195,9 +195,9 @@
 
         function switchAsyncController() {
             if ($('#UseAsyncController:checked').length > 0) {
-                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString)');
+                $('#Url').val('@Url.Action("Index", "WeixinAsync", null, Context.Request.Scheme, Context.Request.Host.Host + portString)');
             } else {
-                $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Context.Request.Host.Host + portString)');
+                $('#Url').val('@Url.Action("Index", "Weixin", null, Context.Request.Scheme, Context.Request.Host.Host + portString)');
             }
         }
 
@@ -233,7 +233,7 @@
             </li>
             <li>
                 <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, "http", Context.Request.Host.Host + portString), new { @class = "control-input" })
+                @Html.TextBox("Url", Url.Action("Index", "WeixinAsync", null, Context.Request.Scheme, Context.Request.Host.Host + portString), new { @class = "control-input" })
             </li>
             <li>
                 <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>

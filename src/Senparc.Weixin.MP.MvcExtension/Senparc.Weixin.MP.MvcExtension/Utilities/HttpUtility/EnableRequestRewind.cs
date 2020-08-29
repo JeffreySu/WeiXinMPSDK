@@ -1,4 +1,4 @@
-#region Apache License Version 2.0
+ï»¿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -21,18 +21,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2020 Senparc
 
-	ÎÄ¼şÃû£ºEnableRequestRewindMiddleware.cs
-	ÎÄ¼ş¹¦ÄÜÃèÊö£ºEnableRequestRewindÖĞ¼ä¼ş£¬¿ªÆô.net core 2 ÖĞµÄ 
-                  RequestRewindÄ£Ê½£¬Request.Body¿ÉÒÔ¶ş´Î¶ÁÈ¡£¬ÒÔ
-                  ½â¾öÄ³Ğ©ÌØÊâÇé¿öÏÂnetcoreÄ¬ÈÏ»úÖÆµ¼ÖÂµÄRequest.Body
-                  Îª¿Õ¶øÒı·¢µÄWeixinSDK´íÎóµÄÎÊÌâ¡£
+	æ–‡ä»¶åï¼šEnableRequestRewindMiddleware.cs
+	æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šEnableRequestRewindä¸­é—´ä»¶ï¼Œå¼€å¯.net core 2 ä¸­çš„ 
+                  RequestRewindæ¨¡å¼ï¼ŒRequest.Bodyå¯ä»¥äºŒæ¬¡è¯»å–ï¼Œä»¥
+                  è§£å†³æŸäº›ç‰¹æ®Šæƒ…å†µä¸‹netcoreé»˜è®¤æœºåˆ¶å¯¼è‡´çš„Request.Body
+                  ä¸ºç©ºè€Œå¼•å‘çš„WeixinSDKé”™è¯¯çš„é—®é¢˜ã€‚
                   https://github.com/JeffreySu/WeiXinMPSDK/issues/1090
 
 
-	´´½¨±êÊ¶£ºlishewen - 20180516
+	åˆ›å»ºæ ‡è¯†ï¼šlishewen - 20180516
 
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20190929
-    ĞŞ¸ÄÃèÊö£ºv7.4.101 Ö§³Ö .NET Core 3.0£¬ĞŞ¸Ä Request.EnableRewind() ·½·¨Îª Request.EnableBuffering()
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20190929
+    ä¿®æ”¹æè¿°ï¼šv7.4.101 æ”¯æŒ .NET Core 3.0ï¼Œä¿®æ”¹ Request.EnableRewind() æ–¹æ³•ä¸º Request.EnableBuffering()
 
 ----------------------------------------------------------------*/
 
@@ -47,8 +47,8 @@ using Microsoft.AspNetCore.Http.Internal;
 namespace Microsoft.AspNetCore.Http
 {
     /// <summary>
-    /// <para>EnableRequestRewindÖĞ¼ä¼ş£¬¿ªÆô.net core 2 ÖĞµÄRequestRewindÄ£Ê½£¬Request.Body¿ÉÒÔ¶ş´Î¶ÁÈ¡£¬</para>
-    /// <para>ÒÔ½â¾öÄ³Ğ©ÌØÊâÇé¿öÏÂnetcoreÄ¬ÈÏ»úÖÆµ¼ÖÂµÄRequest.BodyÎª¿Õ¶øÒı·¢µÄWeixinSDK´íÎóµÄÎÊÌâ¡£</para>
+    /// <para>EnableRequestRewindä¸­é—´ä»¶ï¼Œå¼€å¯.net core 2 ä¸­çš„RequestRewindæ¨¡å¼ï¼ŒRequest.Bodyå¯ä»¥äºŒæ¬¡è¯»å–ï¼Œ</para>
+    /// <para>ä»¥è§£å†³æŸäº›ç‰¹æ®Šæƒ…å†µä¸‹netcoreé»˜è®¤æœºåˆ¶å¯¼è‡´çš„Request.Bodyä¸ºç©ºè€Œå¼•å‘çš„WeixinSDKé”™è¯¯çš„é—®é¢˜ã€‚</para>
     /// <para>https://github.com/JeffreySu/WeiXinMPSDK/issues/1090</para>
     /// </summary>
     public class EnableRequestRewindMiddleware
@@ -74,7 +74,7 @@ namespace Microsoft.AspNetCore.Http
 #if NETSTANDARD2_0
             context.Request.EnableRewind();
 #else
-            context.Request.EnableBuffering();//.NET Core 3.0 ²»ÔÙÊ¹ÓÃ EnableRewind()£¬¸ÄÎª EnableBuffering()£ºhttps://github.com/aspnet/AspNetCore/issues/12505
+            context.Request.EnableBuffering();//.NET Core 3.0 ä¸å†ä½¿ç”¨ EnableRewind()ï¼Œæ”¹ä¸º EnableBuffering()ï¼šhttps://github.com/aspnet/AspNetCore/issues/12505
 #endif
             await _next(context).ConfigureAwait(false);
         }

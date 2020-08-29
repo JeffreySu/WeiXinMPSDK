@@ -1,19 +1,12 @@
 ﻿//DPBMARK_FILE MP
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-
 using Microsoft.AspNetCore.Mvc;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -72,7 +65,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
                 };
 
-                var miniProgram = new TempleteModel_MiniProgram()
+                var miniProgram = new TemplateModel_MiniProgram()
                 {
                     appid = "wxfcb0a0031394a51c",//【盛派互动（BookHelper）】小程序
                     pagepath = "pages/index/index"

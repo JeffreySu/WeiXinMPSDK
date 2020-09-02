@@ -23,6 +23,7 @@ using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
 //DPBMARK MP
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
@@ -74,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 if (_tenPayV3Info == null)
                 {
-                    var key = TenPayV3InfoCollection.GetKey(Config.SenparcWeixinSetting);
+                    var key = TenPayHelper.GetRegisterKey(Config.SenparcWeixinSetting);
 
                     _tenPayV3Info =
                         TenPayV3InfoCollection.Data[key];
@@ -620,7 +621,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 null, nonceStr, null, outTradeNo, outRefundNo, totalFee, refundFee, opUserId, null, notifyUrl: notifyUrl);
             var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
             var password = TenPayV3Info.MchId;//默认为商户号，建议修改
-            var result = TenPayV3.Refund(dataInfo, cert, password);
+            var result = TenPayV3.Refund(null, dataInfo, cert, password);
             return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
             //return Json(result, JsonRequestBehavior.AllowGet);
 

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.7.510</Version>
+    <Version>3.7.510.1</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -149,7 +149,8 @@
 		2、添加“企业内部开发外部联系人- 编辑企业客户事件”
 		3、添加“企业内部开发外部联系人- 回调事件”
 		v3.7.502.1 “更新任务卡片”接口更新返回类型
-</PackageReleaseNotes>
+		v3.7.510.1 GetMemberResult 补充 open_userid、main_department（主部门）属性
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>
   </PropertyGroup>

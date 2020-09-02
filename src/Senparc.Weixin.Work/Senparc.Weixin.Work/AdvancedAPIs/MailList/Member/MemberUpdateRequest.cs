@@ -24,5 +24,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
         /// 非必填，特别地，如果userid由系统自动生成，则仅允许修改一次。新值可由new_userid字段指定。
         /// </summary>
         public string new_userid { get; set; }
+
+
+        /// <summary>
+        /// 成员别名。长度1~32个utf8（非必须） ### https://work.weixin.qq.com/api/doc#90000/90135/90195
+        /// </summary>
+        public string alias { get; set; }
     }
 }

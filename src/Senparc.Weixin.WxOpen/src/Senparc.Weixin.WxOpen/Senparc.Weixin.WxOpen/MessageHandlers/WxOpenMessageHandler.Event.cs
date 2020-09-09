@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191004
     修改描述：添加异步方法
 
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.511 调整 MessageHandler 异步方法执行代码
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;

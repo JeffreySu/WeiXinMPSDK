@@ -35,9 +35,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20190917
     修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
-      
+
     修改标识：Senparc - 20200303
     修改描述：v3.8.304.1 优化 MessageHandler 的异步方法调用
+      
+    修改标识：Senparc - 2020909
+    修改描述：v3.8.511 MessageHandler 增加异步方法
 
 ----------------------------------------------------------------*/
 

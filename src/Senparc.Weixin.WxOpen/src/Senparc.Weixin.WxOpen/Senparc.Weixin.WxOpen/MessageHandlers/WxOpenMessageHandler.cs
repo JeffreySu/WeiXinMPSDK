@@ -259,8 +259,33 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 异步方法
-
-
+        /// <summary>
+        /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
+        /// </summary>
+        /// <param name="requestMessage">requestMessage</param>
+        /// <param name="syncMethod">同名的同步方法(DefaultMessageHandlerAsyncEvent值为SelfSynicMethod时调用)</param>
+        /// <returns></returns>
+        private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
+        {
+            switch (base.DefaultMessageHandlerAsyncEvent)
+            {
+                case DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync:
+                    //返回默认信息
+                    return await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false);
+                case DefaultMessageHandlerAsyncEvent.SelfSynicMethod:
+                    //返回同步信息
+                    return await Task.Run(syncMethod).ConfigureAwait(false);
+                default:
+                    throw new MessageHandlerException($"DefaultMessageHandlerAsyncEvent 类型未作处理：{base.DefaultMessageHandlerAsyncEvent.ToString()}");
+            }
+        }
+        /// <summary>
+        /// 【异步方法】认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+        /// </summary>
+        public virtual async Task<IResponseMessageBase> DefaultResponseMessageAsync(IRequestMessageBase requestMessage)
+        {
+            return await Task.Run(() => DefaultResponseMessage(requestMessage)).ConfigureAwait(false);
+        }
         /// <summary>
         /// 执行微信请求
         /// </summary>
@@ -281,7 +306,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     {
                         //SenparcTrace.SendCustomLog("wxTest-request", RequestMessage.ToJson());
                         ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                OnTextRequest(RequestMessage as RequestMessageText);
+                              await OnTextRequestAsync(RequestMessage as RequestMessageText);
                         //SenparcTrace.SendCustomLog("wxTest-response", ResponseMessage.ToJson());
                         //SenparcTrace.SendCustomLog("WxOpen RequestMsgType", ResponseMessage.ToJson());
 
@@ -291,7 +316,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 case RequestMsgType.Image:
                     {
                         ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                OnImageRequest(RequestMessage as RequestMessageImage);
+                             await OnImageRequestAsync(RequestMessage as RequestMessageImage);
                     }
                     break;
                 case RequestMsgType.NeuChar:

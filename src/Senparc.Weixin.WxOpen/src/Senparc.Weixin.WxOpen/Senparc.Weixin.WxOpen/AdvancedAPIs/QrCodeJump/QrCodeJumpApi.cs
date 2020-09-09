@@ -55,7 +55,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpget?access_token={0}";
 
-                return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+                return CommonJsonSend.Send<GetJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpdownload?access_token={0}";
 
-            return CommonJsonSend.Send<DownloadJsonResult>(accessToken, urlFormat, null, timeOut: timeOut);
+            return CommonJsonSend.Send<DownloadJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
 
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpget?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, null, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
             
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
 
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/qrcodejumpdownload?access_token={0}";
 
-                return await CommonJsonSend.SendAsync<DownloadJsonResult>(accessToken, urlFormat, null, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<DownloadJsonResult>(accessToken, urlFormat, new { }, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
 

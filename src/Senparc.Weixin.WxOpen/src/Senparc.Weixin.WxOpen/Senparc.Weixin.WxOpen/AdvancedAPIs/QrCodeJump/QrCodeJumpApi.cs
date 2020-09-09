@@ -24,6 +24,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：QrCodeJumpApi.cs
     文件功能描述：小程序的普通链接二维码接口
 
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.512 修复普通链接二维码与小程序码-获取校验文件名称及内容
+
 ----------------------------------------------------------------*/
 
 /*

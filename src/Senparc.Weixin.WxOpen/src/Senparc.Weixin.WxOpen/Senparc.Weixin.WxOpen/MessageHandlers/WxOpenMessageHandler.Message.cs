@@ -26,11 +26,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170106
-    
+  
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.511 小程序 WxOpenMessageHandler 增加 OnImageRequestAsync 和 OnTextRequestAsync
+
 ----------------------------------------------------------------*/
 
-using Senparc.CO2NET.Extensions;
-using Senparc.CO2NET.Trace;
+using System;
+using System.Threading.Tasks;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.WxOpen.Entities;
 
@@ -39,7 +42,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     public abstract partial class WxOpenMessageHandler<TMC>
     {
         #region 接收消息方法
-
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
@@ -51,26 +53,45 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         //    return responseMessage;
         //}
 
-     
+        #region 同步方法
+
         /// <summary>
         /// 文字类型请求
         /// </summary>
+        [Obsolete("请使用异步方法 OnTextRequestAsync()")]
         public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
 
-     
+
         /// <summary>
         /// 图片类型请求
         /// </summary>
+        [Obsolete("请使用异步方法 OnImageRequestAsync()")]
         public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
 
-
         #endregion
 
+        #region 异步方法
+
+
+        public async virtual Task<IResponseMessageBase> OnImageRequestAsync(RequestMessageImage requestMessage)
+        {
+
+            return await DefaultAsyncMethod(requestMessage, () => OnImageRequest(requestMessage)).ConfigureAwait(false);
+
+        }
+
+        public async virtual Task<IResponseMessageBase> OnTextRequestAsync(RequestMessageText requestMessage)
+        {
+            return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage)).ConfigureAwait(false);
+        }
+
+        #endregion
+        #endregion
     }
 }

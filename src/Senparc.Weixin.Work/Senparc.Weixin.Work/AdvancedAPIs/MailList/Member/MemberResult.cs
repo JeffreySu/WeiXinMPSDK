@@ -22,6 +22,9 @@
     修改标识：WangDrama - 20200430
     修改描述：v3.7.502 GetMemberResult 补充二维码属性
 
+    修改标识：Senparc - 2020825
+    修改描述：3.7.510.1 GetMemberResult 补充 open_userid、main_department（主部门）属性
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -90,6 +93,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 英文名。第三方暂不支持
         /// </summary>
         public string english_name { get; set; }
+        /// <summary>
+        /// 全局唯一。对于同一个服务商，不同应用获取到企业内同一个成员的open_userid是相同的，最多64个字节。仅第三方应用可获取
+        /// </summary>
+        public string open_userid { get; set; }
+        /// <summary>
+        /// 主部门
+        /// </summary>
+        public int main_department { get; set; }
+
         /// <summary>
         /// 扩展属性
         /// </summary>

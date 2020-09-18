@@ -19,6 +19,9 @@
     修改标识：Senparc - 20171220
     修改描述：v1.2.10 修改 AddTagMemberResult.invalidparty 为 long 类型
 
+    修改标识：Senparc - 20200918
+    修改描述：v3.7.601 修改“删除标签成员”接口返回参数：https://work.weixin.qq.com/api/doc/90000/90135/90215
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -83,16 +86,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 添加标签成员返回结果
     /// a)正确时返回{"errcode": 0,"errmsg": "ok"}
-    /// b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr","invalidparty": [2,4]}
-    /// c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
+    /// b)若部分userid、partylist非法，则返回{"errcode": 0,"errmsg": "deleted","invalidlist"："usr1|usr2|usr","invalidparty": [2,4]}
+    /// c)当包含的userid、partylist全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
     /// invalid userlist and partylist faild
     /// invalid userlist faild
     /// invalid partylist faild
     /// </summary>
     public class DelTagMemberResult : WorkJsonResult
     {
-        public string invalidlist { get; set; }
-        public long[] invalidparty { get; set; }
+        /// <summary>
+        /// 标签ID（必须）
+        /// </summary>
+        public int tagid { get; set; }
+        /// <summary>
+        /// 	企业成员ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过1000
+        /// </summary>
+        public string[] userlist { get; set; }
+        /// <summary>
+        /// 企业部门ID列表，注意：userlist、partylist不能同时为空，单次请求长度不超过100
+        /// </summary>
+        public long[] partylist { get; set; }
     }
 
     /// <summary>

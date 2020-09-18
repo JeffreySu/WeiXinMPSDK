@@ -133,9 +133,9 @@ namespace Senparc.Weixin
         /// <summary>
         /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
-        private static string _apiMpFileHost = "http://file.api.weixin.qq.com";
+        private static string _apiMpFileHost = "https://api.weixin.qq.com";
         /// <summary>
-        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：http://file.api.weixin.qq.com）
+        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
         /// </summary>
         public static string ApiMpFileHost
         {

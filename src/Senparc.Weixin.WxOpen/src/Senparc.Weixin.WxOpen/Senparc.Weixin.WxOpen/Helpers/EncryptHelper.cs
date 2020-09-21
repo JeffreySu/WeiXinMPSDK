@@ -317,6 +317,21 @@ namespace Senparc.Weixin.WxOpen.Helpers
         }
 
         /// <summary>
+        /// 解密手机号(根据sessionKey解密)
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumberBySessionKey(string sessionKey, string encryptedData, string iv)
+        {
+            var resultStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+            var entity = SerializerHelper.GetObject<DecodedPhoneNumber>(resultStr);
+            return entity;
+        }
+
+        /// <summary>
         /// 解密微信小程序运动步数
         /// 2019-04-02
         /// </summary>

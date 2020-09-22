@@ -10,6 +10,9 @@
 	修改标识：ringls - 20180912
     修改描述：添加 MemberUpdateRequest.new_userid 属性
 
+	修改标识：WangDrama - 20180912
+    修改描述：v3.7.603 添加 alias 属性
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member

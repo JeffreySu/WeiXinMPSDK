@@ -23,7 +23,10 @@
     修改描述：v3.7.502 GetMemberResult 补充二维码属性
 
     修改标识：Senparc - 2020825
-    修改描述：3.7.510.1 GetMemberResult 补充 open_userid、main_department（主部门）属性
+    修改描述：v3.7.510.1 GetMemberResult 补充 open_userid、main_department（主部门）属性
+
+    修改标识：WangDrama - 2020922
+    修改描述：v3.7.603 修改注释
 
 ----------------------------------------------------------------*/
 

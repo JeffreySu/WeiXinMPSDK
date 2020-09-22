@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20180728
 
+    修改标识：WangDrama - 20200922
+    修改描述：v3.7.603 企业微信通讯录模块， 更新（成员）实体新增别名，删除isleader ，新增is_leader_in_dept
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

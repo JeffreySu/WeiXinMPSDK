@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20180728
 
+    修改标识：WangDrama - 20200922
+    修改描述：v3.7.603 企业微信通讯录模块， 更新（成员）实体新增别名，删除isleader ，新增is_leader_in_dept
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -56,10 +59,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
         /// 邮箱。长度不超过64个字节，且为有效的email格式。企业内必须唯一，mobile/email二者不能同时为空
         /// </summary>
         public string email { get; set; }
+        ///// <summary>
+        ///// 上级字段，标识是否为上级。在审批等应用里可以用来标识上级审批人
+        ///// </summary>
+        //public int isleader { get; set; }
         /// <summary>
-        /// 上级字段，标识是否为上级。在审批等应用里可以用来标识上级审批人
+        /// 上级字段，个数必须和department一致，表示在所在的部门内是否为上级。
         /// </summary>
-        public int isleader { get; set; }
+        public int[] is_leader_in_dept { get; set; }
         /// <summary>
         /// 启用/禁用成员。1表示启用成员，0表示禁用成员
         /// </summary>
@@ -79,6 +86,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList.Member
         /// </summary>
         public Extattr extattr { get; set; }
 
+        /// <summary>
+        /// 地址。长度最大128个字符
+        /// </summary>
+        public string address { get; set; }
         /*
         /// <summary>
         /// 是否邀请该成员使用企业微信（将通过微信服务通知或短信或邮件下发邀请，每天自动下发一次，最多持续3个工作日），默认值为true。

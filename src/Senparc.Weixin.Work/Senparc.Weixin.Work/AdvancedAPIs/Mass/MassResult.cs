@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public Miniprogram_Notice miniprogram_notice { get; set; }
     }
 
-    public class SendTaskcardNoticeData
+    public class SendTaskCardNoticeData
     {
         public string touser { get; set; }
         public string toparty { get; set; }
@@ -33,12 +33,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
         public Taskcard_Notice taskcard { get; set; }
     }
 
-
-    public class UpdateTaskcardData
+    /// <summary>
+    /// 更新任务卡片消息状态 输入参数
+    /// </summary>
+    public class UpdateTaskCardData
     {
         public string[] userids { get; set; }
         public int agentid { get; set; }
         public string task_id { get; set; }
         public string clicked_key { get; set; }
+    }
+
+    /// <summary>
+    /// 更新任务卡片消息状态 返回结果
+    /// </summary>
+    public class UpdateTaskCardResultJson : WorkJsonResult
+    {
+        /// <summary>
+        /// 不区分大小写，返回的列表都统一转为小写
+        /// </summary>
+        public string[] invaliduser { get; set; }
     }
 }

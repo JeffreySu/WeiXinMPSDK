@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,9 +19,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
-    文件名：SubscribeMsgTempleteModel.cs
+    文件名：SubscribeMsgTemplateModel.cs
     文件功能描述：模板消息接口需要的数据
     
     
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     /// <summary>
     /// 一次性订阅消息模板
     /// </summary>
-    public class SubscribeMsgTempleteModel: TempleteModel
+    public class SubscribeMsgTemplateModel: TemplateModel
     {
         /// <summary>
         /// 消息标题，15字以内
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// </summary>
         public string scene { get; set; }
 
-        public SubscribeMsgTempleteModel() : base()
+        public SubscribeMsgTemplateModel() : base()
         {
         }
     }

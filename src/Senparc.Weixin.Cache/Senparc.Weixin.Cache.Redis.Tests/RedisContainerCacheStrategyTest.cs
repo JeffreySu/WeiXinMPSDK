@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Containers;
+using Senparc.WeixinTests;
 using System;
 
 namespace Senparc.Weixin.Cache.Redis.Tests
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     }
 
     [TestClass]
-    public class RedisContainerCacheStrategyTest
+    public class RedisContainerCacheStrategyTest : BaseTest
     {
         private IContainerCacheStrategy containerCache;
         private IBaseObjectCacheStrategy baseCache;
@@ -65,18 +66,22 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         public void InsertToCacheTest()
         {
             //调整测试的缓存策略
-            containerCache = LocalContainerCacheStrategy.Instance;
+            //containerCache =  LocalContainerCacheStrategy.Instance;
 
             var key = Guid.NewGuid().ToString();
+            Console.WriteLine("Key：" + key);
             var count = baseCache.GetCount();
             Console.WriteLine("count:" + count);
 
-
-            baseCache.Set(key, new TestContainerBag1()
+            var contanerBag = new TestContainerBag1()
             {
+                Key = key,
                 DateTime = SystemTime.Now,
                 Name = "Jeffrey"
-            });
+            };
+
+            containerCache.UpdateContainerBag(key, contanerBag,TimeSpan.FromMinutes(10));
+            //baseCache.Set(key, contanerBag);
 
             var item = containerCache.GetContainerBag<TestContainerBag1>(key);
             Assert.IsNotNull(item);
@@ -88,13 +93,14 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             var count2 = baseCache.GetCount();
             Console.WriteLine("count2:" + count2);
 
-            if (containerCache is RedisContainerCacheStrategy)
+            if (containerCache is RedisHashSetContainerCacheStrategy)
             {
                 Console.WriteLine("Redis Cache");
                 Assert.AreEqual(count, count2);//目前Redis缓存使用HashSet，反复测试不会发生变化，第一次会有变化
             }
             else
             {
+                //RedisContainerCacheStrategy
                 Console.WriteLine(containerCache.GetType() + " Cache");
                 Assert.AreEqual(count + 1, count2);
             }

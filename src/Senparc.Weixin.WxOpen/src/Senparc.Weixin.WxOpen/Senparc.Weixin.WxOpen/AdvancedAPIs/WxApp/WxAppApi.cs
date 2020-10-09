@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：WxAppApi.cs
     文件功能描述：小程序WxApp目录下面的接口
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                Post.Download(url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream);
 
                 return new WxJsonResult()
                 {
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                Post.Download(url, SerializerHelper.GetJsonString(data), stream);
+                Post.Download(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data), stream);
 
                 return new WxJsonResult()
                 {
@@ -435,7 +435,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut);
+                return CO2NET.HttpUtility.Post.PostFileGetJson<WxJsonResult>(CommonDI.CommonSP, url, fileDictionary: fileDic, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -575,6 +575,53 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionid", true)]
+        public static WxJsonResult GetPaidUnionid(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        openid = openId,
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        openid = openId,
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+
         #endregion
 
 
@@ -642,7 +689,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { scene = scene, page = page, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
+                await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -712,7 +759,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
                 var data = new { path = path, width = width, line_color = lineColor, is_hyaline = isHyaline };
                 JsonSetting jsonSetting = new JsonSetting(true);
-                await CO2NET.HttpUtility.Post.DownloadAsync(url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
+                await CO2NET.HttpUtility.Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data, jsonSetting), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -740,7 +787,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = string.Format(urlFormat, accessToken);
 
                 var data = new { path = path, width = width };
-                await Post.DownloadAsync(url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
+                await Post.DownloadAsync(CommonDI.CommonSP, url, SerializerHelper.GetJsonString(data), stream).ConfigureAwait(false);
 
                 return new WxJsonResult()
                 {
@@ -950,7 +997,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP,url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -1089,6 +1136,53 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 支付后获取用户 Unionid 接口
+        /// 注意：调用前需要用户完成支付，且在支付后的五分钟内有效。
+        /// 支持两种查询方式，微信订单号入参时，商户号与商户订单号可为空，反之同理
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&transaction_id=TRANSACTION_ID
+        /// https://api.weixin.qq.com/wxa/getpaidunionid?access_token=ACCESS_TOKEN&openid=OPENID&mch_id=MCH_ID&out_trade_no=OUT_TRADE_NO
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">支付用户唯一标识</param>
+        /// <param name="transaction_id">微信支付订单号</param>
+        /// <param name="mch_id">微信支付分配的商户号，和商户订单号配合使用</param>
+        /// <param name="out_trade_no">微信支付商户订单号，和商户号配合使用</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetPaidUnionidAsync", true)]
+        public static async Task<WxJsonResult> GetPaidUnionidAsync(string accessTokenOrAppId, string openId, string transaction_id, string mch_id = "", string out_trade_no = "", int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getpaidunionid?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
+
+                object data;
+                if (string.IsNullOrWhiteSpace(transaction_id))
+                {
+                    data = new
+                    {
+                        openid = openId,
+                        mch_id = mch_id,
+                        out_trade_no = out_trade_no
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        openid = openId,
+                        transaction_id = transaction_id
+                    };
+                }
+
+                return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
+
 
         #endregion
     }

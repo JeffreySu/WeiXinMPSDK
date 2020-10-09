@@ -18,8 +18,13 @@ App({
       // wx.setStorageSync('domainName', "http://localhost:58936")
       // wx.setStorageSync('wssDomainName', "ws://localhost:58936")
 
-      wx.setStorageSync('domainName', "http://localhost:58936/VirtualPath")
-      wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
+      //使用.NET Core 2.2 Sample（Senparc.Weixin.MP.Sample.vs2017.sln）配置：
+      // wx.setStorageSync('domainName', "http://localhost:58936/VirtualPath")
+      // wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
+
+      //使用 .NET Core 3.0 Samole（Senparc.Weixin.Sample.NetCore3.vs2019.sln）配置：
+      wx.setStorageSync('domainName', "https://localhost:44381")
+      wx.setStorageSync('wssDomainName', "wss://localhost:44381")
     }
 
     // 打开调试

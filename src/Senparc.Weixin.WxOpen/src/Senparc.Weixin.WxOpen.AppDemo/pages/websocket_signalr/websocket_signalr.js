@@ -1,5 +1,5 @@
 var signalR = require("../../utils/signalr.1.0.js")
-var senparcWebsocket = require("../../utils/senparc.websocket.js")
+var senparcWebsocket = require("../../utils/senparc.websocket.2.0.js")
 
 var connection;// Signalr 连接
 var app = getApp()

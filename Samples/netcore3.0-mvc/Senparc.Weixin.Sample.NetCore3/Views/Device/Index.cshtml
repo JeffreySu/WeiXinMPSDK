@@ -1,0 +1,353 @@
+﻿@*@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>设备对接能力测试（蓝牙）</title>
+    <script src="https://lib.sinaapp.com/js/jquery/1.10.2/jquery-1.10.2.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+
+        //wx.ready(function () {
+        //    //初始化设备库
+        //    wx.invoke('openWXDeviceLib', { 'connType': 'blue' }, function (res) {
+        //        console.log('openWXDeviceLib', res);
+        //        alert(res.err_msg);
+        //    });
+        //    //关闭设备库
+        //    wx.invoke('closeWXDeviceLib', { 'connType': 'lan' }, function (res) {
+        //        alert('closeWXDeviceLib', res);
+        //    });
+
+        //    //获取设备信息
+        //    wx.invoke('getWXDeviceInfos', { 'connType': 'blue' }, function (res) {
+        //        alert('getWXDeviceInfos', res);
+        //    });
+        //});
+        //$('.deviceItem').click(function (deviceId) {
+        //    // 发送数据给设备
+        //    wx.invoke('connectWXDevice', { 'deviceId': deviceId, 'connType': 'blue' }, function (res) {
+        //        console.log('connectWXDevice', res);
+        //    });
+        //});
+
+        //$('#open').click(function () {
+
+
+        //});
+        //$('#close').click(function () {
+
+
+        //});
+        //function sendCommand(state, deviceId) {
+        //    var data;
+        //    switch (state) {
+        //        case 'open':
+        //            data = 'xxx1';
+        //            break;
+        //        case 'close':
+        //            data = 'xxx2';
+        //            break;
+        //        default:
+        //    }
+        //    alert(data);
+        //    wx.invoke('sendDataToWXDevice', { 'deviceId': connectedDeviceInfo.deviceId, 'connType': 'blue', 'base64Data': data }, function (res) {
+        //        console.log('sendDataToWXDevice', res);
+        //        alert(res);
+        //    });
+
+        //}
+        //初始化库结束
+        //点击获取设备按钮的函数 开始
+        $(function() {
+            loadXMLDoc();
+            var connectedDeviceInfo;
+            wx.ready(function() {
+                //初始化设备库
+                wx.invoke('openWXDeviceLib',
+                    { 'connType': 'blue' },
+                    function(res) {
+                        console.log('openWXDeviceLib', res);
+                        my_openWXDeviceLib(res);
+                    });
+
+                //事件绑定
+
+                wx.invoke('onWXDeviceBindStateChange',
+                    function(res) {
+                        mlog('微信客户端设备绑定状态改变事件:' + JSON.stringify(res));
+                    });
+
+
+                wx.invoke('onWXDeviceStateChange',
+                    function(res) {
+                        mlog('设备连接状态变化:' + JSON.stringify(res));
+                    });
+
+                wx.invoke('onWXDeviceBluetoothStateChange',
+                    function(res) {
+                        mlog('手机蓝牙状态改变:' + JSON.stringify(res));
+                    });
+
+            });
+
+            $("#connectWXDevice").on("click",
+                function(e) {
+                    //连接设备
+
+                    wx.invoke('connectWXDevice',
+                        { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId },
+                        function(res) {
+                            mlog("连接设备返回结果：" + JSON.stringify(res));
+                        });
+                });
+
+            $("#disconnectWXDevice").on("click",
+                function(e) {
+                    //关闭设备连接
+                    wx.invoke('disconnectWXDevice',
+                        { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId },
+                        function(res) {
+                            mlog("连接设备返回结果：" + JSON.stringify(res));
+                        });
+                });
+
+
+            $("#CallGetWXrefresh").on("click",
+                function(e) {
+                    //获取设备信息
+                    wx.invoke('getWXDeviceInfos',
+                        { 'connType': 'blue' },
+                        function(res) {
+                            mlog("获取设备信息返回：" + JSON.stringify(res));
+                            mlog("获取设备信息：" + res.deviceInfos);
+                            connectedDeviceInfo = res.deviceInfos[0];
+                        });
+
+                });
+
+            $("#getWXDeviceTicket").on("click",
+                function(e) {
+
+                    //获取操作凭证
+                    var type = $("#type").val();
+                    alert(type);
+                    wx.invoke('getWXDeviceTicket',
+                        { 'deviceId': connectedDeviceInfo.deviceId, 'type': type, 'connType': 'blue' },
+                        function(res) {
+                            mlog("获取操作凭证返回结果：" + JSON.stringify(res));
+                        });
+
+                });
+
+
+            $('#CallCloseWXrefresh').on("click",
+                function(e) {
+                    //2. 关闭微信设备
+                    wx.invoke('closeWXDeviceLib',
+                        { 'connType': 'blue' },
+                        function(res) {
+                            console.log('closeWXDeviceLib', res);
+                            mlog("关闭设备返回：" + res.err_msg);
+                        });
+                });
+            $('#CallSendWXData').on("click",
+                function(e) {
+                    //3.发送数据给设备
+                    wx.invoke('sendDataToWXDevice',
+                        {
+                            'deviceId': connectedDeviceInfo.deviceId,
+                            'connType': 'blue',
+                            'base64Data': 'aGVsbG93b3JsZA=='
+                        },
+                        function(res) {
+                            console.log('sendDataToWXDevice', res);
+                            mlog("关闭设备返回：" + res.err_msg);
+                        });
+                });
+
+            //更新设备接口
+            @*$("#updateDevice").on("click",
+                function(e) {
+                    $.post("https://api.weixin.qq.com/device/authorize_device?access_token=" +
+                        '@TempData["AccessToken"]',
+                        {
+                            device_num: 1,
+                            device_list: [
+                                {
+                                    id: 38424,
+                                    mac: 'A81B6AAA0F12',
+                                    connect_protocol: 3,
+                                    auth_key: "",
+                                    close_strategy: 1,
+                                    conn_strategy: 1,
+                                    crypt_method: 0,
+                                    auth_ver: 0,
+                                    manu_mac_pos: -1,
+                                    ser_mac_pos: -2,
+                                    ble_simple_protocol: 1
+                                }
+                            ],
+                            op_type: 1
+                        },
+                        function(data) {
+                            //回调函数中对返回值进行一系列操作
+                            alert(data);
+                        });
+                });*@
+        });
+
+        //初始化 微信硬件jsapi库
+        function loadXMLDoc() {
+            var appId = jQuery("#appId").text();
+            var timestamp = jQuery("#timestamp").text();
+            var nonceStr = jQuery("#nonceStr").text();
+            var signature = jQuery("#signature").text();
+            wx.config({
+                  beta: true,
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    @*appId: '@Model.AppId', // 必填，公众号的唯一标识
+                    timestamp: '@Model.Timestamp', // 必填，生成签名的时间戳
+                    nonceStr: '@Model.NonceStr', // 必填，生成签名的随机串
+                    signature: '@Model.Signature',// 必填，签名*@
+                jsApiList: [
+                    'openWXDeviceLib',
+                    'closeWXDeviceLib',
+                    'getWXDeviceInfos',
+                    'getWXDeviceBindTicket',
+                    'getWXDeviceUnbindTicket',
+                    'startScanWXDevice',
+                    'stopScanWXDevice',
+                    'connectWXDevice',
+                    'disconnectWXDevice',
+                    'sendDataToWXDevice',
+                    'onWXDeviceBindStateChange',
+                    'onWXDeviceStateChange',
+                    'onScanWXDeviceResult',
+                    'onReceiveDataFromWXDevice',
+                    'onWXDeviceBluetoothStateChange',
+                ]
+            });
+            //alert("初始化库结束");
+        }
+
+        function my_openWXDeviceLib(res) {
+                    var x = 0;
+                    mlog("打开设备返回：" + res.err_msg);
+                    if (res.err_msg == 'openWXDeviceLib:ok') {
+                        if (res.bluetoothState == 'off') {
+                            mlog("未开启蓝牙", "亲,使用前请先打开手机蓝牙！");
+                            $("#lbInfo").innerHTML = "1.请打开手机蓝牙";
+                            $("#lbInfo").css({ color: "red" });
+                            x = 1;
+                            //isOver();
+                        };
+                        if (res.bluetoothState == 'unauthorized') {
+                            mlog("出错啦", "亲,请授权微信蓝牙功能并打开蓝牙！");
+                            $("#lbInfo").html("1.请授权蓝牙功能");
+                            $("#lbInfo").css({ color: "red" });
+                            x = 1;
+                            //isOver();
+                        };
+                        if (res.bluetoothState == 'on') {
+                            //mlog("太着急啦","亲,请查看您的设备是否打开！");
+                            $("#lbInfo").html("1.蓝牙已打开,未找到设备");
+                            $("#lbInfo").css({ color: "red" });
+                            //$("#lbInfo").attr(("style", "background-color:#000");
+                            x = 0;
+                            //isOver();
+                        };
+                    }
+                    else {
+                        $("#lbInfo").html("1.微信蓝牙打开失败");
+                        x = 1;
+                        mlog("微信蓝牙状态", "亲,请授权微信蓝牙功能并打开蓝牙！");
+                    }
+
+
+            return x;  //0表示成功 1表示失败
+        }
+        //打印日志
+        function mlog(m) {
+            var log = $('#logtext').html();
+            log=log+m+'\r\n';
+            //log = m;
+            $('#logtext').html(log);
+        }
+
+        /***************************************************************
+         * 显示提示信息
+        ***************************************************************/
+    </script>
+</head>
+<body>
+    <h2 style="color: white;background-color: green;text-align: center;background-position: center;">蓝牙设备</h2>
+    <div class="page">
+        <div class="bd spacing">
+            <div class="weui_cells weui_cells_form">
+
+                @*<div class="weui_cell">
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">当前设备:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbdeviceid" class="weui_label" style="width: auto;"></label>
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">状态信息:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbInfo" class="weui_label" style="width: auto;"></label>
+                        </div>
+                    </div>*@
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">操作日志:  </label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <textarea id="logtext" class="weui_textarea" placeholder="日志" style="width:100%;height:200px;"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="weui_btn_area weui">
+
+                <button class="weui_btn weui_btn weui_btn_warn" id="CallGetWXrefresh">获取设备</button><br>
+
+            </div>
+            <div class="weui_btn_area weui">
+
+                <button class="weui_btn weui_btn weui_btn_warn" id="connectWXDevice">连接设备</button><br>
+
+            </div>
+            <div class="weui_btn_area weui">
+
+                <button class="weui_btn weui_btn weui_btn_warn" id="disconnectWXDevice">断开连接</button><br>
+
+            </div>
+            <div class="weui_btn_area weui">
+                <button class="weui_btn weui_btn weui_btn_warn" id="CallCloseWXrefresh">关闭设备</button><br>
+            </div>
+            <div class="weui_btn_area weui">
+                <select id="type">
+                    <option value="1">绑定设备</option>
+                    <option value="2">解绑设备</option>
+                </select>
+                <button class="weui_btn weui_btn weui_btn_warn" id="getWXDeviceTicket">获取凭证</button><br>
+            </div>
+            <div class="weui_btn_area weui">
+
+                <button class="weui_btn weui_btn weui_btn_warn" id="CallSendWXData">发送数据</button><br>
+
+            </div>
+            <div>
+                <button class="weui_btn weui_btn weui_btn_warn" id="updateDevice">更新设备</button><br>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -110,6 +110,10 @@
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleApi.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\AddScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\GetScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\Schedule.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Change_Contact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ExternalContact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />
@@ -212,11 +217,16 @@
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Entities\Response\WorkResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\WorkResponseMessageUnknownType.cs" />
+    <Compile Include="Entities\Response\WorkSuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
+    <Compile Include="MessageContext\DefaultWorkMessageContext.cs" />
+    <Compile Include="MessageHandlers\Async\WorkMessageHandler.Async.cs" />
+    <Compile Include="MessageHandlers\Middleware\WorkMessageHandlerMiddleware.cs" />
     <Compile Include="MessageHandlers\WorkMessageEntityEnlightener.cs" />
     <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,10 +254,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>0.8.9</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
-      <Version>0.7.5</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

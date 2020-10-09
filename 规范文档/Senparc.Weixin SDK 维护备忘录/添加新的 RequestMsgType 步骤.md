@@ -14,6 +14,8 @@ MP项目为例：
         break;
 ```
 
+> 新版本中，使用了 Senparc.NeuChar，需要结合 NeuChar 修改。
+
 4. MessageHandler.cs 或 MessageHandler.Event.cs 或 MessageHandler.Message.cs 中，添加对应 OnXX()事件，如：
 
 ``` C#
@@ -54,5 +56,12 @@ MP项目为例：
         case RequestMsgType.File:
             ResponseMessage = await OnFileRequestAsync(RequestMessage as RequestMessageFile);
             break;
+```
 
+8. 在 DefaultXXMessageContext.cs 中，GetRequestEntityMappingResult() 方法内，添加对应类型的 switch 判断，如：
+
+``` C#
+        case RequestMsgType.Text:
+            requestMessage = new RequestMessageText();
+            break;
 ```

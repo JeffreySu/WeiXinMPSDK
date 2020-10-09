@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：MessageHandlerAsync.cs
     文件功能描述：微信请求【异步方法】的集中处理方法
@@ -27,25 +27,24 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20180122
    
+    
+    修改标识：Senparc - 20191003
+    修改描述：优化 DefaultAsyncMethod 
+    
 ----------------------------------------------------------------*/
 
 
-using System;
-using System.IO;
-using System.Xml.Linq;
-using Senparc.NeuChar.Context;
-using Senparc.Weixin.Exceptions;
-using Senparc.NeuChar.MessageHandlers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
-using System.Threading.Tasks;
-using Senparc.NeuChar;
-using System.Collections.Generic;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Trace;
+using Senparc.NeuChar;
+using Senparc.NeuChar.Context;
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.MessageHandlers;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.Entities;
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -55,9 +54,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract partial class MessageHandler<TC> :
-        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
-        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+    public abstract partial class MessageHandler<TMC> :
+        MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TMC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
@@ -67,9 +66,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         private async Task<IResponseMessageBase> DefaultAsyncMethod(IRequestMessageBase requestMessage, Func<IResponseMessageBase> syncMethod)
         {
-            return (base.DefaultMessageHandlerAsyncEvent == DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync
-                            ? await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false)
-                            : await Task.Run(syncMethod).ConfigureAwait(false));
+            switch (base.DefaultMessageHandlerAsyncEvent)
+            {
+                case DefaultMessageHandlerAsyncEvent.DefaultResponseMessageAsync:
+                    //返回默认信息
+                    return await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false);
+                case DefaultMessageHandlerAsyncEvent.SelfSynicMethod:
+                    //返回同步信息
+                    return await Task.Run(syncMethod).ConfigureAwait(false);
+                default:
+                    throw new MessageHandlerException($"DefaultMessageHandlerAsyncEvent 类型未作处理：{base.DefaultMessageHandlerAsyncEvent.ToString()}");
+            }
         }
 
         /// <summary>
@@ -88,9 +95,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         try
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId).ConfigureAwait(false)
-                                ?? ((await (OnTextOrEventRequestAsync(requestMessage)).ConfigureAwait(false)
-                                ?? (await OnTextRequestAsync(requestMessage).ConfigureAwait(false))));
+                            ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(requestMessage, this, weixinAppId).ConfigureAwait(false)
+                                               ?? (await OnTextOrEventRequestAsync(requestMessage).ConfigureAwait(false)))
+                                                   ?? (await OnTextRequestAsync(requestMessage).ConfigureAwait(false));
                         }
                         catch (Exception ex)
                         {
@@ -103,7 +110,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 case RequestMsgType.Image:
                     //WeixinTrace.SendCustomLog("NeuChar Image", $"appid:{weixinAppId}");
-                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
+                    ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false)
+                                            ?? await OnImageRequestAsync(RequestMessage as RequestMessageImage).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Voice:
                     ResponseMessage = await OnVoiceRequestAsync(RequestMessage as RequestMessageVoice).ConfigureAwait(false);
@@ -124,14 +132,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     ResponseMessage = await OnNeuCharRequestAsync(RequestMessage as RequestMessageNeuChar).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Unknown:
+                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessageDocument：" + ResponseDocument?.ToString());
+                    Weixin.WeixinTrace.SendCustomLog("RequestMsgType.Unknown调试", "RequestMessage：" + RequestMessage?.ToJson(true));
+
                     ResponseMessage = await OnUnknownTypeRequestAsync(RequestMessage as RequestMessageUnknownType).ConfigureAwait(false);
                     break;
                 case RequestMsgType.Event:
                     {
                         var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
-                                            await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false) ??
-                                                (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
+                        ResponseMessage = (await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false)
+                                           ?? await OnTextOrEventRequestAsync(requestMessageText).ConfigureAwait(false))
+                                              ?? (await OnEventRequestAsync(RequestMessage as IRequestMessageEventBase).ConfigureAwait(false));
                     }
                     break;
 
@@ -150,40 +161,30 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public override async Task OnExecutingAsync(CancellationToken cancellationToken)
         {
-            //已放入Init()方法中
-            //#region 消息去重
+            /* 
+            * 此处原消息去重逻辑已经转移到 基类CommonInitialize() 方法中（执行完 Init() 方法之后进行判断）。
+            * 原因是插入RequestMessage过程发生在Init中，从Init执行到此处的时间内，
+            * 如果有新消息加入，将导致去重算法失效。
+            * （当然这样情况发生的概率极低，一般只在测试中会发生，
+            * 为了确保各种测试环境下的可靠性，作此修改。  —— Jeffrey Su 2018.1.23
+            */
 
-            //if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
-            //&& OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
-            ////&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
-            //)
-            //{
-            //    var currentIndex = CurrentMessageContext.RequestMessages.FindLastIndex(z=>z.)
-
-
-            //    var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-
-            //    if (
-            //        //使用MsgId去重
-            //        (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
-            //        //使用CreateTime去重（OpenId对象已经是同一个）
-            //        || (lastMessage.MsgId == RequestMessage.MsgId
-            //            && lastMessage.CreateTime == RequestMessage.CreateTime
-            //            && lastMessage.MsgType == RequestMessage.MsgType)
-            //        )
-            //    {
-            //        CancelExcute = true;//重复消息，取消执行
-            //        MessageIsRepeated = true;
-            //        return;
-            //    }
-            //}
+            /* 
+            * 已经启用以异步方法优先的策略，将原有 OnExecuting() 方法在此处执行  —— Jeffrey Su 20191004
+            */
 
             //#endregion
+            if (CancelExcute)
+            {
+                return;
+            }
 
             await base.OnExecutingAsync(cancellationToken).ConfigureAwait(false);
 
+            var currentMessageContext = await GetCurrentMessageContext().ConfigureAwait(false);
+
             //判断是否已经接入开发者信息
-            if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
+            if (DeveloperInfo != null || currentMessageContext.AppStoreState == AppStoreState.Enter)
             {
                 //优先请求云端应用商店资源
             }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CodeApi.cs
     文件功能描述：代码管理
@@ -32,6 +32,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190525
     修改描述：v4.5.4.1 GetAuditStatusResultJson 改名为 GetAuditResultJson，保持全局命名唯一性
+
+    修改标识：Senparc - 20190529
+    修改描述：v4.7.101 添加“开放平台-代码管理-加急审核”接口：CodeApi.SpeedupAudit()
+
+    修改标识：Senparc - 20191030
+    修改描述：v4.7.102.1 修改 GetAuditStatus() 方法 auditid 参数类型（int -> long)
+
+    修改标识：mc7246 - 20200318
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
+
+    修改标识：mc7246 - 20200810
+    修改描述：v4.7.401 第三方小程序，提交审核接口更新
 
 ----------------------------------------------------------------*/
 
@@ -46,6 +58,7 @@ using Senparc.CO2NET.HttpUtility;
 using System.IO;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
@@ -90,7 +103,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
-            Get.Download(url, stream);
+            Get.Download(CommonDI.CommonSP, url, stream);
             return new CodeResultJson()
             {
                 errcode = ReturnCode.请求成功
@@ -129,12 +142,18 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
         /// <summary>
         /// 将第三方提交的代码包提交审核
+        /// 注意：只有上个版本被驳回，才能使用 feedback_info、feedback_stuff 这两个字段，否则忽略处理。
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="item_list">审核项列表（选填，至多填写 5 项）</param>
+        /// <param name="preview_info">预览信息（小程序页面截图和操作录屏）</param>
+        /// <param name="version_desc">小程序版本说明和功能解释</param>
+        /// <param name="feedback_info">反馈内容，至多 200 字</param>
+        /// <param name="feedback_stuff">用 | 分割的 media_id 列表，至多 5 张图片, 可以通过新增临时素材接口上传而得到</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SubmitAudit", true)]
-        public static GetAuditResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo>  item_list, int timeOut = Config.TIME_OUT)
+        public static GetAuditResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo> item_list, SubmitAuditPreviewInfo preview_info, string version_desc = "", string feedback_info = "", string feedback_stuff = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
 
@@ -142,7 +161,10 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             data = new
             {
-                item_list = item_list
+                item_list = item_list,
+                feedback_info = feedback_info,
+                feedback_stuff = feedback_stuff,
+                preview_info = preview_info
             };
 
             return CommonJsonSend.Send<GetAuditResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -156,7 +178,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetAuditStatus", true)]
-        public static GetAuditResultJson GetAuditStatus(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        public static GetAuditResultJson GetAuditStatus(string accessToken, long auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
 
@@ -183,6 +205,22 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return CommonJsonSend.Send<GetAuditResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
+		
+        /// <summary>
+        /// 小程序审核撤回
+        /// 注意：单个帐号每天审核撤回次数最多不超过 1 次，一个月不超过 10 次
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAudit", true)]
+        public static CodeResultJson UndoCodeAudit(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
+            object data = new { };
+            return CommonJsonSend.Send<CodeResultJson>(null, url, data, CommonJsonSendType.GET, timeOut);
+        }
+		
         /// <summary>
         /// 发布已通过审核的小程序
         /// </summary>
@@ -318,6 +356,42 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return CommonJsonSend.Send<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
+
+        /// <summary>
+        /// 查询服务商的当月提审限额（quota）和加急次数
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuota", true)]
+        public static QueryQuotaResultJson QueryQuota(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
+
+            object data = new { };
+
+            return CommonJsonSend.Send<QueryQuotaResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 加急审核申请
+        /// 有加急次数的第三方可以通过该接口，对已经提审的小程序进行加急操作，加急后的小程序预计2-12小时内审完。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="auditid">审核单ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAudit", true)]
+        public static WxJsonResult SpeedupAudit(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());
+
+            object data = new {
+                auditid = auditid
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
         #endregion
 
 
@@ -360,7 +434,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
 
-            await Get.DownloadAsync(url, stream).ConfigureAwait(false);
+            await Get.DownloadAsync(CommonDI.CommonSP,url, stream).ConfigureAwait(false);
             return new CodeResultJson()
             {
                 errcode = ReturnCode.请求成功
@@ -400,12 +474,18 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
         /// <summary>
         /// 将第三方提交的代码包提交审核
+        /// 注意：只有上个版本被驳回，才能使用 feedback_info、feedback_stuff 这两个字段，否则忽略处理。
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="item_list">审核项列表（选填，至多填写 5 项）</param>
+        /// <param name="preview_info">预览信息（小程序页面截图和操作录屏）</param>
+        /// <param name="version_desc">小程序版本说明和功能解释</param>
+        /// <param name="feedback_info">反馈内容，至多 200 字</param>
+        /// <param name="feedback_stuff">用 | 分割的 media_id 列表，至多 5 张图片, 可以通过新增临时素材接口上传而得到</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SubmitAuditAsync", true)]
-        public static async Task<GetAuditResultJson> SubmitAuditAsync(string accessToken, List<SubmitAuditPageInfo> item_list, int timeOut = Config.TIME_OUT)
+        public static async Task<GetAuditResultJson> SubmitAuditAsync(string accessToken, List<SubmitAuditPageInfo> item_list, SubmitAuditPreviewInfo preview_info, string version_desc = "", string feedback_info = "", string feedback_stuff = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
 
@@ -413,11 +493,15 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             data = new
             {
-                item_list = item_list
+                item_list = item_list,
+                feedback_info = feedback_info,
+                feedback_stuff = feedback_stuff,
+                preview_info = preview_info
             };
 
             return await CommonJsonSend.SendAsync<GetAuditResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
+
 
         /// <summary>
         /// 查询某个指定版本的审核状态
@@ -427,7 +511,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetAuditStatusAsync", true)]
-        public static async Task<GetAuditResultJson> GetAuditStatusAsync(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        public static async Task<GetAuditResultJson> GetAuditStatusAsync(string accessToken, long auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
 
@@ -461,6 +545,22 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
             return await CommonJsonSend.SendAsync<GetAuditResultJson>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
         }
+		
+        /// <summary>
+        /// 小程序审核撤回
+        /// 注意：单个帐号每天审核撤回次数最多不超过 1 次，一个月不超过 10 次
+        /// </summary>
+        /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAuditAsync", true)]
+        public static async Task<CodeResultJson> UndoCodeAuditAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
+            object data = new { };
+            return await CommonJsonSend.SendAsync<CodeResultJson>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+        }
+		
         /// <summary>
         /// 发布已通过审核的小程序
         /// </summary>
@@ -594,6 +694,41 @@ namespace Senparc.Weixin.Open.WxaAPIs
             var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
 
             return await CommonJsonSend.SendAsync<GetGrayReleasePlanResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 查询服务商的当月提审限额（quota）和加急次数
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuotaAsync", true)]
+        public static async Task<QueryQuotaResultJson> QueryQuotaAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
+
+            object data = new { };
+
+            return await CommonJsonSend.SendAsync<QueryQuotaResultJson>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 加急审核申请
+        /// 有加急次数的第三方可以通过该接口，对已经提审的小程序进行加急操作，加急后的小程序预计2-12小时内审完。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="auditid">审核单ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAuditAsync", true)]
+        public static async Task<WxJsonResult> SpeedupAuditAsync(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());
+
+            object data = new
+            {
+                auditid = auditid
+            };
+
+            return await CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
         }
         #endregion
     }

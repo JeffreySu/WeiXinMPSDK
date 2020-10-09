@@ -100,21 +100,9 @@
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
-      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
-      <Name>Senparc.Weixin.Cache.Redis</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.csproj">
       <Project>{232a67f2-cd89-4a20-8da9-daed76412b33}</Project>
       <Name>Senparc.WeixinTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
-      <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
-      <Name>Senparc.Weixin.Open</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

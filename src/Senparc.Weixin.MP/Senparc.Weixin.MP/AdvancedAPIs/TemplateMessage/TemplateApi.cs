@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：TemplateAPI.cs
     文件功能描述：模板消息接口
@@ -102,14 +102,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessage", true)]
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, TemplateModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             //文档：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1500374289_66bvB
 
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessage", true)]
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TemplateModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return SendTemplateMessage(accessTokenOrAppId, openId, templateMessageData.TemplateId,
                 templateMessageData.Url, templateMessageData, miniProgram, timeOut);
@@ -260,7 +260,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
-                var msgData = new SubscribeMsgTempleteModel()
+                var msgData = new SubscribeMsgTemplateModel()
                 {
                     touser = toUserOpenId,
                     template_id = templateId,
@@ -291,12 +291,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>        /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessageAsync", true)]
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, TemplateModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/send?access_token={0}";
-                var msgData = new TempleteModel()
+                var msgData = new TemplateModel()
                 {
                     touser = openId,
                     template_id = templateId,
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "TemplateApi.SendTemplateMessageAsync", true)]
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TemplateModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
                 templateMessageData.Url, templateMessageData, miniProgram, timeOut).ConfigureAwait(false);
@@ -450,7 +450,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 string urlFormat = Config.ApiMpHost + "/cgi-bin/message/template/subscribe?access_token={0}";
 
-                var msgData = new SubscribeMsgTempleteModel()
+                var msgData = new SubscribeMsgTemplateModel()
                 {
                     touser = toUserOpenId,
                     template_id = templateId,

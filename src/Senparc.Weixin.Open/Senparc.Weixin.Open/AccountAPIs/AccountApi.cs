@@ -1,15 +1,10 @@
 ﻿using Senparc.CO2NET.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.AccountAPIs.AccountBasicInfoJson;
 using Senparc.Weixin.Open.AccountAPIs.FastRegisterJson;
-using Senparc.Weixin.Open.MpAPIs.Open;
-using Senparc.NeuChar;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.AccountAPIs
 {
@@ -56,7 +51,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static FastRegisterJsonResult FastRegister(string accessToken, string ticket)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/fastregister?access_token={accessToken.AsUrlData()}";
-            var data = new {ticket = ticket};
+            var data = new { ticket = ticket };
             return CommonJsonSend.Send<FastRegisterJsonResult>(null, url, data);
         }
 
@@ -140,7 +135,7 @@ namespace Senparc.Weixin.Open.AccountAPIs
         public static WxJsonResult ComponentRebindAdmin(string accessToken, string taskid)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/account/componentrebindadmin?access_token={accessToken.AsUrlData()}";
-            var data = new {taskid = taskid};
+            var data = new { taskid = taskid };
             return CommonJsonSend.Send<WxJsonResult>(null, url, data);
         }
 

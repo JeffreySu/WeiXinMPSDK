@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：ApiHandlerWapperBase.cs
     文件功能描述：提供ApiHandlerWapper的公共基础方法
@@ -42,6 +42,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190606
     修改描述：v6.4.8 TryCommonApiBase<T> 中 T 参数添加 new() 约束
+    
+    修改标识：Senparc - 20191206
+    修改描述：v6.6.104.1 优化 ApiHandlerWapperBase.TryCommonApiBaseAsync() 方法，统一使用 accessToken 参数进行容错重试
+
+    修改标识：WangDrama - 20200430
+    修改描述：v6.7.502 新增企业微信状态码转换失败判断
 
 ----------------------------------------------------------------*/
 using System;
@@ -89,6 +95,10 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             {
                 (result as WxJsonResult).errcode = jsonResult.errcode;
             }
+            else if (result is WorkJsonResult)
+            {
+                (result as WorkJsonResult).errcode = (ReturnCode_Work)jsonResult.ErrorCodeValue;
+            }
             return result;
         }
 
@@ -104,7 +114,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetAccessTokenResultFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResult(appId)方法</param>
         /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
         public static T TryCommonApiBase<T>(
@@ -258,7 +268,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="accessTokenContainer_GetAccessTokenResultAsyncFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResultAsync(appId)方法（异步方法）</param>
         /// <param name="invalidCredentialValue">"ReturnCode.获取access_token时AppSecret错误或者access_token无效"枚举的值</param>
         /// <param name="fun"></param>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">公众号、小程序中的 AppId，或企业微信中的 AppKey（由AppId+AppSecret组成）</param>
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
         public static async Task<T> TryCommonApiBaseAsync<T>(
@@ -358,7 +368,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                                 accessTokenContainer_CheckRegisteredAsyncFunc,
                                 accessTokenContainer_GetAccessTokenResultAsyncFunc,
                                 invalidCredentialValue,
-                                fun, appId, false).ConfigureAwait(false);
+                                fun, accessToken, false).ConfigureAwait(false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }
                 else

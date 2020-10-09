@@ -148,8 +148,11 @@
     <Compile Include="Containers\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelperTests.cs" />
+    <Compile Include="MessageHandlers\MessageHandlersTest.NeuChar.MessageHandlerNode.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlersTest.Event.cs" />
+    <Compile Include="MessageHandlers\Middleware\MessageHandlerMiddlewareTests.cs" />
+    <Compile Include="MessageHandlers\TestEntities\CustomMessageHandlers.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="Senparc.Weixin.Utilites\HttpUtility\RequestUtilityTests.cs" />
     <Compile Include="TenPayLibV3\TenPayV3UtilTests.cs" />
@@ -165,8 +168,6 @@
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="Containers\AccessTokenContainerTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
-    <Compile Include="Context\MessageContainerTest.cs" />
-    <Compile Include="Context\WeixinContextTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="Helpers\BaiduMapHelperTest.cs" />
     <Compile Include="Helpers\GpsHelperTest.cs" />
@@ -193,22 +194,6 @@
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
-      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
-      <Name>Senparc.Weixin.Cache.Redis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.csproj">
-      <Project>{defc9e7a-f6f0-4e97-ac11-30cf0e6a875c}</Project>
-      <Name>Senparc.Weixin.TenPay</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
-      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
-      <Name>Senparc.Weixin.MP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Senparc.WeixinTests\Senparc.WeixinTests.csproj">
       <Project>{232a67f2-cd89-4a20-8da9-daed76412b33}</Project>
       <Name>Senparc.WeixinTests</Name>

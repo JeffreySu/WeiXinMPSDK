@@ -1,6 +1,8 @@
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
+    <text class="auth-notice" wx:if="{{!hasUserInfo && canIUse}}">当前小程序为 Senparc.Weixin SDK 的功能体验小程序，包括了订阅消息、获取用户授权信息、手机号、WebSocket、客服消息等演示内容，大部分内容需要授权后进行，点击【获取头像昵称】按钮进行授权，才能进入测试页面。</text>
+    <text class="auth-notice" wx:if="{{!hasUserInfo && canIUse}}">如果您不希望授权，请直接关闭此页面。</text>
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
     
@@ -26,11 +28,12 @@
   </view>
   <!-- 进入客服 -->
    <view class="btn-contact">
-      <contact-button 
+      <button 
         size="20"
         session-from="Senparc.Weixin" 
         open-type='contact'
-        >（←点图标）进入客服，查看消息接口</contact-button>
+        class='service-btn'
+        >进入客服</button>
   </view>
 
   <view class="flex-wrp" style="flex-direction:row;">
@@ -79,6 +82,15 @@
 </view>
 
 <view class="flex-wrp" style="flex-direction:row;">
+ <view class="flex-item">
+    <!-- 一次性订阅消息 -->
+    <button bindtap='subscribeMessage' type="primary"
+    class="btn-DoRequest" hover-class="other-button-hover" >订阅消息</button>
+  </view>
+</view>
+
+<view class="flex-wrp" style="flex-direction:row;">
+
   <view class="flex-item">
     <!-- Live Pusher  -->
     <button bindtap="openLivePusher" 

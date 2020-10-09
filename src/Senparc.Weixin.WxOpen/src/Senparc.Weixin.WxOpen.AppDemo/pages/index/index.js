@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.8.19',
+    motto: 'Senparc.Weixin SDK Demo v2019.10.19',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -55,6 +55,13 @@ Page({
   //测试模板消息提交form
   formTemplateMessageSubmit:function(e)
   {
+      wx.showModal({
+        title: '模板消息 API 已过期',
+        content: '2020年01月10日起，新发布的小程序将不能使用模板消息，请使用“订阅消息”功能。',
+        showCancel:false
+      })
+      return;
+      //以下代码 API 已过期
        var submitData = {
           sessionId:wx.getStorageSync("sessionId"),
           formId:e.detail.formId
@@ -280,15 +287,60 @@ Page({
       }
     })
   },
+  //生成二维码
   openLivePusher:function(){
     wx.navigateTo({
       url: '../LivePusher/LivePusher'
     })
   },
+  //生成二维码
   openQrCodePage:function(e){
     var codeType = e.target.dataset.codetype;
     wx.navigateTo({
       url: '../QrCode/QrCode?codeType=' + codeType
+    })
+  },
+  //订阅消息
+  subscribeMessage:function(){
+    var templateId = 'xWclWkOqDrxEgWF4DExmb9yUe10pfmSSt2KM6pY7ZlU';//根据微信小程序后台[功能]>[订阅消息]中订阅的唯一id进行填写，每一个都不一样
+    wx.requestSubscribeMessage({
+      tmplIds: [templateId],
+      success(res) {
+        console.log(res);
+        var acceptResult = res[templateId];//'accept'、'reject'、'ban'
+        wx.showModal({
+          title: '您点击了按钮',
+          content: '事件类型' + acceptResult+'\r\n'+'您将在几秒钟之后收到延迟的提示',
+          showCancel:false,
+          success:function(){
+            if (acceptResult == 'accept') {
+              wx.request({
+                url: wx.getStorageSync('domainName') + '/WxOpen/SubscribeMessage',
+                method: 'POST',
+                data: {
+                  sessionId: wx.getStorageSync('sessionId'),
+                  templateId: 'xWclWkOqDrxEgWF4DExmb9yUe10pfmSSt2KM6pY7ZlU'
+                },
+                header: { 'content-type': 'application/x-www-form-urlencoded' },
+                success(msgRes) {
+                  if (msgRes.data.success) {
+                    wx.showModal({
+                      title: '操作成功！',
+                      content: msgRes.data.msg,
+                    })
+                  } else {
+                    wx.showModal({
+                      title: '操作失败！',
+                      content: msgRes.data.msg,
+                    })
+                  }
+                }
+              })
+
+            }
+          }
+        })
+       }
     })
   },
   onLoad: function () {

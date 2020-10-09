@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -92,6 +92,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20181018
     修改描述：添加Reimburse_Status枚举【发票报销状态】
+
+    修改标识：Senparc - 20191206
+    修改描述：AutoReplyType 添加卡券（card）枚举
 
 ----------------------------------------------------------------*/
 
@@ -371,6 +374,14 @@ namespace Senparc.Weixin.MP
         /// 用户领取礼品卡成功
         /// </summary>
         giftcard_user_accept,
+        #endregion
+
+        #region 微信电子发票
+        /// <summary>
+        /// 2.3 接收授权完成事件 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
+        /// </summary>
+        user_authorize_invoice
+
         #endregion
     }
 
@@ -680,6 +691,7 @@ namespace Senparc.Weixin.MP
 
     /// <summary>
     /// 自动回复规则类型
+    /// 以及关键词的类型
     /// </summary>
     public enum AutoReplyType
     {
@@ -703,6 +715,10 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         news = 4,
+        /// <summary>
+        /// 卡券
+        /// </summary>
+        card = 5
     }
 
     /// <summary>

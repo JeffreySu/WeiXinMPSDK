@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -29,7 +29,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : MessageHandler<MessageContexts.DefaultMpMessageContext>
     {
         public string RunStep { get; set; }
 
@@ -39,10 +39,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
-        public override void OnExecuting()
-        {
-            base.OnExecuting();
-        }
+    
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {

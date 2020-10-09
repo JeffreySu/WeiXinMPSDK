@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -71,6 +71,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190512
     修改描述：v6.4.10 增加 ReturnCode 枚举：开放平台-小程序的普通链接二维码接口
+
+    修改标识：Senparc - 20190529
+    修改描述：配合 Open v4.7.101 添加“开放平台-代码管理-加急审核”接口：CodeApi.QueryQuota()、CodeApi.SpeedupAudit()，添加返回消息枚举类型 ReturnCode
+
+    修改标识：Senparc - 20191014
+    修改描述：配合 WxOpen v3.7.102 添加小程序订阅消息的 ReturnCode
+
+    修改标识：Senparc - 20191014
+    修改描述：v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
+
+    修改标识：Senparc - 20200430
+    修改描述：v6.7.502 添加 40164 错误编码
 
 ----------------------------------------------------------------*/
 
@@ -175,6 +187,7 @@ namespace Senparc.Weixin
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
+        调用接口的IP地址不在白名单中 = 40164,//GitHub#2166 https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html 
 
         小程序Appid不存在 = 40166,
 
@@ -200,6 +213,12 @@ namespace Senparc.Weixin
         需要POST请求 = 43002,
         需要HTTPS请求 = 43003,
         需要接收者关注 = 43004,
+
+        /// <summary>
+        /// [小程序订阅消息]用户拒绝接受消息，如果用户之前曾经订阅过，则表示用户取消了订阅关系
+        /// </summary>
+        用户拒绝接受消息 = 43101,
+
         需要好友关系 = 43005,
         多媒体文件为空 = 44001,
         POST的数据包为空 = 44002,
@@ -219,22 +238,31 @@ namespace Senparc.Weixin
         系统分组不允许修改 = 45016,
         分组名字过长 = 45017,
         分组数量超过上限 = 45018,
+        超出响应数量限制 = 45047,//out of response count limit，一般只允许连续接收20条客服消息
+
+
         不存在媒体数据 = 46001,
         不存在的菜单版本 = 46002,
         不存在的菜单数据 = 46003,
         解析JSON_XML内容错误 = 47001,
+
+        /// <summary>
+        /// [小程序订阅消息]模板参数不准确，可能为空或者不满足规则，errmsg会提示具体是哪个字段出错
+        /// </summary>
+        模板参数不准确 = 47003,
+
         api功能未授权 = 48001,
         用户未授权该api = 50001,
         参数错误invalid_parameter = 61451,
         无效客服账号invalid_kf_account = 61452,
         客服帐号已存在kf_account_exsited = 61453,
-    
+
         //创建标签 错误返回信息
         标签名非法请注意不能和其他标签重名 = 45157,
         标签名长度超过30个字节 = 45158,
         创建的标签数过多请注意不能超过100个 = 45056,
 
-        
+
 
         /// <summary>
         /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
@@ -322,11 +350,23 @@ namespace Senparc.Weixin
         小程序提交的审核未审核通过 = 85080,
         无效的发布比例 = 85081,
         当前的发布比例需要比之前设置的高 = 85082,
+        小程序提审数量已达本月上限 = 85085,
+        提交代码审核之前需提前上传代码 = 85086,
+        小程序已使用_api_navigateToMiniProgram_请声明跳转_appid_列表后再次提交 = 85087,
         小程序还未设置昵称_头像_简介_请先设置完后再重新提交 = 86002,
         现网已经在灰度发布_不能进行版本回退 = 87011,
         该版本不能回退_可能的原因_1_无上一个线上版用于回退_2_此版本为已回退版本_不能回退_3_此版本为回退功能上线之前的版本_不能回退 = 87012,
         版本输入错误 = 85015,
 
+        #region Open v4.7.101 添加“开放平台-代码管理-加急审核”接口
+
+        系统不稳定_请稍后再试_如多次失败请通过社区反馈 = 89401,
+        该审核单不在待审核队列_请检查是否已提交审核或已审完 = 89402,
+        本单属于平台不支持加急种类_请等待正常审核流程 = 89403,
+        本单已加速成功_请勿重复提交 = 89404,
+        本月加急额度不足_请提升提审质量以获取更多额度 = 89405,
+
+        #endregion
         /// <summary>
         /// 小程序为“签名错误”。对应公众号： 87009, “errmsg” : “reply is not exists” //该回复不存在
         /// </summary>

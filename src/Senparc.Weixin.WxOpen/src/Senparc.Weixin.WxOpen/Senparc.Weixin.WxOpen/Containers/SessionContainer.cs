@@ -48,16 +48,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Containers
 {
@@ -70,7 +65,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <summary>
         /// Session的Key（3rd_session / sessionId）
         /// </summary>
-        new public string Key { get; set; }
+        public new string Key { get; set; }
         //        {
         //            get { return _key; }
         //#if NET35 || NET40

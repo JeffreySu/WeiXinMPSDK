@@ -22,6 +22,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 
     public class ExternalContactList
     {
-        public GetExternalContactResultJson external_contact { get; set; }
+        public ExternalContact external_contact { get; set; }
+        public FollowUser follow_info { get; set; }
+    }
+
+
+    public class ExternalContact
+    {
+        public string external_userid { get; set; }
+        public string name { get; set; }
+        public int type { get; set; }
+        public string avatar { get; set; }
+        public int gender { get; set; }
+        public string unionid { get; set; }
+    }
+
+    public class FollowUser
+    {
+        public string remark { get; set; }
+        public string description { get; set; }
+        public long creattime { get; set; }
+        public string[] tag_id { get; set; }
+        public string[] remark_mobiles { get; set; }
+        public int add_way { get; set; }
     }
 }

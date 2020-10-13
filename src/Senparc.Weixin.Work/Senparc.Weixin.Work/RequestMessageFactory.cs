@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20180909
     修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact
+
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,6 +27,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Request.Event;
 using Senparc.NeuChar;
 using Senparc.NeuChar.Helpers;
 using Senparc.NeuChar.Context;
@@ -83,6 +88,9 @@ namespace Senparc.Weixin.Work
                             break;
                         case ThirdPartyInfo.CHANGE_CONTACT://通讯录变更通知
                             requestMessage = new RequestMessageInfo_Change_Contact();
+                            break;
+                        case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
+                            requestMessage = new RequestMessageEvent_Change_ExternalContact_Base();
                             break;
                         default:
                             throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常

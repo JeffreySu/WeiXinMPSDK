@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(Net35FrameworkPathOverride)</FrameworkPathOverride>
-    <Version>3.7.603</Version>
+    <Version>3.7.604</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -151,9 +151,10 @@
 		v3.7.502.1 “更新任务卡片”接口更新返回类型
 		v3.7.510.1 GetMemberResult 补充 open_userid、main_department（主部门）属性
 		v3.7.601 修改“删除标签成员”接口返回参数
-		v3.7.603 
+		v3.7.603
 		1、企业微信通讯录模块下 成员 实体 更新实体新增别名、MemberBase移除isleader
 		2、新增is_leader_in_dept
+		v3.7.604 添加外部联系人管理 &gt; 客户管理相关接口
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

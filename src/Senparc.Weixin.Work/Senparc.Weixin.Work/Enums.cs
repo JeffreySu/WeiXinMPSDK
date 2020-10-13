@@ -29,6 +29,9 @@
     修改标识：jiehanlin - 20200430
     修改描述：v3.7.502 添加枚举“客户群变更事件”（CHANGE_EXTERNAL_CHAT）
 
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work
@@ -183,7 +186,12 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 通讯录变更通知
         /// </summary>
-        CHANGE_CONTACT//更新前字符串：CONTACT_SYNC
+        CHANGE_CONTACT,//更新前字符串：CONTACT_SYNC
+
+        /// <summary>
+        /// 外部联系人变更通知
+        /// </summary>
+        CHANGE_EXTERNAL_CONTACT
     }
 
 

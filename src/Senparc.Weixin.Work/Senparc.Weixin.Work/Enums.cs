@@ -183,7 +183,12 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 通讯录变更通知
         /// </summary>
-        CHANGE_CONTACT//更新前字符串：CONTACT_SYNC
+        CHANGE_CONTACT,//更新前字符串：CONTACT_SYNC
+
+        /// <summary>
+        /// 外部联系人变更通知
+        /// </summary>
+        CHANGE_EXTERNAL_CONTACT
     }
 
 

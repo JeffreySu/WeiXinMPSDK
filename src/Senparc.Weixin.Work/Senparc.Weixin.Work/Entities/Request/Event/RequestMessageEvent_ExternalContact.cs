@@ -22,6 +22,8 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase
     {
+        string SuiteId { get; set; }
+        string AuthCorpId { get; set; }
         ExternalContactChangeType ChangeType
         {
             get;
@@ -30,6 +32,8 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
 
     public class RequestMessageEvent_Change_ExternalContact_Base : RequestMessageEventBase, IRequestMessageEvent_Change_ExternalContact_Base
     {
+        public string SuiteId { get; set; }
+        public string AuthCorpId { get; set; }
         public override Work.Event Event
         {
             get { return Work.Event.CHANGE_EXTERNAL_CONTACT; }

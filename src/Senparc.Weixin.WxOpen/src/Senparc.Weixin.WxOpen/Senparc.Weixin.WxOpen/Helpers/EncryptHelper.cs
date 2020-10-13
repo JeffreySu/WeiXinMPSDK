@@ -291,6 +291,26 @@ namespace Senparc.Weixin.WxOpen.Helpers
             var entity = SerializerHelper.GetObject<T>(jsonStr);
             return entity;
         }
+        /// <summary>
+        /// 解密到实例信息
+        /// </summary>
+        /// <typeparam name="T">DecodeEntityBase</typeparam>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static T DecodeEncryptedDataToEntityEasy<T>(string sessionKey, string encryptedData, string iv)
+       where T : DecodeEntityBase
+        {
+            var jsonStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+            //Console.WriteLine("===== jsonStr =====");
+            //Console.WriteLine(jsonStr);
+            //Console.WriteLine();
+
+            var entity = SerializerHelper.GetObject<T>(jsonStr);
+            return entity;
+        }
 
         /// <summary>
         /// 解密UserInfo消息（通过SessionId获取）
@@ -314,6 +334,22 @@ namespace Senparc.Weixin.WxOpen.Helpers
         public static DecodedPhoneNumber DecryptPhoneNumber(string sessionId, string encryptedData, string iv)
         {
             return DecodeEncryptedDataToEntity<DecodedPhoneNumber>(sessionId, encryptedData, iv);
+        }
+        /// <summary>
+        /// 解密手机号(根据sessionKey解密)
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static DecodedPhoneNumber DecryptPhoneNumberBySessionKey(string sessionKey, string encryptedData, string iv)
+        {
+            //var resultStr = DecodeEncryptedData(sessionKey, encryptedData, iv);
+
+            //var entity = SerializerHelper.GetObject<DecodedPhoneNumber>(resultStr);
+            //return entity;
+
+            return DecodeEncryptedDataToEntityEasy<DecodedPhoneNumber>(sessionKey, encryptedData, iv);
         }
 
         /// <summary>

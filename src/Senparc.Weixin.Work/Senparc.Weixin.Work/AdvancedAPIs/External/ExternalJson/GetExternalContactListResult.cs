@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2020 Senparc
+    
+    文件名：GetExternalContactInfoBatchResult.cs
+    文件功能描述：批量获取客户详情 返回结果
+    
+    
+    创建标识：gokeiyou - 20201013
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

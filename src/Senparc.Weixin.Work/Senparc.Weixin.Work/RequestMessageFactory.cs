@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20180909
     修改描述：v3.1.2 RequestMessageInfo_Contact_Sync 改名为 RequestMessageInfo_Change_Contact
+
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
 ----------------------------------------------------------------*/
 
 using System;

@@ -21,6 +21,7 @@ using Senparc.CO2NET.Utilities;
 //DPBMARK MP
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.CO2NET.Trace;
 //DPBMARK_END
 #if NET45
 using System.Web;
@@ -136,6 +137,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.获取access_token时AppSecret错误或者access_token无效,
                                 ReturnCode.access_token超时,
                                 ReturnCode.template_id不正确,
+                                ReturnCode.调用接口的IP地址不在白名单中,//比较容易出现，需要注意！
                                 ReturnCode.缺少access_token参数,
                                 ReturnCode.回复时间超过限制,
                                 ReturnCode.api功能未授权,
@@ -149,6 +151,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                             };
                     if (ignoreErrorCodes.Contains(jsonEx.JsonResult.errcode))
                     {
+                        if (jsonEx.JsonResult.errcode == ReturnCode.调用接口的IP地址不在白名单中)
+                        {
+                            SenparcTrace.SendCustomLog("无法发送模板消息", "IP 未设置到白名单");
+                        }
+
                         sendTemplateMessage = false;//防止无限递归，这种请款那个下不发送消息
                     }
 

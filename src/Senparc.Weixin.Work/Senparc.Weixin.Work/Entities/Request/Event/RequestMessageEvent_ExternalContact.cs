@@ -13,6 +13,9 @@
     修改标识：OrchesAdam  - 20200430
     修改描述：v3.7.502 添加编辑企业客户事件
 
+    修改标识：gokeiyou - 20201013
+    修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities.Request.Event
@@ -22,6 +25,8 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase
     {
+        string SuiteId { get; set; }
+        string AuthCorpId { get; set; }
         ExternalContactChangeType ChangeType
         {
             get;
@@ -30,6 +35,8 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
 
     public class RequestMessageEvent_Change_ExternalContact_Base : RequestMessageEventBase, IRequestMessageEvent_Change_ExternalContact_Base
     {
+        public string SuiteId { get; set; }
+        public string AuthCorpId { get; set; }
         public override Work.Event Event
         {
             get { return Work.Event.CHANGE_EXTERNAL_CONTACT; }

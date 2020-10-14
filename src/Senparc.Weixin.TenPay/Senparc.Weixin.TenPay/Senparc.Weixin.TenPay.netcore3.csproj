@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.5.600</Version>
+    <Version>1.5.601-beta1</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -49,7 +49,8 @@
 		v1.5.402 添加 TenpayV3ProtfitSharingRequestData 的 Version 属性
 		v1.5.403 增加服务商模式SubAppId、SubMchId字段重载
 		v1.5.502.4 添加支付退款详情列表
-</PackageReleaseNotes>
+		v1.5.601 修正企业红包支付功能中的加密过程
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

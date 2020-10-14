@@ -76,6 +76,19 @@ namespace Senparc.Weixin.MP.Entities
     //    </ResultList>
     //    <CheckState>2</CheckState>
     //  </CopyrightCheckResult>
+    //  <ArticleUrlResult>
+    //      <Count>2</Count>
+    //      <ResultList>
+    //        <item>
+    //          <ArticleIdx>1</ArticleIdx>
+    //          <ArticleUrl><![CDATA[Url_1]]></ArticleUrl>
+    //        </item>
+    //        <item>
+    //          <ArticleIdx>2</ArticleIdx>
+    //          <ArticleUrl><![CDATA[Url_2]]></ArticleUrl>
+    //        </item>
+    //      </ResultList>
+    //   </ArticleUrlResult>
     //</xml>
 
     /// <summary>
@@ -129,10 +142,18 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public CopyrightCheckResult CopyrightCheckResult { get; set; }
 
+        /// <summary>
+        /// 群发文章的url
+        /// </summary>
+        public ArticleUrlResult ArticleUrlResult { get; set; }
+
         public RequestMessageEvent_MassSendJobFinish()
         {
             CopyrightCheckResult = new CopyrightCheckResult();
+            ArticleUrlResult = new ArticleUrlResult();
         }
+
+
     }
 
     //public class CopyrightCheckResult

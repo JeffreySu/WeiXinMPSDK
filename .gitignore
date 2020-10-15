@@ -87,3 +87,4 @@ packages/
 /src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis.Tests/App_Data/SenparcTraceLog
 /Samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3/appsettings.Development.json
 /Samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3/App_Data/WeChat_OfficialAccount
+/Samples/netcore3.0-mvc/.idea

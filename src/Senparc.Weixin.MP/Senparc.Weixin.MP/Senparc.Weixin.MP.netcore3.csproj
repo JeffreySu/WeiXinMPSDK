@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.10.600</Version>
+    <Version>16.10.601</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -498,7 +498,8 @@
 		v16.10.502.2 添加微信电子发票 2.3 接收授权完成事件的处理
 		v16.10.502.3 "获取授权页链接数据开票来源"属性的枚举类型序列化字符串优化
 		v16.10.502.3 完善“新增永久视频素材”接口参数
-</PackageReleaseNotes>
+		v16.10.601 MASSSENDJOBFINISH事件增加 ArticleUrlResult 节点
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -557,7 +558,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.9.200" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.2.200.6" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.2.201" />
     <PackageReference Include="Senparc.NeuChar.App" Version="0.8.200" />
   </ItemGroup>
   <ItemGroup>

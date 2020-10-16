@@ -728,7 +728,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     string nonce_str = resHandler.GetParameter("nonce_str");
                     string req_info = resHandler.GetParameter("req_info");
 
-                    if (appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
+                    if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
                     {
                         /* 
                          * 注意：

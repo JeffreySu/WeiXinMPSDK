@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：ccccccmd - 20201016
+    修改描述：v16.10.601 MASSSENDJOBFINISH事件增加 ArticleUrlResult 节点,
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -143,7 +147,7 @@ namespace Senparc.Weixin.MP.Entities
         public CopyrightCheckResult CopyrightCheckResult { get; set; }
 
         /// <summary>
-        /// 群发文章的url
+        /// 群发文章的 URL
         /// </summary>
         public ArticleUrlResult ArticleUrlResult { get; set; }
 

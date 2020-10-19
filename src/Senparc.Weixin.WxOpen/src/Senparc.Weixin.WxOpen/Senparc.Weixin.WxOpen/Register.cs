@@ -38,8 +38,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.RegisterServices;
 using System;
-using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.WxOpen
 {

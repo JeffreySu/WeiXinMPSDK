@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+    <PackageReference Include="Senparc.Weixin.Cache.CsRedis" Version="0.1.600" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj" />
+    <ProjectReference Include="..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />
+    <ProjectReference Include="..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.netcore3.csproj" />
+    <ProjectReference Include="..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.netcore3.csproj" />
+    <ProjectReference Include="..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -133,6 +133,19 @@ namespace Senparc.Weixin.MP.Test
     </ResultList>
     <CheckState>2</CheckState>
     </CopyrightCheckResult>
+    <ArticleUrlResult>
+         <Count>2</Count>
+         <ResultList>
+           <item>
+             <ArticleIdx>1</ArticleIdx>
+             <ArticleUrl><![CDATA[Url_1]]></ArticleUrl>
+           </item>
+           <item>
+             <ArticleIdx>2</ArticleIdx>
+             <ArticleUrl><![CDATA[Url_2]]></ArticleUrl>
+           </item>
+         </ResultList>
+    </ArticleUrlResult>
 </xml>";
 
 
@@ -154,6 +167,13 @@ namespace Senparc.Weixin.MP.Test
             Assert.AreEqual(2,strongEntity.CopyrightCheckResult.Count);
             Assert.AreEqual("Url_1", strongEntity.CopyrightCheckResult.ResultList[0].item.OriginalArticleUrl);
             Assert.AreEqual("Url_2", strongEntity.CopyrightCheckResult.ResultList[1].item.OriginalArticleUrl);
+            
+            
+            Assert.AreEqual(2,strongEntity.ArticleUrlResult.Count);
+            Assert.AreEqual(2, strongEntity.ArticleUrlResult.ResultList[1].item.ArticleIdx);
+            Assert.AreEqual("Url_1", strongEntity.ArticleUrlResult.ResultList[0].item.ArticleUrl);
+            Assert.AreEqual("Url_2", strongEntity.ArticleUrlResult.ResultList[1].item.ArticleUrl);
+            
         }
 
         #endregion

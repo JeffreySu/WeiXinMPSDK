@@ -49,7 +49,7 @@ using Senparc.WeixinTests;
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     //已通过测试
-    //[TestClass]
+    [TestClass]
     public partial class CommonApiTest : BaseTest
     {
         private dynamic _appConfig;

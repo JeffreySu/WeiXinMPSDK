@@ -70,69 +70,9 @@ namespace Senparc.Weixin.MP.Containers
     public class WxCardApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _appId;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _appId, value);
-        //            }
-        //#endif
-        //        }
-
         public string AppSecret { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _appSecret;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _appSecret, value);
-        //            }
-        //#endif
-        //        }
-
         public JsApiTicketResult WxCardApiTicketResult { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _WxCardApiTicketResult;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _WxCardApiTicketResult, value, "WxCardApiTicketResult"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _WxCardApiTicketResult, value);
-        //            }
-        //#endif
-        //        }
-
         public DateTimeOffset WxCardApiTicketExpireTime { get; set; }
-        //        {
-        //            get
-        //            {
-        //                return _WxCardApiTicketExpireTime;
-        //            }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _WxCardApiTicketExpireTime, value, "WxCardApiExpireTime"); }
-        //#else
-        //            set
-        //            {
-        //                this.SetContainerProperty(ref _WxCardApiTicketExpireTime, value);
-        //            }
-        //#endif
-        //        }
-
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Event相关
@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
+using Senparc.NeuChar.Exceptions;
 using Senparc.NeuChar.Helpers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -225,8 +226,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 //    responseMessage = OnEvent_WeAppAuditFailRequest(RequestMessage as RequestMessageEvent_WeAppAuditFail);
                 //    break;
                 #endregion
+                #region 微信电子发票
+                case Event.user_authorize_invoice:
+                    responseMessage = OnEvent_User_Authorize_Invoice(RequestMessage as RequestMessageEvent_User_Authorize_Invoice);
+                    break;
+                #endregion
                 default:
-                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
+                    throw new Exceptions.UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }
@@ -697,6 +703,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+
+        #endregion
+
+        #region 微信电子发票
+        /// <summary>
+        /// 微信电子发票 用户授权完成后，执收单位的公众号会收到授权完成的事件，关于事件推送请参考接受callback推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Authorize_Invoice(RequestMessageEvent_User_Authorize_Invoice requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion
 

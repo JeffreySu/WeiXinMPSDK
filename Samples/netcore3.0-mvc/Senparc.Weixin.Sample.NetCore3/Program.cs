@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Senparc.CO2NET;
 
 namespace Senparc.Weixin.Sample.NetCore3
 {
@@ -21,6 +16,6 @@ namespace Senparc.Weixin.Sample.NetCore3
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseServiceProviderFactory(new SenparcServiceProviderFactory());
     }
 }

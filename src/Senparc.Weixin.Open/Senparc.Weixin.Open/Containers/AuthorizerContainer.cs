@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -90,10 +90,14 @@ Copyright(C) 2018 Senparc
     修改标识：Senparc - 20191030
     修改描述：v4.7.102.1 修改 TryUpdateAuthorizationInfo() 相关方法，避免可能发生的 null 对象错误
 
+    修改标识：ccccccmd - 20200609
+    修改描述：v4.7.502.2 解决授权信息出现重复记录的问题
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Senparc.Weixin.Cache;
 using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
@@ -123,6 +127,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 授权信息
         /// </summary>
+        [JsonIgnore]
         public GetAuthorizerInfoResult FullAuthorizerInfoResult
         {
             get

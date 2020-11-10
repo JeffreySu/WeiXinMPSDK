@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
  
     文件名：TenPayV3Results.cs
     文件功能描述：微信支付V3返回结果
@@ -74,6 +74,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190925
     修改描述：v1.5.0 商户的企业付款查询结果实体（GetTransferInfoResult）payment_time字段空值修复
+    
+    修改标识：hesi815 - 20200318
+    修改描述：v1.5.401 实现分账接口，添加 ProfitSharingResult、ProfitSharingAddReceiverResult、ProfitSharingRemoveReceiverResult、ProfitSharingQueryResult、ProfitSharingQueryResult
+
+    修改标识：anhuisunfei - 20200731
+    修改描述：v1.5.502.4 添加支付退款详情列表
 
 ----------------------------------------------------------------*/
 
@@ -83,6 +89,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Utilities;
 using Senparc.Weixin.Entities;
 
@@ -140,6 +147,13 @@ namespace Senparc.Weixin.TenPay.V3
                 return "";
             }
             return _resultXml.Element("xml").Element(nodeName).Value;
+        }
+
+        public int GetXmlValueAsInt(string nodeName)
+        {
+            string result = this.GetXmlValue(nodeName);
+            if (string.IsNullOrWhiteSpace(result)) return 0;
+            return Convert.ToInt32(result);
         }
 
         /// <summary>
@@ -809,8 +823,251 @@ namespace Senparc.Weixin.TenPay.V3
                 //coupon_refund_fee_$n_$m = GetXmlValue("coupon_refund_fee_$n_$m") ?? "";
                 //refund_status_$n = GetXmlValue("refund_status_$n") ?? "";
                 //refund_recv_accout_$n = GetXmlValue("refund_recv_accout_$n") ?? "";
+
+                ComposeRefundRecords();
             }
         }
+
+        public List<RefundRecord> refundRecords;
+        /// <summary>
+        /// 组装生成退款记录属性的内容
+        /// </summary>
+        public void ComposeRefundRecords()
+        {
+
+            if (this.refund_count != null && int.TryParse(refund_count, out int refundCount) && refundCount > 0)
+            {
+                this.refundRecords = new List<RefundRecord>();
+                for (int i = 0; i < refundCount; i++)
+                {
+                    RefundRecord refundRecord = new RefundRecord();
+                    this.refundRecords.Add(refundRecord);
+                    refundRecord.out_refund_no = this.GetXmlValue("out_refund_no_" + i);
+                    refundRecord.refund_id = this.GetXmlValue("refund_id_" + i);
+                    refundRecord.refund_channel = this.GetXmlValue("refund_channel_" + i);
+                    refundRecord.refund_fee = this.GetXmlValueAsInt("refund_fee_" + i);
+                    refundRecord.settlement_refund_fee = this.GetXmlValueAsInt("settlement_refund_fee_" + i);
+                    refundRecord.coupon_refund_fee = this.GetXmlValueAsInt("coupon_refund_fee_" + i);
+                    refundRecord.coupon_refund_count = this.GetXmlValueAsInt("coupon_refund_count_" + i);
+                    refundRecord.refund_status = this.GetXmlValue("refund_status_" + i);
+                    refundRecord.refund_recv_accout = this.GetXmlValue("refund_recv_accout_" + i);
+                    refundRecord.refund_success_time = this.GetXmlValue("refund_success_time_" + i);
+                    if (refundRecord.coupon_refund_count == 0)
+                    {
+                        continue;
+                    }
+                    List<WxPayRefundCouponInfo> coupons = new List<WxPayRefundCouponInfo>();
+                    for (int j = 0; j < refundRecord.coupon_refund_count; j++)
+                    {
+                        var coupon = new WxPayRefundCouponInfo();
+                        coupon.coupon_refund_id = this.GetXmlValue("coupon_refund_id_" + i + "_" + j);
+                        coupon.coupon_refund_fee = this.GetXmlValueAsInt("coupon_refund_fee_" + i + "_" + j);
+                        coupon.coupon_type = this.GetXmlValue("coupon_type_" + i + "_" + j);
+                        coupons.Add(coupon);
+                    }
+                    refundRecord.refundCoupons = coupons;
+
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 退款代金券信息.
+    /// </summary>
+    public class WxPayRefundCouponInfo
+    {
+        /**
+          * <pre>
+          * 字段名：退款代金券ID.
+          * 变量名：coupon_refund_id_$n_$m
+          * 是否必填：否
+          * 类型：String(20)
+          * 示例值：10000
+          * 描述：退款代金券ID, $n为下标，$m为下标，从0开始编号
+          * </pre>
+          */
+        public string coupon_refund_id { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：单个退款代金券支付金额.
+         * 变量名：coupon_refund_fee_$n_$m
+         * 是否必填：否
+         * 类型：Int
+         * 示例值：100
+         * 描述：单个退款代金券支付金额, $n为下标，$m为下标，从0开始编号
+         * </pre>
+         */
+        public int coupon_refund_fee { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：代金券类型.
+         * 变量名：coupon_type_$n_$m
+         * 是否必填：否
+         * 类型：String(8)
+         * 示例值：CASH
+         * 描述：CASH--充值代金券 , NO_CASH---非充值代金券。
+         * 开通免充值券功能，并且订单使用了优惠券后有返回（取值：CASH、NO_CASH）。
+         * $n为下标,$m为下标,从0开始编号，举例：coupon_type_$0_$1
+         * </pre>
+         */
+        public string coupon_type { get; set; }
+    }
+
+    /// <summary>
+    /// 退款明细
+    /// </summary>
+    public class RefundRecord
+    {
+        /**
+         * <pre>
+         * 字段名：商户退款单号.
+         * 变量名：out_refund_no_$n
+         * 是否必填：是
+         * 类型：String(32)
+         * 示例值：1217752501201407033233368018
+         * 描述：商户退款单号
+         * </pre>
+         */
+        public string out_refund_no { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：微信退款单号.
+         * 变量名：refund_id_$n
+         * 是否必填：是
+         * 类型：String(28)
+         * 示例值：1217752501201407033233368018
+         * 描述：微信退款单号
+         * </pre>
+         */
+
+        public string refund_id { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款渠道.
+         * 变量名：refund_channel_$n
+         * 是否必填：否
+         * 类型：String(16)
+         * 示例值：ORIGINAL
+         * 描述：ORIGINAL—原路退款 BALANCE—退回到余额
+         * </pre>
+         */
+
+        public string refund_channel { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：申请退款金额.
+         * 变量名：refund_fee_$n
+         * 是否必填：是
+         * 类型：Int
+         * 示例值：100
+         * 描述：退款总金额,单位为分,可以做部分退款
+         * </pre>
+         */
+
+        public int refund_fee { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款金额.
+         * 变量名：settlement_refund_fee_$n
+         * 是否必填：否
+         * 类型：Int
+         * 示例值：100
+         * 描述：退款金额=申请退款金额-非充值代金券退款金额，退款金额<=申请退款金额
+         * </pre>
+         */
+
+        public int settlement_refund_fee { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款资金来源.
+         * 变量名：refund_account
+         * 是否必填：否
+         * 类型：String(30)
+         * 示例值：REFUND_SOURCE_RECHARGE_FUNDS
+         * 描述：REFUND_SOURCE_RECHARGE_FUNDS---可用余额退款/基本账户, REFUND_SOURCE_UNSETTLED_FUNDS---未结算资金退款
+         * </pre>
+         */
+
+        public string refund_account { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：代金券退款金额.
+         * 变量名：coupon_refund_fee_$n
+         * 是否必填：否
+         * 类型：Int
+         * 示例值：100
+         * 描述：代金券退款金额<=退款金额，退款金额-代金券或立减优惠退款金额为现金，说明详见代金券或立减优惠
+         * </pre>
+         */
+
+        public int coupon_refund_fee { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款代金券使用数量.
+         * 变量名：coupon_refund_count_$n
+         * 是否必填：否
+         * 类型：Int
+         * 示例值：1
+         * 描述：退款代金券使用数量 ,$n为下标,从0开始编号
+         * </pre>
+         */
+        public int coupon_refund_count { get; set; }
+
+
+        public List<WxPayRefundCouponInfo> refundCoupons;
+
+
+        /**
+         * <pre>
+         * 字段名：退款状态.
+         * 变量名：refund_status_$n
+         * 是否必填：是
+         * 类型：String(16)
+         * 示例值：SUCCESS
+         * 描述：退款状态：
+         *  SUCCESS—退款成功，
+         *  FAIL—退款失败，
+         *  PROCESSING—退款处理中，
+         *  CHANGE—转入代发，
+         * 退款到银行发现用户的卡作废或者冻结了，导致原路退款银行卡失败，资金回流到商户的现金帐号，需要商户人工干预，通过线下或者财付通转账的方式进行退款。
+         * </pre>
+         */
+        public String refund_status { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款入账账户.
+         * 变量名：refund_recv_accout_$n
+         * 是否必填：是
+         * 类型：String(64)
+         * 示例值：招商银行信用卡0403
+         * 描述：取当前退款单的退款入账方，1）退回银行卡：{银行名称}{卡类型}{卡尾号}，2）退回支付用户零钱:支付用户零钱
+         * </pre>
+         */
+        public String refund_recv_accout { get; set; }
+
+        /**
+         * <pre>
+         * 字段名：退款成功时间.
+         * 变量名：refund_success_time_$n
+         * 是否必填：否
+         * 类型：String(20)
+         * 示例值：2016-07-25 15:26:26
+         * 描述：退款成功时间，当退款状态为退款成功时有返回。$n为下标，从0开始编号。
+         * </pre>
+         */
+        public String refund_success_time { get; set; }
+
     }
 
     /// <summary>
@@ -1193,6 +1450,202 @@ namespace Senparc.Weixin.TenPay.V3
             {
                 mch_id = GetXmlValue("mch_id") ?? "";
                 sandbox_signkey = GetXmlValue("sandbox_signkey") ?? "";
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 单次分账操作结果
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_1&index=1 或者 
+    /// https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_1&index=1 
+    /// </summary>
+    public class ProfitSharingResult : Result
+    {
+        /// <summary>
+        /// 微信订单号 
+        /// </summary>
+        public string transaction_id
+        { get; set; }
+
+        /// <summary>
+        /// 商户分账单号,调用接口提供的商户系统内部的分账单号 
+        /// </summary>
+        public string out_order_no
+        { get; set; }
+
+        /// <summary>
+        /// 微信分账单号,微信分账单号，微信系统返回的唯一标识 
+        /// </summary>
+        public string order_id
+        { get; set; }
+
+        /// <summary>
+        /// 分账接收方
+        /// 分账接收方对象（不包含分账接收方全称）
+        /// </summary>
+        public TenpayV3ProfitShareingAddReceiverRequestData_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                transaction_id = GetXmlValue("transaction_id");
+                out_order_no = GetXmlValue("out_order_no");
+                order_id = GetXmlValue("order_id");
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 添加分账接收方的操作结果操作结果
+    /// 服务商特约商户新增分账接收方https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_3&index=4 或者 
+    /// 服务商特约商户新增分账接收方https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_3&index=4 
+    /// </summary>
+    public class ProfitSharingAddReceiverResult : Result
+    {
+        /// <summary>
+        /// 分账接收方
+        /// </summary>
+        public TenpayV3ProfitShareing_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingAddReceiverResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                var receiverJsonString = GetXmlValue("receiver"); //xml中包含有Json字符串,但是 CommonJson
+                this.receiver = SerializerHelper.GetObject<TenpayV3ProfitShareing_ReceiverInfo>(receiverJsonString);
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 删除分账接收方的操作结果
+    /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_4&index=5
+    /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_4&index=5
+    /// </summary>
+    public class ProfitSharingRemoveReceiverResult : Result
+    {
+        /// <summary>
+        /// 分账接收方
+        /// </summary>
+        public TenpayV3ProfitShareing_ReceiverInfo receiver
+        { get; set; }
+
+
+        public ProfitSharingRemoveReceiverResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                var receiverJsonString = GetXmlValue("receiver"); //xml中包含有Json字符串,但是 CommonJson
+                this.receiver = SerializerHelper.GetObject<TenpayV3ProfitShareing_ReceiverInfo>(receiverJsonString);
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 分账查询的操作结果
+    /// 服务商特约商户: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_2&index=3
+    /// 境内普通商户: https://pay.weixin.qq.com/wiki/doc/api/allocation.php?chapter=27_2&index=3
+    /// </summary>
+    public class ProfitSharingQueryResult : Result
+    {
+        /// <summary>
+        /// 微信支付订单号 
+        /// </summary>
+        public string transaction_id
+        { get; set; }
+
+        /// <summary>
+        /// 商户系统内部的分账单号，在商户系统内部唯一（单次分账、多次分账、完结分账应使用不同的商户分账单号），
+        /// 同一分账单号多次请求等同一次。
+        /// 只能是数字、大小写字母_-|*@  
+        /// </summary>
+        public string order_id
+        { get; set; }
+
+        /// <summary>
+        /// 微信分账单号
+        /// </summary>
+        public string out_order_no
+        { get; set; }
+
+        /// <summary>
+        /// 分账单状态： 
+        /// ACCEPTED—受理成功
+        /// PROCESSING—处理中
+        /// FINISHED—处理完成
+        /// CLOSED—处理失败，已关单
+        /// </summary>
+        public string status
+        { get; set; }
+
+        /// <summary>
+        /// 关单原因 
+        /// </summary>
+        public string close_reason
+        { get; set; }
+
+        /// <summary>
+        /// 分账接收方的分账信息
+        /// </summary>
+        public TenpayV3ProfitShareingQuery_ReceiverInfo[] receivers
+        { get; set; }
+
+
+        /// <summary>
+        /// 分账完结的原因描述，仅当查询分账完结的执行结果时，存在本字段 
+        /// </summary>
+        public string description
+        { get; set; }
+
+
+        /// <summary>
+        /// 分账完结的分账金额，单位为分， 仅当查询分账完结的执行结果时，存在本字段 
+        /// </summary>
+        public int? amount
+        { get; set; }
+
+        public ProfitSharingQueryResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                this.transaction_id = GetXmlValue("transaction_id");
+                this.out_order_no = GetXmlValue("out_order_no");
+                this.order_id = GetXmlValue("order_id");
+
+                this.status = GetXmlValue("status");
+                this.close_reason = GetXmlValue("close_reason");
+
+                if (this.status == "FINISHED")
+                {
+                    var amount = GetXmlValue("amount");
+                    if (!string.IsNullOrEmpty(amount))
+                    {
+                        var iamount = 0;
+                        if (Int32.TryParse(amount, out iamount))
+                        {
+                            this.amount = iamount;
+                        }
+                    }
+                    this.description = GetXmlValue("description");
+                }
+
+
+                var receiverJsonString = GetXmlValue("receivers"); //xml中包含有Json字符串,但是 CommonJson
+                this.receivers = SerializerHelper.GetObject<TenpayV3ProfitShareingQuery_ReceiverInfo[]>(receiverJsonString);
+
             }
         }
     }

@@ -82,7 +82,13 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalApi.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactInfoBatchResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactListResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\UpdateExternalContactRemarkRequest.cs" />
     <Compile Include="AdvancedAPIs\External\GetExternalContactResult.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatGetResult.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatListParam.cs" />
+    <Compile Include="AdvancedAPIs\External\GroupChatListResult.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceApi.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceData.cs" />
     <Compile Include="AdvancedAPIs\Invoice\InvoiceJson\InvoiceResultJson.cs" />
@@ -110,6 +116,10 @@
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinOptionJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleApi.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\AddScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\GetScheduleJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Schedule\ScheduleJson\Schedule.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
@@ -165,6 +175,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Change_Contact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ExternalContact.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />
@@ -249,7 +260,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET">
-      <Version>1.0.102</Version>
+      <Version>1.0.103</Version>
     </PackageReference>
     <PackageReference Include="Senparc.NeuChar">
       <Version>1.0.103</Version>

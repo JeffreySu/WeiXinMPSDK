@@ -16,14 +16,14 @@ Senparc.Weixin —— 微信 .NET SDK
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
-自 2013 年起立项 6 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
+自 2013 年起立项 7 年多来，我们一直保持着项目的持续更新，并将完整的源代码以及设计思想毫无保留地分享给大家，希望有更多的人可以从中受益，理解并传播开源的精神，一同助力中国开源事业！感恩一路上给我们提供帮助的朋友们！
 
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
-> 🥇 .NET Core 3.0 [Senparc.Weixin SDK 源码](/src) 及 [Demo](/Samples/netcore3.0-mvc) 已发布！
-
->  :trophy: 《[2018-2019 年度盛派微信 SDK 优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》公布，请注意查看并登记信息 :smile:
+> 🍦 [file.api.weixin.qq.com 域名官方已停用（2020.0.15）](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400)，请及时更新到最新版本！
+>  :trophy: 《[2019-2020年盛派开发者社区优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/2197)》公布，请注意查看并登记信息，2020 年 6 月 30 日 10:24 AM 截止登记 :smile:<br />
+> 🥇 .NET Core 3.1 [Senparc.Weixin SDK 源码](/src) 及 [Demo](/Samples/netcore3.0-mvc) 已发布！
 
 
 <!-- _1. 为了将 Demo 和源代码隔离，并让大家更方便地找到 Demo，现已将 Senparc.Weixin.MP.Sample 等文件夹转移到 [/Samples/](Samples/) 文件夹下。_<br> -->
@@ -59,11 +59,9 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 本库包含了 .NET4.5/.NET Standard 2.0/.NET Core 多个版本的源代码（核心逻辑完全一致）：
 
-* 使用 Visual Studio 2017/2019 打开 Demo（支持所有版本）：[Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
-* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* 使用 Visual Studio 2010 SP1 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/Senparc.Weixin.MP.Sample.Consoles)
-
+* 使用 Visual Studio 2017/2019 打开 Demo（支持所有版本）：[Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)
+* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
+* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
 
 各模块类库
 ----------------
@@ -168,11 +166,16 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 ## 私人定制你的微信项目 Sample
 
-1. 方法：登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a>下载 WeChatSampleBuilder 工具，并查看使用说明；
-2. 打开 WeChatSampleBuilder.exe，在 `Source Peoject Path` 中选择克隆了本项目的本地文件夹（根目录），根据需要配置 Sample 项目类型、需要生成的类库 .NET 版本、所需使用的微信模块，以及支持缓存类型；
-3. 点击 Build 按钮，即可在同级目录下看到 `OutputSample` 开头的文件夹，并自动打开解决方案！
+1. Web 版：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">查看教程</a>。
 
-<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png?t=1" width="700" alt="WeChatSampleBuilder" />
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+
+2. 桌面版：登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a>下载 WeChatSampleBuilder 工具，并查看使用说明。
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+> 注意：使用 WeChatSampleBuilder 工具只是方便您简化 Sample 代码进行测试和学习，并不能帮助您生成完整的生产环境项目。如需构建生产环境项目，请参考完整的 Demo 或其他教程，推荐使用已有的系统框架进行项目搭建，如 [SenparcCoreFramework](https://github.com/SenparcCoreFramework/SCF)。
 
 
 资源
@@ -280,12 +283,12 @@ Senparc 官方视频教程
 
 ## Demo 文件夹说明（Samples文件夹下）
 
-| 文件夹 | 说明 |
-|--------|--------|
-|[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|
-|[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		|可以直接发布使用的Demo（.NET Framework 4.5 + + ASP.NET WebForms）|
-|[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			|可以直接发布使用的Demo（.NET Core + MVC）|
-|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			|命令行 Console Demo（.NET Core）|
+| 文件夹 | 说明 |  SDK 引用方式
+|--------|--------|----|
+|[Senparc.Weixin.MP.Sample](Samples/net45-mvc)						|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET MVC）|  Nuget 包
+|[Senparc.Weixin.MP.Sample.WebForms](Samples/net45-webforms)		|可以直接发布使用的Demo（.NET Framework 4.5 + ASP.NET WebForms）| Nuget 包
+|[Senparc.Weixin.MP.Sample.vs2019](Samples/netcore3.0-mvc)			|可以直接发布使用的Demo（.NET Core + MVC）| 源码
+|[Senparc.Weixin.MP.Sample.Consoles.vs2019](Samples/console)			|命令行 Console Demo（.NET Core）| 源码
 
 
 ## Senparc.Weixin.MP.Sample中的关键代码说明

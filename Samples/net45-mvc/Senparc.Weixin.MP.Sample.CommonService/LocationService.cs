@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：LocationService.cs
     文件功能描述：地理位置信息处理
@@ -7,6 +7,7 @@
     
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
+//DPBMARK_FILE MP
 
 using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;

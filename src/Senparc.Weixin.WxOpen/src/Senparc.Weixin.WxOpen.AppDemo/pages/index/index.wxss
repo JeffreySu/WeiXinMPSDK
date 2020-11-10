@@ -62,3 +62,9 @@
   border-radius: 22rpx;
   color: #fff;
 }
+
+.auth-notice{
+  text-align: center;
+  padding:10px 30px 30px 30px;
+  color: #ff8f00;
+}

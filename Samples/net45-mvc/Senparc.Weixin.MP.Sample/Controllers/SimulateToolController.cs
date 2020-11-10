@@ -272,7 +272,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     DateTimeHelper.GetUnixDateTime(SystemTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
             }
 
-            var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), true, 1000 * 20);
+            var responseMessageXml = MessageAgent.RequestXml(null, null, url, token, requestMessaageDoc.ToString(), true, 1000 * 20);
             Thread.Sleep(100); //模拟服务器响应时间
             return responseMessageXml;
         }
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString());
+                var responseMessageXml = MessageAgent.RequestXml(null, null, url, token, requestMessaageDoc.ToString());
 
                 if (string.IsNullOrEmpty(responseMessageXml))
                 {

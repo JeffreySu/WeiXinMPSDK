@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,13 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：DefaultMpMessageContext.cs
     文件功能描述：公众号上下文消息的默认实现
     
     
     创建标识：Senparc - 20190916
+
+    修改标识：Senparc - 20200731
+    修改描述：v16.10.502.2 添加微信电子发票 2.3 接收授权完成事件的处理
+
     
 ----------------------------------------------------------------*/
 
@@ -215,6 +219,12 @@ namespace Senparc.Weixin.MP.MessageContexts
                             break;
                         case "GIFTCARD_USER_ACCEPT"://券点流水详情事件：当商户朋友的券券点发生变动时
                             requestMessage = new RequestMessageEvent_GiftCard_User_Accept();
+                            break;
+                        #endregion
+
+                        #region 微信电子发票
+                        case "USER_AUTHORIZE_INVOICE":
+                            requestMessage = new RequestMessageEvent_User_Authorize_Invoice();
                             break;
                         #endregion
 

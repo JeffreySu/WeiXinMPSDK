@@ -17,15 +17,14 @@ Now, Senparc.Weixin has been supported almost all of the API for Wechat's all mo
 
 Senparc.Weixin SDK is the most widly used .NET Wechat SDK. Also it is one of the most popular .NET open source project in China.
 
-For more than six years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
+For more than seven years, we have been keeping the project constantly updated, share the complete source code and design ideas without reservation. Hopefully more people will benefit from it, understand and disseminate the spirit of open source. Grateful to the friends who helped us along the way!
 
 If you like and hope us to continue to optimize this project, please give us a Star:)
 
 ## Notice 
-> 🥇 .NET Core 3.0 [Senparc.Weixin SDK source code](/src) and [Demo](/Samples/netcore3.0-mvc) has been released!
-
->  :trophy: 《[2018-2019 WeChat SDK Outstanding Contributors Shortlist](https://github.com/JeffreySu/WeiXinMPSDK/issues/1584)》 has been published. Please check and register the information :smile:
-
+> 🍦 [file.api.weixin.qq.com Domain name officially disabled(2020.0.15)](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400), please update to the latest version! <br />
+>  :trophy: 《[2019-2020 Outstanding Contributors of Senparc Developer Community Shortlist](https://github.com/JeffreySu/WeiXinMPSDK/issues/2197)》 has been published. Please check and register the information before 30/6/2020 10:24 AM :smile: <br />
+> 🥇 .NET Core 3.1 [Senparc.Weixin SDK source code](/src) and [Demo](/Samples/netcore3.0-mvc) has been released!
 
 <img src="https://sdk.weixin.senparc.com/images/SenparcRobotsnapshoot.jpg" width="350" align="right">
 
@@ -63,13 +62,19 @@ Index
 
 The library contains the source code (the Core logic is exactly the same) that includes .Net 3.5/4.0/4.5/.NET Standard 2.0/.NET Core 2.2.
 
+
+
+
+* 使用 Visual Studio 2017/2019 打开 Demo（支持所有版本）：[Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)
+* 使用其他版本 Visual Studio 打开 Demo（仅支持 .NET 4.5）：[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
+* 使用 Visual Studio 2017/2019 打开命令行 Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
+
+
 * Use Visual Studio 2017 to open the Demo (support all versions)
-: [Senparc.Weixin.MP.Sample.vs2017.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample.vs2017)
+: [Senparc.Weixin.Sample.NetCore3.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc)
 * Use other versions of Visual Studio to open the Demo (support .net 4.5 only) :
-[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* Open Demo with Visual Studio 2010 SP1 (support.net 4.5 only) :
-[Senparc.Weixin.MP.Sample.vs2010sp1.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/src/Senparc.Weixin.MP.Sample)
-* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/Senparc.Weixin.MP.Sample.Consoles)
+[Senparc.Weixin.MP.Sample.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/net45-mvc)
+* Use Visual Studio 2017/2019 to open Console Demo（.NET Core）：[Senparc.Weixin.MP.Sample.Consoles.vs2019.sln](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/console)
 
 
 SDK Modules
@@ -175,11 +180,17 @@ Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](h
 
 ## Personalize your WeChat project Sample
 
-1. Methods: login <a href = "https://weixin.senparc.com/User" target ="_blank"> https://weixin.senparc.com/User </a> to download WeChatSampleBuilder tool, and view the instructions;
-2. Open the WeChatSampleBuilder.exe file, then choose the root directory path of this cloned project for the `Source Peoject Path'.  According to the need to configure the Sample project type, .NET versions, WeChat modules, and the cache types;
-3. Click the Build button, then in the same directory you can see ` OutputSample ` folder, and automatically open the solution!
 
-<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder.png" width="700" alt="WeChatSampleBuilder" />
+1. Web version：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">view course</a>。
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+
+2. Desktop App: Login <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a> to download WeChatSampleBuilder tool, and view description。
+
+<img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0.png?t=1" width="700" alt="WeChatSampleBuilder" />
+
+> Notice: using the WeChatSampleBuilder tool simply makes it easier for you to test and learn the Sample code, not to generate a complete production environment project. If you need to build a production environment project, refer to the full Demo or other tutorials. It is recommended to use an existing system framework, such as [SenparcCoreFramework](https://github.com/SenparcCoreFramework/SCF).
 
 
 resources
@@ -281,12 +292,12 @@ Senparc official tutorials
 
 ## Demo folder description (under Samples folder)
 
-| Folder | Description |
-|--------|--------|
-|[Senparc.Weixin.MP.Sample](Samples/Senparc.Weixin.MP.Sample)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)|
-|[Senparc.Weixin.MP.Sample.WebForms](Samples/Senparc.Weixin.MP.Sample.WebForms)		  |Demo, can be released directly(.NET Framework 4.5 + + ASP.NET WebForms)|
-|[Senparc.Weixin.MP.Sample.vs2017](Samples/Senparc.Weixin.MP.Sample.vs2017)			  |Demo, can be released directly(.NET Core 2.0 + MVC)|
-|[Senparc.Weixin.MP.Sample.Consoles](Samples/Senparc.Weixin.MP.Sample.Consoles)			| Console Demo（.NET Core）|
+| Folder | Description | SDK Library Reference
+|--------|--------|-------|
+|[Senparc.Weixin.MP.Sample](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
+|[Senparc.Weixin.MP.Sample.WebForms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
+|[Senparc.Weixin.MP.Sample.vs2019](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 2.0 + MVC)| Source Code
+|[Senparc.Weixin.MP.Sample.Consoles.vs2019](Samples/console)			| Console Demo（.NET Core）| Source Code
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

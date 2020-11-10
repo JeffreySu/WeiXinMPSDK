@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -51,6 +51,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     -- 迁移至 Senparc.Weixin.TenPay 独立模块 -- 
     
     修改标识：Senparc - 20190214
+    修改描述：v1.2.0 CreateMd5Sign() 方法提供企业微信签名方法
+    
+    修改标识：Senparc - 20201013
     修改描述：v1.2.0 CreateMd5Sign() 方法提供企业微信签名方法
 
 ----------------------------------------------------------------*/
@@ -214,12 +217,12 @@ namespace Senparc.Weixin.TenPay.V3
                     {
                         //企业支付微信红包，仅保留以下字段
                         if ("act_name".CompareTo(k) != 0
-                            || "mch_billno".CompareTo(k) != 0
-                            || "mch_id".CompareTo(k) != 0
-                            || "nonce_str".CompareTo(k) != 0
-                            || "re_openid".CompareTo(k) != 0
-                            || "total_amount".CompareTo(k) != 0
-                            || "wxappid".CompareTo(k) != 0
+                            && "mch_billno".CompareTo(k) != 0
+                            && "mch_id".CompareTo(k) != 0
+                            && "nonce_str".CompareTo(k) != 0
+                            && "re_openid".CompareTo(k) != 0
+                            && "total_amount".CompareTo(k) != 0
+                            && "wxappid".CompareTo(k) != 0
                             )
                         {
                             continue;
@@ -228,13 +231,13 @@ namespace Senparc.Weixin.TenPay.V3
                     {
                         //企业支付微信红包，仅保留以下字段
                         if ("amount".CompareTo(k) != 0
-                            || "appid".CompareTo(k) != 0
-                            || "desc".CompareTo(k) != 0
-                            || "mch_id".CompareTo(k) != 0
-                            || "nonce_str".CompareTo(k) != 0
-                            || "openid".CompareTo(k) != 0
-                            || "partner_trade_no".CompareTo(k) != 0
-                            || "ww_msg_type".CompareTo(k) != 0
+                            && "appid".CompareTo(k) != 0
+                            && "desc".CompareTo(k) != 0
+                            && "mch_id".CompareTo(k) != 0
+                            && "nonce_str".CompareTo(k) != 0
+                            && "openid".CompareTo(k) != 0
+                            && "partner_trade_no".CompareTo(k) != 0
+                            && "ww_msg_type".CompareTo(k) != 0
                             )
                         {
                             continue;

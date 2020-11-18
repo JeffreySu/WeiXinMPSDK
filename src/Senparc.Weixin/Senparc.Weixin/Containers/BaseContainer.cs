@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）
@@ -238,7 +238,7 @@ namespace Senparc.Weixin.Containers
                 case PlatformType.Work:
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
             }
 
             if (appId == null)
@@ -447,6 +447,7 @@ namespace Senparc.Weixin.Containers
                 case PlatformType.Work:
                     break;
                 default:
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
                     break;
             }
 
@@ -481,8 +482,6 @@ namespace Senparc.Weixin.Containers
                 //.Select(z => z)
                 .ToList();
         }
-
-
 
         /// <summary>
         /// 尝试获取某一项Bag

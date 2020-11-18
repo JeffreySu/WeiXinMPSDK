@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：Config.cs
     文件功能描述：全局设置
@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190530
     修改描述：更新访问器表达式主题
+
+    修改标识：Senparc - 20200918
+    修改描述：v6.7.600 停用 file.api.weixin.qq.com 域名
 
 ----------------------------------------------------------------*/
 
@@ -77,7 +80,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// 默认微信配置
         /// </summary>
-        [Obsolete("请使用 SenparcWeixinSetting")]
+        [Obsolete("请使用 SenparcWeixinSetting", true)]
         public static SenparcWeixinSetting DefaultSenparcWeixinSetting { get => SenparcWeixinSetting; set { SenparcWeixinSetting = value; } }
 
         /// <summary>
@@ -132,10 +135,12 @@ namespace Senparc.Weixin
 
         /// <summary>
         /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
+        /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
         /// </summary>
-        private static string _apiMpFileHost = "http://file.api.weixin.qq.com";
+        private static string _apiMpFileHost = "https://api.weixin.qq.com";
         /// <summary>
-        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：http://file.api.weixin.qq.com）
+        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
+        /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
         /// </summary>
         public static string ApiMpFileHost
         {

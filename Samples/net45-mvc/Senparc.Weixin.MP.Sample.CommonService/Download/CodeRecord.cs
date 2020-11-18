@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//DPBMARK_FILE MP
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.Download

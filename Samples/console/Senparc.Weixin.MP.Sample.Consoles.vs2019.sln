@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraires", "Libraires", "{E72ACEC5-2011-41C7-9A48-34F073D1AEE2}"
 EndProject
@@ -13,43 +13,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.vs2017", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.vs2017.csproj", "{0F0FC7C9-E9DF-4814-BFC3-9F781A6E12FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.netcore3", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.netcore3.csproj", "{0F0FC7C9-E9DF-4814-BFC3-9F781A6E12FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WeixinTests.vs2017", "..\..\src\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.vs2017.csproj", "{2F7A938D-0D5A-44A2-B933-07F0D45F7050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WeixinTests.netcore3", "..\..\src\Senparc.Weixin.MP\Senparc.WeixinTests\Senparc.WeixinTests.netcore3.csproj", "{2F7A938D-0D5A-44A2-B933-07F0D45F7050}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Test.vs2017", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.vs2017.csproj", "{D9A6E1F7-E7DB-4DF0-B0F5-6C921EE76F25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Test.netcore3", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.netcore3.csproj", "{D9A6E1F7-E7DB-4DF0-B0F5-6C921EE76F25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.vs2017", "..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj", "{85FEFE9E-1418-48D1-9D72-9F95C7D82EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.netcore3", "..\..\src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj", "{85FEFE9E-1418-48D1-9D72-9F95C7D82EA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WebSocket.vs2017", "..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.vs2017.csproj", "{18AACD60-9851-46DD-ACAA-98D44B543C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.WebSocket.netcore3", "..\..\src\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.netcore3.csproj", "{18AACD60-9851-46DD-ACAA-98D44B543C08}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.vs2017", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj", "{6FE907A7-B306-48C6-9239-D3AABEC39B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.netcore3", "..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj", "{6FE907A7-B306-48C6-9239-D3AABEC39B0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.MvcExtension.vs2017", "..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.vs2017.csproj", "{BB8F6709-811B-44FB-B35B-2F3401367C3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.MvcExtension.netcore3", "..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.netcore3.csproj", "{BB8F6709-811B-44FB-B35B-2F3401367C3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open.vs2017", "..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.vs2017.csproj", "{7C2BBAAE-1005-43F4-A6E9-BAD81C692AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open.netcore3", "..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.netcore3.csproj", "{7C2BBAAE-1005-43F4-A6E9-BAD81C692AB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.WxOpen.vs2017", "..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.vs2017.csproj", "{949AB111-1EB7-4805-8A11-5A4D7D416B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.WxOpen.netcore3", "..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.netcore3.csproj", "{949AB111-1EB7-4805-8A11-5A4D7D416B6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Memcached.vs2017", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.vs2017.csproj", "{7B0FBF2E-47DF-4B97-B3CF-80700AB7EE11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Memcached.netcore3", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.netcore3.csproj", "{7B0FBF2E-47DF-4B97-B3CF-80700AB7EE11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.vs2017", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.vs2017.csproj", "{A085F16B-9455-4CC5-9B6A-1DF054D174EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.netcore3", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.netcore3.csproj", "{A085F16B-9455-4CC5-9B6A-1DF054D174EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.CoreSample.CommonService", "..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj", "{2C90AE7E-B6DE-4C3A-AF9A-96859D529CF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.NetCore3Sample.CommonService", "..\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.NetCore3Sample.CommonService.csproj", "{2C90AE7E-B6DE-4C3A-AF9A-96859D529CF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.Test.vs2017", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work.Test\Senparc.Weixin.Work.Test.vs2017.csproj", "{879883C2-2781-4151-B84A-3CBD6BB9A86A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Work.Test.netcore3", "..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work.Test\Senparc.Weixin.Work.Test.netcore3.csproj", "{879883C2-2781-4151-B84A-3CBD6BB9A86A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open.Test.vs2017", "..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open.Test\Senparc.Weixin.Open.Test.vs2017.csproj", "{A885B774-4ADE-4C1B-AC9C-7F863EFA2CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open.Test.netcore3", "..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open.Test\Senparc.Weixin.Open.Test.netcore3.csproj", "{A885B774-4ADE-4C1B-AC9C-7F863EFA2CE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.WxOpen.Tests.vs2017", "..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen.Tests\Senparc.Weixin.WxOpen.Tests.vs2017.csproj", "{7F104C20-FAB8-4EFD-A020-2BCF4C236D76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.WxOpen.Tests.netcore3", "..\..\src\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen.Tests\Senparc.Weixin.WxOpen.Tests.netcore3.csproj", "{7F104C20-FAB8-4EFD-A020-2BCF4C236D76}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.Tests.vs2017", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.Tests\Senparc.Weixin.Cache.Redis.Tests.vs2017.csproj", "{6CF93018-06A8-46D3-B1A2-CC95CD9EE9F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis.Tests.netcore3", "..\..\src\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis.Tests\Senparc.Weixin.Cache.Redis.Tests.netcore3.csproj", "{6CF93018-06A8-46D3-B1A2-CC95CD9EE9F1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.vs2017", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.vs2017.csproj", "{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.netcore3", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.netcore3.csproj", "{1FE2AFF6-E651-441F-8F2D-6ABEE141040C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.Test.vs2017", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.Test\Senparc.Weixin.TenPay.Test.vs2017.csproj", "{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.TenPay.Test.netcore3", "..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.Test\Senparc.Weixin.TenPay.Test.netcore3.csproj", "{ECE82D35-7FF9-4DFA-89BD-F94B348876B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Sample.Consoles", "Senparc.Weixin.MP.Sample.Consoles\Senparc.Weixin.MP.Sample.Consoles.csproj", "{1E843726-DB24-464D-A6A9-5607B197D807}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{22E71C09-62DD-4746-BE07-2D6E9AC30CB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -418,6 +420,7 @@ Global
 		{1FE2AFF6-E651-441F-8F2D-6ABEE141040C} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{ECE82D35-7FF9-4DFA-89BD-F94B348876B3} = {FC72CA5A-5DE9-4902-A5AA-00344FA68B37}
 		{1E843726-DB24-464D-A6A9-5607B197D807} = {35139CB3-610E-4922-98AD-08A5D12BFC35}
+		{22E71C09-62DD-4746-BE07-2D6E9AC30CB5} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC7AD3EC-AB37-497E-925B-DCD5129FE6D3}

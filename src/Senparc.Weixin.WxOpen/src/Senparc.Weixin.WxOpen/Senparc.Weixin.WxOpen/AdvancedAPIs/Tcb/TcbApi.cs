@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,14 +19,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：TcbApi.cs
     文件功能描述：云函数。注意: HTTP API 途径触发云函数不包含用户信息。
     
     
     创建标识：lishewen - 20190530
-   
+
+    修改标识：lishewen - 20200318
+    修改描述：v3.7.401 更新接口：UpdateIndex()、DatabaseAggregate()
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;

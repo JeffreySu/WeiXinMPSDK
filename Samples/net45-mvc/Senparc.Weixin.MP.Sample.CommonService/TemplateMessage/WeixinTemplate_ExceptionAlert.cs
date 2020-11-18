@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
 {
@@ -51,13 +53,34 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
             string _remark, string url = null, string templateId = TEMPLATE_ID)
             : base(templateId, url, "系统异常告警通知")
         {
+            //临时调试
             first = new TemplateDataItem(_first);
             keyword1 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString());
             keyword2 = new TemplateDataItem(host);
             keyword3 = new TemplateDataItem(service);
             keyword4 = new TemplateDataItem(status);
-            keyword5 = new TemplateDataItem(message);
-            remark = new TemplateDataItem(_remark);
+
+            if (message.StartsWith("Padding is invalid"))
+            {
+                keyword5 = new TemplateDataItem(message, "#00dd00");
+                string newMessage = null;
+                try
+                {
+                    var httpContextAccessor = Senparc.CO2NET.SenparcDI.GetServiceProvider().GetService<IHttpContextAccessor>();
+                    var httpContext = httpContextAccessor.HttpContext;
+                    newMessage = httpContext.Request.PathAndQuery();
+                }
+                catch (Exception)
+                {
+                    newMessage = "获取 HttpContext 出错";
+                }
+                remark = new TemplateDataItem(newMessage);
+            }
+            else
+            {
+                keyword5 = new TemplateDataItem(message);
+                remark = new TemplateDataItem(_remark);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\qr.jpg");
 #else
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\qr.jpg");
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 //保存到文件
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\testpic_{0}.core20.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
 #else
                 var fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\testpic_{0}.net45.jpg".FormatWith(SystemTime.Now.ToString("yyyyMMddHHmmss")));
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             UploadTemporaryMediaTest();//上传
 
 
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\");
 #else
             var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\");
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试");
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video");
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
@@ -416,7 +416,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", 100000);
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", "video", 100000);
 
             Assert.IsNotNull(result.media_id);
 

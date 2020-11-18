@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -77,6 +77,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20191014
     修改描述：配合 WxOpen v3.7.102 添加小程序订阅消息的 ReturnCode
+
+    修改标识：Senparc - 20191014
+    修改描述：v6.7.401 配合 Open v6.7.401，添加 ReturnCode 枚举类型
+
+    修改标识：Senparc - 20200430
+    修改描述：v6.7.502 添加 40164 错误编码
 
 ----------------------------------------------------------------*/
 
@@ -181,6 +187,7 @@ namespace Senparc.Weixin
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
+        调用接口的IP地址不在白名单中 = 40164,//GitHub#2166 https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html 
 
         小程序Appid不存在 = 40166,
 
@@ -231,6 +238,9 @@ namespace Senparc.Weixin
         系统分组不允许修改 = 45016,
         分组名字过长 = 45017,
         分组数量超过上限 = 45018,
+        超出响应数量限制 = 45047,//out of response count limit，一般只允许连续接收20条客服消息
+
+
         不存在媒体数据 = 46001,
         不存在的菜单版本 = 46002,
         不存在的菜单数据 = 46003,
@@ -340,6 +350,9 @@ namespace Senparc.Weixin
         小程序提交的审核未审核通过 = 85080,
         无效的发布比例 = 85081,
         当前的发布比例需要比之前设置的高 = 85082,
+        小程序提审数量已达本月上限 = 85085,
+        提交代码审核之前需提前上传代码 = 85086,
+        小程序已使用_api_navigateToMiniProgram_请声明跳转_appid_列表后再次提交 = 85087,
         小程序还未设置昵称_头像_简介_请先设置完后再重新提交 = 86002,
         现网已经在灰度发布_不能进行版本回退 = 87011,
         该版本不能回退_可能的原因_1_无上一个线上版用于回退_2_此版本为已回退版本_不能回退_3_此版本为回退功能上线之前的版本_不能回退 = 87012,

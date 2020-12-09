@@ -26,6 +26,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -34,12 +35,12 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public string RunStep { get; set; }
 
 
-        public OmitRepeatMessageMessageHandlers(XDocument requestDoc,PostModel postModel)
+        public OmitRepeatMessageMessageHandlers(XDocument requestDoc, PostModel postModel)
             : base(requestDoc, postModel)
         {
         }
 
-    
+
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -62,7 +63,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlers_OmitRepeatMessage
+    public class MessageHandlers_OmitRepeatMessage : BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

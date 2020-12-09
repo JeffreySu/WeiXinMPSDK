@@ -1,0 +1,63 @@
+﻿
+
+namespace Senparc.Weixin.Work.Entities
+{
+    /// <summary>
+    /// 推广二维码注册企业微信完成通知
+    /// </summary>
+    public class RequestMessager_Register_Corp : ThirdPartyInfoBase, IThirdPartyInfoBase
+    {
+        //public override RequestMsgType MsgType
+        //{
+        //    get { return RequestMsgType.Unknown; }
+        //}
+
+        public ThirdPartyInfo InfoType
+        {
+            get { return ThirdPartyInfo.REGISTER_CORP; }
+        }
+        /// <summary>
+        /// 服务商corpid
+        /// </summary>
+        public string ServiceCorpId { get; set; }
+        public string TimeStamp { get; set; }
+        /// <summary>
+        /// 创建企业对应的注册码
+        /// </summary>
+        public string RegisterCode { get; set; }
+        /// <summary>
+        /// 注册成功的企业corpid
+        /// </summary>
+        public string AuthCorpId { get; set; }
+        /// <summary>
+        /// 授权管理员的信息
+        /// </summary>
+        public ContactSyncToken ContactSync { get; set; }
+        /// <summary>
+        /// 授权管理员的userid
+        /// </summary>
+        public AuthUserInfoModel AuthUserInfo { get; set; }
+        /// <summary>
+        /// 用户自定义的状态值，参数值由接口 获取注册码 指定。若未指定，则无该字段
+        /// </summary>
+        public string State { get; set; }
+        /// <summary>
+        /// 推广包ID
+        /// </summary>
+        public string TemplateId { get; set; }
+    }
+
+
+    #region 这两个类在NeuChar项目中已经定义，为了编译通过，所以定义在此处【测试通过后请删除这两个类】
+    public class ContactSyncToken
+    {
+        public string AccessToken { get; set; }
+        public int ExpiresIn { get; set; }
+    }
+
+    public class AuthUserInfoModel
+    {
+        public string UserId { get; set; }
+    }
+    #endregion
+}

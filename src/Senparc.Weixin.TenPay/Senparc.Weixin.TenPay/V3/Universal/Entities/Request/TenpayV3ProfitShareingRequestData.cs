@@ -38,6 +38,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200601
     修改描述：v1.5.502.3 fix bug:必须指定待分账的接收方列表 判断有误 https://github.com/JeffreySu/WeiXinMPSDK/issues/2184
 
+    修改标识：Senparc - 20201209
+    修改描述：v1.6.100 更新 TenPayV3UnifiedorderRequestData 构造函数，version 为空时忽略 https://github.com/JeffreySu/WeiXinMPSDK/issues/2277
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -684,7 +686,7 @@ namespace Senparc.Weixin.TenPay.V3
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
 
-            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion);
+            PackageRequestHandler.SetParameterWhenNotNull("version", Register.TenpayV3ProtfitRequestDataVersion);
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

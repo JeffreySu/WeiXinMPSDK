@@ -642,6 +642,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 return CommonJsonSend.Send<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+
         #endregion
 
 

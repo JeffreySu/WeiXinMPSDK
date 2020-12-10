@@ -638,6 +638,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// 分账接收方对象，json格式
         /// </summary>
         public TenpayV3ProfitShareing_ReceiverInfo Receiver { get; set; }
+        /// <summary>
+        /// 统一下单接口参数，参考：https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_203&amp;index=6
+        /// </summary>
+        public string Version { get; set; }
 
 
         /// <summary>
@@ -656,11 +660,11 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="submchid">子商户号</param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
-        /// <param name="receiver">需要删除的的分账接收方对象
-        /// </param>
+        /// <param name="receiver">需要删除的的分账接收方对象</param>
+        /// <param name="version">统一下单接口参数，参考：https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_203&amp;index=6</param>
         public TenpayV3ProfitShareingRemoveReceiverRequestData(
             string appId, string mchId, string subappid, string submchid, string key, string nonceStr,
-            TenpayV3ProfitShareing_ReceiverInfo receiver
+            TenpayV3ProfitShareing_ReceiverInfo receiver, string version = null
         )
         {
             AppId = appId;
@@ -670,6 +674,7 @@ namespace Senparc.Weixin.TenPay.V3
             SubAppId = subappid;
             SubMchId = submchid;
             Receiver = receiver;
+            Version = version;
             if (Receiver == null)
             {
                 throw new ArgumentNullException("必须指定待删除的分账接收方");
@@ -686,7 +691,7 @@ namespace Senparc.Weixin.TenPay.V3
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
 
-            PackageRequestHandler.SetParameterWhenNotNull("version", Register.TenpayV3ProtfitRequestDataVersion);
+            PackageRequestHandler.SetParameterWhenNotNull("version", Version);
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

@@ -1,4 +1,15 @@
-﻿
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2020 Senparc
+    
+    文件名：RequestMessager_Register_Corp.cs
+    文件功能描述：推广二维码注册企业微信完成通知
+    
+    
+    创建标识：Billzjh - 20201210
+    
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {
@@ -46,18 +57,4 @@ namespace Senparc.Weixin.Work.Entities
         /// </summary>
         public string TemplateId { get; set; }
     }
-
-
-    #region 这两个类在NeuChar项目中已经定义，为了编译通过，所以定义在此处【测试通过后请删除这两个类】
-    public class ContactSyncToken
-    {
-        public string AccessToken { get; set; }
-        public int ExpiresIn { get; set; }
-    }
-
-    public class AuthUserInfoModel
-    {
-        public string UserId { get; set; }
-    }
-    #endregion
 }

@@ -742,6 +742,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_CONTACT:
                     return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
+                case ThirdPartyInfo.REGISTER_CORP:
+                    return OnThirdPartyEvent_REGISTER_CORP((RequestMessager_Register_Corp)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                     {
                         var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
@@ -775,6 +777,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartyEvent_Change_Contact(RequestMessageInfo_Change_Contact thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_REGISTER_CORP(RequestMessager_Register_Corp thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }

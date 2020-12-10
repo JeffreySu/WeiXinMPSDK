@@ -84,6 +84,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200430
     修改描述：v6.7.502 添加 40164 错误编码
 
+    修改标识：Billzjh - 20201210
+    修改描述：v6.8.101 完善 ReturnCode_Work 枚举类型
+
 ----------------------------------------------------------------*/
 
 

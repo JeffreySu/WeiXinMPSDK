@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191004
     修改描述：添加异步方法
 
+    修改标识：Senparc - 20200909
+    修改描述：v3.8.511 调整 MessageHandler 异步方法执行代码
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar.Entities;
@@ -188,7 +191,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// </summary>
         public virtual async Task<IResponseMessageBase> OnEvent_UserEnterTempSessionRequestAsync(RequestMessageEvent_UserEnterTempSession requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_UserEnterTempSessionRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -198,7 +201,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_AddNearbyPoiAuditInfoRequestAsync(RequestMessageEvent_AddNearbyPoiAuditInfo requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_AddNearbyPoiAuditInfoRequest(requestMessage)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -208,7 +211,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditDelayRequestAsync(RequestMessageEvent_WeAppAuditDelay requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditDelayRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
@@ -219,7 +222,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditFailRequestAsync(RequestMessageEvent_WeAppAuditFail requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditFailRequest(requestMessage)).ConfigureAwait(false);
         }
         /// <summary>
         /// 小程序审核成功通知
@@ -228,7 +231,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_WeAppAuditSuccessRequestAsync(RequestMessageEvent_WeAppAuditSuccess requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_WeAppAuditSuccessRequest(requestMessage)).ConfigureAwait(false);
         }
 
 
@@ -239,7 +242,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <returns></returns>
         public virtual async Task<IResponseMessageBase> OnEvent_NicknameAuditRequestAsync(RequestMessageEvent_NicknameAudit requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return await DefaultAsyncMethod(requestMessage, () => OnEvent_NicknameAuditRequest(requestMessage)).ConfigureAwait(false);
         }
 
 

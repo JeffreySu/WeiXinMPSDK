@@ -50,6 +50,7 @@ using Senparc.Weixin.Sample.NetCore3.Models;
 using Senparc.Weixin.MP;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Trace;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -280,7 +281,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 throw;
             }
-           
+
         }
 
         public ActionResult NativeNotifyUrl()
@@ -727,6 +728,18 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     string nonce_str = resHandler.GetParameter("nonce_str");
                     string req_info = resHandler.GetParameter("req_info");
 
+                    if (!appId.Equals(Senparc.Weixin.Config.SenparcWeixinSetting.TenPayV3_AppId))
+                    {
+                        /* 
+                         * 注意：
+                         * 这里添加过滤只是因为盛派Demo经常有其他公众号错误地设置了我们的地址，
+                         * 导致无法正常解密，平常使用不需要过滤！
+                         */
+                        SenparcTrace.SendCustomLog("RefundNotifyUrl 的 AppId 不正确",
+                            $"appId:{appId}\r\nmch_id:{mch_id}\r\nreq_info:{req_info}");
+                        return Content("faild");
+                    }
+
                     var decodeReqInfo = TenPayV3Util.DecodeRefundReqInfo(req_info, TenPayV3Info.Key);
                     var decodeDoc = XDocument.Parse(decodeReqInfo);
 
@@ -1061,7 +1074,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     var price = product == null ? 100 : (int)(product.Price * 100);
                     //var ip = Request.Params["REMOTE_ADDR"];
                     var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.MWEB/*此处无论传什么，方法内部都会强制变为MWEB*/, openId, TenPayV3Info.Key, nonceStr);
-                    
+
                     SenparcTrace.SendCustomLog("H5Pay接口请求", xmlDataInfo.ToJson());
 
                     var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口

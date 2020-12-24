@@ -311,7 +311,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 requestMessaageDoc.Root.Element("Content").Value = string.Join(" | ", values);
             }
 
-            var responseMessageXml = await MessageAgent.RequestXmlAsync(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
+            var responseMessageXml = await MessageAgent.RequestXmlAsync(null, _serviceProvider, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters, 1000 * 20);
             Thread.Sleep(sleepMillionSeconds); //模拟服务器响应时间
 
             _responseMessageXml = responseMessageXml;
@@ -319,6 +319,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         }
 
         #endregion
+
+        IServiceProvider _serviceProvider;
+
+        public SimulateToolController(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
 
         /// <summary>
         /// 默认页面
@@ -388,7 +395,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                 var dt1 = SystemTime.Now;
 
-
                 try
                 {
                     dt1 = SystemTime.Now;
@@ -409,7 +415,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     else
                     {
                         //同步方法，立即发送
-                        _responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
+                        _responseMessageXml = MessageAgent.RequestXml(null, _serviceProvider, url, token, requestMessaageDoc.ToString(), autoFillUrlParameters: false);
                     }
 
 

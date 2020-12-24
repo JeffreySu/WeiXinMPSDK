@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 //DPBMARK_FILE MP
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.Utilities;
 using Senparc.NeuChar.Agents;
@@ -243,7 +244,13 @@ QQ群：289181996
                     {
                         //获取返回的XML
                         var dt1 = SystemTime.Now;
-                        reponseMessage = MessageAgent.RequestResponseMessage(this, agentUrl, agentToken, RequestDocument.ToString());
+                        reponseMessage = MessageAgent.RequestResponseMessage(this,
+#if NET45
+                        null,
+#else
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
+# endif
+                        agentUrl, agentToken, RequestDocument.ToString());
                         //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                         var dt2 = SystemTime.Now;
@@ -259,7 +266,13 @@ QQ群：289181996
                 case "Member"://托管代理会员信息
                     {
                         //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
-                        reponseMessage = this.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        reponseMessage = this.RequestResponseMessage(
+#if NET45
+                        null,
+#else
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
+#endif
+                        agentUrl, agentToken, RequestDocument.ToString());
                     }
                     break;
                 case "OAuth"://OAuth授权测试
@@ -566,7 +579,7 @@ QQ群：289181996
             return responseMessage;
         }
 
-        #region 微信认证事件推送
+#region 微信认证事件推送
 
         public override IResponseMessageBase OnEvent_QualificationVerifySuccessRequest(RequestMessageEvent_QualificationVerifySuccess requestMessage)
         {
@@ -577,6 +590,6 @@ QQ群：289181996
             return new SuccessResponseMessage();//返回"success"字符串
         }
 
-        #endregion
+#endregion
     }
 }

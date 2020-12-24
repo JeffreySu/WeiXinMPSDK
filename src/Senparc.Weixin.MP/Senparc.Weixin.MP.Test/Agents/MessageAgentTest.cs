@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 <EventKey><![CDATA[OneClick]]></EventKey>
 </xml>";
 
-            var xml = MessageAgent.RequestXml(null, url, token, requestXml);
+            var xml = MessageAgent.RequestXml(null, BaseTest.serviceProvider, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));

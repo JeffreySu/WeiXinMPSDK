@@ -524,6 +524,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 删除标签成员【QY移植修改】
+        /// <para>文档：https://work.weixin.qq.com/api/doc/90000/90135/90215</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="tagId">标签ID</param>
@@ -1093,6 +1094,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         ///【异步方法】 删除标签成员【QY移植修改】
+        /// <para>文档：https://work.weixin.qq.com/api/doc/90000/90135/90215</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="tagId">标签ID</param>

@@ -96,6 +96,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20191206
     修改描述：AutoReplyType 添加卡券（card）枚举
 
+    修改标识：Senparc - 20201211
+    修改描述：v1.6.101.1 修改 TenPayV3Type 过期提示
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -991,7 +994,7 @@ namespace Senparc.Weixin.MP
     /// 支付类型
     /// </summary>
 
-    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay.V3 中的对应方法")]
+    [Obsolete("请使用 Senparc.Weixin.TenPay.dll，Senparc.Weixin.TenPay 中的对应方法")]
     public enum TenPayV3Type
     {
         /// <summary>

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Senparc.WeixinTests
+namespace Senparc.Weixin.WxOpen.Tests
 {
     [TestClass]
     public class WeixinRegisterTests
@@ -132,6 +132,7 @@ namespace Senparc.WeixinTests
             logs.Add("**********************    End configuration the senparcSDK    **********************");
 
             File.AppendAllLines(logFile, logs, Encoding.UTF8);
+            Console.WriteLine(string.Join("\r\n",logs));
         }
     }
 }

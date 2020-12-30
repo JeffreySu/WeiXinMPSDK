@@ -692,20 +692,20 @@ namespace Senparc.Weixin.TenPay.V3
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
 
             PackageRequestHandler.SetParameterWhenNotNull("version", Version);
-            PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
-            PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
-            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID
-            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId);    //子商户号
-            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                //随机字符串
-            PackageRequestHandler.SetParameter("sign_type", this.SignType);     //签名类型，默认为MD5
+            PackageRequestHandler.SetParameter("appid", this.AppId);                        //公众账号ID
+            PackageRequestHandler.SetParameter("mch_id", this.MchId);                       //商户号
+            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);      //子商户公众账号ID
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId);     //子商户号
+            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                 //随机字符串
+            PackageRequestHandler.SetParameter("sign_type", this.SignType);                 //签名类型，默认为MD5
 
             JsonSerializerSettings setting = new JsonSerializerSettings();
             setting.NullValueHandling = NullValueHandling.Ignore;
-            PackageRequestHandler.SetParameter("receiver", Receiver.ToJson(false, setting));   //场景信息
+            PackageRequestHandler.SetParameter("receiver", Receiver.ToJson(false, setting));//场景信息
 
             Sign = PackageRequestHandler.CreateSha256Sign("key", this.Key);
 
-            PackageRequestHandler.SetParameter("sign", Sign);                              //签名
+            PackageRequestHandler.SetParameter("sign", Sign);                               //签名
             #endregion
         }
 

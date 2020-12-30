@@ -1,8 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2020 Senparc
+  
+    文件名：AccessTokenContainer.cs
+    文件功能描述：小程序的通用接口 AccessToken 容器，用于自动管理 AccessToken，如果过期会重新获取
+    
+    
+    修改标识：gokeiyou - 20201230
+    修改描述：新建 WxOpen 专属的 AccessTokenContainer
+
+----------------------------------------------------------------*/
+
 using Senparc.CO2NET.Extensions;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Entities;
@@ -10,10 +37,15 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Containers
 {
 
+    /// <summary>
+    /// 小程序 AccessToken 包
+    /// </summary>
     public class AccessTokenBag : BaseContainerBag
     {
         public string WxOpenAppId { get; set; }
@@ -22,6 +54,9 @@ namespace Senparc.Weixin.WxOpen.Containers
         public AccessTokenResult AccessTokenResult { get; set; }
     }
 
+    /// <summary>
+    /// 小程序的通用接口 AccessToken 容器，用于自动管理 AccessToken，如果过期会重新获取
+    /// </summary>
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         const string LockResourceName = "WxOpen.AccessTokenContainer";

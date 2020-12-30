@@ -100,54 +100,18 @@ namespace Senparc.Weixin.Work.Containers
         /// CorpId
         /// </summary>
         public string CorpId { get; set; }
-        //        {
-        //            get { return _corpId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _corpId, value, "CorpId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _corpId, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// CorpSecret
         /// </summary>
         public string CorpSecret { get; set; }
-        //        {
-        //            get { return _corpSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _corpSecret, value, "CorpSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _corpSecret, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 过期时间
         /// </summary>
         public DateTimeOffset ExpireTime { get; set; }
-        //        {
-        //            get { return _expireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _expireTime, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// ProviderTokenResult
         /// </summary>
         public ProviderTokenResult ProviderTokenResult { get; set; }
-        //        {
-        //            get { return _providerTokenResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _providerTokenResult, value, "ProviderTokenResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _providerTokenResult, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 只针对这个CorpId的锁
         /// </summary>

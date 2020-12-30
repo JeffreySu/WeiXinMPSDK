@@ -55,6 +55,10 @@ function loadQQGroups() {
                 $(this).html($(this).html().replace('SCF', '<a href="https://github.com/SenparcCoreFramework/SCF" target="_blank" class="qqGroup_tip">SCF<a>'));
             });
 
+            $('ins div:contains(NCF)').each(function (i, item) {
+                $(this).html($(this).html().replace('NCF', '<a href="https://github.com/NeuCharFramework/NCF" target="_blank" class="qqGroup_tip">NCF<a>'));
+            });
+
             $('ins div:contains(NeuChar)').each(function (i, item) {
                 $(this).html($(this).html().replace('NeuChar', '<a href="https://github.com/Senparc/NeuChar" target="_blank" class="qqGroup_tip">NeuChar<a>'));
             });

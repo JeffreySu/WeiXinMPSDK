@@ -45,6 +45,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190530
     修改描述：更新访问器表达式主题
 
+    修改标识：Senparc - 20200918
+    修改描述：v6.7.600 停用 file.api.weixin.qq.com 域名
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -132,10 +135,12 @@ namespace Senparc.Weixin
 
         /// <summary>
         /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
+        /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
         /// </summary>
-        private static string _apiMpFileHost = "http://file.api.weixin.qq.com";
+        private static string _apiMpFileHost = "https://api.weixin.qq.com";
         /// <summary>
-        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：http://file.api.weixin.qq.com）
+        /// 公众号（小程序）、开放平台【文件下载】 API 的服务器地址（默认为：https://api.weixin.qq.com）
+        /// <para>2020年9月15日停止使用http://file.api.weixin.qq.com域名：https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400</para>
         /// </summary>
         public static string ApiMpFileHost
         {

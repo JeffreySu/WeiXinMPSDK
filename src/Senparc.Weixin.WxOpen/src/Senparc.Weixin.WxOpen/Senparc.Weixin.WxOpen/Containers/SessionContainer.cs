@@ -48,16 +48,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.CO2NET.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Helpers;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Containers
 {
@@ -70,56 +65,21 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// <summary>
         /// Session的Key（3rd_session / sessionId）
         /// </summary>
-        new public string Key { get; set; }
-        //        {
-        //            get { return _key; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _key, value, "Key"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _key, value); }
-        //#endif
-        //        }
-
+        public new string Key { get; set; }
         /// <summary>
         /// OpenId
         /// </summary>
         public string OpenId { get; set; }
-        //        {
-        //            get { return _openId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _openId, value, "OpenId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _openId, value); }
-        //#endif
-        //        }
-
         public string UnionId { get; set; }
 
         /// <summary>
         /// SessionKey
         /// </summary>
         public string SessionKey { get; set; }
-        //        {
-        //            get { return _sessionKey; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _sessionKey, value, "SessionKey"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _sessionKey, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 过期时间
         /// </summary>
         public DateTimeOffset ExpireTime { get; set; }
-        //        {
-        //            get { return _expireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _expireTime, value); }
-        //#endif
-        //        }
 
         //private string _key;
         //private string _openId;

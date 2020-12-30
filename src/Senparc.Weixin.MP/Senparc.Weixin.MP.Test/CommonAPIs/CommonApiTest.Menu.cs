@@ -32,11 +32,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     public partial class CommonApiTest
     {
-        [TestMethod]
+        //[TestMethod]//已经通过测试
         public void CreateMenuTest()
         {
-            return;//已经通过测试
-
             //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             ButtonGroup bg = new ButtonGroup();

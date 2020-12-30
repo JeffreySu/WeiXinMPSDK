@@ -250,6 +250,10 @@ namespace Senparc.Weixin.MP.Containers
 
             if (!name.IsNullOrEmpty())
             {
+                /*
+                 * 注意：此处会修改全局的 WeixinAppId 和 WeixinAppSecret 的值，如果小程序从这里注册（并且没有提供 name），就会影响到公众号的参数 
+                 * https://github.com/JeffreySu/WeiXinMPSDK/pull/2261/files
+                 */
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
             }

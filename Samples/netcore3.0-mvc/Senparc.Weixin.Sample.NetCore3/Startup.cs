@@ -218,7 +218,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     {
                         app.UseEnyimMemcached();
                         weixinRegister.UseSenparcWeixinCacheMemcached();
-                    }                                                                                      // DPBMARK_END
+                    }                                                                                     // DPBMARK_END
 
                     #endregion
 
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     weixinRegister
                             //注册公众号（可注册多个）                                                    -- DPBMARK MP
 
-                            .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
+                            .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")     // DPBMARK_END
 
 
                             //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram

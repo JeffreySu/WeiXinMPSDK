@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.9.101</Version>
+    <Version>3.10.101</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -148,6 +148,7 @@
 		1、小程序 WxOpenMessageHandler 增加 OnImageRequestAsync 和 OnTextRequestAsync
 		2、调整 MessageHandler 异步方法执行代码
 		v3.8.512 添加解密到实例信息方法
+		v3.10.101 新增 WxOpen 专属 AccessTokenContainer，解决没有提供 name 参数的情况下，Register 过程和公众号注册信息发生冲突的问题
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

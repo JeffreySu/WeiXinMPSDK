@@ -112,121 +112,38 @@ namespace Senparc.Weixin.Open.Containers
         /// 第三方平台AppId
         /// </summary>
         public string ComponentAppId { get; set; }
-        //        {
-        //            get { return _componentAppId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentAppId, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 第三方平台AppSecret
         /// </summary>
         public string ComponentAppSecret { get; set; }
-        //        {
-        //            get { return _componentAppSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentAppSecret, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 第三方平台ComponentVerifyTicket（每隔10分钟微信会主动推送到服务器，IP必须在白名单内）
         /// </summary>
         public string ComponentVerifyTicket { get; set; }
-        //        {
-        //            get { return _componentVerifyTicket; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentVerifyTicket, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 第三方平台ComponentVerifyTicket过期时间（实际上过期之后仍然可以使用一段时间）
         /// </summary>
         public DateTimeOffset ComponentVerifyTicketExpireTime { get; set; }
-        //        {
-        //            get { return _componentVerifyTicketExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
-        //#endif
-
-        //        }
-
         /// <summary>
         /// ComponentAccessTokenResult
         /// </summary>
         public ComponentAccessTokenResult ComponentAccessTokenResult { get; set; }
-        //        {
-        //            get { return _componentAccessTokenResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentAccessTokenResult, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// ComponentAccessToken过期时间
         /// </summary>
         public DateTimeOffset ComponentAccessTokenExpireTime { get; set; }
-        //        {
-        //            get { return _componentAccessTokenExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
-        //#endif
-        //        }
-
-
         /// <summary>
         /// PreAuthCodeResult 预授权码结果
         /// </summary>
         public PreAuthCodeResult PreAuthCodeResult { get; set; }
-        //        {
-        //            get { return _preAuthCodeResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _preAuthCodeResult, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 预授权码过期时间
         /// </summary>
         public DateTimeOffset PreAuthCodeExpireTime { get; set; }
-        //        {
-        //            get { return _preAuthCodeExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// AuthorizerAccessToken
         /// </summary>
         public string AuthorizerAccessToken { get; set; }
-        //        {
-        //            get { return _authorizerAccessToken; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _authorizerAccessToken, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>

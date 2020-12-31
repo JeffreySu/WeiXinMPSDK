@@ -218,7 +218,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     {
                         app.UseEnyimMemcached();
                         weixinRegister.UseSenparcWeixinCacheMemcached();
-                    }                                                                                      // DPBMARK_END
+                    }                                                                                     // DPBMARK_END
 
                     #endregion
 
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.Sample.NetCore3
                     weixinRegister
                             //注册公众号（可注册多个）                                                    -- DPBMARK MP
 
-                            .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")// DPBMARK_END
+                            .RegisterMpAccount(senparcWeixinSetting.Value, "【盛派网络小助手】公众号")     // DPBMARK_END
 
 
                             //注册多个公众号或小程序（可注册多个）                                        -- DPBMARK MiniProgram
@@ -352,7 +352,12 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用公众号的 MessageHandler 中间件（不再需要创建 Controller）                       --DPBMARK MP
             app.UseMessageHandlerForMp("/WeixinAsync", CustomMessageHandler.GenerateMessageHandler, options =>
             {
-                //说明：此代码块中演示了较为全面的功能点，简化的使用可以参考下面小程序和企业微信
+                /* 说明：
+                 * 1、此代码块中演示了较为全面的功能点，简化的使用可以参考下面小程序和企业微信
+                 * 2、使用中间件也支持多账号，可以使用 URL 添加参数的方式（如：/Weixin?id=1），
+                 *    在options.AccountSettingFunc = context => {...} 中，从 context.Request 中获取 [id] 值，
+                 *    并反馈对应的 senparcWeixinSetting 信息
+                 */
 
                 #region 配置 SenparcWeixinSetting 参数，以自动提供 Token、EncodingAESKey 等参数
 

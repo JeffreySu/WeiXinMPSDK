@@ -66,55 +66,20 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// Session的Key（3rd_session / sessionId）
         /// </summary>
         public new string Key { get; set; }
-        //        {
-        //            get { return _key; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _key, value, "Key"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _key, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// OpenId
         /// </summary>
         public string OpenId { get; set; }
-        //        {
-        //            get { return _openId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _openId, value, "OpenId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _openId, value); }
-        //#endif
-        //        }
-
         public string UnionId { get; set; }
 
         /// <summary>
         /// SessionKey
         /// </summary>
         public string SessionKey { get; set; }
-        //        {
-        //            get { return _sessionKey; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _sessionKey, value, "SessionKey"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _sessionKey, value); }
-        //#endif
-        //        }
-
         /// <summary>
         /// 过期时间
         /// </summary>
         public DateTimeOffset ExpireTime { get; set; }
-        //        {
-        //            get { return _expireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _expireTime, value); }
-        //#endif
-        //        }
 
         //private string _key;
         //private string _openId;

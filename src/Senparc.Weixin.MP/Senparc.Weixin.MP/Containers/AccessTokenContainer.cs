@@ -118,45 +118,9 @@ namespace Senparc.Weixin.MP.Containers
     public class AccessTokenBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId { get; set; }
-        //        {
-        //            get { return _appId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appId, value); }
-        //#endif
-        //        }
-
         public string AppSecret { get; set; }
-        //        {
-        //            get { return _appSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appSecret, value); }
-        //#endif
-        //        }
-
         public DateTimeOffset AccessTokenExpireTime { get; set; }
-        //        {
-        //            get { return _accessTokenExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _accessTokenExpireTime, value); }
-        //#endif
-        //        }
-
         public AccessTokenResult AccessTokenResult { get; set; }
-        //        {
-        //            get { return _accessTokenResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _accessTokenResult, value); }
-        //#endif
-        //        }
-
         //private AccessTokenResult _accessTokenResult;
         //private DateTimeOffset _accessTokenExpireTime;
         //private string _appSecret;
@@ -286,6 +250,10 @@ namespace Senparc.Weixin.MP.Containers
 
             if (!name.IsNullOrEmpty())
             {
+                /*
+                 * 注意：此处会修改全局的 WeixinAppId 和 WeixinAppSecret 的值，如果小程序从这里注册（并且没有提供 name），就会影响到公众号的参数 
+                 * https://github.com/JeffreySu/WeiXinMPSDK/pull/2261/files
+                 */
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
             }

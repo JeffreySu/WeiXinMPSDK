@@ -98,28 +98,10 @@ namespace Senparc.Weixin.Containers
         /// 用于标记，方便后台管理
         /// </summary>
         public string Name { get; set; }
-//        {
-//            get { return _name; }
-//#if NET35 || NET40
-//            set { this.SetContainerProperty(ref _name, value, "Name"); }
-//#else
-//            set { this.SetContainerProperty(ref _name, value); }
-//#endif
-        //}
-
         /// <summary>
         /// 通常为AppId
         /// </summary>
         public string Key { get; set; }
-//        {
-//            get { return _key; }
-//#if NET35 || NET40
-//            set { this.SetContainerProperty(ref _key, value, "Key"); }
-//#else
-//            set { this.SetContainerProperty(ref _key, value); }
-//#endif
-        //}
-
         /// <summary>
         /// 缓存时间，不使用属性变化监听
         /// </summary>

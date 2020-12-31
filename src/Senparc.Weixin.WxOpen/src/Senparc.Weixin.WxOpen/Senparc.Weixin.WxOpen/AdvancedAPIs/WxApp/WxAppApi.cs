@@ -302,14 +302,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.AddNearbyPoi", true)]
-        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name,string hour, string credential, string address, string company_name, string qualification_list="", string kf_info="", string poi_id="", int timeOut = Config.TIME_OUT)
+        public static AddNearbyPoiJsonResult AddNearbyPoi(string accessTokenOrAppId, string pic_list, string service_infos, string store_name, string hour, string credential, string address, string company_name, string qualification_list = "", string kf_info = "", string poi_id = "", int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string urlFormat = Config.ApiMpHost + "/wxa/addnearbypoi?access_token={0}";
                 string url = string.Format(urlFormat, accessToken);
 
-                var data = new {
+                var data = new
+                {
                     is_comm_nearby = "1", //必填,写死为"1"
                     pic_list = pic_list,
                     service_infos = service_infos,
@@ -620,7 +621,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 风险用户扫描
+        /// 快速发现使用小程序的风险用户，提升小程序运营安全
+        /// 根据提交的用户信息数据获取用户的安全等级 risk_rank，无需用户授权。
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/safety-control-capability/getuserriskrank.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetUserRiskRank", true)]
+        public static GetUserRiskRankResult GetUserRiskRank(string accessTokenOrAppId, GetUserRiskRankParam data, int timeOut = Config.TIME_OUT)
+        {
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getuserriskrank?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
 
+                return CommonJsonSend.Send<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
 
         #endregion
 
@@ -997,7 +1018,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var url = urlFormat.FormatWith(accessToken);
                 var fileDic = new Dictionary<string, string>();
                 fileDic["media"] = filePath;
-                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP,url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
+                return await CO2NET.HttpUtility.Post.PostFileGetJsonAsync<WxJsonResult>(CommonDI.CommonSP, url, fileDictionary: fileDic, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
@@ -1182,8 +1203,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+        /// <summary>
+        /// 风险用户扫描
+        /// 快速发现使用小程序的风险用户，提升小程序运营安全
+        /// 根据提交的用户信息数据获取用户的安全等级 risk_rank，无需用户授权。
+        /// <para>https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/safety-control-capability/getuserriskrank.html</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "WxAppApi.GetUserRiskAsync", true)]
+        public static async Task<GetUserRiskRankResult> GetUserRiskAsync(string accessTokenOrAppId, GetUserRiskRankParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/wxa/getuserriskrank?access_token={0}";
+                var url = urlFormat.FormatWith(accessToken);
 
-
+                return await CommonJsonSend.SendAsync<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
+            }, accessTokenOrAppId).ConfigureAwait(false);
+        }
         #endregion
     }
 }

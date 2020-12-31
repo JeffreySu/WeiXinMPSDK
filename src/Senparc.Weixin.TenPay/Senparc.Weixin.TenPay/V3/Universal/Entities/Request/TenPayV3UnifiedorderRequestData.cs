@@ -57,6 +57,14 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：hesi815 - 20200318
     修改描述：v1.5.401 实现分账接口
+
+    修改标识：Senparc - 20201209
+    修改描述：v1.6.100 更新 TenPayV3UnifiedorderRequestData 构造函数，version 为空时忽略 https://github.com/JeffreySu/WeiXinMPSDK/issues/2277
+
+    修改标识：Senparc - 20201210
+    修改描述：v1.6.101 更新 TenPayV3UnifiedorderRequestData 构造函数，单独提供 version 参数，修正问题：https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.TenPay;
@@ -208,6 +216,10 @@ namespace Senparc.Weixin.TenPay.V3
         /// 普通商户需要 产品中心-我的产品 中开通分账功能；
         /// </summary>
         public string ProfitSharing { get; set; }
+        /// <summary>
+        /// 统一下单接口参数，参考：https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_203&amp;index=6
+        /// </summary>
+        public string Version { get; private set; }
 
         /// <summary>
         /// 
@@ -310,6 +322,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// 并且特约商户需要在 产品中心-我授权的商品中给服务商授权才可以使用分账功能;
         /// 普通商户需要 产品中心-我的产品 中开通分账功能；
         /// </param>
+        /// <param name="version">统一下单接口参数，参考：https://pay.weixin.qq.com/wiki/doc/api/danpin.php?chapter=9_203&amp;index=6</param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string subOpenid, string key, string nonceStr,
@@ -317,7 +330,7 @@ namespace Senparc.Weixin.TenPay.V3
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false,
             TenPayV3UnifiedorderRequestData_SceneInfo sceneInfo = null,
-            string profitSharing = null
+            string profitSharing = null,string version=null
              )
         {
             AppId = appId;
@@ -346,7 +359,7 @@ namespace Senparc.Weixin.TenPay.V3
             SubOpenid = subOpenid;
             SceneInfo = sceneInfo;
             ProfitSharing = profitSharing;
-
+            Version = version;
 
             #region 设置RequestHandler
 
@@ -357,7 +370,7 @@ namespace Senparc.Weixin.TenPay.V3
 
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-            PackageRequestHandler.SetParameter("version", Register.TenpayV3ProtfitRequestDataVersion); 
+            PackageRequestHandler.SetParameterWhenNotNull("version", Version); 
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID

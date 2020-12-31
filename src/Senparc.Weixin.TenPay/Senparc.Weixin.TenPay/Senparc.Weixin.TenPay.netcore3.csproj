@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.5.601-beta1</Version>
+    <Version>1.6.101.1</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -50,7 +50,11 @@
 		v1.5.403 增加服务商模式SubAppId、SubMchId字段重载
 		v1.5.502.4 添加支付退款详情列表
 		v1.5.601 修正企业红包支付功能中的加密过程
-	</PackageReleaseNotes>
+		v1.6.100 更新 TenPayV3UnifiedorderRequestData 构造函数，version 为空时忽略 https://github.com/JeffreySu/WeiXinMPSDK/issues/2277
+		v1.6.101
+		1、更新 TenPayV3UnifiedorderRequestData 构造函数，单独提供 version 参数，修正问题：https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
+		2、删除 TenpayV3ProtfitRequestDataVersion 的定义
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

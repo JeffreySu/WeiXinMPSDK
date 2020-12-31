@@ -32,14 +32,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20191003
     修改描述：注册过程自动添加更多 SenparcSettingItem 信息
+    
+    修改标识：gokeiyou - 20201230
+    修改描述：新建 WxOpen 专属的 AccessTokenContainer
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.RegisterServices;
 using System;
-using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.WxOpen
 {

@@ -100,43 +100,9 @@ namespace Senparc.Weixin.MP.Containers
     public class JsApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId { get; set; }
-        //        {
-        //            get { return _appId; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appId, value, "AppId"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appId, value); }
-        //#endif
-        //        }
         public string AppSecret { get; set; }
-        //        {
-        //            get { return _appSecret; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _appSecret, value); }
-        //#endif
-        //        }
-
         public JsApiTicketResult JsApiTicketResult { get; set; }
-        //        {
-        //            get { return _jsApiTicketResult; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketResult, value); }
-        //#endif
-        //        }
-
         public DateTimeOffset JsApiTicketExpireTime { get; set; }
-        //        {
-        //            get { return _jsApiTicketExpireTime; }
-        //#if NET35 || NET40
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
-        //#else
-        //            set { this.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
-        //#endif
-        //        }
 
         /// <summary>
         /// 只针对这个AppId的锁

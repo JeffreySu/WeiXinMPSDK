@@ -81,9 +81,16 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\CustomerTag\CorpTagJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomerTag\CustomerTagApi.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalApi.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\AddMsgTemplateRequest.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\AddMsgTemplateResult.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactInfoBatchResult.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalJson\GetExternalContactListResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GetFollowUserListResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\GroupMsgResult.cs" />
+    <Compile Include="AdvancedAPIs\External\ExternalJson\SendWelcomeMessageRequest.cs" />
     <Compile Include="AdvancedAPIs\External\ExternalJson\UpdateExternalContactRemarkRequest.cs" />
     <Compile Include="AdvancedAPIs\External\GetExternalContactResult.cs" />
     <Compile Include="AdvancedAPIs\External\GroupChatGetResult.cs" />
@@ -135,6 +142,7 @@
     <Compile Include="Containers\JsApiTicketContainer.cs" />
     <Compile Include="Containers\ProviderTokenContainer.cs" />
     <Compile Include="Entities\JsonResult\ConvertToUserIdResult.cs" />
+    <Compile Include="Entities\JsonResult\ExternalProfile.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
@@ -159,6 +167,7 @@
     <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
+    <Compile Include="Entities\Models\MessageContentModels.cs" />
     <Compile Include="Entities\Request\EncryptPostData.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />

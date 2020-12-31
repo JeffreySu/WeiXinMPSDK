@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Work.Entities.JsonResult;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 {
@@ -47,8 +48,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public string name { get; set; }
         public int type { get; set; }
         public string avatar { get; set; }
-        public int gender { get; set; }
+        public TencentGender gender { get; set; }
         public string unionid { get; set; }
+        public string position { get; set; }
+        public string corp_name { get; set; }
+        public string corp_full_name { get; set; }
+        public ExternalProfile external_profile { get; set; }
     }
 
     public class FollowUser

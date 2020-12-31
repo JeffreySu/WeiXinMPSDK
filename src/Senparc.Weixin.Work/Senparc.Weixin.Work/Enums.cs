@@ -155,6 +155,22 @@ namespace Senparc.Weixin.Work
         /// </summary>
         CHANGE_EXTERNAL_CHAT
     }
+    
+    public enum TencentGender
+    {
+        /// <summary>
+        /// 未知
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
+        /// 男
+        /// </summary>
+        Male = 1,
+        /// <summary>
+        /// 女
+        /// </summary>
+        Female = 2
+    }
 
     public enum ThirdPartyInfo
     {
@@ -197,6 +213,40 @@ namespace Senparc.Weixin.Work
         /// 推广码注册完成通知
         /// </summary>
         REGISTER_CORP
+    }
+    
+    public enum ExternalAttributeType
+    {
+        Text,
+        Web,
+        Miniprogram
+    }
+    
+    public enum GroupChatJoinScene
+    {
+        /// <summary>
+        /// 由成员邀请入群（直接邀请入群）
+        /// </summary>
+        INVITE_BY_DIRECT = 1,
+        /// <summary>
+        /// 由成员邀请入群（通过邀请链接入群）
+        /// </summary>
+        INVITE_BY_LINK = 2,
+        /// <summary>
+        /// 通过扫描群二维码入群
+        /// </summary>
+        QR_CODE = 3
+    }
+
+    /// <summary>
+    /// 群发任务发送状态
+    /// </summary>
+    public enum GroupTaskSentStatus
+    {
+        未发送,
+        已发送,
+        因客户不是好友导致发送失败,
+        因客户已经收到其他群发消息导致发送失败,
     }
 
 

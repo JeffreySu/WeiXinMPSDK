@@ -9,6 +9,7 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
@@ -71,7 +72,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string userid { get; set; }
         public string remark { get; set; }
         public string description { get; set; }
-        public int createtime { get; set; }
+        public long createtime { get; set; }
+        public List<Follow_User_Tag> tags { get; set; }
+        public string remark_corp_name { get; set; }
+        public string[] remark_mobiles { get; set; }
+        public string oper_userid { get; set; }
+        public string state { get; set; }
+        public int add_way { get; set; }
+    }
+    
+    public class Follow_User_Tag
+    {
+        public string group_name { get; set; }
+        public string tag_name { get; set; }
+        public string tag_id { get; set; }
+        public int type { get; set; }
     }
 
 

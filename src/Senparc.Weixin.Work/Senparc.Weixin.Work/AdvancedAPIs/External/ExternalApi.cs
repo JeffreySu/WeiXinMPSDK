@@ -35,6 +35,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
         #region 同步方法
 
+        #region 企业服务人员管理
+
+        /// <summary>
+        /// 获取配置了客户联系功能的成员列表
+        /// </summary>
+        /// <param name="accessTokenOrAppkey">调用接口凭证</param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserList", true)]
+        public static GetFollowUserListResult GetFollowUserList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
+
+                return CommonJsonSend.Send<GetFollowUserListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        
+        #endregion
+
         /// <summary>
         /// 离职成员的外部联系人再分配
         /// </summary>
@@ -208,10 +228,83 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 消息推送
+
+        /// <summary>
+        /// 添加企业群发消息任务
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddMsgTemplate", true)]
+        public static AddMsgTemplateResult AddMsgTemplate(string accessTokenOrAppKey, AddMsgTemplateRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_msg_template?access_token={accessToken}";
+
+                return CommonJsonSend.Send<AddMsgTemplateResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        
+        /// <summary>
+        /// 获取企业群发消息发送结果
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetGroupMsgResult", true)]
+        public static GroupMsgResult GetGroupMsgResult(string accessTokenOrAppKey, string msgid, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_msg_template?access_token={accessToken}";
+
+                return CommonJsonSend.Send<GroupMsgResult>(null, url, new { msgid }, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 发送新客户欢迎语
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="request"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.SendWelcomeMessage", true)]
+        public static WorkJsonResult SendWelcomeMessage(string accessTokenOrAppKey, SendWelcomeMessageRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/send_welcome_msg?access_token={accessToken}";
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
         #endregion
-
-
+        
+        #endregion
+        
         #region 异步方法
+        
+        #region 企业服务人员管理
+
+        /// <summary>
+        /// 获取配置了客户联系功能的成员列表
+        /// </summary>
+        /// <param name="accessTokenOrAppkey">调用接口凭证</param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserListAsync", true)]
+        public static async Task<GetFollowUserListResult> GetFollowUserListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        #endregion
 
         /// <summary>
         /// 【异步方法】离职成员的外部联系人再分配
@@ -386,6 +479,60 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 消息推送
+
+        /// <summary>
+        /// 添加企业群发消息任务
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddMsgTemplateAsync", true)]
+        public static async Task<AddMsgTemplateResult> AddMsgTemplateAsync(string accessTokenOrAppKey, AddMsgTemplateRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_msg_template?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<AddMsgTemplateResult>(null, url, request, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取企业群发消息发送结果
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="timeOut"></param>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetGroupMsgResultAsync", true)]
+        public static async Task<GroupMsgResult> GetGroupMsgResultAsync(string accessTokenOrAppKey, string msgid, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_msg_template?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<GroupMsgResult>(null, url, new { msgid }, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 发送新客户欢迎语
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="request"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.SendWelcomeMessageAsync", true)]
+        public static async Task<WorkJsonResult> SendWelcomeMessageAsync(string accessTokenOrAppKey, SendWelcomeMessageRequest request, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/send_welcome_msg?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, request, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        #endregion
+        
         #endregion
     }
 }

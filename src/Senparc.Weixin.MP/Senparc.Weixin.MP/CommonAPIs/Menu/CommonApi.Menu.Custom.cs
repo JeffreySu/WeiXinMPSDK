@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
@@ -64,7 +64,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.CO2NET.Helpers;
 
-#if NET35 || NET40 || NET45
+#if NET45
 using System.Web.Script.Serialization;
 #endif
 
@@ -230,14 +230,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/menu/get?access_token={0}", accessToken.AsUrlData());
 
-                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(CommonDI.CommonSP, url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;
                 try
                 {
 
-#if NET35 || NET40 || NET45
+#if NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else
@@ -285,6 +285,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }, accessTokenOrAppId);
 
         }
+
         #region 同步方法
 
         /// <summary>
@@ -309,7 +310,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -325,13 +326,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format(Config.ApiMpHost + "/cgi-bin/get_current_selfmenu_info?access_token={0}", accessToken.AsUrlData());
                 
-                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync<SelfMenuConfigResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

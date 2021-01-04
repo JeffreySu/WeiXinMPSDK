@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：AnalysisAPI.cs
     文件功能描述：分析数据接口
@@ -546,7 +546,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
 
         #region 图文分析数据接口
@@ -606,7 +605,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleTotalItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -631,9 +630,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -658,9 +657,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserReadHourItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -685,9 +684,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
 
@@ -714,9 +713,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserShareHourItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -746,9 +745,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -773,9 +772,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<InterfaceSummaryHourItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -805,9 +804,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -832,9 +831,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgHourItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgHourItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -859,9 +858,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -886,9 +885,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -913,9 +912,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -940,9 +939,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistWeekItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -967,9 +966,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UpStreamMsgDistMonthItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
@@ -998,9 +997,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserSummaryItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1025,14 +1024,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserCumulateItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<UserCumulateItem>>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
 
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         #endregion
 
         #endregion
-#endif
     }
 }

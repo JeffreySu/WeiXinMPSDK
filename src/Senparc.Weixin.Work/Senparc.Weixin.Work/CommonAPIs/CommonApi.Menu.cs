@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -122,8 +122,6 @@ namespace Senparc.Weixin.Work.CommonAPIs
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
-
-
 #if NET45
 
 #else
@@ -191,7 +189,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
 
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
 
-                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(CommonDI.CommonSP, url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;
@@ -464,7 +462,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -479,11 +477,10 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-                var result = await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
+                var result = await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
                 return result;
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

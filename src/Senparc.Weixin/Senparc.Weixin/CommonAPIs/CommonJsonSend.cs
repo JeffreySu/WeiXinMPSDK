@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
   
     修改标识：Senparc - 20190129
     修改描述：v6.3.8 修复 CommonJsonSend.Send() 方法中的异常请求结果自动抛出 
+
+    修改标识：Senparc - 20190602
+    修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
 
 ----------------------------------------------------------------*/
 
@@ -66,12 +69,19 @@ namespace Senparc.Weixin.CommonAPIs
              {
                  //可能发生错误
                  WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+
+                 ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误
-                     throw new ErrorJsonResultException(
+                     //发生错误，记录异常
+                     ex = new ErrorJsonResultException(
                           string.Format("微信 GET 请求发生错误！错误代码：{0}，说明：{1}",
                                           (int)errorResult.errcode, errorResult.errmsg), null, errorResult, apiUrl);
+                 }
+
+                 if (Config.ThrownWhenJsonResultFaild && ex != null)
+                 {
+                     throw ex;//抛出异常
                  }
              }
          };
@@ -80,22 +90,28 @@ namespace Senparc.Weixin.CommonAPIs
         /// 设定条件，当API结果没有返回成功信息时抛出异常
         /// </summary>
         static Action<string, string> postFailAction = (apiUrl, returnText) =>
-         {
+        {
              if (returnText.Contains("errcode"))
              {
                  //可能发生错误
                  WxJsonResult errorResult = SerializerHelper.GetObject<WxJsonResult>(returnText);
+                 ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误
+                     //发生错误，记录异常
                      throw new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),
                           null, errorResult, apiUrl);
                  }
+
+                 if (Config.ThrownWhenJsonResultFaild && ex != null)
+                 {
+                     throw ex;//抛出异常
+                 }
              }
-         };
+        };
 
         #endregion
 
@@ -128,18 +144,18 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST,
+            int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
             //TODO:此方法可以设定一个日志记录开关
 
             try
             {
                 var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
-
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return Get.GetJson<T>(url, afterReturnText: getFailAction);
+                        return Get.GetJson<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
@@ -151,7 +167,7 @@ namespace Senparc.Weixin.CommonAPIs
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return Post.PostGetJson<T>(url, null, ms,
+                            return Post.PostGetJson<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
                                 checkValidationResult: checkValidationResult);
@@ -171,7 +187,7 @@ namespace Senparc.Weixin.CommonAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -187,7 +203,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendAsync(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = CO2NET.Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
+            return await SendAsync<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -212,22 +228,22 @@ namespace Senparc.Weixin.CommonAPIs
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
-                        return await Get.GetJsonAsync<T>(url, afterReturnText: getFailAction);
+                        return await Get.GetJsonAsync<T>(CommonDI.CommonSP, url, afterReturnText: getFailAction).ConfigureAwait(false);
                     case CommonJsonSendType.POST:
                         var jsonString = SerializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
                             var bytes = Encoding.UTF8.GetBytes(jsonString);
-                            await ms.WriteAsync(bytes, 0, bytes.Length);
+                            await ms.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);
                             ms.Seek(0, SeekOrigin.Begin);
 
                             WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
 
                             //PostGetJson方法中将使用WeixinTrace记录结果
-                            return await Post.PostGetJsonAsync<T>(url, null, ms,
+                            return await Post.PostGetJsonAsync<T>(CommonDI.CommonSP, url, null, ms,
                                 timeOut: timeOut,
                                 afterReturnText: postFailAction,
-                                checkValidationResult: checkValidationResult);
+                                checkValidationResult: checkValidationResult).ConfigureAwait(false);
                         }
                     default:
                         throw new ArgumentOutOfRangeException("sendType");
@@ -241,6 +257,5 @@ namespace Senparc.Weixin.CommonAPIs
         }
 
         #endregion
-#endif
     }
 }

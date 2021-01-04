@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
   
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
@@ -141,6 +141,12 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnThirdFasteRegisterRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.wxa_nickname_audit:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageNicknameAudit;
+                            ResponseMessageText = OnNicknameAuditRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -211,6 +217,10 @@ namespace Senparc.Weixin.Open.MessageHandlers
             return "success";
         }
 
+        public virtual string OnNicknameAuditRequest(RequestMessageNicknameAudit requestMessage)
+        {
+            return "success";
+        }
 
 
     }

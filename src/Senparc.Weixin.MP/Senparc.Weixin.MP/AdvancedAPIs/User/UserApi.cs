@@ -1,7 +1,7 @@
 #region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,20 +19,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
-    
+    Copyright (C) 2020 Senparc
+
     文件名：UserAPI.cs
     文件功能描述：用户接口
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：jsionr - 20150322
     修改描述：添加修改关注者备注信息接口
-    
+
     修改标识：Senparc - 20150325
     修改描述：修改关注者备注信息开放代理请求超时时间
 
@@ -93,10 +93,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取关注者OpenId信息
+        /// 获取关注者OpenId信息 .
+        /// 一次拉取调用最多拉取10000个关注者的OpenID，可通过填写next_openid的值，从而多次拉取列表的方式来满足需求。
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
-        /// <param name="nextOpenId"></param>
+        /// <param name="nextOpenId">第一个拉取的OPENID，不填默认从头开始拉取</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.Get", true)]
         public static OpenIdResultJson Get(string accessTokenOrAppId, string nextOpenId)
@@ -222,7 +223,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
         #region 异步方法
         /// <summary>
         /// 【异步方法】获取用户信息
@@ -238,12 +238,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                string url = string.Format(Config.ApiMpHost + "/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
                    accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
-               return await CommonJsonSend.SendAsync<UserInfoJson>(null, url, null, CommonJsonSendType.GET);
+               return await CommonJsonSend.SendAsync<UserInfoJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
                //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
                //{"errcode":40013,"errmsg":"invalid appid"}
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -262,9 +262,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                {
                    url += "&next_openid=" + nextOpenId;
                }
-               return await CommonJsonSend.SendAsync<OpenIdResultJson>(null, url, null, CommonJsonSendType.GET);
+               return await CommonJsonSend.SendAsync<OpenIdResultJson>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -286,9 +286,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    openid = openId,
                    remark = remark
                };
-               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
+               return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
 
-           }, accessTokenOrAppId);
+           }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -308,8 +308,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     user_list = userList,
                 };
-                return await CommonJsonSend.SendAsync<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
+                return await CommonJsonSend.SendAsync<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -329,8 +329,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     begin_openid = beginOpenId
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, url, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -350,8 +350,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid_list = openidList
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -371,10 +371,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     openid_list = openidList
                 };
-                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId, true);
+                return await CommonJsonSend.SendAsync<OpenIdResultJson>(accessToken, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppId, true).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

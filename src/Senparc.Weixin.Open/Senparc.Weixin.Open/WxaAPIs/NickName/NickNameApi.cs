@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
         #endregion
 
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
                 naming_other_stuff_4 = naming_other_stuff_4,
                 naming_other_stuff_5 = naming_other_stuff_5
             };
-            return await CommonJsonSend.SendAsync<SetNickNameJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<SetNickNameJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
             {
                 audit_id = audit_id
             };
-            return await CommonJsonSend.SendAsync<QueryNickNameJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<QueryNickNameJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -168,10 +168,9 @@ namespace Senparc.Weixin.Open.WxaAPIs.NickName
             {
                 nick_name = nick_name
             };
-            return await CommonJsonSend.SendAsync<CheckWxVerifyNickNameJsonResult>(null, url, data);
+            return await CommonJsonSend.SendAsync<CheckWxVerifyNickNameJsonResult>(null, url, data).ConfigureAwait(false);
         }
 
         #endregion
-#endif
     }
 }

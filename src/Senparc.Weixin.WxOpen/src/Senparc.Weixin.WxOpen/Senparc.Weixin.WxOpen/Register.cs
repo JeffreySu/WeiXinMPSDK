@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
   
     文件名：Register.cs
     文件功能描述：注册小程序信息
@@ -29,14 +29,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180802
     修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterWxOpenAccount() 方法
+    
+    修改标识：Senparc - 20191003
+    修改描述：注册过程自动添加更多 SenparcSettingItem 信息
+    
+    修改标识：gokeiyou - 20201230
+    修改描述：新建 WxOpen 专属的 AccessTokenContainer
 
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Exceptions;
 using Senparc.CO2NET.RegisterServices;
 using System;
-using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.WxOpen
 {
@@ -68,9 +74,13 @@ namespace Senparc.Weixin.WxOpen
         /// <returns></returns>
         public static IRegisterService RegisterWxOpenAccount(this IRegisterService registerService, ISenparcWeixinSettingForWxOpen weixinSettingForWxOpen, string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForWxOpen);
+            }
             AccessTokenContainer.Register(weixinSettingForWxOpen.WxOpenAppId, weixinSettingForWxOpen.WxOpenAppSecret, name ?? weixinSettingForWxOpen.ItemKey);
             return registerService;
         }
-
     }
 }

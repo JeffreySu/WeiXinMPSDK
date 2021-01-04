@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
@@ -166,6 +166,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         /// <summary>
         /// 获取企业号的永久授权码【QY移植修改】
+        /// 文档：https://work.weixin.qq.com/api/doc#90001/90143/90603
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -460,7 +461,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         /// <summary>
@@ -485,8 +486,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     suite_ticket = suiteTicket
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteId);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteId).ConfigureAwait(false);
 
 
         }
@@ -529,8 +530,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 {
                     suite_id = suiteId,
                 };
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -562,14 +563,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 JsonSetting jsonSetting = new JsonSetting(true);
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
 
         /// <summary>
         /// 【异步方法】获取企业号的永久授权码【QY移植修改】
+        /// 文档：https://work.weixin.qq.com/api/doc#90001/90143/90603
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -589,8 +591,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     auth_code = authCode
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -618,8 +620,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     permanent_code = permanentCode
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -649,8 +651,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     agentid = agentId
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAgentResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -680,8 +682,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     agent = agent
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -709,8 +711,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     permanent_code = permanentCode,
                 };
 
-                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
 
         }
@@ -736,8 +738,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     agentid = agentId,
                 };
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAdminListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAdminListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
         }
 
@@ -757,8 +759,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/getuserinfo3rd?access_token={0}&code={1}", suiteAccessToken.AsUrlData(), code);
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, suiteAccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
         }
 
@@ -779,8 +781,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 {
                     user_ticket = userTicket
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoByTicketResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetUserInfoByTicketResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, suiteAccessToken).ConfigureAwait(false);
 
         }
 
@@ -798,8 +800,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/get_register_code?provider_access_token={0}", providerAccessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, providerAccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, providerAccessToken).ConfigureAwait(false);
 
         }
 
@@ -820,8 +822,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 {
                     register_code = registerCode
                 };
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, providerAccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRegisterInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, providerAccessToken).ConfigureAwait(false);
 
         }
 
@@ -839,8 +841,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/agent/set_scope?access_token={0}", AccessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetScopeResult>(null, url, data, CommonJsonSendType.GET, timeOut);
-            }, AccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetScopeResult>(null, url, data, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, AccessToken).ConfigureAwait(false);
 
         }
 
@@ -858,12 +860,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/sync/contact_sync_success?access_token={0}", AccessToken.AsUrlData());
 
-                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-            }, AccessToken);
+                return await Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+            }, AccessToken).ConfigureAwait(false);
 
         }
 
         #endregion
-#endif
     }
 }

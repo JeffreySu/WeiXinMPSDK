@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
 
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）
@@ -54,6 +54,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170522
     修改描述：v6.3.2 修改 DateTime 为 DateTimeOffset
 
+    修改标识：Senparc - 20190418
+    修改描述：v17.0.0 支持异步 Container
+
 ----------------------------------------------------------------*/
 
 
@@ -61,6 +64,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Senparc.CO2NET.Cache;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
@@ -172,18 +176,44 @@ namespace Senparc.Weixin.Containers
 
 
         /// <summary>
-        /// 进行注册过程的委托
+        /// 进行注册过程的委托集合
         /// </summary>
-        protected static Func<TBag> RegisterFunc { get; set; }
+        protected static Dictionary<string, Func<Task<TBag>>> RegisterFuncCollection { get; set; } = new Dictionary<string, Func<Task<TBag>>>(StringComparer.OrdinalIgnoreCase);
+        //TODO:同一个 appId 可能会对应 AccessToken、JsTicket 等多种 Container 情况。
+
 
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
         /// </summary>
-        private static TBag TryReRegister()
+        private static async Task<TBag> TryReRegister(string shortKey)
         {
-            return RegisterFunc();
+            if (shortKey == null)
+            {
+                throw new ArgumentNullException(nameof(shortKey));
+            }
+
+            if (RegisterFuncCollection.TryGetValue(shortKey, out var registerFunc))
+            {
+                return await registerFunc().ConfigureAwait(false);
+            }
+
+            return null;
             //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
         }
+
+        /// <summary>
+        /// 获取ItemCollection缓存Key
+        /// </summary>
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+        /// <returns></returns>
+        public static string GetBagCacheKey(string shortKey)
+        {
+            return ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+        }
+
+
+        #region 同步方法
 
         /// <summary>
         /// 返回已经注册的第一个AppId
@@ -198,7 +228,7 @@ namespace Senparc.Weixin.Containers
                     appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
                     break;
                 case PlatformType.Open:
-                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
                     break;
                 case PlatformType.WxOpen:
                     appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
@@ -208,7 +238,7 @@ namespace Senparc.Weixin.Containers
                 case PlatformType.Work:
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
             }
 
             if (appId == null)
@@ -219,17 +249,6 @@ namespace Senparc.Weixin.Containers
 
             return appId;
         }
-
-        /// <summary>
-        /// 获取ItemCollection缓存Key
-        /// </summary>
-        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
-        /// <returns></returns>
-        public static string GetBagCacheKey(string shortKey)
-        {
-            return ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
-        }
-
 
         ///// <summary>
         ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
@@ -253,6 +272,8 @@ namespace Senparc.Weixin.Containers
                 //.Select(z => z)
                 .ToList();
         }
+
+
 
         /// <summary>
         /// 尝试获取某一项Bag
@@ -336,7 +357,7 @@ namespace Senparc.Weixin.Containers
         {
             if (string.IsNullOrEmpty(bag.Key))
             {
-                throw new WeixinException("ContainerBag 更新时，ey 不能为空！类型：" + bag.GetType());
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());
             }
 
             Update(bag.Key, bag, expiry);
@@ -379,10 +400,10 @@ namespace Senparc.Weixin.Containers
         {
             var cacheKey = GetBagCacheKey(shortKey);
             var registered = Cache.CheckExisted(cacheKey);
-            if (!registered && RegisterFunc != null)
+            if (!registered && RegisterFuncCollection.ContainsKey(shortKey))
             {
                 //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
-                TryReRegister();
+                RegisterFuncCollection[shortKey]().GetAwaiter().GetResult();//使用同步方法返回
             }
 
             return Cache.CheckExisted(cacheKey);
@@ -397,5 +418,217 @@ namespace Senparc.Weixin.Containers
             var cacheKey = GetBagCacheKey(shortKey);
             Cache.RemoveFromCache(cacheKey);
         }
+
+        #endregion
+
+        #region 异步方法
+
+
+        /// <summary>
+        /// 返回已经注册的第一个AppId
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> GetFirstOrDefaultAppIdAsync(PlatformType platformType)
+        {
+            string appId = null;
+            switch (platformType)
+            {
+                case PlatformType.MP:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
+                    break;
+                case PlatformType.Open:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WeixinAppId;
+                    break;
+                case PlatformType.WxOpen:
+                    appId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenAppId;
+                    break;
+                case PlatformType.QY:
+                    break;
+                case PlatformType.Work:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"未知的 PlatformType {nameof(platformType)}：{platformType.ToString()}");
+                    break;
+            }
+
+            if (appId == null)
+            {
+                var firstBag = (await GetAllItemsAsync().ConfigureAwait(false)).FirstOrDefault() as IBaseContainerBag_AppId;
+                appId = firstBag == null ? null : firstBag.AppId;
+            }
+
+            return appId;
+        }
+
+        ///// <summary>
+        ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
+        ///// </summary>
+        ///// <returns></returns>
+        //public static IDictionary<string, IContainerItemCollection> GetCollectionList()
+        //{
+        //    return CollectionList;
+        //}
+
+        /// <summary>
+        /// 获取所有容器内已经注册的项目
+        /// （此方法将会遍历Dictionary，当数据项很多的时候效率会明显降低）
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<TBag>> GetAllItemsAsync()
+        {
+            //return Cache.GetAll<TBag>().Values
+            return (await _containerCache.GetAllAsync<TBag>().ConfigureAwait(false)).Values
+                //如果需要做进一步的筛选，则使用Select或Where，但需要注意效率问题
+                //.Select(z => z)
+                .ToList();
+        }
+
+        /// <summary>
+        /// 尝试获取某一项Bag
+        /// </summary>
+        /// <param name="shortKey"></param>
+        /// <returns></returns>
+        public static async Task<TBag> TryGetItemAsync(string shortKey)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            if (await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
+            {
+                return await Cache.GetAsync<TBag>(cacheKey).ConfigureAwait(false);
+            }
+
+            return default(TBag);
+        }
+
+        /// <summary>
+        /// 尝试获取某一项Bag中的具体某个属性
+        /// </summary>
+        /// <param name="shortKey"></param>
+        /// <param name="property">具体某个属性</param>
+        /// <returns></returns>
+        public static async Task<TK> TryGetItemAsync<TK>(string shortKey, Func<TBag, TK> property)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            if (await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
+            {
+                var item = await Cache.GetAsync<TBag>(cacheKey).ConfigureAwait(false);
+                return property(item);
+            }
+            return default(TK);
+        }
+
+        /// <summary>
+        /// 更新数据项
+        /// </summary>
+        /// <param name="shortKey">即bag.Key</param>
+        /// <param name="bag">为null时删除该项</param>
+        /// <param name="expiry"></param>
+        public static async Task UpdateAsync(string shortKey, TBag bag, TimeSpan? expiry)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            if (bag == null)
+            {
+                await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(bag.Key))
+                {
+                    bag.Key = shortKey;//确保Key有值，形如：wx669ef95216eef885，最底层的Key
+                }
+                //else
+                //{
+                //    cacheKey = bag.Key;//统一key
+                //}
+
+                //if (string.IsNullOrEmpty(cacheKey))
+                //{
+                //    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                //}
+
+                //var c1 = ItemCollection.GetCount();
+                //ItemCollection[key] = bag;
+                //var c2 = ItemCollection.GetCount();
+            }
+            //var containerCacheKey = GetContainerCacheKey();
+
+            bag.CacheTime = SystemTime.Now;
+
+            await Cache.UpdateAsync(cacheKey, bag, expiry).ConfigureAwait(false);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+        }
+
+        /// <summary>
+        /// 更新已经添加过的数据项
+        /// </summary>
+        /// <param name="bag">为null时删除该项</param>
+        /// <param name="expiry"></param>
+        public static async Task UpdateAsync(TBag bag, TimeSpan? expiry)
+        {
+            if (string.IsNullOrEmpty(bag.Key))
+            {
+                throw new WeixinException("ContainerBag 更新时，Key 不能为空！类型：" + bag.GetType());//TODO：使用异步异常抛出方式
+            }
+
+            await UpdateAsync(bag.Key, bag, expiry).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 更新数据项（本地缓存不会改变原有值的 HashCode）
+        /// </summary>
+        /// <param name="shortKey"></param>
+        /// <param name="partialUpdate">为null时删除该项</param>
+        /// <param name="expiry"></param>
+        public static async Task UpdateAsync(string shortKey, Action<TBag> partialUpdate, TimeSpan? expiry)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            if (partialUpdate == null)
+            {
+                await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);//移除对象
+            }
+            else
+            {
+                if (!await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false))
+                {
+                    var newBag = new TBag()
+                    {
+                        Key = cacheKey//确保这一项Key已经被记录
+                    };
+
+                    await Cache.SetAsync(cacheKey, newBag, expiry).ConfigureAwait(false);
+                }
+                partialUpdate(await TryGetItemAsync(shortKey).ConfigureAwait(false));//更新对象
+            }
+        }
+
+        /// <summary>
+        /// 检查Key是否已经注册
+        /// </summary>
+        /// <param name="shortKey"></param>
+        /// <returns></returns>
+        public static async Task<bool> CheckRegisteredAsync(string shortKey)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            var registered = await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false);
+
+            if (!registered && RegisterFuncCollection.ContainsKey(shortKey))
+            {
+                //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+                await RegisterFuncCollection[shortKey]().ConfigureAwait(false);//使用异步方法返回
+            }
+
+            return await Cache.CheckExistedAsync(cacheKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 从缓存中删除指定项
+        /// </summary>
+        /// <param name="shortKey"></param>
+        public static async Task RemoveFromCacheAsync(string shortKey)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            await Cache.RemoveFromCacheAsync(cacheKey).ConfigureAwait(false);
+        }
+
+        #endregion
+
     }
 }

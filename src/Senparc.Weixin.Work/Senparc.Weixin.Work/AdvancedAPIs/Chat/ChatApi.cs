@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：ChatApi.cs
     文件功能描述：企业号消息接口
@@ -22,21 +22,23 @@
     修改标识：Senparc - 20190129
     修改描述：统一 CommonJsonSend.Send<T>() 方法请求接口
 
+    修改标识：Senparc - 20200322
+    修改描述：fix bug：ChatApi.CreateChat() 接口传入AccessToken有错误
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：https://work.weixin.qq.com/api/doc#13308
  */
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.Chat;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
@@ -75,7 +77,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return CommonJsonSend.Send<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<CreateChatResult>(accessToken, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppKey);
         }
 
@@ -325,7 +327,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
         /// <summary>
         /// 【异步方法】创建会话
@@ -342,7 +344,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-
                 var data = new
                 {
                     chatid = chatId,
@@ -351,8 +352,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     userlist = userlist
                 };
 
-                return await CommonJsonSend.SendAsync<CreateChatResult>(accessTokenOrAppKey, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<CreateChatResult>(accessToken, _urlFormatCreate, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -367,8 +368,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(_urlFormatGet, accessToken.AsUrlData(), chatId.AsUrlData());
-                return await CommonJsonSend.SendAsync<GetChatResult>(null, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<GetChatResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -396,8 +397,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     del_user_list = delUserList
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatUpdate, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatUpdate, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -434,8 +435,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     default:
                         throw new ArgumentOutOfRangeException("msgType");
                 }
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送视频消息
@@ -454,8 +455,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new SendVideoMessageData(chatId, media_id, title, description, safe);
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送文本卡片消息
@@ -476,8 +477,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new SendTextCardMessageData(chatId, title, description, url, btntxt, safe);
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送图文消息
@@ -494,8 +495,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new SendNewsMessageData(chatId, news, safe);
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】发送图文消息（mpnews）
@@ -512,8 +513,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new SendMpNewsMessageData(chatId, mpnews, safe);
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, _urlFormatSend, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
         /// 【异步方法】退出会话
@@ -537,8 +538,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     op_user = opUser,
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -568,8 +569,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     }
                 };
 
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
         //{
@@ -606,10 +607,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     user_mute_list = userMuteList
                 };
 
-                return await CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         #endregion
-#endif
     }
 }

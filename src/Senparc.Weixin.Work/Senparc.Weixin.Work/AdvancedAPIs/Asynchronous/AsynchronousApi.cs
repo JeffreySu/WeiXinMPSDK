@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
         #endregion
 
-#if !NET35 && !NET40
+
         #region 异步方法
 
         #region 通讯录更新
@@ -292,8 +292,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -335,8 +335,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -378,8 +378,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     callback = callBack
                 };
 
-                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -398,8 +398,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<AsynchronousReplaceUserResult>(accessToken, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousReplaceUserResult>(accessToken, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
@@ -418,14 +418,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
                                     accessToken.AsUrlData(), jobId.AsUrlData());
 
-                return await CommonJsonSend.SendAsync<AsynchronousReplacePartyResult>(accessToken, url, null, CommonJsonSendType.GET);
-            }, accessTokenOrAppKey);
+                return await CommonJsonSend.SendAsync<AsynchronousReplacePartyResult>(accessToken, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
 
 
         }
 
         #endregion
         #endregion
-#endif
     }
 }

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -28,11 +28,12 @@ using Senparc.NeuChar.Agents;
 using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Agents
 {
     [TestClass]
-    public class MessageAgentTest
+    public class MessageAgentTest : BaseTest
     {
         [TestMethod]
         public void RequestXmlTest()
@@ -50,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 <EventKey><![CDATA[OneClick]]></EventKey>
 </xml>";
 
-            var xml = MessageAgent.RequestXml(null, url, token, requestXml);
+            var xml = MessageAgent.RequestXml(null, BaseTest.serviceProvider, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml, MpMessageEntityEnlightener.Instance);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
@@ -65,16 +66,16 @@ namespace Senparc.Weixin.MP.Test.Agents
         {
             var url = "https://sdk.weixin.senparc.com/weixin";
             var token = "weixin";
-            var result = MessageAgent.CheckUrlAndToken(url, token);
+            var result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsTrue(result);
 
             token = "wrong_token";
-            result = MessageAgent.CheckUrlAndToken(url, token);
+            result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsFalse(false);
 
             url = "wrong_url";
             token = "weixin";
-            result = MessageAgent.CheckUrlAndToken(url, token);
+            result = MessageAgent.CheckUrlAndToken(BaseTest.serviceProvider, url, token);
             Assert.IsFalse(false);
         }
     }

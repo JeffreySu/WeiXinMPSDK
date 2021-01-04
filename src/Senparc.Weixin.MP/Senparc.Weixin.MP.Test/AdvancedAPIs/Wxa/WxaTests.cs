@@ -84,5 +84,40 @@ namespace Senparc.Weixin.MP.Test.vs2017.AdvancedAPIs.Wxa
             Assert.IsTrue(result.errcode == 0);//系统繁忙
             //TODO:后续门店管理接口测试
         }
+
+        [TestMethod]
+        public void GetDistrictTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+
+            var result = WxaApi.GetDistrict(accessToken);
+
+            Assert.IsTrue(result.status == 0);
+        }
+
+        [TestMethod]
+        public void CreateMapPoiTest()
+        {
+            CreateMapPoiData data = new CreateMapPoiData
+            {
+                name = "hardenzhang",
+                longitude = "113.323753357",
+                latitude = "23.0974903107",
+                province = "广东省",
+                city = "广州市",
+                district = "海珠区",
+                address = "TTT",
+                category = "美食:中餐厅",
+                telephone = "12345678901",
+                photo = "http://mmbiz.qpic.cn/mmbiz_png/tW66AWE2K6ECFPcyAcIZTG8RlcR0sAqBibOm8gao5xOoLfIic9ZJ6MADAktGPxZI7MZLcadZUT36b14NJ2cHRHA/0?wx_fmt=png",
+                license = "http://mmbiz.qpic.cn/mmbiz_png/tW66AWE2K6ECFPcyAcIZTG8RlcR0sAqBibOm8gao5xOoLfIic9ZJ6MADAktGPxZI7MZLcadZUT36b14NJ2cHRHA/0?wx_fmt=png",
+                introduct = "test",
+                districtid = "440105"
+            };
+
+            var result = WxaApi.CreateMapPoi(_appId, data);
+
+            Assert.IsNull(result.error == null);
+        }
     }
 }

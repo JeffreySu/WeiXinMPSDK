@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -33,6 +33,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Helpers;
 using Senparc.CO2NET.Cache.Redis;
+using Senparc.CO2NET.Extensions;
 //using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
@@ -187,6 +188,18 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             Assert.AreEqual(appId, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId);
             Assert.AreEqual(appSecret, Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret);
+        }
+
+        [TestMethod]
+        public void TryGetAccessTokenTest()
+        {
+            //清除注册信息
+            AccessTokenContainer.RemoveFromCache(base._appId);
+
+            //直接调用
+            var result = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
+            Assert.IsNotNull(result);
+            Console.WriteLine(result.ToJson());
         }
     }
 }

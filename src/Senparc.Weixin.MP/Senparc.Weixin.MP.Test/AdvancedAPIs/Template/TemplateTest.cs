@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -263,7 +263,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 
-#if !NET35 && !NET40
         #region 异步方法测试
         [TestMethod()]
         public void SendTemplateMessageAsyncTest()
@@ -296,6 +295,5 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             });
         }
         #endregion
-#endif
     }
 }

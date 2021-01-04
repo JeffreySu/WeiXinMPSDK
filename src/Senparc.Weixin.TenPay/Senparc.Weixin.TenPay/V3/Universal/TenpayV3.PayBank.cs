@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Mc7246 - 20180725
     修改描述：请求携带证书
 
+    修改标识：Senparc - 20190521
+    修改描述：v1.4.0 .NET Core 添加多证书注册功能
 ----------------------------------------------------------------*/
 
 using System;
@@ -56,10 +58,17 @@ namespace Senparc.Weixin.TenPay.V3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
         /// <param name="cert">证书路径</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static PayBankResult PayBank(TenPayV3PayBankRequestData dataInfo, string cert, string certPassword)
+        public static PayBankResult PayBank(
+            IServiceProvider serviceProvider,
+            TenPayV3PayBankRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+           int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
 
@@ -69,10 +78,16 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-            var resultXml = CertPost(cert,certPassword, data, urlFormat);
-            return new PayBankResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+
+
+            return new PayBankResult(responseContent);
         }
 
 
@@ -81,10 +96,17 @@ namespace Senparc.Weixin.TenPay.V3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
         /// <param name="cert">证书路径</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static QueryBankResult QueryBank(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
+        public static QueryBankResult QueryBank(
+            IServiceProvider serviceProvider,
+            TenPayV3QueryBankRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+              int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
 
@@ -94,10 +116,14 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-            var resultXml = CertPost(cert, certPassword, data, urlFormat);
-            return new QueryBankResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+            return new QueryBankResult(responseContent);
         }
 
         /// <summary>
@@ -108,7 +134,13 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="cert">证书路径</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static GetPublicKeyResult GetPublicKey(TenPayV3GetPublicKeyRequestData dataInfo, string cert, string certPassword)
+        public static GetPublicKeyResult GetPublicKey(
+            IServiceProvider serviceProvider,
+            TenPayV3GetPublicKeyRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+              int timeOut = Config.TIME_OUT)
         {
             //TODO：官方文档没有明确此接口是否支持沙箱
             var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
@@ -119,16 +151,18 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //ms.Write(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = RequestUtility.HttpPost(url, null, ms);
+            //var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, url, null, ms);
             #endregion
-            var resultXml = CertPost(cert, certPassword, data, urlFormat);
-            return new GetPublicKeyResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = CertPost_NetCore(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut);
+#endif
+            return new GetPublicKeyResult(responseContent);
         }
 
         #endregion
 
-
-#if !NET35 && !NET40
         #region 异步方法
 
         /// <summary>
@@ -138,9 +172,16 @@ namespace Senparc.Weixin.TenPay.V3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <param name="cert">证书路径</param>
+        /// <param name="timeOut"></param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<PayBankResult> PayBankAsync(TenPayV3PayBankRequestData dataInfo, string cert, string certPassword)
+        public static async Task<PayBankResult> PayBankAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3PayBankRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+              int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/pay_bank");
 
@@ -150,10 +191,14 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
-            return new PayBankResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+#endif
+            return new PayBankResult(responseContent);
         }
 
 
@@ -162,10 +207,17 @@ namespace Senparc.Weixin.TenPay.V3
         /// <para>注意：请求需要双向证书</para>
         /// </summary>
         /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
         /// <param name="cert">证书路径</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<QueryBankResult> QueryBankAsync(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
+        public static async Task<QueryBankResult> QueryBankAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3QueryBankRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+              int timeOut = Config.TIME_OUT)
         {
             var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}mmpaysptrans/query_bank");
 
@@ -175,10 +227,14 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
-            return new QueryBankResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+#endif
+            return new QueryBankResult(responseContent);
         }
 
         /// <summary>
@@ -189,7 +245,13 @@ namespace Senparc.Weixin.TenPay.V3
         /// <param name="cert">证书路径</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static async Task<GetPublicKeyResult> GetPublicKeyAsync(TenPayV3QueryBankRequestData dataInfo, string cert, string certPassword)
+        public static async Task<GetPublicKeyResult> GetPublicKeyAsync(
+            IServiceProvider serviceProvider,
+            TenPayV3QueryBankRequestData dataInfo,
+#if NET45
+            string cert, string certPassword, 
+#endif
+              int timeOut = Config.TIME_OUT)
         {
             //TODO：官方文档没有明确此接口是否支持沙箱
             var urlFormat = ReurnPayApiUrl("https://fraud.mch.weixin.qq.com/{0}risk/getpublickey");
@@ -200,13 +262,16 @@ namespace Senparc.Weixin.TenPay.V3
             //MemoryStream ms = new MemoryStream();
             //await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             //ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            //var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            //var resultXml = await RequestUtility.HttpPostAsync(CommonDI.CommonSP, urlFormat, null, ms);
             #endregion
-            var resultXml = await CertPostAsync(cert, certPassword, data, urlFormat);
-            return new GetPublicKeyResult(resultXml);
+#if NET45
+            string responseContent = CertPost(cert, certPassword, data, urlFormat, timeOut);
+#else
+            string responseContent = await CertPost_NetCoreAsync(serviceProvider, dataInfo.MchId, dataInfo.SubMchId, data, urlFormat, timeOut).ConfigureAwait(false);
+#endif
+            return new GetPublicKeyResult(responseContent);
         }
 
         #endregion
-#endif
     }
 }

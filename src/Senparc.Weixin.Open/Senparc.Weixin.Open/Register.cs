@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2019 Senparc
+    Copyright (C) 2020 Senparc
   
     文件名：Register.cs
     文件功能描述：注册小程序信息
@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20180802
     修改描述：添加自动 根据 SenparcWeixinSetting 注册 RegisterOpenComponent() 方法
+    
+    修改标识：Senparc - 20191003
+    修改描述：注册过程自动添加更多 SenparcSettingItem 信息
 
 ----------------------------------------------------------------*/
 
@@ -40,6 +43,8 @@ using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.CO2NET.RegisterServices;
 using System;
+using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open
 {
@@ -60,17 +65,17 @@ namespace Senparc.Weixin.Open
         /// <returns></returns>
         public static IRegisterService RegisterOpenComponent(this IRegisterService registerService,
             string componentAppId, string componentAppSecret,
-            Func<string, string> getComponentVerifyTicketFunc,
-            Func<string, string, string> getAuthorizerRefreshTokenFunc,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
-            ComponentContainer.Register(
-                            componentAppId, componentAppSecret,
-                            getComponentVerifyTicketFunc,
-                            getAuthorizerRefreshTokenFunc,
-                            authorizerTokenRefreshedFunc,
-                            name);
+            ComponentContainer.RegisterAsync(
+                             componentAppId, componentAppSecret,
+                             getComponentVerifyTicketFunc,
+                             getAuthorizerRefreshTokenFunc,
+                             authorizerTokenRefreshedFunc,
+                             name).GetAwaiter();
             return registerService;
         }
 
@@ -81,11 +86,18 @@ namespace Senparc.Weixin.Open
         /// <param name="ISenparcWeixinSettingForOpen">SenparcWeixinSetting</param>
         /// <param name="name">统一标识，如果为null，则使用 SenparcWeixinSetting.ItemKey </param>
         /// <returns></returns>
-        public static IRegisterService RegisterOpenComponent(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForOpen weixinSettingForOpen, Func<string, string> getComponentVerifyTicketFunc,
-            Func<string, string, string> getAuthorizerRefreshTokenFunc,
+        public static IRegisterService RegisterOpenComponent(this IRegisterService registerService, Weixin.Entities.ISenparcWeixinSettingForOpen weixinSettingForOpen,
+            Func<string, Task<string>> getComponentVerifyTicketFunc,
+            Func<string, string, Task<string>> getAuthorizerRefreshTokenFunc,
             Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc,
             string name = null)
         {
+            //配置全局参数
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Config.SenparcWeixinSetting[name] = new SenparcWeixinSettingItem(weixinSettingForOpen);
+            }
+
             return RegisterOpenComponent(registerService, weixinSettingForOpen.Component_Appid, weixinSettingForOpen.Component_Secret,
                           getComponentVerifyTicketFunc,
                           getAuthorizerRefreshTokenFunc,

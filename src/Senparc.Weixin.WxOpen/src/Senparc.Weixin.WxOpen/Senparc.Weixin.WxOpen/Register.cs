@@ -59,10 +59,10 @@ namespace Senparc.Weixin.WxOpen
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         /// <returns></returns>
-        [Obsolete("请统一使用Senparc.Weixin.MP.Register.RegisterMpAccount()方法进行注册！")]
+        [Obsolete("请统一使用Senparc.Weixin.WxOpen.Register.RegisterWxOpenAccount()方法进行注册！")]
         public static IRegisterService RegisterWxOpenAccount(this IRegisterService registerService, string appId, string appSercet, string name = null)
         {
-            throw new WeixinException("请统一使用Senparc.Weixin.MP.Register.RegisterMpAccount()方法进行注册！");
+            throw new WeixinException("请统一使用请统一使用Senparc.Weixin.WxOpen.Register.RegisterWxOpenAccount()方法进行注册！");
         }
 
         /// <summary>

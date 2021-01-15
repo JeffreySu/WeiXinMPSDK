@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190906
     修改描述：v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -> page
+                        反馈：https://weixin.senparc.com/QA-17333
 
 ----------------------------------------------------------------*/
 

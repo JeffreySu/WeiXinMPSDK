@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190906
     修改描述：v3.5.4 修正 UniformSendData 参数
 
+    修改标识：Senparc - 20190906
+    修改描述：v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -> page
 
 ----------------------------------------------------------------*/
 
@@ -120,6 +122,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     public class Miniprogram
     {
         public string appid { get; set; }
-        public string pagepath { get; set; }
+        public string page { get; set; }
     }
 }

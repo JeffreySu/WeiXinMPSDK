@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：RequestMessager_Register_Corp.cs
     文件功能描述：推广二维码注册企业微信完成通知

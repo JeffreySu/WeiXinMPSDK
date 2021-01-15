@@ -26,11 +26,12 @@
   </view>
   <!-- 进入客服 -->
    <view class="btn-contact">
-      <contact-button 
+      <button 
         size="20"
         session-from="Senparc.Weixin" 
         open-type='contact'
-        >（←点图标）进入客服，查看消息接口</contact-button>
+        class='service-btn'
+        >进入客服</button>
   </view>
 
   <view class="flex-wrp" style="flex-direction:row;">

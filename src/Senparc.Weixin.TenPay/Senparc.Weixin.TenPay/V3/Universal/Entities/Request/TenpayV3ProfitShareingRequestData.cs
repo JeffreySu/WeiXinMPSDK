@@ -40,6 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20201209
     修改描述：v1.6.100 更新 TenPayV3UnifiedorderRequestData 构造函数，version 为空时忽略 https://github.com/JeffreySu/WeiXinMPSDK/issues/2277
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;

@@ -36,13 +36,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190606
     修改描述：TryCommonApiBase<T> 中 T 参数添加 new() 约束
 
+   
+    修改标识：Senparc - 20210116
+    修改描述：v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer https://github.com/JeffreySu/WeiXinMPSDK/issues/2296
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
-using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.WxOpen
 {

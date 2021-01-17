@@ -12,10 +12,11 @@
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Search;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Search
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
     /// <summary>
     /// 小程序搜索

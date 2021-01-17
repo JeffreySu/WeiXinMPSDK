@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.10.103</Version>
+    <Version>3.10.104</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -151,6 +151,7 @@
 		v3.10.101 新增 WxOpen 专属 AccessTokenContainer，解决没有提供 name 参数的情况下，Register 过程和公众号注册信息发生冲突的问题
 		v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -&gt; page
 		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
+		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -200,7 +201,6 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdvancedAPIs\WxApp\GenerateScheme\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>

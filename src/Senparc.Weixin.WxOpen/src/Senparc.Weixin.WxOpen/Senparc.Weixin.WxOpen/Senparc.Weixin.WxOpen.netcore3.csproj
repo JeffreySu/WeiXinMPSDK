@@ -149,7 +149,7 @@
 		2、调整 MessageHandler 异步方法执行代码
 		v3.8.512 添加解密到实例信息方法
 		v3.10.101 新增 WxOpen 专属 AccessTokenContainer，解决没有提供 name 参数的情况下，Register 过程和公众号注册信息发生冲突的问题
-		v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -> page
+		v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -&gt; page
 		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
 	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -200,6 +200,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AdvancedAPIs\WxApp\GenerateScheme\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>

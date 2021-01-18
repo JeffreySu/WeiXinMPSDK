@@ -48,6 +48,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20200619
     修改描述：修正查询授权页字段信息请求微信URL错误
 
+    修改标识：Senparc - 20210118
+    修改描述：v16.11.102 修正“将电子发票卡券插入用户卡包”接口 InvoiceApi.InsertCardToBag() 问题
+
 ----------------------------------------------------------------*/
 
 
@@ -644,12 +647,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/insert?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                    info
-                };
 
-                return CommonJsonSend.Send<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<InsertCardResultJson>(null, urlFormat, info, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -1307,12 +1306,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format(Config.ApiMpHost + "/card/invoice/insert?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                    info
-                };
 
-                return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<InsertCardResultJson>(null, urlFormat, info, timeOut: timeOut).ConfigureAwait(false);
 
             }, accessTokenOrAppId).ConfigureAwait(false);
         }

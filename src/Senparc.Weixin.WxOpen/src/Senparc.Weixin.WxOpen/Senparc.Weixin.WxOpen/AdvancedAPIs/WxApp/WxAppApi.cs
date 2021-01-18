@@ -670,7 +670,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var data = new
                 {
                     jump_wxa = jumpWxa,
-                    is_expire = isExpire,
+                    is_expire = isExpire.Value ? "true" : "false",
                     expire_time = expireTime.HasValue ? Senparc.CO2NET.Helpers.DateTimeHelper.GetUnixDateTime(expireTime.Value) : (long?)null
                 };
 
@@ -1283,7 +1283,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 var data = new
                 {
                     jump_wxa = jumpWxa,
-                    is_expire = isExpire,
+                    is_expire = isExpire.Value ? "true" : "false",
                     expire_time = expireTime.HasValue ? Senparc.CO2NET.Helpers.DateTimeHelper.GetUnixDateTime(expireTime.Value) : (long?)null
                 };
 

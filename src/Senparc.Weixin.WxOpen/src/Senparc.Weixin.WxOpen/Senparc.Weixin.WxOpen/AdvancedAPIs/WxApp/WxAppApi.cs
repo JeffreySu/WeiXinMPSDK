@@ -38,7 +38,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20190615
     修改描述：修复附近的小程序添加地点
-
 ----------------------------------------------------------------*/
 
 using System;
@@ -46,7 +45,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-//using Senparc.Weixin.Helpers;
 using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
@@ -621,6 +619,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 风险用户扫描
         /// 快速发现使用小程序的风险用户，提升小程序运营安全
@@ -1224,6 +1223,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 return await CommonJsonSend.SendAsync<GetUserRiskRankResult>(accessToken, url, data, timeOut: timeOut);
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
+
         #endregion
     }
 }

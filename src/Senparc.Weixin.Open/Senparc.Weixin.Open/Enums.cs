@@ -211,6 +211,29 @@ namespace Senparc.Weixin.Open
     }
 
     /// <summary>
+    /// 小程序“修改业务域名”接口的action类型
+    /// </summary>
+    public enum SetWebViewDomainAction
+    {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取
+        /// </summary>
+        get
+    }
+
+    /// <summary>
     /// 小程序“线上代码的可见状态”接口的action类型
     /// </summary>
     public enum ChangVisitStatusAction

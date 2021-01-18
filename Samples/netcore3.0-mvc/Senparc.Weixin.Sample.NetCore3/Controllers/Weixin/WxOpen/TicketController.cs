@@ -23,8 +23,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 
             Hashtable ht = new System.Collections.Hashtable();
             var weixinAppId = Senparc.Weixin.Config.SenparcWeixinSetting.MpSetting.WeixinAppId;
-            var jumpWxa = new Weixin.WxOpen.AdvancedAPIs.WxApp.GenerateSchemeJumpWxa("", null);
-            var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi.GenerateSchemeAsync(weixinAppId, jumpWxa, false, null);
+            var jumpWxa = new Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", null);
+            var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync(weixinAppId, jumpWxa, false, null);
             ht.Add("data", schmeResult);
 
             return Content(ht.ToString());

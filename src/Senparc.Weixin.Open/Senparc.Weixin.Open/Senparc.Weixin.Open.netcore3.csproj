@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>4.8.101</Version>
+    <Version>4.8.102</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -175,7 +175,8 @@
 		v4.7.401 第三方小程序，提交审核接口更新
 		v4.7.502.2 解决授权信息出现重复记录的问题
 		v4.7.502.3 代小程序开发 添加撤回审核接口
-</PackageReleaseNotes>
+		v4.8.102 添加接口“代小程序实现业务 - 设置业务域名”（SetWebViewDomainApi）
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

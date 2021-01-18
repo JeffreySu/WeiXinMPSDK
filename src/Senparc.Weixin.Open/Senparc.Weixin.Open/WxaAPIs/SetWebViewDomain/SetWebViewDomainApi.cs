@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：SetWebViewDomainApi.cs
     文件功能描述：设置业务域名接口
@@ -43,6 +43,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         #region 同步方法
         /// <summary>
         /// 修改服务器地址 接口
+        /// <para>https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/setwebviewdomain.html</para>
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="action">操作类型</param>
@@ -83,6 +84,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
 
         /// <summary>
         /// 【异步方法】修改服务器地址 接口
+        /// <para>https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/setwebviewdomain.html</para>
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="action">操作类型</param>

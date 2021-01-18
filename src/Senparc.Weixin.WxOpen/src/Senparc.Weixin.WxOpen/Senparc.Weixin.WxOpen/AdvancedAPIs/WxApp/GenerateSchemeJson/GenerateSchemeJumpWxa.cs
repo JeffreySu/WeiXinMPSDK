@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.GenerateSchemeJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
     /// <summary>
     /// GenerateScheme() 接口中的 jumpWxa 参数

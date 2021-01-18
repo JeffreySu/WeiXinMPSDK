@@ -13,7 +13,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.GenerateSchemeJson
     public class GenerateSchemeJsonResult : WxJsonResult
     {
         /// <summary>
-        /// openlink
+        /// 小程序scheme码
         /// </summary>
         public string openlink { get; set; }
     }

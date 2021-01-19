@@ -29,8 +29,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme
         /// <param name="query"></param>
         public GenerateSchemeJumpWxa(string path, string query)
         {
-            this.path = path;
-            this.query = query;
+            this.path = path ?? "";
+            this.query = query ?? "";
         }
     }
 }

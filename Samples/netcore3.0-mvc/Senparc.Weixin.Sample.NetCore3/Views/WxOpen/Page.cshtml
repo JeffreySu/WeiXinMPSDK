@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Senparc.Weixin SDK 小程序";
     bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
-    Layout = inWeChatBrowser ? "" : "~/Views/Shared/_Layout.cshtml";
+    Layout = inWeChatBrowser ? null : "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html>
@@ -62,7 +62,7 @@
         <p>&nbsp;</p>
         <h4>体验方法：</h4>
         <p>1、在微信外部浏览器打开此网页。</p>
-        <p>2、在外部浏览器<a href="weixin://dl/business/?t=@Model">点击这里</a>，可以直接打开小程序。</p>
+        <p>2、在外部浏览器【<a href="weixin://dl/business/?t=@Model">点击这里</a>】，可以直接打开小程序。</p>
         <p>&nbsp;</p>
         <h4>如果您是开发者，可以这样轻松获得此功能：</h4>
         <p>1、下载当前 <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Samples/netcore3.0-mvc" target="_blank">Sample</a>。</p>

@@ -1,0 +1,46 @@
+﻿@*DPBMARK_FILE WxOpen*@
+@{
+    ViewBag.Title = "GetUrlScheme 结果";
+    bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
+    bool success = (ViewData["Success"] is bool s) && s;
+    Layout = inWeChatBrowser ? "" : "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        h3 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h2>@ViewBag.Title</h2>
+
+    @if (success)
+    {
+
+        <p>OpenLink：<strong>@ViewData["Message"]</strong></p>
+
+
+        <h3>使用方法</h3>
+        <p>
+            1、复制以上 <strong>@ViewData["Message"]</strong> 字符串<br />
+            2、嵌入到网页 <code><a></code> 标签中，如：<code><a href="@ViewData["Message"]">在小程序中打开</a></code>。<a href="@ViewData["Message"]">点击这里测试</a><br />
+            3、或使用 JS 跳转：location.href = '@ViewData["Message"]'
+        </p>
+    }
+    else
+    {
+        <p>接口调用失败：<strong>@ViewData["Message"]</strong></p>
+    }
+
+    @if (inWeChatBrowser)
+    {
+        <h3>更多内容</h3>
+        <p><a href="/">返回首页</a></p>
+    }
+</body>
+</html>

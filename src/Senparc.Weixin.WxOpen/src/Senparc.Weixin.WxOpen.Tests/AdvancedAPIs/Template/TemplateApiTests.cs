@@ -82,18 +82,19 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.Tests
     [TestClass()]
     public class TemplateApiTests: WxOpenBaseTest
     {
-        [TestMethod()]
-        public void SendTemplateMessageTest()
-        {
-            var openId = "onh7q0DGM1dctSDbdByIHvX4imxA";
-            var data = new WxOpenTemplateMessage_PaySuccessNotice(
-                "在线购买", SystemTime.Now,"图书众筹","1234567890",
-                100, "400-9939-858","http://sdk.senparc.weixin.com");
+        //接口已弃用
+        //[TestMethod()]
+        //public void SendTemplateMessageTest()
+        //{
+        //    var openId = "onh7q0DGM1dctSDbdByIHvX4imxA";
+        //    var data = new WxOpenTemplateMessage_PaySuccessNotice(
+        //        "在线购买", SystemTime.Now,"图书众筹","1234567890",
+        //        100, "400-9939-858","http://sdk.senparc.weixin.com");
 
-           var result = TemplateApi.SendTemplateMessage(_wxOpenAppId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
-                "keyword3");
+        //   var result = TemplateApi.SendTemplateMessage(_wxOpenAppId, openId, data.TemplateId, data, "formSubmit", "pages/websocket",
+        //        "keyword3");
 
-            Assert.AreEqual(ReturnCode.请求成功,result.errcode);
-        }
+        //    Assert.AreEqual(ReturnCode.请求成功,result.errcode);
+        //}
     }
 }

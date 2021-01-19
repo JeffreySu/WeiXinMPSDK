@@ -273,9 +273,9 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             var templateMessageService = new TemplateMessageService();
             try
             {
-                var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
+                //var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
 
-                return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
+                return Json(new { success = true, msg = "2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。" });
             }
             catch (Exception ex)
             {

@@ -47,11 +47,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                 var data = new
                 {
                     jump_wxa = jumpWxa,
-                    is_expire = isExpire.Value ? "true" : "false",
+                    is_expire = isExpire,
                     expire_time = expireTime.HasValue ? Senparc.CO2NET.Helpers.DateTimeHelper.GetUnixDateTime(expireTime.Value) : (long?)null
                 };
 
-                return CommonJsonSend.Send<GenerateSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GenerateSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut,
+                     jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
             }, accessTokenOrAppId);
         }
 
@@ -82,11 +83,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                 var data = new
                 {
                     jump_wxa = jumpWxa,
-                    is_expire = isExpire.Value ? "true" : "false",
+                    is_expire = isExpire,
                     expire_time = expireTime.HasValue ? Senparc.CO2NET.Helpers.DateTimeHelper.GetUnixDateTime(expireTime.Value) : (long?)null
                 };
 
-                return CommonJsonSend.Send<GenerateSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GenerateSchemeJsonResult>(accessToken, urlFormat, data, timeOut: timeOut, 
+                    jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting(true));
             }, accessTokenOrAppId).ConfigureAwait(false);
         }
         #endregion

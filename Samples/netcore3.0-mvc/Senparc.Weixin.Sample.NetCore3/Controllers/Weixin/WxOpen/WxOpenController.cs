@@ -34,6 +34,8 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using System.Collections;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {
@@ -474,5 +476,42 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 return Json(new { success = false, msg = ex.Message });
             }
         }
+
+
+        #region GetUrlScheme
+        public async Task<IActionResult> GetUrlScheme(int tickid, string ntype = "gclub")
+        {
+            string message;
+            ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            try
+            {
+                if (!HttpContext.Request.IsLocal())
+                {
+                    throw new WeixinException("此接口为内部接口，请在服务器本地调用！");
+                }
+
+                var wxOpenAppId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting.WxOpenAppId;
+                var jumpWxa = new Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
+                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync(wxOpenAppId, jumpWxa, false, null);
+                message = schmeResult.openlink;
+                ViewData["Success"] = true;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewData["Message"] = message;
+            return View();
+
+        }
+
+        public IActionResult Page(string t = "E1EvMrNAEdi")
+        {
+            ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            return View("Page", t);
+        }
+
+        #endregion
+
     }
 }

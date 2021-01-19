@@ -44,7 +44,14 @@
             <h3>使用方法</h3>
             <p>
                 1、复制以上 <strong>@ViewData["Message"]</strong> 字符串<br />
-                2、嵌入到网页 &lt;a&gt; 标签中，如：&lt;a&gt; href="@ViewData["Message"]">在小程序中打开&lt;/a&gt;。<a href="@ViewData["Message"]">点击这里测试</a>< br />
+
+                2、嵌入到网页 &lt;a&gt; 标签中，如：&lt;a href="@ViewData["Message"]">在小程序中打开&lt;/a&gt;。<br />
+                @if (inWeChatBrowser)
+                {
+                    <a href="@ViewData["Message"]">点击这里测试</a>
+                    <br />
+                }
+
                 3、或使用 JS 跳转：location.href = '@ViewData["Message"]'
             </p>
         }

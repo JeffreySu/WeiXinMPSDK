@@ -482,7 +482,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         public async Task<IActionResult> GetUrlScheme(int tickid, string ntype = "gclub")
         {
             string message;
-            ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            ViewData["inWeChatBrowser"] = true;// Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
             try
             {
                 if (!HttpContext.Request.IsLocal())
@@ -508,10 +508,10 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         {
             if (d != null)
             {
-                return Content($"<script>location.href = 'weixin://dl/business/?t={t}' </script>", "text/plain");
+                return Content($"<script>location.href = 'weixin://dl/business/?t={t}' </script>", "text/html");
             }
 
-            ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            ViewData["inWeChatBrowser"] = true;// Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
             return View("Page", t);
         }
 

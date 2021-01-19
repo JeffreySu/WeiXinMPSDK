@@ -482,6 +482,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
         public async Task<IActionResult> GetUrlScheme(int tickid, string ntype = "gclub")
         {
             string message;
+            ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
             try
             {
                 if (!HttpContext.Request.IsLocal())

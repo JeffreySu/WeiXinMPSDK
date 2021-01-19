@@ -502,14 +502,19 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             }
             ViewData["Message"] = message;
             return View();
-
         }
 
-        public IActionResult Page(string t = "E1EvMrNAEdi")
+        public IActionResult Page(string t = "E1EvMrNAEdi", string d = null)
         {
+            if (d != null)
+            {
+                return Content($"<script>location.href = 'weixin://dl/business/?t={t}' </script>", "text/plain");
+            }
+
             ViewData["inWeChatBrowser"] = Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
             return View("Page", t);
         }
+
 
         #endregion
 

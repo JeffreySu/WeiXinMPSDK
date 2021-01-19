@@ -3,7 +3,7 @@
     ViewBag.Title = "GetUrlScheme 结果";
     bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
     bool success = (ViewData["Success"] is bool s) && s;
-    Layout = inWeChatBrowser ? "" : "~/Views/Shared/_Layout.cshtml";
+    Layout = inWeChatBrowser ? null : "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html>

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Senparc.Weixin SDK 小程序";
     bool inWeChatBrowser = (ViewData["inWeChatBrowser"] is bool isIn) && isIn;
-    Layout = inWeChatBrowser ? "" : "~/Views/Shared/_Layout.cshtml";
+    Layout = inWeChatBrowser ? null : "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html>

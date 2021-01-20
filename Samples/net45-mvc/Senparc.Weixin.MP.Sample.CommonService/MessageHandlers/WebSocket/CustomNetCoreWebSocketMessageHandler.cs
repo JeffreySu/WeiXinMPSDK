@@ -75,23 +75,25 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 //    "在线购买", SystemTime.Now, "图书众筹", "1234567890",
                 //    100, "400-9939-858", "http://sdk.senparc.weixin.com");
 
-                if (sessionBag!=null)
-                {
-                    var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
+                //接口已启用
 
-                    var data = new
-                    {
-                        keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息（测试数据）"),
-                        keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
-                        keyword3 = new TemplateDataItem($"来自 Senparc.Weixin SDK 小程序 .Net Core WebSocket 触发\r\n您刚才发送了文字：{message}"),
-                        keyword4 = new TemplateDataItem(SystemTime.NowTicks.ToString()),
-                        keyword5 = new TemplateDataItem(100.ToString("C")),
-                        keyword6 = new TemplateDataItem("400-031-8816"),
-                    };
+                //if (sessionBag!=null)
+                //{
+                //    var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
 
-                    var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
-                             null);
-                }
+                //    var data = new
+                //    {
+                //        keyword1 = new TemplateDataItem("来自小程序WebSocket的模板消息（测试数据）"),
+                //        keyword2 = new TemplateDataItem(SystemTime.Now.LocalDateTime.ToString()),
+                //        keyword3 = new TemplateDataItem($"来自 Senparc.Weixin SDK 小程序 .Net Core WebSocket 触发\r\n您刚才发送了文字：{message}"),
+                //        keyword4 = new TemplateDataItem(SystemTime.NowTicks.ToString()),
+                //        keyword5 = new TemplateDataItem(100.ToString("C")),
+                //        keyword6 = new TemplateDataItem("400-031-8816"),
+                //    };
+
+                //    var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
+                //             null);
+                //}
             }
             catch (Exception ex)
             {

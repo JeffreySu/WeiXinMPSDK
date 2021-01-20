@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：RefreshAuthorizerTokenResult.cs
     文件功能描述：获取（刷新）授权公众号的令牌返回结果

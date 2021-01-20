@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：EncryptResponseMessage.cs
     文件功能描述：返回给服务器的加密消息

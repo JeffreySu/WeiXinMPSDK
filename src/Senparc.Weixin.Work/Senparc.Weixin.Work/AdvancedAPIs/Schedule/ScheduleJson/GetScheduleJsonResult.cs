@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：GetScheduleJsonResult.cs
     文件功能描述：获取日程接口返回参数

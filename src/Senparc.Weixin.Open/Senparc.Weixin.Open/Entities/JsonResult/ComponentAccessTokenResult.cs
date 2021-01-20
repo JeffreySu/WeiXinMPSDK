@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：ComponentAccessTokenResult.cs
     文件功能描述：获取第三方平台access_token

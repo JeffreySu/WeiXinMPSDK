@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：GetExternalContactInfoBatchResult.cs
     文件功能描述：批量获取客户详情 返回结果

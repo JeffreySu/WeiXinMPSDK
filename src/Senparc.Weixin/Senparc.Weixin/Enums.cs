@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -87,6 +87,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Billzjh - 20201210
     修改描述：v6.8.101 完善 ReturnCode_Work 枚举类型
 
+    修改标识：Billzjh - 20210118
+    修改描述：为支持小程序 GenerateScheme 接口，修改 ReturnCode 枚举类型
+
 ----------------------------------------------------------------*/
 
 
@@ -148,6 +151,10 @@ namespace Senparc.Weixin
         系统繁忙此时请开发者稍候再试 = -1,
         请求成功 = 0,
         获取access_token时AppSecret错误或者access_token无效 = 40001,
+        /// <summary>
+        /// <para>公众号：不合法的凭证类型</para>
+        /// <para>小程序：暂无生成权限</para>
+        /// </summary>
         不合法的凭证类型 = 40002,
         不合法的OpenID = 40003,
         不合法的媒体文件类型 = 40004,
@@ -159,6 +166,10 @@ namespace Senparc.Weixin
         不合法的语音文件大小 = 40010,
         不合法的视频文件大小 = 40011,
         不合法的缩略图文件大小 = 40012,
+        /// <summary>
+        /// <para>微信：不合法的APPID</para>
+        /// <para>小程序：生成权限被封禁</para>
+        /// </summary>
         不合法的APPID = 40013,
         不合法的access_token = 40014,
         不合法的菜单类型 = 40015,
@@ -266,7 +277,6 @@ namespace Senparc.Weixin
         创建的标签数过多请注意不能超过100个 = 45056,
 
 
-
         /// <summary>
         /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
         /// </summary>
@@ -299,6 +309,10 @@ namespace Senparc.Weixin
         回复超过长度限制或为0 = 88007,//reply content beyond max len or content len is zero
         该评论不存在 = 88008,//comment is not exists
         获取评论数目不合法 = 88010,//count range error. cout <= 0 or count > 50
+
+        //只有小程序有
+        参数path填写错误 = 40165,
+        参数query填写错误 = 40212,
 
         //开放平台
 
@@ -421,9 +435,20 @@ namespace Senparc.Weixin
         请先成功创建门店后再调用 = 85053,
         临时mediaid无效 = 85056,
 
+        /// <summary>
+        /// <para>公众号：输入参数有误</para>
+        /// <para>小程序：参数expire_time填写错误</para>
+        /// </summary>
         输入参数有误 = 40097,
         门店不存在 = 65115,
         该门店状态不允许更新 = 65118,
+
+        //代小程序实现业务 - 设置业务域名
+        业务域名无更改_无需重复设置 = 89019,
+        尚未设置小程序业务域名_请先在第三方平台中设置小程序业务域名后在调用本接口 = 89020,
+        请求保存的域名不是第三方平台中已设置的小程序业务域名或子域名 = 89021,
+        业务域名数量超过限制_最多可以添加100个业务域名 = 89029,
+        个人小程序不支持调用_setwebviewdomain_接口 = 89231
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 

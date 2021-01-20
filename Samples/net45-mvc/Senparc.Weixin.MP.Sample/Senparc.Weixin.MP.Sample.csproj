@@ -230,6 +230,7 @@
     <!-- DPBMARK MP -->
     <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\NeuChar\NeuCharAppController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\WeixinAsyncController.cs" />
@@ -448,6 +449,7 @@
     <Folder Include="App_Data\Document\Files\" />
     <Folder Include="App_Data\OpenTickets\" />
     <Folder Include="Views\NeuCharApp\" />
+    <Folder Include="Views\Ticket\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

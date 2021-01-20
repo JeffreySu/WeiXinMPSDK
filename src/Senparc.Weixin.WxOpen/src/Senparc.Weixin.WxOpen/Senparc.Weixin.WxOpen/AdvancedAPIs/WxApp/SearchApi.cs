@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：SearchApi.cs
     文件功能描述：小程序搜索
@@ -12,10 +12,11 @@
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Search;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Search
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
     /// <summary>
     /// 小程序搜索

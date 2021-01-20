@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
   
     文件名：Register.cs
     文件功能描述：注册小程序信息
@@ -59,10 +59,10 @@ namespace Senparc.Weixin.WxOpen
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         /// <returns></returns>
-        [Obsolete("请统一使用Senparc.Weixin.MP.Register.RegisterMpAccount()方法进行注册！")]
+        [Obsolete("请统一使用Senparc.Weixin.WxOpen.Register.RegisterWxOpenAccount()方法进行注册！")]
         public static IRegisterService RegisterWxOpenAccount(this IRegisterService registerService, string appId, string appSercet, string name = null)
         {
-            throw new WeixinException("请统一使用Senparc.Weixin.MP.Register.RegisterMpAccount()方法进行注册！");
+            throw new WeixinException("请统一使用请统一使用Senparc.Weixin.WxOpen.Register.RegisterWxOpenAccount()方法进行注册！");
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -191,6 +191,29 @@ namespace Senparc.Weixin.Open
     /// 小程序“修改服务器地址”接口的action类型
     /// </summary>
     public enum ModifyDomainAction
+    {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取
+        /// </summary>
+        get
+    }
+
+    /// <summary>
+    /// 小程序“修改业务域名”接口的action类型
+    /// </summary>
+    public enum SetWebViewDomainAction
     {
         /// <summary>
         /// 添加

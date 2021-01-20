@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：GetAuthorizerInfoResult.cs
     文件功能描述：获取授权方的账户信息返回结果

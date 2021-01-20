@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：GetNewsResultJson.cs
     文件功能描述：获取图文类型永久素材返回结果

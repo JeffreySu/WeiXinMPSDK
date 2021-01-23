@@ -14,7 +14,7 @@ namespace Senparc.Weixin.TenPayV3.Helpers.Tests
         {
             var dateTime = new DateTime(2021, 1, 24, 2, 16, 54, 666);
             var dtString = dateTime.ToTenPayDateTime();
-            Console.WriteLine(dtString);
+            Assert.AreEqual("2021-01-24T02:16:54.666+08:00", dtString);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：TemplateMessageData.cs
     文件功能描述：模板消息数据

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller

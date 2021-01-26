@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -191,7 +191,12 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 外部联系人变更通知
         /// </summary>
-        CHANGE_EXTERNAL_CONTACT
+        CHANGE_EXTERNAL_CONTACT,
+
+        /// <summary>
+        /// 推广码注册完成通知
+        /// </summary>
+        REGISTER_CORP
     }
 
 

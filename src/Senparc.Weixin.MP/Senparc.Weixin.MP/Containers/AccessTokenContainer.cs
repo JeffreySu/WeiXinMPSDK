@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -250,6 +250,10 @@ namespace Senparc.Weixin.MP.Containers
 
             if (!name.IsNullOrEmpty())
             {
+                /*
+                 * 注意：此处会修改全局的 WeixinAppId 和 WeixinAppSecret 的值，如果小程序从这里注册（并且没有提供 name），就会影响到公众号的参数 
+                 * https://github.com/JeffreySu/WeiXinMPSDK/pull/2261/files
+                 */
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppId = appId;
                 Senparc.Weixin.Config.SenparcWeixinSetting.Items[name].WeixinAppSecret = appSecret;
             }

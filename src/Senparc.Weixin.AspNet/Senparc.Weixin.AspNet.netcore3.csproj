@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
-    <Version>0.1.600</Version>
+    <Version>0.2.101</Version>
     <AssemblyName>Senparc.Weixin.AspNet</AssemblyName>
     <RootNamespace>Senparc.Weixin.AspNet</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -82,7 +82,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.2.200" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.3.200" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

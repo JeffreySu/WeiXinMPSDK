@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
@@ -50,6 +50,9 @@
 
     修改标识：gokeiyou - 20201013
     修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
+
+    修改标识：Billzjh - 20201210
+    修改描述：v3.8.101 添加 OnThirdPartyEvent_REGISTER_CORP() 事件
 
 ----------------------------------------------------------------*/
 
@@ -742,6 +745,8 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_CONTACT:
                     return OnThirdPartyEvent_Change_Contact((RequestMessageInfo_Change_Contact)thirdPartyInfo);
+                case ThirdPartyInfo.REGISTER_CORP:
+                    return OnThirdPartyEvent_REGISTER_CORP((RequestMessager_Register_Corp)thirdPartyInfo);
                 case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
                     {
                         var cecRequestMessage = RequestMessage as IRequestMessageEvent_Change_ExternalContact_Base;
@@ -775,6 +780,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         protected virtual string OnThirdPartyEvent_Change_Contact(RequestMessageInfo_Change_Contact thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_REGISTER_CORP(RequestMessager_Register_Corp thirdPartyInfo)
         {
             return ThirdPartyEventSuccessResult;
         }

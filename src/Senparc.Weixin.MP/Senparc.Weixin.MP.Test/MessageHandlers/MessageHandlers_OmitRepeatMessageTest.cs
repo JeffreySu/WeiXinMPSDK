@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ using Senparc.NeuChar.Entities;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -34,12 +35,12 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public string RunStep { get; set; }
 
 
-        public OmitRepeatMessageMessageHandlers(XDocument requestDoc,PostModel postModel)
+        public OmitRepeatMessageMessageHandlers(XDocument requestDoc, PostModel postModel)
             : base(requestDoc, postModel)
         {
         }
 
-    
+
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -62,7 +63,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     }
 
     [TestClass]
-    public class MessageHandlers_OmitRepeatMessage
+    public class MessageHandlers_OmitRepeatMessage : BaseTest
     {
         string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

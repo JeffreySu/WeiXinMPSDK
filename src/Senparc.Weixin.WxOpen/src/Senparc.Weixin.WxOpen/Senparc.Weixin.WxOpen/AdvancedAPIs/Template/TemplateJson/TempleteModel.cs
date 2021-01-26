@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：TemplateModel.cs
     文件功能描述：小程序模板消息接口需要的数据
@@ -30,6 +30,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190906
     修改描述：v3.5.4 修正 UniformSendData 参数
 
+    修改标识：Senparc - 20190906
+    修改描述：v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -> page
+                        反馈：https://weixin.senparc.com/QA-17333
 
 ----------------------------------------------------------------*/
 
@@ -120,6 +123,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     public class Miniprogram
     {
         public string appid { get; set; }
-        public string pagepath { get; set; }
+        public string page { get; set; }
     }
 }

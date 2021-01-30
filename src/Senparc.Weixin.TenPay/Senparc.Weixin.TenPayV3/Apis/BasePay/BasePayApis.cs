@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.HttpUtility;
+using Senparc.Weixin.TenPayV3.Apis.BasePay;
+using Senparc.Weixin.TenPayV3.Apis.BasePay.Entities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +13,13 @@ namespace Senparc.Weixin.TenPayV3.Apis
 {
     public static class BasePayApis
     {
+        //private readonly IServiceProvider _serviceProvider;
+
+        //public BasePayApis(IServiceProvider serviceProvider)
+        //{
+        //    this._serviceProvider = serviceProvider;
+        //}
+
         /// <summary>
         /// 返回可用的微信支付地址（自动判断是否使用沙箱）
         /// </summary>
@@ -18,18 +30,24 @@ namespace Senparc.Weixin.TenPayV3.Apis
             return string.Format(urlFormat, Senparc.Weixin.Config.UseSandBoxPay ? "sandboxnew/" : "");
         }
 
-        public static string JsAPi()
+        public static JsApiReturnJson JsApi(IServiceProvider serviceProvider, JsApiRequestData data, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}pay/unifiedorder");
-            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-            //throw new Exception(data.HtmlEncode());
-            MemoryStream ms = new MemoryStream();
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var url = ReurnPayApiUrl("https://api.mch.weixin.qq.com/{0}v3/pay/transactions/jsapi");
+            var jsonString = SerializerHelper.GetJsonString(data, null);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
 
-            var resultXml = RequestUtility.HttpPost(CommonDI.CommonSP, urlFormat, null, ms, timeOut: timeOut);
-            return new UnifiedorderResult(resultXml);
+                WeixinTrace.SendApiPostDataLog(url, jsonString);//记录Post的Json数据
+
+                //PostGetJson方法中将使用WeixinTrace记录结果
+                return Post.PostGetJson<JsApiReturnJson>(serviceProvider, url, null, ms,
+                    timeOut: timeOut,
+                    afterReturnText: null,
+                    checkValidationResult: false);
+            }
         }
     }
 }

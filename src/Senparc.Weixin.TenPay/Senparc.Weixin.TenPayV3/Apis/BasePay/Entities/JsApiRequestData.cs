@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Senparc.Weixin.TenPayV3.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
 {
     public class JsApiRequestData
     {
-        public DateTime time_expire { get; set; }
+        public TenpayDateTime time_expire { get; set; }
         public Amount amount { get; set; }
         public string mchid { get; set; }
         public string description { get; set; }
@@ -20,6 +21,22 @@ namespace Senparc.Weixin.TenPayV3.Apis.BasePay
         public string attach { get; set; }
         public Detail detail { get; set; }
         public Scene_Info scene_info { get; set; }
+
+        public JsApiRequestData(TenpayDateTime time_expire, Amount amount, string mchid, string description, string notify_url, Payer payer, string out_trade_no, string goods_tag, string appid, string attach, Detail detail, Scene_Info scene_info)
+        {
+            this.time_expire = time_expire;
+            this.amount = amount;
+            this.mchid = mchid;
+            this.description = description;
+            this.notify_url = notify_url;
+            this.payer = payer;
+            this.out_trade_no = out_trade_no;
+            this.goods_tag = goods_tag;
+            this.appid = appid;
+            this.attach = attach;
+            this.detail = detail;
+            this.scene_info = scene_info;
+        }
     }
 
     public class Amount

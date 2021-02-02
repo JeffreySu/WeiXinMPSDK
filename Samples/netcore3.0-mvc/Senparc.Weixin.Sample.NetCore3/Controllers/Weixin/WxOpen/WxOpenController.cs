@@ -491,8 +491,8 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 }
 
                 var wxOpenAppId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting.WxOpenAppId;
-                var jumpWxa = new Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
-                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync(wxOpenAppId, jumpWxa, false, null);
+                var jumpWxa = new Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
+                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync                             (wxOpenAppId, jumpWxa, false, null);
                 message = schmeResult.openlink;
                 ViewData["Success"] = true;
             }

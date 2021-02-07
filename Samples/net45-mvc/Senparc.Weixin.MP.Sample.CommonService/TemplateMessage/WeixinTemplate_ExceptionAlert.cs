@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
+
+#if NET45
+using System.Web;
+#else
 using Microsoft.Extensions.DependencyInjection;
+#endif
+
 
 namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
 {
@@ -66,9 +72,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
                 string newMessage = null;
                 try
                 {
+#if !NET45
+
                     var httpContextAccessor = Senparc.CO2NET.SenparcDI.GetServiceProvider().GetService<IHttpContextAccessor>();
                     var httpContext = httpContextAccessor.HttpContext;
                     newMessage = httpContext.Request.PathAndQuery();
+#else   
+                    newMessage = HttpContext.Current.Request.Path;
+#endif
                 }
                 catch (Exception)
                 {

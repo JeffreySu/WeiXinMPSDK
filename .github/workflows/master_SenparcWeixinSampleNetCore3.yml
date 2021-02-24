@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '3.1.301'
         
     - name: restore
-      run: dotnet restore ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln -s https://api.nuget.org/v3/index.json
+      run: dotnet restore -s https://api.nuget.org/v3/index.json ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln
 
     - name: Build with dotnet
-      run: dotnet build ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln --configuration Release --no-restore -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet build --configuration Release --no-restore -o ${{env.DOTNET_ROOT}}/myapp ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp

@@ -25,10 +25,10 @@ jobs:
       run: dotnet restore -s https://api.nuget.org/v3/index.json ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release --no-restore -o ${{env.DOTNET_ROOT}}/myapp ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
+      run: dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}\myapp -v m ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\myapp
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
@@ -36,4 +36,4 @@ jobs:
         app-name: 'SenparcWeixinSampleNetCore3'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_346ba4d16eb245a8a7ecb6fc0a53bdf0 }}
-        package: ${{env.DOTNET_ROOT}}/myapp 
+        package: ${{env.DOTNET_ROOT}}\myapp 

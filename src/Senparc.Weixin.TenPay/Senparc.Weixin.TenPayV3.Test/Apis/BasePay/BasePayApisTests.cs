@@ -19,7 +19,7 @@ namespace Senparc.Weixin.TenPayV3.Apis.Tests
 		""total"": 100,
 		""currency"": ""CNY""
 	}}}},
-	""mchid"": ""{}"",
+	""mchid"": ""{{}}"",
 	""description"": ""Image形象店-深圳腾大-QQ公仔"",
 	""notify_url"": ""http://sdk.weixin.senparc.com/TenpayV3/PayNotifyUrl"",
 	""payer"": {{

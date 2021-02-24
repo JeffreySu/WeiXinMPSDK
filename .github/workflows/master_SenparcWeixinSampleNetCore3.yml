@@ -22,7 +22,7 @@ jobs:
         dotnet-version: '3.1.301'
         
     - name: restore
-      run: dotnet restore ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln
+      run: dotnet restore ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln -s https://api.nuget.org/v3/index.json
 
     - name: Build with dotnet
       run: dotnet build ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln --configuration Release

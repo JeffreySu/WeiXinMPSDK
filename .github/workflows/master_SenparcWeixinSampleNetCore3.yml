@@ -22,7 +22,7 @@ jobs:
         dotnet-version: '3.1.301'
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build  ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln --configuration Release
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp

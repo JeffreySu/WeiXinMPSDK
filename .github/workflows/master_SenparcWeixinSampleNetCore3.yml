@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - SenparcWeixinSampleNetCore3
+name: Build and deploy ASP app to Azure Web App - senparcweixinsamplenetcore3(senparcweixinsamplenet5)
 
 on:
   push:
@@ -11,29 +11,41 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: 'windows-latest'
 
     steps:
     - uses: actions/checkout@master
-        
-    - name: Set up .NET Core
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+
+    - name: Set up .NET Core 2.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '2.1.807'
+
+
+    - name: Set up .NET Core 3.1
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.301'
         
-    - name: restore
-      run: dotnet restore -s https://api.nuget.org/v3/index.json ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln
+    - name: CMD1
+      run: dir
+        
+    - name: Restore NuGet packages
+      run: nuget restore -SolutionDirectory ./samples/netcore3.0-mvc/
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}\myapp -v m -f netstandard2.1 ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
-
-    - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\myapp
+    - name: Publish to folder
+      run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'SenparcWeixinSampleNetCore3'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_346ba4d16eb245a8a7ecb6fc0a53bdf0 }}
-        package: ${{env.DOTNET_ROOT}}\myapp 
+        app-name: 'senparcweixinsamplenetcore3'
+        slot-name: 'senparcweixinsamplenet5'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ee3a42f0a324bf7be968d8c232a8555 }}
+        package: \published\

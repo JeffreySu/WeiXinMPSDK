@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore -s https://api.nuget.org/v3/index.json ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}\myapp -v m -f netcoreapp3.1 ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
+      run: dotnet build --configuration Release -o ${{env.DOTNET_ROOT}}\myapp -v m -f netstandard2.1 ./samples/netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 
 
     - name: dotnet publish
       run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\myapp

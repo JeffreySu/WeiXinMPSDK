@@ -35,9 +35,13 @@ jobs:
         
     - name: CMD1
       run: dir
+      
+    - name: CMD2
+      run: cd ./samples/netcore3.0-mvc/
         
     - name: Restore NuGet packages
-      run: nuget restore -SolutionDirectory ./samples/netcore3.0-mvc/
+      run: nuget restore 
+      #-SolutionDirectory ./samples/netcore3.0-mvc/
 
     - name: Publish to folder
       run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"

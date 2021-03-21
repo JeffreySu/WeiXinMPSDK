@@ -462,10 +462,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                                     "在线购买（小程序支付）测试", SystemTime.Now, "小程序支付 | 注意：这条消息来自微信服务器异步回调，官方证明支付成功！ | prepay_id：" + unifedorderResult.prepay_id,
                                                    unifiedorderRequestData.OutTradeNo, unifiedorderRequestData.TotalFee, "400-031-8816", "https://weixin.senparc.com");
 
-                                Senparc.Weixin.WxOpen.AdvancedAPIs
-                                    .Template.TemplateApi
-                                    .SendTemplateMessage(
-                                        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, unifedorderResult.prepay_id, "pages/index/index", "图书", "#fff00");
+                                //微信官方已停用此接口
+                                //Senparc.Weixin.WxOpen.AdvancedAPIs
+                                //    .Template.TemplateApi
+                                //    .SendTemplateMessage(
+                                //        Config.SenparcWeixinSetting.WxOpenAppId, openId, templateData.TemplateId, templateData, unifedorderResult.prepay_id, "pages/index/index", "图书", "#fff00");
                             }
                             else
                             {

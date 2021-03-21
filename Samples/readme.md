@@ -4,11 +4,12 @@
 
 | 文件夹 | 说明 |
 |--------|--------|
+|   netcore3.0-mvc      |   【推荐】ASP.NET Core 3.1 示例，可用于直接部署
+|   netcore2.2-mvc      |   【停止更新】ASP.NET Core 2.2 示例，可用于直接部署
 |   console             |   命令行注册过程演示 Demo（接口调可参考 Web 项目）
-|   net45-mvc           |   ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
-|   net45-webforms      |   ASP.NET 4.5 Web Forms 示例，主要演示和 MVC 项目有差异的部分，详细演示请见 MVC 项目
-|   netcore2.2-mvc      |   ASP.NET Core 2.2 示例，可用于直接部署
-|   netcore3.0-mvc      |   ASP.NET Core 3.0 示例，可用于直接部署（推荐）
+|   net45-mvc           |   【停止更新】ASP.NET 4.5 MVC 示例，可用于直接部署，此项目中包含了 CommonServices 项目，供其他各 Sample 公用
+|   net45-webforms      |   【停止更新】ASP.NET 4.5 Web Forms 示例，主要演示和 MVC 项目有差异的部分，详细演示请见 MVC 项目
+
 
 ## 解决方案文件（sln）说明
 

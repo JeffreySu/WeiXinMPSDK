@@ -88,8 +88,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                     keyword6 = new TemplateDataItem("400-031-8816"),
                 };
 
-                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
-                         null);
+                //微信官方已停用此接口
+                //var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "Ap1S3tRvsB8BXsWkiILLz93nhe7S8IgAipZDfygy9Bg", data, receivedMessage.FormId, "pages/websocket/websocket", "websocket",
+                //         null);
             }
             catch (Exception ex)
             {

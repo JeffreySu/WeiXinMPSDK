@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.10.104.1</Version>
+    <Version>3.10.200.1</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -152,7 +152,7 @@
 		v3.10.102 修正 UniformSendData.Mp_Template_Msg.Miniprogram  参数 pagepath -&gt; page
 		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
 		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

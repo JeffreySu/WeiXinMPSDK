@@ -13,6 +13,9 @@
     修改标识：gokeiyou - 20201013
     修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
     
+    修改标识：Senparc - 20210321
+    修改描述：v3.8.201 添加“配置客户联系「联系我」方式”接口
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -206,6 +209,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
+        #region 「联系我」
+
+        /// <summary>
+        /// 配置客户联系「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="rquest">请求报文</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddContactWay", true)]
+        public static AddContactWayResult AddContactWay(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_contact_way?access_token={accessToken}";
+
+                return CommonJsonSend.Send<AddContactWayResult>(null, url, rquest, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
+
         #endregion
 
         #endregion
@@ -385,6 +411,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         #endregion
+
+
+        #region 「联系我」
+
+        /// <summary>
+        /// 配置客户联系「联系我」方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="rquest">请求报文</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddContactWay", true)]
+        public static async Task<AddContactWayResult> AddContactWayAsync(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/add_contact_way?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<AddContactWayResult>(null, url, rquest, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
 
         #endregion
     }

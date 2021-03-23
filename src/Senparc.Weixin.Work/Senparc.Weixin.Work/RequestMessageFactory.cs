@@ -19,6 +19,10 @@
     修改标识：gokeiyou - 20201013
     修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
 
+
+    修改标识：Senparc - 20210324
+    修改描述：v3.8.202 解决且有微信消息时间返回为 null 的问题
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -90,7 +94,30 @@ namespace Senparc.Weixin.Work
                             requestMessage = new RequestMessageInfo_Change_Contact();
                             break;
                         case ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT:
-                            requestMessage = new RequestMessageEvent_Change_ExternalContact_Base();
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "ADD_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add();
+                                    break;
+                                case "ADD_HALF_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Add_Half();
+                                    break;
+                                case "EDIT_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Modified();
+                                    break;
+                                case "DEL_EXTERNAL_CONTACT":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del();
+                                    break;
+                                case "DEL_FOLLOW_USER":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Del_FollowUser();
+                                    break;
+                                case "MSG_AUDIT_APPROVED":
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_MsgAudit();
+                                    break;
+                                default:
+                                    requestMessage = new RequestMessageEvent_Change_ExternalContact_Base();
+                                    break;
+                            }
                             break;
                         default:
                             throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常

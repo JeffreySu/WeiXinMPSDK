@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：“获取小程序账号的类目”接口：Get 结果
     
     
-    创建标识：Senparc - 20210302
+    创建标识：ccccccmd - 20210302
 
 ----------------------------------------------------------------*/
 

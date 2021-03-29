@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：“从公共模板库中选用模板，到私有模板库中”接口：Add 结果
     
     
-    创建标识：Senparc - 20210302
+    创建标识：ccccccmd - 20210302
 
 ----------------------------------------------------------------*/
 

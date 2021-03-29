@@ -26,6 +26,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20210302
 
+    修改标识：ccccccmd - 20210329
+    修改描述：v16.11.201 服务号订阅通知相关接口&补充小程序[获取小程序账号的类目]接口
 
 ----------------------------------------------------------------*/
 

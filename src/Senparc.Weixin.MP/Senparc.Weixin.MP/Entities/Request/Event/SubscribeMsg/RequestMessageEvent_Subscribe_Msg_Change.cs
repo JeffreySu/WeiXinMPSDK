@@ -11,9 +11,9 @@ namespace Senparc.Weixin.MP.Entities
         
         public RequestMessageEvent_Subscribe_Msg_Change()
         {
-            SubscribeMsgChangeEventList = new List<SubscribeMsgChangeEvent>();
+            SubscribeMsgChangeEvent = new List<SubscribeMsgChangeEvent>();
         }
 
-        public List<SubscribeMsgChangeEvent> SubscribeMsgChangeEventList { get; set; }
+        public List<SubscribeMsgChangeEvent> SubscribeMsgChangeEvent { get; set; }
     }
 }

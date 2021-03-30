@@ -7,11 +7,11 @@ namespace Senparc.Weixin.MP.Entities
     {
         public override Event Event => Event.subscribe_msg_sent_event;
 
-        public List<SubscribeMsgSentEvent> SubscribeMsgSentEventList { get; set; }
+        public List<SubscribeMsgSentEvent> SubscribeMsgSentEvent { get; set; }
 
         public RequestMessageEvent_Subscribe_Msg_Sent()
         {
-            SubscribeMsgSentEventList = new List<SubscribeMsgSentEvent>();
+            SubscribeMsgSentEvent = new List<SubscribeMsgSentEvent>();
         }
 
     }

@@ -13,9 +13,9 @@ namespace Senparc.Weixin.MP.Entities
 
         public RequestMessageEvent_Subscribe_Msg_Popup()
         {
-            SubscribeMsgPopupEventList = new List<SubscribeMsgPopupEvent>();
+            SubscribeMsgPopupEvent = new List<SubscribeMsgPopupEvent>();
         }
 
-        public List<SubscribeMsgPopupEvent> SubscribeMsgPopupEventList { get; set; }
+        public List<SubscribeMsgPopupEvent> SubscribeMsgPopupEvent { get; set; }
     }
 }

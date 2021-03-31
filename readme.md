@@ -21,7 +21,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 如果你喜欢并希望我们继续优化这个项目，请给我们一个 ★Star ：)
 
 ## 公告
-> 🍦 [file.api.weixin.qq.com 域名官方已停用（2020.0.15）](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400)，请及时更新到最新版本！
+> 🍦 [file.api.weixin.qq.com 域名官方已停用（2020.0.15）](https://developers.weixin.qq.com/community/develop/doc/0002245dcdc8c06f36fa6a47d56400)，请及时更新到最新版本！<br/>
 >  :trophy: 《[2019-2020年盛派开发者社区优秀贡献者入围名单](https://github.com/JeffreySu/WeiXinMPSDK/issues/2197)》公布，请注意查看并登记信息，2020 年 6 月 30 日 10:24 AM 截止登记 :smile:<br />
 > 🥇 .NET Core 3.1 [Senparc.Weixin SDK 源码](/src) 及 [Demo](/Samples/netcore3.0-mvc) 已发布！
 
@@ -561,7 +561,7 @@ License
 Apache License Version 2.0
 
 ```
-Copyright 2019 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
 except in compliance with the License. You may obtain a copy of the License at

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <Version>4.8.101</Version>
+    <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>4.8.200.1</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -175,6 +175,7 @@
 		v4.7.401 第三方小程序，提交审核接口更新
 		v4.7.502.2 解决授权信息出现重复记录的问题
 		v4.7.502.3 代小程序开发 添加撤回审核接口
+		v4.8.102 添加接口“代小程序实现业务 - 设置业务域名”（SetWebViewDomainApi）
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -199,9 +200,9 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.0|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.0\Senparc.Weixin.Open.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Weixin.Open.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
@@ -222,8 +223,8 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>

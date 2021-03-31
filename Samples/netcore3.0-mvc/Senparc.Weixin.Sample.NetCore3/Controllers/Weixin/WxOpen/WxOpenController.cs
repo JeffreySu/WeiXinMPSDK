@@ -34,6 +34,8 @@ using Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.CO2NET.AspNet.HttpUtility;
+using System.Collections;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
 {
@@ -271,9 +273,9 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
             var templateMessageService = new TemplateMessageService();
             try
             {
-                var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
+                //var sessionBag = await templateMessageService.RunTemplateTestAsync(WxOpenAppId, sessionId, formId);
 
-                return Json(new { success = true, msg = "发送成功，请返回消息列表中的【服务通知】查看模板消息。\r\n点击模板消息还可重新回到小程序内。" });
+                return Json(new { success = true, msg = "2020年01月10日起，新发布的小程序将不能使用模板消息，请迁移至“订阅消息”功能。" });
             }
             catch (Exception ex)
             {
@@ -355,7 +357,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
                     price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
-                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+                var result = Senparc.Weixin.TenPay.V3.TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
                 WeixinTrace.SendCustomLog("统一订单接口调用结束", "请求：" + xmlDataInfo.ToJson() + "\r\n\r\n返回结果：" + result.ToJson());
 
@@ -376,7 +378,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                     nonceStr,
                     package = packageStr,
                     //signType = "MD5",
-                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
+                    paySign = Senparc.Weixin.TenPay.V3.TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
                 });
             }
             catch (Exception ex)
@@ -474,5 +476,47 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 return Json(new { success = false, msg = ex.Message });
             }
         }
+
+
+        #region GetUrlScheme
+        public async Task<IActionResult> GetUrlScheme(int tickid, string ntype = "gclub")
+        {
+            string message;
+            ViewData["inWeChatBrowser"] = true;// Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            try
+            {
+                if (!HttpContext.Request.IsLocal())
+                {
+                    throw new WeixinException("此接口为内部接口，请在服务器本地调用！");
+                }
+
+                var wxOpenAppId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting.WxOpenAppId;
+                var jumpWxa = new Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
+                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync                             (wxOpenAppId, jumpWxa, false, null);
+                message = schmeResult.openlink;
+                ViewData["Success"] = true;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            ViewData["Message"] = message;
+            return View();
+        }
+
+        public IActionResult Page(string t = "E1EvMrNAEdi", string d = null)
+        {
+            if (d != null)
+            {
+                return Content($"<script>location.href = 'weixin://dl/business/?t={t}' </script>", "text/html");
+            }
+
+            ViewData["inWeChatBrowser"] = true;// Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext);
+            return View("Page", t);
+        }
+
+
+        #endregion
+
     }
 }

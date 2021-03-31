@@ -60,8 +60,9 @@
                         <li class="btn-top-menu">
                             <a href="javascript:;">工具箱</a>
                             <ul class="nav-sub-catalog">
-                                <li><a href="https://weixin.senparc.com:8039" target="_blank">动态微信 WebApi Swagger 文档 （新）</a></li>
-                                <li><a href="@Url.Action("WeChatSampleBuilder", "Home")">微信 Sample 项目自动生成器 （新）</a></li>
+                                @*<li><a href="https://weixin.senparc.com:8039" target="_blank">动态微信 WebApi Swagger 文档 （新）</a></li>
+                                    <li><a href="@Url.Action("WeChatSampleBuilder", "Home")">微信 Sample 项目自动生成器 （新）</a></li>*@
+                                <li><a href="@Url.Action("Page", "WxOpen")">小程序功能演示（新）</a></li>
                                 <li><a href="@Url.Action("Index", "WebSocket")">WebSocket 测试（新）</a></li>
                                 <li><a href="@Url.Action("Index", "Menu")">自定义菜单设置</a></li>
                                 <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟器（新升级）</a></li>
@@ -174,16 +175,16 @@
         }
 
         @*@if (!IsSectionDefined("catalog"))
-        {
-            <div class="catalog">
-                <a href="@Url.Action("Index", "Menu")">菜单设置工具</a>
-                <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
-                <a href="@Url.Action("Test", "Cache")">缓存测试</a>
-                <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
-                <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
-                <a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a>
-            </div>
-        }*@
+            {
+                <div class="catalog">
+                    <a href="@Url.Action("Index", "Menu")">菜单设置工具</a>
+                    <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
+                    <a href="@Url.Action("Test", "Cache")">缓存测试</a>
+                    <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
+                    <a href="https://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
+                    <a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&t=sandbox/index" target="_blank">测试号入口</a>
+                </div>
+            }*@
         @RenderBody()
         <div class="feedback">
             <div class="wrapper">
@@ -264,7 +265,7 @@
             <p class="footer-contact">
                 &nbsp;
                 @*新浪微博：
-        <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
+                    <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>*@
                 @*QQ:<a href="javascript:;">498977166</a>*@
 
                 当前框架：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer/Samples/netcore3.0-mvc" target="_blank">.NET Core 3.1</a> |

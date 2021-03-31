@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
 
     文件名：CreateJsonResult.cs
     文件功能描述：微信开放平台帐号管理接口

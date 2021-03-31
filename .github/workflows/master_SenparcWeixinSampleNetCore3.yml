@@ -1,0 +1,55 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy ASP app to Azure Web App - senparcweixinsamplenetcore3(senparcweixinsamplenet5)
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: 'windows-latest'
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Setup MSBuild path
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+
+    - name: Set up .NET Core 2.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '2.1.807'
+
+
+    - name: Set up .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.301'
+        
+    - name: CMD1
+      run: dir
+      
+    - name: CMD2
+      run: cd ./samples/netcore3.0-mvc/
+        
+    - name: Restore NuGet packages
+      run: nuget restore 
+      #-SolutionDirectory ./samples/netcore3.0-mvc/
+
+    - name: Publish to folder
+      run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\"
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'senparcweixinsamplenetcore3'
+        slot-name: 'senparcweixinsamplenet5'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3ee3a42f0a324bf7be968d8c232a8555 }}
+        package: \published\

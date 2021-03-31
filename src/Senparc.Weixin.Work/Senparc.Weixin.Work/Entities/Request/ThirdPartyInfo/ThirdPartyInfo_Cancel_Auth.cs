@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：ThirdPartyInfo_Cancel_Auth.cs
     文件功能描述：取消授权的通知

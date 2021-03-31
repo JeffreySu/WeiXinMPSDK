@@ -1,7 +1,7 @@
 ﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
-Copyright 2020 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright 2021 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
 except in compliance with the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：TemplateAPI.cs
     文件功能描述：小程序的模板消息接口
@@ -48,6 +48,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     API：https://mp.weixin.qq.com/debug/wxadoc/dev/api/notice.html#接口说明
  */
 
+using System;
 using System.Threading.Tasks;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
@@ -76,6 +77,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
+        [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribe()", true)]
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.SendTemplateMessage", true)]
         public static WxJsonResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId,
             object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
@@ -274,6 +276,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
+        [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribeAsync()", true)]
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TemplateApi.SendTemplateMessageAsync", true)]
         public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>5.600.8</Version>
+    <Version>5.611.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,7 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Senparc.NeuChar.App" Version="0.9.200" />
     <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.3.200" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
@@ -55,6 +55,7 @@
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.netcore3.csproj" />
+    <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPayV3\Senparc.Weixin.TenPayV3.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay\Senparc.Weixin.TenPay.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Work.Middleware\Senparc.Weixin.Work.Middleware.netcore3.csproj" />
     <ProjectReference Include="..\..\..\src\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.netcore3.csproj" />

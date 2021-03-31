@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2020 Senparc
+    Copyright (C) 2021 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -51,6 +51,7 @@ using Senparc.Weixin.MP;
 using Senparc.CO2NET;
 using Senparc.CO2NET.Trace;
 using Senparc.Weixin.MP.Entities;
+using TenPayOldV3 = Senparc.Weixin.TenPay.V3.TenPayV3;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -194,7 +195,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 var price = product == null ? 100 : (int)(product.Price * 100);//单位：分
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, HttpContext.UserHostAddress()?.ToString(), TenPayV3Info.TenPayV3Notify, TenPay.TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
-                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+                var result = TenPayOldV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                                                                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
                 var package = string.Format("prepay_id={0}", result.prepay_id);
 
@@ -204,7 +205,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 ViewData["timeStamp"] = timeStamp;
                 ViewData["nonceStr"] = nonceStr;
                 ViewData["package"] = package;
-                ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
+                ViewData["paySign"] = TenPayOldV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
 
                 //临时记录订单信息，留给退款申请接口测试使用
                 HttpContext.Session.SetString("BillNo", sp_billno);
@@ -248,7 +249,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 nativeHandler.SetParameter("product_id", productId);
                 string sign = nativeHandler.CreateMd5Sign("key", TenPayV3Info.Key);
 
-                var url = TenPayV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
+                var url = TenPayOldV3.NativePay(TenPayV3Info.AppId, timeStamp, TenPayV3Info.MchId, nonceStr, productId, sign);
 
                 BitMatrix bitMatrix;
                 bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
@@ -330,7 +331,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             try
             {
                 //调用统一订单接口
-                var result = TenPayV3.Unifiedorder(xmlDataInfo);
+                var result = TenPayOldV3.Unifiedorder(xmlDataInfo);
                 //var unifiedorderRes = XDocument.Parse(result);
                 //string prepayId = unifiedorderRes.Element("xml").Element("prepay_id").Value;
 
@@ -402,7 +403,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             nonceStr,
             productId: productId);
             //调用统一订单接口
-            var result = TenPayV3.Unifiedorder(xmlDataInfo);
+            var result = TenPayOldV3.Unifiedorder(xmlDataInfo);
             //var unifiedorderRes = XDocument.Parse(result);
             //string codeUrl = unifiedorderRes.Element("xml").Element("code_url").Value;
             string codeUrl = result.code_url;
@@ -456,7 +457,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             string sign = payHandler.CreateMd5Sign("key", TenPayV3Info.Key);
             payHandler.SetParameter("sign", sign);//签名
 
-            var result = TenPayV3.MicroPay(payHandler.ParseXML());
+            var result = TenPayOldV3.MicroPay(payHandler.ParseXML());
 
             //此处只是完成最简单的支付功能，实际情况还需要考虑各种出错的情况，并处理错误，最后返回结果通知用户。
 
@@ -567,7 +568,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             string data = packageReqHandler.ParseXML();
 
-            var result = TenPayV3.OrderQuery(data);
+            var result = TenPayOldV3.OrderQuery(data);
             var res = XDocument.Parse(result);
             string openid = res.Element("xml").Element("sign").Value;
 
@@ -593,7 +594,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             string data = packageReqHandler.ParseXML();
 
-            var result = TenPayV3.CloseOrder(data);
+            var result = TenPayOldV3.CloseOrder(data);
             var res = XDocument.Parse(result);
             string openid = res.Element("xml").Element("openid").Value;
 
@@ -627,11 +628,11 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 #region 旧方法
                 //var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
                 //var password = TenPayV3Info.MchId;//默认为商户号，建议修改
-                //var result = TenPayV3.Refund(dataInfo, cert, password);
+                //var result = TenPayOldV3.Refund(dataInfo, cert, password);
                 #endregion
 
                 #region 新方法（Senparc.Weixin v6.4.4+）
-                var result = TenPayV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
+                var result = TenPayOldV3.Refund(_serviceProvider, dataInfo);//证书地址、密码，在配置文件中设置，并在注册微信支付信息时自动记录
                 #endregion
 
                 WeixinTrace.SendCustomLog("进入退款流程", "3 Result：" + result.ToJson());
@@ -797,7 +798,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
             string nonceStr = TenPayV3Util.GetNoncestr();
             TenPayV3DownloadBillRequestData data = new TenPayV3DownloadBillRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, nonceStr, null, date, "ALL", TenPayV3Info.Key, null);
-            var result = TenPayV3.DownloadBill(data);
+            var result = TenPayOldV3.DownloadBill(data);
             return Content(result);
         }
 
@@ -1077,7 +1078,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
 
                     SenparcTrace.SendCustomLog("H5Pay接口请求", xmlDataInfo.ToJson());
 
-                    var result = TenPayV3.Html5Order(xmlDataInfo);//调用统一订单接口
+                    var result = TenPayOldV3.Html5Order(xmlDataInfo);//调用统一订单接口
                                                                   //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
 
                     /*
@@ -1095,7 +1096,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                     ViewData["timeStamp"] = timeStamp;
                     ViewData["nonceStr"] = nonceStr;
                     ViewData["package"] = package;
-                    ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
+                    ViewData["paySign"] = TenPayOldV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
 
                     //设置成功页面（也可以不设置，支付成功后默认返回来源地址）
                     var returnUrl =

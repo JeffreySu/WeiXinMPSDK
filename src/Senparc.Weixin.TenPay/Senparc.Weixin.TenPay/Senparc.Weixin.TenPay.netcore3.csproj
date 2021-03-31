@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>1.6.101.1</Version>
+    <Version>1.6.200.2</Version>
     <AssemblyName>Senparc.Weixin.TenPay</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPay</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -54,6 +54,7 @@
 		v1.6.101
 		1、更新 TenPayV3UnifiedorderRequestData 构造函数，单独提供 version 参数，修正问题：https://github.com/JeffreySu/WeiXinMPSDK/pull/2151
 		2、删除 TenpayV3ProtfitRequestDataVersion 的定义
+		v1.6.200.2 修复：调用分账查询接口, 结果返回"验证签名失败"问题
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

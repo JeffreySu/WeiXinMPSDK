@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：“获取公众号所属类目，可用于查询类目下的公共模板”接口：Get 结果
     
     
-    创建标识：Senparc - 20210302
+    创建标识：ccccccmd - 20210302
 
 ----------------------------------------------------------------*/
 

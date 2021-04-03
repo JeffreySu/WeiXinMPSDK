@@ -68,3 +68,8 @@
   padding:10px 30px 30px 30px;
   color: #ff8f00;
 }
+
+#login-nickname{
+  display: inline;
+  color: #ff8f00;
+}

@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2019.10.19',
+    motto: 'Senparc.Weixin SDK Demo v2021.4.3',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -388,13 +388,19 @@ Page({
         that.setData({time:new Date().toLocaleTimeString()});
     },1000);
   },
+
   getUserInfo: function (e) {
-    console.log(e)
-    app.getUserInfo(e);
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    console.log('getUserInfo（已更新至 2021.4.13 新版本）', e)
+    //app.getUserInfo(e);//2021.4.13 后发布不支持
+    var that = this;
+    app.getUserInfo(e, function(userInfo){
+      app.globalData.userInfo = userInfo
+      that.setData({
+        userInfo: userInfo,
+        hasUserInfo: true
+      })
+
+    });
+   
   }
 })

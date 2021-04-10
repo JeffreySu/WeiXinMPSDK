@@ -22,36 +22,37 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2021 Senparc
     
     文件名：TemplateApi.cs
-    文件功能描述：小程序模板消息
+    文件功能描述：公众号订阅通知
     
-    创建标识：Senparc - 20200731
+    创建标识：Senparc - 20210302
 
-    修改标识：Senparc - 20200731
-    修改描述：v3.8.502.1 小程序订阅消息模板的管理
+    修改标识：ccccccmd - 20210329
+    修改描述：v16.11.201 服务号订阅通知相关接口&补充小程序[获取小程序账号的类目]接口
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.WxaAPIs.NewTmpl.NewTmplJson;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Senparc.Weixin.Entities.TemplateMessage;
+using Senparc.Weixin.MP.AdvancedAPIs.NewTmpl.NewTmplJson;
+using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
-namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
+namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl
 {
-    //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.addTemplate.html
+    //文档：https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/intro.html
 
     /// <summary>
-    /// 小程序订阅消息模板的管理
+    /// 公众号订阅消息模板的管理
     /// </summary>
     public static class NewTmplApi
     {
         #region 同步方法
         #region 模板快速设置
         /// <summary>
-        /// 获取小程序模板库标题列表
-        /// subscribeMessage.getPubTemplateTitleList
+        /// 获取类目下的公共模板，可从中选用模板使用
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="ids">类目 id，多个用逗号隔开</param>
@@ -59,7 +60,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="limit">用于分页，表示拉取 limit 条记录。最大为 30。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitles", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetPubTemplateTitles", true)]
         public static GetPubTemplateTitlesJsonResult GetPubTemplateTitles(string accessToken, string ids, int start,
             int limit, int timeOut = Config.TIME_OUT)
         {
@@ -70,14 +71,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         }
 
         /// <summary>
-        /// 获取模板库某个模板标题下关键词库
-        /// subscribeMessage.getPubTemplateKeyWordsById
+        /// 获取公共模板下的关键词列表
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="tid">模板标题 id，可通过接口获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsById", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetPubTemplateKeyWordsById", true)]
         public static GetPubTemplateKeyWordsByIdJsonResult GetPubTemplateKeyWordsById(string accessToken, string tid,
             int timeOut = Config.TIME_OUT)
         {
@@ -88,16 +88,19 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         }
 
 
+
+
+
         /// <summary>
-        /// 组合模板并添加至帐号下的个人模板库
-        /// subscribeMessage.addTemplate
+        /// 从公共模板库中选用模板，到私有模板库中
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
-        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
-        /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
+        /// <param name="tid">模板标题 id，可通过getPubTemplateTitleList接口获取，也可登录公众号后台查看获取</param>
+        /// <param name="kidList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如 [3,5,4] 或 [4,5,3]），最多支持5个，最少2个关键词组合</param>
+        /// <param name="sceneDesc">服务场景描述，15个字以内</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplate", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.AddTemplate", true)]
         public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
@@ -119,13 +122,12 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
 
         #region 对已存在模板进行操作
         /// <summary>
-        /// 获取帐号下已存在的模板列表
-        /// subscribeMessage.getTemplateList
+        /// 获取私有的模板列表
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetTemplateList", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetTemplateList", true)]
         public static GetTemplateListJsonResult GetTemplateList(string accessToken, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/gettemplate?access_token={0}";
@@ -133,32 +135,29 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
                 timeOut: timeOut);
         }
 
-
         /// <summary>
-        ///【异步方法】 获取小程序账号的类目
-        /// subscribeMessage.getCategory
+        /// 获取公众号所属类目，可用于查询类目下的公共模板
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetCategory", true)]
-        public static GetCategoryJsonResult GetCategory(string accessToken,
-            int timeOut = Config.TIME_OUT)
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetCategory", true)]
+        public static object GetCategory(string accessToken, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getcategory?access_token={0}";
-            return CommonJsonSend.Send<GetCategoryJsonResult>(accessToken, urlFormat, null,
-                CommonJsonSendType.GET, timeOut: timeOut);
+            return CommonJsonSend.Send<GetCategoryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET,
+                timeOut: timeOut);
         }
 
 
         /// <summary>
-        /// 删除帐号下的某个模板
+        /// 删除私有模板库中的模板
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="priTmplId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.DelTemplate", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.DelTemplate", true)]
         public static WxJsonResult DelTemplate(string accessToken, string priTmplId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/deltemplate?access_token={0}";
@@ -169,14 +168,76 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
         #endregion
+
+        /// <summary>
+        /// 发送订阅通知
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="toUser">接收者（用户）的 openid</param>
+        /// <param name="templateId">所需下发的订阅模板id</param>
+        /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
+        /// <param name="page">跳转网页时填写</param>
+        /// <param name="miniProgram">	跳转小程序时填写</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.BizSend", true)]
+        public static WxJsonResult BizSend(string accessTokenOrAppId, string toUser, string templateId,
+            TemplateMessageData data, string page = null, TemplateModel_MiniProgram miniProgram = null,
+            int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/subscribe/bizsend?access_token={0}";
+                var submitData = new
+                {
+                    touser = toUser,
+                    template_id = templateId,
+                    page = page,
+                    data = data,
+                    miniprogram = miniProgram,
+                };
+                return CommonJsonSend.Send(accessToken, urlFormat, submitData, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
         #endregion
 
 
         #region 异步方法
+        /// <summary>
+        /// 【异步方法】发送订阅通知
+        /// </summary>
+        /// <param name="accessTokenOrAppId">接口调用凭证</param>
+        /// <param name="toUser">接收者（用户）的 openid</param>
+        /// <param name="templateId">所需下发的订阅模板id</param>
+        /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
+        /// <param name="page">跳转网页时填写</param>
+        /// <param name="miniProgram">	跳转小程序时填写</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.BizSendAsync", true)]
+        public static async Task<WxJsonResult> BizSendAsync(string accessTokenOrAppId, string toUser, string templateId,
+            TemplateMessageData data, string page = null, TemplateModel_MiniProgram miniProgram = null,
+            int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                string urlFormat = Config.ApiMpHost + "/cgi-bin/message/subscribe/bizsend?access_token={0}";
+                var submitData = new
+                {
+                    touser = toUser,
+                    template_id = templateId,
+                    page = page,
+                    data = data,
+                    miniprogram = miniProgram,
+                };
+                return CommonJsonSend.SendAsync(accessToken, urlFormat, submitData, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
+
         #region 模板快速设置
         /// <summary>
-        /// 【异步方法】获取小程序模板库标题列表
-        /// subscribeMessage.getPubTemplateTitleList
+        /// 【异步方法】获取类目下的公共模板，可从中选用模板使用
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="ids">类目 id，多个用逗号隔开</param>
@@ -184,7 +245,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="limit">用于分页，表示拉取 limit 条记录。最大为 30。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitlesAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetPubTemplateTitlesAsync", true)]
         public static async Task<GetPubTemplateTitlesJsonResult> GetPubTemplateTitlesAsync(string accessToken,
             string ids, int start, int limit, int timeOut = Config.TIME_OUT)
         {
@@ -195,14 +256,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         }
 
         /// <summary>
-        /// 【异步方法】获取模板库某个模板标题下关键词库
-        /// subscribeMessage.getPubTemplateKeyWordsById
+        /// 【异步方法】获取公共模板下的关键词列表
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="tid">模板标题 id，可通过接口获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsByIdAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetPubTemplateKeyWordsByIdAsync", true)]
         public static async Task<GetPubTemplateKeyWordsByIdJsonResult> GetPubTemplateKeyWordsByIdAsync(
             string accessToken, string tid, int timeOut = Config.TIME_OUT)
         {
@@ -214,15 +274,16 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
 
 
         /// <summary>
-        /// 【异步方法】组合模板并添加至帐号下的个人模板库
-        /// subscribeMessage.addTemplate
+        /// 【异步方法】从公共模板库中选用模板，到私有模板库中
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
-        /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
-        /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
+        /// <param name="tid">模板标题 id，可通过getPubTemplateTitleList接口获取，也可登录公众号后台查看获取</param>
+        /// <param name="kidList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如 [3,5,4] 或 [4,5,3]），最多支持5个，最少2个关键词组合</param>
+        /// <param name="sceneDesc">服务场景描述，15个字以内</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplateAsync", true)]
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.AddTemplateAsync", true)]
         public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
@@ -245,13 +306,12 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
 
         #region 对已存在模板进行操作
         /// <summary>
-        /// 【异步方法】获取帐号下已存在的模板列表
-        /// subscribeMessage.getTemplateList
+        /// 【异步方法】获取私有的模板列表
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetTemplateListAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetTemplateListAsync", true)]
         public static async Task<GetTemplateListJsonResult> GetTemplateListAsync(string accessToken,
             int timeOut = Config.TIME_OUT)
         {
@@ -262,14 +322,14 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
 
 
 
+
         /// <summary>
-        ///【异步方法】 获取小程序账号的类目
-        /// subscribeMessage.getCategory
+        ///【异步方法】 获取公众号所属类目，可用于查询类目下的公共模板
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetCategoryAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.GetCategoryAsync", true)]
         public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken,
             int timeOut = Config.TIME_OUT)
         {
@@ -279,14 +339,15 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         }
 
 
+
         /// <summary>
-        /// 【异步方法】删除帐号下的某个模板
+        /// 【异步方法】删除私有模板库中的模板
         /// </summary>
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="priTmplId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.DelTemplateAsync", true)]
+        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.DelTemplateAsync", true)]
         public static async Task<WxJsonResult> DelTemplateAsync(string accessToken, string priTmplId,
             int timeOut = Config.TIME_OUT)
         {

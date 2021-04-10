@@ -22,24 +22,20 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
     
     文件名：LibraryListJsonResult.cs
-    文件功能描述：“获取小程序模板库标题列表”接口：LibraryList 结果
+    文件功能描述：“获取类目下的公共模板，可从中选用模板使用”接口：LibraryList 结果
     
     
-    创建标识：ccccccmd - 20170827
+    创建标识：Senparc - 20210302
 
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl.NewTmplJson
+namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl.NewTmplJson
 {
     /// <summary>
-    /// “获取小程序模板库标题列表”接口：GetPubTemplateTitles 结果
+    /// “获取类目下的公共模板，可从中选用模板使用”接口：GetPubTemplateTitles 结果
     /// </summary>
     public class GetPubTemplateTitlesJsonResult : WxJsonResult
     {

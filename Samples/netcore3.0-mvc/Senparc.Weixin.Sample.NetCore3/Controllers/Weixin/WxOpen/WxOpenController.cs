@@ -187,7 +187,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
             {
                 return Json(new { success = false, msg = ex.Message });
             }
-
         }
 
         [HttpPost]

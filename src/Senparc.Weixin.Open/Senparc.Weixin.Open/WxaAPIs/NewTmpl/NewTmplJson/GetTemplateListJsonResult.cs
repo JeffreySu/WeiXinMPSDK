@@ -25,7 +25,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件功能描述：“获取帐号下已存在的模板列表”接口：List 结果
     
     
-    创建标识：Senparc - 20170827
+    创建标识：ccccccmd - 20170827
 
 ----------------------------------------------------------------*/
 

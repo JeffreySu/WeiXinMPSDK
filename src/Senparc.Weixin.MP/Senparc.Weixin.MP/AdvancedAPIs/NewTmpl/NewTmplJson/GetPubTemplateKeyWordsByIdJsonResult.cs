@@ -22,51 +22,44 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
     
     文件名：LibraryListJsonResult.cs
-    文件功能描述：“获取小程序模板库标题列表”接口：LibraryList 结果
+    文件功能描述：“获取公共模板下的关键词列表”接口：LibraryGet 结果
     
     
-    创建标识：ccccccmd - 20170827
+    创建标识：ccccccmd - 20210302
 
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl.NewTmplJson
+namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl.NewTmplJson
 {
     /// <summary>
-    /// “获取小程序模板库标题列表”接口：GetPubTemplateTitles 结果
+    /// “获取公共模板下的关键词列表”接口：GetPubTemplateKeyWordsById 结果
     /// </summary>
-    public class GetPubTemplateTitlesJsonResult : WxJsonResult
+    public class GetPubTemplateKeyWordsByIdJsonResult : WxJsonResult
     {
-        public List<GetPubTemplateTitlesJsonResult_Data> data { get; set; }
-        /// <summary>
-        /// 模板库标题总数
-        /// </summary>
-        public int count { get; set; }
+        public string count { get; set; }
+        public List<GetPubTemplateKeyWordsByIdJsonResult_Data> data { get; set; }
     }
 
-    public class GetPubTemplateTitlesJsonResult_Data
+    public class GetPubTemplateKeyWordsByIdJsonResult_Data
     {
         /// <summary>
-        /// 模板标题id（获取模板标题下的关键词库时需要）
+        /// 关键词id，添加模板时需要
         /// </summary>
-        public string tid { get; set; }
+        public int kid { get; set; }
         /// <summary>
-        /// 模板标题内容
+        /// 关键词内容
         /// </summary>
-        public string title { get; set; }
+        public string name { get; set; }
         /// <summary>
-        /// 模版类型，2 为一次性订阅，3 为长期订阅
+        /// 关键词内容对应的示例
         /// </summary>
-        public int type { get; set; }
+        public string example { get; set; }
         /// <summary>
-        /// 模版所属类目 id
+        /// 参数类型
         /// </summary>
-        public string categoryId { get; set; }
+        public string rule { get; set; }
     }
 }

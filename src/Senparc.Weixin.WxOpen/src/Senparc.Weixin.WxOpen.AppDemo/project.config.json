@@ -37,7 +37,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "1.9.0",
+  "libVersion": "2.14.1",
   "appid": "wx12b4f63276b14d4c",
   "projectname": "Senparc.Weixin.WxOpen.AppDemo",
   "simulatorType": "wechat",

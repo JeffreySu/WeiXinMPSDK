@@ -21,52 +21,38 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：LibraryListJsonResult.cs
-    文件功能描述：“获取小程序模板库标题列表”接口：LibraryList 结果
+    文件名：AddJsonResult.cs
+    文件功能描述：“获取小程序账号的类目”接口：Get 结果
     
     
-    创建标识：ccccccmd - 20170827
+    创建标识：ccccccmd - 20210302
 
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl.NewTmplJson
 {
-    /// <summary>
-    /// “获取小程序模板库标题列表”接口：GetPubTemplateTitles 结果
-    /// </summary>
-    public class GetPubTemplateTitlesJsonResult : WxJsonResult
+    public class GetCategoryJsonResult : WxJsonResult
     {
-        public List<GetPubTemplateTitlesJsonResult_Data> data { get; set; }
+
         /// <summary>
-        /// 模板库标题总数
+        /// 	类目列表
         /// </summary>
-        public int count { get; set; }
+        public List<GetCategoryJsonResultt_data> data { get; set; }
     }
 
-    public class GetPubTemplateTitlesJsonResult_Data
+    public class GetCategoryJsonResultt_data
     {
         /// <summary>
-        /// 模板标题id（获取模板标题下的关键词库时需要）
+        /// 类目id，查询公共模板库时需要
         /// </summary>
-        public string tid { get; set; }
+        public int id { get; set; }
+
         /// <summary>
-        /// 模板标题内容
+        /// 类目的中文名
         /// </summary>
-        public string title { get; set; }
-        /// <summary>
-        /// 模版类型，2 为一次性订阅，3 为长期订阅
-        /// </summary>
-        public int type { get; set; }
-        /// <summary>
-        /// 模版所属类目 id
-        /// </summary>
-        public string categoryId { get; set; }
+        public string name { get; set; }
     }
 }

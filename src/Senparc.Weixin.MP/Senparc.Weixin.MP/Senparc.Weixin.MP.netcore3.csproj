@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.11.200</Version>
+    <Version>16.11.300</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -500,6 +500,7 @@
 		v16.10.502.3 完善“新增永久视频素材”接口参数
 		v16.10.601 MASSSENDJOBFINISH事件增加 ArticleUrlResult 节点
 		v16.11.102 修正“将电子发票卡券插入用户卡包”接口 InvoiceApi.InsertCardToBag() 问题
+		v16.11.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -559,8 +560,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.9.200" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.3.200" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.9.200" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.3.201" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.9.201" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

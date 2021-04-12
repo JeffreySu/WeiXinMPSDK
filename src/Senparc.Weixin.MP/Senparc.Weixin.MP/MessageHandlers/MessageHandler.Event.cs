@@ -178,6 +178,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.view_miniprogram://点击菜单跳转小程序的事件推送
                     responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
+                case Event.subscribe_msg_popup_event: //用户操作订阅通知弹窗
+                    responseMessage = OnEvent_Subscribe_Msg_Popup(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup);
+                    break;
 
                 #region 卡券回调
 
@@ -585,6 +588,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_View_Miniprogram(RequestMessageEvent_View_Miniprogram requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 用户操作订阅通知弹窗 事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_Popup(RequestMessageEvent_Subscribe_Msg_Popup requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

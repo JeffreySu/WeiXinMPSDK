@@ -98,8 +98,8 @@ namespace Senparc.Weixin.CommonAPIs
                  ErrorJsonResultException ex = null;
                  if (errorResult.errcode != ReturnCode.请求成功)
                  {
-                     //发生错误，记录异常
-                     throw new ErrorJsonResultException(
+                    //发生错误，记录异常
+                    ex = new ErrorJsonResultException(
                           string.Format("微信 POST 请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),

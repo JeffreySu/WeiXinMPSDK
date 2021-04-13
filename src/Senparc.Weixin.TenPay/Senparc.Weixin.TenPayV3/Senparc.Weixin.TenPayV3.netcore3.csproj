@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>0.0.300-beta1</Version>
+    <Version>0.0.400-beta1</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <!--<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
@@ -66,7 +66,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.3.200" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.3.300" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.8.300</Version>
+    <Version>4.8.400</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -177,7 +177,10 @@
 		v4.7.502.3 代小程序开发 添加撤回审核接口
 		v4.8.102 添加接口“代小程序实现业务 - 设置业务域名”（SetWebViewDomainApi）
 		v4.8.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
-</PackageReleaseNotes>
+		v4.8.400
+		1、代小程序实现业务-提交审核接口添加UGC参数
+		2、修正截屏附件字段类型
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -234,7 +237,7 @@
     <Folder Include="WxaAPIs\Template\TemplateJson\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.3.201" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.3.300" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

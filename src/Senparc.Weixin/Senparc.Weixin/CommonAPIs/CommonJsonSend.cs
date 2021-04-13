@@ -36,6 +36,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190602
     修改描述：v6.4.8 根据 Config.ThrownWhenJsonResultFaild 优化 getFailAction 和 postFailAction 抛出异常逻辑
 
+    修改标识：Senparc - 20210413
+    修改描述：v6.8.400 修复 CommonJsonSend.PostFailAction 公共请求失败处理抛错问题
+
+
 ----------------------------------------------------------------*/
 
 using System;

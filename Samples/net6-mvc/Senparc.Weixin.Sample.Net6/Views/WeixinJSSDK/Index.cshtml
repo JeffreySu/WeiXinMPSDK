@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model Senparc.Weixin.MP.Helpers.JsSdkUiPackage
+@*DPBMARK_FILE MP*@
+@{
+    Layout = null;
+}
+@*
+    使用JSSDK，首先要到微信公众平台【公众号设置】下的【功能设置】里面设置“JS接口安全域名”
+*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>公众号JSSDK演示</title>
+    <!--jQuery非JS-SDK必须-->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="@(this.Context.Request.Scheme)://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '@Model.AppId', // 必填，公众号的唯一标识
+            timestamp: '@Model.Timestamp', // 必填，生成签名的时间戳
+            nonceStr: '@Model.NonceStr', // 必填，生成签名的随机串
+            signature: '@Model.Signature',// 必填，签名
+            jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'translateVoice',
+                    'startRecord',
+                    'stopRecord',
+                    'onRecordEnd',
+                    'playVoice',
+                    'pauseVoice',
+                    'stopVoice',
+                    'uploadVoice',
+                    'downloadVoice',
+                    'chooseImage',
+                    'previewImage',
+                    'uploadImage',
+                    'downloadImage',
+                    'getNetworkType',
+                    'openLocation',
+                    'getLocation',
+                    'hideOptionMenu',
+                    'showOptionMenu',
+                    'closeWindow',
+                    'scanQRCode',
+                    'chooseWXPay',
+                    'openProductSpecificView',
+                    'addCard',
+                    'chooseCard',
+                    'openCard'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2。详见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+        });
+
+        wx.error(function (res) {
+            console.log(res);
+            alert('验证失败');
+        });
+
+         wx.ready(function () {
+                var url = '@(Context.Request.Scheme)://sdk.weixin.senparc.com';
+                var link = url + '@(Context.Request.PathAndQuery())';
+                var imgUrl = url + '/images/v2/ewm_01.png';
+
+                //转发到朋友圈
+                wx.onMenuShareTimeline({
+                    title: 'JSSDK朋友圈转发测试',
+                    link: link,
+                    imgUrl: imgUrl,
+                    success: function () {
+                        alert('转发成功！');
+                    },
+                    cancel: function () {
+                        alert('转发失败！');
+                    }
+                });
+                //转发给朋友
+                wx.onMenuShareAppMessage({
+                    title: 'JSSDK朋友圈转发测试',
+                    desc: '转发给朋友',
+                    link: link,
+                    imgUrl: imgUrl,
+                    type: 'link',
+                    dataUrl: '',
+                    success: function () {
+                        alert('转发成功！');
+                    },
+                    cancel: function () {
+                        alert('转发失败！');
+                    }
+                });
+            });
+    </script>
+
+</head>
+<body>
+    <h1>公众号JSSDK演示</h1>
+    <div>
+        此页面是Senparc.Weixin.MP JSSDK的演示，可以点击右上方按钮，转发到朋友圈或者朋友进行测试。<br />
+        顺利的话，转发的内容可以看到自定义的标题，配有一个自定义图片。
+    </div>
+
+</body>
+</html>

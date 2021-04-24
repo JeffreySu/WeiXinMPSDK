@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>5.620.401</Version>
+		<Version>6.0.0-preview3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,8 +37,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.6-preview2.net6p.3.21201.4.100" />
-		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.6-preview2.net6p.3.21201.4.100" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.6-preview2.net6p.3.21201.4" />
+		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.6-preview2.net6p.3.21201.4" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />

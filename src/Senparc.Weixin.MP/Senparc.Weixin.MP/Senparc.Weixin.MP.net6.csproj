@@ -560,8 +560,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.10.300.3-preview2.net6p.3.21201.4" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4.100" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.6-preview2.net6p.3.21201.4.100" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.6-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

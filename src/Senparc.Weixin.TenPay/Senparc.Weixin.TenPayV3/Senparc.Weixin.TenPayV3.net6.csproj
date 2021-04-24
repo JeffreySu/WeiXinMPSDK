@@ -66,7 +66,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.4.300.3-preview1.net6p.3.21201.4.100" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.4.300.3-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

@@ -105,11 +105,11 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.0\Senparc.Cache.Memcached.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Cache.Memcached.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
+		<OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+		<DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard2.1\Senparc.Cache.Memcached.xml</DocumentationFile>
+	</PropertyGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />

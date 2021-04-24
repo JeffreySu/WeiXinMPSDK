@@ -56,6 +56,10 @@
     <OutputPath>..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\Senparc.Weixin.MP.BuildOutPut\netcoreapp3.1\Senparc.Weixin.MP.Middleware.xml</DocumentationFile>
   </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+		<OutputPath>..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+		<DocumentationFile>..\Senparc.Weixin.MP.BuildOutPut\net6.0\Senparc.Weixin.MP.Middleware.xml</DocumentationFile>
+	</PropertyGroup>
   <ItemGroup>
     <Compile Remove="AdvancedAPIs\Card\Store\**" />
     <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />
@@ -78,10 +82,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-  <ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0'">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
     <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.3.300" />
   </ItemGroup>
   <ItemGroup>

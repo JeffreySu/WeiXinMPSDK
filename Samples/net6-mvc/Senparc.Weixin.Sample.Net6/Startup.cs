@@ -53,8 +53,8 @@ namespace Senparc.Weixin.Sample.NetCore3
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
             services.AddControllersWithViews()
-                    .AddNewtonsoftJson()// 支持 NewtonsoftJson
-                    .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                    .AddNewtonsoftJson();// 支持 NewtonsoftJson
+                    //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 

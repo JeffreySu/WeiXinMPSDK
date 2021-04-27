@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.8.400</Version>
+    <Version>4.9.100-preview2</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -180,7 +180,7 @@
 		v4.8.400
 		1、代小程序实现业务-提交审核接口添加UGC参数
 		2、修正截屏附件字段类型
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

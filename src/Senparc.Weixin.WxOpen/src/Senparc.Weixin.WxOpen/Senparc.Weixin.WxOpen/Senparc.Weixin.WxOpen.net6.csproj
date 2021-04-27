@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>3.10.401</Version>
+    <Version>3.11.100-preview2</Version>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -153,7 +153,7 @@
 		v3.10.103 修正 WxOpenApiHandlerWapper 正确引用 AccessTokenContainer
 		v3.10.104 添加 WxAppApi.GenerateScheme() 接口
 		v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -2,8 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<Version>6.0.0-preview3</Version>
+		<Version>6.0.0.1-preview3</Version>
 		<UserSecretsId>35e58786-0820-4cde-b1ff-f4c6198d00f7</UserSecretsId>
+		<PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
 	</PropertyGroup>
 
 	<ItemGroup>

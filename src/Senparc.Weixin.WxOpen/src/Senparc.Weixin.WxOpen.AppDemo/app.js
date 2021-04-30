@@ -23,8 +23,12 @@ App({
       // wx.setStorageSync('wssDomainName', "ws://localhost:58936/VirtualPath")
 
       //使用 .NET Core 3.0 Samole（Senparc.Weixin.Sample.NetCore3.vs2019.sln）配置：
-      wx.setStorageSync('domainName', "https://localhost:44381")
-      wx.setStorageSync('wssDomainName', "wss://localhost:44381")
+      // wx.setStorageSync('domainName', "https://localhost:44381")
+      // wx.setStorageSync('wssDomainName', "wss://localhost:44381")
+
+      //使用 .NET 6.0 Samole（Senparc.Weixin.Sample.Net6.sln）配置：
+      wx.setStorageSync('domainName', "https://localhost:44382")
+      wx.setStorageSync('wssDomainName', "wss://localhost:44382")
     }
 
     // 打开调试
@@ -91,7 +95,7 @@ App({
                     iv: userInfoRes.iv
                   },
                   success:function(json){
-                    console.log(json.data);
+                    console.log('数据解密：', json.data);
                   }
                 });
                 

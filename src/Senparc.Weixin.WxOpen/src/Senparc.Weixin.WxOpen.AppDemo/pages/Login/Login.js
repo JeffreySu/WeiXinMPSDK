@@ -33,15 +33,7 @@ Page({
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+      console.log('不支持 open-type=getUserInfo');
     }
   },
 
@@ -55,6 +47,9 @@ Page({
       that.setData({
         userInfo: userInfo,
         hasUserInfo: true
+      });
+      wx.navigateTo({
+        url: '../index/index',
       })
     });
    

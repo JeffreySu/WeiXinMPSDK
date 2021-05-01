@@ -35,6 +35,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.Cache;
 
 #if NET45
 using System.Web;
@@ -75,11 +76,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
-        /// <summary>
-        /// 模板消息集合（Key：checkCode，Value：OpenId）
-        /// 注意：这里只做测试，只适用于单服务器
-        /// </summary>
-        public static Dictionary<string, string> TemplateMessageCollection = new Dictionary<string, string>();
 
         /// <summary>
         /// 为中间件提供生成当前类的委托
@@ -322,7 +318,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     var openId = requestMessage.FromUserName;
                     var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
-                    TemplateMessageCollection[checkCode] = openId;
+
+                    Task.Factory.StartNew(async () =>
+                    {
+                        var currentCache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                        await currentCache.SetAsync($"TestCheckCode:{checkCode}", openId, TimeSpan.FromHours(1));//使用缓存，如果多台服务器可以使用分布式缓存共享
+                    }).Wait();
+
                     defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：https://sdk.weixin.senparc.com/AsyncMethods", checkCode);
                     return defaultResponseMessage;
                 })

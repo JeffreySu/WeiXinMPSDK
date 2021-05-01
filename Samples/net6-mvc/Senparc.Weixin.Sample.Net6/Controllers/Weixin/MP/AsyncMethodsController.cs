@@ -1,5 +1,7 @@
 ﻿//DPBMARK_FILE MP
 using Microsoft.AspNetCore.Mvc;
+using Senparc.CO2NET.Cache;
+using Senparc.CO2NET.Extensions;
 using Senparc.CO2NET.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
@@ -42,18 +44,17 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         /// <returns></returns>
         public async Task<ActionResult> TemplateMessageTest(string checkcode)
         {
-            var openId = CustomMessageHandler.TemplateMessageCollection.ContainsKey(checkcode)
-                ? CustomMessageHandler.TemplateMessageCollection[checkcode]
-                : null;
+            var currentCache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+            var cacheKey = $"TestCheckCode:{checkcode}";
+            var openId = await currentCache.GetAsync(cacheKey) as string;//使用缓存，如果多台服务器可以使用分布式缓存共享
 
-            if (openId == null)
+            if (openId.IsNullOrEmpty())
             {
                 return Content("验证码已过期或不存在！请在“盛派网络小助手”公众号输入“tm”获取验证码。");
             }
             else
             {
-                CustomMessageHandler.TemplateMessageCollection.Remove(checkcode);
-
+                await currentCache.RemoveFromCacheAsync(cacheKey);
 
                 var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";
                 var testData = new //TestTemplateData()

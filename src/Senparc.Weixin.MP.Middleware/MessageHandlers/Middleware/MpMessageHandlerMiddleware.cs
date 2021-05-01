@@ -66,9 +66,10 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public MpMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+        public MpMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider, 
+            Func<Stream, PostModel, int,IServiceProvider, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
-            : base(next, messageHandler, options)
+            : base(next, serviceProvider, messageHandler, options)
         {
 
         }
@@ -161,7 +162,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForMp<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
                 where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {

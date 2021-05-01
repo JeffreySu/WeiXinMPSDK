@@ -44,11 +44,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, CustomWxOpenMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount) => new CustomWxOpenMessageHandler(stream, postModel, maxRecordCount);
+        public static Func<Stream, PostModel, int, IServiceProvider, CustomWxOpenMessageHandler> GenerateMessageHandler =
+            (stream, postModel, maxRecordCount, serviceProvider) => new CustomWxOpenMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
 
-        public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。

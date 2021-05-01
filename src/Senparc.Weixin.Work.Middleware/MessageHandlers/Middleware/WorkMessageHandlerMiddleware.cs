@@ -59,9 +59,10 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public WorkMessageHandlerMiddleware(RequestDelegate next, Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+        public WorkMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
-            : base(next, messageHandler, options)
+            : base(next, serviceProvider, messageHandler, options)
         {
 
         }
@@ -165,7 +166,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForWork<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
                 where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {
@@ -173,7 +174,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         }
     }
 
-#region 证明泛型可以用在中间件中
+    #region 证明泛型可以用在中间件中
     //public class TestWM<T>
     //    where T : class
     //{
@@ -204,7 +205,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
     //        return builder.UseMiddleware<TestWM<T>>(t);
     //    }
     //}
-#endregion
+    #endregion
 }
 #endif
 

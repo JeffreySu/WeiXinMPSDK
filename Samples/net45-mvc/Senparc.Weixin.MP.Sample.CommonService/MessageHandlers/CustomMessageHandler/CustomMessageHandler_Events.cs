@@ -62,7 +62,7 @@ SDK官方地址：https://weixin.senparc.com
 SDK Demo：https://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
-QQ群：289181996
+QQ群：377815480
 
 ===============
 更多：
@@ -96,6 +96,8 @@ QQ群：289181996
 格式：【数字#数字】，如2010#0102，调用正则表达式匹配
 
 【订阅】     测试“一次性订阅消息”接口
+
+【SP】 测试 ServiceProvider
 ",
                 version);
         }

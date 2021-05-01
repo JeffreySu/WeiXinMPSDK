@@ -73,3 +73,5 @@
   display: inline;
   color: #ff8f00;
 }
+
+.line{border-bottom: dotted 1px #666666; width: 90%;display: block; margin: 10px auto;}

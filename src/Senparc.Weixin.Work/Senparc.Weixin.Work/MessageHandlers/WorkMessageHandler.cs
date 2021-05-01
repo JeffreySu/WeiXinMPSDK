@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IWorkResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public  abstract partial class WorkMessageHandler<TMC>
+    public abstract partial class WorkMessageHandler<TMC>
         : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
         where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
@@ -184,13 +184,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
-        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
-        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, postModel, maxRecordCount)
+        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(requestDocument, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 

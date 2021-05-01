@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.12.100-preview2</Version>
+    <Version>16.12.100.1-preview2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -561,7 +561,7 @@
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.10.300.3-preview2.net6p.3.21201.4" />
     <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.7-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

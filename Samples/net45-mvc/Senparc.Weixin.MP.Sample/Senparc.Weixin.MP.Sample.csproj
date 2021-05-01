@@ -138,8 +138,8 @@
     <Reference Include="Senparc.Weixin.Work, Version=3.9.100.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.Weixin.Work.3.9.100.1-preview2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.WxOpen, Version=3.11.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.11.100-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+    <Reference Include="Senparc.Weixin.WxOpen, Version=3.11.100.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.11.100.1-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>

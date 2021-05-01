@@ -68,7 +68,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers.Middleware
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public WxOpenMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider, Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+        public WxOpenMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider, Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
             : base(next, serviceProvider, messageHandler, options)
         {
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForWxOpen<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IServiceProvider> messageHandler,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
                 where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {

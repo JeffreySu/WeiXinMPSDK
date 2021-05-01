@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, CustomWxOpenMessageHandler, IServiceProvider> GenerateMessageHandler =
+        public static Func<Stream, PostModel, int, IServiceProvider, CustomWxOpenMessageHandler> GenerateMessageHandler =
             (stream, postModel, maxRecordCount, serviceProvider) => new CustomWxOpenMessageHandler(stream, postModel, maxRecordCount, serviceProvider);
 
 

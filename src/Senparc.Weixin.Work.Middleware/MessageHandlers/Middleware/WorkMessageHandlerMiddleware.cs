@@ -59,7 +59,8 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// EnableRequestRewindMiddleware
         /// </summary>
         /// <param name="next"></param>
-        public WorkMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider, Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+        public WorkMessageHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
             : base(next, serviceProvider, messageHandler, options)
         {
@@ -165,7 +166,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForWork<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IServiceProvider> messageHandler,
+            Func<Stream, PostModel, int, IServiceProvider, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
                 where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {

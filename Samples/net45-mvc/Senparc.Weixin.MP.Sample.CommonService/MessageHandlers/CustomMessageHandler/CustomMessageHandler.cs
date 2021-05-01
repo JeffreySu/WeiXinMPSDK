@@ -431,7 +431,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var currentMessageContext = await base.GetCurrentMessageContext();
                     if (currentMessageContext.RequestMessages.Count > 1)
                     {
-                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
+                        result.AppendFormat("您此前还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
                             currentMessageContext.StorageData);
                         for (int i = currentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                         {

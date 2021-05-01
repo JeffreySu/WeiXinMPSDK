@@ -3,7 +3,7 @@
 var app = getApp()
 Page({
   data: {
-    motto: 'Senparc.Weixin SDK Demo v2021.4.3',
+    motto: 'Senparc.Weixin SDK Demo v2021.5.1',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -308,6 +308,9 @@ Page({
         })
        }
     })
+  },
+  //分享
+  onShareAppMessage: function () {
   },
   onLoad: function () {
     console.log('onLoad')

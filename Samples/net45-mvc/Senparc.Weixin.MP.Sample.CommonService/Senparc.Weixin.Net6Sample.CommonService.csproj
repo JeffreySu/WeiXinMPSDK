@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Version>3.0.0.0</Version>
+    <Version>3.0.1</Version>
     <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
     <Description>此项目是 Sample.Net6 下启动项目</Description>

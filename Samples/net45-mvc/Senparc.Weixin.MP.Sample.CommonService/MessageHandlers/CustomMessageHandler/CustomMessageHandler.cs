@@ -42,6 +42,8 @@ using System.Configuration;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 #endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -398,6 +400,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 .Regex(@"^\d+#\d+$", () =>
                 {
                     defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：^\\d+#\\d+$", requestMessage.Content);
+                    return defaultResponseMessage;
+                })
+                //ServiceProvider
+                .Keyword("SP", () =>
+                {
+                    if (base.ServiceProvider == null)
+                    {
+                        defaultResponseMessage.Content = "ServiceProvider 为 null";
+                    }
+                    else
+                    {
+#if !NET45
+                        var httpContextAccessor = base.ServiceProvider.GetService<IHttpContextAccessor>();
+                        defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
+#endif
+                    }
+
+
                     return defaultResponseMessage;
                 })
 

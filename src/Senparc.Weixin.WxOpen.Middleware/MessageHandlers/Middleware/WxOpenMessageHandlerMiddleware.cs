@@ -163,7 +163,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForWxOpen<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<IServiceProvider, Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IServiceProvider> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWxOpen>> options)
                 where TMC : DefaultWxOpenMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {

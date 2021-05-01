@@ -165,7 +165,7 @@ namespace Senparc.Weixin.Work.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForWork<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<IServiceProvider, Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>> messageHandler,
+            Func<Stream, PostModel, int, MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IServiceProvider> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForWork>> options)
                 where TMC : DefaultWorkMessageContext, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
         {

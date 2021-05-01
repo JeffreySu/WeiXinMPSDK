@@ -169,8 +169,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        /// <param name="serviceProvider">ServiceProvider，.NET Framework 可留空（null）</param>
+        public MessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -184,8 +185,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
-        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null)
-            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        /// <param name="serviceProvider">ServiceProvider，.NET Framework 可留空（null）</param>
+        public MessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null, IServiceProvider serviceProvider = null)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
         {
             DeveloperInfo = developerInfo;
             _postModel = postModel ?? new PostModel();
@@ -201,8 +203,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null)
-            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        /// <param name="serviceProvider">ServiceProvider，.NET Framework 可留空（null）</param>
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, DeveloperInfo developerInfo = null, IServiceProvider serviceProvider = null)
+            : base(requestMessageBase, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
         {
             DeveloperInfo = developerInfo;
             postModel = postModel ?? new PostModel();

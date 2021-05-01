@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.MessageHandlers.Middleware
         /// <param name="options"></param>
         /// <returns></returns>
         public static IApplicationBuilder UseMessageHandlerForMp<TMC>(this IApplicationBuilder builder, PathString pathMatch,
-            Func<IServiceProvider, Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>> messageHandler,
+            Func<Stream, PostModel, int, MessageHandler<TMC, IRequestMessageBase, IResponseMessageBase>, IServiceProvider> messageHandler,
             Action<MessageHandlerMiddlewareOptions<ISenparcWeixinSettingForMP>> options)
                 where TMC : DefaultMpMessageContext, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
         {

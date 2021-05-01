@@ -82,8 +82,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<IServiceProvider, Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (serviceProvider, stream, postModel, maxRecordCount)
-                        => new CustomMessageHandler(serviceProvider, stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */);
+        public static Func<Stream, PostModel, int, CustomMessageHandler, IServiceProvider> GenerateMessageHandler = (stream, postModel, maxRecordCount, serviceProvider)
+                         => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */, serviceProvider: serviceProvider);
 
         /// <summary>
         /// 自定义 MessageHandler
@@ -93,8 +93,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <param name="postModel"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="onlyAllowEncryptMessage"></param>
-        public CustomMessageHandler(IServiceProvider serviceProvider, Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider: serviceProvider)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。

@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 
 
         public CustomWxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
-            : base(inputStream, postModel, maxRecordCount, serviceProvider)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。

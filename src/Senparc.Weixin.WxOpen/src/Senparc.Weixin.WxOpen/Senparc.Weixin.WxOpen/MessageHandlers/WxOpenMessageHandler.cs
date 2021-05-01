@@ -150,8 +150,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
         /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
         ///// <param name="developerInfo">开发者信息（非必填）</param>
-        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        public WxOpenMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
         {
         }
 
@@ -162,8 +162,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
         /// <param name="onlyAllowEncryptMessage">当平台同时兼容明文消息和加密消息时，只允许处理加密消息（不允许处理明文消息），默认为 False</param>
-        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
-            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null)
+            : base(requestDocument, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider)
         {
         }
 

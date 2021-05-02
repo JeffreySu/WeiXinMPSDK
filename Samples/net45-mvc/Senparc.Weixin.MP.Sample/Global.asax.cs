@@ -78,6 +78,9 @@ namespace Senparc.Weixin.MP.Sample
 
             #region  全局缓存配置（按需）
 
+            //当同一个分布式缓存同时服务于多个网站（应用程序池）时，可以使用命名空间将其隔离（非必须）
+            register.ChangeDefaultCacheNamespace("DefaultCO2NETCache");
+
             #region 配置和使用 Redis          -- DPBMARK Redis
 
             //配置全局使用Redis缓存（按需，独立）

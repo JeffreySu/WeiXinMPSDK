@@ -189,6 +189,13 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
             }
         }
 
+        /// <summary>
+        /// 检查签名
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="rawData"></param>
+        /// <param name="signature"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
         {
@@ -203,6 +210,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
             }
         }
 
+        /// <summary>
+        /// 数据解密并进行水印校验
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
@@ -253,14 +268,12 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 }
             }
 
-
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
             return Json(new
             {
                 success = checkWatermark,
                 //decodedEntity = decodedEntity,
-                msg = string.Format("水印验证：{0}",
-                        checkWatermark ? "通过" : "不通过")
+                msg = $"水印验证：{(checkWatermark ? "通过" : "不通过")}"
             });
         }
 
@@ -491,7 +504,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
 
                 var wxOpenAppId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting.WxOpenAppId;
                 var jumpWxa = new Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
-                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync                             (wxOpenAppId, jumpWxa, false, null);
+                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync(wxOpenAppId, jumpWxa, false, null);
                 message = schmeResult.openlink;
                 ViewData["Success"] = true;
             }

@@ -165,7 +165,7 @@ Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](h
 
 
 ## Functional Support
-* Supported all Wechat 7.x APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
+* Supported all Wechat 8.x APIs, includes customize menu / personalized  menu, template message, material APIs, group message, multi-customer service, TenPay, MerChant, cards APIs, ect.
 * Supported Wechat Official Account, MiniProgram, MiniProgram-Game, Enterpaise Account, Open Platform modules.
 * Supported user dialogue context, to solve application service can not use Session to handle users' dialogues.
 * Fully supported latest APIs for Wechat Official Account, Corporate Account(Corporate Wechat), Open Platform.
@@ -176,17 +176,17 @@ Tip: ![.NET 3.5][net35Y]  ![.NET 4.0][net40Y] last stable release [click here](h
 
 ## Personalize your WeChat project Sample
 
-
-1. Web version：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">view course</a>。
+ Web version：<a href="https://www.cnblogs.com/szw/p/WeChatSampleBuilder-V2.html#Web-WeChatSampleBuilder" target="_blank">view course</a>。
 
 <img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0-web.png?t=1" width="700" alt="WeChatSampleBuilder" />
 
-
+<!--
 2. Desktop App: Login <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a> to download WeChatSampleBuilder tool, and view description。
 
 <img src="https://sdk.weixin.senparc.com/images/WeChatSampleBuilder-v0.2.0.png?t=1" width="700" alt="WeChatSampleBuilder" />
+-->
 
-> Notice: using the WeChatSampleBuilder tool simply makes it easier for you to test and learn the Sample code, not to generate a complete production environment project. If you need to build a production environment project, refer to the full Demo or other tutorials. It is recommended to use an existing system framework, such as [SenparcCoreFramework](https://github.com/SenparcCoreFramework/SCF).
+> Notice: using the WeChatSampleBuilder tool simply makes it easier for you to test and learn the Sample code, not to generate a complete production environment project. If you need to build a production environment project, refer to the full Demo or other tutorials. It is recommended to use an existing system framework, such as [NeuCharFramework](https://github.com/NeuCharFramework/NCF).
 
 
 resources
@@ -278,7 +278,6 @@ Senparc official tutorials
 |--------|--------|
 |[Senparc.WebSocket](src/Senparc.WebSocket)									|WebSocket Module|
 |[Senparc.Weixin.Cache](src/Senparc.Weixin.Cache)							|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll Distributed Cache extension solutions|
-|[Senparc.Weixin.MP.BuildOutPut](src/Senparc.Weixin.MP.BuildOutPut	)		|DLLs output folder|
 |[Senparc.Weixin.MP.MvcExtension](src/Senparc.Weixin.MP.MvcExtension)		|Senparc.Weixin.MP.MvcExtension.dll source code, extension for ASP.NET MVC |
 |[Senparc.Weixin.MP](src/Senparc.Weixin.MP)									|Senparc.Weixin.MP, Official Account SDK source code|
 |[Senparc.Weixin.Open](src/Senparc.Weixin.Open)								|Senparc.Weixin.Open.dll, 3rd Open Platform SDK source code|
@@ -292,11 +291,11 @@ Senparc official tutorials
 
 | Folder | Description | SDK Library Reference
 |--------|--------|-------|
-|[Senparc.Weixin.MP.Sample](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
-|[Senparc.Weixin.MP.Sample.WebForms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
-|[Senparc.Weixin.MP.Sample.vs2019](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 2.0 + MVC)| Source Code
-|[Senparc.Weixin.MP.Sample.Consoles.vs2019](Samples/console)			| Console Demo（.NET Core）| Source Code
-|[Senparc.Weixin.Sample.Net6](Samples/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 | Source Code
+|[net45-mvc](Samples/net45-mvc)						  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET MVC)| Nuget Packages
+|[net45-webforms](Samples/net45-webforms)		  |Demo, can be released directly(.NET Framework 4.5 + ASP.NET WebForms)| Nuget Packages
+|[netcore3.0-mvc](Samples/netcore3.0-mvc)			  |Demo, can be released directly(.NET Core 3.1 + MVC)| Source Code
+|[Samples/console](Samples/console)			| Console Demo（.NET Core）| Source Code
+|[net6-mvc](Samples/net6-mvc)			|Demo, can be released directly(.NET 6.0), compatible with .NET 5.0 | Source Code
 
 Senparc.Weixin.MP.Sample Key Code
 --------------

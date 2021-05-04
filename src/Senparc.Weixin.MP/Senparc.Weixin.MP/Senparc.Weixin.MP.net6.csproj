@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.12.100.1-preview2</Version>
+    <Version>16.12.101-preview2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -501,7 +501,8 @@
 		v16.10.601 MASSSENDJOBFINISH事件增加 ArticleUrlResult 节点
 		v16.11.102 修正“将电子发票卡券插入用户卡包”接口 InvoiceApi.InsertCardToBag() 问题
 		v16.11.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
-</PackageReleaseNotes>
+		v16.12.101 修改“addTemplate选用模板”接口
+	</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -16,6 +16,9 @@
     修改标识：Senparc - 20210321
     修改描述：v3.8.201 添加“配置客户联系「联系我」方式”接口
     
+    修改标识：Senparc - 20210321
+    修改描述：v3.9.101 添加“获取配置了客户联系功能的成员列表”接口
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -209,6 +212,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey);
         }
 
+
+        /// <summary>
+        /// 获取配置了客户联系功能的成员列表
+        /// <para>权限说明：</para>
+        /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
+        /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
+        /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="rquest">请求报文</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserList", true)]
+        public static WorkJsonResult GetFollowUserList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
+
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
         #region 「联系我」
 
         /// <summary>
@@ -249,7 +275,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.TransferExternalAsync", true)]
-        public static async Task<WorkJsonResult> TransferExternalAsync(string accessTokenOrAppKey, string ExternalUserId, string handoverUserId, string takeoverUserId, int timeOut = Config.TIME_OUT)
+        public static async Task<GetFollowUserListResult> TransferExternalAsync(string accessTokenOrAppKey, string ExternalUserId, string handoverUserId, string takeoverUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -260,7 +286,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     handover_userid = handoverUserId,
                     takeover_userid = takeoverUserId
                 };
-                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
 
         }
@@ -408,6 +434,29 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
                 return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, rquest, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】获取配置了客户联系功能的成员列表
+        /// <para>权限说明：</para>
+        /// <para>企业需要使用“客户联系”secret或配置到“可调用应用”列表中的自建应用secret所获取的accesstoken来调用</para>
+        /// <para>第三方应用需具有“企业客户权限->客户基础信息”权限</para>
+        /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
+        /// </summary>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
+        /// <param name="rquest">请求报文</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserListAsync", true)]
+        public static async Task<GetFollowUserListResult> GetFollowUserListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = $"{Config.ApiWorkHost}/cgi-bin/externalcontact/get_follow_user_list?access_token={accessToken}";
+
+                return await CommonJsonSend.SendAsync<GetFollowUserListResult>(null, url, null, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey);
         }
 
         #endregion

@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：ccccccmd - 20210329
     修改描述：v16.11.201 服务号订阅通知相关接口&补充小程序[获取小程序账号的类目]接口
 
+    修改标识：Senparc - 20210504
+    修改描述：v16.12.101 修改“addTemplate选用模板”接口
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -102,19 +105,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "NewTmplApi.AddTemplate", true)]
         public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList,
-            string sceneDesc = "", int timeOut = Config.TIME_OUT)
+            string sceneDesc, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
-            var data = new Dictionary<string, string>()
-            {
-                {"tid", tid},
-                {"sceneDesc", sceneDesc},
-            };
-            for (int i = 0; i < kidList.Length; i++)
-            {
-                data.Add($"kidList[{i}]", $"{kidList[i]}");
-            }
 
+            var data = new {
+                tid = tid,
+                kidList = kidList,
+                sceneDesc = sceneDesc
+            };
+           
             return CommonJsonSend.Send<AddTemplateJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
         #endregion
@@ -288,15 +288,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.NewTmpl
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
-            var data = new Dictionary<string, string>()
+            var data = new
             {
-                {"tid", tid},
-                {"sceneDesc", sceneDesc},
+                tid = tid,
+                kidList = kidList,
+                sceneDesc = sceneDesc
             };
-            for (int i = 0; i < kidList.Length; i++)
-            {
-                data.Add($"kidList[{i}]", $"{kidList[i]}");
-            }
 
             return await CommonJsonSend.SendAsync<AddTemplateJsonResult>(accessToken, urlFormat, data,
                 timeOut: timeOut);

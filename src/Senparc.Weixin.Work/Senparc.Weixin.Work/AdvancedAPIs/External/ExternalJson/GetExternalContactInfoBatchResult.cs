@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
     {
         public string remark { get; set; }
         public string description { get; set; }
-        public long creattime { get; set; }
+        public long createtime { get; set; }
         public string[] tag_id { get; set; }
         public string[] remark_mobiles { get; set; }
         public int add_way { get; set; }

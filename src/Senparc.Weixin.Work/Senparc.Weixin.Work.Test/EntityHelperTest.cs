@@ -21,6 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.CO2NET.Helpers;
+using Senparc.Weixin.Work.AdvancedAPIs.External;
 using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Work.Helpers;
 
@@ -78,6 +80,24 @@ namespace Senparc.Weixin.Work.Test
             Assert.IsNotNull(reqPack.Items);
             Assert.AreEqual(3, reqPack.Items.Count);
 
+        }
+        
+        
+        //https://work.weixin.qq.com/api/doc/90000/90135/92122
+        [TestMethod]
+        public void GroupChatGetResultJsonTest()
+        {
+            var json = "{     \"errcode\": 0,     \"errmsg\": \"ok\",     \"group_chat\": {         \"chat_id\": \"wrOgQhDgAAMYQiS5ol9G7gK9JVAAAA\",         \"name\": \"销售客服群\",         \"owner\": \"ZhuShengBen\",         \"create_time\": 1572505490,         \"notice\": \"文明沟通，拒绝脏话\",         \"member_list\": [{             \"userid\": \"abel\",             \"type\": 1,             \"join_time\": 1572505491,             \"join_scene\": 1,             \"invitor\": {                 \"userid\": \"jack\"             }         }, {             \"userid\": \"sam\",             \"type\": 1,             \"join_time\": 1572505491,             \"join_scene\": 1         }, {             \"userid\": \"wmOgQhDgAAuXFJGwbve4g4iXknfOAAAA\",             \"type\": 2,             \"unionid\": \"ozynqsulJFCZ2z1aYeS8h-nuasdAAA\",             \"join_time\": 1572505491,             \"join_scene\": 1         }],         \"admin_list\": [{             \"userid\": \"sam\"         }, {             \"userid\": \"pony\"         }]     } }";
+            
+            var result=SerializerHelper.GetObject<GroupChatGetResult>(json);
+
+            Assert.IsTrue(result.group_chat.member_list.Length == 3);
+            Assert.IsTrue(result.group_chat.admin_list .Length== 2);
+            Assert.IsTrue(result.group_chat.member_list[0] .invitor.userid=="jack");
+            
+            Assert.IsTrue(result.group_chat.member_list[2] .unionid=="ozynqsulJFCZ2z1aYeS8h-nuasdAAA");
+            
+            Assert.IsTrue(result.group_chat.admin_list[1].userid=="pony");
         }
     }
 }

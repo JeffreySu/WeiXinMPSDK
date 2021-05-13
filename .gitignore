@@ -90,3 +90,4 @@ packages/
 /Samples/netcore3.0-mvc/.idea
 /Samples/net6-mvc/Senparc.Weixin.Sample.Net6/App_Data/SenparcTraceLog
 /Samples/net6-mvc/Senparc.Weixin.Sample.Net6/App_Data/WeChat_OfficialAccount
+/src/BuildOutPut

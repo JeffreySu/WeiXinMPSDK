@@ -28,6 +28,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：lishewen - 20200318
+
+
 ----------------------------------------------------------------*/
 
 

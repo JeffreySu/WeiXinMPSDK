@@ -133,7 +133,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
-    <PackageReference Include="EnyimMemcachedCore" Version="2.4.1" />
+    <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="packages\**" />

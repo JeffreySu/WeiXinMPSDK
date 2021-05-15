@@ -559,9 +559,9 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.APM" Version="0.9.300" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.3.300" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.9.300" />
+    <PackageReference Include="Senparc.CO2NET.APM" Version="0.10.300.3-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.7-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

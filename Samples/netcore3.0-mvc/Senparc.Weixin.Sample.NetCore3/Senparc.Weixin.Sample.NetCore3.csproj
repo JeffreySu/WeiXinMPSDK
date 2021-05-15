@@ -39,8 +39,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.9.300" />
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.3.300" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.7-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.10-preview2.net6p.3.21201.4" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.4" />

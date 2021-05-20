@@ -23,6 +23,8 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Senparc.CO2NET.Helpers;
+using Senparc.CO2NET.Extensions;
 
 #if NET45
 using System.Web.Configuration;
@@ -87,8 +89,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
             await base.OnExecutedAsync(cancellationToken);
-            var currentMessageContext = await base.GetCurrentMessageContext();
-            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            try
+            {
+                var currentMessageContext = await base.GetCurrentMessageContext();
+                currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            }
+            catch (Exception ex)
+            {
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString());
+            }
         }
 
 
@@ -206,11 +215,26 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 1、发送任意文字，返回上下文消息记录
 2、发送图片，返回同样的图片
 3、发送文字“link”,返回图文链接
-4、发送文字“card”，发送小程序卡片";
+4、发送文字“card”，发送小程序卡片
+5、点击右下角出现的小程序浮窗，发送小程序页面信息";
             await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg);
 
             return await DefaultResponseMessageAsync(requestMessage);
         }
+
+        public override async Task<IResponseMessageBase> OnMiniProgramPageRequestAsync(RequestMessageMiniProgramPage requestMessage)
+        {
+            var msg = @$"您从某个小程序页面来到客服，并且发送了小程序卡片。
+Title：{requestMessage.Title}
+AppId：{requestMessage.AppId.Substring(1,5)}...
+PagePath：{requestMessage.PagePath}
+附带照片：
+";
+            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg); 
+            await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.ThumbMediaId);
+            return await DefaultResponseMessageAsync(requestMessage);
+        }
+
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

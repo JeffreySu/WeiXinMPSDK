@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>16.12.101-preview2</Version>
+    <Version>16.12.101.1-preview2</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -502,7 +502,7 @@
 		v16.11.102 修正“将电子发票卡券插入用户卡包”接口 InvoiceApi.InsertCardToBag() 问题
 		v16.11.201 服务号订阅通知相关接口 &amp; 补充小程序[获取小程序账号的类目]接口
 		v16.12.101 修改“addTemplate选用模板”接口
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -561,8 +561,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Senparc.CO2NET.APM" Version="0.10.300.3-preview2.net6p.3.21201.4" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
-    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.7-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.9-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.9-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

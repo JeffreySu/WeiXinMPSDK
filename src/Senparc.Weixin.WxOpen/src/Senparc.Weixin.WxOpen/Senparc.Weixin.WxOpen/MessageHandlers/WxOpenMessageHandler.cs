@@ -245,8 +245,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #region 消息处理
 
 
-
-
         [Obsolete("请使用异步方法 OnExecutingAsync()", true)]
         public virtual void OnExecuting()
         {
@@ -262,6 +260,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 异步方法
+        //public override Task OnExecutedAsync(CancellationToken cancellationToken)
+        //{
+        //    return base.OnExecutedAsync(cancellationToken);
+        //}
+
         /// <summary>
         /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
         /// </summary>
@@ -282,6 +285,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     throw new MessageHandlerException($"DefaultMessageHandlerAsyncEvent 类型未作处理：{base.DefaultMessageHandlerAsyncEvent.ToString()}");
             }
         }
+
         /// <summary>
         /// 【异步方法】认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
@@ -320,6 +324,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     {
                         ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage, this, weixinAppId).ConfigureAwait(false) ??
                              await OnImageRequestAsync(RequestMessage as RequestMessageImage);
+                    }
+                    break;
+                case RequestMsgType.MiniProgramPage:
+                    {
+                        ResponseMessage = await OnMiniProgramPageRequestAsync(RequestMessage as RequestMessageMiniProgramPage).ConfigureAwait(false);
                     }
                     break;
                 case RequestMsgType.NeuChar:

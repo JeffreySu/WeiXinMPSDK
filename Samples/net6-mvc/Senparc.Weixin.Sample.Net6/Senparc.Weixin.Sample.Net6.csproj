@@ -43,7 +43,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.8-preview2.net6p.3.21201.4" />
+		<PackageReference Include="Senparc.NeuChar.App" Version="0.10.100.9-preview2.net6p.3.21201.4" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.10-preview2.net6p.3.21201.4" />
 
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />

@@ -260,6 +260,11 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 异步方法
+        //public override Task OnExecutedAsync(CancellationToken cancellationToken)
+        //{
+        //    return base.OnExecutedAsync(cancellationToken);
+        //}
+
         /// <summary>
         /// 自动判断默认异步方法调用（在没有override的情况下调用的默认方法）
         /// </summary>
@@ -323,7 +328,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                     break;
                 case RequestMsgType.MiniProgramPage:
                     {
-                        ResponseMessage = await CurrentMessageHandlerNode.ExecuteAsync(RequestMessage as RequestMessageMiniProgramPage, this, weixinAppId).ConfigureAwait(false);
+                        ResponseMessage = await OnMiniProgramPageRequestAsync(RequestMessage as RequestMessageMiniProgramPage).ConfigureAwait(false);
                     }
                     break;
                 case RequestMsgType.NeuChar:

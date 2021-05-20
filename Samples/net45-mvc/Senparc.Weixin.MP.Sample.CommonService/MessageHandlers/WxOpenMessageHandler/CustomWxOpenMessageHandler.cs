@@ -89,8 +89,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override async Task OnExecutedAsync(CancellationToken cancellationToken)
         {
             await base.OnExecutedAsync(cancellationToken);
-            var currentMessageContext = await base.GetCurrentMessageContext();
-            currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            try
+            {
+                var currentMessageContext = await base.GetCurrentMessageContext();
+                currentMessageContext.StorageData = ((int)currentMessageContext.StorageData) + 1;
+            }
+            catch (Exception ex)
+            {
+                Senparc.CO2NET.Trace.SenparcTrace.SendCustomLog("小程序 OnExecutedAsync 常规跟踪（开发者请忽略）", ex.ToString());
+            }
         }
 
 

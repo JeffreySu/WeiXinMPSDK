@@ -72,7 +72,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     {
         public override RequestMsgType MsgType
         {
-            get { return RequestMsgType.Text; }
+            get { return RequestMsgType.MiniProgramPage; }
         }
 
         /// <summary>

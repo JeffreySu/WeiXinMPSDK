@@ -34,6 +34,10 @@
           session-from="Senparc.Weixin" 
           open-type='contact'
           class='service-btn'
+          send-message-title='《微信开发深度解析》'
+          send-message-path='../websocket/websocket'
+          send-message-img='../../images/senparc-SDK.png'
+          show-message-card='true'
           >进入客服</button>
     </view>
 

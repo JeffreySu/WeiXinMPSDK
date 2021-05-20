@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Test.NetCore3.MessageHandlers.Middleware
             contextMock.Setup(z => z.Request.Method).Returns("POST");
             contextMock.Setup(z => z.Features).Returns(new FeatureCollection());
 
-            var messageHandlerMiddleware = new MpMessageHandlerMiddleware<DefaultMpMessageContext>(null, CustomMessageHandlers.GenerateMessageHandler, options =>
+            var messageHandlerMiddleware = new MpMessageHandlerMiddleware<DefaultMpMessageContext>(null, serviceProvider, CustomMessageHandlers.GenerateMessageHandler, options =>
              {
                  options.DefaultMessageHandlerAsyncEvent = NeuChar.MessageHandlers.DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
                  options.AccountSettingFunc = context => new SenparcWeixinSetting()

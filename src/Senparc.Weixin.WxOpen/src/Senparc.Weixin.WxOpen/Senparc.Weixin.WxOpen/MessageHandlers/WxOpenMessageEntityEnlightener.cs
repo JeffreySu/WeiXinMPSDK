@@ -17,6 +17,8 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         WxOpenMessageEntityEnlightener(NeuChar.PlatformType platformType) : base(platformType) { }
 
+        //TODO:加入 MiniProgramPage类型
+
         public override IRequestMessageEvent NewRequestMessageEvent()
         {
             return new RequestMessageEventBase();

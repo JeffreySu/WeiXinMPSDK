@@ -105,5 +105,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return new ResponseMessageVoice();
         }
+
+        public override IRequestMessageMiniProgramPage NewRequestMessageMiniProgramPage()
+        {
+            throw new MessageHandlerException("微信公众号不支持 IRequestMessageMiniProgramPage 响应类型");
+        }
     }
 }

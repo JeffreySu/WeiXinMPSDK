@@ -105,5 +105,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             throw new MessageHandlerException("微信公众号不支持 IResponseMessageVoice 响应类型");
         }
 
+        public override IRequestMessageMiniProgramPage NewRequestMessageMiniProgramPage()
+        {
+            return new RequestMessageMiniProgramPage();
+        }
+
     }
 }

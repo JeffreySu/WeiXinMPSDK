@@ -68,7 +68,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 接收小程序页面消息
     /// </summary>
-    public class RequestMessageMiniProgramPage : RequestMessageBase, IRequestMessageBase/*IRequestMessageText*/
+    public class RequestMessageMiniProgramPage : RequestMessageBase, IRequestMessageMiniProgramPage
     {
         public override RequestMsgType MsgType
         {

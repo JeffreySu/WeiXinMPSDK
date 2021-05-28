@@ -35,6 +35,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.CO2NET.Cache;
 
 #if NET45
 using System.Web;
@@ -42,6 +43,8 @@ using System.Configuration;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 #endif
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -59,7 +62,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          */
 
 
-#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1
+#if !DEBUG || NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_1 || NET6_0
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
@@ -73,20 +76,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string appId = Config.SenparcWeixinSetting.WeixinAppId;
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
 
-        /// <summary>
-        /// 模板消息集合（Key：checkCode，Value：OpenId）
-        /// 注意：这里只做测试，只适用于单服务器
-        /// </summary>
-        public static Dictionary<string, string> TemplateMessageCollection = new Dictionary<string, string>();
 
         /// <summary>
         /// 为中间件提供生成当前类的委托
         /// </summary>
-        public static Func<Stream, PostModel, int, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount)
-                        => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */);
+        public static Func<Stream, PostModel, int, IServiceProvider, CustomMessageHandler> GenerateMessageHandler = (stream, postModel, maxRecordCount, serviceProvider)
+                         => new CustomMessageHandler(stream, postModel, maxRecordCount, false /* 是否只允许处理加密消息，以提高安全性 */, serviceProvider: serviceProvider);
 
-        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false)
-            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage)
+        /// <summary>
+        /// 自定义 MessageHandler
+        /// </summary>
+        /// <param name="provider">.NET Framework 可忽略</param>
+        /// <param name="inputStream"></param>
+        /// <param name="postModel"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="onlyAllowEncryptMessage"></param>
+        public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, bool onlyAllowEncryptMessage = false, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, onlyAllowEncryptMessage, serviceProvider: serviceProvider)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalGlobalMessageContext.ExpireMinutes = 3。
@@ -208,7 +214,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 #if NET45
                         null,
 #else
-                        Senparc.CO2NET.SenparcDI.GetServiceProvider(), 
+                        Senparc.CO2NET.SenparcDI.GetServiceProvider(),
 #endif
                         agentUrl, agentToken, agentXml);
                     //获取返回的XML
@@ -312,7 +318,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 {
                     var openId = requestMessage.FromUserName;
                     var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
-                    TemplateMessageCollection[checkCode] = openId;
+
+                    Task.Factory.StartNew(async () =>
+                    {
+                        var currentCache = CacheStrategyFactory.GetObjectCacheStrategyInstance();
+                        await currentCache.SetAsync($"TestCheckCode:{checkCode}", openId, TimeSpan.FromHours(1));//使用缓存，如果多台服务器可以使用分布式缓存共享
+                    }).Wait();
+
                     defaultResponseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：https://sdk.weixin.senparc.com/AsyncMethods", checkCode);
                     return defaultResponseMessage;
                 })
@@ -392,6 +404,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：^\\d+#\\d+$", requestMessage.Content);
                     return defaultResponseMessage;
                 })
+                //ServiceProvider
+                .Keyword("SP", () =>
+                {
+                    if (base.ServiceProvider == null)
+                    {
+                        defaultResponseMessage.Content = "ServiceProvider 为 null";
+                    }
+                    else
+                    {
+#if !NET45
+                        var httpContextAccessor = base.ServiceProvider.GetService<IHttpContextAccessor>();
+                        defaultResponseMessage.Content = $"ServiceProvider 载入成功，从 IHttpContextAccessor 读取当前服务器协议：{httpContextAccessor.HttpContext.Request.Scheme}";
+#endif
+                    }
+
+
+                    return defaultResponseMessage;
+                })
 
                 //当 Default 使用异步方法时，需要写在最后一个，且 requestMessage.StartHandler() 前需要使用 await 等待异步方法执行；
                 //当 Default 使用同步方法，不一定要在最后一个,并且不需要使用 await
@@ -403,7 +433,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     var currentMessageContext = await base.GetCurrentMessageContext();
                     if (currentMessageContext.RequestMessages.Count > 1)
                     {
-                        result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
+                        result.AppendFormat("您此前还发送了如下消息（{0}/{1}）：\r\n", currentMessageContext.RequestMessages.Count,
                             currentMessageContext.StorageData);
                         for (int i = currentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                         {

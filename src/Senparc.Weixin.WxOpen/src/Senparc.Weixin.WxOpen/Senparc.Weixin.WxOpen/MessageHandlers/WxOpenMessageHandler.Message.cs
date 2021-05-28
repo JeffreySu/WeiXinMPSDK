@@ -91,6 +91,13 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             return await DefaultAsyncMethod(requestMessage, () => OnTextRequest(requestMessage)).ConfigureAwait(false);
         }
 
+        public async virtual Task<IResponseMessageBase> OnMiniProgramPageRequestAsync(RequestMessageMiniProgramPage requestMessage)
+        {
+            return await DefaultResponseMessageAsync(requestMessage).ConfigureAwait(false);
+        }
+
+
+
         #endregion
         #endregion
     }

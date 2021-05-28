@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "WeChatSampleBuilder：微信 Sample 项目自动生成器";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        .wrapper h2 {
+            text-align: center;
+            font-size: 30px;
+            padding: 30px;
+        }
+
+        #builder-area p {
+           font-size:120%;
+           line-height:160%;
+           text-indent: 2em;
+           margin-bottom:30px;
+        }
+
+        #builder-area a {
+            text-decoration: underline;
+        }
+
+            p.quote {
+                background: #eaeaea;
+                padding: 20px 38px;
+                border-left: #aad4de 10px solid;
+            }
+
+            p.quote.quote-introduction {
+                border-left-color: #07738e;
+            }
+        span.introduction {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+}
+
+<div id="builder-area" class="wrapper">
+    <h2>WeChatSampleBuilder：私人定制你的微信项目 Sample</h2>
+
+    <p class="quote">WeChatSampleBuilder 是一款可以帮助开发者根据不同的开发环境、.NET 版本、所需使用的微信模块，以及缓存使用情况进行自由搭配，一键生成 Sample 项目的工具。</p>
+
+    <p class="center">
+        <img src="~/Images/WeChatSampleBuilder.png" width="830" />
+    </p>
+
+    <p class="quote quote-introduction">
+        <span class="introduction"><strong>使用说明</strong></span><br />
+        1、登录 <a href="https://weixin.senparc.com/User" target="_blank">https://weixin.senparc.com/User</a> 下载 WeChatSampleBuilder 工具，并查看使用说明；<br />
+        2、打开 WeChatSampleBuilder.exe，在 Source Peoject Path 中选择克隆了 <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">Senparc.Weixin SDK</a> 项目的本地文件夹（根目录），根据需要配置 Sample 项目类型、需要生成的类库 .NET 版本、所需使用的微信模块，以及支持缓存类型；<br />
+        3、点击 Build 按钮，即可在同级目录下看到 OutputSample 开头的文件夹，并自动打开解决方案！
+    </p>
+</div>
+
+

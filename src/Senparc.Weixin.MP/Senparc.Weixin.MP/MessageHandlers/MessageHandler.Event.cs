@@ -179,6 +179,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_View_Miniprogram(RequestMessage as RequestMessageEvent_View_Miniprogram);
                     break;
 
+                case Event.subscribe_msg_change_event: 
+                    responseMessage = OnEvent_Subscribe_Msg_ChangeRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Change);
+                    break;
+                case Event.subscribe_msg_popup_event: 
+                    responseMessage = OnEvent_Subscribe_Msg_PopupRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Popup);
+                    break;
+                case Event.subscribe_msg_sent_event: 
+                    responseMessage = OnEvent_Subscribe_Msg_SentRequest(RequestMessage as RequestMessageEvent_Subscribe_Msg_Sent);
+                    break;
+                
+                
                 #region 卡券回调
 
                 case Event.giftcard_pay_done:
@@ -718,7 +729,36 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         #endregion
-
+        
+        #region 订阅通知
+        /// <summary>
+        /// 用户管理订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_ChangeRequest(RequestMessageEvent_Subscribe_Msg_Change requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 用户操作订阅通知弹窗
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_PopupRequest(RequestMessageEvent_Subscribe_Msg_Popup requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        /// <summary>
+        /// 发送订阅通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Subscribe_Msg_SentRequest(RequestMessageEvent_Subscribe_Msg_Sent requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+        #endregion
         #endregion
     }
 }

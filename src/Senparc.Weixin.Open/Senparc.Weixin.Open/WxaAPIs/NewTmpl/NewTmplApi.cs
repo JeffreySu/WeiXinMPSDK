@@ -48,8 +48,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
     public static class NewTmplApi
     {
         #region 同步方法
-
-
         #region 模板快速设置
         /// <summary>
         /// 获取小程序模板库标题列表
@@ -62,11 +60,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitles", true)]
-        public static GetPubTemplateTitlesJsonResult GetPubTemplateTitles(string accessToken, string ids, int start, int limit, int timeOut = Config.TIME_OUT)
+        public static GetPubTemplateTitlesJsonResult GetPubTemplateTitles(string accessToken, string ids, int start,
+            int limit, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatetitles?access_token={0}";
             urlFormat = $"{urlFormat}&ids={ids}&start={start}&limit={limit}";
-            return CommonJsonSend.Send<GetPubTemplateTitlesJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return CommonJsonSend.Send<GetPubTemplateTitlesJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -78,11 +78,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsById", true)]
-        public static GetPubTemplateKeyWordsByIdJsonResult GetPubTemplateKeyWordsById(string accessToken, string tid, int timeOut = Config.TIME_OUT)
+        public static GetPubTemplateKeyWordsByIdJsonResult GetPubTemplateKeyWordsById(string accessToken, string tid,
+            int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatekeywords?access_token={0}";
             urlFormat = $"{urlFormat}&tid={tid}";
-            return CommonJsonSend.Send<GetPubTemplateKeyWordsByIdJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return CommonJsonSend.Send<GetPubTemplateKeyWordsByIdJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
         }
 
 
@@ -96,26 +98,26 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplate", true)]
-        public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList, string sceneDesc = "", int timeOut = Config.TIME_OUT)
+        public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList,
+            string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
             var data = new Dictionary<string, string>()
             {
-                { "tid", tid },
-                { "sceneDesc", sceneDesc },
+                {"tid", tid},
+                {"sceneDesc", sceneDesc},
             };
             for (int i = 0; i < kidList.Length; i++)
             {
                 data.Add($"kidList[{i}]", $"{kidList[i]}");
             }
+
             return CommonJsonSend.Send<AddTemplateJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
-
         #endregion
 
 
         #region 对已存在模板进行操作
-
         /// <summary>
         /// 获取帐号下已存在的模板列表
         /// subscribeMessage.getTemplateList
@@ -127,8 +129,27 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         public static GetTemplateListJsonResult GetTemplateList(string accessToken, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/gettemplate?access_token={0}";
-            return CommonJsonSend.Send<GetTemplateListJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return CommonJsonSend.Send<GetTemplateListJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET,
+                timeOut: timeOut);
         }
+
+
+        /// <summary>
+        ///【异步方法】 获取小程序账号的类目
+        /// subscribeMessage.getCategory
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetCategory", true)]
+        public static GetCategoryJsonResult GetCategory(string accessToken,
+            int timeOut = Config.TIME_OUT)
+        {
+            string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getcategory?access_token={0}";
+            return CommonJsonSend.Send<GetCategoryJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
+        }
+
 
         /// <summary>
         /// 删除帐号下的某个模板
@@ -143,20 +164,15 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/deltemplate?access_token={0}";
             var data = new Dictionary<string, string>()
             {
-                { "priTmplId", priTmplId }
+                {"priTmplId", priTmplId}
             };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
-
-
         #endregion
-
         #endregion
 
 
         #region 异步方法
-
-
         #region 模板快速设置
         /// <summary>
         /// 【异步方法】获取小程序模板库标题列表
@@ -169,11 +185,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateTitlesAsync", true)]
-        public static async Task<GetPubTemplateTitlesJsonResult> GetPubTemplateTitlesAsync(string accessToken, string ids, int start, int limit, int timeOut = Config.TIME_OUT)
+        public static async Task<GetPubTemplateTitlesJsonResult> GetPubTemplateTitlesAsync(string accessToken,
+            string ids, int start, int limit, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatetitles?access_token={0}";
             urlFormat = $"{urlFormat}&ids={ids}&start={start}&limit={limit}";
-            return await CommonJsonSend.SendAsync<GetPubTemplateTitlesJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<GetPubTemplateTitlesJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -185,11 +203,13 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetPubTemplateKeyWordsByIdAsync", true)]
-        public static async Task<GetPubTemplateKeyWordsByIdJsonResult> GetPubTemplateKeyWordsByIdAsync(string accessToken, string tid, int timeOut = Config.TIME_OUT)
+        public static async Task<GetPubTemplateKeyWordsByIdJsonResult> GetPubTemplateKeyWordsByIdAsync(
+            string accessToken, string tid, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getpubtemplatekeywords?access_token={0}";
             urlFormat = $"{urlFormat}&tid={tid}";
-            return await CommonJsonSend.SendAsync<GetPubTemplateKeyWordsByIdJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<GetPubTemplateKeyWordsByIdJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
         }
 
 
@@ -203,26 +223,27 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.AddTemplateAsync", true)]
-        public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList, string sceneDesc = "", int timeOut = Config.TIME_OUT)
+        public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList,
+            string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/addtemplate?access_token={0}";
             var data = new Dictionary<string, string>()
             {
-                { "tid", tid },
-                { "sceneDesc", sceneDesc },
+                {"tid", tid},
+                {"sceneDesc", sceneDesc},
             };
             for (int i = 0; i < kidList.Length; i++)
             {
                 data.Add($"kidList[{i}]", $"{kidList[i]}");
             }
-            return await CommonJsonSend.SendAsync<AddTemplateJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
-        }
 
+            return await CommonJsonSend.SendAsync<AddTemplateJsonResult>(accessToken, urlFormat, data,
+                timeOut: timeOut);
+        }
         #endregion
 
 
         #region 对已存在模板进行操作
-
         /// <summary>
         /// 【异步方法】获取帐号下已存在的模板列表
         /// subscribeMessage.getTemplateList
@@ -231,11 +252,32 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetTemplateListAsync", true)]
-        public static async Task<GetTemplateListJsonResult> GetTemplateListAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        public static async Task<GetTemplateListJsonResult> GetTemplateListAsync(string accessToken,
+            int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/gettemplate?access_token={0}";
-            return await CommonJsonSend.SendAsync<GetTemplateListJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await CommonJsonSend.SendAsync<GetTemplateListJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
         }
+
+
+
+        /// <summary>
+        ///【异步方法】 获取小程序账号的类目
+        /// subscribeMessage.getCategory
+        /// </summary>
+        /// <param name="accessToken">接口调用凭证</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.GetCategoryAsync", true)]
+        public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken,
+            int timeOut = Config.TIME_OUT)
+        {
+            string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/getcategory?access_token={0}";
+            return await CommonJsonSend.SendAsync<GetCategoryJsonResult>(accessToken, urlFormat, null,
+                CommonJsonSendType.GET, timeOut: timeOut);
+        }
+
 
         /// <summary>
         /// 【异步方法】删除帐号下的某个模板
@@ -245,20 +287,17 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "NewTmplApi.DelTemplateAsync", true)]
-        public static async Task<WxJsonResult> DelTemplateAsync(string accessToken, string priTmplId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> DelTemplateAsync(string accessToken, string priTmplId,
+            int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/deltemplate?access_token={0}";
             var data = new Dictionary<string, string>()
             {
-                { "priTmplId", priTmplId }
+                {"priTmplId", priTmplId}
             };
             return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
-
-
         #endregion
-
-
         #endregion
     }
 }

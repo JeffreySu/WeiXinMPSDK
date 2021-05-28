@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         public override IRequestMessageLink NewRequestMessageLink()
         {
-            throw new MessageHandlerException("微信公众号不支持 IRequestMessageLink 请求类型");
+            throw new MessageHandlerException("微信企业号不支持 IRequestMessageLink 请求类型");
         }
 
         public override IRequestMessageLocation NewRequestMessageLocation()
@@ -68,12 +68,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         public override IResponseMessageMpNews NewResponseMessageMpNews()
         {
-            throw new MessageHandlerException("微信公众号不支持 IResponseMessageMpNews 响应类型");
+            throw new MessageHandlerException("微信企业号不支持 IResponseMessageMpNews 响应类型");
         }
 
         public override IResponseMessageMusic NewResponseMessageMusic()
         {
-            throw new MessageHandlerException("微信公众号不支持 IResponseMessageMusic 响应类型");
+            throw new MessageHandlerException("微信企业号不支持 IResponseMessageMusic 响应类型");
         }
 
         public override IResponseMessageNews NewResponseMessageNews()
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         public override IResponseMessageTransfer_Customer_Service NewResponseMessageTransfer_Customer_Service()
         {
-            throw new MessageHandlerException("微信公众号不支持 IResponseMessageTransfer_Customer_Service 响应类型");
+            throw new MessageHandlerException("微信企业号不支持 IResponseMessageTransfer_Customer_Service 响应类型");
         }
 
         public override IResponseMessageVideo NewResponseMessageVideo()
@@ -99,6 +99,11 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public override IResponseMessageVoice NewResponseMessageVoice()
         {
             return new ResponseMessageVoice();
+        }
+
+        public override IRequestMessageMiniProgramPage NewRequestMessageMiniProgramPage()
+        {
+            throw new MessageHandlerException("微信企业号不支持 IRequestMessageMiniProgramPage 响应类型");
         }
     }
 }

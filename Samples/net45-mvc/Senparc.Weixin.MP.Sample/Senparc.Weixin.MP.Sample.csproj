@@ -135,11 +135,11 @@
     <Reference Include="Senparc.Weixin.TenPay, Version=1.7.100.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Senparc.Weixin.TenPay.1.7.100.2-preview2\lib\net45\Senparc.Weixin.TenPay.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.Work, Version=3.9.102.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.Work.3.9.102.1-preview2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
+    <Reference Include="Senparc.Weixin.Work, Version=3.9.102.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.Work.3.9.102.2-preview2\lib\net45\Senparc.Weixin.Work.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.WxOpen, Version=3.11.100.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.11.100.2-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+    <Reference Include="Senparc.Weixin.WxOpen, Version=3.11.100.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.WxOpen.3.11.100.3-preview2\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.1.2.6\lib\net45\StackExchange.Redis.dll</HintPath>

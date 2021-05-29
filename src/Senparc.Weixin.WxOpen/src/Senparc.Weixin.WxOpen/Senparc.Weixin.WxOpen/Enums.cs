@@ -53,6 +53,8 @@ namespace Senparc.Weixin.WxOpen
         /// </summary>
         user_enter_tempsession,
         add_nearby_poi_audit_info,
+        nearby_category_audit_info,
+        create_map_poi_audit_info,
         wxa_nickname_audit, //名称审核事件
         weapp_audit_success,
         weapp_audit_fail,

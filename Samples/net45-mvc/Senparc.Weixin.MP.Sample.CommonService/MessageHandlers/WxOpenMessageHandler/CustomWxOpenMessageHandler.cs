@@ -224,12 +224,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 
         public override async Task<IResponseMessageBase> OnMiniProgramPageRequestAsync(RequestMessageMiniProgramPage requestMessage)
         {
-            var msg = @$"您从某个小程序页面来到客服，并且发送了小程序卡片。
-Title：{requestMessage.Title}
-AppId：{requestMessage.AppId.Substring(1,5)}...
-PagePath：{requestMessage.PagePath}
-附带照片：
-";
+            var msg = $"您从某个小程序页面来到客服，并且发送了小程序卡片。\r\nTitle：{requestMessage.Title}\r\nAppId：{requestMessage.AppId.Substring(1,5)}...\r\nPagePath：{requestMessage.PagePath}\r\n附带照片：";
             await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendTextAsync(appId, OpenId, msg); 
             await Senparc.Weixin.WxOpen.AdvancedAPIs.CustomApi.SendImageAsync(appId, OpenId, requestMessage.ThumbMediaId);
             return await DefaultResponseMessageAsync(requestMessage);

@@ -4,7 +4,7 @@
     <Version>0.2.400</Version>
     <AssemblyName>Senparc.Weixin.Cache.CsRedis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.CsRedis</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - Redis 模块
 

@@ -4,7 +4,7 @@
     <Version>0.2.400</Version>
     <AssemblyName>Senparc.Weixin.WxOpen.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen.Middleware</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - Senparc.Weixin.WxOpen.Middleware 模块
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.3.100.2-preview2</Version>
+    <Version>0.3.400</Version>
     <AssemblyName>Senparc.Weixin.Work.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work.Middleware</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -89,7 +89,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.10-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.400" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.net6.csproj" />

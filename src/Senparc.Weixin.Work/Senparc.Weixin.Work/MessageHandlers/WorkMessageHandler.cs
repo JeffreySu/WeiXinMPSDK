@@ -223,7 +223,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             if (result != 0)
             {
                 //验证没有通过，取消执行
-                CancelExcute = true;
+                CancelExecute = true;
                 return null;
             }
 

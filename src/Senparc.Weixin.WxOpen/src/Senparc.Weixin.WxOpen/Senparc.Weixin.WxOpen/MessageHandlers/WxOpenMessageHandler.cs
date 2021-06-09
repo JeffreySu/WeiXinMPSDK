@@ -208,7 +208,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
                 if (result != 0)
                 {
                     //验证没有通过，取消执行
-                    CancelExcute = true;
+                    CancelExecute = true;
                     return null;
                 }
 
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
             //检查是否限定只能用加密模式
             if (OnlyAllowEncryptMessage && !UsingEncryptMessage)
             {
-                CancelExcute = true;
+                CancelExecute = true;
                 TextResponseMessage = "当前 MessageHandler 开启了 OnlyAllowEncryptMessage 设置，只允许处理加密消息，以提高安全性！";
                 return null;
             }

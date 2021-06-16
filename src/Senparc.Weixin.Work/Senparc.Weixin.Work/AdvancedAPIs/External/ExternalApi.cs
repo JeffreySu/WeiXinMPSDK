@@ -260,6 +260,62 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 统计管理
+        /// <summary>
+        /// 获取「联系客户统计」数据
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetUserBehaviorData", true)]
+        public static GetUserBehaviorDataListResult GetUserBehaviorData(string accessTokenOrAppKey, GetUserBehaviorDataParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_user_behavior_data?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetUserBehaviorDataListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+        }
+        /// <summary>
+        /// 获取「群聊数据统计」数据 按群主聚合的方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticOwner", true)]
+        public static GetGroupChatListResult GroupChatStatisticOwner(string accessTokenOrAppKey, GetGroupChatParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/statistic?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetGroupChatListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+
+        }
+
+
+        /// <summary>
+        /// 获取「群聊数据统计」数据 按自然日聚合的方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticGroupByDay", true)]
+        public static GetGroupChatGroupByDayListResult GroupChatStatisticGroupByDay(string accessTokenOrAppKey, GetGroupChatGroupByDayParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/statistic_group_by_day?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetGroupChatGroupByDayListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -461,6 +517,61 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 统计管理
+        /// <summary>
+        /// 获取「联系客户统计」数据
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetUserBehaviorDataAsync", true)]
+        public static async Task<GetUserBehaviorDataListResult> GetUserBehaviorDataAsync(string accessTokenOrAppKey, GetUserBehaviorDataParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_user_behavior_data?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetUserBehaviorDataListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+        }
+
+
+        /// <summary>
+        /// 获取「群聊数据统计」数据 按群主聚合的方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticOwnerAsync", true)]
+        public static async Task<GetGroupChatListResult> GroupChatStatisticOwnerAsync(string accessTokenOrAppKey, GetGroupChatParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/statistic?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetGroupChatListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+
+        }
+        /// <summary>
+        /// 获取「群聊数据统计」数据 按自然日聚合的方式
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticGroupByDayAsync", true)]
+        public static async Task<GetGroupChatGroupByDayListResult> GroupChatStatisticGroupByDayAsync(string accessTokenOrAppKey, GetGroupChatGroupByDayParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/groupchat/statistic_group_by_day?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetGroupChatGroupByDayListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        
+        #endregion
 
         #region 「联系我」
 

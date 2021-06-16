@@ -133,7 +133,7 @@
   <ItemGroup>
     <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="BinaryFormatter" Version="2.1.4" />
-    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.9.300" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Redis" Version="3.10.300.3-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />

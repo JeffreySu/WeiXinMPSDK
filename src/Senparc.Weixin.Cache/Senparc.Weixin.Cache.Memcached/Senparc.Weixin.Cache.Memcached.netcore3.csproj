@@ -133,7 +133,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <!--<FrameworkReference Include="Microsoft.AspNetCore.App" />-->
-    <PackageReference Include="EnyimMemcachedCore" Version="2.4.1" />
+    <PackageReference Include="EnyimMemcachedCore" Version="2.5.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="packages\**" />
@@ -148,7 +148,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.7.300" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.8.300.3-preview2.net6p.3.21201.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

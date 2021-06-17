@@ -3,6 +3,9 @@
 
 > 说明：这些工具转为本项目的需求而开发，开放源代码只做共享交流之用，对其他项目不具备通用性，请勿直接使用以免发生杯具。
 
+## Senparc.Weixin.CLI
+Senparc.Weixin SDK 命令行工具
+
 ## ClearDotNetCoreBadFiles
 ClearDotNetCoreBadFiles.exe 用于解决当项目在.NET Core（或.NET Standard）环境下编译后，会在obj文件夹下生成一些文件，
 导致无法让.NET Framework成功编译的问题。

@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             var neucharGroup = new Home_IndexVD_GroupInfo()
             {
                 Title = "跨平台支持库：Senparc.NeuChar",
-                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、丁丁、QQ小程序、百度小程序，等等），<br />" +
+                Description = "NeuChar 是盛派提供的一套跨平台服务的标准（例如跨微信公众号、微信小程序、钉钉、QQ小程序、百度小程序，等等），<br />" +
                 "使用一套代码，同时服务多平台。目前 Senparc.Weixin SDK 就是基于 NeuChar 标准在微信领域内的一个实现分支，<br />" +
                 "您也可以使用 NeuChar 扩展到更多的平台。<br />" +
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"

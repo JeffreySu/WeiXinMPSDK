@@ -260,6 +260,25 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+
+        #region 客户标签管理
+
+        #region 管理企业标签
+
+
+
+        #endregion
+
+        #region 编辑客户企业标签
+
+
+
+        #endregion
+
+
+        #endregion
+
+
         #endregion
 
 

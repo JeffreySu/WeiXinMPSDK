@@ -60,7 +60,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
         /// <summary>
         /// 如果数组大小等于2 ，第一个表示之前申请成功的类目，第二个表示当前正在审核中的类目
         /// </summary>
-        public IList<Categories> categories { get; set; } = new List<Categories>();
+        public List<Categories> categories { get; set; } = new List<Categories>();
     }
     [Serializable]
     public class Categories

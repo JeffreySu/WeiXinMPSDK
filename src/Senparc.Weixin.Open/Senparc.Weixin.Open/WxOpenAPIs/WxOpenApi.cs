@@ -97,7 +97,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.AddCategory", true)]
-        public static WxJsonResult AddCategory(string accessToken, IList<AddCategoryData> addCategoryData)
+        public static WxJsonResult AddCategory(string accessToken, List<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
             var data = new
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.ModifyCategory", true)]
         public static WxJsonResult ModifyCategory(string accessToken, int first, int second,
-            IList<KeyValuePair<string, string>> certicates)
+            List<KeyValuePair<string, string>> certicates)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/modifycategory?access_token={accessToken.AsUrlData()}";
             var data = new
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <param name="addCategoryData">添加类目参数</param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.AddCategoryAsync", true)]
-        public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, IList<AddCategoryData> addCategoryData)
+        public static async Task<WxJsonResult> AddCategoryAsync(string accessToken, List<AddCategoryData> addCategoryData)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/addcategory?access_token={accessToken.AsUrlData()}";
             var data = new
@@ -242,7 +242,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Open, "WxOpenApi.ModifyCategoryAsync", true)]
         public static async Task<WxJsonResult> ModifyCategoryAsync(string accessToken, int first, int second,
-            IList<KeyValuePair<string, string>> certicates)
+            List<KeyValuePair<string, string>> certicates)
         {
             var url = $"{Config.ApiMpHost}/cgi-bin/wxopen/modifycategory?access_token={accessToken.AsUrlData()}";
             var data = new

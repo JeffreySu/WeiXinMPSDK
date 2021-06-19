@@ -17,7 +17,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppJson
     [Serializable]
     public class Service_Infos
     {
-        public IList<Service> srvice_infos { get; set; } = new List<Service>();
+        public List<Service> srvice_infos { get; set; } = new List<Service>();
     }
     [Serializable]
     public class Service

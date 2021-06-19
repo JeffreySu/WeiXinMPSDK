@@ -163,7 +163,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.UpdateIndex", true)]
-        public static WxJsonResult UpdateIndex(string accessTokenOrAppId, string env, string collection_name, IEnumerable<CreateIndex> create_indexes, IEnumerable<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult UpdateIndex(string accessTokenOrAppId, string env, string collection_name, List<CreateIndex> create_indexes, List<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -420,7 +420,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDownloadFile", true)]
-        public static WxDownloadFileJsonResult BatchDownloadFile(string accessTokenOrAppId, string env, IEnumerable<FileItem> file_list, int timeOut = Config.TIME_OUT)
+        public static WxDownloadFileJsonResult BatchDownloadFile(string accessTokenOrAppId, string env, List<FileItem> file_list, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -443,7 +443,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDeleteFile", true)]
-        public static WxDeleteFileJsonResult BatchDeleteFile(string accessTokenOrAppId, string env, IEnumerable<string> fileid_list, int timeOut = Config.TIME_OUT)
+        public static WxDeleteFileJsonResult BatchDeleteFile(string accessTokenOrAppId, string env, List<string> fileid_list, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -593,7 +593,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.UpdateIndexAsync", true)]
-        public static async Task<WxJsonResult> UpdateIndexAsync(string accessTokenOrAppId, string env, string collection_name, IEnumerable<CreateIndex> create_indexes, IEnumerable<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> UpdateIndexAsync(string accessTokenOrAppId, string env, string collection_name, List<CreateIndex> create_indexes, List<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -850,7 +850,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDownloadFileAsync", true)]
-        public static async Task<WxDownloadFileJsonResult> BatchDownloadFileAsync(string accessTokenOrAppId, string env, IEnumerable<FileItem> file_list, int timeOut = Config.TIME_OUT)
+        public static async Task<WxDownloadFileJsonResult> BatchDownloadFileAsync(string accessTokenOrAppId, string env, List<FileItem> file_list, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -873,7 +873,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "TcbApi.BatchDeleteFileAsync", true)]
-        public static async Task<WxDeleteFileJsonResult> BatchDeleteFileAsync(string accessTokenOrAppId, string env, IEnumerable<string> fileid_list, int timeOut = Config.TIME_OUT)
+        public static async Task<WxDeleteFileJsonResult> BatchDeleteFileAsync(string accessTokenOrAppId, string env, List<string> fileid_list, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

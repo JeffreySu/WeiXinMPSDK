@@ -23,7 +23,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// result[0]是省 result[1]是市 result[2]是区
         /// </summary>
-        public List<District>[] result { get; set; }
+        public List<District> result { get; set; }
+        //public List<District>[] result { get; set; }
     }
 
     /// <summary>

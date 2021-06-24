@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.CLI
 {
-    [Command(Name = "weixin", Description = "微信接口辅助工具")]
+    [Command(Name = "weixin", Description = "微信开发辅助工具")]
     [HelpOption("-h|--help")]
     class Program
     {

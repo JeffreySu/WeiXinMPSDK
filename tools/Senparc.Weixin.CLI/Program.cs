@@ -180,7 +180,7 @@ namespace Senparc.Weixin.CLI
                 for (int i = 0; i < result.ApiItemList.Count(); i++)
                 {
                     var item = result.ApiItemList.ElementAt(i);
-                    WriteColorLine($"[{i:###}] \t{GetFirstLineOfSummary(item.Summary)}", ConsoleColor.Green);
+                    WriteColorLine($"[{i}] \t{GetFirstLineOfSummary(item.Summary)}", ConsoleColor.Green);
                     Console.WriteLine($"\t\t方法：{item.FullMethodName}");
                     //Console.WriteLine($"\t\t参数：{item.ParamsPart}");
                 }

@@ -451,7 +451,6 @@ namespace Senparc.Weixin.MP
     //}
 
     /// <summary>
-    /// <summary>
     /// 上传媒体文件类型
     /// </summary>
     public enum UploadMediaFileType
@@ -700,7 +699,7 @@ namespace Senparc.Weixin.MP
         FIELD_NAME_TYPE_MILEAGE = 5,
 
         /// <summary>
-        /// 未知类型（新加入，文档中没有：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272）
+        /// 未知类型（新加入，文档中没有：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1451025272"/>）
         /// </summary>
         FIELD_NAME_TYPE_UNKNOW = -1
     }

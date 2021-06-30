@@ -49,6 +49,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：WangDrama - 20200430
     修改描述：v6.7.502 新增企业微信状态码转换失败判断
 
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加对企业微信状态码 WorkJsonResult 的判断
+
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;

@@ -32,6 +32,9 @@
     修改标识：gokeiyou - 20201013
     修改描述：v3.7.604 添加外部联系人管理 > 客户管理相关接口
 
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 Event.CHANGE_EXTERNAL_CHAT 和 Event.LIVING_STATUS_CHANGE 枚举
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work

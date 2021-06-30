@@ -1,9 +1,16 @@
-﻿using Senparc.Weixin.Entities;
-using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：GetUserBehaviorDataParam.cs
+    文件功能描述：获取「联系客户统计」数据 接口请求参数
+    
+    
+    创建标识：WangDrama - 20210630
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
 {
@@ -53,7 +60,7 @@ userid和partyid不可同时为空;
         public long end_time { get; set; }
     }
 
-    public class GetUserBehaviorDataListResult: WorkJsonResult
+    public class GetUserBehaviorDataListResult : WorkJsonResult
     {
         public List<BehaviorData> behavior_data { get; set; }
         /*

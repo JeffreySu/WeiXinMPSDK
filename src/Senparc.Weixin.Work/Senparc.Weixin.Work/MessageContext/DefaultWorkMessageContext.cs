@@ -16,6 +16,9 @@
     修改标识：jiehanlin - 20200430
     修改描述：v3.7.502 添加客户群变更事件推送（CHANGE_EXTERNAL_CHAT）
 
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 CHANGE_EXTERNAL_CHAT 对 ChangeType 的判断
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;

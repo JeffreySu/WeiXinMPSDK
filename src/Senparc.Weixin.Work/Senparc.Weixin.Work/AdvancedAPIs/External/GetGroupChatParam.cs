@@ -1,12 +1,22 @@
-﻿using Senparc.Weixin.Entities;
-using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：GetGroupChatParam.cs
+    文件功能描述：获取「群聊数据统计」数据 按群主聚合的方式 接口请求参数
+    
+    
+    创建标识：WangDrama - 20210630
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
 {
+    /// <summary>
+    /// 获取「群聊数据统计」数据 按群主聚合的方式 接口请求参数
+    /// </summary>
     public class GetGroupChatParam
     {
         public long day_begin_time { get; set; }
@@ -15,7 +25,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// <summary>
         /// 如果不填，表示获取应用可见范围内全部群主的数据（但是不建议这么用，如果可见范围人数超过1000人，为了防止数据包过大，会报错 81017）是   群主ID列表。最多100个
         /// </summary>
-
         public GroupChatOwnerFilter owner_filter { get; set; }
 
         /// <summary>
@@ -44,7 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         public string[] userid_list { get; set; }
     }
 
-    public class GetGroupChatListResult: WorkJsonResult
+    public class GetGroupChatListResult : WorkJsonResult
     {
         /// <summary>
         /// 命中过滤条件的记录总个数

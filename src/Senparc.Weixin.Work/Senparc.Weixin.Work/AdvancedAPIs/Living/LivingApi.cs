@@ -1,10 +1,17 @@
-﻿using Senparc.NeuChar;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：LivingApi.cs
+    文件功能描述：群直播接口
+    
+    
+    创建标识：WangDrama - 20210630
+
+----------------------------------------------------------------*/
+
+using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Work.AdvancedAPIs.Living.LivingJson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.Living
@@ -104,7 +111,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format(Config.ApiWorkHost + "/cgi-bin/living/get_living_info?access_token={0}&livingid={1}", accessToken, livingid);
-                return await CommonJsonSend.SendAsync<GetUserLivingInfoResponse > (null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
+                return await CommonJsonSend.SendAsync<GetUserLivingInfoResponse>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
         /// <summary>
@@ -129,7 +136,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
                 return await CommonJsonSend.SendAsync<GetUserLivingWatchStateResponse>(null, url, para, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
-        
+
         #endregion
     }
 }

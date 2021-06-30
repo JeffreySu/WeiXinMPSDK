@@ -1,30 +1,40 @@
-﻿using Senparc.Weixin.Entities;
-using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：GetUserLivingRequest.cs
+    文件功能描述：获取指定成员的所有直播ID 接口请求参数
+    
+    
+    创建标识：WangDrama - 20210630
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.Living.LivingJson
 {
+    /// <summary>
+    /// 获取指定成员的所有直播ID 接口请求参数
+    /// </summary>
     public class GetUserLivingRequest
     {
         /// <summary>
-        /// 是	企业成员的userid
+        /// 企业成员的userid。必填：是	
         /// </summary>
         public string userid { get; set; }
         /// <summary>
-        /// 否	上一次调用时返回的next_cursor，第一次拉取可以不填
+        /// 上一次调用时返回的next_cursor，第一次拉取可以不填。必填：否
         /// </summary>
         public string cursor { get; set; }
         /// <summary>
-        /// 否	每次拉取的数据量，默认值和最大值都为100
+        /// 每次拉取的数据量，默认值和最大值都为100，必填：否
         /// </summary>
-        public int limit { get; set; }
+        public int limit { get; set; } = 100;
 
     }
 
-    public class GetUserLivingResponse: WorkJsonResult
+    public class GetUserLivingResponse : WorkJsonResult
     {
         /// <summary>
         /// 当前数据最后一个key值，如果下次调用带上该值则从该key值往后拉，用于实现分页拉取，返回空字符串代表已经是最后一页

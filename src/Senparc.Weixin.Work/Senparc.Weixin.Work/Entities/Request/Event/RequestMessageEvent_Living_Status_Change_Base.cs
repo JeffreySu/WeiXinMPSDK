@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：RequestMessageEvent_Living_Status_Change_Base.cs
+    文件功能描述：直播回调事件
+    
+    
+    创建标识：WangDrama - 20210630
+
+----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.Entities.Request.Event
 {
     /// <summary>
     /// 直播回调事件
     /// </summary>
-    public class RequestMessageEvent_Living_Status_Change_Base: RequestMessageEventBase
+    public class RequestMessageEvent_Living_Status_Change_Base : RequestMessageEventBase
     {
         public override Work.Event Event
         {

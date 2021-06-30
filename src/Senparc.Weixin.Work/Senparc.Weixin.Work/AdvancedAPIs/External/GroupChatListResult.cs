@@ -26,6 +26,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：lishewen - 20200318
+
+
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加：外部联系人 - 客户群统计+联系客户+群直播+客户群事件 相关功能
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

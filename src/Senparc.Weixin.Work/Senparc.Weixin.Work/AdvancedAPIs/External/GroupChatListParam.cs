@@ -54,9 +54,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// </summary>
         public Owner_Filter owner_filter { get; set; }
         /// <summary>
-        /// 分页，偏移量
+        /// 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填
         /// </summary>
-        public int offset { get; set; }
+        public string cursor { get; set; }
         /// <summary>
         /// 分页，预期请求的数据量，取值范围 1 ~ 1000s
         /// </summary>

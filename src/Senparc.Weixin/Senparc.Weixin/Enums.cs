@@ -677,6 +677,7 @@ namespace Senparc.Weixin
     /// </summary>
     public enum ReturnCode_Work
     {
+        SenparcWeixinSDK配置错误 = -99,
 #pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         系统繁忙 = -1,
         请求成功 = 0,

@@ -171,7 +171,24 @@ namespace Senparc.Weixin.Work.MessageContexts
                             }
                             break;
                         case "CHANGE_EXTERNAL_CHAT"://客户群变更事件推送
-                            requestMessage = new RequestMessageEvent_Change_External_Chat();
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "CREATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Create();
+                                    break;
+                                case "UPDATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("UpdateDetail").Value);
+                                    break;
+                                case "DISMISS":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Dismiss();
+                                    break;
+                                default://其他意外类型（也可以选择抛出异常）
+                                    requestMessage = new RequestMessageEventBase();
+                                    break;
+                            }
+                            break;
+                        case "LIVING_STATUS_CHANGE"://直播回调事件(living_status_change)
+                            requestMessage = new RequestMessageEvent_Living_Status_Change_Base();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

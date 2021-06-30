@@ -153,7 +153,11 @@ namespace Senparc.Weixin.Work
         /// <summary>
         /// 客户群变更事件
         /// </summary>
-        CHANGE_EXTERNAL_CHAT
+        CHANGE_EXTERNAL_CHAT,
+        /// <summary>
+        /// 直播回调事件
+        /// </summary>
+        LIVING_STATUS_CHANGE,
     }
 
     public enum ThirdPartyInfo

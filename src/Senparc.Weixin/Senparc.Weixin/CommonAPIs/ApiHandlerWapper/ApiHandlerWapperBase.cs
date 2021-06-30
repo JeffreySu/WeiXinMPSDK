@@ -79,6 +79,10 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
             {
                 (result as WxJsonResult).errcode = ReturnCode.SenparcWeixinSDK配置错误;
             }
+            if (result is WorkJsonResult)
+            {
+                (result as WorkJsonResult).errcode = ReturnCode_Work.SenparcWeixinSDK配置错误;
+            }
             return result;
         }
 

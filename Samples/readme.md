@@ -18,7 +18,7 @@
 
 ## 帮你选择
 
-> 如果你希望学习并使用最新的 .NET 6（preview）框架，并且已经安装了 VS2019（v16.9以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
+> 如果你希望学习并使用最新的 .NET 6（preview）框架，并且已经安装了 VS2019（v16.9 以上），并且希望调试 .NET 6.0 及以上版本，那么请打开：net6-mvc/Senparc.Weixin.Sample.Net6.sln 解决方案
 
 > 如果你已经安装了 VS2019（v16.3以上），并且希望调试 .NET Core 3.0 及以上版本，那么请打开：netcore3.0-mvc/Senparc.Weixin.Sample.NetCore3.vs2019.sln 解决方案
 

@@ -9,7 +9,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Tester
 {
     public class MemberAuthJsonResult: WxJsonResult
     {
-        public IList<MemberAuthItem> members { get; set; }
+        public List<MemberAuthItem> members { get; set; }
     }
 
     public class MemberAuthItem

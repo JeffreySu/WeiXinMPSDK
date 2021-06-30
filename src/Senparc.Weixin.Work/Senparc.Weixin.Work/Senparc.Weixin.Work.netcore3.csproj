@@ -5,7 +5,7 @@
     <Version>3.8.400</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
 			微信公众账号 - 企业微信 模块
 
@@ -235,7 +235,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.netcore3.csproj" />

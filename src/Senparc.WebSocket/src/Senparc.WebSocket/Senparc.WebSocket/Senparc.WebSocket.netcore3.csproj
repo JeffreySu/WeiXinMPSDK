@@ -4,7 +4,7 @@
     <Version>0.11.400</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - WebSocket 模块
 
@@ -123,7 +123,7 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="1.4.300.3-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.4.400" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>

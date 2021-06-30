@@ -4,7 +4,7 @@
     <Version>0.2.400</Version>
     <AssemblyName>Senparc.Weixin.MP.Middleware</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.Middleware</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - Senparc.Weixin.MP.Middleware 模块
 
@@ -82,7 +82,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.100.10-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar.AspNet" Version="0.4.400" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />

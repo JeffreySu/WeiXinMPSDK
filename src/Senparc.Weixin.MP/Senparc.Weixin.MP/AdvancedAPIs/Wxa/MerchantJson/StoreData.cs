@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 店铺列表
         /// </summary>
-        public IEnumerable<StoreBaseData> business_list { get; set; }
+        public List<StoreBaseData> business_list { get; set; }
         /// <summary>
         /// 店铺总数
         /// </summary>

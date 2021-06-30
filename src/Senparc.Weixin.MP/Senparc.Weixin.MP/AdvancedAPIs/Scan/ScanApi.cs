@@ -249,7 +249,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <summary>
         /// 获取商品二维码
-        /// 官方文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455872062
+        /// 官方文档地址：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1455872062"/> 
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keystr">商品编码内容</param>
@@ -481,7 +481,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <summary>
         /// 【异步方法】获取商品二维码
-        /// 官方文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455872062
+        /// 官方文档地址：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1455872062"/> 
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keystr">商品编码内容</param>

@@ -4,7 +4,7 @@
     <Version>7.6.400</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - Senparc.Weixin.MP.MvcExtension 模块
 
@@ -163,7 +163,7 @@
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.AspNet\Senparc.Weixin.AspNet.netcore3.csproj" />

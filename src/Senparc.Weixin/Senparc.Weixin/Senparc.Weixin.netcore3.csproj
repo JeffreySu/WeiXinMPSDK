@@ -5,7 +5,7 @@
     <Version>6.8.400</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
-    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <!-- <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
     <Description>
       微信公众账号 - Senparc.Weixin SDK 基础模块
 
@@ -359,8 +359,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Senparc.CO2NET" Version="1.4.300.3-preview2.net6p.3.21201.4" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.100.6-preview2.net6p.3.21201.4" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.4.400" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />

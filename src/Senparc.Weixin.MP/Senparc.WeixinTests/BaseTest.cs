@@ -59,7 +59,7 @@ namespace Senparc.WeixinTests
             register = RegisterService.Start(senparcSetting);
 #endif
 
-            //Func<IList<IDomainExtensionCacheStrategy>> func = () =>
+            //Func<List<IDomainExtensionCacheStrategy>> func = () =>
             //{
             //    var list = new List<IDomainExtensionCacheStrategy>();
             //    list.Add(LocalContainerCacheStrategy.Instance);

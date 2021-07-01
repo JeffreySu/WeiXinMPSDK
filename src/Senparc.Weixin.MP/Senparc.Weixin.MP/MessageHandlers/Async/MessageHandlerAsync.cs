@@ -174,7 +174,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             */
 
             //#endregion
-            if (CancelExcute)
+            if (CancelExecute)
             {
                 return;
             }

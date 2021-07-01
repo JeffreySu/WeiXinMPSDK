@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         /// <summary>
         /// 获取URL：一次性订阅消息，第一步引导用户打开链接进行授权
-        /// 文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1500374289_66bvB
+        /// 文档地址：<see href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1500374289_66bvB"/>
         /// </summary>
         /// <param name="appId">公众号的唯一标识</param>
         /// <param name="scene">重定向后会带上scene参数，开发者可以填0-10000的整形值，用来标识订阅场景值</param>

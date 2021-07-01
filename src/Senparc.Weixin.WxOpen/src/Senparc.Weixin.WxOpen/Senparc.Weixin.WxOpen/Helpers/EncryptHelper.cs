@@ -222,7 +222,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// <returns></returns>
         public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
         {
-            var aesCipher = Convert.FromBase64String(encryptedData);
+            //var aesCipher = Convert.FromBase64String(encryptedData);
             var aesKey = Convert.FromBase64String(sessionKey);
             var aesIV = Convert.FromBase64String(iv);
 

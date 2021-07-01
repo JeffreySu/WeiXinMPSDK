@@ -16,6 +16,9 @@
     修改标识：jiehanlin - 20200430
     修改描述：v3.7.502 添加客户群变更事件推送（CHANGE_EXTERNAL_CHAT）
 
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 CHANGE_EXTERNAL_CHAT 对 ChangeType 的判断
+
 ----------------------------------------------------------------*/
 
 using Senparc.NeuChar;
@@ -171,7 +174,24 @@ namespace Senparc.Weixin.Work.MessageContexts
                             }
                             break;
                         case "CHANGE_EXTERNAL_CHAT"://客户群变更事件推送
-                            requestMessage = new RequestMessageEvent_Change_External_Chat();
+                            switch (doc.Root.Element("ChangeType").Value.ToUpper())
+                            {
+                                case "CREATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Create();
+                                    break;
+                                case "UPDATE":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Update(doc.Root.Element("UpdateDetail").Value);
+                                    break;
+                                case "DISMISS":
+                                    requestMessage = new RequestMessageEvent_Change_External_Chat_Dismiss();
+                                    break;
+                                default://其他意外类型（也可以选择抛出异常）
+                                    requestMessage = new RequestMessageEventBase();
+                                    break;
+                            }
+                            break;
+                        case "LIVING_STATUS_CHANGE"://直播回调事件(living_status_change)
+                            requestMessage = new RequestMessageEvent_Living_Status_Change_Base();
                             break;
                         default://其他意外类型（也可以选择抛出异常）
                             requestMessage = new RequestMessageEventBase();

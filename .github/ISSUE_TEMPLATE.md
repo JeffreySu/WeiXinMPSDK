@@ -26,6 +26,8 @@
 - [ ] Senparc.Weixin.WxOpen 版本：
 - [ ] Senparc.Weixin.Cache.Redis 版本：
 - [ ] Senparc.Weixin.Cache.Memcached 版本：
+- [ ] Senparc.Weixin.Tenpay 版本：
+- [ ] Senparc.WebSocket 版本：
 - [ ] 其他模块：
 
 
@@ -38,6 +40,7 @@
 - [ ] .net core 1.x
 - [ ] .net core 2.x
 - [x] .net core 3.x
+- [ ] .net 5.x / 6.x
 
 ##### 开发环境
 

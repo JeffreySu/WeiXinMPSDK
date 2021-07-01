@@ -30,6 +30,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190917
     修改描述：v3.6.0 支持新版本 MessageHandler 和 WeixinContext，支持使用分布式缓存储存上下文消息
 
+    修改标识：Senparc - 20210422
+    修改描述：v3.10.401 升级 MessageApi.SendSubscribe() 方法参数
 
 ----------------------------------------------------------------*/
 
@@ -63,10 +65,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="templateId">所需下发的订阅模板id</param>
         /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
         /// <param name="page">点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。</param>
+        /// <param name="miniprogramState">跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版</param>
+        /// <param name="lang">进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "MessageApi.SendSubscribe", true)]
-        public static WxJsonResult SendSubscribe(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendSubscribe(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null,
+            string miniprogramState = null, string lang = null, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -76,9 +81,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                     touser = toUser,
                     template_id = templateId,
                     page = page,
-                    data = data
+                    data = data,
+                    miniprogram_state = miniprogramState,
+                    lang = lang
                 };
-                return CommonJsonSend.Send(accessToken, urlFormat, submitData, timeOut: timeOut);
+                return CommonJsonSend.Send(accessToken, urlFormat, submitData, timeOut: timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting() { IgnoreNulls = true });
 
             }, accessTokenOrAppId);
         }
@@ -95,10 +102,13 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="templateId">所需下发的订阅模板id</param>
         /// <param name="data">模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }</param>
         /// <param name="page">点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。</param>
+        /// <param name="miniprogramState">跳转小程序类型：developer为开发版；trial为体验版；formal为正式版；默认为正式版</param>
+        /// <param name="lang">进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "MessageApi.SendSubscribe", true)]
-        public static async Task<WxJsonResult> SendSubscribeAsync(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendSubscribeAsync(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null,
+            string miniprogramState = null, string lang = null, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -108,10 +118,12 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
                     touser = toUser,
                     template_id = templateId,
                     page = page,
-                    data = data
+                    data = data,
+                    miniprogram_state = miniprogramState,
+                    lang = lang
                 };
 
-                return await CommonJsonSend.SendAsync(accessToken, urlFormat, submitData, timeOut: timeOut);
+                return await CommonJsonSend.SendAsync(accessToken, urlFormat, submitData, timeOut: timeOut, jsonSetting: new CO2NET.Helpers.Serializers.JsonSetting() { IgnoreNulls = true });
 
             }, accessTokenOrAppId);
         }

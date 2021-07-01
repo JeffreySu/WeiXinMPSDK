@@ -187,7 +187,6 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers.WxOpen
             {
                 return Json(new { success = false, msg = ex.Message });
             }
-
         }
 
         [HttpPost]
@@ -357,7 +356,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(WxOpenAppId, Config.SenparcWeixinSetting.TenPayV3_MchId, body, sp_billno,
                     price, HttpContext.UserHostAddress().ToString(), Config.SenparcWeixinSetting.TenPayV3_WxOpenTenpayNotify, TenPay.TenPayV3Type.JSAPI, openId, Config.SenparcWeixinSetting.TenPayV3_Key, nonceStr);
 
-                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+                var result = Senparc.Weixin.TenPay.V3.TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
                 WeixinTrace.SendCustomLog("统一订单接口调用结束", "请求：" + xmlDataInfo.ToJson() + "\r\n\r\n返回结果：" + result.ToJson());
 
@@ -378,7 +377,7 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                     nonceStr,
                     package = packageStr,
                     //signType = "MD5",
-                    paySign = TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
+                    paySign = Senparc.Weixin.TenPay.V3.TenPayV3.GetJsPaySign(WxOpenAppId, timeStamp, nonceStr, packageStr, Config.SenparcWeixinSetting.TenPayV3_Key)
                 });
             }
             catch (Exception ex)
@@ -491,8 +490,8 @@ sessionKey: { (await SessionContainer.CheckRegisteredAsync(sessionId)
                 }
 
                 var wxOpenAppId = Senparc.Weixin.Config.SenparcWeixinSetting.WxOpenSetting.WxOpenAppId;
-                var jumpWxa = new Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
-                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync(wxOpenAppId, jumpWxa, false, null);
+                var jumpWxa = new Senparc.Weixin.WxOpen.AdvancedAPIs.UrlScheme.GenerateSchemeJumpWxa("", "");
+                var schmeResult = await Senparc.Weixin.WxOpen.AdvancedAPIs.UrlSchemeApi.GenerateSchemeAsync                             (wxOpenAppId, jumpWxa, false, null);
                 message = schmeResult.openlink;
                 ViewData["Success"] = true;
             }

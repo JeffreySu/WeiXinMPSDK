@@ -29,10 +29,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
-        protected override void OnResultExecuting(ResultExecutingContext filterContext)
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            //给模板页 footer 输出使用，根据实际需要配置
             ViewData["CacheType"] = CO2NET.Cache.CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType().Name;
-            base.OnResultExecuting(filterContext);
+            base.OnActionExecuting(filterContext);
         }
     }
 }

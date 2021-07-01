@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 类目信息集合
         /// </summary>
-        public IEnumerable<MerchantCategory> categories { get; set; }
+        public List<MerchantCategory> categories { get; set; }
     }
     /// <summary>
     /// 类目信息
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
         /// <summary>
         /// 子级类目id
         /// </summary>
-        public IEnumerable<int> children { get; set; }
+        public List<int> children { get; set; }
         /// <summary>
         /// 父级类目Id
         /// </summary>
@@ -80,12 +80,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Wxa.MerchantJson
 
     public class QualifyInner_list
     {
-        public IEnumerable<QualifyValue> inner_list { get; set; }
+        public List<QualifyValue> inner_list { get; set; }
     }
 
     public class QualifyExter_list
     {
-        public IEnumerable<QualifyInner_list> exter_list { get; set; }
+        public List<QualifyInner_list> exter_list { get; set; }
     }
 
 

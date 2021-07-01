@@ -1,0 +1,9 @@
+<!--pages/Login/Login.wxml-->
+<view class="auth-notice">
+      <text class="auth-notice">您好，</text><open-data type="userNickName" id="login-nickname"></open-data>，
+      <text class="auth-notice">当前小程序为 Senparc.Weixin SDK 的功能体验小程序，包括了订阅消息、获取用户授权信息、手机号、WebSocket、客服消息等演示内容，大部分内容需要授权后进行，点击【获取头像昵称】按钮进行授权，才能进入测试页面。</text>
+      <text class="auth-notice">如果您不希望授权，请直接关闭此页面。</text>
+      <!-- 2021.4.13 后发布不支持 -->
+      <!-- <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button> -->
+      <button class="auth-btn" bindtap="getUserInfo"> 获取头像昵称 </button>
+</view>

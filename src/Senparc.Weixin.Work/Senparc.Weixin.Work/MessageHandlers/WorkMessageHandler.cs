@@ -54,6 +54,9 @@
     修改标识：Billzjh - 20201210
     修改描述：v3.8.101 添加 OnThirdPartyEvent_REGISTER_CORP() 事件
 
+    修改标识：WangDrama - 20210630
+    修改描述：v3.9.600 添加 RequestMessageEvent_Change_External_Chat_Base 事件中 ChangeType 的判断
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -82,7 +85,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IWorkResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public  abstract partial class WorkMessageHandler<TMC>
+    public abstract partial class WorkMessageHandler<TMC>
         : MessageHandler<TMC, IWorkRequestMessageBase, IWorkResponseMessageBase>, IWorkMessageHandler
         where TMC : class, IMessageContext<IWorkRequestMessageBase, IWorkResponseMessageBase>, new()
     {
@@ -184,13 +187,13 @@ namespace Senparc.Weixin.Work.MessageHandlers
         public override ApiEnlightener ApiEnlightener { get { return WorkApiEnlightener.Instance; } }
 
 
-        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
-            : base(inputStream, postModel, maxRecordCount)
+        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(inputStream, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
-        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
-            : base(requestDocument, postModel, maxRecordCount)
+        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0, IServiceProvider serviceProvider = null)
+            : base(requestDocument, postModel, maxRecordCount, serviceProvider: serviceProvider)
         {
         }
 
@@ -223,7 +226,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
             if (result != 0)
             {
                 //验证没有通过，取消执行
-                CancelExcute = true;
+                CancelExecute = true;
                 return null;
             }
 
@@ -459,7 +462,24 @@ namespace Senparc.Weixin.Work.MessageHandlers
                     }
                     break;
                 case Event.CHANGE_EXTERNAL_CHAT://客户群变更事件
-                    responseMessage = OnEvent_ChangeExternalChatRequest(RequestMessage as RequestMessageEvent_Change_External_Chat);
+                    var cechat = RequestMessage as RequestMessageEvent_Change_External_Chat_Base;
+                    switch (cechat.ChangeType)
+                    {
+                        case ExternalChatChangeType.create:
+                            responseMessage = OnEvent_ChangeExternalChatCreateRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Create);
+                            break;
+                        case ExternalChatChangeType.update:
+                            responseMessage = OnEvent_ChangeExternalChatUpdateRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Update);
+                            break;
+                        case ExternalChatChangeType.dismiss:
+                            responseMessage = OnEvent_ChangeExternalChatDismissRequest(RequestMessage as RequestMessageEvent_Change_External_Chat_Dismiss);
+                            break;
+                        default:
+                            throw new UnknownRequestMsgTypeException("未知的客户群变更事件Event.CHANGE_EXTERNAL_CHAT下属请求信息", null);
+                    }
+                    break;
+                case Event.LIVING_STATUS_CHANGE://直播事件回调
+                    responseMessage = OnEvent_Living_Status_ChangeRequest(RequestMessage as RequestMessageEvent_Living_Status_Change_Base);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -717,12 +737,41 @@ namespace Senparc.Weixin.Work.MessageHandlers
         }
 
         /// <summary>
-        /// 客户群变更事件 推送
+        /// 客户群创建事件 推送
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatRequest(
-            RequestMessageEvent_Change_External_Chat requestMessage)
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatCreateRequest(
+            RequestMessageEvent_Change_External_Chat_Create requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 客户群变更事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatUpdateRequest(
+            RequestMessageEvent_Change_External_Chat_Update requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 客户群解散事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IWorkResponseMessageBase OnEvent_ChangeExternalChatDismissRequest(
+            RequestMessageEvent_Change_External_Chat_Dismiss requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public virtual IWorkResponseMessageBase OnEvent_Living_Status_ChangeRequest(
+            RequestMessageEvent_Living_Status_Change_Base requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "ScheduleApi.Get", true)]
-        public static GetScheduleJsonResult Get(string accessTokenOrAppKey, IEnumerable<string> schedule_id_list, int timeOut = Config.TIME_OUT)
+        public static GetScheduleJsonResult Get(string accessTokenOrAppKey, List<string> schedule_id_list, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [ApiBind(NeuChar.PlatformType.WeChat_Work, "ScheduleApi.GetAsync", true)]
-        public static async Task<GetScheduleJsonResult> GetAsync(string accessTokenOrAppKey, IEnumerable<string> schedule_id_list, int timeOut = Config.TIME_OUT)
+        public static async Task<GetScheduleJsonResult> GetAsync(string accessTokenOrAppKey, List<string> schedule_id_list, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

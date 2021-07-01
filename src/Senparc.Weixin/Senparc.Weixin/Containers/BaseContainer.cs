@@ -57,11 +57,13 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190418
     修改描述：v17.0.0 支持异步 Container
 
+    修改标识：Senparc - 20210127
+    修改描述：RegisterFuncCollection 改为 ConcurrentDictionary 类型
+
 ----------------------------------------------------------------*/
 
-
-
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -178,7 +180,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 进行注册过程的委托集合
         /// </summary>
-        protected static Dictionary<string, Func<Task<TBag>>> RegisterFuncCollection { get; set; } = new Dictionary<string, Func<Task<TBag>>>(StringComparer.OrdinalIgnoreCase);
+        protected static ConcurrentDictionary<string, Func<Task<TBag>>> RegisterFuncCollection { get; set; } = new ConcurrentDictionary<string, Func<Task<TBag>>>(StringComparer.OrdinalIgnoreCase);
         //TODO:同一个 appId 可能会对应 AccessToken、JsTicket 等多种 Container 情况。
 
 

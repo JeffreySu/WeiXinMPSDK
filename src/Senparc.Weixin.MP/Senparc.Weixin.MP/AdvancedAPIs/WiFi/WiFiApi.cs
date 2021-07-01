@@ -488,13 +488,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         /// 设置门店卡券投放信息
-
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardDescribe">卡券描述，不能超过18个字符</param>
-        ///<param name="starTime">卡券投放开始时间（单位是秒）</param>
+        /// <param name="starTime">卡券投放开始时间（单位是秒）</param>
         /// <param name="endTime">卡券投放结束时间（单位是秒）注：不能超过卡券的有效期时间</param>
         /// <param name="cardQuantity">卡券库存</param>
         /// <param name="timeOut"></param>
@@ -926,7 +925,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         ///【异步方法】 设置微信首页欢迎语
-
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
@@ -954,7 +952,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         ///【异步方法】 设置连网完成页
-
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
@@ -1012,13 +1009,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         ///【异步方法】 设置门店卡券投放信息
-
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardDescribe">卡券描述，不能超过18个字符</param>
-        ///<param name="starTime">卡券投放开始时间（单位是秒）</param>
+        /// <param name="starTime">卡券投放开始时间（单位是秒）</param>
         /// <param name="endTime">卡券投放结束时间（单位是秒）注：不能超过卡券的有效期时间</param>
         /// <param name="cardQuantity">卡券库存</param>
         /// <param name="timeOut"></param>

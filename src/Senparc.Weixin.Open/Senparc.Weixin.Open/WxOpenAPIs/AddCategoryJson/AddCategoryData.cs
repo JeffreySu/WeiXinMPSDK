@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Open.WxOpenAPIs.AddCategoryJson
         /// <summary>
         /// key：资质名称，value：资质图片
         /// </summary>
-        public IList<AddCategoryData_Certicates> certicates { get; set; }
+        public List<AddCategoryData_Certicates> certicates { get; set; }
     }
 
     public class AddCategoryData_Certicates

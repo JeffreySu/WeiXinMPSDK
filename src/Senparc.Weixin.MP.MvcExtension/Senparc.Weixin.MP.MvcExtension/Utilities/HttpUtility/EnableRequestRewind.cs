@@ -40,7 +40,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-#if !NETCOREAPP3_1
+#if NETSTANDARD2_0
 using Microsoft.AspNetCore.Http.Internal;
 #endif
 

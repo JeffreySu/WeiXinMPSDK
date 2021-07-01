@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20201209
     修改描述：v1.6.100 更新 TenPayV3UnifiedorderRequestData 构造函数，version 为空时忽略 https://github.com/JeffreySu/WeiXinMPSDK/issues/2277
 
+    修改标识：Senparc - 20210202
+    修改描述：v1.6.200.2 修复：调用分账查询接口, 结果返回"验证签名失败"问题 https://github.com/JeffreySu/WeiXinMPSDK/issues/2309
+
 ----------------------------------------------------------------*/
 
 using Newtonsoft.Json;
@@ -418,7 +421,7 @@ namespace Senparc.Weixin.TenPay.V3
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="appId"></param>
+        /// <param name="appId">按照 https://github.com/JeffreySu/WeiXinMPSDK/issues/2309 的反馈，可以输入 null</param>
         /// <param name="mchId"></param>
         /// <param name="subappid">服务商时,子商户公众账号ID</param>
         /// <param name="submchid">服务商时,子商户号</param>
@@ -455,7 +458,7 @@ namespace Senparc.Weixin.TenPay.V3
 
             //设置package订单参数
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
-            PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
+            PackageRequestHandler.SetParameterWhenNotNull("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID
             PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId);    //子商户号

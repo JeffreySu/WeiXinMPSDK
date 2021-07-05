@@ -37,6 +37,10 @@ namespace Senparc.Weixin.AspNet
             var register = app.UseSenparcGlobal(env, senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
             //注册微信
             register.UseSenparcWeixin(senparcWeixinSetting, weixinRegisterConfigure);
+
+            //ApiBind 自动扫描
+            Senparc.NeuChar.Register.RegisterApiBind(false);
+
             return register;
         }
     }

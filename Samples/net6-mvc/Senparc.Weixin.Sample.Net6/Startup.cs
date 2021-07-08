@@ -11,6 +11,7 @@ using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.WebApi.WebApiEngines;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
@@ -79,6 +80,11 @@ namespace Senparc.Weixin.Sample.NetCore3
                     ;
 
             //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
+
+            //启用 WebApi（可选）
+            var builder = services.AddMvcCore();
+            var appDataPath = ServerUtility.ContentRootMapPath("~/App_Data");
+            services.AddAndInitDynamicApi(builder, appDataPath);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -91,3 +91,4 @@ packages/
 /Samples/net6-mvc/Senparc.Weixin.Sample.Net6/App_Data/SenparcTraceLog
 /Samples/net6-mvc/Senparc.Weixin.Sample.Net6/App_Data/WeChat_OfficialAccount
 /src/BuildOutPut
+/Samples/net6-mvc/TestResults

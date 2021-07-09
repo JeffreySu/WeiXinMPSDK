@@ -53,9 +53,9 @@ namespace Senparc.Weixin.Sample.NetCore3
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
-            services.AddControllersWithViews()
-                    .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                    //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            var builder = services.AddControllersWithViews()
+                                  .AddNewtonsoftJson();// 支持 NewtonsoftJson
+                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -82,7 +82,6 @@ namespace Senparc.Weixin.Sample.NetCore3
             //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
 
             //启用 WebApi（可选）
-            var builder = services.AddMvcCore();
             var appDataPath = ServerUtility.ContentRootMapPath("~/App_Data");
             services.AddAndInitDynamicApi(builder, appDataPath);
         }

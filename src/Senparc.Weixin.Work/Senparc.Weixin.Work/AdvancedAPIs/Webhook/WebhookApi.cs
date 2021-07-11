@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="mentioned_mobile_list">手机号列表，提醒手机号对应的群成员(@某个成员)，@all表示提醒所有人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendText", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendText", true)]
         public static WorkJsonResult SendText(string key, string content, string[] mentioned_list = null, string[] mentioned_mobile_list = null, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="content">文本内容，最长不超过2048个字节，必须是utf8编码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendMarkdown", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendMarkdown", true)]
         public static WorkJsonResult SendMarkdown(string key, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="md5">图片内容（base64编码前）的md5值</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
         public static WorkJsonResult SendImage(string key, string base64, string md5, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="filepath">图片文件路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
         public static WorkJsonResult SendImage(string key, string filepath, int timeOut = Config.TIME_OUT)
         {
             FileStream file = new FileStream(filepath, FileMode.Open);
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="stream">图片流</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImage", true)]
         public static WorkJsonResult SendImage(string key, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var md5str = Senparc.CO2NET.Helpers.EncryptHelper.GetMD5(stream, false);
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="data">内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendNews", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendNews", true)]
         public static WorkJsonResult SendNews(string key, WebhookNews data, int timeOut = Config.TIME_OUT)
         {
             JsonSetting jsonSetting = new JsonSetting(true);
@@ -155,7 +155,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="mentioned_mobile_list">手机号列表，提醒手机号对应的群成员(@某个成员)，@all表示提醒所有人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendTextAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendTextAsync", true)]
         public static async Task<WorkJsonResult> SendTextAsync(string key, string content, string[] mentioned_list = null, string[] mentioned_mobile_list = null, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="content">文本内容，最长不超过2048个字节，必须是utf8编码</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendMarkdownAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendMarkdownAsync", true)]
         public static async Task<WorkJsonResult> SendMarkdownAsync(string key, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="md5">图片内容（base64编码前）的md5值</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
         public static async Task<WorkJsonResult> SendImageAsync(string key, string base64, string md5, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="filepath">图片文件路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
         public static async Task<WorkJsonResult> SendImageAsync(string key, string filepath, int timeOut = Config.TIME_OUT)
         {
             FileStream file = new FileStream(filepath, FileMode.Open);
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="stream">图片流</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendImageAsync", true)]
         public static async Task<WorkJsonResult> SendImageAsync(string key, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var md5str = Senparc.CO2NET.Helpers.EncryptHelper.GetMD5(stream, false);
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Webhook
         /// <param name="data">内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendNewsAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "WebhookApi.SendNewsAsync", true)]
         public static async Task<WorkJsonResult> SendNewsAsync(string key, WebhookNews data, int timeOut = Config.TIME_OUT)
         {
             JsonSetting jsonSetting = new JsonSetting(true);

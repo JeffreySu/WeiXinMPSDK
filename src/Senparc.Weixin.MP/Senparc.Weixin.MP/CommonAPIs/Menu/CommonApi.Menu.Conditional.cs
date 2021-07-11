@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
         /// <param name="buttonData">菜单内容</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.CreateMenuConditional", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.CreateMenuConditional", true)]
         public static CreateMenuConditionalResult CreateMenuConditional(string accessTokenOrAppId, ConditionalButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="userId">可以是粉丝的OpenID，也可以是粉丝的微信号。</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.TryMatch", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.TryMatch", true)]
         public static MenuTryMatchResult TryMatch(string accessTokenOrAppId, string userId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.DeleteMenuConditional", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "CommonApi.DeleteMenuConditional", true)]
         public static WxJsonResult DeleteMenuConditional(string accessTokenOrAppId, string menuId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>

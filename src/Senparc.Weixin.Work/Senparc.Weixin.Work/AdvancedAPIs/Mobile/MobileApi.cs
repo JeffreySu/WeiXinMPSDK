@@ -35,7 +35,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicket", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicket", true)]
         public static GetTicketResultJson GetTicket(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicket", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicket", true)]
         public static GetTicketResultJson GetJsApiTicket(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicketAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetTicketAsync", true)]
         public static async Task<GetTicketResultJson> GetTicketAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicketAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MobileApi.GetJsApiTicketAsync", true)]
         public static async Task<GetTicketResultJson> GetJsApiTicketAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

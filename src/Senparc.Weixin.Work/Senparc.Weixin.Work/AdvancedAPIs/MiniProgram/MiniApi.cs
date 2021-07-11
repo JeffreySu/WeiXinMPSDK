@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.LoginCheck", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.LoginCheck", true)]
         public static LoginCheckResultJson LoginCheck(string accessTokenOrAppKey, string code, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="code"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.ThirdLoginCheck", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.ThirdLoginCheck", true)]
         public static LoginCheckResultJson ThirdLoginCheck(string suiteAccessToken, string code, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.LoginCheckAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.LoginCheckAsync", true)]
         public static async Task<LoginCheckResultJson> LoginCheckAsync(string accessTokenOrAppKey, string code, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.ThirdLoginCheckAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "MiniApi.ThirdLoginCheckAsync", true)]
         public static async Task<LoginCheckResultJson> ThirdLoginCheckAsync(string suiteAccessToken, string code, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

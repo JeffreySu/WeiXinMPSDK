@@ -62,7 +62,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailySummaryTrend", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidDailySummaryTrendResultJson GetWeAnalysisAppidDailySummaryTrend(string accessTokenOrAppId,string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailyVisitTrend", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidDailyVisitTrendResultJson GetWeAnalysisAppidDailyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidWeeklyVisitTrend", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidWeeklyVisitTrendResultJson GetWeAnalysisAppidWeeklyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidMonthlyVisitTrend", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidMonthlyVisitTrendResultJson GetWeAnalysisAppidMonthlyVisitTrend(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidVisitDistribution", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidVisitDistributionResultJson GetWeAnalysisAppidVisitDistribution(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailyRetainInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidDailyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -197,7 +197,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidWeeklyRetainInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidWeeklyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidMonthlyRetainInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static CommonGetWeAnalysisAppidRetainInfoResultJson GetWeAnalysisAppidMonthlyRetainInfo(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170313</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidVisitPage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidVisitPageResultJson GetWeAnalysisAppidVisitPage(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -269,7 +269,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，开始日期与结束日期相差的天数限定为0/6/29，分别表示查询最近1/7/30天数据，end_date允许设置的最大值为昨日，如：2017-06-17</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidUserPortrait", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GetWeAnalysisAppidUserPortraitResultJson GetWeAnalysisAppidUserPortrait(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailySummaryTrendAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidDailySummaryTrendResultJson> GetWeAnalysisAppidDailySummaryTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -321,7 +321,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailyVisitTrendAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidDailyVisitTrendResultJson> GetWeAnalysisAppidDailyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -341,7 +341,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidWeeklyVisitTrendAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidWeeklyVisitTrendResultJson> GetWeAnalysisAppidWeeklyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -360,7 +360,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidMonthlyVisitTrendAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidMonthlyVisitTrendResultJson> GetWeAnalysisAppidMonthlyVisitTrendAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -385,7 +385,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidVisitDistributionAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidVisitDistributionResultJson> GetWeAnalysisAppidVisitDistributionAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -409,7 +409,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidDailyRetainInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidDailyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -430,7 +430,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为周日日期，限定查询一周数据，如：20170312</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidWeeklyRetainInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidWeeklyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -450,7 +450,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，为自然月最后一天，限定查询一个月数据，如：20170228</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidMonthlyRetainInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<CommonGetWeAnalysisAppidRetainInfoResultJson> GetWeAnalysisAppidMonthlyRetainInfoAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -473,7 +473,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，限定查询1天数据，end_date允许设置的最大值为昨日，如：20170313</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidVisitPageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidVisitPageResultJson> GetWeAnalysisAppidVisitPageAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -502,7 +502,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.DataCube
         /// <param name="beginDate">结束日期，开始日期与结束日期相差的天数限定为0/6/29，分别表示查询最近1/7/30天数据，end_date允许设置的最大值为昨日，如：2017-06-17</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "DataCubeApi.GetWeAnalysisAppidUserPortraitAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GetWeAnalysisAppidUserPortraitResultJson> GetWeAnalysisAppidUserPortraitAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>

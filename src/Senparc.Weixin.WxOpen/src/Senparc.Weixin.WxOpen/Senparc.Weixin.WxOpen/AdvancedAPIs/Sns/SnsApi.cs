@@ -59,7 +59,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "SnsApi.JsCode2Json", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, "SnsApi.JsCode2JsonAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             string urlFormat =

@@ -75,7 +75,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="user_desc">代码描述</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.Commit", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson Commit(string accessToken, int template_id, string ext_json, string user_version, string user_desc, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/commit?access_token={0}", accessToken.AsUrlData());
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetQRCode", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson GetQRCode(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetCategory", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetCategoryResultJson GetCategory(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_category?access_token={0}", accessToken.AsUrlData());
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetPage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetPageResultJson GetPage(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_page?access_token={0}", accessToken.AsUrlData());
@@ -153,7 +153,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="ugc_declare">用户生成内容场景（UGC）信息安全声明</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SubmitAudit", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetAuditResultJson SubmitAudit(string accessToken, List<SubmitAuditPageInfo> item_list, SubmitAuditPreviewInfo preview_info = null, string version_desc = "", string feedback_info = "", string feedback_stuff = "", SubmitAuditUgcDeclareInfo ugc_declare = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
@@ -180,7 +180,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auditid">提交审核时获得的审核id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetAuditStatus", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetAuditResultJson GetAuditStatus(string accessToken, long auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetLatestAuditStatus", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetAuditResultJson GetLatestAuditStatus(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
@@ -216,7 +216,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAudit", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson UndoCodeAudit(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
@@ -230,7 +230,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.Release", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson Release(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/release?access_token={0}", accessToken.AsUrlData());
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="action">设置可访问状态，发布后默认可访问，close为不可见，open为可见</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.ChangeVisitStatus", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson ChangeVisitStatus(string accessToken, ChangVisitStatusAction action, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
@@ -270,7 +270,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertCodeRelease", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson RevertCodeRelease(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertcoderelease?access_token={0}", accessToken.AsUrlData());
@@ -284,7 +284,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetWeappSupportVersion", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetWeappSupportVersionResultJson GetWeappSupportVersion(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/getweappsupportversion?access_token={0}", accessToken.AsUrlData());
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="version">版本</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SetWeappSupportVersion", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson SetWeappSupportVersion(string accessToken, string version, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/setweappsupportversion?access_token={0}", accessToken.AsUrlData());
@@ -319,7 +319,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="gray_percentage">灰度的百分比，1到100的整数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GrayRelease", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson GrayRelease(string accessToken, int gray_percentage, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/grayrelease?access_token={0}", accessToken.AsUrlData());
@@ -339,7 +339,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertGrayRelease", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static CodeResultJson RevertGrayRelease(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertgrayrelease?access_token={0}", accessToken.AsUrlData());
@@ -352,7 +352,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetGrayReleasePlan", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetGrayReleasePlanResultJson GetGrayReleasePlan(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
@@ -366,7 +366,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuota", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static QueryQuotaResultJson QueryQuota(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
@@ -383,7 +383,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auditid">审核单ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAudit", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static WxJsonResult SpeedupAudit(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());
@@ -409,7 +409,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="user_desc">代码描述</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.CommitAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> CommitAsync(string accessToken, int template_id, string ext_json, string user_version, string user_desc, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/commit?access_token={0}", accessToken.AsUrlData());
@@ -432,7 +432,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// </summary>
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetQRCodeAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> GetQRCodeAsync(string accessToken, Stream stream, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_qrcode?access_token={0}", accessToken.AsUrlData());
@@ -451,7 +451,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetCategoryAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetCategoryResultJson> GetCategoryAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_category?access_token={0}", accessToken.AsUrlData());
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetPageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetPageResultJson> GetPageAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_page?access_token={0}", accessToken.AsUrlData());
@@ -488,7 +488,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="ugc_declare">用户生成内容场景（UGC）信息安全声明</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SubmitAuditAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetAuditResultJson> SubmitAuditAsync(string accessToken, List<SubmitAuditPageInfo> item_list, SubmitAuditPreviewInfo preview_info= null, string version_desc = "", string feedback_info = "", string feedback_stuff = "", SubmitAuditUgcDeclareInfo ugc_declare=null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/submit_audit?access_token={0}", accessToken.AsUrlData());
@@ -516,7 +516,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auditid">提交审核时获得的审核id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetAuditStatusAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetAuditResultJson> GetAuditStatusAsync(string accessToken, long auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_auditstatus?access_token={0}", accessToken.AsUrlData());
@@ -537,7 +537,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetLatestAuditStatusAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetAuditResultJson> GetLatestAuditStatusAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/get_latest_auditstatus?access_token={0}", accessToken.AsUrlData());
@@ -559,7 +559,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.UndoCodeAuditAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> UndoCodeAuditAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/undocodeaudit?access_token={0}", accessToken.AsUrlData());
@@ -573,7 +573,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.ReleaseAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> ReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/release?access_token={0}", accessToken.AsUrlData());
@@ -593,7 +593,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="action">设置可访问状态，发布后默认可访问，close为不可见，open为可见</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.ChangeVisitStatusAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> ChangeVisitStatusAsync(string accessToken, ChangVisitStatusAction action, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/change_visitstatus?access_token={0}", accessToken.AsUrlData());
@@ -613,7 +613,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertCodeReleaseAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> RevertCodeReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertcoderelease?access_token={0}", accessToken.AsUrlData());
@@ -626,7 +626,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetWeappSupportVersionAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetWeappSupportVersionResultJson> GetWeappSupportVersionAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/getweappsupportversion?access_token={0}", accessToken.AsUrlData());
@@ -640,7 +640,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="version">版本</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SetWeappSupportVersionAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> SetWeappSupportVersionAsync(string accessToken, string version, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/wxopen/setweappsupportversion?access_token={0}", accessToken.AsUrlData());
@@ -661,7 +661,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="gray_percentage">灰度的百分比，1到100的整数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GrayReleaseAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> GrayReleaseAsync(string accessToken, int gray_percentage, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/grayrelease?access_token={0}", accessToken.AsUrlData());
@@ -681,7 +681,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.RevertGrayReleaseAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<CodeResultJson> RevertGrayReleaseAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/revertgrayrelease?access_token={0}", accessToken.AsUrlData());
@@ -694,7 +694,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken">从第三方平台获取到的该小程序授权</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.GetGrayReleasePlanAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetGrayReleasePlanResultJson> GetGrayReleasePlanAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/getgrayreleaseplan?access_token={0}", accessToken.AsUrlData());
@@ -707,7 +707,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="accessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.QueryQuotaAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<QueryQuotaResultJson> QueryQuotaAsync(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/queryquota?access_token={0}", accessToken.AsUrlData());
@@ -724,7 +724,7 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="auditid">审核单ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, "CodeApi.SpeedupAuditAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<WxJsonResult> SpeedupAuditAsync(string accessToken, int auditid, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/wxa/speedupaudit?access_token={0}", accessToken.AsUrlData());

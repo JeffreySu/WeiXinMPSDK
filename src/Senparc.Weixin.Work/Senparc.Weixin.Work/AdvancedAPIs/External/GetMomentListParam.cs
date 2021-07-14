@@ -1,12 +1,22 @@
-﻿using Senparc.Weixin.Entities;
-using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：GetMomentListParam.cs
+    文件功能描述：获取企业全部的发表内容 参数
+    
+    
+    创建标识：WangDrama - 20210714
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External
 {
+    /// <summary>
+    /// 获取企业全部的发表内容 参数
+    /// </summary>
     public class GetMomentListParam
     {
         /// <summary>
@@ -41,8 +51,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
 
     public enum FilterType
     {
-        企业发表=0,
-        个人发表=1,
+        企业发表 = 0,
+        个人发表 = 1,
         所有 = 2
     }
 
@@ -81,7 +91,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External
         /// <summary>
         /// 可见范围类型。0：部分可见 1：公开 
         /// </summary>
-        public short visible_type{ get; set; }
+        public short visible_type { get; set; }
 
         public GetMomentListText text { get; set; }
         public List<GetMomentListImage> image { get; set; }

@@ -22,6 +22,9 @@
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加：外部联系人 - 客户群统计+联系客户+群直播+客户群事件 相关功能
 
+    修改标识：WangDrama - 20210714
+    修改描述：v3.11-preview1
+
 ----------------------------------------------------------------*/
 
 /*
@@ -345,7 +348,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentList", true)]
         public static GetMomentListResult GetMomentList(string accessTokenOrAppKey, GetMomentListParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -361,7 +364,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentTask", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentTask", true)]
         public static GetMomentTaskResult GetMomentTask(string accessTokenOrAppKey, GetMomentTaskParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -639,7 +642,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentListAsync", true)]
         public static async Task<GetMomentListResult> GetMomentListAsync(string accessTokenOrAppKey, GetMomentListParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -655,7 +658,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentTaskAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetMomentTaskAsync", true)]
         public static async Task<GetMomentTaskResult> GetMomentTaskAsync(string accessTokenOrAppKey, GetMomentTaskParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.Info", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UserInfoJson Info(string accessTokenOrAppId, string openId, Language lang = Language.zh_CN)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextOpenId">第一个拉取的OPENID，不填默认从头开始拉取</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.Get", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static OpenIdResultJson Get(string accessTokenOrAppId, string nextOpenId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="remark">新的备注名，长度必须小于30字符</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.UpdateRemark", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult UpdateRemark(string accessTokenOrAppId, string openId, string remark, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchGetUserInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static BatchGetUserInfoJsonResult BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="beginOpenId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.GetBlackList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static OpenIdResultJson GetBlackList(string accessTokenOrAppId, string beginOpenId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openidList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchUnBlackList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult BatchUnBlackList(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openidList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchBlackList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult BatchBlackList(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi<OpenIdResultJson>(accessToken =>
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.InfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UserInfoJson> InfoAsync(string accessTokenOrAppId, string openId, Language lang = Language.zh_CN)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextOpenId"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.GetAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<OpenIdResultJson> GetAsync(string accessTokenOrAppId, string nextOpenId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -275,7 +275,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="remark">新的备注名，长度必须小于30字符</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.UpdateRemarkAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> UpdateRemarkAsync(string accessTokenOrAppId, string openId, string remark, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchGetUserInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<BatchGetUserInfoJsonResult> BatchGetUserInfoAsync(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -319,7 +319,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="beginOpenId">当 begin_openid 为空时，默认从开头拉取。</param>
         /// <param name="timeOut"></param>
         /// <returns>每次调用最多可拉取 10000 个OpenID</returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.GetBlackListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<OpenIdResultJson> GetBlackListAsync(string accessTokenOrAppId, string beginOpenId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>
@@ -340,7 +340,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openidList">需要移除黑名单的用户的openid，一次移除最多允许20个</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchUnBlackListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> BatchUnBlackListAsync(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>
@@ -361,7 +361,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openidList">需要拉入黑名单的用户的openid，一次拉黑最多允许20个</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "UserApi.BatchBlackListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> BatchBlackListAsync(string accessTokenOrAppId, List<string> openidList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync<OpenIdResultJson>(async accessToken =>

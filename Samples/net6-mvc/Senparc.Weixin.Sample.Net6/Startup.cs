@@ -79,12 +79,11 @@ namespace Senparc.Weixin.Sample.NetCore3
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
 
-            //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
-
-            string load = "" + typeof(Senparc.Weixin.MP.Register) + typeof(Senparc.Weixin.WxOpen.Register) + typeof(Senparc.Weixin.Open.Register);
             //启用 WebApi（可选）
-            var appDataPath = ServerUtility.ContentRootMapPath("~/App_Data");
-            services.AddAndInitDynamicApi(builder, appDataPath);
+            services.AddAndInitDynamicApi(builder, ServerUtility.ContentRootMapPath("~/App_Data"));
+
+            //此处可以添加更多 Cert 证书
+            //services.AddCertHttpClient("name", "pwd", "path");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

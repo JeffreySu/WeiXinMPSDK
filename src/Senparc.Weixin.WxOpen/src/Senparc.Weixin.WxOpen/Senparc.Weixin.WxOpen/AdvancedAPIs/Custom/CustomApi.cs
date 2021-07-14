@@ -58,7 +58,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="content">文本消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram,true)]
         public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT)
         {

@@ -27,7 +27,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetUserAllLivingid", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetUserLivingResponse GetUserAllLivingid(string accessTokenOrAppKey, GetUserLivingRequest data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetLivingInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetUserLivingInfoResponse GetLivingInfo(string accessTokenOrAppKey, string livingid, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="next_key">否	上一次调用时返回的next_key，初次调用可以填”0”</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetLivingWatchState", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetUserLivingWatchStateResponse GetLivingWatchState(string accessTokenOrAppKey, string livingid, string next_key, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetUserAllLivingidAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetUserLivingResponse> GetUserAllLivingidAsync(string accessTokenOrAppKey, GetUserLivingRequest data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetLivingInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetUserLivingInfoResponse> GetLivingInfoAsync(string accessTokenOrAppKey, string livingid, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Living
         /// <param name="next_key">否	上一次调用时返回的next_key，初次调用可以填”0”</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "LivingApi.GetLivingWatchStateAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetUserLivingWatchStateResponse> GetLivingWatchStateAsync(string accessTokenOrAppKey, string livingid, string next_key, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

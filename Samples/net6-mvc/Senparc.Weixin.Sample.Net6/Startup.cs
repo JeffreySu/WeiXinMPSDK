@@ -11,6 +11,7 @@ using Senparc.CO2NET.AspNet;
 using Senparc.CO2NET.Cache;
 using Senparc.CO2NET.Cache.Memcached;//DPBMARK Memcached DPBMARK_END
 using Senparc.CO2NET.Utilities;
+using Senparc.CO2NET.WebApi.WebApiEngines;
 using Senparc.NeuChar.MessageHandlers;
 using Senparc.WebSocket;//DPBMARK WebSocket DPBMARK_END
 using Senparc.Weixin.Cache.CsRedis;//DPBMARK Redis DPBMARK_END
@@ -52,9 +53,9 @@ namespace Senparc.Weixin.Sample.NetCore3
         {
             services.AddSession();//使用Session（实践证明需要在配置 Mvc 之前）
 
-            services.AddControllersWithViews()
-                    .AddNewtonsoftJson();// 支持 NewtonsoftJson
-                    //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            var builder = services.AddControllersWithViews()
+                                  .AddNewtonsoftJson();// 支持 NewtonsoftJson
+                                //.SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
             // Add CookieTempDataProvider after AddMvc and include ViewFeatures.
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
@@ -78,7 +79,11 @@ namespace Senparc.Weixin.Sample.NetCore3
                     .AddSenparcWebSocket<CustomNetCoreWebSocketMessageHandler>() //Senparc.WebSocket 注册（按需）  -- DPBMARK WebSocket DPBMARK_END
                     ;
 
-            //services.AddCertHttpClient("name", "pwd", "path");//此处可以添加更多 Cert 证书
+            //启用 WebApi（可选）
+            services.AddAndInitDynamicApi(builder, ServerUtility.ContentRootMapPath("~/App_Data"));
+
+            //此处可以添加更多 Cert 证书
+            //services.AddCertHttpClient("name", "pwd", "path");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

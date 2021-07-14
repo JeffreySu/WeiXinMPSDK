@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByFilter", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         private static SendResult SendGroupMessageByFilter(string accessTokenOrAppId, string groupId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -233,7 +233,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByGroupId", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -260,7 +260,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByTagId", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult SendGroupMessageByTagId(string accessTokenOrAppId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByOpenId", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult SendGroupMessageByOpenId(string accessTokenOrAppId, GroupMessageType type, string value, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -373,7 +373,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendVideoGroupMessageByOpenId", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult SendVideoGroupMessageByOpenId(string accessTokenOrAppId, string title, string description, string mediaId, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -407,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="articleIdx">（非必填）要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.DeleteSendMessage", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult DeleteSendMessage(string accessTokenOrAppId, string msgId, int? articleIdx, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -436,7 +436,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="wxName">接收消息用户的微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessagePreview", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult SendGroupMessagePreview(string accessTokenOrAppId, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -528,7 +528,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="signature"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.WxCardGroupMessagePreview", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SendResult WxCardGroupMessagePreview(string accessTokenOrAppId, string cardId, string code,
             string openId, string wxName, string timestamp, string signature, int timeOut = Config.TIME_OUT)
         {
@@ -560,7 +560,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetGroupMessageResult", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetSendResult GetGroupMessageResult(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -586,7 +586,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetVideoMediaIdResult", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static VideoMediaIdResult GetVideoMediaIdResult(string accessTokenOrAppId, string mediaId, string title,
             string description, int timeOut = Config.TIME_OUT)
         {
@@ -612,7 +612,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetSendSpeed", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetSpeedResult GetSendSpeed(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -631,7 +631,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="speed">群发速度的级别</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SetSendSpeed", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult SetSendSpeed(string accessTokenOrAppId, int speed, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -674,7 +674,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByFilterAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         private static async Task<SendResult> SendGroupMessageByFilterAsync(string accessTokenOrAppId, string groupId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -801,7 +801,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByGroupIdAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -828,7 +828,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByTagIdAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> SendGroupMessageByTagIdAsync(string accessTokenOrAppId, string tagId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, string clientmsgid = null,
             int timeOut = Config.TIME_OUT)
         {
@@ -850,7 +850,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="clientmsgid">开发者侧群发msgid，长度限制64字节，如不填，则后台默认以群发范围和群发内容的摘要值做为clientmsgid</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessageByOpenIdAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -942,7 +942,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendVideoGroupMessageByOpenIdAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, string clientmsgid = null, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -976,7 +976,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="articleIdx">（非必填）要删除的文章在图文消息中的位置，第一篇编号为1，该字段不填或填0会删除全部文章</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.DeleteSendMessageAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int? articleIdx, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1005,7 +1005,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="wxName">接收消息用户的微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SendGroupMessagePreviewAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> SendGroupMessagePreviewAsync(string accessTokenOrAppId, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1097,7 +1097,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="signature"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.WxCardGroupMessagePreviewAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SendResult> WxCardGroupMessagePreviewAsync(string accessTokenOrAppId, string cardId, string code,
             string openId, string wxName, string timestamp, string signature, int timeOut = Config.TIME_OUT)
         {
@@ -1129,7 +1129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetGroupMessageResultAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetSendResult> GetGroupMessageResultAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1155,7 +1155,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetVideoMediaIdResultAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<VideoMediaIdResult> GetVideoMediaIdResultAsync(string accessTokenOrAppId, string mediaId, string title,
             string description, int timeOut = Config.TIME_OUT)
         {
@@ -1181,7 +1181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.GetSendSpeedAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetSpeedResult> GetSendSpeedAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1200,7 +1200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="speed">群发速度的级别</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupMessageApi.SetSendSpeedAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> SetSendSpeedAsync(string accessTokenOrAppId, int speed, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

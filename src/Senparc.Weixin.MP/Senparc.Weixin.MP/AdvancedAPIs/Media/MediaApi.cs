@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadTemporaryMedia", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadTemporaryMediaResult UploadTemporaryMedia(string accessTokenOrAppId, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadTemporaryNews", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadTemporaryMediaResult UploadTemporaryNews(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
         {
             ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="dir">储存目录</param>
         /// <returns>储存文件的完整路径</returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.Get", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static string Get(string accessTokenOrAppId, string mediaId, string dir)
         {
             var result = ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetJssdk", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult GetJssdk(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadNews", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadForeverMediaResult UploadNews(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadForeverMedia", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadForeverMediaResult UploadForeverMedia(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -269,7 +269,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">上传文件的绝对路径</param>
          /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadForeverVideo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadForeverMediaResult UploadForeverVideo(string accessTokenOrAppId, string file, string title, string introduction, string type, int timeOut = 40000)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverNews", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetNewsResultJson GetForeverNews(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -313,7 +313,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="stream">写入文件流</param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverMedia", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult GetForeverMedia(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -341,7 +341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverVideo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetForeverMediaVideoResultJson GetForeverVideo(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -362,7 +362,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.DeleteForeverMedia", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult DeleteForeverMedia(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -385,7 +385,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="news">图文素材</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UpdateForeverNews", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult UpdateForeverNews(string accessTokenOrAppId, string mediaId, int? index, NewsModel news, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -410,7 +410,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetMediaCount", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetMediaCountResultJson GetMediaCount(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -430,7 +430,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetNewsMediaList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static MediaList_NewsResult GetNewsMediaList(string accessTokenOrAppId, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -459,7 +459,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetOthersMediaList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static MediaList_OthersResult GetOthersMediaList(string accessTokenOrAppId, UploadMediaFileType type, int offset,
                                                            int count, int timeOut = Config.TIME_OUT)
         {
@@ -486,7 +486,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadImg", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static UploadImgResult UploadImg(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
@@ -515,7 +515,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="fileStream">文件流</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.AddVoice", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult AddVoice(string accessTokenOrAppId, string format, string voiceId, string lang, Stream fileStream, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -535,7 +535,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="lang"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.QueryRecoResult", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static QueryRecoResultResultJson QueryRecoResult(string accessTokenOrAppId, string voiceId, string lang, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -560,7 +560,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="Ito"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.TranslateContent", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static TranslateContentResultJson TranslateContent(string accessTokenOrAppId, string Ifrom, string Ito, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -592,7 +592,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">上传文件的绝对路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadTemporaryMediaAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadTemporaryMediaResult> UploadTemporaryMediaAsync(string accessTokenOrAppId, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -612,7 +612,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadTemporaryNewsAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadTemporaryMediaResult> UploadTemporaryNewsAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -634,7 +634,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
         {
             await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -652,7 +652,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<string> GetAsync(string accessTokenOrAppId, string mediaId, string dir)
         {
             var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -672,7 +672,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetJssdkAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> GetJssdkAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -706,7 +706,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadNewsAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadForeverMediaResult> UploadNewsAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -729,7 +729,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadForeverMediaAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadForeverMediaResult> UploadForeverMediaAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -758,7 +758,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="introduction"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadForeverVideoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadForeverMediaResult> UploadForeverVideoAsync(string accessTokenOrAppId, string file, string title, string type, string introduction, int timeOut = 40000)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -780,7 +780,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverNewsAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetNewsResultJson> GetForeverNewsAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -802,7 +802,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="stream">写入文件流</param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverMediaAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> GetForeverMediaAsync(string accessTokenOrAppId, string mediaId, Stream stream, int timeOut = Config.TIME_OUT)
         {
 
@@ -831,7 +831,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId">要获取的素材的media_id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetForeverVideoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetForeverMediaVideoResultJson> GetForeverVideoAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -853,7 +853,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.DeleteForeverMediaAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> DeleteForeverMediaAsync(string accessTokenOrAppId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -877,7 +877,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="news">图文素材</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UpdateForeverNewsAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> UpdateForeverNewsAsync(string accessTokenOrAppId, string mediaId, int? index, NewsModel news, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -902,7 +902,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetMediaCountAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetMediaCountResultJson> GetMediaCountAsync(string accessTokenOrAppId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -922,7 +922,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetNewsMediaListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<MediaList_NewsResult> GetNewsMediaListAsync(string accessTokenOrAppId, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -951,7 +951,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.GetOthersMediaListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<MediaList_OthersResult> GetOthersMediaListAsync(string accessTokenOrAppId, UploadMediaFileType type, int offset,
                                                            int count, int timeOut = Config.TIME_OUT)
         {
@@ -978,7 +978,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.UploadImgAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<UploadImgResult> UploadImgAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             //接口文档参考：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738729
@@ -1006,7 +1006,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="lang">语言，zh_CN 或 en_US，默认中文</param>
         /// <param name="fileStream">文件流</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.AddVoiceAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> AddVoiceAsync(string accessTokenOrAppId, string format, string voiceId, string lang, Stream fileStream, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1027,7 +1027,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="lang"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.QueryRecoResultAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<QueryRecoResultResultJson> QueryRecoResultAsync(string accessTokenOrAppId, string voiceId, string lang, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1052,7 +1052,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="Ito"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "MediaApi.TranslateContentAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<TranslateContentResultJson> TranslateContentAsync(string accessTokenOrAppId, string Ifrom, string Ito, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

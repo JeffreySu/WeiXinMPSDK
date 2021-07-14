@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addGroupData">增加分组需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.AddGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AddGroupResult AddGroup(string accessToken, AddGroupData addGroupData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/add?access_token={0}";
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.DeleteGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult DeleteGroup(string accessToken, int groupId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/del?access_token={0}";
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="propertyModGroup">修改分组属性需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.PropertyModGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult PropertyModGroup(string accessToken, PropertyModGroup propertyModGroup)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/propertymod?access_token={0}";
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productModGroup">修改分组商品需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.ProductModGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult ProductModGroup(string accessToken, ProductModGroup productModGroup)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/productmod?access_token={0}";
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.GetAllGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetAllGroup GetAllGroup(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/getall?access_token={0}";
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.GetByIdGroup", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetByIdGroup GetByIdGroup(string accessToken, int groupId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/getbyid?access_token={0}";
@@ -153,7 +153,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addGroupData">增加分组需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.AddGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AddGroupResult> AddGroupAsync(string accessToken, AddGroupData addGroupData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/add?access_token={0}";
@@ -167,7 +167,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.DeleteGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> DeleteGroupAsync(string accessToken, int groupId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/del?access_token={0}";
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="propertyModGroup">修改分组属性需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.PropertyModGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> PropertyModGroupAsync(string accessToken, PropertyModGroup propertyModGroup)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/propertymod?access_token={0}";
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="productModGroup">修改分组商品需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.ProductModGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> ProductModGroupAsync(string accessToken, ProductModGroup productModGroup)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/productmod?access_token={0}";
@@ -213,7 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.GetAllGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetAllGroup> GetAllGroupAsync(string accessToken)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/getall?access_token={0}";
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "GroupApi.GetByIdGroupAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetByIdGroup> GetByIdGroupAsync(string accessToken, int groupId)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/group/getbyid?access_token={0}";

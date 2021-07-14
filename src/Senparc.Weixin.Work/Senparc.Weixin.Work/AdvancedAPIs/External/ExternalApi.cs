@@ -22,6 +22,9 @@
     修改标识：WangDrama - 20210630
     修改描述：v3.9.600 添加：外部联系人 - 客户群统计+联系客户+群直播+客户群事件 相关功能
 
+    修改标识：WangDrama - 20210714
+    修改描述：v3.11-preview1
+
 ----------------------------------------------------------------*/
 
 /*
@@ -53,7 +56,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="takeoverUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.TransferExternal", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult TransferExternal(string accessTokenOrAppKey, string ExternalUserId, string handoverUserId, string takeoverUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -77,7 +80,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContact", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetExternalContactResultJson GetExternalContact(string accessTokenOrAppKey, string ExternalUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -98,7 +101,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">查询参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GroupChatListResult GroupChatList(string accessTokenOrAppKey, GroupChatListParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -118,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatGet", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GroupChatGetResult GroupChatGet(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -142,7 +145,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userid">企业成员的userid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetExternalContactListResult GetExternalContactList(string accessTokenOrAppKey, string userid, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -160,7 +163,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="externalUserId">外部联系人的userid，注意不是企业成员的帐号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactInfo", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetExternalContactResultJson GetExternalContactInfo(string accessTokenOrAppKey, string externalUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -179,7 +182,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="cursor"></param>
         /// <param name="limit"></param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactInfoBatch", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetExternalContactInfoBatchResult GetExternalContactInfoBatch(string accessTokenOrAppKey, string userid, string cursor = "", int limit = 50, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -204,7 +207,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.UpdateExternalContactRemark", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult UpdateExternalContactRemark(string accessTokenOrAppKey, UpdateExternalContactRemarkRequest rquest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -227,7 +230,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserList", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult GetFollowUserList(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -247,7 +250,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddContactWay", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static AddContactWayResult AddContactWay(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -271,7 +274,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetUserBehaviorData", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetUserBehaviorDataListResult GetUserBehaviorData(string accessTokenOrAppKey, GetUserBehaviorDataParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -288,7 +291,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticOwner", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetGroupChatListResult GroupChatStatisticOwner(string accessTokenOrAppKey, GetGroupChatParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -307,7 +310,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticGroupByDay", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetGroupChatGroupByDayListResult GroupChatStatisticGroupByDay(string accessTokenOrAppKey, GetGroupChatGroupByDayParam data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -336,6 +339,42 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 朋友圈
+
+        /// <summary>
+        /// 获取企业全部的发表内容。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
+        public static GetMomentListResult GetMomentList(string accessTokenOrAppKey, GetMomentListParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_moment_list?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetMomentListResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 获取企业发表的朋友圈成员执行情况
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
+        public static GetMomentTaskResult GetMomentTask(string accessTokenOrAppKey, GetMomentTaskParam data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_moment_task?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GetMomentTaskResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        #endregion
 
         #endregion
 
@@ -351,7 +390,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="takeoverUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.TransferExternalAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetFollowUserListResult> TransferExternalAsync(string accessTokenOrAppKey, string ExternalUserId, string handoverUserId, string takeoverUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -375,7 +414,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="ExternalUserId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetExternalContactResultJson> GetExternalContactAsync(string accessTokenOrAppKey, string ExternalUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -396,7 +435,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">查询参数</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GroupChatListResult> GroupChatListAsync(string accessTokenOrAppKey, GroupChatListParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -416,7 +455,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="chat_id">客户群ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatGetAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GroupChatGetResult> GroupChatGetAsync(string accessTokenOrAppKey, string chat_id, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -440,7 +479,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userid">企业成员的userid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetExternalContactListResult> GetExternalContactListAsync(string accessTokenOrAppKey, string userid, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -458,7 +497,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="externalUserId">外部联系人的userid，注意不是企业成员的帐号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactInfoAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetExternalContactResultJson> GetExternalContactInfoAsync(string accessTokenOrAppKey, string externalUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -477,7 +516,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="cursor"></param>
         /// <param name="limit"></param>
         /// <param name="timeOut"></param>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetExternalContactInfoBatchAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetExternalContactInfoBatchResult> GetExternalContactInfoBatchAsync(string accessTokenOrAppKey, string userid, string cursor = "", int limit = 50, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -502,7 +541,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.UpdateExternalContactRemarkAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> UpdateExternalContactRemarkAsync(string accessTokenOrAppKey, UpdateExternalContactRemarkRequest rquest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -525,7 +564,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetFollowUserListAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetFollowUserListResult> GetFollowUserListAsync(string accessTokenOrAppKey, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -546,7 +585,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GetUserBehaviorDataAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetUserBehaviorDataListResult> GetUserBehaviorDataAsync(string accessTokenOrAppKey, GetUserBehaviorDataParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -565,7 +604,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticOwnerAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetGroupChatListResult> GroupChatStatisticOwnerAsync(string accessTokenOrAppKey, GetGroupChatParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -582,7 +621,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.GroupChatStatisticGroupByDayAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetGroupChatGroupByDayListResult> GroupChatStatisticGroupByDayAsync(string accessTokenOrAppKey, GetGroupChatGroupByDayParam data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -591,7 +630,44 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 return await CommonJsonSend.SendAsync<GetGroupChatGroupByDayListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
-        
+
+        #endregion
+
+        #region 朋友圈
+
+        /// <summary>
+        /// 获取企业全部的发表内容。
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
+        public static async Task<GetMomentListResult> GetMomentListAsync(string accessTokenOrAppKey, GetMomentListParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_moment_list?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetMomentListResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 获取企业发表的朋友圈成员执行情况
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
+        public static async Task<GetMomentTaskResult> GetMomentTaskAsync(string accessTokenOrAppKey, GetMomentTaskParam data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/get_moment_task?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GetMomentTaskResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region 「联系我」
@@ -603,7 +679,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_Work, "ExternalApi.AddContactWay", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<AddContactWayResult> AddContactWayAsync(string accessTokenOrAppKey, AddContactWayRequest rquest, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

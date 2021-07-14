@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.AddStock", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult AddStock(string accessToken, AddStockData addStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.ReduceStock", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.AddStockAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> AddStockAsync(string accessToken, AddStockData addStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/add?access_token={0}";
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "StockApi.ReduceStockAsync", true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> ReduceStockAsync(string accessToken, ReduceStockData reduceStockData)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/stock/reduce?access_token={0}";

@@ -102,7 +102,7 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
                 "<a href=\"https://www.neuchar.com\" target=\"_blank\">https://www.neuchar.com</a> 是盛派官方提供的一个基于 NeuChar 标准实现的可视化跨平台配置操作平台。"
             };
             var neucharList = new List<Home_IndexVD_AssemblyModel>();
-            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.ApiBindInfo), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
+            neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 跨平台支持库", "Senparc.NeuChar", typeof(Senparc.NeuChar.Register), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar APP 以及<br />NeuChar Ending<br />的对接 SDK", "Senparc.NeuChar.App", typeof(Senparc.NeuChar.App.HttpRequestType), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             neucharList.Add(new Home_IndexVD_AssemblyModel("NeuChar 的 ASP.NET<br />运行时支持库", "Senparc.NeuChar.AspNet", typeof(Senparc.NeuChar.Middlewares.MessageHandlerMiddlewareExtension), gitHubUrl: neucharGitHubUrl));// NeuChar 基础库
             vd.AssemblyModelCollection[neucharGroup] = neucharList;

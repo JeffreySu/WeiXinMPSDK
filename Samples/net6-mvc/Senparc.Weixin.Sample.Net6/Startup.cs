@@ -381,6 +381,9 @@ namespace Senparc.Weixin.Sample.NetCore3
                 //对 MessageHandler 内异步方法未提供重写时，调用同步方法（按需）
                 options.DefaultMessageHandlerAsyncEvent = DefaultMessageHandlerAsyncEvent.SelfSynicMethod;
 
+                options.EnableRequestLog = true;//默认就为 true，如需关闭日志，可设置为 false
+                options.EnbleResponseLog = true;//默认就为 true，如需关闭日志，可设置为 false
+
                 //对发生异常进行处理（可选）
                 options.AggregateExceptionCatch = ex =>
                 {
@@ -400,7 +403,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             //使用 企业微信 MessageHandler 中间件                                                 // -- DPBMARK Work
             app.UseMessageHandlerForWork("/WorkAsync", WorkCustomMessageHandler.GenerateMessageHandler,
                                          o => o.AccountSettingFunc = c => senparcWeixinSetting.Value);//最简化的方式
-                                                                                                      // DPBMARK_END
+                                                                                                  // DPBMARK_END
 
             #endregion
 

@@ -25,8 +25,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20180815
-    
 
+    修改标识：Senparc - 20210719
+    修改描述：v3.12.2 修复小程序客服接口和公众号混用的问题
 
 ----------------------------------------------------------------*/
 
@@ -37,7 +38,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs
@@ -48,22 +48,42 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
     /// </summary>
     public class CustomApi
     {
+        /// <summary>
+        /// 客服消息统一请求地址格式
+        /// </summary>
+        public static readonly string UrlFormat = Config.ApiMpHost + "/cgi-bin/message/custom/send?access_token={0}";
+
         #region 同步方法
 
         /// <summary>
         /// 发送文本信息
+        /// <para>发送文本消息时，支持添加可跳转小程序的文字连接。</para>
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">普通用户(openid)</param>
         /// <param name="content">文本消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram,true)]
+        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT)
         {
-            return Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(accessTokenOrAppId, openId, content,
-             timeOut);
+            object data = null;
+            data = new
+            {
+                touser = openId,
+                msgtype = "text",
+                text = new
+                {
+                    content = content
+                }
+            };
+
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -77,7 +97,22 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImage(accessTokenOrAppId, openId, mediaId, timeOut);
+            object data = null;
+            data = new
+            {
+                touser = openId,
+                msgtype = "image",
+                image = new
+                {
+                    media_id = mediaId
+                }
+            };
+
+            return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                return CommonJsonSend.Send(accessToken, UrlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -150,7 +185,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-
         #endregion
 
         #region 异步方法
@@ -167,8 +201,22 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT)
         {
-            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(accessTokenOrAppId, openId, content,
-             timeOut).ConfigureAwait(false);
+            object data = null;
+            data = new
+            {
+                touser = openId,
+                msgtype = "text",
+                text = new
+                {
+                    content = content
+                }
+            };
+
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId);
         }
 
 
@@ -183,7 +231,22 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            return await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(accessTokenOrAppId, openId, mediaId, timeOut).ConfigureAwait(false);
+            object data = null;
+            data = new
+            {
+                touser = openId,
+                msgtype = "image",
+                image = new
+                {
+                    media_id = mediaId
+                }
+            };
+
+            return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                return await CommonJsonSend.SendAsync(accessToken, UrlFormat, data, timeOut: timeOut).ConfigureAwait(false);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>

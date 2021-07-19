@@ -85,6 +85,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20190929
     修改描述：v3.7.101 优化 Container 异步注册方法
 
+    修改标识：Senparc - 20210719
+    修改描述：v3.11.2 AccessTokenContainer 支持分布式同步锁
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -141,6 +144,7 @@ namespace Senparc.Weixin.Work.Containers
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
+       private const string LockResourceName = "Work.AccessTokenContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
@@ -272,7 +276,7 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var accessTokenBag = TryGetItem(appKey);
-            lock (accessTokenBag.Lock)
+            using (Cache.BeginCacheLock(LockResourceName, appKey))//同步锁
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {
@@ -405,7 +409,7 @@ namespace Senparc.Weixin.Work.Containers
             }
 
             var accessTokenBag = await TryGetItemAsync(appKey).ConfigureAwait(false);
-            // lock (accessTokenBag.Lock)
+            using (await Cache.BeginCacheLockAsync(LockResourceName, appKey).ConfigureAwait(false))//同步锁
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= SystemTime.Now)
                 {

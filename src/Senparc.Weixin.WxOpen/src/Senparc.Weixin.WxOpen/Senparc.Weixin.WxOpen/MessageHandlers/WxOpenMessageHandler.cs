@@ -138,11 +138,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #region 构造函数
 
         /// <summary>
-        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
-        /// </summary>
-        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
-
-        /// <summary>
         /// 小程序MessageHandler构造函数
         /// </summary>
         /// <param name="inputStream">XML流（后期会支持JSON）</param>

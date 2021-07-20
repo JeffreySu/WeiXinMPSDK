@@ -369,6 +369,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
@@ -381,6 +382,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static async Task<IAccessTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)

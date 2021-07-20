@@ -32,6 +32,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*
     API：https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/qrcode/qrcode.html
  */
+using Senparc.CO2NET;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
@@ -43,6 +44,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
     public static class QrCodeJumpApi
     {
         #region 同步方法
@@ -52,6 +54,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [IgnoreApiBind]
         public static GetJsonResult Get(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -70,6 +73,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [IgnoreApiBind]
         public static DownloadJsonResult Download(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -92,6 +96,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="debug_url">测试链接，至多 5 个用于测试的二维码完整链接，此链接必须符合已填写的二维码规则。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [IgnoreApiBind]
         public static WxJsonResult Add(string accessTokenOrAppId, string prefix, int permit_sub_rule, string path, int open_version, int is_edit, string[] debug_url = null, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -120,6 +125,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="prefix">二维码规则</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [IgnoreApiBind]
         public static WxJsonResult Publish(string accessTokenOrAppId, string prefix, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -143,6 +149,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="prefix">二维码规则</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
+        [IgnoreApiBind]
         public static WxJsonResult Delete(string accessTokenOrAppId, string prefix, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -166,7 +173,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
         public static async Task<GetJsonResult> GetAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -188,7 +194,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
         public static async Task<DownloadJsonResult> DownloadAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -214,7 +219,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="debug_url">测试链接，至多 5 个用于测试的二维码完整链接，此链接必须符合已填写的二维码规则。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
         public static async Task<WxJsonResult> AddAsync(string accessTokenOrAppId, string prefix, int permit_sub_rule, string path, int open_version, int is_edit, string[] debug_url = null, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -246,7 +250,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="prefix">二维码规则</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
         public static async Task<WxJsonResult> PublishAsync(string accessTokenOrAppId, string prefix, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -272,7 +275,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.QrCodeJump
         /// <param name="prefix">二维码规则</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open, true)]
         public static async Task<WxJsonResult> DeleteAsync(string accessTokenOrAppId, string prefix, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>

@@ -60,6 +60,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
     /// <summary>
     /// 模板消息接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public static class TemplateApi
     {
         #region 同步方法
@@ -78,7 +79,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
         [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribe()", true)]
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId,
             object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
@@ -137,7 +137,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult UniformSend(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
@@ -160,7 +159,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static LibraryListJsonResult LibraryList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
@@ -179,7 +177,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static LibraryGetJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
@@ -199,7 +196,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static AddJsonResult Add(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
@@ -224,7 +220,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static ListJsonResult List(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
@@ -243,7 +238,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult Del(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";
@@ -277,7 +271,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="page">点击模板查看详情跳转页面，不填则模板无跳转（非必填）</param>
         /// <returns></returns>
         [Obsolete("微信已停止此接口使用，请使用订阅消息：MessageApi.SendSubscribeAsync()", true)]
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, object data, string formId, string page = null, string emphasisKeyword = null, string color = null, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -306,7 +299,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="msgData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> UniformSendAsync(string accessTokenOrAppId, UniformSendData msgData, int timeOut = Config.TIME_OUT)
         {
             //文档：https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/uniform-message/uniformMessage.send.html
@@ -329,7 +321,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<LibraryListJsonResult> LibraryListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/list?access_token={0}";
@@ -348,7 +339,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="id">模板标题id，可通过接口获取，也可登录小程序后台查看获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<LibraryGetJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/library/get?access_token={0}";
@@ -368,7 +358,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<AddJsonResult> AddAsync(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/add?access_token={0}";
@@ -393,7 +382,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="count">offset和count用于分页，表示从offset开始，拉取count条记录，offset从0开始，count最大为20。最后一页的list长度可能小于请求的count</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<ListJsonResult> ListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/list?access_token={0}";
@@ -412,7 +400,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <param name="templateId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> DelAsync(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/cgi-bin/wxopen/template/del?access_token={0}";

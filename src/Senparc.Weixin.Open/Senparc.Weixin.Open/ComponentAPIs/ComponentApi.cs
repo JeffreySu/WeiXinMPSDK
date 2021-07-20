@@ -42,6 +42,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// ComponentApi
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class ComponentApi
     {
         #region 同步方法
@@ -54,7 +55,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static ComponentAccessTokenResult GetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
         {
             var url = Config.ApiMpHost + "/cgi-bin/component/api_component_token";
@@ -76,7 +76,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentAccessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAccessToken, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -102,7 +101,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authType">要授权的帐号类型</param>
         /// <param name="bizAppId">指定授权唯一的小程序或公众号</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static string GetComponentLoginPageUrl(string componentAppId, string preAuthCode, string redirectUrl, LoginAuthType authType = LoginAuthType.默认, string bizAppId = "")
         {
             /*
@@ -131,7 +129,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -157,7 +154,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="confirmValue">服务开发方的access_token</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static WxJsonResult ApiConfirmAuth(string componentAccessToken, string componentAppId, string authorizerAppid, int funscopeCategoryId, int confirmValue, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -185,7 +181,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerRefreshToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static RefreshAuthorizerTokenResult ApiAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppId, string authorizerRefreshToken = null, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -212,7 +207,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetAuthorizerInfoResult GetAuthorizerInfo(string componentAccessToken, string componentAppId, string authorizerAppId, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -238,7 +232,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="optionName">选项名称</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static AuthorizerOptionResult GetAuthorizerOption(string componentAccessToken, string componentAppId, string authorizerAppId, OptionName optionName, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -266,7 +259,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="optionValue">设置的选项值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static WxJsonResult SetAuthorizerOption(string componentAccessToken, string componentAppId, string authorizerAppId, OptionName optionName, int optionValue, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -292,7 +284,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerAccessToken">authorizer_access_token</param>
         /// <param name="type"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static JsApiTicketResult GetJsApiTicket(string authorizerAccessToken, string type = "jsapi")
         {
             //获取第三方平台的授权公众号token（公众号授权给第三方平台后，第三方平台通过“接口说明”中的api_authorizer_token接口得到的token）
@@ -317,7 +308,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static WxJsonResult FastRegisterWeApp(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
@@ -362,7 +352,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="count">拉取数量，最大为 500</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static AuthorizerListResult GetAuthorizerList(string componentAppId, string componentAccessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_list?component_access_token={0}", componentAccessToken.AsUrlData());
@@ -391,7 +380,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<ComponentAccessTokenResult> GetComponentAccessTokenAsync(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
         {
             var url = Config.ApiMpHost + "/cgi-bin/component/api_component_token";
@@ -413,7 +401,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentAccessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<PreAuthCodeResult> GetPreAuthCodeAsync(string componentAppId, string componentAccessToken, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -438,7 +425,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<QueryAuthResult> QueryAuthAsync(string componentAccessToken, string componentAppId, string authorizationCode, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -464,7 +450,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="confirmValue">服务开发方的access_token</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<WxJsonResult> ApiConfirmAuthAsync(string componentAccessToken, string componentAppId, string authorizerAppid, int funscopeCategoryId, int confirmValue, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -492,7 +477,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerRefreshToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<RefreshAuthorizerTokenResult> ApiAuthorizerTokenAsync(string componentAccessToken, string componentAppId, string authorizerAppId, string authorizerRefreshToken = null, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -519,7 +503,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetAuthorizerInfoResult> GetAuthorizerInfoAsync(string componentAccessToken, string componentAppId, string authorizerAppId, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -545,7 +528,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="optionName">选项名称</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<AuthorizerOptionResult> GetAuthorizerOptionAsync(string componentAccessToken, string componentAppId, string authorizerAppId, OptionName optionName, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -573,7 +555,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="optionValue">设置的选项值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<WxJsonResult> SetAuthorizerOptionAsync(string componentAccessToken, string componentAppId, string authorizerAppId, OptionName optionName, int optionValue, int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -600,7 +581,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerAccessToken">authorizer_access_token</param>
         /// <param name="type"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<JsApiTicketResult> GetJsApiTicketAsync(string authorizerAccessToken, string type = "jsapi")
         {
             //获取第三方平台的授权公众号token（公众号授权给第三方平台后，第三方平台通过“接口说明”中的api_authorizer_token接口得到的token）
@@ -624,7 +604,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentPhone">第三方联系电话（方便法人与第三方联系）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<WxJsonResult> FastRegisterWeAppAsync(string componentAccessToken, string entName, string legalPersonaWechat, string legalPersonaName, string action = "create", string entCode = "", CodeType codeType = CodeType.统一社会信用代码, string componentPhone = "", int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(
@@ -669,7 +648,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="count">拉取数量，最大为 500</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<AuthorizerListResult> GetAuthorizerListAsync(string componentAppId, string componentAccessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format(Config.ApiMpHost + "/cgi-bin/component/api_get_authorizer_list?component_access_token={0}", componentAccessToken.AsUrlData());

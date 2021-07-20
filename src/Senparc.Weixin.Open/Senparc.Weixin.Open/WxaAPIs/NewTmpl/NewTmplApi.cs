@@ -45,6 +45,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
     /// <summary>
     /// 小程序订阅消息模板的管理
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class NewTmplApi
     {
         #region 同步方法
@@ -59,7 +60,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="limit">用于分页，表示拉取 limit 条记录。最大为 30。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetPubTemplateTitlesJsonResult GetPubTemplateTitles(string accessToken, string ids, int start,
             int limit, int timeOut = Config.TIME_OUT)
         {
@@ -77,7 +77,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="tid">模板标题 id，可通过接口获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetPubTemplateKeyWordsByIdJsonResult GetPubTemplateKeyWordsById(string accessToken, string tid,
             int timeOut = Config.TIME_OUT)
         {
@@ -97,7 +96,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static AddTemplateJsonResult AddTemplate(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
@@ -125,7 +123,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetTemplateListJsonResult GetTemplateList(string accessToken, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/gettemplate?access_token={0}";
@@ -141,7 +138,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static GetCategoryJsonResult GetCategory(string accessToken,
             int timeOut = Config.TIME_OUT)
         {
@@ -158,7 +154,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="priTmplId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static WxJsonResult DelTemplate(string accessToken, string priTmplId, int timeOut = Config.TIME_OUT)
         {
             string urlFormat = Config.ApiMpHost + "/wxaapi/newtmpl/deltemplate?access_token={0}";
@@ -184,7 +179,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="limit">用于分页，表示拉取 limit 条记录。最大为 30。</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetPubTemplateTitlesJsonResult> GetPubTemplateTitlesAsync(string accessToken,
             string ids, int start, int limit, int timeOut = Config.TIME_OUT)
         {
@@ -202,7 +196,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="tid">模板标题 id，可通过接口获取</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetPubTemplateKeyWordsByIdJsonResult> GetPubTemplateKeyWordsByIdAsync(
             string accessToken, string tid, int timeOut = Config.TIME_OUT)
         {
@@ -222,7 +215,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="keywordIdList">开发者自行组合好的模板关键词列表，关键词顺序可以自由搭配（例如[3,5,4]或[4,5,3]），最多支持10个关键词组合</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<AddTemplateJsonResult> AddTemplateAsync(string accessToken, string tid, int[] kidList,
             string sceneDesc = "", int timeOut = Config.TIME_OUT)
         {
@@ -251,7 +243,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetTemplateListJsonResult> GetTemplateListAsync(string accessToken,
             int timeOut = Config.TIME_OUT)
         {
@@ -269,7 +260,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="accessToken">接口调用凭证</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<GetCategoryJsonResult> GetCategoryAsync(string accessToken,
             int timeOut = Config.TIME_OUT)
         {
@@ -286,7 +276,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.NewTmpl
         /// <param name="priTmplId">要删除的模板id</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<WxJsonResult> DelTemplateAsync(string accessToken, string priTmplId,
             int timeOut = Config.TIME_OUT)
         {

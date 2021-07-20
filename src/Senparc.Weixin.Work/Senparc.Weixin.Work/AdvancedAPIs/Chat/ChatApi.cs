@@ -43,6 +43,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class ChatApi
     {
         private static string _urlFormatCreate = Config.ApiWorkHost + "/cgi-bin/appchat/create?access_token={0}";
@@ -63,7 +64,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static CreateChatResult CreateChat(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -87,7 +87,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static GetChatResult GetChat(string accessTokenOrAppKey, string chatId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -109,7 +108,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult UpdateChat(string accessTokenOrAppKey, string chatId, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -137,7 +135,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult SendChatSimpleMessage(string accessTokenOrAppKey, string chatId, ChatMsgType msgType, string contentOrMediaId, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -175,7 +172,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult SendChatVideoMessage(string accessTokenOrAppKey, string chatId, string media_id, string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -197,7 +193,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult SendChatTextCardMessage(string accessTokenOrAppKey, string chatId, string title, string description, string url, string btntxt = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -215,7 +210,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult SendChatNewsMessage(string accessTokenOrAppKey, string chatId, Chat_News news, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -233,7 +227,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult SendChatMpNewsMessage(string accessTokenOrAppKey, string chatId, Chat_MpNews mpnews, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -251,7 +244,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult QuitChat(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -280,7 +272,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static WorkJsonResult ClearNotify(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -308,7 +299,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static SetMuteResult SetMute(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -339,7 +329,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="userlist">群成员id列表。至少2人，至多500人</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<CreateChatResult> CreateChatAsync(string accessTokenOrAppKey, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -362,7 +351,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessTokenOrAppKey">调用接口凭证（AccessToken）或AppKey（根据AccessTokenContainer.BuildingKey(corpId, corpSecret)方法获得）</param>
         /// <param name="chatId"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<GetChatResult> GetChatAsync(string accessTokenOrAppKey, string chatId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -383,7 +371,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> UpdateChatAsync(string accessTokenOrAppKey, string chatId, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -411,7 +398,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> SendChatSimpleMessageAsync(string accessTokenOrAppKey, string chatId, ChatMsgType msgType, string contentOrMediaId, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -449,7 +435,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> SendChatVideoMessageAsync(string accessTokenOrAppKey, string chatId, string media_id, string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -471,7 +456,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> SendChatTextCardMessageAsync(string accessTokenOrAppKey, string chatId, string title, string description, string url, string btntxt = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -489,7 +473,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> SendChatNewsMessageAsync(string accessTokenOrAppKey, string chatId, Chat_News news, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -507,7 +490,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> SendChatMpNewsMessageAsync(string accessTokenOrAppKey, string chatId, Chat_MpNews mpnews, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -525,7 +507,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> QuitChatAsync(string accessTokenOrAppKey, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -552,7 +533,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<WorkJsonResult> ClearNotifyAsync(string accessTokenOrAppKey, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -595,7 +575,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [Obsolete("此接口已被官方废除")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<SetMuteResult> SetMuteAsync(string accessTokenOrAppKey, List<UserMute> userMuteList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

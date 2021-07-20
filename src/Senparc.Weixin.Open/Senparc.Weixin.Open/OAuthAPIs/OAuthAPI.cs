@@ -24,6 +24,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Senparc.CO2NET;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
@@ -34,6 +35,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
     /// <summary>
     /// 代公众号发起网页授权
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class OAuthApi
     {
         #region 同步方法
@@ -48,7 +50,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="scopes">授权作用域，拥有多个作用域用逗号（,）分隔。此处暂时只放一作用域。</param>
         /// <param name="responseType">默认，填code</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static string GetAuthorizeUrl(string appId, string componentAppId, string redirectUrl, string state, OAuthScope[] scopes, string responseType = "code")
         {
             //此URL比MP中的对应接口多了&component_appid=component_appid参数
@@ -72,7 +73,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="code">GetAuthorizeUrl()接口返回的code</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static OAuthAccessTokenResult GetAccessToken(string appId, string componentAppid, string componentAccessToken, string code, string grantType = "authorization_code")
         {
             var url =
@@ -102,7 +102,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="grantType"></param>
         /// <param name="componentAppid"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static OAuthAccessTokenResult RefreshToken(string appId, string refreshToken, string componentAppid, string componentAccessToken, string grantType = "refresh_token")
         {
             var url = string.Format(Config.ApiMpHost + "/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
@@ -118,7 +117,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
@@ -136,6 +134,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         ///// <param name="accessToken"></param>
         ///// <param name="openId">用户的唯一标识</param>
         ///// <returns></returns>
+        [IgnoreApiBind]
         //public static WxJsonResult Auth(string accessToken, string openId)
         //{
         //    var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
@@ -155,7 +154,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="code">GetAuthorizeUrl()接口返回的code</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<OAuthAccessTokenResult> GetAccessTokenAsync(string appId, string componentAppid, string componentAccessToken, string code, string grantType = "authorization_code")
         {
             var url =
@@ -185,7 +183,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="grantType"></param>
         /// <param name="componentAppid"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<OAuthAccessTokenResult> RefreshTokenAsync(string appId, string refreshToken, string componentAppid, string componentAccessToken, string grantType = "refresh_token")
         {
             var url = string.Format(Config.ApiMpHost + "/sns/oauth2/component/refresh_token?appid={0}&grant_type={1}&component_appid={2}&component_access_token={3}&refresh_token={4}",
@@ -201,7 +198,6 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<OAuthUserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format(Config.ApiMpHost + "/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.AsUrlData(), openId.AsUrlData(), lang);
@@ -219,6 +215,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
         ///// <param name="accessToken"></param>
         ///// <param name="openId">用户的唯一标识</param>
         ///// <returns></returns>
+        //[IgnoreApiBind]
         //public static WxJsonResult Auth(string accessToken, string openId)
         //{
         //    var url = string.Format(Config.ApiMpHost + "/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());

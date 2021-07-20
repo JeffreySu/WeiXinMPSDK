@@ -76,11 +76,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #region 属性设置
 
         /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
-
-        /// <summary>
         /// 请求实体
         /// </summary>
         public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }

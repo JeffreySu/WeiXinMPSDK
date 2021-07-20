@@ -227,7 +227,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
-        /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -561,7 +560,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <para>第三方/自建应用只能获取到可见范围内的配置了客户联系功能的成员。</para>
         /// </summary>
         /// <param name="accessTokenOrAppKey">调用接口凭证</param>
-        /// <param name="rquest">请求报文</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]

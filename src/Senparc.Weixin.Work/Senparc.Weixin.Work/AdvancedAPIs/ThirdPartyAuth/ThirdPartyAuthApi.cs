@@ -384,7 +384,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 获取注册码
         /// </summary>
         /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -403,7 +403,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 查询注册状态
         /// </summary>
         /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="registerCode"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -424,8 +424,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 设置授权应用可见范围
         /// </summary>
-        /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="AccessToken"></param>
+        /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -443,8 +443,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 设置通讯录同步完成
         /// </summary>
-        /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="AccessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -790,7 +789,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】获取注册码
         /// </summary>
         /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -809,7 +808,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】查询注册状态
         /// </summary>
         /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="registerCode"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -830,8 +829,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置授权应用可见范围
         /// </summary>
-        /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="AccessToken"></param>
+        /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
@@ -849,8 +848,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置通讯录同步完成
         /// </summary>
-        /// <param name="providerAccessToken"></param>
-        /// <param name="userTicket"></param>
+        /// <param name="AccessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]

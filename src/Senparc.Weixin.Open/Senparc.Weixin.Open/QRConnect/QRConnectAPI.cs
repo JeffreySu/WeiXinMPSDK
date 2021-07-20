@@ -13,6 +13,9 @@
     修改标识：Senparc - 20171008
     修改描述：为支持.NET 3.5修改GetQRConnectUrl()方法
     
+    修改标识：Senparc - 20210730
+    修改描述：v4.10.2 弃用 Senparc.Weixin.Open.CommonAPIs.CommonJsonSend，统一改为 Senparc.Weixin.CommonAPIs.CommonJsonSend
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -23,9 +26,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.Open.QRConnect
 {

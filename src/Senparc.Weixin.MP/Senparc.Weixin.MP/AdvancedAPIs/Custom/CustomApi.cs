@@ -1138,7 +1138,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】发送客户菜单消息
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId">接受人员OPenid</param>
         /// <param name="head">标题</param>
         /// <param name="menuList">内容</param>

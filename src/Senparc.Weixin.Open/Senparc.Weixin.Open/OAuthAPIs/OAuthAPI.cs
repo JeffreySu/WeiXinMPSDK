@@ -13,6 +13,9 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
  
+    修改标识：Senparc - 20210720
+    修改描述：v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
+ 
 ----------------------------------------------------------------*/
 
 /*
@@ -23,8 +26,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.Open.OAuthAPIs
 {

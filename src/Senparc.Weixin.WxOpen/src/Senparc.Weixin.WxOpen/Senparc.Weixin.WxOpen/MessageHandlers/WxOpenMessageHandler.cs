@@ -76,11 +76,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #region 属性设置
 
         /// <summary>
-        /// 原始的加密请求（如果不加密则为null）
-        /// </summary>
-        public XDocument EcryptRequestDocument { get; set; }
-
-        /// <summary>
         /// 请求实体
         /// </summary>
         public new IRequestMessageBase RequestMessage { get => base.RequestMessage as IRequestMessageBase; set => base.RequestMessage = value; }
@@ -136,11 +131,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         #endregion
 
         #region 构造函数
-
-        /// <summary>
-        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
-        /// </summary>
-        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
         /// <summary>
         /// 小程序MessageHandler构造函数

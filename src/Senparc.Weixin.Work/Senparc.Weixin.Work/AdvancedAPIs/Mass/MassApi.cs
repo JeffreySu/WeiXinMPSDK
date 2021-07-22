@@ -72,6 +72,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     /// <summary>
     /// 发送消息
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
     public static class MassApi
     {
         private static string _urlFormat = Config.ApiWorkHost + "/cgi-bin/message/send?access_token={0}";
@@ -94,7 +95,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendText(string accessTokenOrAppKey, string agentId, string content,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int enableDuplicateCheck = 0,
@@ -141,7 +141,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendImage(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int enableDuplicateCheck = 0,
@@ -188,7 +187,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendVoice(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
@@ -237,7 +235,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendVideo(string accessTokenOrAppKey, string agentId, string mediaId,
             string toUser = null, string toParty = null, string toTag = null,
             string title = null, string description = null, int safe = 0,
@@ -287,7 +284,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendFile(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
@@ -334,7 +330,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendNews(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
@@ -387,7 +382,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendMpNews(string accessTokenOrAppKey, string agentId, List<MpNewsArticle> articles,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int enableDuplicateCheck = 0,
@@ -445,7 +439,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendTextCard(string accessTokenOrAppKey, string agentId, string title, string description,            string url, string btntxt = null, string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
                 int duplicateCheckInterval = 1800, 
@@ -489,7 +482,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendMarkdown(string accessTokenOrAppKey, string agentId, string content,
                 string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
@@ -525,7 +517,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendMiniNoticeCard(string accessTokenOrAppKey, SendMiniProgramNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -542,7 +533,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static MassResult SendTaskCard(string accessTokenOrAppKey, SendTaskCardNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -559,7 +549,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static UpdateTaskCardResultJson UpdateTaskCard(string accessTokenOrAppKey, UpdateTaskCardData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -586,7 +575,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendTextAsync(string accessTokenOrAppKey, string agentId, string content, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
                 int duplicateCheckInterval = 1800,
@@ -632,7 +620,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendImageAsync(string accessTokenOrAppKey, string agentId, string mediaId, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
                 int duplicateCheckInterval = 1800,
@@ -678,7 +665,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendVoiceAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int enableDuplicateCheck = 0,
@@ -727,7 +713,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendVideoAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null,
                 string title = null, string description = null, int safe = 0,
@@ -777,7 +762,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendFileAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
@@ -824,7 +808,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendNewsAsync(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int enableDuplicateCheck = 0,
@@ -877,7 +860,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendMpNewsAsync(string accessTokenOrAppKey, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles, int safe = 0,
                 int enableDuplicateCheck = 0,
                 int duplicateCheckInterval = 1800,
@@ -931,7 +913,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendTextCardAsync(string accessTokenOrAppKey, string agentId, string title, string description, string url, string btntxt = null,
             string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
@@ -975,7 +956,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="duplicateCheckInterval">表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendMarkdownAsync(string accessTokenOrAppKey, string agentId, string content,
             string toUser = null, string toParty = null, string toTag = null,
                 int enableDuplicateCheck = 0,
@@ -1010,7 +990,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendMiniNoticeCardAsync(string accessTokenOrAppKey, SendMiniProgramNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1028,7 +1007,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<MassResult> SendTaskCardAsync(string accessTokenOrAppKey, SendTaskCardNoticeData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1046,7 +1024,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Work, true)]
         public static async Task<UpdateTaskCardResultJson> UpdateTaskCardAsync(string accessTokenOrAppKey, UpdateTaskCardData data, int timeOut = Config.TIME_OUT)
         {
             //https://work.weixin.qq.com/api/doc/90000/90135/91579

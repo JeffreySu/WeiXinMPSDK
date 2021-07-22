@@ -48,10 +48,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// <summary>
     /// 微小店图片接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class PictureApi
     {
         #region 同步方法
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static PictureResult UploadImg(string accessToken, string fileName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";
@@ -69,7 +69,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         #endregion
 
         #region 异步方法
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
         {
             var urlFormat = Config.ApiMpHost + "/merchant/common/upload_img?access_token={0}&filename={1}";

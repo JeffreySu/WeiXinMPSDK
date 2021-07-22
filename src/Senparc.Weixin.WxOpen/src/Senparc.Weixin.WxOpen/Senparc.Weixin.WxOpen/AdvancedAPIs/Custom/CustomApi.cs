@@ -46,6 +46,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
     /// <summary>
     /// 小程序客服接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public class CustomApi
     {
         /// <summary>
@@ -64,7 +65,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="content">文本消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT)
         {
@@ -94,7 +94,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="mediaId">发送的图片的媒体ID，通过新增素材接口上传图片文件获得。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             object data = null;
@@ -127,7 +126,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="thumbUrl">[官方文档未给说明]</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendLink(string accessTokenOrAppId, string openId, string title, string description, string url, string thumbUrl, int timeOut = Config.TIME_OUT)
         {
             object data = new
@@ -162,7 +160,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="thumbMediaId">小程序消息卡片的封面， image类型的media_id，通过新增素材接口上传图片文件获得，建议大小为520*416</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendMiniProgramPage(string accessTokenOrAppId, string openId, string title, string pagePath, string thumbMediaId, int timeOut = Config.TIME_OUT)
         {
             object data = new
@@ -197,7 +194,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="content">文本消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT)
         {
@@ -228,7 +224,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="mediaId">发送的图片的媒体ID，通过新增素材接口上传图片文件获得。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             object data = null;
@@ -261,7 +256,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="thumbUrl">[官方文档未给说明]</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendLinkAsync(string accessTokenOrAppId, string openId, string title, string description, string url, string thumbUrl, int timeOut = Config.TIME_OUT)
         {
             object data = new
@@ -296,7 +290,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="thumbMediaId">小程序消息卡片的封面， image类型的media_id，通过新增素材接口上传图片文件获得，建议大小为520*416</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendMiniProgramPageAsync(string accessTokenOrAppId, string openId, string title, string pagePath, string thumbMediaId, int timeOut = Config.TIME_OUT)
         {
             object data = new

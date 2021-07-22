@@ -70,6 +70,7 @@ using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public partial class CommonApi
     {
         /// <summary>
@@ -363,7 +364,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="resultFull"></param>
         /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
         /// <returns></returns>
-        //[NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull, ButtonGroupBase buttonGroupBase)
         {
             GetMenuResult result = null;

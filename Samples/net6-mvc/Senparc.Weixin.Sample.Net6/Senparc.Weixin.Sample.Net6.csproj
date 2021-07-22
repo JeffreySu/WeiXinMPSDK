@@ -43,7 +43,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Senparc.CO2NET.WebApi" Version="0.2.3.1-preview1" />
+		<PackageReference Include="Senparc.CO2NET.WebApi" Version="0.2.3.1-preview2" />
 		<PackageReference Include="Senparc.NeuChar.App" Version="0.11.0-preview1.1" />
 		<PackageReference Include="Senparc.NeuChar.AspNet" Version="0.5.0-preview1.1" />
 

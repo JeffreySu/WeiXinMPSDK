@@ -45,6 +45,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public class ModifyDomainApi
     {
         #region 同步方法
@@ -60,7 +61,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static ModifyDomainResultJson ModifyDomain(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,
@@ -111,7 +111,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="downloaddomain">downloadFile合法域名，当action参数是get时不需要此字段。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<ModifyDomainResultJson> ModifyDomainAsync(string accessToken, ModifyDomainAction action,
             List<string> requestdomain,
             List<string> wsrequestdomain,

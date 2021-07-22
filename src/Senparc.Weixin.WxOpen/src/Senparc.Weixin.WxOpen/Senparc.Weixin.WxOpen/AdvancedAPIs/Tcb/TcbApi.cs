@@ -48,6 +48,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
     /// 云函数
     /// 注意: HTTP API 途径触发云函数不包含用户信息
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public static class TcbApi
     {
         #region 同步方法
@@ -60,7 +61,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="postBody">云函数的传入参数，具体结构由开发者定义。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxCloudFunctionJsonResult InvokeCloudFunction(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -82,7 +82,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="conflict_mode">冲突处理模式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseMigrateJsonResult DatabaseMigrateImport(string accessTokenOrAppId, string env, string collection, string file_path, FileType file_type, bool stop_on_error,
             ConflictMode conflict_mode, int timeOut = Config.TIME_OUT)
         {
@@ -112,7 +111,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">导出条件</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseMigrateJsonResult DatabaseMigrateExport(string accessTokenOrAppId, string env, string file_path, FileType file_type, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -137,7 +135,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="job_id">迁移任务ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseMigrateQueryInfoJsonResult DatabaseMigrateQueryInfo(string accessTokenOrAppId, string env, int job_id, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -162,7 +159,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="drop_indexes">删除索引</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult UpdateIndex(string accessTokenOrAppId, string env, string collection_name, List<CreateIndex> create_indexes, List<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -187,7 +183,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="collection_name">集合名称</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult DatabaseCollectionAdd(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -210,7 +205,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="collection_name">集合名称</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult DatabaseCollectionDelete(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -234,7 +228,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="offset">偏移量</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseCollectionJsonResult DatabaseCollectionGet(string accessTokenOrAppId, string env, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -258,7 +251,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseAddJsonResult DatabaseAdd(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -281,7 +273,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseDeleteJsonResult DatabaseDelete(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -304,7 +295,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseUpdateJsonResult DatabaseUpdate(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -327,7 +317,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseQueryJsonResult DatabaseQuery(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -350,7 +339,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseAggregateJsonResult DatabaseAggregate(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -373,7 +361,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDatabaseCountJsonResult DatabaseCount(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -396,7 +383,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="path">上传路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxUploadFileJsonResult UploadFile(string accessTokenOrAppId, string env, string path, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -419,7 +405,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="file_list">文件列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDownloadFileJsonResult BatchDownloadFile(string accessTokenOrAppId, string env, List<FileItem> file_list, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -442,7 +427,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="fileid_list">文件ID列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxDeleteFileJsonResult BatchDeleteFile(string accessTokenOrAppId, string env, List<string> fileid_list, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -464,7 +448,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="lifespan">有效期（单位为秒，最大7200）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxQcloudTokenJsonResult GetQcloudToken(string accessTokenOrAppId, int lifespan, int timeOut = Config.TIME_OUT)
         {
             return WxOpenApiHandlerWapper.TryCommonApi(accessToken =>
@@ -490,7 +473,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="postBody">云函数的传入参数，具体结构由开发者定义。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxCloudFunctionJsonResult> SendTemplateMessageAsync(string accessTokenOrAppId, string env, string name, object postBody, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -512,7 +494,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="conflict_mode">冲突处理模式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseMigrateJsonResult> DatabaseMigrateImportAsync(string accessTokenOrAppId, string env, string collection, string file_path, FileType file_type, bool stop_on_error,
             ConflictMode conflict_mode, int timeOut = Config.TIME_OUT)
         {
@@ -542,7 +523,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">导出条件</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseMigrateJsonResult> DatabaseMigrateExportAsync(string accessTokenOrAppId, string env, string file_path, FileType file_type, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -567,7 +547,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="job_id">迁移任务ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseMigrateQueryInfoJsonResult> DatabaseMigrateQueryInfoAsync(string accessTokenOrAppId, string env, int job_id, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -592,7 +571,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="drop_indexes">删除索引</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> UpdateIndexAsync(string accessTokenOrAppId, string env, string collection_name, List<CreateIndex> create_indexes, List<DropIndex> drop_indexes, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -617,7 +595,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="collection_name">集合名称</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> DatabaseCollectionAddAsync(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -640,7 +617,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="collection_name">集合名称</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> DatabaseCollectionDeleteAsync(string accessTokenOrAppId, string env, string collection_name, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -664,7 +640,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="offset">偏移量</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseCollectionJsonResult> DatabaseCollectionGetAsync(string accessTokenOrAppId, string env, int limit = 10, int offset = 0, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -688,7 +663,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseAddJsonResult> DatabaseAddAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -711,7 +685,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseDeleteJsonResult> DatabaseDeleteAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -734,7 +707,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseUpdateJsonResult> DatabaseUpdateAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -757,7 +729,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseQueryJsonResult> DatabaseQueryAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -780,7 +751,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseAggregateJsonResult> DatabaseAggregateAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -803,7 +773,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="query">数据库操作语句</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDatabaseCountJsonResult> DatabaseCountAsync(string accessTokenOrAppId, string env, string query, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -826,7 +795,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="path">上传路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxUploadFileJsonResult> UploadFileAsync(string accessTokenOrAppId, string env, string path, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -849,7 +817,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="file_list">文件列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDownloadFileJsonResult> BatchDownloadFileAsync(string accessTokenOrAppId, string env, List<FileItem> file_list, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -872,7 +839,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="fileid_list">文件ID列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxDeleteFileJsonResult> BatchDeleteFileAsync(string accessTokenOrAppId, string env, List<string> fileid_list, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -894,7 +860,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Tcb
         /// <param name="lifespan">有效期（单位为秒，最大7200）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxQcloudTokenJsonResult> GetQcloudTokenAsync(string accessTokenOrAppId, int lifespan, int timeOut = Config.TIME_OUT)
         {
             return await WxOpenApiHandlerWapper.TryCommonApiAsync(async accessToken =>

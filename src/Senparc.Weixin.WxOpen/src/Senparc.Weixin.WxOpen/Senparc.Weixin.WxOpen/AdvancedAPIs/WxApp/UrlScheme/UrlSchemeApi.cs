@@ -20,6 +20,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
     /// <summary>
     /// URL Scheme 接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public static class UrlSchemeApi
     {
         #region 同步方法
@@ -36,7 +37,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="expireTime">（非必填）到期失效的scheme码的失效时间，为Unix时间戳。生成的到期失效scheme码在该时间前有效。生成到期失效的scheme时必填。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static GenerateSchemeJsonResult GenerateScheme(string accessTokenOrAppId, GenerateSchemeJumpWxa jumpWxa = null, bool? isExpire = null,
             DateTime? expireTime = null, int timeOut = Config.TIME_OUT)
         {
@@ -72,7 +72,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="expireTime">（非必填）到期失效的scheme码的失效时间，为Unix时间戳。生成的到期失效scheme码在该时间前有效。生成到期失效的scheme时必填。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<GenerateSchemeJsonResult> GenerateSchemeAsync(string accessTokenOrAppId, GenerateSchemeJumpWxa jumpWxa = null, bool? isExpire = null,
             DateTime? expireTime = null, int timeOut = Config.TIME_OUT)
         {

@@ -38,6 +38,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.WxaAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public class SetWebViewDomainApi
     {
         #region 同步方法
@@ -50,7 +51,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="webviewdomain">小程序业务域名，当 action 参数是 get 时不需要此字段</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static SetWebViewDomainResultJson SetWebViewDomain(string accessToken, SetWebViewDomainAction action,
             List<string> webviewdomain,
             int timeOut = Config.TIME_OUT)
@@ -91,7 +91,6 @@ namespace Senparc.Weixin.Open.WxaAPIs
         /// <param name="webviewdomain">小程序业务域名，当 action 参数是 get 时不需要此字段</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
         public static async Task<SetWebViewDomainResultJson> SetWebViewDomainAsync(string accessToken, SetWebViewDomainAction action,
             List<string> webviewdomain,
             int timeOut = Config.TIME_OUT)

@@ -71,6 +71,7 @@ using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public partial class CommonApi
     {
         ///// <summary>
@@ -91,7 +92,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="buttonData">菜单内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult CreateMenu(string accessTokenOrAppId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -123,7 +123,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="buttonData">菜单内容</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult CreateMenu(string accessTokenOrAppId, object buttonData, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -160,7 +159,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="jsonString"></param>
         /// <returns></returns>
         [Obsolete("此方法通过判断GetMenuResult并结合object类型转换得到结果。结果准确。但更推荐使用GetMenuFromJsonResult方法。")]
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetMenuResult GetMenuFromJson(string jsonString)
         {
             var finalResult = new GetMenuResult(new ButtonGroup());
@@ -223,7 +221,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetMenuResult GetMenu(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -273,7 +270,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult DeleteMenu(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -294,7 +290,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SelfMenuConfigResult GetCurrentSelfMenuInfo(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -319,7 +314,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SelfMenuConfigResult> GetCurrentSelfMenuInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

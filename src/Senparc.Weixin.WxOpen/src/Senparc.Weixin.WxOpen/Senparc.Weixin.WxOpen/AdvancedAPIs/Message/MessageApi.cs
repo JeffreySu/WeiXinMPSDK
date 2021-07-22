@@ -53,6 +53,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
     /// <summary>
     /// 小程序订阅消息接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
     public class MessageApi
     {
         #region 同步方法
@@ -69,7 +70,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="lang">进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static WxJsonResult SendSubscribe(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null,
             string miniprogramState = null, string lang = null, int timeOut = Config.TIME_OUT)
         {
@@ -106,7 +106,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs
         /// <param name="lang">进入小程序查看”的语言类型，支持zh_CN(简体中文)、en_US(英文)、zh_HK(繁体中文)、zh_TW(繁体中文)，默认为zh_CN</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_MiniProgram, true)]
         public static async Task<WxJsonResult> SendSubscribeAsync(string accessTokenOrAppId, string toUser, string templateId, TemplateMessageData data, string page = null,
             string miniprogramState = null, string lang = null, int timeOut = Config.TIME_OUT)
         {

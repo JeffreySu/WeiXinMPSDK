@@ -63,6 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// 最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
     /// 注意：所有的日期请使用【yyyy-MM-dd】的格式
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class AnalysisApi
     {
         #region 同步方法
@@ -78,7 +79,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<ArticleSummaryItem> GetArticleSummary(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -106,7 +106,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<ArticleTotalItem> GetArticleTotal(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -133,7 +132,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserReadItem> GetUserRead(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -160,7 +158,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserReadHourItem> GetUserReadHour(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -187,7 +184,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserShareItem> GetUserShare(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -214,7 +210,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserShareHourItem> GetUserShareHour(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -245,7 +240,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<InterfaceSummaryItem> GetInterfaceSummary(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -272,7 +266,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<InterfaceSummaryHourItem> GetInterfaceSummaryHour(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -303,7 +296,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgItem> GetUpStreamMsg(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -330,7 +322,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgHourItem> GetUpStreamMsgHour(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -357,7 +348,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgWeekItem> GetUpStreamMsgWeek(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -384,7 +374,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgMonthItem> GetUpStreamMsgMonth(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -411,7 +400,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgDistItem> GetUpStreamMsgDist(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -438,7 +426,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgDistWeekItem> GetUpStreamMsgDistWeek(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -465,7 +452,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UpStreamMsgDistMonthItem> GetUpStreamMsgDistMonth(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -497,7 +483,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserSummaryItem> GetUserSummary(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -524,7 +509,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AnalysisResultJson<UserCumulateItem> GetUserCumulate(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -559,7 +543,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<ArticleSummaryItem>> GetArticleSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -590,7 +573,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<ArticleTotalItem>> GetArticleTotalAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -617,7 +599,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserReadItem>> GetUserReadAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -644,7 +625,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserReadHourItem>> GetUserReadHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -671,7 +651,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserShareItem>> GetUserShareAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -700,7 +679,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserShareHourItem>> GetUserShareHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -732,7 +710,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<InterfaceSummaryItem>> GetInterfaceSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -759,7 +736,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<InterfaceSummaryHourItem>> GetInterfaceSummaryHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -791,7 +767,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgItem>> GetUpStreamMsgAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -818,7 +793,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgHourItem>> GetUpStreamMsgHourAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -845,7 +819,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgWeekItem>> GetUpStreamMsgWeekAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -872,7 +845,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgMonthItem>> GetUpStreamMsgMonthAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -899,7 +871,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgDistItem>> GetUpStreamMsgDistAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -926,7 +897,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgDistWeekItem>> GetUpStreamMsgDistWeekAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -953,7 +923,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UpStreamMsgDistMonthItem>> GetUpStreamMsgDistMonthAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -984,7 +953,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserSummaryItem>> GetUserSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1011,7 +979,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AnalysisResultJson<UserCumulateItem>> GetUserCumulateAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

@@ -68,6 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 电子发票接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class InvoiceApi
     {
         #region 同步方法
@@ -80,7 +81,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="payMchInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult SetPayMch(string accessTokenOrAppId, PayMchInfoData payMchInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -101,7 +101,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetPayMchResultJson GetPayMch(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -123,7 +122,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="authField"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult SetAuthField(string accessTokenOrAppId, AuthFieldData authField, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -144,7 +142,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AuthFieldResultJson GetAuthField(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -164,7 +161,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="s_appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AuthDataResultJson GetAuthData(string accessTokenOrAppId, string orderId, string s_appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -187,7 +183,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static AuthUrlResultJson GetAuthUrl(string accessTokenOrAppId, GetAuthUrlData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -213,7 +208,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult RejectInsert(string accessTokenOrAppId, string s_pappId, string orderId, string reason, string url, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -238,7 +232,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="InvoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult MakeOutInvoice(string accessTokenOrAppId, MakeOutInvoiceData InvoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -260,7 +253,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="InvoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult ClearOutInvoice(string accessTokenOrAppId, ClearOutInvoiceData InvoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -283,7 +275,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="nsrsbh"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static QueryInvoiceResultJson QueryInvoice(string accessTokenOrAppId, string fpqqlsh, string nsrsbh, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -310,7 +301,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="info"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static InsertCardResultJson InsertBill(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -333,7 +323,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="invoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static CreateCardResultJson CreateBillCard(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -356,7 +345,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetBillAuthUrlResultJson GetBillAuthUrl(string accessTokenOrAppId, GetBillAuthUrlData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -377,7 +365,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="reimburseStatus"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult UpdateStatus(string accessTokenOrAppId, string cardId, string code, Reimburse_Status reimburseStatus, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -405,7 +392,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="phone"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult SetContact(string accessTokenOrAppId, string phone, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -430,7 +416,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetContactResultJson GetContact(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -451,7 +436,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="encryptCode"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetInvoiceInfoResultJson GetInvoiceInfo(string accessTokenOrAppId, string cardId, string encryptCode, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -475,7 +459,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="itemList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetInvoiceListResultJson GetInvoiceListInfo(string accessTokenOrAppId, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -500,7 +483,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="reimburseStatus"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult UpdateInvoiceStatus(string accessTokenOrAppId, string cardId, string encryptCode, Reimburse_Status reimburseStatus, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -527,7 +509,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="itemList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static WxJsonResult UpdateInvoiceListStatus(string accessTokenOrAppId, string openId, Reimburse_Status reimburseStatus, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -553,7 +534,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SetUrlResultJson SetUrl(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -573,7 +553,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="invoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static CreateCardResultJson CreateCard(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -596,7 +575,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static SetPDFResultJson SetPdf(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -617,7 +595,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="s_mediaId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetPDFResultJson GetPdf(string accessTokenOrAppId, string s_mediaId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -641,7 +618,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="info"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static InsertCardResultJson InsertCardToBag(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -664,7 +640,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetUserTitleUrlResultJson GetUserTitleUrl(string accessTokenOrAppId, GetUserTitleUrlData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -684,7 +659,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="bizName"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static GetUserTitleUrlResultJson GetSelectTitleUrl(string accessTokenOrAppId, string attach, string bizName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -709,7 +683,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="scanText"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static ScanTitleResultJson ScanTitle(string accessTokenOrAppId, string scanText, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -740,7 +713,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="payMchInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> SetPayMchAsync(string accessTokenOrAppId, PayMchInfoData payMchInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -761,7 +733,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetPayMchResultJson> GetPayMchAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -783,7 +754,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="authField"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> SetAuthFieldAsync(string accessTokenOrAppId, AuthFieldData authField, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -804,7 +774,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AuthFieldResultJson> GetAuthFieldAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -824,7 +793,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="s_appId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AuthDataResultJson> GetAuthDataAsync(string accessTokenOrAppId, string orderId, string s_appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -847,7 +815,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<AuthUrlResultJson> GetAuthUrlAsync(string accessTokenOrAppId, GetAuthUrlData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -873,7 +840,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> RejectInsertAsync(string accessTokenOrAppId, string s_pappId, string orderId, string reason, string url, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -898,7 +864,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="InvoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> MakeOutInvoiceAsync(string accessTokenOrAppId, MakeOutInvoiceData InvoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -920,7 +885,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="InvoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> ClearOutInvoiceAsync(string accessTokenOrAppId, ClearOutInvoiceData InvoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -943,7 +907,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="nsrsbh"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<QueryInvoiceResultJson> QueryInvoiceAsync(string accessTokenOrAppId, string fpqqlsh, string nsrsbh, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -970,7 +933,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="info"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<InsertCardResultJson> InsertBillAsync(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -993,7 +955,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="invoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<CreateCardResultJson> CreateBillCardAsync(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1016,7 +977,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetBillAuthUrlResultJson> GetBillAuthUrlAsync(string accessTokenOrAppId, GetBillAuthUrlData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1037,7 +997,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="reimburseStatus"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> UpdateStatusAsync(string accessTokenOrAppId, string cardId, string code, Reimburse_Status reimburseStatus, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1065,7 +1024,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="phone"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> SetContactAsync(string accessTokenOrAppId, string phone, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1090,7 +1048,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetContactResultJson> GetContactAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1110,7 +1067,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="encryptCode"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetInvoiceInfoResultJson> GetInvoiceInfoAsync(string accessTokenOrAppId, string cardId, string encryptCode, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1134,7 +1090,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="itemList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetInvoiceListResultJson> GetInvoiceListInfoAsync(string accessTokenOrAppId, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1159,7 +1114,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="reimburseStatus"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> UpdateInvoiceStatusAsync(string accessTokenOrAppId, string cardId, string encryptCode, Reimburse_Status reimburseStatus, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1186,7 +1140,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="itemList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<WxJsonResult> UpdateInvoiceListStatusAsync(string accessTokenOrAppId, string openId, Reimburse_Status reimburseStatus, List<InvoiceItem> itemList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1212,7 +1165,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SetUrlResultJson> SetUrlAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1232,7 +1184,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="invoiceInfo"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<CreateCardResultJson> CreateCardAsync(string accessTokenOrAppId, InvoiceInfo invoiceInfo, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1255,7 +1206,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<SetPDFResultJson> SetPdfAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1276,7 +1226,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="s_mediaId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetPDFResultJson> GetPdfAsync(string accessTokenOrAppId, string s_mediaId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1300,7 +1249,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="info"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<InsertCardResultJson> InsertCardToBagAsync(string accessTokenOrAppId, InsertCardToBagData info, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1323,7 +1271,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetUserTitleUrlResultJson> GetUserTitleUrlAsync(string accessTokenOrAppId, GetUserTitleUrlData data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1343,7 +1290,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="bizName"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<GetUserTitleUrlResultJson> GetSelectTitleUrlAsync(string accessTokenOrAppId, string attach, string bizName, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -1367,7 +1313,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="scanText"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
         public static async Task<ScanTitleResultJson> ScanTitleAsync(string accessTokenOrAppId, string scanText, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>

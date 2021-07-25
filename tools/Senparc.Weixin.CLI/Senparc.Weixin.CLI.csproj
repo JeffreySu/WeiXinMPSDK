@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
     <PackageReference Include="System.Windows.Extensions" Version="5.0.0" />
   </ItemGroup>
 </Project>

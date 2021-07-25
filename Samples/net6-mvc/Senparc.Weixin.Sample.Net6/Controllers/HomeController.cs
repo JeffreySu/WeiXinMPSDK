@@ -123,6 +123,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             co2netList.Add(new Home_IndexVD_AssemblyModel("Memcached 库", "Senparc.CO2NET.Cache.Memcached", typeof(Senparc.CO2NET.Cache.Memcached.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.Cache.Memcached 版本信息               -- DPBMARK Memcached DPBMARK_END
             co2netList.Add(new Home_IndexVD_AssemblyModel("CO2NET 的 ASP.NET<br />运行时支持库", "Senparc.CO2NET.AspNet", typeof(Senparc.CO2NET.AspNet.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
             vd.AssemblyModelCollection[co2netGroup] = co2netList;
+            co2netList.Add(new Home_IndexVD_AssemblyModel("WebApi 引擎库（新）", "Senparc.CO2NET.WebApi", typeof(Senparc.CO2NET.WebApi.Register), gitHubUrl: co2netGitHubUrl));//CO2NET.AspNet 版本信息
+            vd.AssemblyModelCollection[co2netGroup] = co2netList;
 
             #endregion
 

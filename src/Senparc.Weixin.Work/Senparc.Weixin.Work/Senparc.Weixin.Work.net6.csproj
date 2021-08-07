@@ -161,7 +161,9 @@
 			v3.9.600 添加：外部联系人 - 客户群统计+联系客户+群直播+客户群事件 相关功能
 			v3.11 增加朋友圈接口
 			v3.11.2 AccessTokenContainer 支持分布式同步锁
-			v3.12.1 修正 CommonApi.GetTokenAsync() 的 GET 请求方式
+			v3.12.1
+			1、添加企业微信入群欢迎语素材
+			2、修正 CommonApi.GetTokenAsync() 的 GET 请求方式
 		</PackageReleaseNotes>
 		<RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
 		<SignAssembly>False</SignAssembly>

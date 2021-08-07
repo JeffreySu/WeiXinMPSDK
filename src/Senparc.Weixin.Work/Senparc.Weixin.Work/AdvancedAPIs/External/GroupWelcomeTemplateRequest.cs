@@ -1,12 +1,21 @@
-﻿using Senparc.Weixin.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2021 Senparc
+    
+    文件名：GroupWelcomeTemplateBaseRequest.cs
+    文件功能描述：入群欢迎语 请求参数
+    
+    
+    创建标识：Senparc - 20210807
+
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
 {
+    /// <summary>
+    /// 入群欢迎语 基础请求参数
+    /// </summary>
     public class GroupWelcomeTemplateBaseRequest
     {
         public Text text { get; set; }
@@ -20,7 +29,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public string agentid { get; set; }
     }
     /// <summary>
-    /// 
+    /// 入群欢迎语模板编辑 请求参数
     /// </summary>
     public class GroupWelcomeTemplateEditRequest : GroupWelcomeTemplateBaseRequest
     {
@@ -31,7 +40,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.External.ExternalJson
         public string template_id { get; set; }
     }
     /// <summary>
-    /// 
+    /// 入群欢迎语模板添加 请求参数
     /// </summary>
     public class GroupWelcomeTemplateAddRequest : GroupWelcomeTemplateBaseRequest
     {

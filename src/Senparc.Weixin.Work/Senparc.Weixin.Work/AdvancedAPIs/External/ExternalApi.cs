@@ -25,6 +25,9 @@
     修改标识：WangDrama - 20210714
     修改描述：v3.11-preview1
 
+    修改标识：WangDrama - 20210807
+    修改描述：v3.12.1 添加企业微信入群欢迎语素材
+
 ----------------------------------------------------------------*/
 
 /*
@@ -361,6 +364,81 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 入群欢迎语
+        /// <summary>
+        /// 添加入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupWelcomeTemplateAddResult GroupWelcomeTemplateAdd(string accessTokenOrAppKey, GroupWelcomeTemplateAddRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/add?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GroupWelcomeTemplateAddResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        /// <summary>
+        /// 编辑入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupWelcomeTemplateEdit(string accessTokenOrAppKey, GroupWelcomeTemplateEditRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/edit?access_token={0}", accessToken);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 获取入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="template_id"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GroupWelcomeTemplateGetResult GroupWelcomeTemplateGet(string accessTokenOrAppKey, string template_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    template_id = template_id
+                };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/get?access_token={0}", accessToken);
+                return CommonJsonSend.Send<GroupWelcomeTemplateGetResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+
+        /// <summary>
+        /// 删除入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="template_id"></param>
+        /// <param name="agentid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WorkJsonResult GroupWelcomeTemplateDel(string accessTokenOrAppKey, string template_id, long? agentid, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    template_id = template_id,
+                    agentid = agentid
+                };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/del?access_token={0}", accessToken);
+                return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppKey);
+        }
+        #endregion
+
         #endregion
 
 
@@ -638,6 +716,81 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             }, accessTokenOrAppKey).ConfigureAwait(false);
         }
 
+        #endregion
+
+        #region 入群欢迎语
+        /// <summary>
+        /// 添加入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupWelcomeTemplateAddResult> GroupWelcomeTemplateAddAsync(string accessTokenOrAppKey, GroupWelcomeTemplateAddRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/add?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GroupWelcomeTemplateAddResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+        /// <summary>
+        /// 编辑入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupWelcomeTemplateEditAsync(string accessTokenOrAppKey, GroupWelcomeTemplateEditRequest data, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/edit?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 获取入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="template_id"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GroupWelcomeTemplateGetResult> GroupWelcomeTemplateGetAsync(string accessTokenOrAppKey, string template_id, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new
+                {
+                    template_id = template_id
+                };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/get?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<GroupWelcomeTemplateGetResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 删除入群欢迎语素材
+        /// </summary>
+        /// <param name="accessTokenOrAppKey"></param>
+        /// <param name="template_id"></param>
+        /// <param name="agentid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WorkJsonResult> GroupWelcomeTemplateDelAsync(string accessTokenOrAppKey, string template_id, long? agentid, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var data = new
+                {
+                    template_id = template_id,
+                    agentid = agentid
+                };
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/externalcontact/group_welcome_template/del?access_token={0}", accessToken);
+                return await CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut).ConfigureAwait(false);
+            }, accessTokenOrAppKey).ConfigureAwait(false);
+        }
         #endregion
 
         #region 「联系我」

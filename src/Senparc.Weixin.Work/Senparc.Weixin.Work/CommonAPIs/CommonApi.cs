@@ -28,6 +28,9 @@
     修改标识：Senparc - 20200416
     修改描述：v3.7.500 提供详细 CommonApi.GetToken() 报错信息（包括白名单异常）
 
+    修改标识：Senparc - 20210807
+    修改描述：v3.12.1 修正 CommonApi.GetTokenAsync() 的 GET 请求方式
+
 ----------------------------------------------------------------*/
 
 /*
@@ -37,15 +40,13 @@
     userid转换成openid API地址:http://qydev.weixin.qq.com/wiki/index.php?title=Userid%E4%B8%8Eopenid%E4%BA%92%E6%8D%A2%E6%8E%A5%E5%8F%A3
  */
 
-using System.Threading.Tasks;
 using Senparc.CO2NET.Extensions;
 using Senparc.NeuChar;
 using Senparc.Weixin.CommonAPIs;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.CommonAPIs
 {
@@ -209,7 +210,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             #endregion
 
             var url = string.Format(Config.ApiWorkHost + "/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
-            var result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.POST).ConfigureAwait(false);
+            var result = await CommonJsonSend.SendAsync<AccessTokenResult>(null, url, null, CommonJsonSendType.GET).ConfigureAwait(false);
 
             if (Config.ThrownWhenJsonResultFaild && result.errcode != ReturnCode_Work.请求成功)
             {

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.TenPayV3.Helpers
 {
+    /// <summary>
+    /// 微信支付时间帮助类
+    /// </summary>
     public static class TenPayDateTimeHelper
     {
         /// <summary>

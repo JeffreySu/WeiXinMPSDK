@@ -34,7 +34,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule">日程信息</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleJson.Schedule schedule, int timeOut = Config.TIME_OUT)
+        public static AddScheduleJsonResult Add(string accessTokenOrAppKey, ScheduleJson.ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Schedule
         /// <param name="schedule">日程信息</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleJson.Schedule schedule, int timeOut = Config.TIME_OUT)
+        public static async Task<AddScheduleJsonResult> AddAsync(string accessTokenOrAppKey, ScheduleJson.ScheduleAdd data, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {

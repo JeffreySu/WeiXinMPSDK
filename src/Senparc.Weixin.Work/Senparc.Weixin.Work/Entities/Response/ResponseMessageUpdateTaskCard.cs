@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.Entities.Response
 {
-    public class ResponseMessageUpdateTaskCard : WorkResponseMessageBase, IResponseMessageUpdateTaskCard
+    public class ResponseMessageUpdateTaskCard : WorkResponseMessageBase, IResponseMessageTaskCard
     {
         public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.TaskCard; }
         }
 
-        public Image Image { get; set; }
+        public TaskCard TaskCard { get; set; }
 
         public ResponseMessageUpdateTaskCard()
         {
-            Image = new Image();
+            TaskCard = new TaskCard();
         }
     }
 }

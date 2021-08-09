@@ -62,6 +62,7 @@ using Senparc.Weixin.Work.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
 using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.CommonAPIs.ApiHandlerWapper;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Work
 {
@@ -70,10 +71,12 @@ namespace Senparc.Weixin.Work
     /// </summary>
     public static class ApiHandlerWapper
     {
+        internal static IEnumerable<int> InvalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
+
         #region 同步方法
 
         internal static Func<string> AccessTokenContainer_GetFirstOrDefaultAppIdFunc =
-                 () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
+                     () => AccessTokenContainer.GetFirstOrDefaultAppId(PlatformType.Work);
 
         internal static Func<string, bool> AccessTokenContainer_CheckRegisteredFunc =
             appKey =>
@@ -105,15 +108,13 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
-            var invalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
                     PlatformType.Work,
                     AccessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     AccessTokenContainer_CheckRegisteredFunc,
                     AccessTokenContainer_GetAccessTokenResultFunc,
-                    invalidCredentialValues,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return result;
         }
@@ -156,16 +157,13 @@ namespace Senparc.Weixin.Work
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult, new()
         {
-
-            var invalidCredentialValues = new[] { (int)ReturnCode.不合法的access_token };//ReturnCode_Work.获取access_token时Secret错误_或者access_token无效;
-
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
                     PlatformType.Work,
                     AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc,
                     AccessTokenContainer_CheckRegisteredAsyncFunc,
                     AccessTokenContainer_GetAccessTokenResultAsyncFunc,
-                    invalidCredentialValues,
+                    InvalidCredentialValues,
                     fun, accessTokenOrAppKey, retryIfFaild);
             return await result.ConfigureAwait(false);
         }

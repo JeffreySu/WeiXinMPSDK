@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>0.1.501</Version>
+    <Version>0.3-preview3</Version>
     <AssemblyName>Senparc.Weixin.TenPayV3</AssemblyName>
     <RootNamespace>Senparc.Weixin.TenPayV3</RootNamespace>
     <!--<GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>-->
@@ -27,11 +27,11 @@
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.TenPayV3.xml</DocumentationFile>
     <Optimize>true</Optimize>
@@ -66,7 +66,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.4.400" />
+    <PackageReference Include="Senparc.CO2NET.AspNet" Version="0.6.0-preview3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

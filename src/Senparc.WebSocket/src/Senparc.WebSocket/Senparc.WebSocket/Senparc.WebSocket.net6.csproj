@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1;netcoreapp3.1;net6.0</TargetFrameworks>
-    <Version>0.12.501</Version>
+    <Version>0.14-preview3</Version>
     <AssemblyName>Senparc.WebSocket</AssemblyName>
     <RootNamespace>Senparc.WebSocket</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -53,11 +53,11 @@
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     <DocumentationFile>..\..\..\..\BuildOutPut\Senparc.WebSocket.xml</DocumentationFile>
     <Optimize>true</Optimize>
@@ -132,7 +132,7 @@
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET" Version="1.4.400" />
+    <PackageReference Include="Senparc.CO2NET" Version="1.5.0-preview3" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>

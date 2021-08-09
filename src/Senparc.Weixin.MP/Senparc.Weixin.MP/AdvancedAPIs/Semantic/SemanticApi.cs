@@ -54,6 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 语意理解接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_OfficialAccount,true)]
     public static class SemanticApi
     {
         #region 同步方法
@@ -66,7 +67,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSend", true)]
         public static T SemanticSend<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
             where T : WxJsonResult, new()
         {
@@ -95,7 +95,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        [ApiBind(NeuChar.PlatformType.WeChat_OfficialAccount, "SemanticApi.SemanticSendAsync", true)]
         public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
             where T : WxJsonResult,new()
         {

@@ -205,7 +205,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.netcore3.csproj" />

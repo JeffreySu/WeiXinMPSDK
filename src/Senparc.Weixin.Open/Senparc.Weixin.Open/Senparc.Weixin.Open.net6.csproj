@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>4.9.501</Version>
+    <Version>4.11-preview3</Version>
     <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
@@ -180,15 +180,16 @@
 		v4.8.400
 		1、代小程序实现业务-提交审核接口添加UGC参数
 		2、修正截屏附件字段类型
+		v4.10.3 统一使用 Senparc.Weixin.CommonAPIs.CommonJsonSend 方法
 </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.Open.XML</DocumentationFile>
     <Optimize>true</Optimize>
@@ -237,7 +238,7 @@
     <Folder Include="WxaAPIs\Template\TemplateJson\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.NeuChar" Version="1.4.400" />
+    <PackageReference Include="Senparc.NeuChar" Version="1.5.0-preview3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

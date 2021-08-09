@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Version>2.8.501</Version>
+    <Version>2.10-preview3</Version>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <Description>微信公众账号 - Memcached 模块
@@ -77,11 +77,11 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <OutputPath>..\..\BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     <DocumentationFile>..\..\BuildOutPut\Senparc.Weixin.Cache.Memcached.XML</DocumentationFile>
     <Optimize>true</Optimize>
@@ -148,7 +148,7 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.8.400" />
+    <PackageReference Include="Senparc.CO2NET.Cache.Memcached" Version="3.9.0-preview3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net6.csproj" />

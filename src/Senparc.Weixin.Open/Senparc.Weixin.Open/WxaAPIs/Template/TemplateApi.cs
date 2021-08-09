@@ -45,6 +45,7 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
     /// <summary>
     /// 小程序模板消息接口
     /// </summary>
+    [NcApiBind(NeuChar.PlatformType.WeChat_Open,true)]
     public static class TemplateApi
     {
         #region 同步方法
@@ -61,7 +62,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.LibraryList", true)]
         public static WxJsonResult LibraryList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
           throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -75,7 +75,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.LibraryGet", true)]
         public static WxJsonResult LibraryGet(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -91,7 +90,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.Add", true)]
         public static WxJsonResult Add(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -111,7 +109,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.List", true)]
         public static WxJsonResult List(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -125,7 +122,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.Del", true)]
         public static WxJsonResult Del(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -151,7 +147,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.LibraryListAsync", true)]
         public static Task<WxJsonResult> LibraryListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -165,7 +160,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.LibraryGetAsync", true)]
         public static Task<WxJsonResult> LibraryGetAsync(string accessToken, string id, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -181,7 +175,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.AddAsync", true)]
         public static Task<WxJsonResult> AddAsync(string accessToken, string id, int[] keywordIdList, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -201,7 +194,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.ListAsync", true)]
         public static async Task<WxJsonResult> ListAsync(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");
@@ -215,7 +207,6 @@ namespace Senparc.Weixin.Open.WxaAPIs.Template
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
         [Obsolete("请在小程序模块Senparc.Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！")]
-        [ApiBind(NeuChar.PlatformType.WeChat_Open, "TemplateApi.DelAsync", true)]
         public static async Task<WxJsonResult> DelAsync(string accessToken, string templateId, int timeOut = Config.TIME_OUT)
         {
             throw new WeixinObsoleteException("Weixin.WxOpen.AdvancedAPIs.TemplateApi下调用同名接口！");

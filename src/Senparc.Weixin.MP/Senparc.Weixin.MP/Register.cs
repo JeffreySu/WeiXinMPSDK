@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="invalidCredentialReturnCodes">可进入重试的 API 错误代码</param>
         /// <returns></returns>
-        public static IRegisterService SetInvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
+        public static IRegisterService SetMP_InvalidCredentialValues(this IRegisterService registerService, IEnumerable<ReturnCode> invalidCredentialReturnCodes)
         {
             ApiHandlerWapper.InvalidCredentialValues = invalidCredentialReturnCodes.Select(z => (int)z);
             return registerService;
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string> func)
         {
             ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdFunc = func;
             return registerService;
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId(PlatformType.MP) 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<Task<string>> func)
         {
             ApiHandlerWapper.AccessTokenContainer_GetFirstOrDefaultAppIdAsyncFunc = func;
             return registerService;
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, bool> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, bool> func)
         {
             ApiHandlerWapper.AccessTokenContainer_CheckRegisteredFunc = func;
             return registerService;
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 GetFirstOrDefaultAppId() 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetFirstOrDefaultAppIdFunc(this IRegisterService registerService, Func<string, Task<bool>> func)
         {
             ApiHandlerWapper.AccessTokenContainer_CheckRegisteredAsyncFunc = func;
             return registerService;
@@ -155,7 +155,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, IAccessTokenResult> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, IAccessTokenResult> func)
         {
             ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultFunc = func;
             return registerService;
@@ -167,7 +167,7 @@ namespace Senparc.Weixin.MP
         /// <param name="registerService"></param>
         /// <param name="func">自定义返回 AccessTokenContainer 中的 AccessTokenResult GetAccessTokenResult(appId) 方法</param>
         /// <returns></returns>
-        public static IRegisterService SetAccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
+        public static IRegisterService SetMP_AccessTokenContainer_GetAccessTokenResultFunc(this IRegisterService registerService, Func<string, bool, Task<IAccessTokenResult>> func)
         {
             ApiHandlerWapper.AccessTokenContainer_GetAccessTokenResultAsyncFunc = func;
             return registerService;
